@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.settings"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk android:minSdkVersion="7" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+
+    <application
+        android:icon="@drawable/logo_luncher"
+        android:label="@string/app_name">
+        <activity
+            android:name="SettingsActivity"
+            android:label="@string/full_app_name" android:theme="@style/CustomTheme" android:configChanges="orientation">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="GeneralActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
+        <activity android:name="ConnectionActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
+        <activity android:name="ServosActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".ServosTypeActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
+        <activity android:name="ServosSubtrimActivity" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
+        <activity android:configChanges="orientation" android:name="ServosLimitActivity"></activity>
+        <activity android:name="com.lib.FileDialog"></activity>
+        <activity android:configChanges="orientation" android:name="DiagnosticActivity"></activity>
+        
+    </application>
+</manifest>

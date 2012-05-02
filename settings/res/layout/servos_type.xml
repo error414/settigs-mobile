@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+	 <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color">
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="492dp"
+	        android:background="@color/background_color" >
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:src="@drawable/black_line" />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="@string/type"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="@color/text_color"
+	            android:textStyle="bold" />
+
+	        <ImageView
+	            android:id="@+id/imageView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/black_line_small" />
+
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView2"
+	            android:layout_below="@+id/imageView1"
+	            android:layout_marginTop="24dp"
+	            android:text="@string/cyclic"
+	            android:textColor="@color/text_color"
+	            android:textSize="15dp"
+	            android:textStyle="bold" />
+
+	        <TextView
+	            android:id="@+id/textView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView1"
+	            android:layout_below="@+id/textView1"
+	            android:layout_marginTop="10dp"
+	            android:text="@string/pulse"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/cyclic_pulse"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView3"
+	            android:layout_below="@+id/textView3"
+	            android:entries="@array/cyclic_pulse_value"
+	            android:minWidth="230dp" />
+
+	        <ImageView
+	            android:id="@+id/cyclick_pulse_help"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignTop="@+id/cyclic_pulse"
+	            android:layout_marginLeft="20dp"
+	            android:layout_toRightOf="@+id/cyclic_pulse"
+	            android:onClick="showHelp"
+	            android:src="@drawable/help" />
+
+	        <TextView
+	            android:id="@+id/textView4"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/cyclic_pulse"
+	            android:layout_below="@+id/cyclic_pulse"
+	            android:layout_marginTop="28dp"
+	            android:text="@string/frequency"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/cyclic_frequency"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView4"
+	            android:layout_below="@+id/textView4"
+	            android:entries="@array/cyclic_frequency_value"
+	            android:minWidth="230dp" />
+	        
+	        <ImageView
+	            android:id="@+id/cuclick_freq_help"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignTop="@+id/cyclic_frequency"
+	            android:layout_marginLeft="20dp"
+	            android:layout_toRightOf="@+id/cyclic_frequency"
+	            android:onClick="showHelp"
+	            android:src="@drawable/help" />
+
+	        <TextView
+	            android:id="@+id/textView5"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/cyclic_frequency"
+	            android:layout_below="@+id/cyclic_frequency"
+	            android:layout_marginTop="40dp"
+	            android:text="@string/rudder"
+	            android:textColor="@color/text_color"
+	            android:textSize="15dp"
+	            android:textStyle="bold" />
+
+	        <TextView
+	            android:id="@+id/textView6"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView5"
+	            android:layout_below="@+id/textView5"
+	            android:layout_marginTop="10dp"
+	            android:text="@string/pulse"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/rudder_pulse"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView6"
+	            android:layout_below="@+id/textView6"
+	            android:entries="@array/rudder_pulse_value"
+	            android:minWidth="230dp" />
+
+	        <ImageView
+	            android:id="@+id/rudder_pulse_help"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView6"
+	            android:layout_marginLeft="20dp"
+	            android:layout_toRightOf="@+id/rudder_pulse"
+	            android:onClick="showHelp"
+	            android:src="@drawable/help" />
+
+	        <TextView
+	            android:id="@+id/textView7"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/rudder_pulse"
+	            android:layout_below="@+id/rudder_pulse"
+	            android:layout_marginTop="28dp"
+	            android:text="@string/frequency"
+	            android:textColor="@color/text_color" />
+	        
+	        <Spinner
+	            android:id="@+id/rudder_frequency"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView7"
+	            android:layout_below="@+id/textView7"
+	            android:entries="@array/rudder_frequency_value"
+	            android:minWidth="230dp" />
+
+	        <ImageView
+	            android:id="@+id/rudder_frequency_help"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/textView7"
+	            android:layout_marginLeft="20dp"
+	            android:layout_toRightOf="@+id/rudder_pulse"
+	            android:onClick="showHelp"
+	            android:src="@drawable/help" />
+
+	    </RelativeLayout>
+
+	</ScrollView>
+</LinearLayout>
