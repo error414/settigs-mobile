@@ -2,11 +2,14 @@ package com.settings;
 
 
 import com.lib.DstabiProvider;
+import com.settings.R.id;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.Menu;
@@ -65,6 +68,7 @@ abstract public class BaseActivity extends Activity{
 	 }
 	
 	protected void closeDialog(){
+		progressCount = 0;
 		if(generalDialog != null){
 			 generalDialog.hide();
 			 generalDialog.cancel();
@@ -258,6 +262,17 @@ abstract public class BaseActivity extends Activity{
 		 		this.openHelp(R.string.no_help, R.string.no_help_text);	
 		 		break;
 		 }
+	 }
+	 
+	 protected void showProfileSavedDialog()
+	 {
+		 AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+		 alert.setPositiveButton("OK", null);
+		
+		 alert.setView(getLayoutInflater().inflate(R.layout.alert_done, null));
+		 
+		 alert.show();
+		
 	 }
     
 }

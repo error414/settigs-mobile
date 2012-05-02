@@ -18,6 +18,7 @@ import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
+import com.settings.R.string;
 
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
@@ -331,7 +332,6 @@ public class ConnectionActivity extends BaseActivity{
     				stabiProvider.sendDataNoWaitForResponce(item);
     			}
     		}
-    		
     	}else{
     		Toast.makeText(getApplicationContext(), R.string.damage_profile, Toast.LENGTH_SHORT).show();
     	}

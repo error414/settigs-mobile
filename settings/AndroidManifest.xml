@@ -24,9 +24,10 @@
         <activity android:name="ServosActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
         <activity android:name=".ServosTypeActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
         <activity android:name="ServosSubtrimActivity" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
-        <activity android:configChanges="orientation" android:name="ServosLimitActivity"></activity>
+        <activity android:configChanges="orientation" android:name="ServosLimitActivity" android:theme="@style/CustomTheme"></activity>
         <activity android:name="com.lib.FileDialog"></activity>
-        <activity android:configChanges="orientation" android:name="DiagnosticActivity"></activity>
+        <activity android:name="ServosCyclickRingRangeActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:configChanges="orientation" android:name="ServosRudderEndPointsActivity" android:theme="@style/CustomTheme"></activity>
         
     </application>
 </manifest>

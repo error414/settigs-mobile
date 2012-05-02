@@ -68,6 +68,15 @@
     <string name="elevator">Elevator</string>
     <string name="pitch">Pitch</string>
     
+    <string name="cyclic_ring_range">Cyclic ring (range)</string>
+    <string name="ail_ele">Ail/Ele</string>
+    <string name="ring">Ring</string>
+    <string name="limit_pitch">Pitch</string>
+    
+    <string name="rudder_end_points">Rudder \n end-points</string>
+    <string name="rudder_end_points_no_break">Rudder end-points</string>
+    <string name="min_max">Min/Max</string>
+    
     
     <string-array name="position_values">
         <item>Horizontal</item>

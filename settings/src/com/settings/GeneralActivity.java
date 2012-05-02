@@ -198,18 +198,8 @@ public class GeneralActivity extends BaseActivity{
 	        			}
 	        			break;
 	        		case PROFILE_SAVE_CALL_BACK_CODE:
-	        			AlertDialog alertDialog =new AlertDialog.Builder(GeneralActivity.this).create();
-	        			alertDialog.setMessage(getString(R.string.profile_saved));
-	        			alertDialog.setButton("OK", new DialogInterface.OnClickListener() {
-							
-							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								// TODO Auto-generated method stub
-								
-							}
-						});
 	        			sendInSuccess();
-	        			alertDialog.show();
+	        			showProfileSavedDialog();
 	        			break;
 	        	}
 	        }

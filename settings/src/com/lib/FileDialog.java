@@ -2,6 +2,7 @@ package com.lib;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
@@ -41,6 +42,11 @@ public class FileDialog extends ListActivity {
 	 * Imagem de um item da lista de paths (diretorio ou arquivo).
 	 */
 	private static final String ITEM_IMAGE = "image";
+	
+	/**
+	 * 
+	 */
+	private static final String DATE_KEY = "date";
 
 	/**
 	 * Diretorio raiz.
@@ -228,12 +234,13 @@ public class FileDialog extends ListActivity {
 
 		if (!currentPath.equals(ROOT)) {
 
+			File rootFile = new File(ROOT); 
 			item.add(ROOT);
-			addItem(ROOT, R.drawable.folder);
+			addItem(ROOT, R.drawable.folder,  new Date(rootFile.lastModified()));
 			path.add(ROOT);
 
 			item.add("../");
-			addItem("../", R.drawable.folder);
+			addItem("../", R.drawable.folder, new Date(f.lastModified()));
 			path.add(f.getParent());
 			parentPath = f.getParent();
 
@@ -243,11 +250,15 @@ public class FileDialog extends ListActivity {
 		TreeMap<String, String> dirsPathMap = new TreeMap<String, String>();
 		TreeMap<String, String> filesMap = new TreeMap<String, String>();
 		TreeMap<String, String> filesPathMap = new TreeMap<String, String>();
+		
+		TreeMap<String, Date> dateMap = new TreeMap<String, Date>();
+		
 		for (File file : files) {
 			if (file.isDirectory()) {
 				String dirName = file.getName();
 				dirsMap.put(dirName, dirName);
 				dirsPathMap.put(dirName, file.getPath());
+				dateMap.put(dirName, new Date(file.lastModified()));
 			} else {
 				final String fileName = file.getName();
 				final String fileNameLwr = fileName.toLowerCase();
@@ -262,11 +273,13 @@ public class FileDialog extends ListActivity {
 						}
 					}
 					if (contains) {
+						dateMap.put(fileName, new Date(file.lastModified()));
 						filesMap.put(fileName, fileName);
 						filesPathMap.put(fileName, file.getPath());
 					}
 					// senao, adiciona todos os arquivos
 				} else {
+					dateMap.put(fileName, new Date(file.lastModified()));
 					filesMap.put(fileName, fileName);
 					filesPathMap.put(fileName, file.getPath());
 				}
@@ -278,14 +291,14 @@ public class FileDialog extends ListActivity {
 		path.addAll(filesPathMap.tailMap("").values());
 
 		SimpleAdapter fileList = new SimpleAdapter(this, mList, R.layout.file_dialog_row, new String[] {
-				ITEM_KEY, ITEM_IMAGE }, new int[] { R.id.fdrowtext, R.id.fdrowimage });
+				ITEM_KEY, ITEM_IMAGE, DATE_KEY }, new int[] { R.id.fdrowtext, R.id.fdrowimage, R.id.file_dialog_date });
 
 		for (String dir : dirsMap.tailMap("").values()) {
-			addItem(dir, R.drawable.folder);
+			addItem(dir, R.drawable.folder, dateMap.get(dir));
 		}
 
 		for (String file : filesMap.tailMap("").values()) {
-			addItem(file, R.drawable.file);
+			addItem(file, R.drawable.file_icon_4dstabi, dateMap.get(file));
 		}
 
 		fileList.notifyDataSetChanged();
@@ -294,12 +307,14 @@ public class FileDialog extends ListActivity {
 
 	}
 
-	private void addItem(String fileName, int imageId) {
+	private void addItem(String fileName, int imageId, Date date) {
 		HashMap<String, Object> item = new HashMap<String, Object>();
 		item.put(ITEM_KEY, fileName);
 		item.put(ITEM_IMAGE, imageId);
+		item.put(DATE_KEY, date);
 		mList.add(item);
 	}
+	
 
 	/**
 	 * Quando clica no item da lista, deve-se: 1) Se for diretorio, abre seus

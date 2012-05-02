@@ -49,7 +49,16 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_TYPE",	new ProfileItem(9, "A", "C", 	"St"));
 		profileMap.put("RUDDER_FREQ",	new ProfileItem(10, "A", "G", 	"Sf"));
 		
-		profileMap.put("SUBTRIM_AIL",	new ProfileItem(10, 0, 255, 	"SA"));
+		profileMap.put("SUBTRIM_AIL",	new ProfileItem(26, 0, 255, 	"SA"));
+		profileMap.put("SUBTRIM_ELE",	new ProfileItem(27, 0, 255, 	"SE"));
+		profileMap.put("SUBTRIM_PIT",	new ProfileItem(28, 0, 255, 	"SP"));
+		
+		profileMap.put("RANGE_AIL",		new ProfileItem(11, 0, 255, 	"Sa"));
+		profileMap.put("RANGE_ELE",		new ProfileItem(12, 0, 255, 	"Se"));
+		profileMap.put("RANGE_PIT",		new ProfileItem(13, 0, 255, 	"Sp"));
+		
+		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm"));
+		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 		
 		this.mProfile = mProfile;
 		
