@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -14,49 +15,50 @@ import com.customWidget.picker.NumberPicker;
 import com.customWidget.picker.NumberPicker.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.NumberOperation;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 
-public class ServosCyclickRingRangeActivity extends BaseActivity{
-	final private String TAG = "ServosCyclickRingRangeActivity";
+public class SenzorSenzivityActivity extends BaseActivity{
+	final private String TAG = "SenzorSenzivityActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"RANGE_AIL",
-			"RANGE_ELE",
-			"RANGE_PIT",
+			"SENSOR_SENX",
+			"SENSOR_SENY",
+			"SENSOR_SENZ",
 	};
 	
 	private int formItems[] = {
-			R.id.cyclic_ring_ail_ele,
-			R.id.cyclic_ring_ring,
-			R.id.cyclic_ring_pitch,
+			R.id.x_pitch,
+			R.id.y_roll,
+			R.id.z_yaw,
 		};
 	
+	private int lock = formItems.length;
+	
 	private DstabiProvider stabiProvider;
-
+	
 	private DstabiProfile profileCreator;
 	
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.cyclic_ring_range);
+        setContentView(R.layout.senzor_senzivity);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(
-				TextUtils.concat("...", " \u2192 " , getString(R.string.limit), getString(R.string.cyclic_ring_range_no_break))
-		);
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text), " \u2192 " , getString(R.string.senzivity)));
         
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
-		initGui();
+        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+        
+        initGui();
         initConfiguration();
 		delegateListener();
     }
@@ -79,7 +81,8 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setStep(1); // nastavime krok
 		 }
 	}
 	
@@ -103,7 +106,6 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
 	 
-	 
 	 /**
 	  * naplneni formulare
 	  * 
@@ -121,7 +123,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(size);
+			tempPicker.setCurrent(NumberOperation.numberToPercent(255, size));
 		 }
 				
 	 }
@@ -138,7 +140,8 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 					if(parent.getId() == formItems[i]){
 						sendInProgress();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(newVal);
+						item.setValueFromSpinner(NumberOperation.percentToNumber(255, newVal));
+						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}
@@ -201,4 +204,5 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	    	}
 	    	return false;
 	    }
+	
 }

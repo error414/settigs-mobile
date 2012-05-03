@@ -41,10 +41,12 @@
     <string name="general_button_text">General</string>
     <string name="servos_button_text">Servos</string>
     <string name="diagnostic_button_text">Diagnostic</string>
+    <string name="senzor_button_text">Senzor</string>
+    <string name="senzor_senzivity_button_text">Senzivity</string>
     
     <string name="status">Status</string>
     <string name="connected">Connected</string>
-    <string name="version">Version</string>
+    <string name="version">FW version</string>
     <string name="unit">Unit</string>
     <string name="link">Link</string>
     
@@ -68,7 +70,8 @@
     <string name="elevator">Elevator</string>
     <string name="pitch">Pitch</string>
     
-    <string name="cyclic_ring_range">Cyclic ring (range)</string>
+    <string name="cyclic_ring_range">Cyclic ring \n (range)</string>
+    <string name="cyclic_ring_range_no_break">Cyclic ring (range)</string>
     <string name="ail_ele">Ail/Ele</string>
     <string name="ring">Ring</string>
     <string name="limit_pitch">Pitch</string>
@@ -77,6 +80,12 @@
     <string name="rudder_end_points_no_break">Rudder end-points</string>
     <string name="min_max">Min/Max</string>
     
+    <string name="x_picth">X-Pitch</string>
+    <string name="y_rool">Y-Roll</string>
+    <string name="z_yaw">Z-Yaw</string>
+    <string name="senzivity">Senzivity</string>
+    <string name="reverse">Reverse</string>
+    <string name="rotation_speed">Rototation speed</string>
     
     <string-array name="position_values">
         <item>Horizontal</item>

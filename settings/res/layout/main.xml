@@ -15,12 +15,14 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	         >
+
 	        <ImageView
 	            android:id="@+id/imageView1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentTop="true"
 	            android:layout_centerHorizontal="true"
+	            android:layout_marginTop="10dp"
 	            android:src="@drawable/logo" />
 	
 	        <ImageView
@@ -44,8 +46,8 @@
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_alignBottom="@+id/frameLayout1"
-	                android:onClick="openConnectionIndent"
-	                android:src="@drawable/big_button" />
+	                android:background="@drawable/big_button_selector"
+	                android:onClick="openConnectionIndent" />
 	
 	            <TextView
 	                android:id="@+id/textView1"
@@ -53,7 +55,10 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center"
 	                android:text="@string/connection_button_text"
-	                android:textColor="@color/text_color" />
+	                android:textColor="@color/text_color_white"
+	                android:textSize="17dp"
+	                android:textStyle="bold" />
+
 	        </FrameLayout>
 	
 	        <FrameLayout
@@ -68,8 +73,8 @@
 	                android:id="@+id/imageButton2"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
-	                android:onClick="openGeneralIndent"
-	                android:src="@drawable/big_button" />
+	                android:background="@drawable/big_button_selector"
+	                android:onClick="openGeneralIndent" />
 	
 	            <TextView
 	                android:id="@+id/textView2"
@@ -77,7 +82,10 @@
 	                android:layout_height="wrap_content"
 	                android:layout_gravity="center"
 	                android:text="@string/general_button_text"
-	                android:textColor="@color/text_color" />
+	                android:textColor="@color/text_color_white"
+	                android:textSize="17dp"
+	                android:textStyle="bold" />
+
 	        </FrameLayout>
 	        
 	         <FrameLayout
@@ -92,8 +100,8 @@
 	                 android:id="@+id/imageButton3"
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
-	                 android:onClick="openServosIndent"
-	                 android:src="@drawable/big_button" />
+	                 android:background="@drawable/big_button_selector"
+	                 android:onClick="openServosIndent" />
 
 	             <TextView
 	                 android:id="@+id/textView3"
@@ -101,17 +109,36 @@
 	                 android:layout_height="wrap_content"
 	                 android:layout_gravity="center"
 	                 android:text="@string/servos_button_text"
-	                 android:textColor="@color/text_color" />
+	                 android:textColor="@color/text_color_white"
+	                 android:textSize="19dp"
+	                 android:textStyle="bold" />
 
 	         </FrameLayout>
 	         
-	         <FrameLayout
+	       <FrameLayout
 		        android:id="@+id/frameLayout4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_below="@+id/frameLayout3"
 	            android:layout_centerHorizontal="true"
 	            android:layout_marginTop="25dp" >
+
+	             <ImageButton
+	                 android:id="@+id/imageButton4"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:background="@drawable/big_button_selector"
+	                 android:onClick="openSenzorIndent" />
+
+	             <TextView
+	                 android:id="@+id/textView4"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_gravity="center"
+	                 android:text="@string/senzor_button_text"
+	                 android:textColor="@color/text_color_white"
+	                 android:textSize="19dp"
+	                 android:textStyle="bold" />
 
 	         </FrameLayout>
 	        

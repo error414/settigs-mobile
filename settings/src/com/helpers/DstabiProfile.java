@@ -60,6 +60,10 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm"));
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 		
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 255, 	"x"));
+		profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y"));
+		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 0, 255, 	"z"));
+		
 		this.mProfile = mProfile;
 		
 		

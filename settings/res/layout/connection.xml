@@ -86,19 +86,21 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView3"
-	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/textView3"
-	            android:layout_marginRight="20dp" />
+	            android:layout_alignRight="@+id/imageView1"
+	            android:layout_below="@+id/textView3" />
 
 	        <Button
 	            android:id="@+id/connection_button"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/bt_device_spinner"
+	            android:layout_alignLeft="@+id/bt_device_spinner"
 	            android:layout_below="@+id/bt_device_spinner"
 	            android:layout_marginTop="33dp"
+	            android:background="@drawable/big_button_small_selector"
 	            android:onClick="manageConnectionToBTDevice"
-	            android:text="@string/connect" />
+	            android:text="@string/connect"
+	            android:textColor="@color/text_color_white"
+	            android:textStyle="bold" />
 
 	        <TextView
 	            android:id="@+id/curent_device_text"

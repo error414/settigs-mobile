@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
 	 <ScrollView
             android:id="@+id/scrollView1"
+            android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_color">
@@ -14,7 +16,7 @@
 	        android:layout_width="320dp"
 	        android:layout_height="wrap_content"
 	        android:background="@color/background_color" >
-
+	        
 	        <ImageView
 	            android:id="@+id/imageView1"
 	            android:layout_width="wrap_content"
@@ -30,12 +32,25 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/limit"
+	            android:text="@string/senzor_button_text"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
-			<TableLayout
+	        <ImageView
+	            android:id="@+id/imageView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:src="@drawable/black_line_small" />
+
+	        <ImageView
+	            android:id="@+id/imageView3"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:src="@drawable/black_line_small" />
+
+	        <TableLayout
 	            android:layout_width="fill_parent"
 	            android:layout_height="fill_parent"
 	            android:layout_alignParentLeft="true"
@@ -48,29 +63,44 @@
 
 	                <Button
 	                    android:id="@+id/button1"
-	                    android:layout_width="120dp"
+	                    android:layout_width="140dp"
 	                    android:layout_height="50dp"
 	                    android:layout_margin="10dp"
 	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openCyclicRingRange"
-	                    android:text="@string/cyclic_ring_range"
+	                    android:onClick="openSenzorSenzivityActivity"
+	                    android:text="@string/senzivity"
 	                    android:textColor="@color/text_color_white"
 	                    android:textStyle="bold" />
 
 	                <Button
 	                    android:id="@+id/button2"
-	                    android:layout_width="120dp"
+	                    android:layout_width="140dp"
 	                    android:layout_height="50dp"
 	                    android:layout_margin="10dp"
 	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openRudderEndPoints"
-	                    android:text="@string/rudder_end_points"
+	                    android:onClick="openSenzorReverseActivity"
+	                    android:text="@string/reverse"
+	                    android:textColor="@color/text_color_white"
+	                    android:textStyle="bold" />
+	                
+	            </TableRow>
+	            
+	            <TableRow
+	                android:gravity="center">
+
+	                <Button
+	                    android:id="@+id/button3"
+	                    android:layout_width="140dp"
+	                    android:layout_height="50dp"
+	                    android:layout_margin="10dp"
+	                    android:background="@drawable/big_button_small_selector"
+	                    android:text="@string/rotation_speed"
 	                    android:textColor="@color/text_color_white"
 	                    android:textStyle="bold" />
 	                
 	            </TableRow>
 	        </TableLayout>
-
+	        
 	    </RelativeLayout>
 
 	</ScrollView>

@@ -63,19 +63,25 @@
 
 	                <Button
 	                    android:id="@+id/button1"
-	                    android:layout_width="100dp"
-	                    android:layout_height="wrap_content"
+	                    android:layout_width="120dp"
+	                    android:layout_height="50dp"
 	                    android:layout_margin="10dp"
+	                    android:background="@drawable/big_button_small_selector"
 	                    android:onClick="openServosTypeActivity"
-	                    android:text="@string/type" />
+	                    android:text="@string/type"
+	                    android:textColor="@color/text_color_white"
+	                    android:textStyle="bold" />
 
 	                <Button
 	                    android:id="@+id/button2"
-	                    android:layout_width="100dp"
-	                    android:layout_height="wrap_content"
+	                    android:layout_width="120dp"
+	                    android:layout_height="50dp"
 	                    android:layout_margin="10dp"
+	                    android:background="@drawable/big_button_small_selector"
 	                    android:onClick="openServosSubtrimActivity"
-	                    android:text="@string/subtrim" />
+	                    android:text="@string/subtrim"
+	                    android:textColor="@color/text_color_white"
+	                    android:textStyle="bold" />
 	                
 	            </TableRow>
 	            
@@ -84,11 +90,14 @@
 
 	                <Button
 	                    android:id="@+id/button3"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
+	                    android:layout_width="120dp"
+	                    android:layout_height="50dp"
 	                    android:layout_margin="10dp"
+	                    android:background="@drawable/big_button_small_selector"
 	                    android:onClick="openServosLimitActivity"
-	                    android:text="@string/limit" />
+	                    android:text="@string/limit"
+	                    android:textColor="@color/text_color_white"
+	                    android:textStyle="bold" />
 	                
 	            </TableRow>
 	        </TableLayout>

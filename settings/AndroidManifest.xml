@@ -28,6 +28,9 @@
         <activity android:name="com.lib.FileDialog"></activity>
         <activity android:name="ServosCyclickRingRangeActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
         <activity android:configChanges="orientation" android:name="ServosRudderEndPointsActivity" android:theme="@style/CustomTheme"></activity>
+        <activity android:name="SenzorSenzivityActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="SenzorActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="SenzorReverseActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
         
     </application>
 </manifest>
