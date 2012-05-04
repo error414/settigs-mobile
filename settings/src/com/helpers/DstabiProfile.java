@@ -64,6 +64,10 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y"));
 		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 0, 255, 	"z"));
 		
+		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", 	"X"));
+		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", 	"Y"));
+		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", 	"Z"));
+		
 		this.mProfile = mProfile;
 		
 		
@@ -189,6 +193,16 @@ public class DstabiProfile {
 		}
 		
 		/**
+		 * pozice v profilu bez zacatecniho bytu ktery urcuje delku
+		 * 
+		 * @return
+		 */
+		public Integer getPositionWithoutFirstByte()
+		{
+			return positionInConfig - 1;
+		}
+		
+		/**
 		 * prikaz pro zaslani do jenotky
 		 * 
 		 * @return
@@ -215,7 +229,22 @@ public class DstabiProfile {
 		 */
 		public void setValueFromSpinner(Integer value)
 		{
-			this.value = ByteOperation.intToByte(value+ 65);
+			this.value = ByteOperation.intToByte(value+ this.min);
+		}
+		
+		/**
+		 * hodnota pro checkBox, 
+		 * 
+		 * @param max
+		 * @return
+		 * @throws IndexOutOfException
+		 */
+		public void setValueFromCheckBox(Boolean checked){
+			if(checked == true){
+				value = 48;
+			}else{
+				value = 49;
+			}
 		}
 		
 		/**
@@ -236,10 +265,21 @@ public class DstabiProfile {
 		 * @throws IndexOutOfException
 		 */
 		public Integer getValueForSpinner(int max) throws IndexOutOfException{
-			if(getValueInteger() - 65 > max - 1){
+			if(getValueInteger() - this.min > max - 1){
 				throw new IndexOutOfException();
 			}
-			return getValueInteger() - 65;
+			return getValueInteger() - this.min; // this.min = 65 je znak A od toho se odrazime
+		}
+		
+		/**
+		 * hodnota pro checkBox, 
+		 * 
+		 * @param max
+		 * @return
+		 * @throws IndexOutOfException
+		 */
+		public Boolean getValueForCheckBox(){
+			return (getValueInteger() - this.min) == 1; //this.min = 30 je znak 0 (nula) od toho se odrazime
 		}
 		
 		/**

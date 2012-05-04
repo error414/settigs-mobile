@@ -12,6 +12,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -28,6 +29,10 @@ abstract public class BaseActivity extends Activity{
 	// Intent request codes
     private static final int REQUEST_ENABLE_BT = 22;
 
+    final protected int GROUP_GENERAL = 5;
+    final protected int OPEN_AUTHOR = 5;
+    
+    
 	final protected int GROUP_HELP = 2;  
 	final protected int OPEN_MANUAL = 2;  
 	final protected int OPEN_MANUAL_GOOGLE_DOCS = 3;
@@ -45,7 +50,7 @@ abstract public class BaseActivity extends Activity{
 	// TOHLE PUJDE do DSTABI PROFILE ASI :D
 	final protected String SAVE_PROFILE = "g";
 	
-	private int progressCount = 0;
+	public int progressCount = 0;
 	
 	@Override
 	protected void onStart() {
@@ -102,6 +107,7 @@ abstract public class BaseActivity extends Activity{
 	  */
 	 private void sendInProgress(String text){
 		 progressCount++;
+		 Log.d(TAG, "PROGRESS - " + String.valueOf(progressCount));
 		 if(generalDialog == null || !generalDialog.isShowing()){
 			 generalDialog = ProgressDialog.show(BaseActivity.this, "", text, true);
 	 	 }
@@ -113,6 +119,7 @@ abstract public class BaseActivity extends Activity{
 	  */
 	 protected void sendInSuccess(){
 		 progressCount--;
+		 Log.d(TAG, "SUCESS - " + String.valueOf(progressCount));
 		 if(progressCount <= 0){
 			 closeDialog();
 			 progressCount = 0;
@@ -196,6 +203,8 @@ abstract public class BaseActivity extends Activity{
 	    SubMenu manual = menu.addSubMenu(R.string.manual);
 	    manual.add(GROUP_HELP, OPEN_MANUAL, Menu.NONE, R.string.open_manual);
 	    manual.add(GROUP_HELP, OPEN_MANUAL_GOOGLE_DOCS, Menu.NONE, R.string.open_manual_google_docs);
+	    
+	    menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
 	    return true;
     }
     
@@ -219,6 +228,22 @@ abstract public class BaseActivity extends Activity{
     	    i.setData(Uri.parse(url));  
     	    startActivity(i);  
     	}
+    	
+    	//otevreni informace o autorovi
+    	if(item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_AUTHOR){
+    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+    		builder.setMessage(R.string.author_name)
+    		       .setCancelable(true)
+    		       .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
+    		           public void onClick(DialogInterface dialog, int id) {
+    		                dialog.cancel();
+    		           }
+    		       });
+    		AlertDialog alert = builder.create();
+    		alert.show();
+    	}
+    	
+    	
     	return false;
     }
     

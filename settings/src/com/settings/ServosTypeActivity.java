@@ -149,9 +149,11 @@ public class ServosTypeActivity extends BaseActivity{
 				 if(tempSpinner.getId() == R.id.rudder_pulse){
 					 updateItemRudderFrequency(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
 				 }
-				 tempSpinner.setSelection(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
-				
-				if(tempSpinner.getSelectedItemPosition() != 0)lock = lock + 1;
+				 
+				 int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+				 
+				 if(pos != 0)lock = lock + 1;
+				 tempSpinner.setSelection(pos);
 			}
 		}catch(IndexOutOfException e){
 			errorInActivity(R.string.damage_profile);

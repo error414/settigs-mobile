@@ -129,9 +129,11 @@ public class GeneralActivity extends BaseActivity{
 		 try{
 			 for(int i = 0; i < formItems.length; i++){
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
-				 
-				tempSpinner.setSelection(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
-				if(tempSpinner.getSelectedItemPosition() != 0)lock = lock + 1;
+				
+				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+				
+				if(pos != 0)lock = lock + 1;
+				tempSpinner.setSelection(pos);
 			 }
 		 }catch(IndexOutOfException e){
 				errorInActivity(R.string.damage_profile);

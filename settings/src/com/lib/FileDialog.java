@@ -13,17 +13,23 @@ import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 /**
  * Activity para escolha de arquivos/diretorios.
@@ -31,7 +37,7 @@ import android.widget.TextView;
  * @author android
  * 
  */
-public class FileDialog extends ListActivity {
+public class FileDialog extends ListActivity{
 
 	/**
 	 * Chave de um item da lista de paths.
@@ -105,6 +111,8 @@ public class FileDialog extends ListActivity {
 	private File selectedFile;
 	private HashMap<String, Integer> lastPositions = new HashMap<String, Integer>();
 
+	private DstabiProvider stabiProvider;
+	
 	/**
 	 * Called when the activity is first created. Configura todos os parametros
 	 * de entrada e das VIEWS..
@@ -113,11 +121,17 @@ public class FileDialog extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-		setTitle(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.profile_file_manager)));
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		
+		setContentView(R.layout.file_dialog_main);
+		
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.profile_file_manager)));
+		
+		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		
 		setResult(RESULT_CANCELED, getIntent());
-
-		setContentView(R.layout.file_dialog_main);
+		
 		myPath = (TextView) findViewById(R.id.path);
 		mFileName = (EditText) findViewById(R.id.fdEditTextFile);
 
@@ -193,6 +207,20 @@ public class FileDialog extends ListActivity {
 			selectButton.setEnabled(true);
 		}
 		getDir(startPath);
+	}
+	
+	/**
+	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 */
+	@Override
+	public void onResume(){
+		super.onResume();
+		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+		}else{
+			finish();
+		}
 	}
 
 	private void getDir(String dirPath) {
@@ -404,4 +432,21 @@ public class FileDialog extends ListActivity {
 		inputManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
 		selectButton.setEnabled(false);
 	}
+	
+	
+	// The Handler that gets information back from the 
+    private final Handler connectionHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+        	switch(msg.what){
+    			case DstabiProvider.MESSAGE_STATE_CHANGE:
+    				if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+						finish();
+					}else{
+						((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+					}
+    				break;
+        	}
+        }
+    };
 }

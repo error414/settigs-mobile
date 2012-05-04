@@ -94,6 +94,7 @@
 	                    android:layout_height="50dp"
 	                    android:layout_margin="10dp"
 	                    android:background="@drawable/big_button_small_selector"
+	                    android:onClick="openSenzorRotationSpeedActivity"
 	                    android:text="@string/rotation_speed"
 	                    android:textColor="@color/text_color_white"
 	                    android:textStyle="bold" />

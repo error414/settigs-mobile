@@ -1,11 +1,9 @@
 package com.settings;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,11 +11,16 @@ import android.widget.TextView;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 
-public class SenzorActivity extends BaseActivity{
+public class SenzorRotationSpeedActivity extends BaseActivity{
+
 	@SuppressWarnings("unused")
 	final private String TAG = "SenzorActivity";
 	
+	final private int PROFILE_CALL_BACK_CODE = 16;
+	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
+	
 	private DstabiProvider stabiProvider;
+	
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -26,12 +29,12 @@ public class SenzorActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.senzor);
+        setContentView(R.layout.senzor_rotation_speed);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text), " \u2192 " , getString(R.string.rotation_speed)));
         
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
     }
 	
 	/**
@@ -48,55 +51,35 @@ public class SenzorActivity extends BaseActivity{
 		}
 	}
 	
-	/**
-	 * otevreni aktivity senzivitu senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorSenzivityActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorSenzivityActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity reverz senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorReverseActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorReverseActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity reverz senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorRotationSpeedActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorRotationSpeedActivity.class);
-		startActivity(i);
-	}
-	
-	
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler() {
 	        @Override
 	        public void handleMessage(Message msg) {
 	        	switch(msg.what){
+		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+						sendInError();
+						break;
+					case DstabiProvider.MESSAGE_SEND_COMPLETE:
+						sendInSuccess();
+						break;
 	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
 						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
 							sendInError();
-							finish();
-						}else{
-							((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 						}
 						break;
+	        		case PROFILE_CALL_BACK_CODE:
+	        			if(msg.getData().containsKey("data")){
+	        				//initGuiByProfileString(msg.getData().getByteArray("data"));
+	        				sendInSuccess();
+	        			}
+	        			break;
+	        		case PROFILE_SAVE_CALL_BACK_CODE:
+	        			sendInSuccess();
+	        			showProfileSavedDialog();
+	        			break;
 	        	}
 	        }
 	    };
+	
 }

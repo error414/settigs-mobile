@@ -2,9 +2,12 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
+    <string name="author_name">4Dstabi mobile\nPetr Čada\nerror414@error414.com</string>
+    <string name="credits">Credits</string>
     
     
     <string name="app_name">4Dstabi</string>
+    <string name="ok">Ok</string>
     <string name="short_title">4Dstabi</string>
     <string name="full_app_name">4Dstabi mobile settings v.0.1</string>
     <string name="settings">Settings</string>
@@ -29,6 +32,7 @@
     <string name="read_please_wait">Read data. Please wait\.\.\.</string>
     <string name="damage_profile">Damage profile</string>
     <string name="unknow_version">Unknow version</string>
+    <string name="first_paired_device">First paired devices</string>
     
     <string name="connection_error">Connection Error</string>
     
@@ -86,6 +90,7 @@
     <string name="senzivity">Senzivity</string>
     <string name="reverse">Reverse</string>
     <string name="rotation_speed">Rototation speed</string>
+    <string name="rates">Rates</string>
     
     <string-array name="position_values">
         <item>Horizontal</item>

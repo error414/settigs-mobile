@@ -153,7 +153,7 @@ public class DstabiProvider {
 			sendData();
 		}else{
 			// nejaky pozadavek uz bezi tak ho dame do fronty
-			queue.add(command, data);
+			queue.add(GET_PROFILE, data, NORMAL, 0);
 		}
 	}
 	
@@ -170,7 +170,7 @@ public class DstabiProvider {
 			sendData();
 		}else{
 			// nejaky pozadavek uz bezi tak ho dame do fronty
-			queue.add(command, null);
+			queue.add(GET_PROFILE, null, NORMAL, 0);
 		}
 	}
 	
@@ -184,15 +184,18 @@ public class DstabiProvider {
 			mode = PROFILE;
 			sendDataForResponce(GET_PROFILE, callBackCode);
 		}else{
-			// tady bude naplneni fronty
-			//queue
+			queue.add(GET_PROFILE, null, PROFILE, callBackCode);
 		}
 	}
 	
 	//////////////////WAIT RESPONSE//////////////////
 	public void sendDataForResponce(String command, int callBackCode){
-		this.callBackCode = callBackCode;
-		sendData(command, null);
+		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+			this.callBackCode = callBackCode;
+			sendData(command, null);
+		}else{
+			queue.add(GET_PROFILE, null, NORMAL, callBackCode);
+		}
 	}
 	/////////////////////////////////////////////////
 	
@@ -257,9 +260,17 @@ public class DstabiProvider {
 		stopCecurityTimer(); // vypneme casovac
 		profileBuilder = null;
 		
+		
 		if(queue.hasNextQueue()){
-			com.lib.DstabiProvider.Queue.QueueRow tempQueue = queue.getNextQueue();
-			sendData(tempQueue.getCommand(), tempQueue.getData());
+			if(getState() == BluetoothCommandService.STATE_CONNECTED){
+				com.lib.DstabiProvider.Queue.QueueRow tempQueue = queue.getNextQueue();
+				mode = tempQueue.getMode();
+				callBackCode = tempQueue.getCallback();
+				sendData(tempQueue.getCommand(), tempQueue.getData());
+			}else{
+				queue.clear();
+				connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+			}
 		}
 	}
 	
@@ -482,8 +493,8 @@ public class DstabiProvider {
     	 * @param command
     	 * @param data
     	 */
-    	public void add(String command, byte[] data) {
-    		queueRow.add(new QueueRow(command, data));
+    	public void add(String command, byte[] data, int mode, int callback) {
+    		queueRow.add(new QueueRow(command, data, mode, callback));
     	}
     	
     	public int count()
@@ -506,6 +517,11 @@ public class DstabiProvider {
     		return null;
     	}
     	
+    	public void clear()
+    	{
+    		queueRow = new ArrayList<QueueRow>();
+    	}
+    	
     	
     	/**
     	 * trida radku fronty
@@ -516,13 +532,17 @@ public class DstabiProvider {
     	private class QueueRow
     	{
     		private String command;
+    		private int mode;
+    		private int callback;
     		private byte[] data;
 			
     		
-    		public QueueRow(String command, byte[] data)
+    		public QueueRow(String command, byte[] data, int mode, int callback)
     		{
-    			this.command = command;
-    			this.data 	 = data;
+    			this.command 		= command;
+    			this.data 	 		= data;
+    			this.mode 	 		= mode;
+    			this.callback 	 	= callback;
     		}
     		
     		
@@ -543,6 +563,25 @@ public class DstabiProvider {
 			{
 				return data;
 			}
+			
+		/**
+   		 * getter
+   		 * @return
+   		 */
+   		public int getMode() 
+   		{
+			return mode;
+		}
+			
+			
+		/**
+   		 * getter
+   		 * @return
+   		 */
+   		public int getCallback() 
+   		{
+			return callback;
+		}
 			
     		
     	}
