@@ -31,6 +31,19 @@ public class ByteOperation {
 		return combined;
 	}
 	
+	final public static String getIntegerStringByByteArray(byte[] b){
+		if(b == null || b.length == 0){
+			return "";
+		}
+		
+		String buffer = "";
+		for(int i = 0; i < b.length; i++){
+			buffer += String.valueOf(byteToUnsignedInt(b[i])) + ", ";
+		}
+		
+		return buffer;
+	}
+	
 	/**
      * Convert a byte array integer (4 bytes) to its int value
      * @param b byte[]

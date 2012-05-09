@@ -302,9 +302,11 @@ public class DstabiProvider {
         				
         				byte[] byteMessage = b.getByteArray("msg");
         				
+        				Log.d(TAG, "prijmam data");
+        				Log.d(TAG, String.valueOf(byteMessage));
+        				
         				String message 			= parseMessagegetCode(byteMessage);
         				byte[] data 			= parseMessagegetData(byteMessage);
-        				
         				
         				switch(protocolState){
         					case DstabiProvider.PROTOCOL_STATE_NONE:
@@ -338,6 +340,9 @@ public class DstabiProvider {
 	    								
 	    							//PROFILE pokud zada aktivita o profil tak podle delky privniho bytu cekame na cely profil
 	    							}else if(mode == PROFILE){
+	    								
+	    								Log.d(TAG, "Prislo 1 :" + ByteOperation.getIntegerStringByByteArray(data));
+	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
 	    								profileBuilder = new ProfileBuilder();
@@ -356,6 +361,7 @@ public class DstabiProvider {
 	    						 }
         						break;
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA:
+        						Log.d(TAG, "Prislo x :" + ByteOperation.getIntegerStringByByteArray(data));
         						profileBuilder.add(data);
         						if(profileBuilder.itsAll()){
         							sendHandle(callBackCode, profileBuilder.getData());
@@ -411,10 +417,12 @@ public class DstabiProvider {
     		return null;
     	}else if(msg.length > 1){
     		String code= EncodingUtils.getAsciiString(msg, 0, 1);
-    		
-    		if(code.equals(OK) || code.equals(ERROR)){ // prisel zacatek profilu odstranime K na zacatku profilu
-    			System.arraycopy(msg, 1, msg, 0, msg.length-1);
-    			return msg;
+    		Log.d(TAG, code);
+    		if((code.equals(OK) || code.equals(ERROR)) && protocolState != PROTOCOL_STATE_WAIT_FOR_ALL_DATA){ // prisel zacatek profilu odstranime K na zacatku profilu a nasmime byt v modu cekani na data
+    			
+    			byte[] result = new byte[msg.length-1];
+    			System.arraycopy(msg, 1, result, 0, msg.length-1);
+    			return result;
     		}
     	}
     	

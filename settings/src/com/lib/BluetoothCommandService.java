@@ -353,6 +353,7 @@ public class BluetoothCommandService {
                     		message[i] = buffer[i];
 						}
                     	
+                    	Log.d(TAG, ByteOperation.getIntegerStringByByteArray(message));
                     	
 	                    Bundle b = new Bundle();
 	                    b.putByteArray("msg", message);
@@ -380,7 +381,7 @@ public class BluetoothCommandService {
         public void write(byte[] buffer) {
             try {
                 mmOutStream.write(buffer);
-                Log.d(TAG, "write bytes");
+                Log.d(TAG, "write bytes" + String.valueOf(ByteOperation.byteArrayToInt(buffer)));
                 // Share the sent message back to the UI Activity
 //                mHandler.obtainMessage(BluetoothChat.MESSAGE_WRITE, -1, -1, buffer)
 //                        .sendToTarget();
