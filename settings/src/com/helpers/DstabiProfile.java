@@ -60,13 +60,28 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm"));
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 		
-		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 255, 	"x"));
-		profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y"));
-		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 0, 255, 	"z"));
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 255, 	"x")); // procenta
+		profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y")); // procenta
+		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 0, 255, 	"z")); // procenta
 		
 		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", 	"X"));
 		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", 	"Y"));
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", 	"Z"));
+		
+		profileMap.put("RATE_PITCH",	new ProfileItem(25, 0, 16, 	"a"));
+		profileMap.put("RATE_ROLL",		new ProfileItem(26, 0, 16, 	"b"));
+		profileMap.put("RATE_YAW",		new ProfileItem(27, 0, 16, 	"c"));
+
+		profileMap.put("RATE_CYCLIC",	new ProfileItem(28, 0, 255, "r")); // procenta
+		profileMap.put("STICK_DB",		new ProfileItem(29, 0, 255, "s")); // procenta
+		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 255, "p")); // procenta
+		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 0, 255, "m")); 
+		profileMap.put("REG_P",			new ProfileItem(39, 0, 100, "4")); 
+		profileMap.put("REG_I",			new ProfileItem(40, 0, 100, "5")); 
+		profileMap.put("REG_D",			new ProfileItem(41, 0, 100, "6")); 
+		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
+		
+		
 		
 		this.mProfile = mProfile;
 		
@@ -241,9 +256,9 @@ public class DstabiProfile {
 		 */
 		public void setValueFromCheckBox(Boolean checked){
 			if(checked == true){
-				value = 48;
+				value = 49; // "1"
 			}else{
-				value = 49;
+				value = 48; // "0"
 			}
 		}
 		

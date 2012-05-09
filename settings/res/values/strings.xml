@@ -3,6 +3,7 @@
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
     <string name="author_name">4Dstabi mobile\nPetr Čada\nerror414@error414.com</string>
+    <string name="author">Author</string>
     <string name="credits">Credits</string>
     
     
@@ -47,6 +48,7 @@
     <string name="diagnostic_button_text">Diagnostic</string>
     <string name="senzor_button_text">Senzor</string>
     <string name="senzor_senzivity_button_text">Senzivity</string>
+    <string name="advanced_button_text">Advanced</string>
     
     <string name="status">Status</string>
     <string name="connected">Connected</string>
@@ -73,6 +75,9 @@
     <string name="aileron">Aileron</string>
     <string name="elevator">Elevator</string>
     <string name="pitch">Pitch</string>
+    <string name="reg_p">P</string>
+    <string name="reg_i">I</string>
+    <string name="reg_d">D</string>
     
     <string name="cyclic_ring_range">Cyclic ring \n (range)</string>
     <string name="cyclic_ring_range_no_break">Cyclic ring (range)</string>
@@ -91,6 +96,12 @@
     <string name="reverse">Reverse</string>
     <string name="rotation_speed">Rototation speed</string>
     <string name="rates">Rates</string>
+
+    <string name="cyclick_feed_forward">Cyclick feed forward</string>
+    <string name="stick_deathband">Stick deathband</string>
+    <string name="rudder_dynamic">Rudder dynamic</string>
+    <string name="rudder_revomix">Rudder revomix</string>
+    <string name="pid_cyclic_regulation">PID Cyclic regulation</string>
     
     <string-array name="position_values">
         <item>Horizontal</item>

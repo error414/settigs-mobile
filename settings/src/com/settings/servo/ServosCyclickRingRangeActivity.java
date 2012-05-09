@@ -1,4 +1,4 @@
-package com.settings;
+package com.settings.servo;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +16,8 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.settings.BaseActivity;
+import com.settings.R;
 
 public class ServosCyclickRingRangeActivity extends BaseActivity{
 	final private String TAG = "ServosCyclickRingRangeActivity";

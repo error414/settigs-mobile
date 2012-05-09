@@ -153,7 +153,7 @@ public class DstabiProvider {
 			sendData();
 		}else{
 			// nejaky pozadavek uz bezi tak ho dame do fronty
-			queue.add(GET_PROFILE, data, NORMAL, 0);
+			queue.add(command, data, NORMAL, 0);
 		}
 	}
 	
@@ -170,7 +170,7 @@ public class DstabiProvider {
 			sendData();
 		}else{
 			// nejaky pozadavek uz bezi tak ho dame do fronty
-			queue.add(GET_PROFILE, null, NORMAL, 0);
+			queue.add(command, null, NORMAL, 0);
 		}
 	}
 	
@@ -194,7 +194,7 @@ public class DstabiProvider {
 			this.callBackCode = callBackCode;
 			sendData(command, null);
 		}else{
-			queue.add(GET_PROFILE, null, NORMAL, callBackCode);
+			queue.add(command, null, NORMAL, callBackCode);
 		}
 	}
 	/////////////////////////////////////////////////
@@ -247,6 +247,14 @@ public class DstabiProvider {
 	 * zastaveni probohajiciho pozadavku
 	 */
 	public void abort(){
+		clearState();
+	}
+	
+	/**
+	 * zastaveni vsech pozadavku
+	 */
+	public void abortAll(){
+		queue.clear();
 		clearState();
 	}
 	
@@ -310,6 +318,7 @@ public class DstabiProvider {
         							sendData();
         						}else{ // ERROR
         							connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+        							abortAll(); // zrusime celou frontu
         							clearState();
         						}
         						break;
@@ -342,6 +351,7 @@ public class DstabiProvider {
 	    							}
 	    						 }else{ // ERROR
 	    							connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+	    							abortAll(); 
 	    							clearState();
 	    						 }
         						break;

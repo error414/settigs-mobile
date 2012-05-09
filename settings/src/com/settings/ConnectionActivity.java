@@ -75,7 +75,10 @@ public class ConnectionActivity extends BaseActivity{
 	
 	private String fileForSave;
 	
-	
+	/**
+	 * je mozne odesilat data do zarizeni
+	 */
+	private Boolean isPosibleSendData = true;
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
@@ -131,8 +134,6 @@ public class ConnectionActivity extends BaseActivity{
 		//ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAt.max je tam jen pro jistotu
 		btDeviceSpinner.setSelection(Math.max(btDeviceSpinner.getCount() - 1, position)); 
 		////////////////////////////////////////////////////////////////
-		
-		updateState();
 	 }
 	
 	/**
@@ -334,6 +335,8 @@ public class ConnectionActivity extends BaseActivity{
     				updateState();	
     				break;
     			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+    				isPosibleSendData = false;
+    				stabiProvider.abortAll();
     				sendInError(false); // ukazat error ale neukoncovat activitu
         			break;
         		case DstabiProvider.MESSAGE_SEND_COMPLETE:
@@ -363,7 +366,7 @@ public class ConnectionActivity extends BaseActivity{
      */
     private void insertProfileTounit(byte[] profile)
     {
-    	
+    	isPosibleSendData = true;
     	Log.d(TAG, "stav pred odeslanim profilu " + String.valueOf(progressCount));
     	// musime byt pripojeni
     	if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -384,10 +387,13 @@ public class ConnectionActivity extends BaseActivity{
     			String key=(String)iteration.next();
     			ProfileItem item = (ProfileItem)items.get(key);
     			
-    			if(item.getCommand() != null){
+    			if(item.getCommand() != null && isPosibleSendData){
     				sendInProgressRead();
     				Log.d(TAG, "odesilam prikaz "+ item.getCommand() + " : count je " + String.valueOf(progressCount));
     				stabiProvider.sendDataNoWaitForResponce(item);
+    			}else{
+    				isPosibleSendData = true;
+    				break;
     			}
     		}
     	}else{

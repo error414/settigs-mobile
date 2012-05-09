@@ -1,4 +1,4 @@
-package com.settings;
+package com.settings.servo;
 
 import com.customWidget.picker.NumberPicker;
 import com.customWidget.picker.NumberPicker.OnChangedListener;
@@ -6,10 +6,8 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-
-
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import com.settings.BaseActivity;
+import com.settings.R;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

@@ -3,6 +3,7 @@ package com.settings;
 
 import com.lib.DstabiProvider;
 import com.settings.R.id;
+import com.settings.servo.ServosActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -58,6 +59,7 @@ abstract public class BaseActivity extends Activity{
 		if(mBluetoothAdapter == null){
 			Toast.makeText(getApplicationContext(), R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
 			finish();
+			return;
 		}
 		
 		if (!mBluetoothAdapter.isEnabled()) {
@@ -231,16 +233,8 @@ abstract public class BaseActivity extends Activity{
     	
     	//otevreni informace o autorovi
     	if(item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_AUTHOR){
-    		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-    		builder.setMessage(R.string.author_name)
-    		       .setCancelable(true)
-    		       .setNegativeButton(R.string.ok, new DialogInterface.OnClickListener() {
-    		           public void onClick(DialogInterface dialog, int id) {
-    		                dialog.cancel();
-    		           }
-    		       });
-    		AlertDialog alert = builder.create();
-    		alert.show();
+    		Intent i = new Intent(this, AuthorActivity.class);
+			startActivity(i);
     	}
     	
     	

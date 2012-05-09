@@ -20,18 +20,25 @@
             </intent-filter>
         </activity>
         <activity android:name="GeneralActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
+        <activity android:name="AuthorActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
         <activity android:name="ConnectionActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
-        <activity android:name="ServosActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
-        <activity android:name=".ServosTypeActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
-        <activity android:name="ServosSubtrimActivity" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
-        <activity android:configChanges="orientation" android:name="ServosLimitActivity" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".servo.ServosActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".servo.ServosTypeActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".servo.ServosSubtrimActivity" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
+        <activity android:configChanges="orientation" android:name=".servo.ServosLimitActivity" android:theme="@style/CustomTheme"></activity>
         <activity android:name="com.lib.FileDialog" android:theme="@style/CustomTheme"></activity>
-        <activity android:name="ServosCyclickRingRangeActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
-        <activity android:configChanges="orientation" android:name="ServosRudderEndPointsActivity" android:theme="@style/CustomTheme"></activity>
-        <activity android:name="SenzorSenzivityActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
-        <activity android:name="SenzorActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
-        <activity android:name="SenzorReverseActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
-        <activity android:name="SenzorRotationSpeedActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name=".servo.ServosCyclickRingRangeActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:configChanges="orientation" android:name=".servo.ServosRudderEndPointsActivity" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".senzor.SenzorSenzivityActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name=".senzor.SenzorActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name=".senzor.SenzorReverseActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name=".senzor.SenzorRotationSpeedActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="advanced.AdvancedActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="advanced.CyclicFeedForwardActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="advanced.StickDeathBandActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="advanced.RudderDynamicActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="advanced.RudderRevomixActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
+        <activity android:name="advanced.PIDCyclicRegulationActivity" android:theme="@style/CustomTheme" android:configChanges="orientation"></activity>
         
     </application>
 </manifest>

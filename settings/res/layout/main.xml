@@ -10,11 +10,11 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_below="@+id/frameLayout2" >
+
 	    <RelativeLayout
 	        android:id="@+id/img1"
 	        android:layout_width="fill_parent"
-	        android:layout_height="fill_parent"
-	         >
+	        android:layout_height="wrap_content" >
 
 	        <ImageView
 	            android:id="@+id/imageView1"
@@ -141,7 +141,35 @@
 	                 android:textStyle="bold" />
 
 	         </FrameLayout>
-	        
+	         
+	      <FrameLayout
+		        android:id="@+id/frameLayout5"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_below="@+id/frameLayout4"
+	            android:layout_centerHorizontal="true"
+	            android:layout_marginTop="25dp" >
+
+	             <ImageButton
+	                 android:id="@+id/imageButton5"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:background="@drawable/big_button_selector"
+	                 android:onClick="openAdvancedIndent" />
+
+	             <TextView
+	                 android:id="@+id/textView5"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_gravity="center"
+	                 android:text="@string/advanced_button_text"
+	                 android:textColor="@color/text_color_white"
+	                 android:textSize="19dp"
+	                 android:textStyle="bold" />
+
+	         </FrameLayout>
+
+	      
 	    </RelativeLayout>
 	</ScrollView>
 </LinearLayout>

@@ -1,9 +1,9 @@
-package com.settings;
+package com.settings.servo;
 
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-
-import android.app.Activity;
+import com.settings.BaseActivity;
+import com.settings.R;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;

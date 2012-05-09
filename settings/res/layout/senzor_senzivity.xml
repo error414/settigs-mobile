@@ -30,7 +30,7 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/subtrim"
+	            android:text="@string/senzivity"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />

@@ -1,4 +1,13 @@
-package com.settings;
+package com.settings.servo;
+
+import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.settings.BaseActivity;
+import com.settings.R;
+
+import exception.IndexOutOfException;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -6,54 +15,56 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-import com.customWidget.picker.NumberPicker;
-import com.customWidget.picker.NumberPicker.OnChangedListener;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-
-public class ServosRudderEndPointsActivity extends BaseActivity{
-	final private String TAG = "ServosRudderEndPointsActivity";
+public class ServosTypeActivity extends BaseActivity{
+	final private String TAG = "ServosTypeActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"RUDDER_MIN",
-			"RUDDER_MAX",
+			"CYCLIC_TYPE",
+			"CYCLIC_FREQ",
+			"RUDDER_TYPE",
+			"RUDDER_FREQ"
 	};
 	
 	private int formItems[] = {
-			R.id.rudder_limit_min,
-			R.id.rudder_limit_max,
+			R.id.cyclic_pulse,
+			R.id.cyclic_frequency,
+			R.id.rudder_pulse,
+			R.id.rudder_frequency
 		};
 	
+	private int lock = formItems.length;
+	
 	private DstabiProvider stabiProvider;
-
+	
 	private DstabiProfile profileCreator;
+	
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.servos_rudder_end_points);
+        setContentView(R.layout.servos_type);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(
-				TextUtils.concat("...", " \u2192 " , getString(R.string.limit), getString(R.string.rudder_end_points_no_break))
-		);
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.servos_button_text), " \u2192 " , getString(R.string.type)));
         
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
-		initGui();
+        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+        
         initConfiguration();
 		delegateListener();
     }
@@ -72,21 +83,13 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 		}
 	}
 	
-	private void initGui()
-	{
-		for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
-		 }
-	}
-	
 	/**
 	  * prirazeni udalosti k prvkum
 	  */
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((NumberPicker) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
 		 }
 	 }
 	 
@@ -100,6 +103,29 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
 	 
+	 /**
+	  * pri zmenene rudder pulse se podvame jestli neni potreba zmenit i select
+	  * rudder frequency
+	  * 
+	  * @param pos
+	  */
+	 private void updateItemRudderFrequency(int pos)
+	 {
+		 ArrayAdapter<?> adapter;
+		 Spinner rudderFrequency = (Spinner) findViewById(R.id.rudder_frequency);
+		 int freqPos = (int) rudderFrequency.getSelectedItemPosition(); 
+		 if(pos == 2){
+			 adapter = ArrayAdapter.createFromResource(
+		                this, R.array.rudder_frequency_value_extend, android.R.layout.simple_spinner_item);
+		 }else{
+			 adapter = ArrayAdapter.createFromResource(
+		                this, R.array.rudder_frequency_value, android.R.layout.simple_spinner_item);
+		 }
+		 
+		 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		 rudderFrequency.setAdapter(adapter);
+		 rudderFrequency.setSelection(Math.min(freqPos, adapter.getCount() - 1 ));
+	 }
 	 
 	 /**
 	  * naplneni formulare
@@ -107,41 +133,71 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 	  * @param profile
 	  */
 	 private void initGuiByProfileString(byte[] profile){
-		 profileCreator = new DstabiProfile(profile);
+		profileCreator = new DstabiProfile(profile);
 		 
-		 if(!profileCreator.isValid()){
-			 errorInActivity(R.string.damage_profile);
-			 return;
-		 }
-		 
-		 for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrent(size);
-		 }
+		if(!profileCreator.isValid()){
+			errorInActivity(R.string.damage_profile);
+			return;
+		}
+		
+		try{
+			for(int i = 0; i < formItems.length; i++){
+				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 				
+				//TOHLE MUSIM VYRESIT LIP
+				 if(tempSpinner.getId() == R.id.rudder_pulse){
+					 updateItemRudderFrequency(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
+				 }
+				 
+				 int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+				 
+				 if(pos != 0)lock = lock + 1;
+				 tempSpinner.setSelection(pos);
+			}
+		}catch(IndexOutOfException e){
+			errorInActivity(R.string.damage_profile);
+			return;
+		}
 	 }
 	 
-	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
-
-
+	 protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener(){
 			@Override
-			public void onChanged(NumberPicker parent, int oldVal, int newVal) {
-				// TODO Auto-generated method stub
+			public void onItemSelected(AdapterView<?> parent, View view, int pos,
+					long id) {
+				
+				
+				if(lock != 0){
+					lock -= 1;
+					return;
+				}
+				lock = Math.max(lock - 1, 0);
+				
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
 					if(parent.getId() == formItems[i]){
-						sendInProgress();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(newVal);
+						item.setValueFromSpinner(pos);
 						stabiProvider.sendDataNoWaitForResponce(item);
+						
+						sendInProgress();
+						
+						//pro prvrk rudder pulse volame jeste obsluhu zmeny seznamu rudder frequency
+						if(parent.getId() == formItems[2]){
+							updateItemRudderFrequency(pos);
+						}
+						
 					}
 				}
 			}
 
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
+				
+			}
 		 };
+		 
 		 
 		// The Handler that gets information back from the 
 		 private final Handler connectionHandler = new Handler() {
@@ -155,7 +211,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 							sendInSuccess();
 							break;
 		        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-							if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+		        			if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
 								sendInError();
 							}
 							break;
@@ -198,5 +254,6 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 	    	}
 	    	return false;
 	    }
-	
+	 
+	 
 }
