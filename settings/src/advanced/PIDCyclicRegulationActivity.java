@@ -55,7 +55,7 @@ final private String TAG = "PIDCyclicRegulationActivity";
         setContentView(R.layout.advanced_pid_cyclic_regulation);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.stick_deathband)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.pid_cyclic_regulation)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         

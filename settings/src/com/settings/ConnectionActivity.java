@@ -422,7 +422,12 @@ public class ConnectionActivity extends BaseActivity{
     	sendInProgress();
 		try {
 			System.arraycopy(profile, 1, profile, 0, profile.length-1);
-			DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), profile);
+			if(fileForSave.endsWith(".4ds")){ // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
+				DstabiProfile.saveProfileToFile(new File(fileForSave), profile);
+			}else{
+				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), profile);
+			}
+			
 			fileForSave = null;
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();

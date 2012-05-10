@@ -80,7 +80,7 @@ public class AdvancedActivity extends BaseActivity{
 	 */
 	public void openRudderDynamicActivity(View v)
 	{
-		Intent i = new Intent(AdvancedActivity.this, StickDeathBandActivity.class);
+		Intent i = new Intent(AdvancedActivity.this, RudderDynamicActivity.class);
 		startActivity(i);
 	}
 	

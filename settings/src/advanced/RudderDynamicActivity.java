@@ -51,7 +51,7 @@ final private String TAG = "RudderDynamicActivity";
         setContentView(R.layout.advanced_rudder_stop);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.cyclick_feed_forward)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.rudder_dynamic)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
