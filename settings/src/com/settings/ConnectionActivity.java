@@ -112,6 +112,7 @@ public class ConnectionActivity extends BaseActivity{
 			 SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, 0);
 			 String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
 			
+			 Log.d(TAG, prefs_adress);
 			// iterator
 			int i = 0;
 		    // Loop through paired devices
@@ -131,8 +132,8 @@ public class ConnectionActivity extends BaseActivity{
 		}
 		 
 		btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
-		//ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAt.max je tam jen pro jistotu
-		btDeviceSpinner.setSelection(Math.max(btDeviceSpinner.getCount() - 1, position)); 
+		//ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
+		btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position)); 
 		////////////////////////////////////////////////////////////////
 	 }
 	
