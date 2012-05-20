@@ -70,9 +70,16 @@ public class ServosSubtrimActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+			stabiProvider.sendDataNoWaitForResponce("O0");
 		}else{
 			finish();
 		}
+	}
+	
+	@Override
+	public void onStop(){
+		super.onStop();
+		stabiProvider.sendDataNoWaitForResponce("O0");
 	}
 	
 	private void initGui()
@@ -98,7 +105,7 @@ public class ServosSubtrimActivity extends BaseActivity{
 	  */
 	 private void initConfiguration()
 	 {
-		 sendInProgressRead();
+		 showDialogRead();
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
@@ -135,7 +142,7 @@ public class ServosSubtrimActivity extends BaseActivity{
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
 					if(parent.getId() == formItems[i]){
-						sendInProgress();
+						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValueFromSpinner(newVal);
 						stabiProvider.sendDataNoWaitForResponce(item);
@@ -155,7 +162,7 @@ public class ServosSubtrimActivity extends BaseActivity{
 							sendInError();
 							break;
 						case DstabiProvider.MESSAGE_SEND_COMPLETE:
-							sendInSuccess();
+							sendInSuccessInfo();
 							break;
 		        		case DstabiProvider.MESSAGE_STATE_CHANGE:
 							if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -165,11 +172,11 @@ public class ServosSubtrimActivity extends BaseActivity{
 		        		case PROFILE_CALL_BACK_CODE:
 		        			if(msg.getData().containsKey("data")){
 		        				initGuiByProfileString(msg.getData().getByteArray("data"));
-		        				sendInSuccess();
+		        				sendInSuccessDialog();
 		        			}
 		        			break;
 		        		case PROFILE_SAVE_CALL_BACK_CODE:
-		        			sendInSuccess();
+		        			sendInSuccessDialog();
 		        			showProfileSavedDialog();
 		        			break;
 		        	}

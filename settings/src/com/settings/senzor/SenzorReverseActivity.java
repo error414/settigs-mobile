@@ -70,7 +70,7 @@ final private String TAG = "SenzorReverseActivity";
 	  */
 	 private void initConfiguration()
 	 {
-		 sendInProgressRead();
+		 showDialogRead();
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
@@ -143,7 +143,7 @@ final private String TAG = "SenzorReverseActivity";
 					item.setValueFromCheckBox(isChecked);
 					stabiProvider.sendDataNoWaitForResponce(item);
 					
-					sendInProgress();
+					showInfoBarWrite();
 				}
 			}
 			
@@ -151,36 +151,35 @@ final private String TAG = "SenzorReverseActivity";
 		
 	};
 	
-	// The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
-	        	switch(msg.what){
-		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-						sendInError();
-						break;
-					case DstabiProvider.MESSAGE_SEND_COMPLETE:
-						sendInSuccess();
-						break;
-	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+		// The Handler that gets information back from the 
+		 private final Handler connectionHandler = new Handler() {
+		        @Override
+		        public void handleMessage(Message msg) {
+		        	switch(msg.what){
+			        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 							sendInError();
-						}
-						break;
-	        		case PROFILE_CALL_BACK_CODE:
-	        			if(msg.getData().containsKey("data")){
-	        				initGuiByProfileString(msg.getData().getByteArray("data"));
-	        				sendInSuccess();
-	        			}
-	        			break;
-	        		case PROFILE_SAVE_CALL_BACK_CODE:
-	        			sendInSuccess();
-	        			showProfileSavedDialog();
-	        			break;
-	        	}
-	        }
-	    };
-	    
+							break;
+						case DstabiProvider.MESSAGE_SEND_COMPLETE:
+							sendInSuccessInfo();
+							break;
+		        		case DstabiProvider.MESSAGE_STATE_CHANGE:
+							if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+								sendInError();
+							}
+							break;
+		        		case PROFILE_CALL_BACK_CODE:
+		        			if(msg.getData().containsKey("data")){
+		    				initGuiByProfileString(msg.getData().getByteArray("data"));
+		    				sendInSuccessDialog();
+		    			}
+		    			break;
+		    		case PROFILE_SAVE_CALL_BACK_CODE:
+		    			sendInSuccessDialog();
+		    			showProfileSavedDialog();
+		    			break;
+		    	}
+		    }
+		};
 	    
 	    /**
 	     * vytvoreni kontextoveho menu

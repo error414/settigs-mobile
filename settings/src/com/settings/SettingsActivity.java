@@ -1,5 +1,9 @@
 package com.settings;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.settings.senzor.SenzorActivity;
@@ -13,6 +17,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -42,6 +51,37 @@ public class SettingsActivity extends BaseActivity {
 		((TextView)findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 		
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		
+		
+		ListView menuList = (ListView) findViewById(R.id.listMenu);
+		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
+		menuList.setAdapter(adapter);
+		menuList.setOnItemClickListener(new OnItemClickListener() {
+			 
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+            	
+            	switch(position){
+            		case 0://connection
+            			openConnectionIndent(view);
+            			break;
+            		case 1://general
+            			openGeneralIndent(view);
+            			break;
+            		case 2://servo
+            			openServosIndent(view);
+            			break;
+            		case 3://senzor
+            			openSenzorIndent(view);
+            			break;
+            		case 4://advanced
+            			openAdvancedIndent(view);
+            			break;
+            	}
+ 
+            }
+        });
     }
 	
 	public void onResume(){
@@ -52,6 +92,48 @@ public class SettingsActivity extends BaseActivity {
 		}else{
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
+	}
+	
+	/**
+	 * vytvoreni pole pro adapter menu listu
+	 * 
+	 * tohle se bude vytvaret dynamicky z pole
+	 * 
+	 * @return
+	 */
+	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
+		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
+		//connection
+		HashMap<Integer, Integer> connection = new HashMap<Integer, Integer>();
+		connection.put(TITLE_FOR_MENU, R.string.connection_button_text);
+		connection.put(ICO_RESOURCE_ID, R.drawable.i4);
+		menuListData.add(connection);
+		
+		//general
+		HashMap<Integer, Integer> general = new HashMap<Integer, Integer>();
+		general.put(TITLE_FOR_MENU, R.string.general_button_text);
+		general.put(ICO_RESOURCE_ID, R.drawable.i6);
+		menuListData.add(general);
+		
+		//servo
+		HashMap<Integer, Integer> servo = new HashMap<Integer, Integer>();
+		servo.put(TITLE_FOR_MENU, R.string.servos_button_text);
+		servo.put(ICO_RESOURCE_ID, R.drawable.i8);
+		menuListData.add(servo);
+		
+		//senzor
+		HashMap<Integer, Integer> senzor = new HashMap<Integer, Integer>();
+		senzor.put(TITLE_FOR_MENU, R.string.senzor_button_text);
+		senzor.put(ICO_RESOURCE_ID, R.drawable.i15);
+		menuListData.add(senzor);
+		
+		//advanced
+		HashMap<Integer, Integer> advanced = new HashMap<Integer, Integer>();
+		advanced.put(TITLE_FOR_MENU, R.string.advanced_button_text);
+		advanced.put(ICO_RESOURCE_ID, R.drawable.i20);
+		menuListData.add(advanced);
+		
+		return menuListData;
 	}
 	
 	/**

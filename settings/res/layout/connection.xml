@@ -96,10 +96,9 @@
 	            android:layout_alignLeft="@+id/bt_device_spinner"
 	            android:layout_below="@+id/bt_device_spinner"
 	            android:layout_marginTop="33dp"
-	            android:background="@drawable/big_button_small_selector"
 	            android:onClick="manageConnectionToBTDevice"
 	            android:text="@string/connect"
-	            android:textColor="@color/text_color_white"
+	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
 	        <TextView

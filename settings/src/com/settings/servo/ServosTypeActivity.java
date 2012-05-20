@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -98,7 +99,7 @@ public class ServosTypeActivity extends BaseActivity{
 	  */
 	 private void initConfiguration()
 	 {
-		 sendInProgressRead();
+		 showDialogRead();
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
@@ -180,7 +181,7 @@ public class ServosTypeActivity extends BaseActivity{
 						item.setValueFromSpinner(pos);
 						stabiProvider.sendDataNoWaitForResponce(item);
 						
-						sendInProgress();
+						showInfoBarWrite();
 						
 						//pro prvrk rudder pulse volame jeste obsluhu zmeny seznamu rudder frequency
 						if(parent.getId() == formItems[2]){
@@ -205,24 +206,25 @@ public class ServosTypeActivity extends BaseActivity{
 		        public void handleMessage(Message msg) {
 		        	switch(msg.what){
 			        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+			        		Log.d(TAG, "error");
 							sendInError();
 							break;
 						case DstabiProvider.MESSAGE_SEND_COMPLETE:
-							sendInSuccess();
+							sendInSuccessInfo();
 							break;
 		        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-		        			if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+							if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
 								sendInError();
 							}
 							break;
 		        		case PROFILE_CALL_BACK_CODE:
 		        			if(msg.getData().containsKey("data")){
 		        				initGuiByProfileString(msg.getData().getByteArray("data"));
-		        				sendInSuccess();
+		        				sendInSuccessDialog();
 		        			}
 		        			break;
 		        		case PROFILE_SAVE_CALL_BACK_CODE:
-		        			sendInSuccess();
+		        			sendInSuccessDialog();
 		        			showProfileSavedDialog();
 		        			break;
 		        	}

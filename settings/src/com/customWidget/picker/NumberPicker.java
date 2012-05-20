@@ -82,10 +82,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private final Runnable mRunnable = new Runnable() {
         public void run() {
             if (mIncrement) {
-                changeCurrent(mCurrent + 1);
+                changeCurrent(mCurrent + mStep);
                 mHandler.postDelayed(this, mSpeed);
             } else if (mDecrement) {
-                changeCurrent(mCurrent - 1);
+                changeCurrent(mCurrent - mStep);
                 mHandler.postDelayed(this, mSpeed);
             }
         }
@@ -126,11 +126,11 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mNumberInputFilter = new NumberRangeKeyListener();
         mIncrementButton = (NumberPickerButton) findViewById(R.id.increment);
         mIncrementButton.setOnClickListener(this);
-      //  mIncrementButton.setOnLongClickListener(this);
+        mIncrementButton.setOnLongClickListener(this);
         mIncrementButton.setNumberPicker(this);
         mDecrementButton = (NumberPickerButton) findViewById(R.id.decrement);
         mDecrementButton.setOnClickListener(this);
-       // mDecrementButton.setOnLongClickListener(this);
+        mDecrementButton.setOnLongClickListener(this);
         mDecrementButton.setNumberPicker(this);
 
         mText = (EditText) findViewById(R.id.timepicker_input);

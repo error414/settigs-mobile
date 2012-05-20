@@ -1,5 +1,8 @@
 package com.settings.senzor;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -7,9 +10,13 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
+import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
@@ -34,6 +41,28 @@ public class SenzorActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		
+		ListView menuList = (ListView) findViewById(R.id.listMenu);
+		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
+		menuList.setAdapter(adapter);
+		menuList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                    int position, long id) {
+            	
+            	switch(position){
+            		case 0://senzivity
+            			openSenzorSenzivityActivity(view);
+            			break;
+            		case 1://reverse
+            			openSenzorReverseActivity(view);
+            			break;
+            		case 2://rotation speed
+            			openSenzorRotationSpeedActivity(view);
+            			break;
+            	}
+            }
+		});
     }
 	
 	/**
@@ -48,6 +77,36 @@ public class SenzorActivity extends BaseActivity{
 		}else{
 			finish();
 		}
+	}
+	
+	/**
+	 * vytvoreni pole pro adapter menu listu
+	 * 
+	 * tohle se bude vytvaret dynamicky z pole
+	 * 
+	 * @return
+	 */
+	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
+		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
+		//senzivity
+		HashMap<Integer, Integer> senzivity = new HashMap<Integer, Integer>();
+		senzivity.put(TITLE_FOR_MENU, R.string.senzivity);
+		senzivity.put(ICO_RESOURCE_ID, R.drawable.i16);
+		menuListData.add(senzivity);
+		
+		//reverse
+		HashMap<Integer, Integer> reverse = new HashMap<Integer, Integer>();
+		reverse.put(TITLE_FOR_MENU, R.string.reverse);
+		reverse.put(ICO_RESOURCE_ID, R.drawable.i17);
+		menuListData.add(reverse);
+		
+		//rotation speed
+		HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
+		rotation.put(TITLE_FOR_MENU, R.string.rotation_speed);
+		rotation.put(ICO_RESOURCE_ID, R.drawable.i18);
+		menuListData.add(rotation);
+		
+		return menuListData;
 	}
 	
 	/**

@@ -5,13 +5,6 @@
     android:background="@color/background_color"
     android:orientation="vertical" >
 
-	 <ScrollView
-            android:id="@+id/scrollView1"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background_color">
-
 	    <RelativeLayout
 	        android:layout_width="320dp"
 	        android:layout_height="wrap_content"
@@ -36,98 +29,12 @@
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
-
-	        <ImageView
-	            android:id="@+id/imageView2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:src="@drawable/black_line_small" />
-
-	        <ImageView
-	            android:id="@+id/imageView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/black_line_small" />
-
-	        <TableLayout
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="40dp" >
-
-	            <TableRow
-	                android:gravity="center">
-
-	                <Button
-	                    android:id="@+id/button1"
-	                    android:layout_width="150dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="5dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openCyclicFeedForwardActivity"
-	                    android:text="@string/cyclick_feed_forward"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-
-	                <Button
-	                    android:id="@+id/button2"
-	                    android:layout_width="150dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="5dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openStickDeathBandActivity"
-	                    android:text="@string/stick_deathband"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-	                
-	            </TableRow>
-	            
-	            <TableRow
-	                android:gravity="center">
-
-	                <Button
-	                    android:id="@+id/button3"
-	                    android:layout_width="150dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="5dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openRudderDynamicActivity"
-	                    android:text="@string/rudder_dynamic"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-	                
-	                <Button
-	                    android:id="@+id/button4"
-	                    android:layout_width="150dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="5dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openRudderMixActivity"
-	                    android:text="@string/rudder_revomix"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-	                
-	            </TableRow>
-	            <TableRow
-	                android:gravity="center">
-
-	                <Button
-	                    android:id="@+id/button5"
-	                    android:layout_width="150dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="5dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openPIDCyclicRegulationActivity"
-	                    android:text="@string/pid_cyclic_regulation"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-	            </TableRow>
-	        </TableLayout>
-	        
 	    </RelativeLayout>
-
-	</ScrollView>
+	    
+	    <ListView
+           android:id="@+id/listMenu"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:layout_weight="1" >
+       </ListView>
 </LinearLayout>

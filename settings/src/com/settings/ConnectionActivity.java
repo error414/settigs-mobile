@@ -203,7 +203,7 @@ public class ConnectionActivity extends BaseActivity{
 				textStatusView.setText("Connecting..."); 
 				textStatusView.setTextColor(Color.MAGENTA);
 				curentDeviceText.setText(null);
-				sendInSuccess();
+				sendInSuccessDialog();
 				break;
 			case BluetoothCommandService.STATE_CONNECTED: 
 				textStatusView.setText("Connected");
@@ -214,7 +214,7 @@ public class ConnectionActivity extends BaseActivity{
 				BluetoothDevice device = stabiProvider.getBluetoothDevice();
 				curentDeviceText.setText(device.getName() + " [" + device.getAddress() + "]");
 				
-				 sendInProgressRead();
+				 showDialogRead();
 				 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 				 
 				 ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
@@ -227,7 +227,7 @@ public class ConnectionActivity extends BaseActivity{
 				connectButton.setText(R.string.connect);
 				
 				curentDeviceText.setText(null);
-				sendInSuccess();
+				sendInSuccessDialog();
 				
 				((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 				break;
@@ -299,7 +299,7 @@ public class ConnectionActivity extends BaseActivity{
 	                	//SAVE
 		        		
 		        		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			        		sendInProgress();
+			        		showDialogWrite();
 			        		fileForSave = filePath;
 							stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
 		        		}
@@ -341,17 +341,17 @@ public class ConnectionActivity extends BaseActivity{
     				sendInError(false); // ukazat error ale neukoncovat activitu
         			break;
         		case DstabiProvider.MESSAGE_SEND_COMPLETE:
-        			sendInSuccess();
+        			sendInSuccessDialog();
         			Log.d(TAG, "prisly data count je " + String.valueOf(progressCount));
         			break;
     			case PROFILE_CALL_BACK_CODE:
-    				sendInSuccess();
+    				sendInSuccessDialog();
         			if(msg.getData().containsKey("data")){
         				initGuiByProfileString(msg.getData().getByteArray("data"));
         			}
         			break;
     			case PROFILE_CALL_BACK_CODE_FOR_SAVE:
-    				sendInSuccess();
+    				sendInSuccessDialog();
         			if(msg.getData().containsKey("data")){
         				saveProfileTofile(msg.getData().getByteArray("data"));
         			}
@@ -389,7 +389,7 @@ public class ConnectionActivity extends BaseActivity{
     			ProfileItem item = (ProfileItem)items.get(key);
     			
     			if(item.getCommand() != null && isPosibleSendData){
-    				sendInProgressRead();
+    				showDialogRead();
     				Log.d(TAG, "odesilam prikaz "+ item.getCommand() + " : count je " + String.valueOf(progressCount));
     				stabiProvider.sendDataNoWaitForResponce(item);
     			}else{
@@ -419,7 +419,7 @@ public class ConnectionActivity extends BaseActivity{
     		Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
     		return;
     	}
-    	sendInProgress();
+    	showDialogWrite();
 		try {
 			System.arraycopy(profile, 1, profile, 0, profile.length-1);
 			if(fileForSave.endsWith(".4ds")){ // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
@@ -432,7 +432,7 @@ public class ConnectionActivity extends BaseActivity{
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
 		}
-    	sendInSuccess();
+		sendInSuccessDialog();
     }
     
     

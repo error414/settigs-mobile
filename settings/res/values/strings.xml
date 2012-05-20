@@ -30,7 +30,9 @@
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
     <string name="write_please_wait">Write data. Please wait\.\.\.</string>
+    <string name="write_data">Write data\.\.\.</string>
     <string name="read_please_wait">Read data. Please wait\.\.\.</string>
+    <string name="read_data">Read data.\.\.\.</string>
     <string name="damage_profile">Damage profile</string>
     <string name="unknow_version">Unknow version</string>
     <string name="first_paired_device">First paired devices</string>

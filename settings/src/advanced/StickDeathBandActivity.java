@@ -98,7 +98,7 @@ final private String TAG = "StickDeathBandActivity";
 	  */
 	 private void initConfiguration()
 	 {
-		 sendInProgressRead();
+		 showDialogRead();
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
@@ -135,7 +135,7 @@ final private String TAG = "StickDeathBandActivity";
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
 					if(parent.getId() == formItems[i]){
-						sendInProgress();
+						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValueFromSpinner(NumberOperation.percentToNumber(255, newVal));
 						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
@@ -155,7 +155,7 @@ final private String TAG = "StickDeathBandActivity";
 							sendInError();
 							break;
 						case DstabiProvider.MESSAGE_SEND_COMPLETE:
-							sendInSuccess();
+							sendInSuccessInfo();
 							break;
 		        		case DstabiProvider.MESSAGE_STATE_CHANGE:
 							if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -165,11 +165,11 @@ final private String TAG = "StickDeathBandActivity";
 		        		case PROFILE_CALL_BACK_CODE:
 		        			if(msg.getData().containsKey("data")){
 		        				initGuiByProfileString(msg.getData().getByteArray("data"));
-		        				sendInSuccess();
+		        				sendInSuccessDialog();
 		        			}
 		        			break;
 		        		case PROFILE_SAVE_CALL_BACK_CODE:
-		        			sendInSuccess();
+		        			sendInSuccessDialog();
 		        			showProfileSavedDialog();
 		        			break;
 		        	}

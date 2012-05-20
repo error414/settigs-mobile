@@ -105,7 +105,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 	  */
 	 private void initConfiguration()
 	 {
-		 sendInProgressRead();
+		 showDialogRead();
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
@@ -142,7 +142,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
 					if(parent.getId() == formItems[i]){
-						sendInProgress();
+						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValueFromSpinner(newVal);
 						stabiProvider.sendDataNoWaitForResponce(item);
@@ -153,35 +153,35 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 		 };
 	
 	
-    // The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
-	        	switch(msg.what){
-		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-						sendInError();
-						break;
-					case DstabiProvider.MESSAGE_SEND_COMPLETE:
-						sendInSuccess();
-						break;
-	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+		// The Handler that gets information back from the 
+		 private final Handler connectionHandler = new Handler() {
+		        @Override
+		        public void handleMessage(Message msg) {
+		        	switch(msg.what){
+			        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 							sendInError();
-						}
-						break;
-	        		case PROFILE_CALL_BACK_CODE:
-	        			if(msg.getData().containsKey("data")){
-	        				initGuiByProfileString(msg.getData().getByteArray("data"));
-	        				sendInSuccess();
-	        			}
-	        			break;
-	        		case PROFILE_SAVE_CALL_BACK_CODE:
-	        			sendInSuccess();
-	        			showProfileSavedDialog();
-	        			break;
-	        	}
-	        }
-	    };
+							break;
+						case DstabiProvider.MESSAGE_SEND_COMPLETE:
+							sendInSuccessInfo();
+							break;
+		        		case DstabiProvider.MESSAGE_STATE_CHANGE:
+							if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+								sendInError();
+							}
+							break;
+		        		case PROFILE_CALL_BACK_CODE:
+		        			if(msg.getData().containsKey("data")){
+		    				initGuiByProfileString(msg.getData().getByteArray("data"));
+		    				sendInSuccessDialog();
+		    			}
+		    			break;
+		    		case PROFILE_SAVE_CALL_BACK_CODE:
+		    			sendInSuccessDialog();
+		    			showProfileSavedDialog();
+		    			break;
+		    	}
+		    }
+		};
 	    
     /**
      * vytvoreni kontextoveho menu

@@ -4,12 +4,6 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" 
     android:background="@color/background_color">
-	 <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background_color">
-
 	    <RelativeLayout
 	        android:layout_width="320dp"
 	        android:layout_height="wrap_content"
@@ -34,44 +28,12 @@
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
-
-			<TableLayout
-	            android:layout_width="fill_parent"
-	            android:layout_height="fill_parent"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="40dp" >
-
-	            <TableRow
-	                android:gravity="center">
-
-	                <Button
-	                    android:id="@+id/button1"
-	                    android:layout_width="120dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="10dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openCyclicRingRange"
-	                    android:text="@string/cyclic_ring_range"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-
-	                <Button
-	                    android:id="@+id/button2"
-	                    android:layout_width="120dp"
-	                    android:layout_height="50dp"
-	                    android:layout_margin="10dp"
-	                    android:background="@drawable/big_button_small_selector"
-	                    android:onClick="openRudderEndPoints"
-	                    android:text="@string/rudder_end_points"
-	                    android:textColor="@color/text_color_white"
-	                    android:textStyle="bold" />
-	                
-	            </TableRow>
-	        </TableLayout>
-
 	    </RelativeLayout>
-
-	</ScrollView>
+	    
+	    <ListView
+           android:id="@+id/listMenu"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:layout_weight="1" >
+       </ListView>
 </LinearLayout>
