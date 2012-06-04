@@ -144,7 +144,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(newVal);
+						item.setValue(newVal);
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}

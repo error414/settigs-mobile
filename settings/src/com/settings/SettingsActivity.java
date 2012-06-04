@@ -11,6 +11,7 @@ import com.settings.servo.ServosActivity;
 
 import advanced.AdvancedActivity;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;

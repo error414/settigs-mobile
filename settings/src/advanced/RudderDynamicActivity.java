@@ -78,7 +78,7 @@ final private String TAG = "RudderDynamicActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 40); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setStep(1); // nastavime krok
 		 }
 	}
@@ -120,7 +120,7 @@ final private String TAG = "RudderDynamicActivity";
 			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(NumberOperation.numberToPercent(255, size));
+			tempPicker.setCurrent(size);
 		 }
 				
 	 }
@@ -137,8 +137,8 @@ final private String TAG = "RudderDynamicActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(NumberOperation.percentToNumber(255, newVal));
-						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
+						item.setValue(newVal);
+						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}

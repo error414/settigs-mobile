@@ -78,8 +78,8 @@ public class RudderRevomixActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setStep(5); // nastavime krok
+			 tempPicker.setRange(118, 138); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setStep(1); // nastavime krok
 		 }
 	}
 	
@@ -137,7 +137,7 @@ public class RudderRevomixActivity extends BaseActivity{
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(newVal);
+						item.setValue(newVal);
 						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}

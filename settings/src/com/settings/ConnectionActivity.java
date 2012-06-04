@@ -55,7 +55,7 @@ public class ConnectionActivity extends BaseActivity{
 	final protected int PROFILE_LOAD = 1;
 	final protected int PROFILE_SAVE = 2;
 	
-	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/4dstabi_profile/";
+	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/gravity_profile/";
 	
 	private TextView textStatusView;
 	private Spinner  btDeviceSpinner;
@@ -369,6 +369,7 @@ public class ConnectionActivity extends BaseActivity{
     {
     	isPosibleSendData = true;
     	Log.d(TAG, "stav pred odeslanim profilu " + String.valueOf(progressCount));
+    	Log.d(TAG, "delka profilu na odeslani " + String.valueOf(profile.length));
     	// musime byt pripojeni
     	if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
     		Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
@@ -376,7 +377,7 @@ public class ConnectionActivity extends BaseActivity{
     	}
     	
     	byte[] lenght = new byte[1];
-    	lenght[0] = ByteOperation.intToByte(100); 
+    	lenght[0] = ByteOperation.intToByte(profile.length - 1); 
     			
     	DstabiProfile mstabiProfile = new DstabiProfile(ByteOperation.combineByteArray(lenght, profile));
     	
@@ -387,7 +388,7 @@ public class ConnectionActivity extends BaseActivity{
     		while(iteration.hasNext()) {
     			String key=(String)iteration.next();
     			ProfileItem item = (ProfileItem)items.get(key);
-    			
+    			Log.d(TAG, "iterator");
     			if(item.getCommand() != null && isPosibleSendData){
     				showDialogRead();
     				Log.d(TAG, "odesilam prikaz "+ item.getCommand() + " : count je " + String.valueOf(progressCount));

@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import android.content.Context;
 import android.util.Log;
 import exception.IndexOutOfException;
 
@@ -72,13 +73,13 @@ public class DstabiProfile {
 		profileMap.put("RATE_ROLL",		new ProfileItem(26, 0, 16, 	"b"));
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 0, 16, 	"c"));
 
-		profileMap.put("RATE_CYCLIC",	new ProfileItem(28, 0, 255, "r")); // procenta
-		profileMap.put("STICK_DB",		new ProfileItem(29, 0, 255, "s")); // procenta
-		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 255, "p")); // procenta
-		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 0, 255, "m")); 
-		profileMap.put("REG_P",			new ProfileItem(39, 0, 100, "4")); 
-		profileMap.put("REG_I",			new ProfileItem(40, 0, 100, "5")); 
-		profileMap.put("REG_D",			new ProfileItem(41, 0, 100, "6")); 
+		profileMap.put("RATE_CYCLIC",	new ProfileItem(28, 0, 32, "r")); // procenta
+		profileMap.put("STICK_DB",		new ProfileItem(29, 0, 255, "s")); 
+		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 40, "p")); 
+		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); 
+		profileMap.put("REG_P",			new ProfileItem(40, 0, 255, "4")); 
+		profileMap.put("REG_I",			new ProfileItem(39, 0, 255, "5")); 
+		profileMap.put("REG_D",			new ProfileItem(41, 0, 255, "6")); 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
 		
 		
@@ -236,6 +237,17 @@ public class DstabiProfile {
 		{
 			this.value = value;
 		}
+		
+		/**
+		 * nastavime hodnotu
+		 * 
+		 * @param value
+		 */
+		public void setValue(Integer value)
+		{
+			this.value = ByteOperation.intToByte(value);
+		}
+		
 		
 		/**
 		 * nastavime hodnotu

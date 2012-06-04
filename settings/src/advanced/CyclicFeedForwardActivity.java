@@ -137,7 +137,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(NumberOperation.percentToNumber(255, newVal));
+						item.setValue(NumberOperation.percentToNumber(255, newVal));
 						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}

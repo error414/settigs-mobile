@@ -141,7 +141,7 @@ final private String TAG = "PIDCyclicRegulationActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(newVal);
+						item.setValue(newVal);
 						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}

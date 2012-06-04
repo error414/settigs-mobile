@@ -7,8 +7,6 @@ public class NumberOperation {
 	{
 		if(base == 0) return 0;
 		
-		
-		
 		return (int)(((float)100 / (float)base) * (float)num);
 	}
 	

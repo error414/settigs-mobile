@@ -120,7 +120,7 @@ final private String TAG = "StickDeathBandActivity";
 			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(NumberOperation.numberToPercent(255, size));
+			tempPicker.setCurrent(size);
 		 }
 				
 	 }
@@ -137,8 +137,7 @@ final private String TAG = "StickDeathBandActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValueFromSpinner(NumberOperation.percentToNumber(255, newVal));
-						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
+						item.setValue(newVal);
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}
