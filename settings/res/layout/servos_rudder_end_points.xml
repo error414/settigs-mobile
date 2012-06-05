@@ -35,44 +35,27 @@
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/rudder_limit_min"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView2"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/imageView1"
 	            android:layout_below="@+id/imageView1"
-	            android:layout_marginLeft="44dp"
-	            android:layout_marginTop="55dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <com.customWidget.picker.NumberPicker
+	        </com.customWidget.picker.ProgresEx>
+
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/rudder_limit_max"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/rudder_limit_min"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/rudder_limit_min"
 	            android:layout_below="@+id/rudder_limit_min"
-	            android:layout_marginTop="44dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <ImageView
-	            android:id="@+id/imageView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/rudder_limit_min"
-	            android:layout_toRightOf="@+id/rudder_limit_min"
-	            android:layout_marginLeft="32dp"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/imageView2"
-	            android:layout_width="wrap_content"
-	            android:layout_marginLeft="32dp"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/rudder_limit_max"
-	            android:layout_toRightOf="@+id/rudder_limit_max"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
+	        </com.customWidget.picker.ProgresEx>
 
 	    </RelativeLayout>
 

@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -116,6 +117,30 @@ public class GeneralActivity extends BaseActivity{
 	 }
 	 
 	 /**
+	  * pri zmene modelu je potreba zmenit select mixu
+	  * rudder frequency
+	  * 
+	  * @param pos
+	  */
+	 private void updateItemMix(int pos)
+	 {
+		 ArrayAdapter<?> adapter;
+		 Spinner mix = (Spinner) findViewById(R.id.mix_select_id);
+		 int freqPos = (int) mix.getSelectedItemPosition(); 
+		 if(pos == 2){
+			 adapter = ArrayAdapter.createFromResource(
+		                this, R.array.mix_planes_values, android.R.layout.simple_spinner_item);
+		 }else{
+			 adapter = ArrayAdapter.createFromResource(
+		                this, R.array.mix_values, android.R.layout.simple_spinner_item);
+		 }
+		 
+		 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		 mix.setAdapter(adapter);
+		 mix.setSelection(Math.min(freqPos, adapter.getCount() - 1 ));
+	 }
+	 
+	 /**
 	  * naplneni formulare
 	  * 
 	  * @param profile
@@ -130,6 +155,11 @@ public class GeneralActivity extends BaseActivity{
 		 try{
 			 for(int i = 0; i < formItems.length; i++){
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
+				
+				 //TOHLE MUSIM VYRESIT LIP
+				 if(tempSpinner.getId() == formItems[1]){
+					 updateItemMix(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
+				 }
 				
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 				
@@ -164,6 +194,11 @@ public class GeneralActivity extends BaseActivity{
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
+					
+					//pro prvek model volam jeste obsluhu pro zmenu mixu
+					if(parent.getId() == formItems[1]){
+						updateItemMix(pos);
+					}
 					
 					showInfoBarWrite();
 				}

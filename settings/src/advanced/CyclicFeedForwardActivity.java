@@ -11,8 +11,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.NumberPicker;
-import com.customWidget.picker.NumberPicker.OnChangedListener;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.NumberOperation;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -34,7 +34,11 @@ final private String TAG = "CyclicFeedForwardActivity";
 	
 	private int formItems[] = {
 			R.id.rate_cyclic,
-		};
+	};
+	
+	private int formItemsTitle[] = {
+			R.string.cyclick_feed_forward,
+	};
 	
 	private DstabiProvider stabiProvider;
 	
@@ -77,9 +81,9 @@ final private String TAG = "CyclicFeedForwardActivity";
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setStep(1); // nastavime krok
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime title
 		 }
 	}
 	
@@ -89,7 +93,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((NumberPicker) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		 }
 	 }
 	 
@@ -117,19 +121,17 @@ final private String TAG = "CyclicFeedForwardActivity";
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(NumberOperation.numberToPercent(255, size));
+			 tempPicker.setCurrent(NumberOperation.numberToPercent(32, size));
 		 }
 				
 	 }
 	 
 	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
-
-
 			@Override
-			public void onChanged(NumberPicker parent, int oldVal, int newVal) {
+			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
@@ -137,13 +139,12 @@ final private String TAG = "CyclicFeedForwardActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValue(NumberOperation.percentToNumber(255, newVal));
-						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
+						item.setValue(NumberOperation.percentToNumber(32, newVal));
+						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(32, newVal)));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}
 			}
-
 		 };
 		 
 		// The Handler that gets information back from the 

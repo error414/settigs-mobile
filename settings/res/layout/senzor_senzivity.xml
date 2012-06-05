@@ -35,88 +35,38 @@
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
-	        <TextView
-	            android:id="@+id/textView1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView2"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginLeft="44dp"
-	            android:layout_marginTop="53dp"
-	            android:text="@string/x_picth"
-	            android:textColor="@color/text_color" />
-
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/x_pitch"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView1"
-	            android:layout_below="@+id/textView1" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/imageView1"
+	            android:layout_below="@+id/imageView1"
+	            android:layout_marginTop="32dp" >
 
-	        <ImageView
-	            android:id="@+id/imageView2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/x_pitch"
-	            android:layout_marginLeft="32dp"
-	            android:layout_toRightOf="@+id/x_pitch"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
+	        </com.customWidget.picker.ProgresEx>
 
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/y_roll"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/x_pitch"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/x_pitch"
 	            android:layout_below="@+id/x_pitch"
-	            android:layout_marginTop="50dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <ImageView
-	            android:id="@+id/imageView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/imageView2"
-	            android:layout_alignTop="@+id/y_roll"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
+	        </com.customWidget.picker.ProgresEx>
 
-	        <TextView
-	            android:id="@+id/textView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_above="@+id/imageView3"
-	            android:layout_alignLeft="@+id/y_roll"
-	            android:text="@string/y_rool"
-	            android:textColor="@color/text_color" />
-
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/z_yaw"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/y_roll"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/y_roll"
 	            android:layout_below="@+id/y_roll"
-	            android:layout_marginTop="50dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <ImageView
-	            android:id="@+id/imageView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/imageView3"
-	            android:layout_alignTop="@+id/z_yaw"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <TextView
-	            android:id="@+id/textView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_above="@+id/imageView4"
-	            android:layout_alignLeft="@+id/z_yaw"
-	            android:text="@string/z_yaw"
-	            android:textColor="@color/text_color" />
+	        </com.customWidget.picker.ProgresEx>
 
 	    </RelativeLayout>
 

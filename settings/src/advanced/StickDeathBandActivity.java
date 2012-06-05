@@ -11,8 +11,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.NumberPicker;
-import com.customWidget.picker.NumberPicker.OnChangedListener;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.NumberOperation;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -34,6 +34,10 @@ final private String TAG = "StickDeathBandActivity";
 	
 	private int formItems[] = {
 			R.id.stick_db,
+		};
+	
+	private int formItemsTitle[] = {
+			R.string.stick_deathband,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -77,9 +81,9 @@ final private String TAG = "StickDeathBandActivity";
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setStep(1); // nastavime krok
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
 	
@@ -89,7 +93,7 @@ final private String TAG = "StickDeathBandActivity";
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((NumberPicker) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		 }
 	 }
 	 
@@ -117,7 +121,7 @@ final private String TAG = "StickDeathBandActivity";
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
 			tempPicker.setCurrent(size);
@@ -129,7 +133,7 @@ final private String TAG = "StickDeathBandActivity";
 
 
 			@Override
-			public void onChanged(NumberPicker parent, int oldVal, int newVal) {
+			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme

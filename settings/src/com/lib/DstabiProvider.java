@@ -213,6 +213,7 @@ public class DstabiProvider {
 	}
 	
 	public void sendDataNoWaitForResponce(String command){
+		Log.d(TAG, command);
 		sendData(command);
 	}
 	

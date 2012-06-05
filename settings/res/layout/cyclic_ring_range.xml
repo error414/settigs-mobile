@@ -35,81 +35,38 @@
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
-	        <TextView
-	            android:id="@+id/textView1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView2"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginLeft="44dp"
-	            android:layout_marginTop="53dp"
-	            android:text="@string/ail_ele"
-	            android:textColor="@color/text_color" />
-
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/cyclic_ring_ail_ele"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView1"
-	            android:layout_below="@+id/textView1" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/imageView1"
+	            android:layout_below="@+id/imageView1"
+	            android:layout_marginTop="32dp" >
 
-	        <ImageView
-	            android:id="@+id/imageView2"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/textView1"
-	            android:layout_marginLeft="32dp"
-	            android:layout_toRightOf="@+id/cyclic_ring_ail_ele"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
+	        </com.customWidget.picker.ProgresEx>
 
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/cyclic_ring_ring"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/cyclic_ring_ail_ele"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/cyclic_ring_ail_ele"
 	            android:layout_below="@+id/cyclic_ring_ail_ele"
-	            android:layout_marginTop="60dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <TextView
-	            android:id="@+id/textView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/cyclic_ring_ring"
-	            android:layout_below="@+id/cyclic_ring_ail_ele"
-	            android:layout_marginTop="44dp"
-	            android:text="@string/ring"
-	            android:textColor="@color/text_color" />
+	        </com.customWidget.picker.ProgresEx>
 
-	        <ImageView
-	            android:id="@+id/imageView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/imageView2"
-	            android:layout_alignTop="@+id/cyclic_ring_ring"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/cyclic_ring_pitch"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/cyclic_ring_ring"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/cyclic_ring_ring"
 	            android:layout_below="@+id/cyclic_ring_ring"
-	            android:layout_marginTop="60dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <TextView
-	            android:id="@+id/textView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/cyclic_ring_pitch"
-	            android:layout_below="@+id/cyclic_ring_ring"
-	            android:layout_marginTop="44dp"
-	            android:text="@string/limit_pitch"
-	            android:textColor="@color/text_color" />
+	        </com.customWidget.picker.ProgresEx>
 
 	    </RelativeLayout>
 

@@ -1,7 +1,7 @@
 package com.settings.servo;
 
-import com.customWidget.picker.NumberPicker;
-import com.customWidget.picker.NumberPicker.OnChangedListener;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.customWidget.picker.ProgresEx;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -36,6 +37,12 @@ public class ServosSubtrimActivity extends BaseActivity{
 			R.id.elevator_picker,
 			R.id.pitch_picker,
 		};
+	
+	private int formItemsTitle[] = {
+			R.string.aileron,
+			R.string.elevator,
+			R.string.pitch,
+	};
 	
 	private DstabiProvider stabiProvider;
 
@@ -70,23 +77,30 @@ public class ServosSubtrimActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			stabiProvider.sendDataNoWaitForResponce("O0");
+			stabiProvider.sendDataNoWaitForResponce("O0"); //povoleni/zakazani subtrimu
 		}else{
 			finish();
 		}
 	}
 	
 	@Override
+	public void onPause(){
+		super.onPause();
+		stabiProvider.sendDataNoWaitForResponce("O0"); //povoleni/zakazani subtrimu
+	}
+	
+	@Override
 	public void onStop(){
 		super.onStop();
-		stabiProvider.sendDataNoWaitForResponce("O0");
+		stabiProvider.sendDataNoWaitForResponce("O0"); //povoleni/zakazani subtrimu
 	}
 	
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setTitle(formItemsTitle[i]);
 		 }
 	}
 	
@@ -96,7 +110,7 @@ public class ServosSubtrimActivity extends BaseActivity{
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((NumberPicker) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		 }
 	 }
 	 
@@ -124,7 +138,7 @@ public class ServosSubtrimActivity extends BaseActivity{
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
 			tempPicker.setCurrent(size);
@@ -136,7 +150,7 @@ public class ServosSubtrimActivity extends BaseActivity{
 
 
 			@Override
-			public void onChanged(NumberPicker parent, int oldVal, int newVal) {
+			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme

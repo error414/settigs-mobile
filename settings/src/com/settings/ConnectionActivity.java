@@ -200,13 +200,13 @@ public class ConnectionActivity extends BaseActivity{
 		
 		switch(stabiProvider.getState()){
 			case BluetoothCommandService.STATE_CONNECTING: 
-				textStatusView.setText("Connecting..."); 
+				textStatusView.setText(R.string.connecting); 
 				textStatusView.setTextColor(Color.MAGENTA);
 				curentDeviceText.setText(null);
 				sendInSuccessDialog();
 				break;
 			case BluetoothCommandService.STATE_CONNECTED: 
-				textStatusView.setText("Connected");
+				textStatusView.setText(R.string.connected);
 				textStatusView.setTextColor(Color.GREEN);
 				
 				connectButton.setText(R.string.disconnect);

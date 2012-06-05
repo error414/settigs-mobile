@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/progres_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp" 
+        android:background="@drawable/list_selector"
+        >
+
+        <TextView
+            android:id="@+id/progres_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:text="Default Title"
+            android:textColor="@color/text_color"
+            android:textSize="18dp"
+            android:textStyle="bold"
+             />
+
+        <ProgressBar
+            android:id="@+id/progres_bar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/progres_title"
+             />
+
+        <TextView
+            android:id="@+id/progres_min"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/progres_bar"
+            android:layout_alignParentLeft="true"
+            android:layout_marginBottom="1dp"
+            android:layout_marginLeft="3dp"
+            android:text="0"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/progres_current"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/progres_bar"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="1dp"
+            android:text="50"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/progres_max"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/progres_bar"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="1dp"
+            android:layout_marginRight="3dp"
+            android:text="100"
+            android:textColor="@color/text_color" />
+
+        <RelativeLayout
+            android:id="@+id/progres_child"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/progres_bar"
+            android:background="@color/background_color" >
+
+            <EditText
+                android:id="@+id/progres_value"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:ems="4"
+                android:inputType="numberDecimal"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:singleLine="true" >
+
+                <requestFocus />
+            </EditText>
+
+            <com.customWidget.picker.ProgresExButton
+                android:id="@+id/progres_minus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@+id/progres_value"
+                android:text="&lt;&lt;&lt;" />
+
+            <com.customWidget.picker.ProgresExButton
+                android:id="@+id/progres_plus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/progres_value"
+                android:text="&gt;&gt;&gt;" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

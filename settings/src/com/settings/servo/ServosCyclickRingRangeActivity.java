@@ -10,8 +10,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.NumberPicker;
-import com.customWidget.picker.NumberPicker.OnChangedListener;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -35,6 +35,12 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 			R.id.cyclic_ring_ail_ele,
 			R.id.cyclic_ring_ring,
 			R.id.cyclic_ring_pitch,
+		};
+	
+	private int formItemsTitle[] = {
+			R.string.ail_ele,
+			R.string.ring,
+			R.string.pitch,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -80,8 +86,9 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			tempPicker.setTitle(formItemsTitle[i]); 
 		 }
 	}
 	
@@ -91,7 +98,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((NumberPicker) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		 }
 	 }
 	 
@@ -120,8 +127,8 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
 			tempPicker.setCurrent(size);
 		 }
@@ -132,7 +139,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 
 
 			@Override
-			public void onChanged(NumberPicker parent, int oldVal, int newVal) {
+			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme

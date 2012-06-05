@@ -11,8 +11,8 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.NumberPicker;
-import com.customWidget.picker.NumberPicker.OnChangedListener;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.NumberOperation;
@@ -37,6 +37,12 @@ public class SenzorSenzivityActivity extends BaseActivity{
 			R.id.x_pitch,
 			R.id.y_roll,
 			R.id.z_yaw,
+		};
+	
+	private int formItemsTitle[] = {
+			R.string.x_picth,
+			R.string.y_rool,
+			R.string.z_yaw,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -80,9 +86,9 @@ public class SenzorSenzivityActivity extends BaseActivity{
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setStep(1); // nastavime krok
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
 	
@@ -92,7 +98,7 @@ public class SenzorSenzivityActivity extends BaseActivity{
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((NumberPicker) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		 }
 	 }
 	 
@@ -120,7 +126,7 @@ public class SenzorSenzivityActivity extends BaseActivity{
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			 NumberPicker tempPicker = (NumberPicker) findViewById(formItems[i]);
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
 			tempPicker.setCurrent(NumberOperation.numberToPercent(255, size));
@@ -132,7 +138,7 @@ public class SenzorSenzivityActivity extends BaseActivity{
 
 
 			@Override
-			public void onChanged(NumberPicker parent, int oldVal, int newVal) {
+			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme

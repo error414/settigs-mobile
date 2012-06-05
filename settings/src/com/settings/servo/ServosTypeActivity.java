@@ -145,8 +145,8 @@ public class ServosTypeActivity extends BaseActivity{
 			for(int i = 0; i < formItems.length; i++){
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 				
-				//TOHLE MUSIM VYRESIT LIP
-				 if(tempSpinner.getId() == R.id.rudder_pulse){
+				 //TOHLE MUSIM VYRESIT LIP
+				 if(tempSpinner.getId() == formItems[2]){
 					 updateItemRudderFrequency(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
 				 }
 				 

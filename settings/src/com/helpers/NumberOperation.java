@@ -2,7 +2,7 @@ package com.helpers;
 
 public class NumberOperation {
 
-	
+	//val*100/255
 	final static public int numberToPercent(int base, int num)
 	{
 		if(base == 0) return 0;

@@ -50,24 +50,16 @@
 	            android:layout_height="wrap_content"
 	            android:src="@drawable/black_line_small" />
 
-	        <com.customWidget.picker.NumberPicker
+	        <com.customWidget.picker.ProgresEx
 	            android:id="@+id/stick_db"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView2"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/imageView1"
 	            android:layout_below="@+id/imageView1"
-	            android:layout_marginLeft="53dp"
-	            android:layout_marginTop="19dp" >
-	        </com.customWidget.picker.NumberPicker>
+	            android:layout_marginTop="32dp" >
 
-	        <ImageView
-	            android:id="@+id/imageView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/stick_db"
-	            android:layout_marginLeft="26dp"
-	            android:layout_toRightOf="@+id/stick_db"
-	            android:src="@drawable/help" />
+	        </com.customWidget.picker.ProgresEx>
 
 	    </RelativeLayout>
 
