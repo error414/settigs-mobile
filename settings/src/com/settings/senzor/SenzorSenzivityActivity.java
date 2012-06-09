@@ -87,8 +87,9 @@ public class SenzorSenzivityActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
+			 tempPicker.showAsPercent(true);
 		 }
 	}
 	
@@ -129,7 +130,7 @@ public class SenzorSenzivityActivity extends BaseActivity{
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(NumberOperation.numberToPercent(255, size));
+			tempPicker.setCurrent(size);
 		 }
 				
 	 }
@@ -146,8 +147,8 @@ public class SenzorSenzivityActivity extends BaseActivity{
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValue(NumberOperation.percentToNumber(255, newVal));
-						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(255, newVal)));
+						item.setValue(newVal);
+						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}

@@ -74,11 +74,11 @@ public class DstabiProfile {
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 0, 16, 	"c"));
 
 		profileMap.put("RATE_CYCLIC",	new ProfileItem(28, 0, 32, "r")); // procenta
-		profileMap.put("STICK_DB",		new ProfileItem(29, 0, 255, "s")); 
+		profileMap.put("STICK_DB",		new ProfileItem(29, 0, 128, "s")); 
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 40, "p")); 
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); 
-		profileMap.put("REG_P",			new ProfileItem(40, 0, 255, "4")); 
-		profileMap.put("REG_I",			new ProfileItem(39, 0, 255, "5")); 
+		profileMap.put("REG_P",			new ProfileItem(39, 0, 255, "4")); 
+		profileMap.put("REG_I",			new ProfileItem(40, 0, 255, "5")); 
 		profileMap.put("REG_D",			new ProfileItem(41, 0, 255, "6")); 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
 		

@@ -11,17 +11,13 @@ import com.settings.servo.ServosActivity;
 
 import advanced.AdvancedActivity;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.ImageView;
@@ -60,27 +56,24 @@ public class SettingsActivity extends BaseActivity {
 		menuList.setOnItemClickListener(new OnItemClickListener() {
 			 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                    int position, long id) {
-            	
-            	switch(position){
-            		case 0://connection
-            			openConnectionIndent(view);
-            			break;
-            		case 1://general
-            			openGeneralIndent(view);
-            			break;
-            		case 2://servo
-            			openServosIndent(view);
-            			break;
-            		case 3://senzor
-            			openSenzorIndent(view);
-            			break;
-            		case 4://advanced
-            			openAdvancedIndent(view);
-            			break;
-            	}
- 
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        	switch(position){
+        		case 0://connection
+        			openConnectionIndent(view);
+        			break;
+        		case 1://general
+        			openGeneralIndent(view);
+        			break;
+        		case 2://servo
+        			openServosIndent(view);
+        			break;
+        		case 3://senzor
+        			openSenzorIndent(view);
+        			break;
+        		case 4://advanced
+        			openAdvancedIndent(view);
+        			break;
+		    	}
             }
         });
     }

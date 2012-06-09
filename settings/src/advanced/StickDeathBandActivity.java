@@ -82,7 +82,7 @@ final private String TAG = "StickDeathBandActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 128); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}

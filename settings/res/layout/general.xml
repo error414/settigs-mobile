@@ -133,55 +133,6 @@
 	            android:entries="@array/cyclic_servo_reverse_values"
 	            android:minWidth="230dp" />
 
-	        <ImageView
-	            android:id="@+id/position_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/textView1"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/position_select_id"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/mix_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/mix_select_id"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/mix_select_id"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/receiver_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/receiver_select_id"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/receiver_select_id"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/cyclick_servo_reverse_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/cyclic_servo_reverse_select_id"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/cyclic_servo_reverse_select_id"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/model_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/position_help"
-	            android:layout_below="@+id/textView3"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
 	    </RelativeLayout>
 	</ScrollView>
 </LinearLayout>

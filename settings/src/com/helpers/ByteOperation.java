@@ -19,6 +19,13 @@ public class ByteOperation {
 		return 0x00 << 8 | (b & 0xff);
 	}
 	
+	/**
+	 * slouceni dvou byte poli
+	 * 
+	 * @param one
+	 * @param two
+	 * @return
+	 */
 	final public static byte[] combineByteArray(byte[] one, byte[] two){
 		if(two == null) return one;
 		
@@ -31,6 +38,12 @@ public class ByteOperation {
 		return combined;
 	}
 	
+	/**
+	 * vraci string cisla z pole bytu
+	 * 
+	 * @param b
+	 * @return
+	 */
 	final public static String getIntegerStringByByteArray(byte[] b){
 		if(b == null || b.length == 0){
 			return "";
@@ -45,7 +58,7 @@ public class ByteOperation {
 	}
 	
 	/**
-     * Convert a byte array integer (4 bytes) to its int value
+     * Convert a byte array integer (4 bytes) to its int value nebo 1 byte
      * @param b byte[]
      * @return int
      */

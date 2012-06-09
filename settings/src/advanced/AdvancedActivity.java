@@ -68,6 +68,9 @@ public class AdvancedActivity extends BaseActivity{
             		case 4://PID cyclic
             			openPIDCyclicRegulationActivity(view);
             			break;
+            		case 5://PID cyclic
+            			openPiroOptimalizationActivity(view);
+            			break;
             	}
  
             }
@@ -127,6 +130,12 @@ public class AdvancedActivity extends BaseActivity{
 		pid.put(ICO_RESOURCE_ID, R.drawable.i25);
 		menuListData.add(pid);
 		
+		//PID cyclic
+		HashMap<Integer, Integer> piro = new HashMap<Integer, Integer>();
+		piro.put(TITLE_FOR_MENU, R.string.piro_opt);
+		piro.put(ICO_RESOURCE_ID, R.drawable.i26);
+		menuListData.add(piro);
+		
 		return menuListData;
 	}
 	
@@ -182,6 +191,17 @@ public class AdvancedActivity extends BaseActivity{
 	public void openPIDCyclicRegulationActivity(View v)
 	{
 		Intent i = new Intent(AdvancedActivity.this, PIDCyclicRegulationActivity.class);
+		startActivity(i);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openPiroOptimalizationActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, PiroOptimalizationActivity.class);
 		startActivity(i);
 	}
 	

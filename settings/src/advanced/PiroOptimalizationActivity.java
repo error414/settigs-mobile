@@ -1,4 +1,4 @@
-package com.settings.senzor;
+package advanced;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -9,10 +9,11 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -20,32 +21,30 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
+public class PiroOptimalizationActivity extends BaseActivity{
 
-public class SenzorReverseActivity extends BaseActivity{
-
-final private String TAG = "SenzorReverseActivity";
+	final private String TAG = "PiroOptimalizationActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"SENSOR_REVX",
-			"SENSOR_REVY",
-			"SENSOR_REVZ",
+			"PIRO_OPT",
 	};
 	
 	private int formItems[] = {
-			R.id.x_pitch_reverse,
-			R.id.y_roll_reverse,
-			R.id.z_yaw_reverse,
-	};
+			R.id.piro_opt,
+		};
+	
+	private int formItemsTitle[] = {
+			R.string.piro_opt,
+		};
 	
 	private DstabiProvider stabiProvider;
 	
 	private DstabiProfile profileCreator;
 	
 	private int lock = 0;
-	
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
@@ -54,18 +53,18 @@ final private String TAG = "SenzorReverseActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.senzor_reverse);
+        setContentView(R.layout.advanced_piro_opt);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text), " \u2192 " , getString(R.string.reverse)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.piro_opt)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
-        initConfiguration();
-		delegateListener();
+       initConfiguration();
+       delegateListener();
     }
 	
-	 /**
+	/**
 	  * prvotni konfigurace view
 	  */
 	 private void initConfiguration()
@@ -74,8 +73,8 @@ final private String TAG = "SenzorReverseActivity";
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
-	
-	/**
+	 
+	 /**
 	  * prirazeni udalosti k prvkum
 	  */
 	 private void delegateListener(){
@@ -94,9 +93,16 @@ final private String TAG = "SenzorReverseActivity";
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni/zakazani nastaveni optimalizace
 		}else{
 			finish();
 		}
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni/zakazani nastaveni optimalizace
 	}
 	
 	/**
@@ -120,10 +126,9 @@ final private String TAG = "SenzorReverseActivity";
 			tempCheckbox.setChecked(checked);
 		}
 	 }
-	
-	
-	private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
-
+	 
+	 
+	 private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
@@ -206,4 +211,6 @@ final private String TAG = "SenzorReverseActivity";
     	}
     	return false;
     }
+
+	
 }

@@ -2,6 +2,7 @@ package com.settings.servo;
 
 import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.customWidget.picker.ProgresEx;
+import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -77,7 +78,8 @@ public class ServosSubtrimActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			stabiProvider.sendDataNoWaitForResponce("O0"); //povoleni/zakazani subtrimu
+			
+			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni/zakazani subtrimu
 		}else{
 			finish();
 		}
@@ -86,13 +88,12 @@ public class ServosSubtrimActivity extends BaseActivity{
 	@Override
 	public void onPause(){
 		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O0"); //povoleni/zakazani subtrimu
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni/zakazani subtrimu
 	}
 	
 	@Override
 	public void onStop(){
 		super.onStop();
-		stabiProvider.sendDataNoWaitForResponce("O0"); //povoleni/zakazani subtrimu
 	}
 	
 	private void initGui()

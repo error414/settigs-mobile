@@ -74,16 +74,6 @@
 	            android:entries="@array/cyclic_pulse_value"
 	            android:minWidth="230dp" />
 
-	        <ImageView
-	            android:id="@+id/cyclick_pulse_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/cyclic_pulse"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/cyclic_pulse"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
 	        <TextView
 	            android:id="@+id/textView4"
 	            android:layout_width="wrap_content"
@@ -102,16 +92,6 @@
 	            android:layout_below="@+id/textView4"
 	            android:entries="@array/cyclic_frequency_value"
 	            android:minWidth="230dp" />
-	        
-	        <ImageView
-	            android:id="@+id/cuclick_freq_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/cyclic_frequency"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/cyclic_frequency"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
 
 	        <TextView
 	            android:id="@+id/textView5"
@@ -144,16 +124,6 @@
 	            android:entries="@array/rudder_pulse_value"
 	            android:minWidth="230dp" />
 
-	        <ImageView
-	            android:id="@+id/rudder_pulse_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/textView6"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/rudder_pulse"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
-
 	        <TextView
 	            android:id="@+id/textView7"
 	            android:layout_width="wrap_content"
@@ -172,16 +142,6 @@
 	            android:layout_below="@+id/textView7"
 	            android:entries="@array/rudder_frequency_value"
 	            android:minWidth="230dp" />
-
-	        <ImageView
-	            android:id="@+id/rudder_frequency_help"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/textView7"
-	            android:layout_marginLeft="20dp"
-	            android:layout_toRightOf="@+id/rudder_pulse"
-	            android:onClick="showHelp"
-	            android:src="@drawable/help" />
 
 	    </RelativeLayout>
 

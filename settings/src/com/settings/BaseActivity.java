@@ -238,26 +238,12 @@ abstract public class BaseActivity extends Activity{
 	  * @param resourceTextId
 	  * @param resourceTitleId
 	  */
-	 protected void openHelp(int resourceTextId, int resourceTitleId)
+	 protected void openHelp(int resourceTextId)
 	 {
-		 final Dialog dialog = new Dialog(BaseActivity.this);
-         dialog.setContentView(R.layout.help_dialog);
-         dialog.setTitle(resourceTitleId);
-         dialog.setCancelable(true);
-         
-         TextView textDialog = (TextView) dialog.findViewById(R.id.help_text_area);
-         textDialog.setText(resourceTextId); 
-         
-         //nastaveni zavreni dialogu na button
-         Button helpCancelbutton = (Button) dialog.findViewById(R.id.cancel_help);
-         helpCancelbutton.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.cancel();
-			}
-		});
-         
-         dialog.show();
+		 Intent i = new Intent(this, HelpActivity.class);
+		 i.putExtra("content", resourceTextId);
+
+		 startActivity(i);
 	 }
 	
 	/**
@@ -336,17 +322,17 @@ abstract public class BaseActivity extends Activity{
 	 public void showHelp(View v)
 	 {
 		 
-		 switch(v.getId()){
+		 /*switch(v.getId()){
 		 	case R.id.position_help: 
-		 		this.openHelp(R.string.position_help, R.string.position_text);	
+		 		this.openHelp(R.layout.help_test);	
 		 		break;
 		 	case R.id.model_help: 
-		 		this.openHelp(R.string.model_help, R.string.model_text);	
+		 		this.openHelp(R.layout.help_test);	
 		 		break;
 		 	default:
-		 		this.openHelp(R.string.no_help, R.string.no_help_text);	
+		 		this.openHelp(R.layout.help_test);	
 		 		break;
-		 }
+		 }*/
 	 }
 	 
 	 protected void showProfileSavedDialog()

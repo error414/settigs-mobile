@@ -1,6 +1,7 @@
 package com.customWidget.picker;
 
 
+import com.helpers.NumberOperation;
 import com.settings.R;
 
 import android.content.Context;
@@ -10,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -39,6 +39,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	private int mMin = DEFAULT_MIN;
 	private int mMax = DEFAULT_MAX;
 	private String mTitle = "";
+	private boolean mShowAsPercent = false;
 	
 	private ProgresExButton mIncrementButton;
 	private ProgresExButton mDecrementButton;
@@ -111,6 +112,15 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	}
 	
 	/**
+	 * zobrazit progres jako procenta, min a max ukazuji 0 a 100, k cislu ve vypisu se pridaji procenta
+	 * 
+	 * @param showAsPercent
+	 */
+	public void showAsPercent(boolean showAsPercent){
+		this.mShowAsPercent = showAsPercent;
+	}
+	
+	/**
 	 * nastaveni aktialni hodnoty
 	 * 
 	 * @param mCurrent
@@ -122,6 +132,11 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 		updateView();
 	}
 	
+	/**
+	 * nastaveni posluchace na zmenu hodnoty
+	 * 
+	 * @param listener
+	 */
 	public void setOnChangeListener(OnChangedListener listener) {
         mListener = listener;
     }
@@ -176,13 +191,29 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	protected void updateView() {
 		mObjTitle.setText(mTitle);
 		mObjProgres.setProgress(mCurrent - mMin);
-		mObjMin.setText(String.valueOf(mMin));
-		mObjMax.setText(String.valueOf(mMax));
 		
-		mObjProgresValue.setText(String.valueOf(mCurrent));
-		mObjCurrent.setText(String.valueOf(mCurrent));
+		if(mShowAsPercent){
+			mObjMin.setText(String.valueOf(0));
+			mObjMax.setText(String.valueOf(100));
+			
+			double percent = Math.max(0, NumberOperation.numberToPercent(mMax - mMin - 1 , mCurrent - 1));
+			
+			mObjProgresValue.setText(String.valueOf(percent) + "%");
+			mObjCurrent.setText(String.valueOf(percent) + "%");
+		}else{
+			mObjMin.setText(String.valueOf(mMin));
+			mObjMax.setText(String.valueOf(mMax));
+			mObjProgresValue.setText(String.valueOf(mCurrent));
+			mObjCurrent.setText(String.valueOf(mCurrent));
+		}
+		
     }
 	
+	/**
+	 * 
+	 * 
+	 * @param current
+	 */
 	protected void changeCurrent(int current) {
         // Wrap around the values if we go past the start or end
         if (current > mMax) {
@@ -235,6 +266,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
         mDecrement = false;
     }
         
+    /**
+     * zobrazeni/skryvani zadavaciho pole
+     */
     private void toogleInput(){
     	if(childLayout.getVisibility() == View.GONE){
     		showInput();

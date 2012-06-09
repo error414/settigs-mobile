@@ -82,8 +82,9 @@ final private String TAG = "CyclicFeedForwardActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 32); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime title
+			 tempPicker.showAsPercent(true);
 		 }
 	}
 	
@@ -124,7 +125,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			 tempPicker.setCurrent(NumberOperation.numberToPercent(32, size));
+			 tempPicker.setCurrent(size);
 		 }
 				
 	 }
@@ -139,8 +140,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValue(NumberOperation.percentToNumber(32, newVal));
-						Log.d(TAG, String.valueOf(NumberOperation.percentToNumber(32, newVal)));
+						item.setValue(newVal);
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}

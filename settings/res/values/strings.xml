@@ -101,11 +101,12 @@
     <string name="rotation_speed">Rototation speed</string>
     <string name="rates">Rates</string>
 
-    <string name="cyclick_feed_forward">Cyclick feed forward</string>
+    <string name="cyclick_feed_forward">Cyclic feed forward</string>
     <string name="stick_deathband">Stick deathband</string>
     <string name="rudder_dynamic">Rudder dynamic</string>
     <string name="rudder_revomix">Rudder revomix</string>
     <string name="pid_cyclic_regulation">PID Cyclic regulation</string>
+    <string name="piro_opt">Pirouette optimization</string>
     
     <string-array name="position_values">
         <item>Horizontal</item>
@@ -196,12 +197,9 @@
     <string name="err">Error</string>
     
     <string name="no_help">Unknow Help</string>
+    <string name="help">Help</string>
     <string name="no_help_text"></string>
-    
-	<string name="position_help">The flybarless system and stabilisation is based on a performance line of ARM STM32 what is 32bit processor \n\n capable of realtime calculation with very high precision.</string>
-   	<string name="model_help">For RPM stabilisation, we\'ve developed technology for sensing electromagnethical waves from electronic speed controller (ESC) using just one motor phase/wire. This helps to measure current RPM and react to difference during demanding maneuvers.</string>    
-    
-    
+    <string name="test">ěščřžýáíéú</string>
     
     
 </resources>

@@ -42,7 +42,7 @@ final private String TAG = "PIDCyclicRegulationActivity";
 	
 	private int formItemsTitle[] = {
 			R.string.reg_p,
-			R.string.reg_p,
+			R.string.reg_i,
 			R.string.reg_d,
 		};
 	
@@ -88,7 +88,7 @@ final private String TAG = "PIDCyclicRegulationActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 100); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
