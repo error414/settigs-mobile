@@ -82,7 +82,7 @@ final private String TAG = "RudderDynamicActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 40); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 30); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
@@ -124,7 +124,7 @@ final private String TAG = "RudderDynamicActivity";
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(size);
+			tempPicker.setCurrentNoNotify(size);
 		 }
 				
 	 }

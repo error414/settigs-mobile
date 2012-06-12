@@ -138,6 +138,7 @@ public class SettingsActivity extends BaseActivity {
     public void openConnectionIndent(View v)
     {
     	Intent i = new Intent(SettingsActivity.this, ConnectionActivity.class);
+    	
     	startActivity(i);
     }
     
@@ -218,6 +219,4 @@ public class SettingsActivity extends BaseActivity {
  	        	}
  	        }
  	    };
-    
-    
 }

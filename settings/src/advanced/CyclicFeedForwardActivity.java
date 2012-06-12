@@ -125,7 +125,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			 tempPicker.setCurrent(size);
+			 tempPicker.setCurrentNoNotify(size);
 		 }
 				
 	 }
@@ -138,6 +138,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
 					if(parent.getId() == formItems[i]){
+						Log.d(TAG, "change");
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValue(newVal);

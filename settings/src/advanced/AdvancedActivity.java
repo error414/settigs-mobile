@@ -65,10 +65,16 @@ public class AdvancedActivity extends BaseActivity{
             		case 3://rudder mix
             			openRudderMixActivity(view);
             			break;
-            		case 4://PID cyclic
-            			openPIDCyclicRegulationActivity(view);
+            		case 4://pirouette const
+            			openPirouetteConsistencyActivity(view);
             			break;
-            		case 5://PID cyclic
+            		case 5://rear up
+            			openRearUpActivity(view);
+            			break;
+            		case 6://filter
+            			openFilterActivity(view);
+            			break;
+            		case 7://pirouette opt
             			openPiroOptimalizationActivity(view);
             			break;
             	}
@@ -124,13 +130,25 @@ public class AdvancedActivity extends BaseActivity{
 		ruddermix.put(ICO_RESOURCE_ID, R.drawable.i24);
 		menuListData.add(ruddermix);
 		
-		//PID cyclic
-		HashMap<Integer, Integer> pid = new HashMap<Integer, Integer>();
-		pid.put(TITLE_FOR_MENU, R.string.pid_cyclic_regulation);
-		pid.put(ICO_RESOURCE_ID, R.drawable.i25);
-		menuListData.add(pid);
+		//piruette const
+		HashMap<Integer, Integer> pc = new HashMap<Integer, Integer>();
+		pc.put(TITLE_FOR_MENU, R.string.pirouette_consistency);
+		pc.put(ICO_RESOURCE_ID, R.drawable.i36);
+		menuListData.add(pc);
 		
-		//PID cyclic
+		//rear up
+		HashMap<Integer, Integer> rearUp = new HashMap<Integer, Integer>();
+		rearUp.put(TITLE_FOR_MENU, R.string.rear_up);
+		rearUp.put(ICO_RESOURCE_ID, R.drawable.i33);
+		menuListData.add(rearUp);
+		
+		//filter
+		HashMap<Integer, Integer> filter = new HashMap<Integer, Integer>();
+		filter.put(TITLE_FOR_MENU, R.string.filter);
+		filter.put(ICO_RESOURCE_ID, R.drawable.i35);
+		menuListData.add(filter);
+		
+		//piruette opt
 		HashMap<Integer, Integer> piro = new HashMap<Integer, Integer>();
 		piro.put(TITLE_FOR_MENU, R.string.piro_opt);
 		piro.put(ICO_RESOURCE_ID, R.drawable.i26);
@@ -188,9 +206,31 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openPIDCyclicRegulationActivity(View v)
+	public void openPirouetteConsistencyActivity(View v)
 	{
-		Intent i = new Intent(AdvancedActivity.this, PIDCyclicRegulationActivity.class);
+		Intent i = new Intent(AdvancedActivity.this, PirouetteConsistencyActivity.class);
+		startActivity(i);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openRearUpActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, RearUpActivity.class);
+		startActivity(i);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openFilterActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, FilterActivity.class);
 		startActivity(i);
 	}
 

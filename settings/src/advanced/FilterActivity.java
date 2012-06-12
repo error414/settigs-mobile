@@ -21,29 +21,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class PIDCyclicRegulationActivity extends BaseActivity{
+public class FilterActivity extends BaseActivity{
 
-final private String TAG = "PIDCyclicRegulationActivity";
+final private String TAG = "FilterActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"REG_P",
-			"REG_I",
-			"REG_D",
+			"FILTER",
 	};
 	
 	private int formItems[] = {
-			R.id.reg_p,
-			R.id.reg_i,
-			R.id.reg_d,
+			R.id.filter,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.reg_p,
-			R.string.reg_i,
-			R.string.reg_d,
+			R.string.filter,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -58,10 +52,10 @@ final private String TAG = "PIDCyclicRegulationActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_pid_cyclic_regulation);
+        setContentView(R.layout.advanced_filter);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.pid_cyclic_regulation)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.filter)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -88,7 +82,7 @@ final private String TAG = "PIDCyclicRegulationActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 5); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
@@ -130,7 +124,7 @@ final private String TAG = "PIDCyclicRegulationActivity";
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(size);
+			tempPicker.setCurrentNoNotify(size);
 		 }
 				
 	 }

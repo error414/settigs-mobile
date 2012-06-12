@@ -81,6 +81,9 @@
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
+    <string name="pirouette_consistency">Pirouette consistency</string>
+    <string name="rear_up">Elevator pitching-up compensation</string>
+    <string name="filter">Senzor filter</string>
     
     <string name="cyclic_ring_range">Cyclic ring \n (range)</string>
     <string name="cyclic_ring_range_no_break">Cyclic ring (range)</string>
@@ -94,8 +97,10 @@
     <string name="blank"></string>
     
     <string name="x_picth">X-Pitch</string>
+    <string name="x_cyclic">X-Cyclic</string>
     <string name="y_rool">Y-Roll</string>
     <string name="z_yaw">Z-Yaw</string>
+    <string name="z_rudder">Z-Rudder</string>
     <string name="senzivity">Senzivity</string>
     <string name="reverse">Reverse</string>
     <string name="rotation_speed">Rototation speed</string>

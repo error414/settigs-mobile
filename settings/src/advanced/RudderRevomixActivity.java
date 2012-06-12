@@ -124,7 +124,7 @@ public class RudderRevomixActivity extends BaseActivity{
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(size);
+			tempPicker.setCurrentNoNotify(size);
 		 }
 				
 	 }

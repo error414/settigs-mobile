@@ -127,8 +127,17 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	 */
 	public void setCurrent(int mCurrent) {
 		this.mCurrent = mCurrent;
-		
-		notifyChange();
+		notifyChange();		
+		updateView();
+	}
+	
+	/**
+	 * nastaveni aktialni hodnoty bez zavolani onchange
+	 * 
+	 * @param mCurrent
+	 */
+	public void setCurrentNoNotify(int mCurrent) {
+		this.mCurrent = mCurrent;
 		updateView();
 	}
 	
@@ -286,6 +295,12 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
     public void hideInput(){
     	if(childLayout.getVisibility() == View.VISIBLE){
     		childLayout.setVisibility(View.GONE);
+    	}
+    }
+    
+    public void setVisibility(int visibility){
+    	if(mainLayout != null){
+    		mainLayout.setVisibility(visibility);
     	}
     }
 }

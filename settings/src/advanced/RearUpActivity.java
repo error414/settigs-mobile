@@ -1,9 +1,10 @@
-package com.settings.servo;
+package advanced;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -13,58 +14,52 @@ import android.widget.TextView;
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
+import com.helpers.NumberOperation;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class ServosCyclickRingRangeActivity extends BaseActivity{
-	final private String TAG = "ServosCyclickRingRangeActivity";
+public class RearUpActivity extends BaseActivity{
+
+final private String TAG = "RearUpActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"RANGE_AIL",
-			"RANGE_ELE",
-			"RANGE_PIT",
+			"REAR_UP",
 	};
 	
 	private int formItems[] = {
-			R.id.cyclic_ring_ail_ele,
-			R.id.cyclic_ring_ring,
-			R.id.cyclic_ring_pitch,
+			R.id.rear_up,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.ail_ele,
-			R.string.ring,
-			R.string.pitch,
+			R.string.rear_up,
 		};
 	
 	private DstabiProvider stabiProvider;
-
+	
 	private DstabiProfile profileCreator;
 	
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.cyclic_ring_range);
+        setContentView(R.layout.advanced_rear_up);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(
-				TextUtils.concat("...", " \u2192 " , getString(R.string.limit), getString(R.string.cyclic_ring_range_no_break))
-		);
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 " , getString(R.string.rear_up)));
         
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
-		initGui();
+        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+        
+        initGui();
         initConfiguration();
 		delegateListener();
     }
@@ -86,9 +81,9 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
-			tempPicker.setTitle(formItemsTitle[i]); 
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 tempPicker.setRange(10, 80); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
 	
@@ -112,7 +107,6 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
 	 
-	 
 	 /**
 	  * naplneni formulare
 	  * 
@@ -128,7 +122,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
 			tempPicker.setCurrentNoNotify(size);
 		 }
@@ -148,6 +142,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValue(newVal);
+						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}
@@ -210,4 +205,5 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	    	}
 	    	return false;
 	    }
+	
 }

@@ -62,7 +62,7 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 		
 		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 255, 	"x")); // procenta
-		profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y")); // procenta
+		//profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y")); // procenta
 		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 0, 255, 	"z")); // procenta
 		
 		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", 	"X"));
@@ -74,12 +74,17 @@ public class DstabiProfile {
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 0, 16, 	"c"));
 
 		profileMap.put("RATE_CYCLIC",	new ProfileItem(28, 0, 32, "r")); // procenta
-		profileMap.put("STICK_DB",		new ProfileItem(29, 0, 128, "s")); 
-		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 40, "p")); 
+		profileMap.put("STICK_DB",		new ProfileItem(29, 1, 30, "s")); 
+		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 30, "p")); 
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); 
-		profileMap.put("REG_P",			new ProfileItem(39, 0, 255, "4")); 
-		profileMap.put("REG_I",			new ProfileItem(40, 0, 255, "5")); 
-		profileMap.put("REG_D",			new ProfileItem(41, 0, 255, "6")); 
+		
+		
+		profileMap.put("PIROUETTE_CONST",		new ProfileItem(38, 64, 255, "H")); // konzistence piruet
+		profileMap.put("REAR_UP",				new ProfileItem(39, 10, 80,  "4")); // vzpinani
+		profileMap.put("FILTER",				new ProfileItem(41, 1,   5,	 "6")); // filtr
+		
+		//profileMap.put("REG_I",			new ProfileItem(40, 0, 255, "5")); 
+		
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
 		
 		
@@ -103,6 +108,13 @@ public class DstabiProfile {
 		}else{
 			profileLenght = 0;
 		}
+		
+		//uprava zavyslosti polozek
+		if(profileMap.containsKey("MODEL") && profileMap.get("MODEL").isValid() && profileMap.get("MODEL").getValueInteger() != 67 ){ // letadlo
+			profileMap.remove("SENSOR_SENZ");
+		}
+		
+		
 	}
 	
 	///////////////// PUBLIC ////////////////////////

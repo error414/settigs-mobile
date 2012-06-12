@@ -39,10 +39,11 @@
         <activity android:name="advanced.StickDeathBandActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         <activity android:name="advanced.RudderDynamicActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         <activity android:name="advanced.RudderRevomixActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
-        <activity android:name="advanced.PIDCyclicRegulationActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
+        <activity android:name="advanced.PirouetteConsistencyActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         <activity android:name="advanced.PiroOptimalizationActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         <activity android:name="HelpActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
-        <activity android:name="DiagnosticActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
+        <activity android:name="advanced.RearUpActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
+        <activity android:name="advanced.FilterActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         
     </application>
 </manifest>

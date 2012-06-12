@@ -11,7 +11,6 @@
             android:background="@color/background_color">
 
 	    <RelativeLayout
-	        android:id="@+id/relative"
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:background="@color/background_color" >
@@ -31,13 +30,13 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/senzivity"
+	            android:text="@string/rear_up"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/x_cyclic"
+	            android:id="@+id/rear_up"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
@@ -45,15 +44,6 @@
 	            android:layout_below="@+id/imageView1"
 	            android:layout_marginTop="32dp" >
 
-	        </com.customWidget.picker.ProgresEx>
-
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/z_rudder"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/x_cyclic"
-	            android:layout_below="@+id/x_cyclic"
-	            android:layout_marginTop="32dp" >
 	        </com.customWidget.picker.ProgresEx>
 
 	    </RelativeLayout>

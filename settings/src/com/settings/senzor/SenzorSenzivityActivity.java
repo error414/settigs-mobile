@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,20 +30,20 @@ public class SenzorSenzivityActivity extends BaseActivity{
 	
 	private final String protocolCode[] = {
 			"SENSOR_SENX",
-			"SENSOR_SENY",
 			"SENSOR_SENZ",
+			//"SENSOR_SENZ",
 	};
 	
 	private int formItems[] = {
-			R.id.x_pitch,
-			R.id.y_roll,
-			R.id.z_yaw,
+			R.id.x_cyclic,
+			R.id.z_rudder,
+			//R.id.z_yaw,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.x_picth,
-			R.string.y_rool,
-			R.string.z_yaw,
+			R.string.x_cyclic,
+			R.string.z_rudder,
+			//R.string.z_yaw,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -127,10 +128,17 @@ public class SenzorSenzivityActivity extends BaseActivity{
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			if(profileCreator.exits(protocolCode[i])){
+				ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+				int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
-			tempPicker.setCurrent(size);
+				tempPicker.setCurrentNoNotify(size);
+			}
+		 }
+		 
+		 if(profileCreator.getProfileItemByName("MODEL").getValueInteger() != 67){ // letadlo
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[1]);
+			 tempPicker.setVisibility(View.GONE);
 		 }
 				
 	 }
