@@ -5,4 +5,6 @@
     <color name="text_color_white">#FFFFFF</color>
     <color name="text_color">#000000</color>
     <color name="grey">#D1D1D1</color>
+    <color name="dashed_dark">#A4A6A6</color>
+    <color name="dashed_most_dark">#636464</color>
 </resources>
