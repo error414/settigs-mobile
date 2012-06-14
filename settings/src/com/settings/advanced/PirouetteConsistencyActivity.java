@@ -1,4 +1,4 @@
-package advanced;
+package com.settings.advanced;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,23 +21,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class RearUpActivity extends BaseActivity{
+public class PirouetteConsistencyActivity extends BaseActivity{
 
-final private String TAG = "RearUpActivity";
+final private String TAG = "PirouetteConsistencyActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"REAR_UP",
+			"PIROUETTE_CONST",
 	};
 	
 	private int formItems[] = {
-			R.id.rear_up,
+			R.id.pirouette_const,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.rear_up,
+			R.string.pirouette_consistency,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -52,10 +52,10 @@ final private String TAG = "RearUpActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_rear_up);
+        setContentView(R.layout.advanced_pirouette_const);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 " , getString(R.string.rear_up)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.pid_cyclic_regulation)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -82,7 +82,7 @@ final private String TAG = "RearUpActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(10, 80); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(64, 255); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}

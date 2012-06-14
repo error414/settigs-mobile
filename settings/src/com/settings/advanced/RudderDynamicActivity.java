@@ -1,4 +1,4 @@
-package advanced;
+package com.settings.advanced;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,23 +21,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class PirouetteConsistencyActivity extends BaseActivity{
+public class RudderDynamicActivity extends BaseActivity{
 
-final private String TAG = "PirouetteConsistencyActivity";
+final private String TAG = "RudderDynamicActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"PIROUETTE_CONST",
+			"RUDDER_STOP",
 	};
 	
 	private int formItems[] = {
-			R.id.pirouette_const,
+			R.id.rudder_stop,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.pirouette_consistency,
+			R.string.rudder_dynamic,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -52,10 +52,10 @@ final private String TAG = "PirouetteConsistencyActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_pirouette_const);
+        setContentView(R.layout.advanced_rudder_stop);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.pid_cyclic_regulation)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.rudder_dynamic)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -82,7 +82,7 @@ final private String TAG = "PirouetteConsistencyActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(64, 255); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 30); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}

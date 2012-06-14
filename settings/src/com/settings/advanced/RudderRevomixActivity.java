@@ -1,4 +1,4 @@
-package advanced;
+package com.settings.advanced;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,23 +21,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class StickDeathBandActivity extends BaseActivity{
+public class RudderRevomixActivity extends BaseActivity{
 
-final private String TAG = "StickDeathBandActivity";
+	final private String TAG = "RudderRevomixActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"STICK_DB",
+			"RUDDER_REVOMIX",
 	};
 	
 	private int formItems[] = {
-			R.id.stick_db,
+			R.id.rudder_revomix,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.stick_deathband,
+			R.string.rudder_revomix,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -52,10 +52,10 @@ final private String TAG = "StickDeathBandActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_stick_deathband);
+        setContentView(R.layout.advanced_rudder_revomix);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.stick_deathband)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.rudder_revomix)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -82,7 +82,7 @@ final private String TAG = "StickDeathBandActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(1, 30); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(118, 138); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
@@ -122,7 +122,7 @@ final private String TAG = "StickDeathBandActivity";
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 			
 			tempPicker.setCurrentNoNotify(size);
 		 }
@@ -142,6 +142,7 @@ final private String TAG = "StickDeathBandActivity";
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValue(newVal);
+						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}

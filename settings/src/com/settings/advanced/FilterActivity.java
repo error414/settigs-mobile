@@ -1,4 +1,4 @@
-package advanced;
+package com.settings.advanced;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,23 +21,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class RudderDynamicActivity extends BaseActivity{
+public class FilterActivity extends BaseActivity{
 
-final private String TAG = "RudderDynamicActivity";
+final private String TAG = "FilterActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"RUDDER_STOP",
+			"FILTER",
 	};
 	
 	private int formItems[] = {
-			R.id.rudder_stop,
+			R.id.filter,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.rudder_dynamic,
+			R.string.filter,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -52,10 +52,10 @@ final private String TAG = "RudderDynamicActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_rudder_stop);
+        setContentView(R.layout.advanced_filter);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.rudder_dynamic)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.filter)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -82,7 +82,7 @@ final private String TAG = "RudderDynamicActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 30); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 5); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}

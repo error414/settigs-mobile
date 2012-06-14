@@ -6,10 +6,10 @@ import java.util.HashMap;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.settings.advanced.AdvancedActivity;
 import com.settings.senzor.SenzorActivity;
 import com.settings.servo.ServosActivity;
 
-import advanced.AdvancedActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
