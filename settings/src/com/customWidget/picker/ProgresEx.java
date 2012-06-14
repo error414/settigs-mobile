@@ -228,11 +228,11 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 			if(mRound){
 				mObjMin.setText(String.valueOf(Math.round((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin))));
 				mObjMax.setText(String.valueOf(Math.round((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMax))));
-				percent = Math.max(0, Math.round(NumberOperation.numberToPercent(mRangeMax - mRangeMin , mCurrent)));
+				percent = Math.max(0, Math.round(NumberOperation.numberToPercent(mRangeMax - mRangeMin - 1 , mCurrent - 1)));
 			}else{
 				mObjMin.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin)));
 				mObjMax.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mMax)));
-				percent = Math.max(0, NumberOperation.numberToPercent(mRangeMax - mRangeMin , mCurrent));
+				percent = Math.max(0, NumberOperation.numberToPercent(mRangeMax - mRangeMin - 1 , mCurrent - 1));
 			}
 			
 			mObjProgresValue.setText(String.valueOf(percent) + "%");
