@@ -25,6 +25,23 @@ public class NumberOperation {
 		return NumberOperation.round((double)(((float)num * 100) / (float)base), 1);
 	}
 	
+	/**
+	 * procenta na cislo
+	 * 
+	 * zaklad = zaklad je cislo ktere odpovida 100%
+	 * procne
+	 * 
+	 * @param base
+	 * @param num
+	 * @return
+	 */
+	final static public double percenToNumber(int base, int percent)
+	{
+		if(base == 0) return 0;
+		
+		return (double)((double)((double)base / 100) * (double)percent);
+	}
+	
 	public static double round(double value, int places) {
 	    if (places < 0) throw new IllegalArgumentException();
 

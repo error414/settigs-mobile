@@ -82,7 +82,8 @@ final private String TAG = "CyclicFeedForwardActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 32); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(8, 32, 0, 32); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRound(true); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime title
 			 tempPicker.showAsPercent(true);
 		 }
