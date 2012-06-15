@@ -1,12 +1,15 @@
 package com.customWidget.picker;
 
 
+import java.awt.font.NumericShaper;
+
 import com.helpers.NumberOperation;
 import com.settings.R;
 
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,7 +41,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	private int mCurrent = 50;
 	private int mMin = DEFAULT_MIN;
 	private int mMax = DEFAULT_MAX;
-	private boolean mRound = false;
+	private boolean mFloor = false;
 
 	private int mRangeMin = DEFAULT_MIN;
 	private int mRangeMax = DEFAULT_MAX;
@@ -130,6 +133,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	 * @param mCurrent
 	 */
 	public void setCurrent(int mCurrent) {
+		if(mCurrent < mMin && mCurrent > mMax){
+			return;
+		}
 		this.mCurrent = mCurrent;
 		notifyChange();		
 		updateView();
@@ -211,8 +217,8 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 		setTitle(getContext().getString(mTitle));
 	}
 	
-	public void setRound(boolean round){
-		mRound = round;
+	public void setFloor(boolean floor){
+		mFloor = floor;
 	}
 	
 	/**
@@ -225,14 +231,14 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 		double percent = mMin;
 		
 		if(mShowAsPercent){
-			if(mRound){
-				mObjMin.setText(String.valueOf(Math.round((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin))));
-				mObjMax.setText(String.valueOf(Math.round((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMax))));
-				percent = Math.max(0, Math.round(NumberOperation.numberToPercent(mRangeMax - mRangeMin - 1 , mCurrent - 1)));
+			if(mFloor){
+				mObjMin.setText(String.valueOf(Math.floor((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin))));
+				mObjMax.setText(String.valueOf(Math.floor((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMax))));
+				percent = Math.max(0, Math.floor(NumberOperation.numberToPercent(mRangeMax - mRangeMin , mCurrent)));
 			}else{
 				mObjMin.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin)));
 				mObjMax.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mMax)));
-				percent = Math.max(0, NumberOperation.numberToPercent(mRangeMax - mRangeMin - 1 , mCurrent - 1));
+				percent = Math.max(0, NumberOperation.round(NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mCurrent), 1));
 			}
 			
 			mObjProgresValue.setText(String.valueOf(percent) + "%");

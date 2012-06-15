@@ -88,7 +88,7 @@ public class SenzorSenzivityActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			 tempPicker.setRange(0, 254); // tohle rozmezi asi brat ze stabi profilu
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 			 tempPicker.showAsPercent(true);
 		 }

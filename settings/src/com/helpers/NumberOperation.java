@@ -22,7 +22,7 @@ public class NumberOperation {
 	{
 		if(base == 0) return 0;
 		
-		return NumberOperation.round((double)(((float)num * 100) / (float)base), 1);
+		return (double)(((double)num * 100) / (double)base);
 	}
 	
 	/**
