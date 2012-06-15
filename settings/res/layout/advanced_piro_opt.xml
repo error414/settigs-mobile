@@ -57,7 +57,7 @@
 	            android:layout_alignLeft="@+id/textView2"
 	            android:layout_below="@+id/imageView1"
 	            android:layout_marginTop="32dp"
-	            android:text="@string/piro_opt"
+	            android:text="@string/reverse"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
