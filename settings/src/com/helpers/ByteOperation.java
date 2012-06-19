@@ -98,4 +98,20 @@ public class ByteOperation {
 	{
 		return (byte) (value & 0xFF); 
 	}
+	
+	/**
+	 * byte to hex string
+	 * 
+	 * @param array
+	 * @return
+	 */
+	final public static String byteArrayToHexString(byte array) {
+		StringBuffer hexString = new StringBuffer();
+		int intVal = array & 0xff;
+		if (intVal < 0x10){
+			hexString.append("0");
+		}
+		hexString.append(Integer.toHexString(intVal));
+		return hexString.toString();    
+	}
 }

@@ -35,6 +35,7 @@
     <string name="read_data">Read data.\.\.\.</string>
     <string name="damage_profile">Damage profile</string>
     <string name="unknow_version">Unknow version</string>
+    <string name="unknow_serial">Unknow serial</string>
     <string name="first_paired_device">First paired devices</string>
     
     <string name="connection_error">Connection Error</string>
@@ -56,6 +57,7 @@
     <string name="connected">Connected</string>
     <string name="connecting">Connecting</string>
     <string name="version">FW version</string>
+    <string name="serial">Serial number</string>
     <string name="unit">Unit</string>
     <string name="link">Link</string>
     

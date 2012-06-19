@@ -64,6 +64,7 @@ public class ConnectionActivity extends BaseActivity{
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 17;
+	final private int GET_SERIAL_NUMBER = 18;
 	
 	final private String PREF_BT_ADRESS= "pref_bt_adress";
 	
@@ -144,6 +145,10 @@ public class ConnectionActivity extends BaseActivity{
 	public void onResume(){
 		super.onResume();
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		
+		TextView serial  = (TextView) findViewById(R.id.serial_number);
+		serial.setText(R.string.unknow_serial);
+
 		updateState();
 	}
 	 
@@ -158,11 +163,33 @@ public class ConnectionActivity extends BaseActivity{
 		 
 		 if(profileCreator.isValid()){
 			 int minor 		= 0;
-			 
 			 version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + String.valueOf(minor) + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
 		 }else{
 			 version.setText(R.string.unknow_version);
 		 }
+	 }
+	 
+	 /**
+	  * prisla informace o seriovem cisle
+	  * initGuiBySerialNumber
+	  * @param profile
+	  */
+	 private void initGuiBySerialNumber(byte[] serialNumber){
+		 Log.d(TAG, ByteOperation.getIntegerStringByByteArray(serialNumber));
+		 
+		 if(serialNumber == null || serialNumber.length != 6){
+			 return;
+		 }
+		 
+		 TextView serial = (TextView) findViewById(R.id.serial_number);
+		 
+		 
+		 String serialFormat = "";
+		 for (byte b : serialNumber) {
+			 serialFormat = serialFormat + ByteOperation.byteArrayToHexString(b) + " ";
+		 }
+			 
+		 serial.setText(serialFormat);
 	 }
 	
 	 /**
@@ -216,6 +243,9 @@ public class ConnectionActivity extends BaseActivity{
 				
 				 showDialogRead();
 				 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
+				 
+				 showDialogRead();
+				 stabiProvider.getSerial(GET_SERIAL_NUMBER);
 				 
 				 ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 				
@@ -356,6 +386,12 @@ public class ConnectionActivity extends BaseActivity{
         				saveProfileTofile(msg.getData().getByteArray("data"));
         			}
         			break;
+    			case GET_SERIAL_NUMBER:
+    				sendInSuccessDialog();
+    				if(msg.getData().containsKey("data")){
+    					initGuiBySerialNumber(msg.getData().getByteArray("data"));
+    				}
+    				break;
         	}
         }
     };
@@ -368,7 +404,6 @@ public class ConnectionActivity extends BaseActivity{
     private void insertProfileTounit(byte[] profile)
     {
     	isPosibleSendData = true;
-    	Log.d(TAG, "stav pred odeslanim profilu " + String.valueOf(progressCount));
     	Log.d(TAG, "delka profilu na odeslani " + String.valueOf(profile.length));
     	// musime byt pripojeni
     	if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -384,18 +419,16 @@ public class ConnectionActivity extends BaseActivity{
     	if(mstabiProfile.isValid()){
     		HashMap<String, ProfileItem> items = mstabiProfile.getProfileItems();
     		
-    		Iterator<String> iteration = items.keySet().iterator();
-    		while(iteration.hasNext()) {
-    			String key=(String)iteration.next();
-    			ProfileItem item = (ProfileItem)items.get(key);
-    			Log.d(TAG, "iterator");
+    		for (ProfileItem item : items.values()) {
     			if(item.getCommand() != null && isPosibleSendData){
     				showDialogRead();
     				Log.d(TAG, "odesilam prikaz "+ item.getCommand() + " : count je " + String.valueOf(progressCount));
     				stabiProvider.sendDataNoWaitForResponce(item);
-    			}else{
+    			}else if(!isPosibleSendData){
     				isPosibleSendData = true;
     				break;
+    			}else{
+    				continue;
     			}
     		}
     	}else{

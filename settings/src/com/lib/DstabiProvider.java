@@ -6,15 +6,14 @@ import java.util.TimerTask;
 
 import org.apache.http.util.EncodingUtils;
 
-import com.helpers.ByteOperation;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+
+import com.helpers.ByteOperation;
+import com.helpers.DstabiProfile.ProfileItem;
 
 /**
  * trida pro praci s protokolem 4dstabi a posilanim pres BT
@@ -49,6 +48,7 @@ public class DstabiProvider {
 	final protected String GET_PROFILE = "G";
 	final protected String GET_STICKED_AND_SENZORS_VALUE = "D";
 	final protected String SAVE_PROFILE = "g";
+	final protected String SERIAL_NUMBER = "h";
 	
 	private int protocolState = 0;
 	
@@ -60,9 +60,10 @@ public class DstabiProvider {
 	// v jakym modu se provider nachazi, jestli v jednoduchem pozadavku nebo v profilu
 	final private int NORMAL = 1;
 	final private int PROFILE = 2;
+	final private int SERIAL = 3;
 	private int mode = NORMAL;
 	
-	private ProfileBuilder profileBuilder;
+	private DataBuilder dataBuilder;
 	
 	private final Queue queue = new Queue();
 	
@@ -175,6 +176,20 @@ public class DstabiProvider {
 	}
 	
 	/**
+	 * ziskani serioveho cisla z jednotky
+	 * 
+	 * @param callBackCode
+	 */
+	public void getSerial(int callBackCode){
+		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+			mode = SERIAL;
+			sendDataForResponce(SERIAL_NUMBER, callBackCode);
+		}else{
+			queue.add(SERIAL_NUMBER, null, SERIAL, callBackCode);
+		}
+	}
+	
+	/**
 	 * ziskani profilu z jednotky
 	 * 
 	 * @param callBackCode
@@ -267,7 +282,7 @@ public class DstabiProvider {
 		mode = NORMAL;
 		
 		stopCecurityTimer(); // vypneme casovac
-		profileBuilder = null;
+		dataBuilder = null;
 		
 		
 		if(queue.hasNextQueue()){
@@ -346,13 +361,28 @@ public class DstabiProvider {
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
-	    								profileBuilder = new ProfileBuilder();
-	    								profileBuilder.add(data);
+	    								dataBuilder = new DataBuilder();
+	    								dataBuilder.add(data);
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
 	    								// case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA: kde se dal ceka na dalsi data
-	    								if(profileBuilder.itsAll()){
-	    									sendHandle(callBackCode, profileBuilder.getData());
+	    								if(dataBuilder.itsAll()){
+	    									sendHandle(callBackCode, dataBuilder.getData());
+	    								}
+	    								
+	    							}else if(mode == SERIAL){
+
+	    								Log.d(TAG, "Prislo serial :" + ByteOperation.getIntegerStringByByteArray(data));
+	    								
+	    								//zmenime state protokokolu na pripadne cekani na konec profilu
+	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
+	    								dataBuilder = new DataBuilder(6); // serial je dlouhe 6 bytu
+	    								dataBuilder.add(data);
+	    								
+	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
+	    								// case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA: kde se dal ceka na dalsi data
+	    								if(dataBuilder.itsAll()){
+	    									sendHandle(callBackCode, dataBuilder.getData());
 	    								}
 	    							}
 	    						 }else{ // ERROR
@@ -363,9 +393,9 @@ public class DstabiProvider {
         						break;
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA:
         						Log.d(TAG, "Prislo x :" + ByteOperation.getIntegerStringByByteArray(data));
-        						profileBuilder.add(data);
-        						if(profileBuilder.itsAll()){
-        							sendHandle(callBackCode, profileBuilder.getData());
+        						dataBuilder.add(data);
+        						if(dataBuilder.itsAll()){
+        							sendHandle(callBackCode, dataBuilder.getData());
 								}
         						break;
         				}
@@ -435,7 +465,7 @@ public class DstabiProvider {
      * PROFILE BUILDER
      */
     
-    private class ProfileBuilder
+    private class DataBuilder
     {
     	
     	private byte[] profile = null;
@@ -443,12 +473,12 @@ public class DstabiProvider {
     	
     	
     	@SuppressWarnings("unused")
-		public ProfileBuilder(int lenght)
+		public DataBuilder(int lenght)
     	{
     		this.lenght = lenght;
     	}
     	
-    	public ProfileBuilder()
+    	public DataBuilder()
     	{
     	}
     	
