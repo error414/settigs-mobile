@@ -58,9 +58,10 @@ public class DstabiProvider {
 	private int callBackCode = 0;
 	
 	// v jakym modu se provider nachazi, jestli v jednoduchem pozadavku nebo v profilu
-	final private int NORMAL = 1;
-	final private int PROFILE = 2;
-	final private int SERIAL = 3;
+	final private int NORMAL 		= 1;
+	final private int PROFILE 		= 2;
+	final private int SERIAL 		= 3;
+	final private int DIAGNOSTIC 	= 4;
 	private int mode = NORMAL;
 	
 	private DataBuilder dataBuilder;
@@ -186,6 +187,20 @@ public class DstabiProvider {
 			sendDataForResponce(SERIAL_NUMBER, callBackCode);
 		}else{
 			queue.add(SERIAL_NUMBER, null, SERIAL, callBackCode);
+		}
+	}
+	
+	/**
+	 * ziskani dat diagnostiky
+	 * 
+	 * @param callBackCode
+	 */
+	public void getDiagnostic(int callBackCode){
+		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+			mode = DIAGNOSTIC;
+			sendDataForResponce(GET_STICKED_AND_SENZORS_VALUE, callBackCode);
+		}else{
+			queue.add(GET_STICKED_AND_SENZORS_VALUE, null, DIAGNOSTIC, callBackCode);
 		}
 	}
 	
@@ -343,7 +358,7 @@ public class DstabiProvider {
         						
         					case DstabiProvider.PROTOCOL_STATE_SENDED_VALUES:
 	    						//byl odeslan init kod, cekame O nebo K
-	    						if(message.equals(DstabiProvider.OK)){ // OK nebo sme v senzor 
+	    						if(message.equals(DstabiProvider.OK) || mode == DIAGNOSTIC){ // OK nebo sme v diagnostice 
 	    							//pokud sem v normal modu tak odelsle zpravu ze sme prijaly potvrzeni K
 	    							if(callBackCode == 0 && mode == NORMAL){
 	    								connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMPLETE);
@@ -377,6 +392,20 @@ public class DstabiProvider {
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
 	    								dataBuilder = new DataBuilder(6); // serial je dlouhe 6 bytu
+	    								dataBuilder.add(data);
+	    								
+	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
+	    								// case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA: kde se dal ceka na dalsi data
+	    								if(dataBuilder.itsAll()){
+	    									sendHandle(callBackCode, dataBuilder.getData());
+	    								}
+	    							}else if(mode == DIAGNOSTIC){
+
+	    								Log.d(TAG, "Prisla diagnosticka :" + ByteOperation.getIntegerStringByByteArray(data));
+	    								
+	    								//zmenime state protokokolu na pripadne cekani na konec profilu
+	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
+	    								dataBuilder = new DataBuilder(16); // diagnostika je dlouhe 16 bytu
 	    								dataBuilder.add(data);
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to

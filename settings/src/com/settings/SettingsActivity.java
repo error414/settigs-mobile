@@ -73,7 +73,11 @@ public class SettingsActivity extends BaseActivity {
         		case 4://advanced
         			openAdvancedIndent(view);
         			break;
+        		case 5://senzors
+        			openDiagnosticIndent(view);
+        			break;
 		    	}
+        		
             }
         });
     }
@@ -126,6 +130,12 @@ public class SettingsActivity extends BaseActivity {
 		advanced.put(TITLE_FOR_MENU, R.string.advanced_button_text);
 		advanced.put(ICO_RESOURCE_ID, R.drawable.i20);
 		menuListData.add(advanced);
+		
+		//diagnostic
+		HashMap<Integer, Integer> diagnostic = new HashMap<Integer, Integer>();
+		diagnostic.put(TITLE_FOR_MENU, R.string.diagnostic_button_text);
+		diagnostic.put(ICO_RESOURCE_ID, R.drawable.i20);
+		menuListData.add(diagnostic);
 		
 		return menuListData;
 	}
@@ -182,6 +192,21 @@ public class SettingsActivity extends BaseActivity {
     {
     	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
     		Intent i = new Intent(SettingsActivity.this, SenzorActivity.class);
+        	startActivity(i);
+    	}else{
+    		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+    	}
+    }
+    
+    /**
+	 * kliknuti na tlacitko senzor na hlavni obrazovce
+	 * 
+	 * @param v
+	 */
+    public void openDiagnosticIndent(View v)
+    {
+    	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+    		Intent i = new Intent(SettingsActivity.this, DiagnosticActivity.class);
         	startActivity(i);
     	}else{
     		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();

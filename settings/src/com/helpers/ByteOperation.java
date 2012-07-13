@@ -73,6 +73,14 @@ public class ByteOperation {
 
         return 0;
     }
+    
+    public static short byteArrayToShort(byte[] data) 
+    {       
+            short value = data[1];
+            value = (short) ((value << 8) | data[0]);
+            
+            return value;
+    }
 	
     /**
      * integer rozparsuje do byte array, podporuje 4,2 a 1 prvkove pole byte

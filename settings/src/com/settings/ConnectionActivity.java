@@ -166,6 +166,7 @@ public class ConnectionActivity extends BaseActivity{
 			 version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + String.valueOf(minor) + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
 		 }else{
 			 version.setText(R.string.unknow_version);
+			 stabiProvider.disconnect();
 		 }
 	 }
 	 

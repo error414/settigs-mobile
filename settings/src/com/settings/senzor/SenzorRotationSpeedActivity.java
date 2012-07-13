@@ -177,10 +177,10 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 							break;
 		        		case PROFILE_CALL_BACK_CODE:
 		        			if(msg.getData().containsKey("data")){
-		    				initGuiByProfileString(msg.getData().getByteArray("data"));
-		    				sendInSuccessDialog();
-		    			}
-		    			break;
+			    				initGuiByProfileString(msg.getData().getByteArray("data"));
+			    				sendInSuccessDialog();
+			    			}
+			    			break;
 		    		case PROFILE_SAVE_CALL_BACK_CODE:
 		    			sendInSuccessDialog();
 		    			showProfileSavedDialog();
