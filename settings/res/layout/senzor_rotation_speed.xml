@@ -76,7 +76,7 @@
 	            android:id="@+id/z_yaw_rates"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView2"
+	            android:layout_alignParentLeft="true"
 	            android:layout_alignRight="@+id/y_roll_rates"
 	            android:layout_below="@+id/y_roll_rates"
 	            android:layout_marginTop="32dp" >
