@@ -86,6 +86,7 @@
     <string name="pirouette_consistency">Pirouette consistency</string>
     <string name="rear_up">Elevator pitching-up compensation</string>
     <string name="filter">Senzor filter</string>
+    <string name="gyro">Gyro</string>
     
     <string name="cyclic_ring_range">Cyclic ring \n (range)</string>
     <string name="cyclic_ring_range_no_break">Cyclic ring (range)</string>

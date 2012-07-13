@@ -132,10 +132,10 @@ public class SettingsActivity extends BaseActivity {
 		menuListData.add(advanced);
 		
 		//diagnostic
-		HashMap<Integer, Integer> diagnostic = new HashMap<Integer, Integer>();
+		/*HashMap<Integer, Integer> diagnostic = new HashMap<Integer, Integer>();
 		diagnostic.put(TITLE_FOR_MENU, R.string.diagnostic_button_text);
 		diagnostic.put(ICO_RESOURCE_ID, R.drawable.i20);
-		menuListData.add(diagnostic);
+		menuListData.add(diagnostic);*/
 		
 		return menuListData;
 	}

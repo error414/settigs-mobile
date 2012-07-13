@@ -1,7 +1,5 @@
 package com.helpers;
 
-import java.nio.ByteBuffer;
-
 /**
  * operace s Bytema
  *  
@@ -74,12 +72,9 @@ public class ByteOperation {
         return 0;
     }
     
-    public static short byteArrayToShort(byte[] data) 
+    public static Short byteArrayToShort(byte[] data) 
     {       
-            short value = data[1];
-            value = (short) ((value << 8) | data[0]);
-            
-            return value;
+            return (short)((data[0] & 0xFF) | data[1]<<8);
     }
 	
     /**
