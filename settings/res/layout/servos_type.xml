@@ -5,6 +5,12 @@
     android:background="@color/background_color"
     android:orientation="vertical" >
 
+     <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color">
+    
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -136,12 +142,5 @@
             android:entries="@array/rudder_frequency_value"
             android:minWidth="230dp" />
     </RelativeLayout>
-
-	 <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background_color">
-
 	</ScrollView>
 </LinearLayout>
