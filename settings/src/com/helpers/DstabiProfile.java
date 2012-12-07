@@ -3,20 +3,18 @@
  */
 package com.helpers;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Iterator;
 
-import android.content.Context;
+import com.exception.IndexOutOfException;
+
 import android.util.Log;
-import exception.IndexOutOfException;
 
 /**
  * @author error414
@@ -80,7 +78,7 @@ public class DstabiProfile {
 		
 		
 		profileMap.put("PIROUETTE_CONST",		new ProfileItem(38, 64, 255, "H")); // konzistence piruet
-		profileMap.put("REAR_UP",				new ProfileItem(39, 10, 80,  "4")); // vzpinani
+		profileMap.put("REAR_UP",				new ProfileItem(39, 5, 80,  "4")); // vzpinani
 		profileMap.put("FILTER",				new ProfileItem(41, 1,   5,	 "6")); // filtr
 		
 		//profileMap.put("REG_I",			new ProfileItem(40, 0, 255, "5")); 

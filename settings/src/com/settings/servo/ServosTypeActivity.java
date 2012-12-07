@@ -1,5 +1,6 @@
 package com.settings.servo;
 
+import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -7,7 +8,6 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-import exception.IndexOutOfException;
 
 import android.os.Bundle;
 import android.os.Handler;

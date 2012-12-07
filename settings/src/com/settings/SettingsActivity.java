@@ -73,11 +73,7 @@ public class SettingsActivity extends BaseActivity {
         		case 4://advanced
         			openAdvancedIndent(view);
         			break;
-        		case 5://senzors
-        			openDiagnosticIndent(view);
-        			break;
 		    	}
-        		
             }
         });
     }
@@ -192,21 +188,6 @@ public class SettingsActivity extends BaseActivity {
     {
     	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
     		Intent i = new Intent(SettingsActivity.this, SenzorActivity.class);
-        	startActivity(i);
-    	}else{
-    		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
-    	}
-    }
-    
-    /**
-	 * kliknuti na tlacitko senzor na hlavni obrazovce
-	 * 
-	 * @param v
-	 */
-    public void openDiagnosticIndent(View v)
-    {
-    	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-    		Intent i = new Intent(SettingsActivity.this, DiagnosticActivity.class);
         	startActivity(i);
     	}else{
     		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();

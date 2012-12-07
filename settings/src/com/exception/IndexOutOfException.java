@@ -1,4 +1,4 @@
-package exception;
+package com.exception;
 
 /**
  * vlastni excetion pro pripad ze hodnota neni v intervalu selectu
