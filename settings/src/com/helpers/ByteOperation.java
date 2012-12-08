@@ -72,6 +72,15 @@ public class ByteOperation {
         return 0;
     }
     
+    public static int byteArrayToSigInt(byte[] b){
+    	return twoByteToSigInt(b[0], b[1]);
+    }
+    
+    public static int twoByteToSigInt(byte b1, byte b2){
+    	return ((b1 & 0xff) | (b2 << 8)) << 16 >> 16;
+    	
+    }
+    
     public static Short byteArrayToShort(byte[] data) 
     {       
             return (short)((data[0] & 0xFF) | data[1]<<8);
@@ -108,7 +117,7 @@ public class ByteOperation {
 	 * @param array
 	 * @return
 	 */
-	final public static String byteArrayToHexString(byte array) {
+	final public static String byteToHexString(byte array) {
 		StringBuffer hexString = new StringBuffer();
 		int intVal = array & 0xff;
 		if (intVal < 0x10){

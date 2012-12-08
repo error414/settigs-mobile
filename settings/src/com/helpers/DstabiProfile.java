@@ -78,8 +78,10 @@ public class DstabiProfile {
 		
 		
 		profileMap.put("PIROUETTE_CONST",		new ProfileItem(38, 64, 255, "H")); // konzistence piruet
-		profileMap.put("REAR_UP",				new ProfileItem(39, 5, 80,  "4")); // vzpinani
-		profileMap.put("FILTER",				new ProfileItem(41, 1,   5,	 "6")); // filtr
+		//profileMap.put("REAR_UP",				new ProfileItem(39, 5, 80,  "4")); // vzpinani
+		profileMap.put("REAR_UP",				new ProfileItem(39, 0, 80,  "4")); // vzpinani TOHLE JE JEN PRO TESTY ABY APLIKACE FUNGOVALA
+		//profileMap.put("FILTER",				new ProfileItem(41, 1,   5,	 "6")); // filtr
+		profileMap.put("FILTER",				new ProfileItem(41, 1,   128,	 "6")); // filtr TOHLE JE JEN PRO TESTY ABY APLIKACE FUNGOVALA
 		
 		//profileMap.put("REG_I",			new ProfileItem(40, 0, 255, "5")); 
 		

@@ -21,7 +21,7 @@
             </intent-filter>
         </activity>
         <activity android:name="GeneralActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
-        <activity android:name="DiagnosticActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
+        <activity android:name=".diagnostic.DiagnosticActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
         <activity android:name="AuthorActivity" android:label="@string/short_title" android:configChanges="orientation" android:theme="@style/CustomTheme"></activity>
         <activity android:name="ConnectionActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>
         <activity android:name=".servo.ServosActivity" android:configChanges="orientation" android:label="@string/short_title" android:theme="@style/CustomTheme"></activity>

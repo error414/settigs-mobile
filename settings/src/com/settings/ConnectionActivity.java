@@ -186,7 +186,7 @@ public class ConnectionActivity extends BaseActivity{
 		 
 		 String serialFormat = "";
 		 for (byte b : serialNumber) {
-			 serialFormat = serialFormat + ByteOperation.byteArrayToHexString(b) + " ";
+			 serialFormat = serialFormat + ByteOperation.byteToHexString(b) + " ";
 		 }
 			 
 		 serial.setText(serialFormat);

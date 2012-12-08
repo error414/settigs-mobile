@@ -44,6 +44,7 @@ public class DstabiProvider {
 	final static private int PROTOCOL_STATE_RETRIEVE_INIT_CODE = 2;
 	final static private int PROTOCOL_STATE_SENDED_VALUES = 3;
 	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA = 4;
+	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC = 5;
 	
 	final protected String GET_PROFILE = "G";
 	final protected String GET_STICKED_AND_SENZORS_VALUE = "D";
@@ -333,8 +334,7 @@ public class DstabiProvider {
         				
         				byte[] byteMessage = b.getByteArray("msg");
         				
-        				Log.d(TAG, "prijmam data");
-        				Log.d(TAG, String.valueOf(byteMessage));
+        				Log.d(TAG, "prijmam data: " + ByteOperation.getIntegerStringByByteArray(byteMessage));
         				
         				String message 			= parseMessagegetCode(byteMessage);
         				byte[] data 			= parseMessagegetData(byteMessage);
@@ -404,9 +404,9 @@ public class DstabiProvider {
 	    								Log.d(TAG, "Prisla diagnosticka :" + ByteOperation.getIntegerStringByByteArray(data));
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
-	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
+	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC;
 	    								dataBuilder = new DataBuilder(16); // diagnostika je dlouhe 16 bytu
-	    								dataBuilder.add(data);
+	    								dataBuilder.add(byteMessage); // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
 	    								// case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA: kde se dal ceka na dalsi data
@@ -420,14 +420,32 @@ public class DstabiProvider {
 	    							clearState();
 	    						 }
         						break;
+        						
+        					//cekameme na dalsi data z profilu nebo ze serioveho cisla
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA:
         						Log.d(TAG, "Prislo x :" + ByteOperation.getIntegerStringByByteArray(data));
         						dataBuilder.add(data);
         						if(dataBuilder.itsAll()){
+        							Log.d(TAG, "x  cele odesilam handle");
         							sendHandle(callBackCode, dataBuilder.getData());
+								}else{
+									Log.d(TAG, "x neni cele :" + dataBuilder.lenght);
+								}
+        						break;
+        						
+        					// prijmame dalsi casti z diagnostiky, musime pouzit vlastni switch protoze diagnistika nepouziva promenou data ale byteMessage
+        					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC:
+        						Log.d(TAG, "Prislo diag :" + ByteOperation.getIntegerStringByByteArray(data));
+        						dataBuilder.add(byteMessage);  // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
+        						if(dataBuilder.itsAll()){
+        							Log.d(TAG, "diag  cele odesilam handle");
+        							sendHandle(callBackCode, dataBuilder.getData());
+								}else{
+									Log.d(TAG, "diag neni cele :" + dataBuilder.lenght);
 								}
         						break;
         				}
+        					
         			}
         	}
         	
@@ -440,6 +458,7 @@ public class DstabiProvider {
         Message m = connectionHandler.obtainMessage( callBackCode );
         m.setData(budleForMsg);
         connectionHandler.sendMessage(m);
+        Log.d(TAG, "zprava poslana");
         clearState();
     }
     
@@ -471,11 +490,11 @@ public class DstabiProvider {
      * @return
      */
     private byte[] parseMessagegetData(byte[] msg){
-    	
     	//zprava je 
-    	if(msg.length == 1){// prisel jednoduchy vystup K nebo E
+    	if(msg.length == 1 && protocolState != PROTOCOL_STATE_WAIT_FOR_ALL_DATA){// prisel jednoduchy vystup K nebo E
     		return null;
     	}else if(msg.length > 1){
+    		
     		String code= EncodingUtils.getAsciiString(msg, 0, 1);
     		Log.d(TAG, code);
     		if((code.equals(OK) || code.equals(ERROR)) && protocolState != PROTOCOL_STATE_WAIT_FOR_ALL_DATA){ // prisel zacatek profilu odstranime K na zacatku profilu a nasmime byt v modu cekani na data
@@ -538,6 +557,8 @@ public class DstabiProvider {
     	public Boolean itsAll()
     	{
     		if(profile != null){
+    			Log.d(TAG, "its all length: " +  lenght);
+    			Log.d(TAG, "its all profile.length: " +  profile.length);
     			return (lenght <= profile.length && lenght != 0);
     		}
     		return false;

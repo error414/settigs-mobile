@@ -7,6 +7,7 @@ import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.settings.advanced.AdvancedActivity;
+import com.settings.diagnostic.DiagnosticActivity;
 import com.settings.senzor.SenzorActivity;
 import com.settings.servo.ServosActivity;
 
@@ -73,6 +74,9 @@ public class SettingsActivity extends BaseActivity {
         		case 4://advanced
         			openAdvancedIndent(view);
         			break;
+		        case 5://diagnostic
+					openDiagnosticIndent(view);
+					break;
 		    	}
             }
         });
@@ -128,10 +132,10 @@ public class SettingsActivity extends BaseActivity {
 		menuListData.add(advanced);
 		
 		//diagnostic
-		/*HashMap<Integer, Integer> diagnostic = new HashMap<Integer, Integer>();
+		HashMap<Integer, Integer> diagnostic = new HashMap<Integer, Integer>();
 		diagnostic.put(TITLE_FOR_MENU, R.string.diagnostic_button_text);
 		diagnostic.put(ICO_RESOURCE_ID, R.drawable.i20);
-		menuListData.add(diagnostic);*/
+		menuListData.add(diagnostic);
 		
 		return menuListData;
 	}
@@ -203,6 +207,21 @@ public class SettingsActivity extends BaseActivity {
     {
     	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
     		Intent i = new Intent(SettingsActivity.this, AdvancedActivity.class);
+        	startActivity(i);
+    	}else{
+    		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+    	}
+    }
+    
+    /**
+	 * kliknuti na tlacitko diagnostic na hlavni obrazovce
+	 * 
+	 * @param v
+	 */
+    public void openDiagnosticIndent(View v)
+    {
+    	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+    		Intent i = new Intent(SettingsActivity.this, DiagnosticActivity.class);
         	startActivity(i);
     	}else{
     		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
