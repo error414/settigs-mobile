@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
-import com.helpers.NumberOperation;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;

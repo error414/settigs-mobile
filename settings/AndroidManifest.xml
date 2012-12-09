@@ -45,6 +45,7 @@
         <activity android:name="HelpActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         <activity android:name=".advanced.RearUpActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
         <activity android:name=".advanced.FilterActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title"></activity>
+        <activity android:name=".graph.GraphActivity" android:theme="@style/CustomTheme" android:label="@string/short_title" android:configChanges="orientation"></activity>
         
     </application>
 </manifest>

@@ -1,11 +1,5 @@
 package com.settings.diagnostic;
 
-import java.nio.ByteBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.R.integer;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,23 +7,16 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.helpers.ByteOperation;
-import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
-import com.settings.servo.ServosActivity;
-import com.settings.servo.ServosTypeActivity;
 
 public class DiagnosticActivity extends BaseActivity{
 	final private String TAG = "DiagnosticActivity";
@@ -49,7 +36,7 @@ public class DiagnosticActivity extends BaseActivity{
         setContentView(R.layout.diagnostic);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.advanced_button_text)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.diagnostic_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		
@@ -89,7 +76,7 @@ public class DiagnosticActivity extends BaseActivity{
 		int elevator = ByteOperation.twoByteToSigInt(b[2], b[3]);
 		int elevatorPercent = Math.round((100f / 340f) *  elevator);
 		((ProgressBar)findViewById(R.id.elevator_progress_diagnostic)).setProgress(Math.round(elevatorPercent + 100));
-		((TextView)findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent));
+		((TextView)findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent ));
 		
 		//RUDDER
 		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
@@ -98,10 +85,22 @@ public class DiagnosticActivity extends BaseActivity{
 		((TextView)findViewById(R.id.rudder_value_diagnostic)).setText(String.valueOf(rudderPercent));
 		
 		//PITCH
-		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5 ]);
+		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
 		int pitchPercent = Math.round((100f / 340f) *  pitch);
 		((ProgressBar)findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
 		((TextView)findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
+		
+		//GYRO
+		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]) + 427;
+		int gyroPercent = Math.round((100f / 765f) *  gyro);
+		((ProgressBar)findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent));
+		((TextView)findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(gyroPercent));
+		
+		//SENZOR X Y Z
+		((TextView)findViewById(R.id.diagnostic_x)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[10], b[11])));
+		((TextView)findViewById(R.id.diagnostic_y)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[12], b[13])));
+		((TextView)findViewById(R.id.diagnostic_z)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[14], b[15])));
+		
 	}
 	
 	

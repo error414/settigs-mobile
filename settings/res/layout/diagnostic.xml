@@ -13,7 +13,7 @@
 
 	     <RelativeLayout
 	         android:layout_width="fill_parent"
-	         android:layout_height="372dp"
+	         android:layout_height="wrap_content"
 	         android:background="@color/background_color" >
 
 	         <ImageView
@@ -101,9 +101,9 @@
 	             android:layout_width="wrap_content"
 	             android:layout_height="wrap_content"
 	             android:layout_alignTop="@+id/elevator_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
 	             android:layout_marginTop="2dp"
 	             android:text="50%"
-	             android:layout_centerHorizontal="true"
 	             android:textColor="@color/text_color" />
 
 	         <TextView
@@ -158,16 +158,100 @@
 	             android:max="200"
 	             android:progressDrawable="@drawable/my_custom_pb" />
 
-	          <TextView
-	              android:id="@+id/pitch_value_diagnostic"
-	              android:layout_width="wrap_content"
-	              android:layout_height="wrap_content"
-	              android:layout_alignTop="@+id/pitch_progress_diagnostic"
-	              android:layout_centerHorizontal="true"
-	              android:layout_marginTop="2dp"
-	              android:text="50%"
-	              android:textColor="@color/text_color" />
-	         
+	         <TextView
+	             android:id="@+id/pitch_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/pitch_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+
+	         <TextView
+	             android:id="@+id/TextView02"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/pitch_progress_diagnostic"
+	             android:layout_below="@+id/pitch_progress_diagnostic"
+	             android:layout_marginTop="35dp"
+	             android:text="@string/gyro"
+	             android:textColor="@color/text_color" />
+
+	         <ProgressBar
+	             android:id="@+id/gyro_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/TextView02"
+	             android:layout_alignRight="@+id/pitch_progress_diagnostic"
+	             android:layout_below="@+id/TextView02"
+	             android:max="100"
+	             android:progressDrawable="@drawable/my_custom_pb" />
+
+	         <TextView
+	             android:id="@+id/gyro_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/gyro_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+
+	         <RelativeLayout
+	             android:id="@+id/relativeLayout1"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/gyro_progress_diagnostic"
+	             android:layout_below="@+id/gyro_progress_diagnostic"
+	             android:layout_marginTop="35dp" >
+
+	             <TextView
+	                 android:id="@+id/diagnostic_x"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_alignParentLeft="true"
+	                 android:layout_alignParentTop="true"
+	                 android:text="50"
+	                 android:textSize="@dimen/largeText" />
+
+	         </RelativeLayout>
+
+	         <RelativeLayout
+	             android:id="@+id/relativeLayout2"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/relativeLayout1"
+	             android:layout_centerHorizontal="true" >
+
+	             <TextView
+	                 android:id="@+id/diagnostic_y"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_alignParentLeft="true"
+	                 android:layout_alignParentTop="true"
+	                 android:text="50"
+	                 android:textSize="@dimen/largeText" />
+
+	         </RelativeLayout>
+
+	         <RelativeLayout
+	             android:id="@+id/relativeLayout3"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignRight="@+id/gyro_progress_diagnostic"
+	             android:layout_alignTop="@+id/relativeLayout2" >
+
+	             <TextView
+	                 android:id="@+id/diagnostic_z"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="50"
+	                 android:textSize="@dimen/largeText" />
+
+	         </RelativeLayout>
+
 	     </RelativeLayout>
 
 	 </ScrollView>

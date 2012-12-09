@@ -49,6 +49,7 @@
     <string name="general_button_text">General</string>
     <string name="servos_button_text">Servos</string>
     <string name="diagnostic_button_text">Diagnostic</string>
+    <string name="graph_button_text">Vibration</string>
     <string name="senzor_button_text">Senzor</string>
     <string name="senzor_senzivity_button_text">Senzivity</string>
     <string name="advanced_button_text">Advanced</string>

@@ -134,7 +134,7 @@ public class SettingsActivity extends BaseActivity {
 		//diagnostic
 		HashMap<Integer, Integer> diagnostic = new HashMap<Integer, Integer>();
 		diagnostic.put(TITLE_FOR_MENU, R.string.diagnostic_button_text);
-		diagnostic.put(ICO_RESOURCE_ID, R.drawable.i20);
+		diagnostic.put(ICO_RESOURCE_ID, R.drawable.i37);
 		menuListData.add(diagnostic);
 		
 		return menuListData;
