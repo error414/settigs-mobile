@@ -353,7 +353,7 @@ public class BluetoothCommandService {
                     		message[i] = buffer[i];
 						}
                     	
-                    	Log.d(TAG + " in", ByteOperation.getIntegerStringByByteArray(message));
+                    	Log.d(TAG + " in", "" + message.length);
                     	
 	                    Bundle b = new Bundle();
 	                    b.putByteArray("msg", message);

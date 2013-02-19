@@ -56,6 +56,25 @@ public class ByteOperation {
 	}
 	
 	/**
+	 * vraci hex string cisla z pole bytu
+	 * 
+	 * @param b
+	 * @return
+	 */
+	final public static String getHexStringByByteArray(byte[] b){
+		if(b == null || b.length == 0){
+			return "";
+		}
+		
+		String buffer = "";
+		for(int i = 0; i < b.length; i++){
+			buffer += ByteOperation.byteToHexString(b[i]) + ", ";
+		}
+		
+		return buffer;
+	}
+	
+	/**
      * Convert a byte array integer (4 bytes) to its int value nebo 1 byte
      * @param b byte[]
      * @return int

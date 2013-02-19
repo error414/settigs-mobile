@@ -290,10 +290,10 @@ public class ConnectionActivity extends BaseActivity{
     	//nahrani / ulozeni profilu
     	if(item.getGroupId() == GROUP_PROFILE){
     		// musime byt pripojeni k zarizeni
-    		if(stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+    		/*if(stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
         		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
         		return false;
-        	}
+        	}*/
     		
     		
     		Intent intent = new Intent(getBaseContext(), FileDialog.class);

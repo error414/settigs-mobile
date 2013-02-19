@@ -43,7 +43,9 @@
     
     <string name="BT_connection_progress">BlueTooth connection in progress</string>
     
-   
+    <string name="axis_X">X</string>
+    <string name="axis_Y">Y</string>
+    <string name="axis_Z">Z</string>
 
     <string name="connection_button_text">Connection</string>
     <string name="general_button_text">General</string>
