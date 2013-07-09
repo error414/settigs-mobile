@@ -1,4 +1,4 @@
-package com.settings.advanced;
+package com.settings.stabi;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,23 +21,24 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class StickDeathBandActivity extends BaseActivity{
+public class StabiPitchActivity extends BaseActivity{
 
-final private String TAG = "StickDeathBandActivity";
+	@SuppressWarnings("unused")
+	final private String TAG = "SenzorActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"STICK_DB",
+			"STABI_COL",
 	};
 	
 	private int formItems[] = {
-			R.id.stick_db,
+			R.id.stabi_pitch,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.stick_deathband,
+			R.string.stabi_pitch,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -45,19 +46,19 @@ final private String TAG = "StickDeathBandActivity";
 	private DstabiProfile profileCreator;
 	
 	/**
-	 * zavolani pri vytvoreni instance aktivity servo type
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_stick_deathband);
+        setContentView(R.layout.stabi_pitch);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.stick_deathband)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_pitch)));
         
-        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+        stabiProvider = DstabiProvider.getInstance(connectionHandler);
         
         initGui();
         initConfiguration();
@@ -65,25 +66,26 @@ final private String TAG = "StickDeathBandActivity";
     }
 	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume(){
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED)
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}else{
+		else
 			finish();
-		}
 	}
 	
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(1, 30); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
+			 
+			 tempPicker.setOffset(-128);			 // zobrazujeme od stredu, 128 => 0 
+			 tempPicker.setRange(118, 138, -10, 10); // hack, ble
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
 	
@@ -122,9 +124,9 @@ final private String TAG = "StickDeathBandActivity";
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrentNoNotify(size);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }
@@ -141,14 +143,24 @@ final private String TAG = "StickDeathBandActivity";
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+						
+						if (newVal > 128 && newVal < 128+4)
+							newVal = 128-4;
+						if (newVal < 128 && newVal > 128-4)
+							newVal = 128+4;
+
+						parent.setCurrentNoNotify(newVal);
+							
 						item.setValue(newVal);
+
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}
 			}
 
 		 };
-		 
+	
+	
 		// The Handler that gets information back from the 
 		 private final Handler connectionHandler = new Handler() {
 		        @Override
@@ -167,42 +179,42 @@ final private String TAG = "StickDeathBandActivity";
 							break;
 		        		case PROFILE_CALL_BACK_CODE:
 		        			if(msg.getData().containsKey("data")){
-		        				initGuiByProfileString(msg.getData().getByteArray("data"));
-		        				sendInSuccessDialog();
-		        			}
-		        			break;
-		        		case PROFILE_SAVE_CALL_BACK_CODE:
-		        			sendInSuccessDialog();
-		        			showProfileSavedDialog();
-		        			break;
-		        	}
-		        }
-		    };
-		    
-	    /**
-	     * vytvoreni kontextoveho menu
-	     */
-	    @Override
-	    public boolean onCreateOptionsMenu(Menu menu)
-	    {
-		    super.onCreateOptionsMenu(menu);
-		    
-		    menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
-		    return true;
-	    }
+			    				initGuiByProfileString(msg.getData().getByteArray("data"));
+			    				sendInSuccessDialog();
+			    			}
+			    			break;
+		    		case PROFILE_SAVE_CALL_BACK_CODE:
+		    			sendInSuccessDialog();
+		    			showProfileSavedDialog();
+		    			break;
+		    	}
+		    }
+		};
 	    
-	    /**
-	     * reakce na kliknuti polozky v kontextovem menu
-	     */
-	    @Override
-	    public boolean onOptionsItemSelected(MenuItem item) 
-	    {
-	    	 super.onOptionsItemSelected(item);
-	    	//ulozit do jednotky
-	    	if(item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU){
-	    		saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-	    	}
-	    	return false;
-	    }
+    /**
+     * vytvoreni kontextoveho menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+	    super.onCreateOptionsMenu(menu);
+	    
+	    menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
+	    return true;
+    }
+    
+    /**
+     * reakce na kliknuti polozky v kontextovem menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	 super.onOptionsItemSelected(item);
+    	//ulozit do jednotky
+    	if(item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU){
+    		saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+    	}
+    	return false;
+    }
 	
 }

@@ -1,14 +1,5 @@
-package com.settings.servo;
+package com.settings.advanced;
 
-import com.customWidget.picker.ProgresEx.OnChangedListener;
-import com.customWidget.picker.ProgresEx;
-import com.helpers.ByteOperation;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.settings.BaseActivity;
-import com.settings.R;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,36 +11,37 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class ServosSubtrimActivity extends BaseActivity{
-	
-	final private String TAG = "ServosSubtrimActivity";
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.helpers.DstabiProfile;
+import com.helpers.NumberOperation;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.settings.BaseActivity;
+import com.settings.R;
+
+public class StickDeadBandActivity extends BaseActivity{
+
+final private String TAG = "StickDeadBandActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"SUBTRIM_AIL",
-			"SUBTRIM_ELE",
-			"SUBTRIM_PIT",
-			"SUBTRIM_RUD",
+			"STICK_DB",
 	};
 	
 	private int formItems[] = {
-			R.id.aileron_picker,
-			R.id.elevator_picker,
-			R.id.pitch_picker,
-			R.id.rudder_picker,
+			R.id.stick_db,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.aileron,
-			R.string.elevator,
-			R.string.pitch,
-			R.string.rudder,
-	};
+			R.string.stick_deadband,
+		};
 	
 	private DstabiProvider stabiProvider;
-
+	
 	private DstabiProfile profileCreator;
 	
 	/**
@@ -60,10 +52,10 @@ public class ServosSubtrimActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.servos_subtrim);
+        setContentView(R.layout.advanced_stick_deathband);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.servos_button_text), " \u2192 " , getString(R.string.subtrim)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.stick_deadband)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -81,30 +73,16 @@ public class ServosSubtrimActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni subtrimu
 		}else{
 			finish();
 		}
-	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
-	}
-	
-	@Override
-	public void onStop(){
-		super.onStop();
 	}
 	
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]);
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		 }
 	}
 	
@@ -142,10 +120,11 @@ public class ServosSubtrimActivity extends BaseActivity{
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrentNoNotify(size);
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			 
+			 tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }
@@ -169,7 +148,6 @@ public class ServosSubtrimActivity extends BaseActivity{
 			}
 
 		 };
-		 
 		 
 		// The Handler that gets information back from the 
 		 private final Handler connectionHandler = new Handler() {

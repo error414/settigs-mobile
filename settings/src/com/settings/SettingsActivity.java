@@ -11,6 +11,7 @@ import com.settings.diagnostic.DiagnosticActivity;
 import com.settings.diagnostic.GraphActivity;
 import com.settings.senzor.SenzorActivity;
 import com.settings.servo.ServosActivity;
+import com.settings.stabi.StabiActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -69,16 +70,19 @@ public class SettingsActivity extends BaseActivity {
         		case 2://servo
         			openServosIndent(view);
         			break;
-        		case 3://senzor
+        		case 3://sensor
         			openSenzorIndent(view);
         			break;
-        		case 4://advanced
+		        case 4://stabi
+					openStabiIndent(view);
+					break;
+        		case 5://advanced
         			openAdvancedIndent(view);
         			break;
-		        case 5://diagnostic
+		        case 6://diagnostic
 					openDiagnosticIndent(view);
 					break;
-		        case 6://graph
+		        case 7://graph
 					openGraphIndent(view);
 					break;
 		    	}
@@ -129,6 +133,12 @@ public class SettingsActivity extends BaseActivity {
 		senzor.put(ICO_RESOURCE_ID, R.drawable.i15);
 		menuListData.add(senzor);
 		
+		//stabi
+		HashMap<Integer, Integer> stabi = new HashMap<Integer, Integer>();
+		stabi.put(TITLE_FOR_MENU, R.string.stabi_button_text);
+		stabi.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(stabi);
+		
 		//advanced
 		HashMap<Integer, Integer> advanced = new HashMap<Integer, Integer>();
 		advanced.put(TITLE_FOR_MENU, R.string.advanced_button_text);
@@ -141,7 +151,7 @@ public class SettingsActivity extends BaseActivity {
 		diagnostic.put(ICO_RESOURCE_ID, R.drawable.i37);
 		menuListData.add(diagnostic);
 		
-		//diagnostic
+		//graph
 		HashMap<Integer, Integer> graph = new HashMap<Integer, Integer>();
 		graph.put(TITLE_FOR_MENU, R.string.graph_button_text);
 		graph.put(ICO_RESOURCE_ID, R.drawable.i38);
@@ -202,6 +212,21 @@ public class SettingsActivity extends BaseActivity {
     {
     	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
     		Intent i = new Intent(SettingsActivity.this, SenzorActivity.class);
+        	startActivity(i);
+    	}else{
+    		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+    	}
+    }
+    
+    /**
+	 * kliknuti na tlacitko stabi na hlavni obrazovce
+	 * 
+	 * @param v
+	 */
+    public void openStabiIndent(View v)
+    {
+    	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+    		Intent i = new Intent(SettingsActivity.this, StabiActivity.class);
         	startActivity(i);
     	}else{
     		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();

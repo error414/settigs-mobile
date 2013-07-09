@@ -48,6 +48,8 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	private String mTitle = "";
 	private boolean mShowAsPercent = false;
 	
+	private int mOffset = 0;
+	
 	private ProgresExButton mIncrementButton;
 	private ProgresExButton mDecrementButton;
 	
@@ -199,6 +201,16 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	}
 	
 	/**
+	 * nastaveni offsetu
+	 * 
+	 * @param mMin
+	 * @param mMax
+	 */
+	public void setOffset(int mOffset) {
+		this.mOffset = mOffset;
+	}
+	
+	/**
 	 * nastaveni titilku
 	 * 
 	 * @param mTitle
@@ -246,8 +258,8 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 		}else{
 			mObjMin.setText(String.valueOf(mRangeMin));
 			mObjMax.setText(String.valueOf(mRangeMax));
-			mObjProgresValue.setText(String.valueOf(mCurrent));
-			mObjCurrent.setText(String.valueOf(mCurrent));
+			mObjProgresValue.setText(String.valueOf(mCurrent + mOffset));
+			mObjCurrent.setText(String.valueOf(mCurrent + mOffset));
 		}
 		
     }

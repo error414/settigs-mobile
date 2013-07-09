@@ -53,30 +53,40 @@ public class AdvancedActivity extends BaseActivity{
                     int position, long id) {
             	
             	switch(position){
-            		case 0://feed forward
-            			openCyclicFeedForwardActivity(view);
+            		case 0://signal processing
+            			openSignalProcActivity(view);
             			break;
-            		case 1://deathband
-            			openStickDeathBandActivity(view);
+            		case 1://deadband
+            			openStickDeadBandActivity(view);
             			break;
-            		case 2://rudder dynamic
-            			openRudderDynamicActivity(view);
+            		case 2://geometry correction
+            			openGeometryCorrActivity(view);
             			break;
-            		case 3://rudder mix
-            			openRudderMixActivity(view);
+            		case 3://geometry angle
+            			openGeometryAngleActivity(view);
             			break;
-            		case 4://pirouette const
-            			openPirouetteConsistencyActivity(view);
-            			break;
-            		case 5://rear up
-            			openRearUpActivity(view);
-            			break;
-            		case 6://filter
-            			openFilterActivity(view);
-            			break;
-            		case 7://pirouette opt
+            		case 4://pirouette optimization
             			openPiroOptimalizationActivity(view);
             			break;
+            		case 5://rudder delay
+            			openRudderDelayActivity(view);
+            			break;
+            		case 6://pirouette const
+            			openPirouetteConsistencyActivity(view);
+            			break;
+            		case 7://rudder dynamic
+            			openRudderDynamicActivity(view);
+            			break;
+            		case 8://rudder revomix
+            			openRudderRevomixActivity(view);
+            			break;
+            		case 9://elevator filter
+            			openEFilterActivity(view);
+            			break;
+            		case 10://cyclic phase
+            			openCyclicPhaseActivity(view);
+            			break;
+
             	}
  
             }
@@ -106,47 +116,29 @@ public class AdvancedActivity extends BaseActivity{
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//feed forward
-		HashMap<Integer, Integer> forward = new HashMap<Integer, Integer>();
-		forward.put(TITLE_FOR_MENU, R.string.cyclick_feed_forward);
-		forward.put(ICO_RESOURCE_ID, R.drawable.i21);
-		menuListData.add(forward);
+		//signal processing
+		HashMap<Integer, Integer> signalproc = new HashMap<Integer, Integer>();
+		signalproc.put(TITLE_FOR_MENU, R.string.signal_proc);
+		signalproc.put(ICO_RESOURCE_ID, R.drawable.i21);
+		menuListData.add(signalproc);
 		
-		//deathband
-		HashMap<Integer, Integer> deathband = new HashMap<Integer, Integer>();
-		deathband.put(TITLE_FOR_MENU, R.string.stick_deathband);
-		deathband.put(ICO_RESOURCE_ID, R.drawable.i22);
-		menuListData.add(deathband);
+		//stick deadband
+		HashMap<Integer, Integer> deadband = new HashMap<Integer, Integer>();
+		deadband.put(TITLE_FOR_MENU, R.string.stick_deadband);
+		deadband.put(ICO_RESOURCE_ID, R.drawable.i22);
+		menuListData.add(deadband);
 		
-		//rudder dynamic
-		HashMap<Integer, Integer> rudderdynamic = new HashMap<Integer, Integer>();
-		rudderdynamic.put(TITLE_FOR_MENU, R.string.rudder_dynamic);
-		rudderdynamic.put(ICO_RESOURCE_ID, R.drawable.i23);
-		menuListData.add(rudderdynamic);
+		//geometry correction
+		HashMap<Integer, Integer> geom_corr = new HashMap<Integer, Integer>();
+		geom_corr.put(TITLE_FOR_MENU, R.string.geom_corr);
+		geom_corr.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(geom_corr);
 		
-		//rudder mix
-		HashMap<Integer, Integer> ruddermix = new HashMap<Integer, Integer>();
-		ruddermix.put(TITLE_FOR_MENU, R.string.rudder_revomix);
-		ruddermix.put(ICO_RESOURCE_ID, R.drawable.i24);
-		menuListData.add(ruddermix);
-		
-		//piruette const
-		HashMap<Integer, Integer> pc = new HashMap<Integer, Integer>();
-		pc.put(TITLE_FOR_MENU, R.string.pirouette_consistency);
-		pc.put(ICO_RESOURCE_ID, R.drawable.i36);
-		menuListData.add(pc);
-		
-		//rear up
-		HashMap<Integer, Integer> rearUp = new HashMap<Integer, Integer>();
-		rearUp.put(TITLE_FOR_MENU, R.string.rear_up);
-		rearUp.put(ICO_RESOURCE_ID, R.drawable.i33);
-		menuListData.add(rearUp);
-		
-		//filter
-		HashMap<Integer, Integer> filter = new HashMap<Integer, Integer>();
-		filter.put(TITLE_FOR_MENU, R.string.filter);
-		filter.put(ICO_RESOURCE_ID, R.drawable.i35);
-		menuListData.add(filter);
+		//geometry 6deg
+		HashMap<Integer, Integer> geom_6deg = new HashMap<Integer, Integer>();
+		geom_6deg.put(TITLE_FOR_MENU, R.string.geom_6deg);
+		geom_6deg.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(geom_6deg);
 		
 		//piruette opt
 		HashMap<Integer, Integer> piro = new HashMap<Integer, Integer>();
@@ -154,6 +146,42 @@ public class AdvancedActivity extends BaseActivity{
 		piro.put(ICO_RESOURCE_ID, R.drawable.i26);
 		menuListData.add(piro);
 		
+		//rudder delay
+		HashMap<Integer, Integer> rudder_delay = new HashMap<Integer, Integer>();
+		rudder_delay.put(TITLE_FOR_MENU, R.string.rudder_delay);
+		rudder_delay.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(rudder_delay);
+		
+		//piruette const
+		HashMap<Integer, Integer> piro_const = new HashMap<Integer, Integer>();
+		piro_const.put(TITLE_FOR_MENU, R.string.pirouette_consistency);
+		piro_const.put(ICO_RESOURCE_ID, R.drawable.i36);
+		menuListData.add(piro_const);
+		
+		//rudder dynamic
+		HashMap<Integer, Integer> rudder_dynamic = new HashMap<Integer, Integer>();
+		rudder_dynamic.put(TITLE_FOR_MENU, R.string.rudder_dynamic);
+		rudder_dynamic.put(ICO_RESOURCE_ID, R.drawable.i23);
+		menuListData.add(rudder_dynamic);
+		
+		//rudder revomix
+		HashMap<Integer, Integer> rudder_revomix = new HashMap<Integer, Integer>();
+		rudder_revomix.put(TITLE_FOR_MENU, R.string.rudder_revomix);
+		rudder_revomix.put(ICO_RESOURCE_ID, R.drawable.i24);
+		menuListData.add(rudder_revomix);
+		
+		//elevator filter
+		HashMap<Integer, Integer> e_filter = new HashMap<Integer, Integer>();
+		e_filter.put(TITLE_FOR_MENU, R.string.e_filter);
+		e_filter.put(ICO_RESOURCE_ID, R.drawable.i33);
+		menuListData.add(e_filter);
+		
+		//cyclic phase
+		HashMap<Integer, Integer> cyclic_phase = new HashMap<Integer, Integer>();
+		cyclic_phase.put(TITLE_FOR_MENU, R.string.cyclic_phase);
+		cyclic_phase.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(cyclic_phase);
+	
 		return menuListData;
 	}
 	
@@ -162,9 +190,9 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openCyclicFeedForwardActivity(View v)
+	public void openSignalProcActivity(View v)
 	{
-		Intent i = new Intent(AdvancedActivity.this, CyclicFeedForwardActivity.class);
+		Intent i = new Intent(AdvancedActivity.this, SignalProcActivity.class);
     	startActivity(i);
 	}
 	
@@ -173,10 +201,55 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openStickDeathBandActivity(View v)
+	public void openStickDeadBandActivity(View v)
 	{
-		Intent i = new Intent(AdvancedActivity.this, StickDeathBandActivity.class);
+		Intent i = new Intent(AdvancedActivity.this, StickDeadBandActivity.class);
     	startActivity(i);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openGeometryCorrActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, GeometryCorrActivity.class);
+    	startActivity(i);
+	}
+	
+
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openGeometryAngleActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, GeometryAngleActivity.class);
+    	startActivity(i);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openRudderDelayActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, RudderDelayActivity.class);
+    	startActivity(i);
+	}
+
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openPiroOptimalizationActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, PiroOptimalizationActivity.class);
+		startActivity(i);
 	}
 	
 	/**
@@ -195,7 +268,7 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openRudderMixActivity(View v)
+	public void openRudderRevomixActivity(View v)
 	{
 		Intent i = new Intent(AdvancedActivity.this, RudderRevomixActivity.class);
 		startActivity(i);
@@ -217,9 +290,9 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openRearUpActivity(View v)
+	public void openEFilterActivity(View v)
 	{
-		Intent i = new Intent(AdvancedActivity.this, RearUpActivity.class);
+		Intent i = new Intent(AdvancedActivity.this, EFilterActivity.class);
 		startActivity(i);
 	}
 	
@@ -228,20 +301,9 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openFilterActivity(View v)
+	public void openCyclicPhaseActivity(View v)
 	{
-		Intent i = new Intent(AdvancedActivity.this, FilterActivity.class);
-		startActivity(i);
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openPiroOptimalizationActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, PiroOptimalizationActivity.class);
+		Intent i = new Intent(AdvancedActivity.this, CyclicPhaseActivity.class);
 		startActivity(i);
 	}
 	

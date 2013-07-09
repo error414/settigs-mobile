@@ -27,19 +27,16 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	
 	private final String protocolCode[] = {
 			"RANGE_AIL",
-			"RANGE_ELE",
 			"RANGE_PIT",
 	};
 	
 	private int formItems[] = {
 			R.id.cyclic_ring_ail_ele,
-			R.id.cyclic_ring_ring,
 			R.id.cyclic_ring_pitch,
 		};
 	
 	private int formItemsTitle[] = {
 			R.string.ail_ele,
-			R.string.ring,
 			R.string.pitch,
 		};
 	

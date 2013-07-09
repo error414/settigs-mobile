@@ -55,7 +55,7 @@ final private String TAG = "PirouetteConsistencyActivity";
         setContentView(R.layout.advanced_pirouette_const);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.pid_cyclic_regulation)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -65,7 +65,7 @@ final private String TAG = "PirouetteConsistencyActivity";
     }
 	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume(){
@@ -82,8 +82,7 @@ final private String TAG = "PirouetteConsistencyActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(64, 255); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
 	
@@ -122,9 +121,10 @@ final private String TAG = "PirouetteConsistencyActivity";
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrentNoNotify(size);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			 
+			 tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }

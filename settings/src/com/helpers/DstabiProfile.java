@@ -39,8 +39,8 @@ public class DstabiProfile {
 		
 		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P"));
 		profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
-		profileMap.put("MIX",	 	new ProfileItem(5, "A", "C", 	"R"));
-		profileMap.put("RECEIVER",	new ProfileItem(6, "A", "D", 	"C"));
+		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "D", 	"R"));
+		profileMap.put("MIX",	 	new ProfileItem(6, "A", "C", 	"C"));
 		profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
 		
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST"));
@@ -51,43 +51,48 @@ public class DstabiProfile {
 		profileMap.put("SUBTRIM_AIL",	new ProfileItem(16, 0, 255, 	"SA"));
 		profileMap.put("SUBTRIM_ELE",	new ProfileItem(17, 0, 255, 	"SE"));
 		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 255, 	"SP"));
+		profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 255, 	"Se"));
 		
-		profileMap.put("RANGE_AIL",		new ProfileItem(11, 0, 255, 	"Sa"));
-		profileMap.put("RANGE_ELE",		new ProfileItem(12, 0, 255, 	"Se"));
-		profileMap.put("RANGE_PIT",		new ProfileItem(13, 0, 255, 	"Sp"));
+		profileMap.put("RANGE_AIL",		new ProfileItem(11, 0, 255, 	"Sa"));	// cyclic ring
+		profileMap.put("RANGE_PIT",		new ProfileItem(13, 0, 255, 	"Sp"));	// rozsah kolektivu
 		
 		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm"));
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 		
-		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 255, 	"x")); // procenta
-		//profileMap.put("SENSOR_SENY",	new ProfileItem(20, 0, 255, 	"y")); // procenta
-		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 0, 255, 	"z")); // procenta
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 60, "x")); 		// procenta
+		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8"));		// geometrie hlavy - 6°
+		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z")); 	// procenta
 		
-		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", 	"X"));
-		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", 	"Y"));
-		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", 	"Z"));
+		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", "X"));
+		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y"));
+		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
 		
-		profileMap.put("RATE_PITCH",	new ProfileItem(25, 0, 16, 	"a"));
-		profileMap.put("RATE_ROLL",		new ProfileItem(26, 0, 16, 	"b"));
-		profileMap.put("RATE_YAW",		new ProfileItem(27, 0, 16, 	"c"));
+		profileMap.put("FLIGHT_STYLE",	new ProfileItem(25, 5, 12, 	"a"));		// rychlost rotace cykliky
+		//profileMap.put("RATE_ROLL",		new ProfileItem(26, 5, 20, 	"b"));
+		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
-		profileMap.put("RATE_CYCLIC",	new ProfileItem(28, 0, 32, "r")); // procenta
-		profileMap.put("STICK_DB",		new ProfileItem(29, 1, 30, "s")); 
-		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 0, 30, "p")); 
+		profileMap.put("SIGNAL_PROC",	new ProfileItem(28, "0", "1", "r")); 	// zpracovani signalu
+		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s")); 
+		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
+		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); 
 		
+		profileMap.put("STABI_COL", new ProfileItem(35, 118, 138, "1")); 		// kolektiv zachranneho rezimu
 		
-		profileMap.put("PIROUETTE_CONST",		new ProfileItem(38, 64, 255, "H")); // konzistence piruet
-		//profileMap.put("REAR_UP",				new ProfileItem(39, 5, 80,  "4")); // vzpinani
-		profileMap.put("REAR_UP",				new ProfileItem(39, 0, 80,  "4")); // vzpinani TOHLE JE JEN PRO TESTY ABY APLIKACE FUNGOVALA
-		//profileMap.put("FILTER",				new ProfileItem(41, 1,   5,	 "6")); // filtr
-		profileMap.put("FILTER",				new ProfileItem(41, 1,   128,	 "6")); // filtr TOHLE JE JEN PRO TESTY ABY APLIKACE FUNGOVALA
+		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 200, "H")); // konzistence piruet
 		
-		//profileMap.put("REG_I",			new ProfileItem(40, 0, 255, "5")); 
+		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat 
+	
+		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, 0, 90, "5"));
+		profileMap.put("GEOMETRY_CORR",	new ProfileItem(41, "0", "1", "6"));	// korekce geometrie
+		//profileMap.put("TRAVEL_PIT",	new ProfileItem(43, 64, 192, "7"));
 		
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
+		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// vyskovkovy filtr
+
+		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
 		
-		
+		profileMap.put("RATE_PITCH",	new ProfileItem(45, 8, 12, "l"));		// letovy projev - hack od 1.0.19 
 		
 		this.mProfile = mProfile;
 		
@@ -110,9 +115,9 @@ public class DstabiProfile {
 		}
 		
 		//uprava zavyslosti polozek
-		if(profileMap.containsKey("MODEL") && profileMap.get("MODEL").isValid() && profileMap.get("MODEL").getValueInteger() != 67 ){ // letadlo
+		/*if(profileMap.containsKey("MODEL") && profileMap.get("MODEL").isValid() && profileMap.get("MODEL").getValueInteger() != 67 ){ // letadlo
 			profileMap.remove("SENSOR_SENZ");
-		}
+		}*/
 		
 		
 	}
@@ -164,6 +169,22 @@ public class DstabiProfile {
 			return false;
 		}
 		
+		int id = profileMap.get("CHECKSUM").positionInConfig;
+		int checksum = mProfile[id] & 0xff;
+
+		int ch = 0;
+		
+		for (int i = 1; i < mProfile.length; i ++)
+			if (i != id)
+				ch += mProfile[i];
+		
+		ch &= 0xff;
+		
+		if (ch != checksum) {
+			Log.d(TAG, "Invalid checksum !");
+			return false;
+		}
+			
 		Iterator<String> iteration = profileMap.keySet().iterator();
 		while(iteration.hasNext()) {
 			String key=(String)iteration.next();
@@ -174,7 +195,7 @@ public class DstabiProfile {
 				return false;
 			}
 		}
-		
+
 		return true;
 		
 	}
@@ -201,7 +222,7 @@ public class DstabiProfile {
 			this.min = min;
 			this.max = max;
 		}
-		
+				
 		public ProfileItem(Integer positionInConfig, String min, String max, String sendCode)
 		{
 			this.positionInConfig = positionInConfig;
@@ -366,6 +387,26 @@ public class DstabiProfile {
 			return false;
 		}
 		
+		/**
+		 * vratime hodnotu reprezentujici minimum pro dany item
+		 * 
+		 * @param value
+		 */
+		public Integer getMinimum()
+		{
+			return this.min;
+		}
+		
+		/**
+		 * vratime hodnotu reprezentujici maximum pro dany item
+		 * 
+		 * @param value
+		 */
+		public Integer getMaximum()
+		{
+			return this.max;
+		}
+
 	}
 	
 	

@@ -62,23 +62,12 @@
 	        </com.customWidget.picker.ProgresEx>
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/y_roll_rates"
+	            android:id="@+id/z_yaw_rates"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignRight="@+id/x_pitch_rates"
 	            android:layout_below="@+id/x_pitch_rates"
-	            android:layout_marginTop="32dp" >
-
-	        </com.customWidget.picker.ProgresEx>
-
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/z_yaw_rates"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/y_roll_rates"
-	            android:layout_below="@+id/y_roll_rates"
 	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>

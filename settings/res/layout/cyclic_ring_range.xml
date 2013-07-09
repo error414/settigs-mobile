@@ -47,23 +47,12 @@
 	        </com.customWidget.picker.ProgresEx>
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/cyclic_ring_ring"
+	            android:id="@+id/cyclic_ring_pitch"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignRight="@+id/cyclic_ring_ail_ele"
 	            android:layout_below="@+id/cyclic_ring_ail_ele"
-	            android:layout_marginTop="32dp" >
-
-	        </com.customWidget.picker.ProgresEx>
-
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/cyclic_ring_pitch"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/cyclic_ring_ring"
-	            android:layout_below="@+id/cyclic_ring_ring"
 	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>

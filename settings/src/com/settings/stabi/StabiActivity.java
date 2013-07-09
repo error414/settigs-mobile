@@ -1,4 +1,4 @@
-package com.settings.senzor;
+package com.settings.stabi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,23 +22,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class SenzorActivity extends BaseActivity{
+public class StabiActivity extends BaseActivity{
 	@SuppressWarnings("unused")
-	final private String TAG = "SenzorActivity";
+	final private String TAG = "StabiActivity";
 	
 	private DstabiProvider stabiProvider;
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.senzor);
+        setContentView(R.layout.stabi);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		
@@ -51,15 +51,15 @@ public class SenzorActivity extends BaseActivity{
                     int position, long id) {
             	
             	switch(position){
-            		case 0://senzivity
-            			openSenzorSenzivityActivity(view);
+            		case 0://function
+            			openStabiFunctionActivity(view);
             			break;
-            		case 1://reverse
-            			openSenzorReverseActivity(view);
+            		case 1://pitch
+            			openStabiPitchActivity(view);
             			break;
-            		case 2://rotation speed
+            		/*case 2://
             			openSenzorRotationSpeedActivity(view);
-            			break;
+            			break;*/
             	}
             }
 		});
@@ -88,23 +88,23 @@ public class SenzorActivity extends BaseActivity{
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//senzivity
-		HashMap<Integer, Integer> senzivity = new HashMap<Integer, Integer>();
-		senzivity.put(TITLE_FOR_MENU, R.string.senzivity);
-		senzivity.put(ICO_RESOURCE_ID, R.drawable.i16);
-		menuListData.add(senzivity);
+		//function
+		HashMap<Integer, Integer> function = new HashMap<Integer, Integer>();
+		function.put(TITLE_FOR_MENU, R.string.stabi_function);
+		function.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(function);
 		
-		//reverse
-		HashMap<Integer, Integer> reverse = new HashMap<Integer, Integer>();
-		reverse.put(TITLE_FOR_MENU, R.string.reverse);
-		reverse.put(ICO_RESOURCE_ID, R.drawable.i17);
-		menuListData.add(reverse);
+		//pitch
+		HashMap<Integer, Integer> pitch = new HashMap<Integer, Integer>();
+		pitch.put(TITLE_FOR_MENU, R.string.stabi_pitch);
+		pitch.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(pitch);
 		
 		//rotation speed
-		HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
+		/*HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
 		rotation.put(TITLE_FOR_MENU, R.string.rotation_speed);
 		rotation.put(ICO_RESOURCE_ID, R.drawable.i18);
-		menuListData.add(rotation);
+		menuListData.add(rotation);*/
 		
 		return menuListData;
 	}
@@ -114,9 +114,9 @@ public class SenzorActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openSenzorSenzivityActivity(View v)
+	public void openStabiFunctionActivity(View v)
 	{
-		Intent i = new Intent(SenzorActivity.this, SenzorSenzivityActivity.class);
+		Intent i = new Intent(StabiActivity.this, StabiFunctionActivity.class);
     	startActivity(i);
 	}
 	
@@ -125,24 +125,11 @@ public class SenzorActivity extends BaseActivity{
 	 * 
 	 * @param v
 	 */
-	public void openSenzorReverseActivity(View v)
+	public void openStabiPitchActivity(View v)
 	{
-		Intent i = new Intent(SenzorActivity.this, SenzorReverseActivity.class);
+		Intent i = new Intent(StabiActivity.this, StabiPitchActivity.class);
 		startActivity(i);
 	}
-	
-	/**
-	 * otevreni aktivity rotation speed senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorRotationSpeedActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorRotationSpeedActivity.class);
-		startActivity(i);
-	}
-	
-	
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler() {

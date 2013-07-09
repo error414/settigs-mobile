@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -13,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -21,7 +24,7 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class PiroOptimalizationActivity extends BaseActivity{
+public class GeometryAngleActivity extends BaseActivity{
 
 	final private String TAG = "PiroOptimalizationActivity";
 	
@@ -29,39 +32,39 @@ public class PiroOptimalizationActivity extends BaseActivity{
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"PIRO_OPT",
+			"GEOMETRY",
 	};
 	
 	private int formItems[] = {
-			R.id.piro_opt,
+			R.id.geom_6deg,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.piro_opt,
+			R.string.geom_6deg_tune,
 		};
 	
 	private DstabiProvider stabiProvider;
 	
 	private DstabiProfile profileCreator;
-	
-	private int lock = 0;
+
 	/**
-	 * zavolani pri vytvoreni instance aktivity servo type
+	 * zavolani pri vytvoreni instance aktivity GeometryAngle
 	 */
 	@Override
     public void onCreate(Bundle savedInstanceState) 
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_piro_opt);
+        setContentView(R.layout.advanced_geom_angle);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.piro_opt)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.geom_6deg)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
-       initConfiguration();
-       delegateListener();
+        initGui();
+        initConfiguration();
+        delegateListener();
     }
 	
 	/**
@@ -74,18 +77,18 @@ public class PiroOptimalizationActivity extends BaseActivity{
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
 	 
-	 /**
+	/**
 	  * prirazeni udalosti k prvkum
 	  */
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((CheckBox) findViewById(formItems[i])).setOnCheckedChangeListener(checkboxListener);
+			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		 }
 	 }
 	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume(){
@@ -93,10 +96,18 @@ public class PiroOptimalizationActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
+			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni nastaveni geometrie
 		}else{
 			finish();
 		}
+	}
+	
+	private void initGui()
+	{
+		for(int i = 0; i < formItems.length; i++){
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+		 }
 	}
 	
 	@Override
@@ -111,50 +122,43 @@ public class PiroOptimalizationActivity extends BaseActivity{
 	  * @param profile
 	  */
 	 private void initGuiByProfileString(byte[] profile){
-		profileCreator = new DstabiProfile(profile);
+		 profileCreator = new DstabiProfile(profile);
 		 
-		if(!profileCreator.isValid()){
-			errorInActivity(R.string.damage_profile);
-			return;
-		}
+		 if(!profileCreator.isValid()){
+			 errorInActivity(R.string.damage_profile);
+			 return;
+		 }
 		
-		for(int i = 0; i < formItems.length; i++){
-			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
-			
-			Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
-			if(checked)lock = lock + 1;
-			tempCheckbox.setChecked(checked);
-		}
+		 for(int i = 0; i < formItems.length; i++){
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			 
+			 tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
+		 }
 	 }
 	 
 	 
-	 private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
-		@Override
-		public void onCheckedChanged(CompoundButton buttonView,
-				boolean isChecked) {
-			
-			if(lock != 0){
-				lock -= 1;
-				return;
-			}
-			lock = Math.max(lock - 1, 0);
-			
-			// TODO Auto-generated method stub
-			// prohledani jestli udalost vyvolal znamy prvek
-			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
-			for(int i = 0; i < formItems.length; i++){
-				if(buttonView.getId() == formItems[i]){
-					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValueFromCheckBox(isChecked);
-					stabiProvider.sendDataNoWaitForResponce(item);
-					
-					showInfoBarWrite();
+	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
+
+
+			@Override
+			public void onChanged(ProgresEx parent, int newVal) {
+				// TODO Auto-generated method stub
+				// prohledani jestli udalost vyvolal znamy prvek
+				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
+				for(int i = 0; i < formItems.length; i++){
+					if(parent.getId() == formItems[i]){
+						showInfoBarWrite();
+						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+						item.setValue(newVal);
+						Log.d(TAG, String.valueOf(newVal));
+						stabiProvider.sendDataNoWaitForResponce(item);
+					}
 				}
 			}
-			
-		}
-		
-	};
+
+		 };
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler() {

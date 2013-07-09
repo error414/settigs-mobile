@@ -21,10 +21,10 @@ import android.widget.TextView;
 import com.helpers.ByteOperation;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.FFT;
 import com.settings.BaseActivity;
 import com.settings.R;
 import com.androidplot.xy.*;
-
 
 public class GraphActivity extends BaseActivity{
 	final private String TAG = "GraphActivity";
@@ -52,10 +52,21 @@ public class GraphActivity extends BaseActivity{
 	
 	////
 	private byte[] dataBuffer;
+	private int dataBuffer_len = 0;
+	final private int DATABUFFER_SIZE = 3000;
 	
-	private long startTime;
+	Number[] seriesX = null;
+	Number[] seriesY = null;
 	
+	// FFT stuff
+	final private int FFT_N = 1024;
+	final private int FFT_NYQUIST = (FFT_N / 2) + 1;
 	
+	FFT fft = null;
+	
+	private double[] input_xr = null;
+	private double[] input_xi = null;
+
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -72,33 +83,46 @@ public class GraphActivity extends BaseActivity{
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		
-		//inicializujeme graf
-		//inicializeGraph();
+		// inicializace FFT
+		initFFT();
+		// inicializujeme graf
+		inicializeGraph();
 		
 		startGraph();
     }
 	
 	/**
+	 * inicializace a nastaveni FFT
+	 */
+	private void initFFT(){
+		fft = new FFT(10);	// nastavime rozliseni na 2^10
+		
+		// realna + imaginarni slozka pro vypocet FFT
+		input_xr = new double[FFT_N];
+		input_xi = new double[FFT_N];
+	}
+	
+	/**
 	 * inicializace a nastaveni zobrazeni grafu
-	 * 
 	 */
 	private void inicializeGraph(){
-		Number[] seriesX = {0, 25, 55, 2, 80, 30, 99, 0, 44, 6};
-		Number[] seriesY = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
-		aprLevelsSeries = new SimpleXYSeries(Arrays.asList(seriesY), Arrays.asList(seriesX), "");
+		seriesX = new Number[FFT_NYQUIST];
+		seriesY = new Number[FFT_NYQUIST];
+		
+		aprLevelsSeries = new SimpleXYSeries(Arrays.asList(seriesX), Arrays.asList(seriesY), "");
 		
 		// setup the APR Levels plot:
         aprLevelsPlot = (XYPlot) findViewById(R.id.vibration);
         aprLevelsPlot.addSeries(aprLevelsSeries, LineAndPointRenderer.class, new LineAndPointFormatter(Color.rgb(0, 200, 0), null, null));
         aprLevelsPlot.disableAllMarkup();
         
-        aprLevelsPlot.setRangeBoundaries(0, 220, BoundaryMode.FIXED);
-        aprLevelsPlot.setRangeLabel("osa X");
-        aprLevelsPlot.setRangeStepValue(11);
+        aprLevelsPlot.setRangeBoundaries(0, 100, BoundaryMode.FIXED);
+        aprLevelsPlot.setRangeLabel("Amplitude");
+        aprLevelsPlot.setRangeStepValue(50);
         
-        aprLevelsPlot.setDomainBoundaries(0, 10, BoundaryMode.FIXED);
-        aprLevelsPlot.setDomainLabel("hz");
-        aprLevelsPlot.setDomainStepValue(5);
+        aprLevelsPlot.setDomainBoundaries(0, 500, BoundaryMode.FIXED);
+        aprLevelsPlot.setDomainLabel("Frequency [Hz]");
+        aprLevelsPlot.setRangeStepValue(10);
         
         aprLevelsPlot.getLayoutManager()
         .remove(aprLevelsPlot.getLegendWidget());
@@ -137,7 +161,7 @@ public class GraphActivity extends BaseActivity{
 			}
 		};
 		
-		startTime = System.nanoTime();//START
+		//startTime = System.nanoTime();//START
 		thread.run();
 	}
 	
@@ -167,7 +191,7 @@ public class GraphActivity extends BaseActivity{
 	 private final Handler connectionHandler = new Handler() {
 	        @Override
 	        public void handleMessage(Message msg) {
-	        	Log.d(TAG, "prisla zprava");
+	        	//Log.d(TAG, "prisla zprava");
 	        	switch(msg.what){
 		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 		        		
@@ -183,46 +207,70 @@ public class GraphActivity extends BaseActivity{
 						break;
 	        		case GRAPH_CALL_BACK_CODE:
 	        			if(msg.getData().containsKey("data")){
-	        				Log.d(TAG, "Odpoved: " + (msg.getData().getByteArray("data").length));
-	        				
-	        				
-	        				/*byte[] outArray;
-	        				if(dataBuffer != null ){
-	        					int lenA = msg.getData().getByteArray("data").length;
-	        					int lenB = dataBuffer.length;
-	        					outArray = new byte[lenA + lenB];
+	        				int len = msg.getData().getByteArray("data").length;
+	        				byte[] data = msg.getData().getByteArray("data");
+	        					        				
+	        				if(dataBuffer == null)
+	        					dataBuffer = new byte[DATABUFFER_SIZE+72];	// 3byte*1024
+
+	        				if ((dataBuffer_len+len) > DATABUFFER_SIZE)		// osetreni preteceni
+	        					len = DATABUFFER_SIZE - dataBuffer_len;
 	        					
-	        					System.arraycopy (msg.getData().getByteArray("data"), 0, outArray, 0, lenA);
-		        				System.arraycopy (dataBuffer, lenA, outArray, lenA, lenB);
+	        				// rychlejsi konkatenace
+	        				System.arraycopy(data, 0, dataBuffer, dataBuffer_len, len);
+	        				dataBuffer_len += len;
 	        					
-	        				}else{
-	        					outArray = new byte[0];
+	        				// buffer je plny
+	        				if (dataBuffer_len == DATABUFFER_SIZE) {
+	        					dataBuffer_len = 0;
+	        					
+	    	        			for (int i = 0; i < DATABUFFER_SIZE; ) {
+		        					if ((int)dataBuffer[i] == -5) {	// nasli jsme magic byte	-5 & 0xFF = 251 = 0xFB
+		        						short val = (short) ((dataBuffer[i+1] & 0xFF) | ((dataBuffer[i+2] & 0xFF) << 8));
+
+		        						input_xr[i/3] = val;
+		        						input_xi[i/3] = 0;
+
+		        						i += 3;
+		        					} else		        					
+		        						i ++;
+	        					}
+
+	    	        			// aplikujeme Hamming okno
+	    	        			for (int i = 0; i < FFT_N; i ++)
+	    	        				input_xr[i] = (double) ((input_xr[i]))  * (0.54f - (0.46 * Math.cos ((2*Math.PI*i) / (FFT_N-1))));
+	    	        			
+	    	        			// fft pocitam zatim primo tady - je to docela rychle
+	    	        			// TODO udelat v samostatnem vlaknu
+								fft.doFFT(input_xr, input_xi, false);
+							
+								// vypocet amplitud celeho spektra
+								for (int i = 0; i < FFT_NYQUIST; i ++) {
+									seriesX[i] = (double) Math.sqrt ((input_xr[i]*input_xr[i]) + (input_xi[i]*input_xi[i]));
+									
+									// nezobrazujeme prvnich par Hz - je to urcite pohyb heli
+									if (i < 5)
+										seriesX[i] = 0;
+								}
+	    	        			
+								// prekreslime graf - TODO udelat v samostatnem vlaknu
+	    	        			updateGraph (seriesX);
 	        				}
 
-	        				// mame dostatek dat
-	        				if(outArray.length > 2000){
-	        					Log.d(TAG, "mame delku dat " + outArray.length);
-	        					Log.d(TAG, "cas " + (System.nanoTime() - startTime));//for seconds;
-	        					
-	        					dataBuffer = null;
-	        				}*/
-	        				
-	        				
-	        				
 	        				//sem prisla jedna sada dat ze zarizeni, pokud neni dost dlouha je mozne sadu dat ulozit do tem promene a pockat az prijde dalsi sada dat
 	        				// pokud delka uz vyhovuje vypocteme hodnoty grafu
 	        				// vypocet se musi spustit v novem vlakne
 	        				
-	        				Runnable thread = new Runnable() {
+	        				/*Runnable thread = new Runnable() {
 	        					@Override
 	        					public void run() {
 	        						// zde spustime vypocet FFT
 	        						// nejak takto FFT.getForX(handler, int caalback);
 	        						// handler FFThandler pak zachyti dokonceni vypoctu
 	        					}
-	        				};
+	        				};*/
 	        				
-	        				thread.run();
+	        				//thread.run();
 	        			}
 	        			break;
 	        	}
@@ -231,7 +279,7 @@ public class GraphActivity extends BaseActivity{
 	    
 	    
 	    // handler pro vypocet FFT
-		 private final Handler FFThandler = new Handler() {
+		 /*private final Handler FFThandler = new Handler() {
 		        @Override
 		        public void handleMessage(Message msg) {
 		        	switch(msg.what){
@@ -244,7 +292,7 @@ public class GraphActivity extends BaseActivity{
 						break;
 		    	}
 		    }
-		};
+		};*/
 		    
 		    
 		/**
@@ -270,17 +318,17 @@ public class GraphActivity extends BaseActivity{
 	    	super.onOptionsItemSelected(item);
 	    	//zobrazeni osy X 
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_X){
-
+	    		stabiProvider.sendDataImmediately("4DA\1".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
 	    	
 	    	//zobrazeni osy Y 
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_Y){
-	    		
+	    		stabiProvider.sendDataImmediately("4DA\2".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
 	    	
 	    	//zobrazeni osy Z 
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_Z){
-	    		
+	    		stabiProvider.sendDataImmediately("4DA\3".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
 	    	return false;
 	    }

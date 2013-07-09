@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
 	 <ScrollView
             android:id="@+id/scrollView1"
+            android:gravity="center"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_color">
@@ -30,54 +32,33 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/subtrim"
+	            android:text="@string/signal_proc"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/aileron_picker"
+	        <ImageView
+	            android:id="@+id/imageView2"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/imageView1"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="32dp" >
+	            android:src="@drawable/black_line_small" />
 
-	        </com.customWidget.picker.ProgresEx>
-
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/elevator_picker"
+	        <ImageView
+	            android:id="@+id/imageView3"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/aileron_picker"
-	            android:layout_below="@+id/aileron_picker"
-	            android:layout_marginTop="32dp" >
+	            android:src="@drawable/black_line_small" />
 
-	        </com.customWidget.picker.ProgresEx>
-
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/pitch_picker"
+	        <CheckBox
+	            android:id="@+id/geom_corr"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/elevator_picker"
-	            android:layout_below="@+id/elevator_picker"
-	            android:layout_marginTop="32dp" >
-
-	        </com.customWidget.picker.ProgresEx>
-	        
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/rudder_picker"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/pitch_picker"
-	            android:layout_below="@+id/pitch_picker"
-	            android:layout_marginTop="32dp" >
-
-	        </com.customWidget.picker.ProgresEx>
+	            android:layout_below="@+id/imageView3"
+	            android:layout_marginLeft="44dp"
+	            android:layout_marginTop="53dp"
+	            android:text="@string/geom_corr_auto"
+	            android:textColor="@color/text_color" />
 
 	    </RelativeLayout>
 

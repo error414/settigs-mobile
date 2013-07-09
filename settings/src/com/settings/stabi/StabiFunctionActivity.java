@@ -1,12 +1,4 @@
-package com.settings;
-
-
-import com.exception.IndexOutOfException;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-
+package com.settings.stabi;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,70 +10,66 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-/**
- * aktivita na zobrazeni general moznosti nastaveni
- * 
- * @author error414
- *
- */
-public class GeneralActivity extends BaseActivity{
-	final private String TAG = "GeneralActivity";
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.exception.IndexOutOfException;
+import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.NumberOperation;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.settings.BaseActivity;
+import com.settings.R;
+
+public class StabiFunctionActivity extends BaseActivity{
+	final private String TAG = "SenzorSenzivityActivity";
 	
-	//kod pro handle pri ziskani profilu z jednotky
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
-	
 	private final String protocolCode[] = {
-			"POSITION",
-			"MODEL",
-			"MIX",
-			"RECEIVER",
-			"CYCLIC_REVERSE",
-			"RATE_PITCH",
+			"ALT_FUNCTION",
 	};
 	
-	// gui prvky ktere sou v teto aktivite aktivni
 	private int formItems[] = {
-		R.id.position_select_id,
-		R.id.model_select_id,
-		R.id.mix_select_id,
-		R.id.receiver_select_id,
-		R.id.cyclic_servo_reverse_select_id,
-		R.id.flight_style_select_id
-	};
+			R.id.function_select_id
+		};
+	
+	private int formItemsTitle[] = {
+			R.string.stabi_function
+		};
 	
 	private int lock = formItems.length;
-
+	
 	private DstabiProvider stabiProvider;
 	
 	private DstabiProfile profileCreator;
 	
-	
 	/**
-	 * zavolani pri vytvoreni instance aktivity settings
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
-	 public void onCreate(Bundle savedInstanceState) 
-	 {
-		 super.onCreate(savedInstanceState);
-		 requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		 setContentView(R.layout.general);
-		 
-		 getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		 ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.general_button_text)));
-		 
-		 stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		 
-		 initConfiguration();
-		 delegateListener();
-	 }
-	 
+	@Override
+    public void onCreate(Bundle savedInstanceState) 
+	{
+        super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        setContentView(R.layout.stabi_function);
+        
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_function)));
+        
+        stabiProvider = DstabiProvider.getInstance(connectionHandler);
+        
+        initConfiguration();
+		delegateListener();
+    }
+	
 	 /**
 	  * prvotni konfigurace view
 	  */
@@ -115,31 +103,7 @@ public class GeneralActivity extends BaseActivity{
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
-	 
-	 /**
-	  * pri zmene modelu je potreba zmenit select mixu
-	  * rudder frequency
-	  * 
-	  * @param pos
-	  */
-	 private void updateItemMix(int pos)
-	 {
-		 ArrayAdapter<?> adapter;
-		 Spinner mix = (Spinner) findViewById(R.id.mix_select_id);
-		 int freqPos = (int) mix.getSelectedItemPosition(); 
-		 if(pos == 2){
-			 adapter = ArrayAdapter.createFromResource(
-		                this, R.array.mix_planes_values, android.R.layout.simple_spinner_item);
-		 }else{
-			 adapter = ArrayAdapter.createFromResource(
-		                this, R.array.mix_values, android.R.layout.simple_spinner_item);
-		 }
-		 
-		 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		 mix.setAdapter(adapter);
-		 mix.setSelection(Math.min(freqPos, adapter.getCount() - 1 ));
-	 }
-	 
+	  
 	 /**
 	  * naplneni formulare
 	  * 
@@ -155,11 +119,6 @@ public class GeneralActivity extends BaseActivity{
 		 try{
 			 for(int i = 0; i < formItems.length; i++){
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
-				
-				 //TOHLE MUSIM VYRESIT LIP
-				 if(tempSpinner.getId() == formItems[1]){
-					 updateItemMix(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
-				 }
 				
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 				
@@ -194,11 +153,6 @@ public class GeneralActivity extends BaseActivity{
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-					
-					//pro prvek model volam jeste obsluhu pro zmenu mixu
-					if(parent.getId() == formItems[1]){
-						updateItemMix(pos);
-					}
 					
 					showInfoBarWrite();
 				}
@@ -243,29 +197,30 @@ public class GeneralActivity extends BaseActivity{
 	        }
 	    };
 	    
-    /**
-     * vytvoreni kontextoveho menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
+   /**
+    * vytvoreni kontextoveho menu
+    */
+   @Override
+   public boolean onCreateOptionsMenu(Menu menu)
+   {
 	    super.onCreateOptionsMenu(menu);
 	    
 	    menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 	    return true;
-    }
-    
-    /**
-     * reakce na kliknuti polozky v kontextovem menu
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
-    {
-    	 super.onOptionsItemSelected(item);
-    	//ulozit do jednotky
-    	if(item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU){
-    		saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-    	}
-    	return false;
-    }
+   }
+   
+   /**
+    * reakce na kliknuti polozky v kontextovem menu
+    */
+   @Override
+   public boolean onOptionsItemSelected(MenuItem item) 
+   {
+   	 super.onOptionsItemSelected(item);
+   	//ulozit do jednotky
+   	if(item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU){
+   		saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+   	}
+   	return false;
+   }
 }
+

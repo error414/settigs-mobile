@@ -9,20 +9,33 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:background="@color/background_color">
-	     
+
 	    <RelativeLayout
 	        android:layout_width="fill_parent"
-	        android:layout_height="wrap_content"
-	        android:background="@color/background_color" >
-    
+	        android:layout_height="492dp"
+	        android:background="@color/background_color"
+	        android:onClick="showHelp" >
+	
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="16dp"
+	            android:layout_marginTop="60dp"
+	            android:text="@string/stabi_function"
+	            android:textColor="@color/text_color" />
+	        
 	        <ImageView
 	            android:id="@+id/imageView1"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:layout_below="@+id/textView2"
-	            android:src="@drawable/black_line" />
-	        
+	            android:src="@drawable/black_line"
+	             />
+	
 	        <TextView
 	            android:id="@+id/textView2"
 	            android:layout_width="wrap_content"
@@ -30,35 +43,20 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/author"
+	            android:text="@string/stabi_function"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
-
-	        <ImageView
-	            android:id="@+id/imageView3"
+	
+	        <Spinner
+	            android:id="@+id/function_select_id"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:src="@drawable/black_line_small" />
+	            android:layout_alignLeft="@+id/textView1"
+	            android:layout_below="@+id/textView1"
+	            android:entries="@array/function_values"
+	            android:minWidth="230dp" />
 
 	    </RelativeLayout>
-
 	</ScrollView>
-
-	 <ImageView
-	     android:id="@+id/imageView2"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_margin="10dp"
-	     android:src="@drawable/logo_mobile" />
-
-	 <TextView
-	     android:id="@+id/textView1"
-	     android:layout_width="wrap_content"
-	     android:layout_height="wrap_content"
-	     android:layout_marginLeft="10dp"
-	     android:layout_marginTop="22dp"
-	     android:text="@string/author_name"
-	     android:textColor="@color/text_color" />
-
 </LinearLayout>

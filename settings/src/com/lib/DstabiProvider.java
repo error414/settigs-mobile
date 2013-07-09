@@ -51,7 +51,7 @@ public class DstabiProvider {
 	final protected String GET_STICKED_AND_SENZORS_VALUE = "D";
 	final protected String SAVE_PROFILE = "g";
 	final protected String SERIAL_NUMBER = "h";
-	final protected String GET_GRAPH = "A";
+	final protected String GET_GRAPH = "A\1";
 	
 	private int protocolState = 0;
 	
@@ -212,9 +212,9 @@ public class DstabiProvider {
 		
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
 			mode = GRAPH;
-			sendDataForResponce(GET_GRAPH, callBackCode);
+			sendDataForResponce(GET_GRAPH, callBack);
 		}else{
-			queue.add(GET_GRAPH, null, GRAPH, callBackCode);
+			queue.add(GET_GRAPH, null, GRAPH, callBack);
 		}
 	}
 	
@@ -226,7 +226,7 @@ public class DstabiProvider {
 	 */
 	public void stopGraph(){
 		if(mode == GRAPH){
-			BTservice.write("4DA".getBytes());
+			BTservice.write("4DA\0".getBytes());
 			clearState("stop graph");
 		}
 	}
@@ -312,6 +312,12 @@ public class DstabiProvider {
 		}else{
 			connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
 		}
+	}
+	/////////////////////////////////////////////////
+	
+	////////// NO RESPONSE / DIRECT WRITE ///////////
+	public void sendDataImmediately(byte[] data){
+		BTservice.write(data);
 	}
 	/////////////////////////////////////////////////
 	
@@ -462,7 +468,7 @@ public class DstabiProvider {
 	    								dataBuilder = new DataBuilder();
 	    								dataBuilder.add(data);
 	    								
-	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
+	    								// profil je cely odesilame zpravu s profilem, pokud neni cely zachytava to
 	    								// case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA: kde se dal ceka na dalsi data
 	    								if(dataBuilder.itsAll()){
 	    									sendHandle(callBackCode, dataBuilder.getData());
@@ -501,10 +507,11 @@ public class DstabiProvider {
 	    								stopCecurityTimer();
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GRAPH;
-	    								dataBuilder = new DataBuilder(); // diagnostika je dlouhe 16 bytu
-	    								dataBuilder.add(byteMessage); // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
+	    								dataBuilder = new DataBuilder();
+	    								dataBuilder.add(byteMessage);
 	    								
 	    								sendHandleNotStop(callBackCode, dataBuilder.getData());
+	    								dataBuilder.clear();
 	    							}
 	    						 }else{ // ERROR
 	    							connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
@@ -521,7 +528,7 @@ public class DstabiProvider {
         							Log.d(TAG, "x  cele odesilam handle");
         							sendHandle(callBackCode, dataBuilder.getData());
 								}else{
-									Log.d(TAG, "x neni cele :" + dataBuilder.lenght);
+									Log.d(TAG, "x neni cele :" + dataBuilder.length);
 								}
         						break;
         						
@@ -533,14 +540,17 @@ public class DstabiProvider {
         							Log.d(TAG, "diag  cele odesilam handle");
         							sendHandle(callBackCode, dataBuilder.getData());
 								}else{
-									Log.d(TAG, "diag neni cele :" + dataBuilder.lenght);
+									Log.d(TAG, "diag neni cele :" + dataBuilder.length);
 								}
         						break;
         						
         					// prijmame dalsi streamu pro graf
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GRAPH:
         						dataBuilder.add(byteMessage);  
+        					
         						sendHandleNotStop(callBackCode, dataBuilder.getData());
+        						dataBuilder.clear();
+        						
         						break;
         				}
         					
@@ -566,7 +576,7 @@ public class DstabiProvider {
         Message m = connectionHandler.obtainMessage( callBackCode );
         m.setData(budleForMsg);
         connectionHandler.sendMessage(m);
-        Log.d(TAG, "zprava poslana not stop");
+        //Log.d(TAG, "zprava poslana not stop: " + callBackCode);
     }
     
 	/**
@@ -624,13 +634,13 @@ public class DstabiProvider {
     {
     	
     	private byte[] profile = null;
-    	private int lenght = 0;
+    	private int length = 0;
     	
     	
     	@SuppressWarnings("unused")
-		public DataBuilder(int lenght)
+		public DataBuilder(int length)
     	{
-    		this.lenght = lenght;
+    		this.length = length;
     	}
     	
     	public DataBuilder()
@@ -646,14 +656,23 @@ public class DstabiProvider {
     	{
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
-    				if(lenght == 0){
-    					lenght = ByteOperation.byteToUnsignedInt(part[0]);
+    				if(length == 0){
+    					length = ByteOperation.byteToUnsignedInt(part[0]);
     				}
     				profile = part;
     			}
     		}else{
     			profile = ByteOperation.combineByteArray(profile, part);
     		}
+    	}
+    	
+    	/**
+    	 * vycisteni zasobniku 
+    	 */
+    	public void clear()
+    	{
+    		length = 0;
+    		profile = null;
     	}
     	
     	/**
@@ -664,9 +683,9 @@ public class DstabiProvider {
     	public Boolean itsAll()
     	{
     		if(profile != null){
-    			Log.d(TAG, "its all length: " +  lenght);
+    			Log.d(TAG, "its all length: " +  length);
     			Log.d(TAG, "its all profile.length: " +  profile.length);
-    			return (lenght <= profile.length && lenght != 0);
+    			return (length <= profile.length && length != 0);
     		}
     		return false;
     	}

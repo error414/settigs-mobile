@@ -50,8 +50,8 @@ abstract public class BaseActivity extends Activity{
 	final protected int GROUP_SAVE = 3;  
 	final protected int SAVE_PROFILE_MENU = 4;  
 	
-	final protected String MANUAL_URL = "http://4dstabi.com/dl/manual/4dstabi-manual-1.0.pdf";  
-	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2F4dstabi.com%2Fdl%2Fmanual%2F4dstabi-manual-1.0.pdf";  
+	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-1.0.18.pdf";  
+	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-1.0.18.pdf";  
 	
 	final protected  BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 	

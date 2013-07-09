@@ -21,24 +21,24 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class CyclicFeedForwardActivity extends BaseActivity{
+public class CyclicPhaseActivity extends BaseActivity{
 
-final private String TAG = "CyclicFeedForwardActivity";
+final private String TAG = "PirouetteConsistencyActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"RATE_CYCLIC",
+			"CYCLIC_PHASE",
 	};
 	
 	private int formItems[] = {
-			R.id.rate_cyclic,
-	};
+			R.id.cyclic_phase,
+		};
 	
 	private int formItemsTitle[] = {
-			R.string.cyclick_feed_forward,
-	};
+			R.string.cyclic_phase_deg,
+		};
 	
 	private DstabiProvider stabiProvider;
 	
@@ -52,10 +52,10 @@ final private String TAG = "CyclicFeedForwardActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_cyclic_feed_forward);
+        setContentView(R.layout.advanced_cyclic_phase);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.cyclick_feed_forward)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -65,7 +65,7 @@ final private String TAG = "CyclicFeedForwardActivity";
     }
 	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume(){
@@ -82,10 +82,7 @@ final private String TAG = "CyclicFeedForwardActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(8, 24, 0, 32); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setFloor(true); // nastaveni zaokrouhlovani na nizke
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime title
-			 tempPicker.showAsPercent(true);
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
 	
@@ -124,14 +121,17 @@ final private String TAG = "CyclicFeedForwardActivity";
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			 tempPicker.setCurrentNoNotify(size);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			 
+			 tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }
 	 
 	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
+
+
 			@Override
 			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
@@ -139,14 +139,15 @@ final private String TAG = "CyclicFeedForwardActivity";
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
 					if(parent.getId() == formItems[i]){
-						Log.d(TAG, "change");
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						item.setValue(newVal);
+						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}
 				}
 			}
+
 		 };
 		 
 		// The Handler that gets information back from the 

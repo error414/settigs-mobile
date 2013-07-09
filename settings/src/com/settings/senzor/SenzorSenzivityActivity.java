@@ -61,9 +61,9 @@ public class SenzorSenzivityActivity extends BaseActivity{
         setContentView(R.layout.senzor_senzivity);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text), " \u2192 " , getString(R.string.senzivity)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text), " \u2192 ", getString(R.string.senzivity)));
         
-        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+        stabiProvider = DstabiProvider.getInstance(connectionHandler);
         
         initGui();
         initConfiguration();
@@ -88,9 +88,18 @@ public class SenzorSenzivityActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 254); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
-			 tempPicker.showAsPercent(true);
+	
+			 if (i == 0) {
+				 tempPicker.setOffset(20);
+				 tempPicker.setRange(0, 60, 20, 80); // nastavuji rozmezi prvku z profilu
+			 } else {
+				 tempPicker.setOffset(50);
+				 tempPicker.setRange(50, 100, 100, 150); // nastavuji rozmezi prvku z profilu
+			 }
+			 
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+			 //tempPicker.showAsPercent(true);
+			
 		 }
 	}
 	
@@ -130,16 +139,16 @@ public class SenzorSenzivityActivity extends BaseActivity{
 		 for(int i = 0; i < formItems.length; i++){
 			if(profileCreator.exits(protocolCode[i])){
 				ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-				int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-				tempPicker.setCurrentNoNotify(size);
+				ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+				 
+				tempPicker.setCurrentNoNotify(item.getValueInteger());
 			}
 		 }
 		 
-		 if(profileCreator.getProfileItemByName("MODEL").getValueInteger() != 67){ // letadlo
+		 /*if(profileCreator.getProfileItemByName("MODEL").getValueInteger() != 67){ // letadlo
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[1]);
 			 tempPicker.setVisibility(View.GONE);
-		 }
+		 }*/
 				
 	 }
 	 
@@ -155,7 +164,9 @@ public class SenzorSenzivityActivity extends BaseActivity{
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+						
 						item.setValue(newVal);
+
 						Log.d(TAG, String.valueOf(newVal));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}

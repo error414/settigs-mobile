@@ -81,8 +81,10 @@ public class RudderRevomixActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(118, 138); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
+			 
+			 tempPicker.setOffset(-128);			 // zobrazujeme od stredu, 128 => 0 
+			 tempPicker.setRange(118, 138, -10, 10); // hack, ble
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
 	
@@ -121,9 +123,9 @@ public class RudderRevomixActivity extends BaseActivity{
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrentNoNotify(size);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			 
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }

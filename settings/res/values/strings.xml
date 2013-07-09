@@ -2,15 +2,15 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">4Dstabi stabilization system mobile\nPetr Čada\nerror414@error414.com</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     
     
-    <string name="app_name">4Dstabi stabilization system</string>
+    <string name="app_name">Spirit System</string>
     <string name="ok">Ok</string>
-    <string name="short_title">4Dstabi</string>
-    <string name="full_app_name">4Dstabi mobile settings v.1.0</string>
+    <string name="short_title">Spirit</string>
+    <string name="full_app_name">Spirit settings v1.0.19</string>
     <string name="settings">Settings</string>
     <string name="save_changes">Save changes to unit</string>
     <string name="save_to_unit_done">Save to unit Done</string>
@@ -25,23 +25,23 @@
     <string name="profile_saved">Profile saved</string>
     <string name="profile_file_manager">Profile file manager</string>
     <string name="file_not_found">File not found</string>
-    <string name="bt_not_enabled_leaving">BlueTooth not enabled leaving</string>
+    <string name="bt_not_enabled_leaving">Bluetooth not enabled leaving</string>
     <string name="choose_device">Choose device</string>
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
-    <string name="write_please_wait">Write data. Please wait\.\.\.</string>
-    <string name="write_data">Write data\.\.\.</string>
-    <string name="read_please_wait">Read data. Please wait\.\.\.</string>
-    <string name="read_data">Read data.\.\.\.</string>
-    <string name="damage_profile">Damage profile</string>
-    <string name="unknow_version">Unknow version</string>
-    <string name="unknow_serial">Unknow serial</string>
+    <string name="write_please_wait">Writing data. Please wait\.\.\.</string>
+    <string name="write_data">Writing data\.\.\.</string>
+    <string name="read_please_wait">Reading data. Please wait\.\.\.</string>
+    <string name="read_data">Reading data.\.\.\.</string>
+    <string name="damage_profile">Damaged profile</string>
+    <string name="unknow_version">Unknown version</string>
+    <string name="unknow_serial">Unknown serial</string>
     <string name="first_paired_device">First paired devices</string>
     
-    <string name="connection_error">Connection Error</string>
+    <string name="connection_error">Connection error</string>
     
     
-    <string name="BT_connection_progress">BlueTooth connection in progress</string>
+    <string name="BT_connection_progress">Bluetooth connection in progress</string>
     
     <string name="axis_X">X</string>
     <string name="axis_Y">Y</string>
@@ -52,9 +52,10 @@
     <string name="servos_button_text">Servos</string>
     <string name="diagnostic_button_text">Diagnostic</string>
     <string name="graph_button_text">Vibration</string>
-    <string name="senzor_button_text">Senzor</string>
-    <string name="senzor_senzivity_button_text">Senzivity</string>
+    <string name="senzor_button_text">Sensor</string>
+    <string name="senzor_senzivity_button_text">Sensitivity</string>
     <string name="advanced_button_text">Advanced</string>
+    <string name="stabi_button_text">Stabi</string>
     
     <string name="status">Status</string>
     <string name="connected">Connected</string>
@@ -68,9 +69,10 @@
     <string name="model_text">Model</string>
     <string name="mix_text">Mix</string>
     <string name="receiver_text">Receiver</string>
-    <string name="cyclic_servo_reverse_text">Cyclick Servo Reverse</string>
+    <string name="cyclic_servo_reverse_text">Cyclic Servo Reverse</string>
+    <string name="flight_style_text">Flight Style</string>
    
-    <string name="must_first_connect_to_device">You must first connect to device over bluetooth</string>
+    <string name="must_first_connect_to_device">Connect to your BT module first, please</string>
     <string name="connection_successfull">Connection successfull</string>
     
     <string name="type">Type</string>
@@ -88,13 +90,12 @@
     <string name="reg_d">D</string>
     <string name="pirouette_consistency">Pirouette consistency</string>
     <string name="rear_up">Elevator pitching-up compensation</string>
-    <string name="filter">Senzor filter</string>
+    <string name="filter">Sensor filter</string>
     <string name="gyro">Gyro</string>
     
-    <string name="cyclic_ring_range">Cyclic ring \n (range)</string>
-    <string name="cyclic_ring_range_no_break">Cyclic ring (range)</string>
+    <string name="cyclic_ring_range">Cyclic end-points \n (range)</string>
+    <string name="cyclic_ring_range_no_break">Cyclic end-points (range)</string>
     <string name="ail_ele">Ail/Ele</string>
-    <string name="ring">Ring</string>
     <string name="limit_pitch">Pitch</string>
     
     <string name="rudder_end_points">Rudder \n end-points</string>
@@ -103,21 +104,32 @@
     <string name="blank"></string>
     
     <string name="x_picth">X-Pitch</string>
-    <string name="x_cyclic">X-Cyclic</string>
+    <string name="x_cyclic">Cyclic</string>
     <string name="y_rool">Y-Roll</string>
     <string name="z_yaw">Z-Yaw</string>
-    <string name="z_rudder">Z-Rudder</string>
-    <string name="senzivity">Senzivity</string>
+    <string name="z_rudder">Rudder</string>
+    <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
-    <string name="rotation_speed">Rototation speed</string>
+    <string name="rotation_speed">Rotation speed</string>
     <string name="rates">Rates</string>
 
-    <string name="cyclick_feed_forward">Cyclic feed forward</string>
-    <string name="stick_deathband">Stick deathband</string>
+    <string name="signal_proc">Signal processing</string>
+    <string name="signal_proc_ext">Extended</string>
+    <string name="stick_deadband">Stick deadband</string>
+    <string name="geom_6deg">Geometry 6°</string>
+    <string name="geom_6deg_tune">Tuning</string>
+    <string name="geom_corr">Geometry correction</string>
+    <string name="geom_corr_auto">Automatic</string>
     <string name="rudder_dynamic">Rudder dynamic</string>
     <string name="rudder_revomix">Rudder revomix</string>
-    <string name="pid_cyclic_regulation">PID Cyclic regulation</string>
+    <string name="rudder_delay">Rudder delay</string>
     <string name="piro_opt">Pirouette optimization</string>
+    <string name="e_filter">Elevator filter</string>
+    <string name="cyclic_phase">Cyclic phase</string>
+    <string name="cyclic_phase_deg">Rotation angle [°]</string>
+    
+    <string name="stabi_function">Function</string>
+    <string name="stabi_pitch">Pitch</string>
     
     <string-array name="position_values">
         <item>Horizontal</item>
@@ -135,6 +147,14 @@
         <item>CCPM 120</item>
         <item>CCPM 140</item>
         <item>CCPM 90</item>
+    </string-array>
+    
+    <string-array name="flight_style_values">
+        <item>Scale</item>
+        <item>F3C</item>
+        <item>Acro</item>
+        <item>3D</item>
+        <item>Hard 3D</item>
     </string-array>
     
     <string-array name="mix_planes_values">
@@ -194,11 +214,16 @@
         <item>560Hz</item>
     </string-array>
     
-    
+    <string-array name="function_values">
+        <item>Disabled</item>
+        <item>Rescue (Normal)</item>
+        <item>Rescue (Acro)</item>
+        <item>Stabilisation</item>
+    </string-array>
     
     
     <string name="location">Location</string>
-    <string name="cant_read_folder">folder can\'t be read!</string>
+    <string name="cant_read_folder">folder can\'t be opened!</string>
     <string name="nnew">New</string>
     <string name="select">Select</string>
     <string name="file_name">File name:</string>
@@ -207,7 +232,7 @@
     <string name="no_data">No Data</string>
     <string name="err">Error</string>
     
-    <string name="no_help">Unknow Help</string>
+    <string name="no_help">Unknown help</string>
     <string name="help">Help</string>
     <string name="no_help_text"></string>
     <string name="test">ěščřžýáíéú</string>

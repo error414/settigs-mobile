@@ -21,23 +21,23 @@ import com.lib.DstabiProvider;
 import com.settings.BaseActivity;
 import com.settings.R;
 
-public class FilterActivity extends BaseActivity{
+public class EFilterActivity extends BaseActivity{
 
-final private String TAG = "FilterActivity";
+final private String TAG = "PirouetteConsistencyActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"FILTER",
+			"E_FILTER",
 	};
 	
 	private int formItems[] = {
-			R.id.filter,
+			R.id.e_filter,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.filter,
+			R.string.e_filter,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -52,10 +52,10 @@ final private String TAG = "FilterActivity";
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_filter);
+        setContentView(R.layout.advanced_e_filter);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 " , getString(R.string.filter)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
@@ -65,7 +65,7 @@ final private String TAG = "FilterActivity";
     }
 	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume(){
@@ -82,8 +82,7 @@ final private String TAG = "FilterActivity";
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 5); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
+			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
 	
@@ -122,9 +121,10 @@ final private String TAG = "FilterActivity";
 		 
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrentNoNotify(size);
+			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			 
+			 tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }

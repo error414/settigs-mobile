@@ -1,14 +1,5 @@
-package com.settings.servo;
+package com.settings.advanced;
 
-import com.customWidget.picker.ProgresEx.OnChangedListener;
-import com.customWidget.picker.ProgresEx;
-import com.helpers.ByteOperation;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.settings.BaseActivity;
-import com.settings.R;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,40 +8,46 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class ServosSubtrimActivity extends BaseActivity{
-	
-	final private String TAG = "ServosSubtrimActivity";
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.helpers.DstabiProfile;
+import com.helpers.NumberOperation;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.settings.BaseActivity;
+import com.settings.R;
+
+public class SignalProcActivity extends BaseActivity{
+
+final private String TAG = "SignalProcActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"SUBTRIM_AIL",
-			"SUBTRIM_ELE",
-			"SUBTRIM_PIT",
-			"SUBTRIM_RUD",
+			"SIGNAL_PROC",
 	};
 	
 	private int formItems[] = {
-			R.id.aileron_picker,
-			R.id.elevator_picker,
-			R.id.pitch_picker,
-			R.id.rudder_picker,
-		};
+			R.id.signal_proc,
+	};
 	
 	private int formItemsTitle[] = {
-			R.string.aileron,
-			R.string.elevator,
-			R.string.pitch,
-			R.string.rudder,
+			R.string.signal_proc,
 	};
 	
 	private DstabiProvider stabiProvider;
-
+	
 	private DstabiProfile profileCreator;
+	
+	private int lock = 0;
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -60,14 +57,13 @@ public class ServosSubtrimActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.servos_subtrim);
+        setContentView(R.layout.advanced_signal_proc);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.servos_button_text), " \u2192 " , getString(R.string.subtrim)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-        
-        initGui();
+       
         initConfiguration();
 		delegateListener();
     }
@@ -81,40 +77,18 @@ public class ServosSubtrimActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni subtrimu
 		}else{
 			finish();
 		}
-	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
-	}
-	
-	@Override
-	public void onStop(){
-		super.onStop();
-	}
-	
-	private void initGui()
-	{
-		for(int i = 0; i < formItems.length; i++){
-			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
-			 tempPicker.setTitle(formItemsTitle[i]);
-		 }
 	}
 	
 	/**
 	  * prirazeni udalosti k prvkum
 	  */
 	 private void delegateListener(){
-		//nastaveni posluchacu pro formularove prvky
+		 //nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((CheckBox) findViewById(formItems[i])).setOnCheckedChangeListener(checkboxListener);
 		 }
 	 }
 	 
@@ -142,34 +116,42 @@ public class ServosSubtrimActivity extends BaseActivity{
 		 }
 		 
 		 for(int i = 0; i < formItems.length; i++){
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-			
-			tempPicker.setCurrentNoNotify(size);
-		 }
+			 CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
 				
+			 Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
+			 if(checked)lock = lock + 1;
+			 tempCheckbox.setChecked(checked);
+		 }
 	 }
 	 
-	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
-
+	 private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
 
 			@Override
-			public void onChanged(ProgresEx parent, int newVal) {
+			public void onCheckedChanged(CompoundButton buttonView,
+					boolean isChecked) {
+				
+				if(lock != 0){
+					lock -= 1;
+					return;
+				}
+				lock = Math.max(lock - 1, 0);
+				
 				// TODO Auto-generated method stub
 				// prohledani jestli udalost vyvolal znamy prvek
 				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 				for(int i = 0; i < formItems.length; i++){
-					if(parent.getId() == formItems[i]){
-						showInfoBarWrite();
+					if(buttonView.getId() == formItems[i]){
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						item.setValue(newVal);
+						item.setValueFromCheckBox(isChecked);
 						stabiProvider.sendDataNoWaitForResponce(item);
+						
+						showInfoBarWrite();
 					}
 				}
+				
 			}
-
-		 };
-		 
+			
+		};
 		 
 		// The Handler that gets information back from the 
 		 private final Handler connectionHandler = new Handler() {

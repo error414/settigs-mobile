@@ -30,13 +30,13 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/rear_up"
+	            android:text="@string/geom_6deg"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/rear_up"
+	            android:id="@+id/geom_6deg"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
