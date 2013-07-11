@@ -40,8 +40,8 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.x_picth,
-			R.string.z_yaw,
+			R.string.cyc_rate,
+			R.string.rud_rate,
 		};
 	
 	private DstabiProvider stabiProvider;

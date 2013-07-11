@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="xxx">xxxx</string>
+    <string name="settings_name_space">settings_name_space</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com</string>
+    <string name="author">Autoři</string>
+    <string name="credits">Zásluhy</string>
+    
+    
+    <string name="app_name">Spirit System</string>
+    <string name="ok">Ok</string>
+    <string name="short_title">Spirit</string>
+    <string name="full_app_name">Spirit settings v1.0.19</string>
+    <string name="settings">Nastavení</string>
+    <string name="save_changes">Uložit nastavení do jednotky</string>
+    <string name="save_to_unit_done">Uložení do jednotky v pořádku</string>
+    <string name="open_manual">Otevřít manuál</string>
+    <string name="open_manual_google_docs">Otevřít manuál v Google Docs</string>
+    <string name="manual">Manuál</string>
+    <string name="profile">Profil</string>
+    <string name="loaded_profile">Načtený profil</string>
+    <string name="load_profile">Načíst profil</string>
+    <string name="save_profile">Uložit profil</string>
+    <string name="save_profile_to_unit">Uložit profil do jednotky</string>
+    <string name="profile_saved">Profil uložen</string>
+    <string name="profile_file_manager">Profile file manager</string>
+    <string name="file_not_found">Soubor nenalezen</string>
+    <string name="bt_not_enabled_leaving">Bluetooth není povolen, ukončuji..</string>
+    <string name="choose_device">Vyberte zařízení</string>
+    <string name="connect">Připojit</string>
+    <string name="disconnect">Odpojit</string>
+    <string name="write_please_wait">Zapisuji data. Čekejte\.\.\.</string>
+    <string name="write_data">Zapisuji data\.\.\.</string>
+    <string name="read_please_wait">Čtu data. Čekejte\.\.\.</string>
+    <string name="read_data">Čtu data.\.\.\.</string>
+    <string name="damage_profile">Poškozený profil</string>
+    <string name="unknow_version">Neznámá verze</string>
+    <string name="unknow_serial">Neznámé s.n.</string>
+    <string name="first_paired_device">First paired devices</string>
+    
+    <string name="connection_error">Chyba spojení</string>
+    
+    
+    <string name="BT_connection_progress">Probíhá připojování přes Bluetooth</string>
+    
+    <string name="axis_X">X</string>
+    <string name="axis_Y">Y</string>
+    <string name="axis_Z">Z</string>
+
+    <string name="connection_button_text">Spojení</string>
+    <string name="general_button_text">Obecné</string>
+    <string name="servos_button_text">Serva</string>
+    <string name="diagnostic_button_text">Diagnostika</string>
+    <string name="graph_button_text">Vibrace</string>
+    <string name="senzor_button_text">Senzor</string>
+    <string name="senzor_senzivity_button_text">Citlivost</string>
+    <string name="advanced_button_text">Pokročilé</string>
+    <string name="stabi_button_text">Stabi</string>
+    
+    <string name="status">Stav</string>
+    <string name="connected">Připojeno</string>
+    <string name="connecting">Připojování</string>
+    <string name="version">Verze FW</string>
+    <string name="serial">Sériové č.</string>
+    <string name="unit">Jednotka</string>
+    <string name="link">Spojení</string>
+    
+    <string name="position_text">Pozice</string>
+    <string name="model_text">Model</string>
+    <string name="mix_text">Mixování</string>
+    <string name="receiver_text">Přijímač</string>
+    <string name="cyclic_servo_reverse_text">Reverz serv cykliky</string>
+    <string name="flight_style_text">Letový projev</string>
+   
+    <string name="must_first_connect_to_device">Nejdříve se připojte k BT modulu</string>
+    <string name="connection_successfull">Spojení navázáno</string>
+    
+    <string name="type">Typ</string>
+    <string name="subtrim">Subtrim</string>
+    <string name="limit">Limity</string>
+    <string name="cyclic">Cyklika</string>
+    <string name="frequency">Frekvence</string>
+    <string name="pulse">Pulz</string>
+    <string name="rudder">Vrtulka (CH4)</string>
+    <string name="aileron">Křidélka (CH1)</string>
+    <string name="elevator">Výškovka (CH2)</string>
+    <string name="pitch">Kolektiv (CH3)</string>
+    <string name="reg_p">P</string>
+    <string name="reg_i">I</string>
+    <string name="reg_d">D</string>
+    <string name="pirouette_consistency">Držení piruet</string>
+    <string name="rear_up">Elevator pitching-up compensation</string>
+    <string name="filter">Sensor filter</string>
+    <string name="gyro">Gyro</string>
+    
+    <string name="diag_rudder">Vrtulka</string>
+    <string name="diag_aileron">Křidélka</string>
+    <string name="diag_elevator">Výškovka</string>
+    <string name="diag_pitch">Kolektiv</string>
+    
+    <string name="cyclic_ring_range">Koncové body cykliky\n (rozsah)</string>
+    <string name="cyclic_ring_range_no_break">Koncové body cykliky (rozsah)</string>
+    <string name="ail_ele">Kři/Výš</string>
+    <string name="limit_pitch">Kolektiv</string>
+    
+    <string name="rudder_end_points">Vrtulka \n koncové body</string>
+    <string name="rudder_end_points_no_break">Koncové body vrtulky</string>
+    <string name="min_max">Min/Max</string>
+    <string name="blank"></string>
+    
+	<string name="cyc_rate">Cyklika</string>
+	<string name="rud_rate">Vrtulka</string>
+    <string name="x_picth">X-Výškovka</string>
+    <string name="x_cyclic">Cyklika</string>
+    <string name="y_rool">Y-Křidélka</string>
+    <string name="z_yaw">Z-Vrtulka</string>
+    <string name="z_rudder">Vrtulka</string>
+    <string name="senzivity">Citlivost</string>
+    <string name="reverse">Reverz</string>
+    <string name="rotation_speed">Rychlost rotace</string>
+    <string name="rates">Rychlost</string>
+
+    <string name="signal_proc">Zpracování signálu</string>
+    <string name="signal_proc_ext">Rozšířené</string>
+    <string name="stick_deadband">Pásmo necitlivosti kniplů</string>
+    <string name="geom_6deg">Geometrie 6°</string>
+    <string name="geom_6deg_tune">Ladění</string>
+    <string name="geom_corr">Korekce geometrie</string>
+    <string name="geom_corr_auto">Automatická</string>
+    <string name="rudder_dynamic">Dynamika vrtulky</string>
+    <string name="rudder_revomix">Revomix vrtulky</string>
+    <string name="rudder_delay">Zpoždění vrtulky</string>
+    <string name="piro_opt">Optimalizace piruet</string>
+    <string name="e_filter">Výškovkový filtr</string>
+    <string name="cyclic_phase">Pootočení cykliky</string>
+    <string name="cyclic_phase_deg">Úhel rotace [°]</string>
+    
+    <string name="stabi_function">Funkce</string>
+    <string name="stabi_pitch">Kolektiv</string>
+    
+    <string-array name="position_values">
+        <item>Horizontální</item>
+        <item>Vertikální</item>
+        <item>Vertikální (Top)</item>
+    </string-array>
+    
+    <string-array name="model_values">
+        <item>Vrtulník 450 &lt;</item>
+        <item>Vrtulník 500 &gt;</item>
+        <item>Letadlo</item>
+    </string-array>
+    
+    <string-array name="mix_values">
+        <item>CCPM 120</item>
+        <item>CCPM 140</item>
+        <item>CCPM 90</item>
+    </string-array>
+    
+    <string-array name="flight_style_values">
+        <item>Maketa</item>
+        <item>F3C</item>
+        <item>Akro</item>
+        <item>3D</item>
+        <item>Tvrdé 3D</item>
+    </string-array>
+    
+    <string-array name="mix_planes_values">
+        <item>4x servo</item>
+        <item>3x servo</item>
+    </string-array>
+    
+     <string-array name="receiver_values">
+        <item>PWM</item>
+        <item>PPM</item>
+        <item>Spectrum DSM2</item>
+        <item>Futaba S-BUS</item>
+    </string-array>
+    
+     <string-array name="cyclic_servo_reverse_values">
+        <item>Bez reverzu</item>
+        <item>CH3</item>
+        <item>CH2</item>
+        <item>CH2 &amp; CH3</item>
+    </string-array>
+    
+    <string-array name="cyclic_pulse_value">
+        <item>1520us</item>
+    </string-array>
+    
+    <string-array name="cyclic_frequency_value">
+        <item>50Hz</item>
+        <item>60Hz</item>
+        <item>100Hz</item>
+        <item>150Hz</item>
+        <item>200Hz</item>
+        <item>333Hz</item>
+    </string-array>
+    
+    <string-array name="rudder_pulse_value">
+        <item>1520us</item>
+        <item>960us</item>
+        <item>760us</item>
+    </string-array>
+    
+     <string-array name="rudder_frequency_value">
+        <item>50Hz</item>
+        <item>60Hz</item>
+        <item>100Hz</item>
+        <item>150Hz</item>
+        <item>200Hz</item>
+        <item>333Hz</item>
+    </string-array>
+    
+     <string-array name="rudder_frequency_value_extend">
+        <item>50Hz</item>
+        <item>60Hz</item>
+        <item>100Hz</item>
+        <item>150Hz</item>
+        <item>200Hz</item>
+        <item>333Hz</item>
+        <item>560Hz</item>
+    </string-array>
+    
+    <string-array name="function_values">
+        <item>Vypnuto</item>
+        <item>Záchrana (Normal)</item>
+        <item>Záchrana (Akro)</item>
+        <item>Stabilizace</item>
+    </string-array>
+    
+    
+    <string name="location">Location</string>
+    <string name="cant_read_folder">folder can\'t be opened!</string>
+    <string name="nnew">New</string>
+    <string name="select">Select</string>
+    <string name="file_name">File name:</string>
+    <string name="cancel">Zrušit</string>
+    <string name="create">Uložit</string>
+    <string name="no_data">No Data</string>
+    <string name="err">Error</string>
+    
+    <string name="no_help">Unknown help</string>
+    <string name="help">Nápověda</string>
+    <string name="no_help_text"></string>
+    <string name="test">ěščřžýáíéú</string>
+    
+    
+</resources>

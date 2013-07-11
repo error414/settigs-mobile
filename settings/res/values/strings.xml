@@ -81,10 +81,10 @@
     <string name="cyclic">Cyclic</string>
     <string name="frequency">Frequency</string>
     <string name="pulse">Pulse</string>
-    <string name="rudder">Rudder</string>
-    <string name="aileron">Aileron</string>
-    <string name="elevator">Elevator</string>
-    <string name="pitch">Pitch</string>
+    <string name="rudder">Rudder (CH4)</string>
+    <string name="aileron">Aileron (CH1)</string>
+    <string name="elevator">Elevator (CH2)</string>
+    <string name="pitch">Pitch (CH3)</string>
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
@@ -92,6 +92,11 @@
     <string name="rear_up">Elevator pitching-up compensation</string>
     <string name="filter">Sensor filter</string>
     <string name="gyro">Gyro</string>
+    
+    <string name="diag_rudder">Rudder</string>
+    <string name="diag_aileron">Aileron</string>
+    <string name="diag_elevator">Elevator</string>
+    <string name="diag_pitch">Pitch</string>
     
     <string name="cyclic_ring_range">Cyclic end-points \n (range)</string>
     <string name="cyclic_ring_range_no_break">Cyclic end-points (range)</string>
@@ -103,6 +108,8 @@
     <string name="min_max">Min/Max</string>
     <string name="blank"></string>
     
+	<string name="cyc_rate">Cyclic</string>
+	<string name="rud_rate">Rudder</string>
     <string name="x_picth">X-Pitch</string>
     <string name="x_cyclic">Cyclic</string>
     <string name="y_rool">Y-Roll</string>
