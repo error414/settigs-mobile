@@ -80,31 +80,6 @@
 	            android:layout_marginTop="32dp"
 	            android:text="@string/z_yaw"
 	            android:textColor="@color/text_color" />
-
-	        <ImageView
-	            android:id="@+id/imageView4"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignTop="@+id/x_pitch_reverse"
-	            android:layout_marginLeft="32dp"
-	            android:layout_toRightOf="@+id/x_pitch_reverse"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/imageView5"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/imageView4"
-	            android:layout_alignTop="@+id/y_roll_reverse"
-	            android:src="@drawable/help" />
-
-	        <ImageView
-	            android:id="@+id/imageView6"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/imageView5"
-	            android:layout_alignTop="@+id/z_yaw_reverse"
-	            android:src="@drawable/help" />
 	        
 	    </RelativeLayout>
 
