@@ -37,7 +37,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 	
 	private int formItemsTitle[] = {
 			R.string.ail_ele,
-			R.string.pitch,
+			R.string.limit_pitch,
 		};
 	
 	private DstabiProvider stabiProvider;

@@ -67,7 +67,7 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y"));
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
 		
-		profileMap.put("FLIGHT_STYLE",	new ProfileItem(25, 5, 12, 	"a"));		// rychlost rotace cykliky
+		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 5, 12, 	"l"));		// rychlost rotace cykliky
 		//profileMap.put("RATE_ROLL",		new ProfileItem(26, 5, 20, 	"b"));
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
@@ -92,7 +92,7 @@ public class DstabiProfile {
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
 		
-		profileMap.put("RATE_PITCH",	new ProfileItem(45, 8, 12, "l"));		// letovy projev - hack od 1.0.19 
+		profileMap.put("RATE_PITCH",	new ProfileItem(25, 8, 12, "a"));		// letovy projev - hack od 1.0.19 
 		
 		this.mProfile = mProfile;
 		
