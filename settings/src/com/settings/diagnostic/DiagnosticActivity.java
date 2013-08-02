@@ -42,6 +42,9 @@ public class DiagnosticActivity extends BaseActivity{
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 22;
 	
 	private DstabiProvider stabiProvider;
+	
+	
+	final private Handler delayHandle = new Handler();
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -78,7 +81,13 @@ public class DiagnosticActivity extends BaseActivity{
 	 * ziskani informace o poloze kniplu z jednotky
 	 */
 	protected void getPositionFromUnit(){
-		stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+		delayHandle.postDelayed(new Runnable() {
+		  @Override
+		  public void run() {
+			  stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+		  }
+		}, 250); // 250ms
+		
 	}
 	
 	protected void updateGui(byte[] b){
