@@ -18,7 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.helpers;
 
 
-import com.settings.R;
+import com.spirit.R;
 
 import android.content.Context;
 import android.view.Gravity;

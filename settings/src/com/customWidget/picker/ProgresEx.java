@@ -20,7 +20,7 @@ package com.customWidget.picker;
 import java.awt.font.NumericShaper;
 
 import com.helpers.NumberOperation;
-import com.settings.R;
+import com.spirit.R;
 
 import android.content.Context;
 import android.os.Handler;

@@ -20,8 +20,8 @@ package com.helpers;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import com.settings.BaseActivity;
-import com.settings.R;
+import com.spirit.R;
+import com.spirit.BaseActivity;
 
 import android.app.Activity;
 import android.content.Context;

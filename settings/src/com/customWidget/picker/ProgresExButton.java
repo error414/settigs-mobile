@@ -17,13 +17,13 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.customWidget.picker;
 
-import com.settings.R;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Button;
+import com.spirit.R;
 
 
 public class ProgresExButton extends Button{

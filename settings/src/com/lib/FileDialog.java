@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.TreeMap;
 
-import com.settings.R;
+import com.spirit.R;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
