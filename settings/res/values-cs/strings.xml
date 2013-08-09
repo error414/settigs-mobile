@@ -117,7 +117,7 @@
     <string name="z_rudder">Vrtulka</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
-    <string name="rotation_speed">Rychlost rotace</string>
+    <string name="rotation_speed">Agilita</string>
     <string name="rates">Rychlost</string>
 
     <string name="stick_deadband">Pásmo necitlivosti kniplů</string>

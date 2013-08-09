@@ -84,7 +84,7 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y"));
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
 		
-		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 5, 12, 	"l"));		// rychlost rotace cykliky
+		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 5, 16, 	"l"));		// rychlost rotace cykliky
 		//profileMap.put("RATE_ROLL",		new ProfileItem(26, 5, 20, 	"b"));
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 

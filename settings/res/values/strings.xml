@@ -117,7 +117,7 @@
     <string name="z_rudder">Rudder</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
-    <string name="rotation_speed">Rotation speed</string>
+    <string name="rotation_speed">Agility</string>
     <string name="rates">Rates</string>
 
     <string name="stick_deadband">Stick deadband</string>
