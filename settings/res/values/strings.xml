@@ -120,8 +120,6 @@
     <string name="rotation_speed">Rotation speed</string>
     <string name="rates">Rates</string>
 
-    <string name="signal_proc">Signal processing</string>
-    <string name="signal_proc_ext">Extended</string>
     <string name="stick_deadband">Stick deadband</string>
     <string name="geom_6deg">Geometry 6°</string>
     <string name="geom_6deg_tune">Tuning</string>
@@ -132,6 +130,7 @@
     <string name="rudder_delay">Rudder delay</string>
     <string name="piro_opt">Pirouette optimization</string>
     <string name="e_filter">Elevator filter</string>
+    <string name="pitchup">Elevator pitchup compensation</string>
     <string name="cyclic_phase">Cyclic phase</string>
     <string name="cyclic_phase_deg">Rotation angle [°]</string>
     

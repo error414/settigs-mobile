@@ -70,35 +70,35 @@ public class AdvancedActivity extends BaseActivity{
                     int position, long id) {
             	
             	switch(position){
-            		case 0://signal processing
-            			openSignalProcActivity(view);
-            			break;
-            		case 1://deadband
+            		case 0://deadband
             			openStickDeadBandActivity(view);
             			break;
-            		case 2://geometry correction
+            		case 1://geometry correction
             			openGeometryCorrActivity(view);
             			break;
-            		case 3://geometry angle
+            		case 2://geometry angle
             			openGeometryAngleActivity(view);
             			break;
-            		case 4://pirouette optimization
+            		case 3://pirouette optimization
             			openPiroOptimalizationActivity(view);
             			break;
-            		case 5://rudder delay
+            		case 4://rudder delay
             			openRudderDelayActivity(view);
             			break;
-            		case 6://pirouette const
+            		case 5://pirouette const
             			openPirouetteConsistencyActivity(view);
             			break;
-            		case 7://rudder dynamic
+            		case 6://rudder dynamic
             			openRudderDynamicActivity(view);
             			break;
-            		case 8://rudder revomix
+            		case 7://rudder revomix
             			openRudderRevomixActivity(view);
             			break;
-            		case 9://elevator filter
+            		case 8://elevator filter
             			openEFilterActivity(view);
+            			break;
+            		case 9://elevator pitchup
+            			openPitchupActivity(view);
             			break;
             		case 10://cyclic phase
             			openCyclicPhaseActivity(view);
@@ -133,12 +133,7 @@ public class AdvancedActivity extends BaseActivity{
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//signal processing
-		HashMap<Integer, Integer> signalproc = new HashMap<Integer, Integer>();
-		signalproc.put(TITLE_FOR_MENU, R.string.signal_proc);
-		signalproc.put(ICO_RESOURCE_ID, R.drawable.i21);
-		menuListData.add(signalproc);
-		
+	
 		//stick deadband
 		HashMap<Integer, Integer> deadband = new HashMap<Integer, Integer>();
 		deadband.put(TITLE_FOR_MENU, R.string.stick_deadband);
@@ -193,6 +188,12 @@ public class AdvancedActivity extends BaseActivity{
 		e_filter.put(ICO_RESOURCE_ID, R.drawable.i33);
 		menuListData.add(e_filter);
 		
+		//elevator pitchup
+		HashMap<Integer, Integer> pitchup = new HashMap<Integer, Integer>();
+		pitchup.put(TITLE_FOR_MENU, R.string.pitchup);
+		pitchup.put(ICO_RESOURCE_ID, R.drawable.i33);
+		menuListData.add(e_filter);
+		
 		//cyclic phase
 		HashMap<Integer, Integer> cyclic_phase = new HashMap<Integer, Integer>();
 		cyclic_phase.put(TITLE_FOR_MENU, R.string.cyclic_phase);
@@ -200,17 +201,6 @@ public class AdvancedActivity extends BaseActivity{
 		menuListData.add(cyclic_phase);
 	
 		return menuListData;
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openSignalProcActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, SignalProcActivity.class);
-    	startActivity(i);
 	}
 	
 	/**
@@ -310,6 +300,17 @@ public class AdvancedActivity extends BaseActivity{
 	public void openEFilterActivity(View v)
 	{
 		Intent i = new Intent(AdvancedActivity.this, EFilterActivity.class);
+		startActivity(i);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openPitchupActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, PitchupActivity.class);
 		startActivity(i);
 	}
 	

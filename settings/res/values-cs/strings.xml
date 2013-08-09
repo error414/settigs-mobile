@@ -120,8 +120,6 @@
     <string name="rotation_speed">Rychlost rotace</string>
     <string name="rates">Rychlost</string>
 
-    <string name="signal_proc">Zpracování signálu</string>
-    <string name="signal_proc_ext">Rozšířené</string>
     <string name="stick_deadband">Pásmo necitlivosti kniplů</string>
     <string name="geom_6deg">Geometrie 6°</string>
     <string name="geom_6deg_tune">Ladění</string>
@@ -132,6 +130,7 @@
     <string name="rudder_delay">Zpoždění vrtulky</string>
     <string name="piro_opt">Optimalizace piruet</string>
     <string name="e_filter">Výškovkový filtr</string>
+    <string name="pitchup">Kompenzace vzpínání výškovky</string>
     <string name="cyclic_phase">Pootočení cykliky</string>
     <string name="cyclic_phase_deg">Úhel rotace [°]</string>
     

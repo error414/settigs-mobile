@@ -88,7 +88,7 @@ public class DstabiProfile {
 		//profileMap.put("RATE_ROLL",		new ProfileItem(26, 5, 20, 	"b"));
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
-		profileMap.put("SIGNAL_PROC",	new ProfileItem(28, "0", "1", "r")); 	// zpracovani signalu
+		profileMap.put("PITCHUP",	new ProfileItem(28, 0, 3, "r")); 	// zpracovani signalu
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s")); 
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
