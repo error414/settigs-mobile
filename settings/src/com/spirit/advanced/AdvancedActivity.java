@@ -192,7 +192,7 @@ public class AdvancedActivity extends BaseActivity{
 		HashMap<Integer, Integer> pitchup = new HashMap<Integer, Integer>();
 		pitchup.put(TITLE_FOR_MENU, R.string.pitchup);
 		pitchup.put(ICO_RESOURCE_ID, R.drawable.i33);
-		menuListData.add(e_filter);
+		menuListData.add(pitchup);
 		
 		//cyclic phase
 		HashMap<Integer, Integer> cyclic_phase = new HashMap<Integer, Integer>();
