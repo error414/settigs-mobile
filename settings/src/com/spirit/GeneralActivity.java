@@ -23,6 +23,7 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.Globals;
 import com.spirit.R;
 
 import android.os.Bundle;
@@ -176,11 +177,13 @@ public class GeneralActivity extends BaseActivity{
 				 //TOHLE MUSIM VYRESIT LIP
 				 if(tempSpinner.getId() == formItems[1]){
 					 updateItemMix(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
+					 lock = lock + 1; // protoze zmena mixu nam zavola zase handle
 				 }
 				
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+				if(pos != 0)lock = lock + 1; 
 				
-				if(pos != 0)lock = lock + 1;
+				
 				tempSpinner.setSelection(pos);
 			 }
 		 }catch(IndexOutOfException e){
@@ -201,13 +204,12 @@ public class GeneralActivity extends BaseActivity{
 			}
 			lock = Math.max(lock - 1, 0);
 			
+			
+			
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for(int i = 0; i < formItems.length; i++){
 				if(parent.getId() == formItems[i]){
-					Log.d(TAG, profileCreator.getProfileItemByName(protocolCode[i]).getCommand());
-					
-					
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
@@ -248,6 +250,7 @@ public class GeneralActivity extends BaseActivity{
 						break;
 	        		case PROFILE_CALL_BACK_CODE:
 	        			if(msg.getData().containsKey("data")){
+	        				Log.i(TAG, "profil prisel updatuji gui");
 	        				initGuiByProfileString(msg.getData().getByteArray("data"));
 	        				sendInSuccessDialog();
 	        			}

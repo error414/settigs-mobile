@@ -20,6 +20,7 @@ package com.spirit;
 
 import com.helpers.StatusNotificationBuilder;
 import com.lib.DstabiProvider;
+import com.lib.Globals;
 import com.spirit.R;
 import com.spirit.R.id;
 import com.spirit.servo.ServosActivity;
@@ -39,6 +40,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -110,6 +112,25 @@ abstract public class BaseActivity extends Activity{
 		super.onStop();
 	}
 	
+	public void onResume(){
+		super.onResume();
+		if(Globals.getInstance().changed == true){
+			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.not_equal);
+		}else{
+			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
+		}
+	}
+	
+	public void changeChangedState(Boolean state){
+		Globals.getInstance().changed = state;
+		
+		if(state == true){
+			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.not_equal);
+		}else{
+			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
+		}
+	}
+	
 	/**
 	 * zavreni vsechn notofikaci a dialogu
 	 */
@@ -167,7 +188,7 @@ abstract public class BaseActivity extends Activity{
 	}
 	
 	/**
-	 * zobrazeni dialogu pri zapisovani dat z jednotky
+	 * zobrazeni dialogu pri zapisovani dat do jednotky
 	 */
 	protected void showDialogWrite(){
 		showDialog(getString(R.string.write_please_wait));
@@ -184,6 +205,8 @@ abstract public class BaseActivity extends Activity{
 	 * zobrazeni dialogu pri zapisovani dat z jednotky
 	 */
 	protected void showInfoBarWrite(){
+		changeChangedState(true);
+		Log.i(TAG, "zapisuji");
 		showInfoBar(getString(R.string.write_data));
 	}
 	
@@ -355,12 +378,15 @@ abstract public class BaseActivity extends Activity{
 	 
 	 protected void showProfileSavedDialog()
 	 {
+		 changeChangedState(false);
+		 
 		 AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
 		 alert.setPositiveButton("OK", null);
 		
 		 alert.setView(getLayoutInflater().inflate(R.layout.alert_done, null));
 		 
 		 alert.show();
+		 
 		
 	 }
     
