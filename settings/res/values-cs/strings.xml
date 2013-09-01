@@ -242,6 +242,7 @@
     <string name="help">Nápověda</string>
     <string name="no_help_text"></string>
     <string name="test">ěščřžýáíéú</string>
+    <string name="version_not_match">!!! Verze FW nesouhlasí s verzí mobilní aplikace !!!</string>
     
     
 </resources>

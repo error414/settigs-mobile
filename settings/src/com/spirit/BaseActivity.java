@@ -376,6 +376,9 @@ abstract public class BaseActivity extends Activity{
 		 }*/
 	 }
 	 
+	 /**
+	  * 
+	  */
 	 protected void showProfileSavedDialog()
 	 {
 		 changeChangedState(false);
@@ -384,6 +387,22 @@ abstract public class BaseActivity extends Activity{
 		 alert.setPositiveButton("OK", null);
 		
 		 alert.setView(getLayoutInflater().inflate(R.layout.alert_done, null));
+		 
+		 alert.show();
+	 }
+	 
+	 /**
+	  * 
+	  * @param text
+	  */
+	 protected void showConfirmDialog(int textId)
+	 {
+		 changeChangedState(false);
+		 
+		 AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+		 alert.setPositiveButton("OK", null);
+		
+		 alert.setMessage(getText(textId));
 		 
 		 alert.show();
 		 

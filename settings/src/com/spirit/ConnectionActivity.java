@@ -66,6 +66,14 @@ import android.widget.Toast;
 public class ConnectionActivity extends BaseActivity{
 	private final String TAG = "ConnectionActivity";
 	
+	/*#############################################*/
+	/* ZDE SE MUSI NSTAVIT VERZE APLIKACE          */
+	/*#############################################*/
+	final protected String APLICATION_MAJOR_VERSION = "1"; 
+	final protected String APLICATION_MINOR1_VERSION = "0"; 
+	final protected String APLICATION_MINOR2_VERSION = "20"; 
+	/*#############################################*/
+	
 	final protected int REQUEST_SAVE = 1;
 	final protected int REQUEST_OPEN = 2;
 	
@@ -73,7 +81,7 @@ public class ConnectionActivity extends BaseActivity{
 	final protected int PROFILE_LOAD = 1;
 	final protected int PROFILE_SAVE = 2;
 	
-	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/gravity_profile/";
+	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/";
 	
 	private TextView textStatusView;
 	private Spinner  btDeviceSpinner;
@@ -131,7 +139,6 @@ public class ConnectionActivity extends BaseActivity{
 			 SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, 0);
 			 String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
 			
-			 Log.d(TAG, prefs_adress);
 			// iterator
 			int i = 0;
 		    // Loop through paired devices
@@ -180,8 +187,13 @@ public class ConnectionActivity extends BaseActivity{
 		 TextView version = (TextView) findViewById(R.id.version);
 		 
 		 if(profileCreator.isValid()){
-			 int minor 		= 0;
-			 version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + String.valueOf(minor) + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
+			 version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + APLICATION_MINOR1_VERSION + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
+			 
+			 if(!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR").getValueString().equals(APLICATION_MINOR2_VERSION)){
+				 showConfirmDialog(R.string.version_not_match);
+			 }
+			 
+			 
 		 }else{
 			 version.setText(R.string.unknow_version);
 		 }
