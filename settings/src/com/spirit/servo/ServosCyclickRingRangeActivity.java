@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -92,9 +93,17 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+			
+			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu
 		}else{
 			finish();
 		}
+	}
+	
+	@Override
+	public void onPause(){
+		super.onPause();
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
 	}
 	
 	private void initGui()

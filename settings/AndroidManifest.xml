@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="3"
-    android:versionName="0.20" >
+    android:versionCode="2"
+    android:versionName="0.21" >
 
     <uses-sdk android:minSdkVersion="7" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -37,7 +37,7 @@
         <activity android:name="com.spirit.senzor.SenzorRotationSpeedActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>
         <activity android:name="com.spirit.advanced.AdvancedActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>
         <activity android:name="com.spirit.advanced.SignalProcActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>
-        <activity android:name="com.spirit.advanced.StickDeadBandActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity><activity android:name="com.spirit.advanced.GeometryCorrActivity" android:theme="@style/CustomTheme" android:label="@string/short_title" android:configChanges="orientation" android:screenOrientation="portrait"></activity>
+        <activity android:name="com.spirit.advanced.StickDeadBandActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>
         <activity android:name="com.spirit.advanced.GeometryAngleActivity" android:theme="@style/CustomTheme" android:label="@string/short_title" android:configChanges="orientation" android:screenOrientation="portrait"></activity><activity android:name="com.spirit.advanced.PiroOptimalizationActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity><activity android:label="@string/short_title" android:configChanges="orientation" android:name="com.spirit.advanced.RudderDelayActivity" android:theme="@style/CustomTheme" android:screenOrientation="portrait"></activity><activity android:name="com.spirit.advanced.PirouetteConsistencyActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity><activity android:name="com.spirit.advanced.RudderDynamicActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>
         <activity android:name="com.spirit.advanced.RudderRevomixActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>
         <activity android:name="com.spirit.advanced.PitchupActivity" android:theme="@style/CustomTheme" android:configChanges="orientation" android:label="@string/short_title" android:screenOrientation="portrait"></activity>

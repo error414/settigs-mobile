@@ -73,34 +73,31 @@ public class AdvancedActivity extends BaseActivity{
             		case 0://deadband
             			openStickDeadBandActivity(view);
             			break;
-            		case 1://geometry correction
-            			openGeometryCorrActivity(view);
-            			break;
-            		case 2://geometry angle
+            		case 1://geometry angle
             			openGeometryAngleActivity(view);
             			break;
-            		case 3://pirouette optimization
+            		case 2://pirouette optimization
             			openPiroOptimalizationActivity(view);
             			break;
-            		case 4://rudder delay
+            		case 3://rudder delay
             			openRudderDelayActivity(view);
             			break;
-            		case 5://pirouette const
+            		case 4://pirouette const
             			openPirouetteConsistencyActivity(view);
             			break;
-            		case 6://rudder dynamic
+            		case 5://rudder dynamic
             			openRudderDynamicActivity(view);
             			break;
-            		case 7://rudder revomix
+            		case 6://rudder revomix
             			openRudderRevomixActivity(view);
             			break;
-            		case 8://elevator filter
+            		case 7://elevator filter
             			openEFilterActivity(view);
             			break;
-            		case 9://elevator pitchup
+            		case 8://elevator pitchup
             			openPitchupActivity(view);
             			break;
-            		case 10://cyclic phase
+            		case 9://cyclic phase
             			openCyclicPhaseActivity(view);
             			break;
 
@@ -139,12 +136,6 @@ public class AdvancedActivity extends BaseActivity{
 		deadband.put(TITLE_FOR_MENU, R.string.stick_deadband);
 		deadband.put(ICO_RESOURCE_ID, R.drawable.i22);
 		menuListData.add(deadband);
-		
-		//geometry correction
-		HashMap<Integer, Integer> geom_corr = new HashMap<Integer, Integer>();
-		geom_corr.put(TITLE_FOR_MENU, R.string.geom_corr);
-		geom_corr.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(geom_corr);
 		
 		//geometry 6deg
 		HashMap<Integer, Integer> geom_6deg = new HashMap<Integer, Integer>();
@@ -211,17 +202,6 @@ public class AdvancedActivity extends BaseActivity{
 	public void openStickDeadBandActivity(View v)
 	{
 		Intent i = new Intent(AdvancedActivity.this, StickDeadBandActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openGeometryCorrActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, GeometryCorrActivity.class);
     	startActivity(i);
 	}
 	

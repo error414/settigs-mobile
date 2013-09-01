@@ -101,7 +101,7 @@ public class DstabiProfile {
 		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat 
 	
 		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, 0, 90, "5"));
-		profileMap.put("GEOMETRY_CORR",	new ProfileItem(41, "0", "1", "6"));	// korekce geometrie
+		//profileMap.put("GEOMETRY_CORR",	new ProfileItem(41, "0", "1", "6"));	// korekce geometrie
 		//profileMap.put("TRAVEL_PIT",	new ProfileItem(43, 64, 192, "7"));
 		
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
