@@ -38,30 +38,52 @@ import android.widget.TextView;
  * @author error414
  *
  */
-public class MenuListAdapter extends MyListAdapter {
+public class MyListAdapter extends BaseAdapter {
 
+	/**
+	 * 
+	 */
+	protected LayoutInflater inflater;
+	
+	/**
+	 * aktivata kde zobrazujeme listview
+	 */
+	protected Activity activity;
+	
+	/**
+	 * pole [title ID resource, ID obrazku (resource)]
+	 */
+	protected ArrayList<HashMap<Integer, Integer>> data;
 
-	public MenuListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
-		super(a, d);
-		// TODO Auto-generated constructor stub
-	}
+	public MyListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
+        activity = a;
+        data=d;
+        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
 	
 	@Override
+	public int getCount() {
+		// TODO Auto-generated method stub
+		return data.size();
+	}
+
+	@Override
+	public Object getItem(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
+	public long getItemId(int position) {
+		// TODO Auto-generated method stub
+		return position;
+	}
+
+	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-        View vi=convertView;
-        if(convertView==null)
-            vi = inflater.inflate(R.layout.menu_list_item, null);
- 
-        TextView title = (TextView)vi.findViewById(R.id.title); // title
-        ImageView ico_image=(ImageView)vi.findViewById(R.id.list_image); // thumb image
- 
-        HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-        row = data.get(position);
- 
-        // Setting all values in listview
-        title.setText(row.get(BaseActivity.TITLE_FOR_MENU));
-        ico_image.setImageResource(row.get(BaseActivity.ICO_RESOURCE_ID));
-        return vi;
-    }
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }

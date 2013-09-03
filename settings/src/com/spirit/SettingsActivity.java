@@ -27,6 +27,7 @@ import com.spirit.R;
 import com.spirit.advanced.AdvancedActivity;
 import com.spirit.diagnostic.DiagnosticActivity;
 import com.spirit.diagnostic.GraphActivity;
+import com.spirit.diagnostic.LogActivity;
 import com.spirit.senzor.SenzorActivity;
 import com.spirit.servo.ServosActivity;
 import com.spirit.stabi.StabiActivity;
@@ -103,6 +104,9 @@ public class SettingsActivity extends BaseActivity {
 		        case 7://graph
 					openGraphIndent(view);
 					break;
+		        case 8://log
+					openLogIndent(view);
+					break;
 		    	}
             }
         });
@@ -174,6 +178,12 @@ public class SettingsActivity extends BaseActivity {
 		graph.put(TITLE_FOR_MENU, R.string.graph_button_text);
 		graph.put(ICO_RESOURCE_ID, R.drawable.i38);
 		menuListData.add(graph);
+		
+		//log
+		HashMap<Integer, Integer> log = new HashMap<Integer, Integer>();
+		log.put(TITLE_FOR_MENU, R.string.log_button_text);
+		log.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(log);
 		
 		return menuListData;
 	}
@@ -290,6 +300,21 @@ public class SettingsActivity extends BaseActivity {
     {
     	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
     		Intent i = new Intent(SettingsActivity.this, GraphActivity.class);
+        	startActivity(i);
+    	}else{
+    		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+    	}
+    }
+    
+    /**
+	 * kliknuti na tlacitko diagnostic na hlavni obrazovce
+	 * 
+	 * @param v
+	 */
+    public void openLogIndent(View v)
+    {
+    	if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+    		Intent i = new Intent(SettingsActivity.this, LogActivity.class);
         	startActivity(i);
     	}else{
     		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();

@@ -67,6 +67,7 @@ public class DstabiProvider {
 	final protected String GET_PROFILE = "G";
 	final protected String GET_STICKED_AND_SENZORS_VALUE = "D";
 	final protected String SAVE_PROFILE = "g";
+	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
 	
@@ -83,6 +84,7 @@ public class DstabiProvider {
 	final private int SERIAL 		= 3;
 	final private int DIAGNOSTIC 	= 4;
 	final private int GRAPH 		= 5;
+	final private int LOG 			= 6;
 	private int mode = NORMAL;
 	
 	private DataBuilder dataBuilder;
@@ -215,6 +217,26 @@ public class DstabiProvider {
 			
 			Log.d(TAG, "pozadavek na profil je pridan do fronty");
 			queue.add(GET_PROFILE, null, PROFILE, callBackCode);
+		}
+	}
+	
+	/**
+	 * ziskani profilu z jednotky
+	 * 
+	 * @param callBackCode
+	 */
+	public void getLog(int callBackCode){
+		Log.d(TAG, "pozadavek na profil");
+		
+		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+			Log.d(TAG, "pozadavek na log je ihned odbaven");
+			
+			mode = LOG;
+			sendDataForResponce(GET_LOG, callBackCode);
+		}else{
+			
+			Log.d(TAG, "pozadavek na log je pridan do fronty");
+			queue.add(GET_LOG, null, LOG, callBackCode);
 		}
 	}
 	
@@ -475,8 +497,8 @@ public class DstabiProvider {
 	    								connectionHandler.sendEmptyMessage(callBackCode);
 	    								clearState("handler 4");
 	    								
-	    							//PROFILE pokud zada aktivita o profil tak podle delky privniho bytu cekame na cely profil
-	    							}else if(mode == PROFILE){
+	    							//PROFILE a LOG pokud zada aktivita o profil tak podle delky privniho bytu cekame na cely profil
+	    							}else if(mode == PROFILE || mode == LOG){
 	    								
 	    								Log.d(TAG, "Prislo 1 :" + ByteOperation.getIntegerStringByByteArray(data));
 	    								

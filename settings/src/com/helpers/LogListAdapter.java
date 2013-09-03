@@ -19,10 +19,10 @@ package com.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import com.spirit.R;
 import com.spirit.BaseActivity;
-
+import com.spirit.diagnostic.LogActivity;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -38,30 +38,37 @@ import android.widget.TextView;
  * @author error414
  *
  */
-public class MenuListAdapter extends MyListAdapter {
+public class LogListAdapter extends MyListAdapter {
 
-
-	public MenuListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
+	
+	public LogListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
 		super(a, d);
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.menu_list_item, null);
+            vi = inflater.inflate(R.layout.menu_list_item_log, null);
  
-        TextView title = (TextView)vi.findViewById(R.id.title); // title
-        ImageView ico_image=(ImageView)vi.findViewById(R.id.list_image); // thumb image
+        TextView time 		= (TextView)vi.findViewById(R.id.time); // time
+        TextView title 		= (TextView)vi.findViewById(R.id.title); // title
+        ImageView ico_image	=(ImageView)vi.findViewById(R.id.list_image); // thumb image
  
         HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
         row = data.get(position);
  
         // Setting all values in listview
-        title.setText(row.get(BaseActivity.TITLE_FOR_MENU));
-        ico_image.setImageResource(row.get(BaseActivity.ICO_RESOURCE_ID));
+        time.setText(getTimeByPosition(row.get(LogActivity.POSITION)));
+        title.setText(row.get(LogActivity.TITLE_FOR_LOG));
+        ico_image.setImageResource(row.get(LogActivity.ICO_RESOURCE_LOG));
         return vi;
     }
-
+	
+	@SuppressLint("DefaultLocale")
+	protected String getTimeByPosition(int pos) {
+		int sec = (pos - 1) * 10;
+		return String.format("%02d:%02d", sec / 60, sec % 60);
+	}
 }

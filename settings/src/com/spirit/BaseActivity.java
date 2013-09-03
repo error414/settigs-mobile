@@ -52,7 +52,6 @@ abstract public class BaseActivity extends Activity{
 	/**
 	 * klice pro adapter aby vedel k jakemu prvku jaky klic priradit
 	 */
-
 	public static Integer TITLE_FOR_MENU = 1;  
 	public static Integer ICO_RESOURCE_ID = 2;  
 	
