@@ -228,17 +228,17 @@
     </string-array>
     
     
-    <string name="location">Location</string>
-    <string name="cant_read_folder">folder can\'t be opened!</string>
-    <string name="nnew">New</string>
-    <string name="select">Select</string>
-    <string name="file_name">File name:</string>
+    <string name="location">Umístění</string>
+    <string name="cant_read_folder">Adresář nelze otevřít!</string>
+    <string name="nnew">Nový</string>
+    <string name="select">Vybrat</string>
+    <string name="file_name">Název souboru:</string>
     <string name="cancel">Zrušit</string>
     <string name="create">Uložit</string>
-    <string name="no_data">No Data</string>
-    <string name="err">Error</string>
+    <string name="no_data">Chybí data</string>
+    <string name="err">Chyba</string>
     
-    <string name="no_help">Unknown help</string>
+    <string name="no_help">Bez nápovědy</string>
     <string name="help">Nápověda</string>
     <string name="no_help_text"></string>
     <string name="test">ěščřžýáíéú</string>
@@ -251,8 +251,8 @@
     <string name="log_event_cal">Kalibrace byla dokončena</string>
     <string name="log_event_cycring">Cyclic Ring Activated</string>
     <string name="log_event_rudlim">Překročen limit vrtulky</string>
-    <string name="log_event_vibes">Vibration Level is very high</string>
+    <string name="log_event_vibes">Úroveň vibrací je příliš vysoká</string>
     <string name="log_event_hang">Hlavní smyčka programu uvázla</string>
-    <string name="log_event_rxloss">Receiver Signal Lost</string>
+    <string name="log_event_rxloss">Ztracen signál přijímače</string>
     
 </resources>
