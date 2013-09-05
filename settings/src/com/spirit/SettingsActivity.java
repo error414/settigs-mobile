@@ -19,7 +19,6 @@ package com.spirit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -31,7 +30,7 @@ import com.spirit.diagnostic.LogActivity;
 import com.spirit.senzor.SenzorActivity;
 import com.spirit.servo.ServosActivity;
 import com.spirit.stabi.StabiActivity;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -52,6 +51,7 @@ import android.widget.Toast;
  *
  */
 public class SettingsActivity extends BaseActivity {
+	@SuppressWarnings("unused")
 	final private String TAG = "SettingsActivity";
 	
 	private DstabiProvider stabiProvider;
@@ -129,6 +129,7 @@ public class SettingsActivity extends BaseActivity {
 	 * 
 	 * @return
 	 */
+	@SuppressLint("UseSparseArrays")
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
 		//connection
@@ -322,9 +323,9 @@ public class SettingsActivity extends BaseActivity {
     }
     
  // The Handler that gets information back from the 
- 	 private final Handler connectionHandler = new Handler() {
- 	        @Override
- 	        public void handleMessage(Message msg) {
+ 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+	 	    @Override
+	 	    public boolean handleMessage(Message msg) {
  	        	switch(msg.what){
  	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
  						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -335,6 +336,7 @@ public class SettingsActivity extends BaseActivity {
  						}
  						break;
  	        	}
+ 	        	return true;
  	        }
- 	    };
+ 	    });
 }

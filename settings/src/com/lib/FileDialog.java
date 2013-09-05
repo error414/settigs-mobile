@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.TreeMap;
 
 import com.spirit.R;
@@ -16,7 +17,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
@@ -29,7 +29,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Activity para escolha de arquivos/diretorios.
@@ -289,12 +288,12 @@ public class FileDialog extends ListActivity{
 				dateMap.put(dirName, new Date(file.lastModified()));
 			} else {
 				final String fileName = file.getName();
-				final String fileNameLwr = fileName.toLowerCase();
+				final String fileNameLwr = fileName.toLowerCase(Locale.getDefault());
 				// se ha um filtro de formatos, utiliza-o
 				if (formatFilter != null) {
 					boolean contains = false;
 					for (int i = 0; i < formatFilter.length; i++) {
-						final String formatLwr = formatFilter[i].toLowerCase();
+						final String formatLwr = formatFilter[i].toLowerCase(Locale.getDefault());
 						if (fileNameLwr.endsWith(formatLwr)) {
 							contains = true;
 							break;
@@ -435,9 +434,9 @@ public class FileDialog extends ListActivity{
 	
 	
 	// The Handler that gets information back from the 
-    private final Handler connectionHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
+    private final Handler connectionHandler = new Handler(new Handler.Callback() {
+	    @Override
+	    public boolean handleMessage(Message msg) {
         	switch(msg.what){
     			case DstabiProvider.MESSAGE_STATE_CHANGE:
     				if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -447,6 +446,7 @@ public class FileDialog extends ListActivity{
 					}
     				break;
         	}
+        	return true;
         }
-    };
+    });
 }

@@ -434,6 +434,7 @@ public class DstabiProfile {
 	 * @param file
 	 * @return
 	 */
+	@SuppressWarnings("resource")
 	final static public byte[] loadProfileFromFile(File file) throws FileNotFoundException, IOException 
 	{
 		InputStream is = new FileInputStream(file);

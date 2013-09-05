@@ -439,9 +439,9 @@ public class DstabiProvider {
 	 * handler pro komunikaci s BT servisem
 	 */
 	// The Handler that gets information back from the 
-    protected final Handler serviceBThandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
+    protected final Handler serviceBThandler = new Handler(new Handler.Callback() {
+	    @Override
+	    public boolean handleMessage(Message msg) {
         	switch(msg.what){
         	 	//zmena stavu BT modulu
         		case DstabiProvider.MESSAGE_STATE_CHANGE: 
@@ -596,8 +596,10 @@ public class DstabiProvider {
         			}
         	}
         	
+        	return true;
+        	
         }
-    };
+    });
     
     private void sendHandle(int callBackCode, byte[] data){
     	Bundle budleForMsg = new Bundle();
@@ -676,7 +678,6 @@ public class DstabiProvider {
     	private int length = 0;
     	
     	
-    	@SuppressWarnings("unused")
 		public DataBuilder(int length)
     	{
     		this.length = length;

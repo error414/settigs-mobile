@@ -31,7 +31,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -40,6 +39,7 @@ import android.widget.TextView;
 
 public class ServosSubtrimActivity extends BaseActivity{
 	
+	@SuppressWarnings("unused")
 	final private String TAG = "ServosSubtrimActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
@@ -190,9 +190,9 @@ public class ServosSubtrimActivity extends BaseActivity{
 		 
 		 
 		// The Handler that gets information back from the 
-		 private final Handler connectionHandler = new Handler() {
-		        @Override
-		        public void handleMessage(Message msg) {
+		 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+			    @Override
+			    public boolean handleMessage(Message msg) {
 		        	switch(msg.what){
 			        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 							sendInError();
@@ -216,8 +216,9 @@ public class ServosSubtrimActivity extends BaseActivity{
 		        			showProfileSavedDialog();
 		        			break;
 		        	}
+		        	return true;
 		        }
-		    };
+		    });
 		    
 	    /**
 	     * vytvoreni kontextoveho menu

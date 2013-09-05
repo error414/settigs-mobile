@@ -21,7 +21,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -31,7 +30,6 @@ import android.widget.TextView;
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
-import com.helpers.NumberOperation;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -40,6 +38,7 @@ import com.spirit.BaseActivity;
 
 public class StickDeadBandActivity extends BaseActivity{
 
+@SuppressWarnings("unused")
 final private String TAG = "StickDeadBandActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
@@ -167,9 +166,9 @@ final private String TAG = "StickDeadBandActivity";
 		 };
 		 
 		// The Handler that gets information back from the 
-		 private final Handler connectionHandler = new Handler() {
-		        @Override
-		        public void handleMessage(Message msg) {
+		 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+			    @Override
+			    public boolean handleMessage(Message msg) {
 		        	switch(msg.what){
 			        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 							sendInError();
@@ -193,8 +192,10 @@ final private String TAG = "StickDeadBandActivity";
 		        			showProfileSavedDialog();
 		        			break;
 		        	}
+		        	
+		        	return true;
 		        }
-		    };
+		    });
 		    
 	    /**
 	     * vytvoreni kontextoveho menu

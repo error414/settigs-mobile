@@ -27,18 +27,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
-import com.customWidget.picker.ProgresEx;
-import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.helpers.NumberOperation;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.spirit.R;
@@ -56,10 +52,6 @@ public class StabiFunctionActivity extends BaseActivity{
 	
 	private int formItems[] = {
 			R.id.function_select_id
-		};
-	
-	private int formItemsTitle[] = {
-			R.string.stabi_function
 		};
 	
 	private int lock = formItems.length;
@@ -185,9 +177,9 @@ public class StabiFunctionActivity extends BaseActivity{
 	 
 	 
 	// The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
+	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+		    @Override
+		    public boolean handleMessage(Message msg) {
 	        	switch(msg.what){
 		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 						sendInError();
@@ -211,8 +203,9 @@ public class StabiFunctionActivity extends BaseActivity{
 	        			showProfileSavedDialog();
 	        			break;
 	        	}
+	        	return true;
 	        }
-	    };
+	    });
 	    
    /**
     * vytvoreni kontextoveho menu

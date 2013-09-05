@@ -217,9 +217,9 @@ public class ServosTypeActivity extends BaseActivity{
 		 
 		 
 		// The Handler that gets information back from the 
-		 private final Handler connectionHandler = new Handler() {
-		        @Override
-		        public void handleMessage(Message msg) {
+		 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+			    @Override
+			    public boolean handleMessage(Message msg) {
 		        	switch(msg.what){
 			        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 			        		Log.d(TAG, "error");
@@ -244,8 +244,9 @@ public class ServosTypeActivity extends BaseActivity{
 		        			showProfileSavedDialog();
 		        			break;
 		        	}
+		        	return true;
 		        }
-		    };
+		    });
 		    
 	    /**
 	     * vytvoreni kontextoveho menu

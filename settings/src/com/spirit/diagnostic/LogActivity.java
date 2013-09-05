@@ -1,24 +1,3 @@
-package com.spirit.diagnostic;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.text.TextUtils;
-import android.view.Window;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-
-import com.helpers.LogListAdapter;
-import com.helpers.MenuListAdapter;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.spirit.BaseActivity;
-import com.spirit.R;
-
 /*
 Copyright (C) Petr Cada and Tomas Jedrzejek
 This program is free software; you can redistribute it and/or
@@ -35,7 +14,37 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+package com.spirit.diagnostic;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.text.TextUtils;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.helpers.LogListAdapter;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.lib.FileDialog;
+import com.lib.LogPdf;
+import com.lib.SelectionMode;
+import com.spirit.BaseActivity;
+import com.spirit.R;
+
+@SuppressLint("SdCardPath")
 public class LogActivity extends BaseActivity{
 	final private String TAG = "LogActivity";
 	
@@ -60,7 +69,19 @@ public class LogActivity extends BaseActivity{
 	final static Integer LOG_EVENT_RXLOSS 	= 0x20;
 	////////////////////////////////////////////////////
 	
+	final protected int GROUP_LOG = 4;  
+	final protected int LOG_SAVE  = 1;
+	
+	final protected int REQUEST_SAVE = 1;
+	final protected int REQUEST_OPEN = 2;
+	
+	final static String FILE_LOG_EXT = "pdf";
+	
+	final static protected String DEFAULT_LOG_PATH = "/sdcard/";
+	
 	private ListView menuList;
+	
+	private ArrayList<HashMap<Integer, Integer>> logListData;
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -99,8 +120,9 @@ public class LogActivity extends BaseActivity{
 	 * @param data
 	 * @return
 	 */
+	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log){
-		ArrayList<HashMap<Integer, Integer>> logListData = new ArrayList<HashMap<Integer, Integer>>();
+		logListData = new ArrayList<HashMap<Integer, Integer>>();
 		
 		for(int i = 1 ; i < log.length; i++){
 			if(log[i] == LOG_EVENT_OK){
@@ -189,9 +211,9 @@ public class LogActivity extends BaseActivity{
 	}
 	
 	 // The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
+	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+		    @Override
+		    public boolean handleMessage(Message msg) {
 	        	//Log.d(TAG, "prisla zprava");
 	        	switch(msg.what){
 		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
@@ -212,7 +234,82 @@ public class LogActivity extends BaseActivity{
 	        			}
 	        			break;
 	        	}
+	        	return true;
 	        }
-	    };
+	    });
+	    
+    /**
+     * vytvoreni kontextoveho menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+	    super.onCreateOptionsMenu(menu);
+	    menu.add(GROUP_LOG, LOG_SAVE, Menu.NONE, R.string.save_log);
+	    return true;
+    }
+    
+    /**
+     * reakce na kliknuti polozky v kontextovem menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) 
+    {
+    	super.onOptionsItemSelected(item); 
+    	//nahrani / ulozeni profilu
+    	if(item.getGroupId() == GROUP_LOG){
+    		// musime byt pripojeni k zarizeni
+    		if(logListData == null){
+        		Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+        		return false;
+        	}
+    		
+    		Intent intent = new Intent(getBaseContext(), FileDialog.class);
+            intent.putExtra(FileDialog.START_PATH, DEFAULT_LOG_PATH);
+            intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
+            intent.putExtra(FileDialog.FORMAT_FILTER, new String[] { FILE_LOG_EXT });
+            
+            if(item.getItemId() == LOG_SAVE){
+            	Log.d(TAG, "ID");
+            	intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_CREATE);
+            	startActivityForResult(intent, REQUEST_SAVE);
+            	return true;
+            }
+    	}
+    	return false;
+    }
+    
+    /**
+     * zachytavani vysledku z aktivit
+     * 
+     */
+    public synchronized void onActivityResult(final int requestCode,
+        int resultCode, final Intent data) {
+    	switch (requestCode) {
+    		case REQUEST_SAVE:
+		        if (resultCode == Activity.RESULT_OK) {
+		        	if (requestCode == REQUEST_SAVE) {
+		        		if(logListData == null){
+		            		Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+		            		return;
+		            	}
+		        		
+		        		String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
+		        		
+		        		if(!filePath.endsWith(FILE_LOG_EXT)){ // konci nazev souboru na string .pdf, pokud ano nepridavame priponu
+		        			filePath += "." + FILE_LOG_EXT;
+		    			}
+		        		
+						LogPdf log = new LogPdf(this, logListData);
+						log.create(filePath);
+
+	                }
+		        } else if (resultCode == Activity.RESULT_CANCELED) {
+		        	// zruzeni vybirani souboru
+		        }
+		        break;
+    	}
+    }
+    
 }
 	

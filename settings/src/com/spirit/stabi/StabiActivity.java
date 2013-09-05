@@ -149,9 +149,9 @@ public class StabiActivity extends BaseActivity{
 	}
 	
 	// The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
+	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+		    @Override
+		    public boolean handleMessage(Message msg) {
 	        	switch(msg.what){
 	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
 						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -162,6 +162,7 @@ public class StabiActivity extends BaseActivity{
 						}
 						break;
 	        	}
+	        	return true;
 	        }
-	    };
+	    });
 }

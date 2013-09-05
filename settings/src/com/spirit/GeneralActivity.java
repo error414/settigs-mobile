@@ -23,7 +23,6 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-import com.lib.Globals;
 import com.spirit.R;
 
 import android.os.Bundle;
@@ -233,9 +232,9 @@ public class GeneralActivity extends BaseActivity{
 	 
 	 
 	// The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
+	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+		    @Override
+		    public boolean handleMessage(Message msg) {
 	        	switch(msg.what){
 		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 						sendInError();
@@ -260,8 +259,9 @@ public class GeneralActivity extends BaseActivity{
 	        			showProfileSavedDialog();
 	        			break;
 	        	}
+	        	return true;
 	        }
-	    };
+	    });
 	    
     /**
      * vytvoreni kontextoveho menu

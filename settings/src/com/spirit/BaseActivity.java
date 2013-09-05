@@ -18,30 +18,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
+
 import com.helpers.StatusNotificationBuilder;
 import com.lib.DstabiProvider;
 import com.lib.Globals;
 import com.spirit.R;
-import com.spirit.R.id;
-import com.spirit.servo.ServosActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.net.Uri;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 abstract public class BaseActivity extends Activity{
@@ -93,6 +87,7 @@ abstract public class BaseActivity extends Activity{
 	@Override
 	protected void onStart() {
 		super.onStart();
+		
 		if(mBluetoothAdapter == null){
 			Toast.makeText(getApplicationContext(), R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
 			finish();

@@ -19,13 +19,12 @@ package com.spirit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,12 +32,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.spirit.R;
 
 public class HelpActivity extends BaseActivity{
+	@SuppressWarnings("unused")
 	final private String TAG = "HelpActivity";
 
 	
@@ -97,6 +96,7 @@ public class HelpActivity extends BaseActivity{
 	 * 
 	 * @return
 	 */
+	@SuppressLint("UseSparseArrays")
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
 		//connection
@@ -134,9 +134,9 @@ public class HelpActivity extends BaseActivity{
 	
     
  // The Handler that gets information back from the 
- 	 private final Handler connectionHandler = new Handler() {
- 	        @Override
- 	        public void handleMessage(Message msg) {
+ 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+ 	    @Override
+ 	    public boolean handleMessage(Message msg) {
  	        	switch(msg.what){
  	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
  						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -147,6 +147,7 @@ public class HelpActivity extends BaseActivity{
  						}
  						break;
  	        	}
+ 	        	return true;
  	        }
- 	    };
+ 	    });
 }

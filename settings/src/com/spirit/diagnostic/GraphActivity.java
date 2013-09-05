@@ -18,16 +18,12 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit.diagnostic;
 
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,7 +31,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.helpers.ByteOperation;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.FFT;
@@ -44,6 +39,7 @@ import com.spirit.BaseActivity;
 import com.androidplot.xy.*;
 
 public class GraphActivity extends BaseActivity{
+	@SuppressWarnings("unused")
 	final private String TAG = "GraphActivity";
 	
 	
@@ -55,6 +51,7 @@ public class GraphActivity extends BaseActivity{
 	final private int AXIS_Y 		= 2223;
 	final private int AXIS_Z 		= 2224;
 	
+	@SuppressWarnings("unused")
 	final private int MESSAGE_FFT 	= 100;
 	////////////////////////////////////////////////////
 	
@@ -205,9 +202,9 @@ public class GraphActivity extends BaseActivity{
 	}
 	
 	 // The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
+	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+		    @Override
+		    public boolean handleMessage(Message msg) {
 	        	//Log.d(TAG, "prisla zprava");
 	        	switch(msg.what){
 		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
@@ -291,8 +288,9 @@ public class GraphActivity extends BaseActivity{
 	        			}
 	        			break;
 	        	}
+	        	return true;
 	        }
-	    };
+	    });
 	    
 	    
 	    // handler pro vypocet FFT

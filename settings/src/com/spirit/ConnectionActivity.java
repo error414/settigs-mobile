@@ -22,9 +22,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Set;
-
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -33,17 +31,12 @@ import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
 import com.spirit.R;
-import com.spirit.R.string;
-
+import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -54,8 +47,6 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -63,6 +54,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+@SuppressLint("SdCardPath")
 public class ConnectionActivity extends BaseActivity{
 	private final String TAG = "ConnectionActivity";
 	
@@ -320,10 +312,10 @@ public class ConnectionActivity extends BaseActivity{
     	//nahrani / ulozeni profilu
     	if(item.getGroupId() == GROUP_PROFILE){
     		// musime byt pripojeni k zarizeni
-    		/*if(stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+    		if(stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
         		Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
         		return false;
-        	}*/
+        	}
     		
     		
     		Intent intent = new Intent(getBaseContext(), FileDialog.class);
@@ -387,10 +379,10 @@ public class ConnectionActivity extends BaseActivity{
     }
 	
 	
-	// The Handler that gets information back from the 
-    private final Handler connectionHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
+ // The Handler that gets information back from the 
+    private final Handler connectionHandler = new Handler(new Handler.Callback() {
+	    @Override
+	    public boolean handleMessage(Message msg) {
         	switch(msg.what){
     			case DstabiProvider.MESSAGE_STATE_CHANGE: 
     				updateState();	
@@ -423,8 +415,9 @@ public class ConnectionActivity extends BaseActivity{
     				}
     				break;
         	}
+        	return true;
         }
-    };
+    });
     
     /**
      * nacteni profilu ze souboru a nahrani do jednotky
@@ -486,7 +479,7 @@ public class ConnectionActivity extends BaseActivity{
     	showDialogWrite();
 		try {
 			System.arraycopy(profile, 1, profile, 0, profile.length-1);
-			if(fileForSave.endsWith(".4ds")){ // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
+			if(fileForSave.endsWith(FILE_EXT)){ // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
 				DstabiProfile.saveProfileToFile(new File(fileForSave), profile);
 			}else{
 				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), profile);

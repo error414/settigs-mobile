@@ -255,4 +255,14 @@
     <string name="log_event_hang">Hlavní smyčka programu uvázla</string>
     <string name="log_event_rxloss">Ztracen signál přijímače</string>
     
+    <string name="not_log_for_save">Žádný záznam letu k uložení</string>
+    <string name="save_log">Uložit záznam letu</string>
+    
+    <string name="pdf_title">Letovy zaznam</string>
+    <string name="pdf_unit_version">Verze jednotky</string>
+    <string name="pdf_time_run">Doba behu</string>
+    <string name="pdf_time_create">Vygenerovano</string>
+    <string name="saving_log">Ukládám záznam letu</string>
+    <string name="save_log_done">Uloženo</string>
+    
 </resources>

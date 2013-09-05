@@ -226,6 +226,17 @@
     <string name="log_event_hang">Main Loop Hang Occured</string>
     <string name="log_event_rxloss">Receiver Signal Lost</string>
     
+    <string name="not_log_for_save">None log to save</string>
+    <string name="save_log">Save log</string>
+    
+    
+    <string name="pdf_title">Flight log</string>
+    <string name="pdf_unit_version">Unit version</string>
+    <string name="pdf_time_run">Run time</string>
+    <string name="pdf_time_create">Create time</string>
+    <string name="saving_log">Saving log</string>
+    <string name="save_log_done">Done</string>
+    
     
 
 </resources>

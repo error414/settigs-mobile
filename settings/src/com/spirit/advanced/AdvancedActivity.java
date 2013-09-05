@@ -19,7 +19,7 @@ package com.spirit.advanced;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,16 +32,14 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
-
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.spirit.R;
 import com.spirit.BaseActivity;
-import com.spirit.servo.ServosActivity;
-import com.spirit.servo.ServosTypeActivity;
 
 public class AdvancedActivity extends BaseActivity{
+	@SuppressWarnings("unused")
 	final private String TAG = "AdvancedActivity";
 	
 	private DstabiProvider stabiProvider;
@@ -128,6 +126,7 @@ public class AdvancedActivity extends BaseActivity{
 	 * 
 	 * @return
 	 */
+	@SuppressLint("UseSparseArrays")
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
 	
@@ -306,9 +305,9 @@ public class AdvancedActivity extends BaseActivity{
 	}
 	
 	// The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler() {
-	        @Override
-	        public void handleMessage(Message msg) {
+	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
+		    @Override
+		    public boolean handleMessage(Message msg) {
 	        	switch(msg.what){
 	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
 						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
@@ -319,6 +318,7 @@ public class AdvancedActivity extends BaseActivity{
 						}
 						break;
 	        	}
+	        	return true;
 	        }
-	    };
+	    });
 }

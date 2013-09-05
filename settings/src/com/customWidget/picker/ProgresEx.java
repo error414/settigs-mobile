@@ -17,7 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.customWidget.picker;
 
 
-import java.awt.font.NumericShaper;
 
 import com.helpers.NumberOperation;
 import com.spirit.R;
@@ -25,7 +24,6 @@ import com.spirit.R;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +35,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongClickListener {
+	@SuppressWarnings("unused")
 	private static final String TAG = "ProgresEx";
 	
 	static private int DEFAULT_MIN = 0;
