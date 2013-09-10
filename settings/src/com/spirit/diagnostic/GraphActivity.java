@@ -17,29 +17,40 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.diagnostic;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
-
+import java.util.Date;
+import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.FFT;
+import com.lib.FileDialog;
+import com.lib.SelectionMode;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 import com.androidplot.xy.*;
+import com.androidplot.Plot;
 
 public class GraphActivity extends BaseActivity{
-	@SuppressWarnings("unused")
 	final private String TAG = "GraphActivity";
 	
 	
@@ -50,6 +61,11 @@ public class GraphActivity extends BaseActivity{
 	final private int AXIS_X 		= 2222;
 	final private int AXIS_Y 		= 2223;
 	final private int AXIS_Z 		= 2224;
+	
+	
+	final private int GROUP_SCREENSHOT 			= 333;
+	final private int CHOOSE_DIRECOTORY 		= 444;
+	
 	
 	@SuppressWarnings("unused")
 	final private int MESSAGE_FFT 	= 100;
@@ -63,6 +79,9 @@ public class GraphActivity extends BaseActivity{
 	private XYPlot aprLevelsPlot = null;
 	private SimpleXYSeries aprLevelsSeries = null;
 	///////////////////////////////////////////////////
+	
+	//jestli pri kliku na graf se ulozi screenshot
+	private Boolean tapToScreenShot = false;
 	
 	////
 	private byte[] dataBuffer;
@@ -80,6 +99,15 @@ public class GraphActivity extends BaseActivity{
 	
 	private double[] input_xr = null;
 	private double[] input_xi = null;
+	
+	@SuppressLint("SdCardPath")
+	final static protected String DEFAULT_SCREEN_SHOT_PATH = "/sdcard/";
+	final static protected int REQUEST_DIR_FOR_SCREEN_SHOT = 15;
+	
+	private String dir_for_save_screen_shot;
+	
+	@SuppressLint("SimpleDateFormat")
+	SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd_HHmmss");
 
 	
 	/**
@@ -96,13 +124,7 @@ public class GraphActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.graph_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
-		// inicializace FFT
-		initFFT();
-		// inicializujeme graf
-		inicializeGraph();
-		
-		startGraph();
+		Log.d(TAG, "create");
     }
 	
 	/**
@@ -129,6 +151,7 @@ public class GraphActivity extends BaseActivity{
         aprLevelsPlot = (XYPlot) findViewById(R.id.vibration);
         aprLevelsPlot.addSeries(aprLevelsSeries, LineAndPointRenderer.class, new LineAndPointFormatter(Color.rgb(0, 200, 0), null, null));
         aprLevelsPlot.disableAllMarkup();
+        aprLevelsPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
         
         aprLevelsPlot.setRangeBoundaries(0, 100, BoundaryMode.FIXED);
         aprLevelsPlot.setRangeLabel("Amplitude");
@@ -137,7 +160,7 @@ public class GraphActivity extends BaseActivity{
         aprLevelsPlot.setDomainBoundaries(0, 500, BoundaryMode.FIXED);
         aprLevelsPlot.setDomainLabel("Frequency [Hz]");
         aprLevelsPlot.setRangeStepValue(10);
-        
+        aprLevelsPlot.setOnClickListener(saveScreenShotListener);
         aprLevelsPlot.getLayoutManager()
         .remove(aprLevelsPlot.getLegendWidget());
 	}
@@ -158,6 +181,7 @@ public class GraphActivity extends BaseActivity{
 	@Override
     public void onStop() 
 	{
+		Log.d(TAG, "stop");
         super.onStop();
         stabiProvider.stopGraph();
     }
@@ -192,10 +216,19 @@ public class GraphActivity extends BaseActivity{
 	 */
 	@Override
 	public void onResume(){
+		Log.d(TAG, "resume");
 		super.onResume();
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+			
+			// inicializace FFT
+			initFFT();
+			// inicializujeme graf
+			inicializeGraph();
+			
+			startGraph();
+			
 		}else{
 			finish();
 		}
@@ -308,20 +341,56 @@ public class GraphActivity extends BaseActivity{
 		    	}
 		    }
 		};*/
-		    
-		    
+	 
+		View.OnClickListener saveScreenShotListener = new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d(TAG, "clik");
+				Log.d(TAG, "tapToScreenShot je: " + tapToScreenShot);
+				if(tapToScreenShot){
+					
+					String filename = dir_for_save_screen_shot + "/" + sdf.format(new Date()) + "-log.png";
+					
+					try {
+						aprLevelsPlot.setDrawingCacheEnabled(true);
+				        int width = aprLevelsPlot.getWidth();
+				        int height = aprLevelsPlot.getHeight();
+				        aprLevelsPlot.measure(width, height);
+				        Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
+				        aprLevelsPlot.setDrawingCacheEnabled(false);
+				        FileOutputStream fos;
+						
+						fos = new FileOutputStream(filename, true);
+						bmp.compress(CompressFormat.JPEG, 100, fos);
+						
+						Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+					} catch (FileNotFoundException e) {
+						Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+						e.printStackTrace();
+					}
+			        
+				}
+			}
+		};
+	 
 		/**
 	     * vytvoreni kontextoveho menu
 	     */
 	    @Override
-	    public boolean onCreateOptionsMenu(Menu menu)
-	    {
-		    super.onCreateOptionsMenu(menu);
+	    public boolean onPrepareOptionsMenu(Menu menu)
+	    {	
+	    	menu.clear();
+		   
 		    
-		    menu.add(GROUP_AXIS, AXIS_X, Menu.NONE, R.string.axis_X);
-		    menu.add(GROUP_AXIS, AXIS_Y, Menu.NONE, R.string.axis_Y);
-		    menu.add(GROUP_AXIS, AXIS_Z, Menu.NONE, R.string.axis_Z);
-		    return true;
+		    menu.add(GROUP_AXIS, 		AXIS_X, Menu.NONE, R.string.axis_X);
+		    menu.add(GROUP_AXIS, 		AXIS_Y, Menu.NONE, R.string.axis_Y);
+		    menu.add(GROUP_AXIS, 		AXIS_Z, Menu.NONE, R.string.axis_Z);
+		    if(tapToScreenShot){
+		    	menu.add(GROUP_SCREENSHOT, 	CHOOSE_DIRECOTORY, Menu.NONE, R.string.tap_to_screenshot_off);
+	    	}else{
+	    		menu.add(GROUP_SCREENSHOT, 	CHOOSE_DIRECOTORY, Menu.NONE, R.string.tap_to_screenshot_on);
+	    	}
+		    
+		    return super.onPrepareOptionsMenu(menu);
 	    }
 	    
 	    /**
@@ -345,7 +414,36 @@ public class GraphActivity extends BaseActivity{
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_Z){
 	    		stabiProvider.sendDataImmediately("4DA\3".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
+	    	
+	    	//zobrazeni osy Z 
+	    	if(item.getGroupId() == GROUP_SCREENSHOT && item.getItemId() == CHOOSE_DIRECOTORY){
+	    		if(tapToScreenShot){
+	    			tapToScreenShot = false;
+	    		}else{
+	    			Intent intent = new Intent(getBaseContext(), FileDialog.class);
+	                intent.putExtra(FileDialog.START_PATH, DEFAULT_SCREEN_SHOT_PATH);
+	                intent.putExtra(FileDialog.CAN_SELECT_DIR, true);
+	                intent.putExtra(FileDialog.SELECTION_MODE,  SelectionMode.MODE_OPEN);
+	                intent.putExtra(FileDialog.FORMAT_FILTER, new String[] { });
+	            	startActivityForResult(intent, REQUEST_DIR_FOR_SCREEN_SHOT);
+	    		}
+	    	}
 	    	return false;
+	    }
+	    
+	    /**
+	     * zachytavani vysledku z aktivit
+	     * 
+	     */
+	    public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data) {
+	    	switch (requestCode) {
+	    		case REQUEST_DIR_FOR_SCREEN_SHOT:
+			        if (resultCode == Activity.RESULT_OK) {
+			        	Log.d(TAG, "prisel filepath: " + data.getStringExtra(FileDialog.RESULT_PATH));
+			        	tapToScreenShot = true;
+			        	dir_for_save_screen_shot = data.getStringExtra(FileDialog.RESULT_PATH);
+			        }
+	    	}
 	    }
 	
 }

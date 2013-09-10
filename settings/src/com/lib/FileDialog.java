@@ -125,7 +125,7 @@ public class FileDialog extends ListActivity{
 		setContentView(R.layout.file_dialog_main);
 		
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.profile_file_manager)));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.file_manager)));
 		
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		

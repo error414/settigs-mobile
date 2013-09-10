@@ -22,7 +22,7 @@
     <string name="save_profile">Save profile</string>
     <string name="save_profile_to_unit">Save profile to unit</string>
     <string name="profile_saved">Profile saved</string>
-    <string name="profile_file_manager">Profile file manager</string>
+    <string name="file_manager">File manager</string>
     <string name="file_not_found">File not found</string>
     <string name="bt_not_enabled_leaving">Bluetooth not enabled leaving</string>
     <string name="choose_device">Choose device</string>
@@ -236,7 +236,8 @@
     <string name="pdf_time_create">Create time</string>
     <string name="saving_log">Saving log</string>
     <string name="save_log_done">Done</string>
-    
-    
-
+    <string name="tap_to_screenshot_on">Tap screenshot On</string>
+    <string name="tap_to_screenshot_off">Tap screenshot Off</string>
+    <string name="not_save">Save failed</string>
+    <string name="save_done">Save Done</string>
 </resources>

@@ -23,7 +23,7 @@
     <string name="save_profile">Uložit profil</string>
     <string name="save_profile_to_unit">Uložit profil do jednotky</string>
     <string name="profile_saved">Profil uložen</string>
-    <string name="profile_file_manager">Profile file manager</string>
+    <string name="file_manager">File manager</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="bt_not_enabled_leaving">Bluetooth není povolen, ukončuji..</string>
     <string name="choose_device">Vyberte zařízení</string>
@@ -264,5 +264,9 @@
     <string name="pdf_time_create">Vygenerovano</string>
     <string name="saving_log">Ukládám záznam letu</string>
     <string name="save_log_done">Uloženo</string>
+    <string name="tap_to_screenshot_on">Zapnout uložení obrázku dotykem</string>
+    <string name="tap_to_screenshot_off">Vypnout uložení obrázku dotykem</string>
+    <string name="not_save">Uložení selhalo</string>
+    <string name="save_done">Uloženo</string>
     
 </resources>
