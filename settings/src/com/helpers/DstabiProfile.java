@@ -57,7 +57,7 @@ public class DstabiProfile {
 		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P"));
 		profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "D", 	"R"));
-		profileMap.put("MIX",	 	new ProfileItem(6, "A", "C", 	"C"));
+		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C"));
 		profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
 		
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST"));
@@ -100,7 +100,7 @@ public class DstabiProfile {
 		
 		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat 
 	
-		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, 0, 90, "5"));
+		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5"));
 		//profileMap.put("GEOMETRY_CORR",	new ProfileItem(41, "0", "1", "6"));	// korekce geometrie
 		//profileMap.put("TRAVEL_PIT",	new ProfileItem(43, 64, 192, "7"));
 		
@@ -398,10 +398,15 @@ public class DstabiProfile {
 		 */
 		public Boolean isValid()
 		{
+			//getValueInteger vraci jen cela cisla, pokud ale mame profil ktery povoluje i zaporna cisla musime vzit puvodni hodnotu ma kontrolu
 			if(value != null){
-				return (getValueInteger() >= min) && (getValueInteger() <= max);
+				if(min >= 0){
+					return (getValueInteger() >= min) && (getValueInteger() <= max); 
+				}else{
+					return (value >= min) && (value <= max);
+				}
 			}
-			return false;
+			return true;
 		}
 		
 		/**

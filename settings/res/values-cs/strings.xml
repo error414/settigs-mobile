@@ -146,11 +146,11 @@
     <string-array name="model_values">
         <item>Vrtulník 450 &lt;</item>
         <item>Vrtulník 500 &gt;</item>
-        <item>Letadlo</item>
     </string-array>
     
     <string-array name="mix_values">
         <item>CCPM 120</item>
+        <item>CCPM 135</item>
         <item>CCPM 140</item>
         <item>CCPM 90</item>
     </string-array>

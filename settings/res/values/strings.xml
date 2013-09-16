@@ -129,10 +129,10 @@
     <string-array name="model_values">
         <item>Helicopter 450 &lt;</item>
         <item>Helicopter 500 &gt;</item>
-        <item>Plane</item>
     </string-array>
     <string-array name="mix_values">
         <item>CCPM 120</item>
+        <item>CCPM 135</item>
         <item>CCPM 140</item>
         <item>CCPM 90</item>
     </string-array>

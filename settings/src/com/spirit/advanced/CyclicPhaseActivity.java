@@ -140,10 +140,11 @@ final private String TAG = "PirouetteConsistencyActivity";
 			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			 
 			 tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-			 tempPicker.setCurrentNoNotify(item.getValueInteger());
+			 tempPicker.setCurrentNoNotify(item.getValueInteger() > item.getMaximum() ? item.getValueInteger() - 256 : item.getValueInteger());
 		 }
 				
 	 }
+	 
 	 
 	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
 
