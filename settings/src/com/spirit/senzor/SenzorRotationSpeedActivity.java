@@ -45,7 +45,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"FLIGHT_STYLE",
+			"RATE_PITCH",
 			"RATE_YAW",
 	};
 	

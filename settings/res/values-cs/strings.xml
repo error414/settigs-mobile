@@ -117,7 +117,7 @@
     <string name="z_rudder">Vrtulka</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
-    <string name="rotation_speed">Agilita</string>
+    <string name="rotation_speed">Rychlost rotace</string>
     <string name="rates">Rychlost</string>
 
     <string name="stick_deadband">Pásmo necitlivosti kniplů</string>
@@ -133,7 +133,7 @@
     <string name="pitchup">Kompenzace vzpínání výškovky</string>
     <string name="cyclic_phase">Pootočení cykliky</string>
     <string name="cyclic_phase_deg">Úhel rotace [°]</string>
-    
+    <string name="cyclic_ff">Počáteční reakce cykliky</string>
     <string name="stabi_function">Funkce</string>
     <string name="stabi_pitch">Kolektiv</string>
     
@@ -141,11 +141,6 @@
         <item>Horizontální</item>
         <item>Vertikální</item>
         <item>Vertikální (Top)</item>
-    </string-array>
-    
-    <string-array name="model_values">
-        <item>Vrtulník 450 &lt;</item>
-        <item>Vrtulník 500 &gt;</item>
     </string-array>
     
     <string-array name="mix_values">
@@ -156,18 +151,16 @@
     </string-array>
     
     <string-array name="flight_style_values">
-        <item>Maketa</item>
-        <item>F3C</item>
-        <item>Akro</item>
-        <item>3D</item>
-        <item>Tvrdé 3D</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
     </string-array>
-    
-    <string-array name="mix_planes_values">
-        <item>4x servo</item>
-        <item>3x servo</item>
-    </string-array>
-    
+       
      <string-array name="receiver_values">
         <item>PWM</item>
         <item>PPM</item>

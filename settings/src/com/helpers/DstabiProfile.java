@@ -55,7 +55,7 @@ public class DstabiProfile {
 		profileMap.put("MINOR", 	new ProfileItem(2, 0, 255, 		null));
 		
 		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P"));
-		profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
+		//profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "D", 	"R"));
 		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C"));
 		profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
@@ -84,8 +84,8 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y"));
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
 		
-		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 5, 16, 	"l"));		// rychlost rotace cykliky
-		//profileMap.put("RATE_ROLL",		new ProfileItem(26, 5, 20, 	"b"));
+		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a"));		// rychlost rotace cykliky
+		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 5, 20, 	"b"));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
 		profileMap.put("PITCHUP",	new ProfileItem(28, 0, 3, "r")); 	// zpracovani signalu
@@ -109,7 +109,7 @@ public class DstabiProfile {
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
 		
-		profileMap.put("RATE_PITCH",	new ProfileItem(25, 8, 12, "a"));		// letovy projev - hack od 1.0.19 
+		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l"));		// letovy projev
 		
 		this.mProfile = mProfile;
 		

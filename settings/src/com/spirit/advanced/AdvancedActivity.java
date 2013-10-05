@@ -98,7 +98,9 @@ public class AdvancedActivity extends BaseActivity{
             		case 9://cyclic phase
             			openCyclicPhaseActivity(view);
             			break;
-
+            		case 10://cyclic ff
+            			openCyclicFFActivity(view);
+            			break;
             	}
  
             }
@@ -190,6 +192,12 @@ public class AdvancedActivity extends BaseActivity{
 		cyclic_phase.put(ICO_RESOURCE_ID, R.drawable.na);
 		menuListData.add(cyclic_phase);
 	
+		//cyclic ff
+		HashMap<Integer, Integer> cyclic_ff = new HashMap<Integer, Integer>();
+		cyclic_ff.put(TITLE_FOR_MENU, R.string.cyclic_ff);
+		cyclic_ff.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(cyclic_ff);
+		
 		return menuListData;
 	}
 	
@@ -301,6 +309,17 @@ public class AdvancedActivity extends BaseActivity{
 	public void openCyclicPhaseActivity(View v)
 	{
 		Intent i = new Intent(AdvancedActivity.this, CyclicPhaseActivity.class);
+		startActivity(i);
+	}
+	
+	/**
+	 * 
+	 * 
+	 * @param v
+	 */
+	public void openCyclicFFActivity(View v)
+	{
+		Intent i = new Intent(AdvancedActivity.this, CyclicFFActivity.class);
 		startActivity(i);
 	}
 	

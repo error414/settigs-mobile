@@ -118,6 +118,7 @@
     <string name="pitchup">Elevator pitchup compensation</string>
     <string name="cyclic_phase">Cyclic phase</string>
     <string name="cyclic_phase_deg">Rotation angle [°]</string>
+    <string name="cyclic_ff">Cyclic feed forward</string>
     <string name="stabi_function">Function</string>
     <string name="stabi_pitch">Pitch</string>
     <string name="log_button_text">Flight log</string>
@@ -126,10 +127,6 @@
         <item>Vertical</item>
         <item>Vertical (Top)</item>
     </string-array>
-    <string-array name="model_values">
-        <item>Helicopter 450 &lt;</item>
-        <item>Helicopter 500 &gt;</item>
-    </string-array>
     <string-array name="mix_values">
         <item>CCPM 120</item>
         <item>CCPM 135</item>
@@ -137,15 +134,14 @@
         <item>CCPM 90</item>
     </string-array>
     <string-array name="flight_style_values">
-        <item>Scale</item>
-        <item>F3C</item>
-        <item>Acro</item>
-        <item>3D</item>
-        <item>Hard 3D</item>
-    </string-array>
-    <string-array name="mix_planes_values">
-        <item>4x servo</item>
-        <item>3x servo</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
     </string-array>
     <string-array name="receiver_values">
         <item>PWM</item>

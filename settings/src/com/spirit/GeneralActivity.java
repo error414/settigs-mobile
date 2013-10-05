@@ -57,17 +57,15 @@ public class GeneralActivity extends BaseActivity{
 	
 	private final String protocolCode[] = {
 			"POSITION",
-			"MODEL",
 			"MIX",
 			"RECEIVER",
 			"CYCLIC_REVERSE",
-			"RATE_PITCH",
+			"FLIGHT_STYLE",
 	};
 	
 	// gui prvky ktere sou v teto aktivite aktivni
 	private int formItems[] = {
 		R.id.position_select_id,
-		R.id.model_select_id,
 		R.id.mix_select_id,
 		R.id.receiver_select_id,
 		R.id.cyclic_servo_reverse_select_id,
@@ -134,30 +132,6 @@ public class GeneralActivity extends BaseActivity{
 	 }
 	 
 	 /**
-	  * pri zmene modelu je potreba zmenit select mixu
-	  * rudder frequency
-	  * 
-	  * @param pos
-	  */
-	 private void updateItemMix(int pos)
-	 {
-		 ArrayAdapter<?> adapter;
-		 Spinner mix = (Spinner) findViewById(R.id.mix_select_id);
-		 int freqPos = (int) mix.getSelectedItemPosition(); 
-		 if(pos == 2){
-			 adapter = ArrayAdapter.createFromResource(
-		                this, R.array.mix_planes_values, android.R.layout.simple_spinner_item);
-		 }else{
-			 adapter = ArrayAdapter.createFromResource(
-		                this, R.array.mix_values, android.R.layout.simple_spinner_item);
-		 }
-		 
-		 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		 mix.setAdapter(adapter);
-		 mix.setSelection(Math.min(freqPos, adapter.getCount() - 1 ));
-	 }
-	 
-	 /**
 	  * naplneni formulare
 	  * 
 	  * @param profile
@@ -174,14 +148,14 @@ public class GeneralActivity extends BaseActivity{
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 				
 				 //TOHLE MUSIM VYRESIT LIP
-				 if(tempSpinner.getId() == formItems[1]){
+				 /*if(tempSpinner.getId() == formItems[1]){
 					 updateItemMix(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
 					 lock = lock + 1; // protoze zmena mixu nam zavola zase handle
-				 }
+				 }*/
 				
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if(pos != 0)lock = lock + 1; 
-				
+				if(pos != 0)
+					lock = lock + 1; 
 				
 				tempSpinner.setSelection(pos);
 			 }
@@ -212,11 +186,6 @@ public class GeneralActivity extends BaseActivity{
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-					
-					//pro prvek model volam jeste obsluhu pro zmenu mixu
-					if(parent.getId() == formItems[1]){
-						updateItemMix(pos);
-					}
 					
 					showInfoBarWrite();
 				}

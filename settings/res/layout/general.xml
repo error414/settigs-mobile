@@ -56,32 +56,13 @@
 	            android:layout_below="@+id/textView1"
 	            android:entries="@array/position_values"
 	            android:minWidth="230dp" />
-	
-	        <TextView
-	            android:id="@+id/textView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/position_select_id"
-	            android:layout_below="@+id/position_select_id"
-	            android:layout_marginTop="32dp"
-	            android:text="@string/model_text"
-	            android:textColor="@color/text_color" />
-	
-	        <Spinner
-	            android:id="@+id/model_select_id"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView3"
-	            android:layout_below="@+id/textView3"
-	            android:entries="@array/model_values"
-	            android:minWidth="230dp" />
 
 	        <TextView
 	            android:id="@+id/textView4"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/model_select_id"
-	            android:layout_below="@+id/model_select_id"
+	            android:layout_alignLeft="@+id/position_select_id"
+	            android:layout_below="@+id/position_select_id"
 	            android:layout_marginTop="32dp"
 	            android:text="@string/mix_text"
 	            android:textColor="@color/text_color" />
