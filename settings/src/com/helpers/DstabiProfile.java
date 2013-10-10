@@ -85,7 +85,7 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
 		
 		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a"));		// rychlost rotace cykliky
-		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 5, 20, 	"b"));		// pocatecni reakce cykliky
+		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 10, 	"b"));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
 		profileMap.put("PITCHUP",	new ProfileItem(28, 0, 3, "r")); 	// zpracovani signalu
@@ -94,7 +94,7 @@ public class DstabiProfile {
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); 
 		
-		profileMap.put("STABI_COL", new ProfileItem(35, 118, 138, "1")); 		// kolektiv zachranneho rezimu
+		profileMap.put("STABI_COL", new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
 		
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 200, "H")); // konzistence piruet
 		
@@ -105,7 +105,7 @@ public class DstabiProfile {
 		//profileMap.put("TRAVEL_PIT",	new ProfileItem(43, 64, 192, "7"));
 		
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
-		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// vyskovkovy filtr
+		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// kompenzace zpinani vyskovky
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
 		

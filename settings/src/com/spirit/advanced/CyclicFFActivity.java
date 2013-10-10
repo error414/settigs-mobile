@@ -39,7 +39,7 @@ import com.spirit.BaseActivity;
 
 public class CyclicFFActivity extends BaseActivity{
 
-final private String TAG = "PirouetteConsistencyActivity";
+	final private String TAG = "CyclicFFActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;

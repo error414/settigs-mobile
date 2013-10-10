@@ -73,6 +73,8 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	private boolean mIncrement;
     private boolean mDecrement;
 	
+    private ProgresExViewTranslateInterface translate;
+    
     private final Handler mHandler;
     private final Runnable mRunnable = new Runnable() {
         public void run() {
@@ -256,25 +258,31 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 		mObjProgres.setProgress(mCurrent - mMin);
 		
 		double percent = mMin;
-		
-		if(mShowAsPercent){
-			if(mFloor){
-				mObjMin.setText(String.valueOf(Math.floor((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin))));
-				mObjMax.setText(String.valueOf(Math.floor((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMax))));
-				percent = Math.max(0, Math.floor(NumberOperation.numberToPercent(mRangeMax - mRangeMin , mCurrent)));
+		if(this.translate == null){
+			if(mShowAsPercent){
+				if(mFloor){
+					mObjMin.setText(String.valueOf(Math.floor((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin))));
+					mObjMax.setText(String.valueOf(Math.floor((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMax))));
+					percent = Math.max(0, Math.floor(NumberOperation.numberToPercent(mRangeMax - mRangeMin , mCurrent)));
+				}else{
+					mObjMin.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin)));
+					mObjMax.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mMax)));
+					percent = Math.max(0, NumberOperation.round(NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mCurrent), 1));
+				}
+				
+				mObjProgresValue.setText(String.valueOf(percent) + "%");
+				mObjCurrent.setText(String.valueOf(percent) + "%");
 			}else{
-				mObjMin.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin , mMin)));
-				mObjMax.setText(String.valueOf((int)NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mMax)));
-				percent = Math.max(0, NumberOperation.round(NumberOperation.numberToPercent(mRangeMax - mRangeMin  , mCurrent), 1));
+				mObjMin.setText(String.valueOf(mRangeMin));
+				mObjMax.setText(String.valueOf(mRangeMax));
+				mObjProgresValue.setText(String.valueOf(mCurrent + mOffset));
+				mObjCurrent.setText(String.valueOf(mCurrent + mOffset));
 			}
-			
-			mObjProgresValue.setText(String.valueOf(percent) + "%");
-			mObjCurrent.setText(String.valueOf(percent) + "%");
 		}else{
-			mObjMin.setText(String.valueOf(mRangeMin));
-			mObjMax.setText(String.valueOf(mRangeMax));
-			mObjProgresValue.setText(String.valueOf(mCurrent + mOffset));
-			mObjCurrent.setText(String.valueOf(mCurrent + mOffset));
+			mObjMin.setText(this.translate.translateMin(mRangeMin));
+			mObjMax.setText(this.translate.translateMax(mRangeMax));
+			mObjProgresValue.setText(this.translate.translateCurrent(mCurrent + mOffset));
+			mObjCurrent.setText(this.translate.translateCurrent(mCurrent + mOffset));
 		}
 		
     }
@@ -364,4 +372,16 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
     		mainLayout.setVisibility(visibility);
     	}
     }
+
+	public ProgresExViewTranslateInterface getTranslate() {
+		return translate;
+	}
+
+	public void setTranslate(ProgresExViewTranslateInterface translate) {
+		this.translate = translate;
+	}
+    
+    
+    
+
 }

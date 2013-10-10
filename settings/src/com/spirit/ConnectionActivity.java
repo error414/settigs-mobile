@@ -59,11 +59,11 @@ public class ConnectionActivity extends BaseActivity{
 	private final String TAG = "ConnectionActivity";
 	
 	/*#############################################*/
-	/* ZDE SE MUSI NSTAVIT VERZE APLIKACE          */
+	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
 	/*#############################################*/
 	final protected String APLICATION_MAJOR_VERSION = "1"; 
 	final protected String APLICATION_MINOR1_VERSION = "0"; 
-	final protected String APLICATION_MINOR2_VERSION = "20"; 
+	final protected String APLICATION_MINOR2_VERSION = "21"; 
 	/*#############################################*/
 	
 	final protected int REQUEST_SAVE = 1;

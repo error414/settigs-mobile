@@ -36,7 +36,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -146,12 +145,6 @@ public class GeneralActivity extends BaseActivity{
 		 try{
 			 for(int i = 0; i < formItems.length; i++){
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
-				
-				 //TOHLE MUSIM VYRESIT LIP
-				 /*if(tempSpinner.getId() == formItems[1]){
-					 updateItemMix(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
-					 lock = lock + 1; // protoze zmena mixu nam zavola zase handle
-				 }*/
 				
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 				if(pos != 0)

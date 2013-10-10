@@ -30,6 +30,7 @@ import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.customWidget.picker.ProgresExViewTranslateInterface;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -99,8 +100,9 @@ public class StabiPitchActivity extends BaseActivity{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 
-			 tempPicker.setOffset(-128);			 // zobrazujeme od stredu, 128 => 0 
-			 tempPicker.setRange(118, 138, -10, 10); // hack, ble
+			 tempPicker.setTranslate(new StabiPichProgressExTranslate());
+			 tempPicker.setOffset(-127);			 // zobrazujeme od stredu, 127 => 0 
+			 tempPicker.setRange(117, 137, -10, 10); // hack, ble
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
@@ -148,8 +150,6 @@ public class StabiPitchActivity extends BaseActivity{
 	 }
 	 
 	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
-
-
 			@Override
 			public void onChanged(ProgresEx parent, int newVal) {
 				// TODO Auto-generated method stub
@@ -160,10 +160,10 @@ public class StabiPitchActivity extends BaseActivity{
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 						
-						if (newVal > 128 && newVal < 128+4)
-							newVal = 128-4;
-						if (newVal < 128 && newVal > 128-4)
-							newVal = 128+4;
+						if (newVal > 127 && newVal < 127+4)
+							newVal = 127-4;
+						if (newVal < 127 && newVal > 127-4)
+							newVal = 127+4;
 
 						parent.setCurrentNoNotify(newVal);
 							
@@ -174,7 +174,8 @@ public class StabiPitchActivity extends BaseActivity{
 				}
 			}
 
-		 };
+	 };
+		 
 	
 	
 		// The Handler that gets information back from the 
@@ -233,5 +234,36 @@ public class StabiPitchActivity extends BaseActivity{
     	}
     	return false;
     }
+    
+    /**
+     * trida nam prelozi cislo z velikosti stabiPitch na procenta
+     * 
+     * -10 az 10 prelozi na -100% az 100%, vnitrne se ale bude pocitat porad s -10 az 10
+     * 
+     * 
+     * @author petrcada
+     *
+     */
+    protected class StabiPichProgressExTranslate implements ProgresExViewTranslateInterface{
+
+		@Override
+		public String translateCurrent(int current) {
+			return String.valueOf((current * 10)) + " %"; 
+		}
+
+		@Override
+		public String translateMin(int min) {
+			return String.valueOf((min * 10)) + " %";
+		}
+
+		@Override
+		public String translateMax(int max) {
+			return String.valueOf((max * 10)) + " %";
+		}
+    	
+    }
 	
 }
+
+
+

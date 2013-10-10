@@ -94,31 +94,31 @@ public class DiagnosticActivity extends BaseActivity{
 		
 		//AILERON
 		int aileron = ByteOperation.twoByteToSigInt(b[0], b[1]);
-		int aileronPercent = Math.round((100f / 340f) *  aileron);
+		int aileronPercent = Math.round((100 / 340) *  aileron);
 		((ProgressBar)findViewById(R.id.aileron_progress_diagnostic)).setProgress(Math.round(aileronPercent + 100));
 		((TextView)findViewById(R.id.aileron_value_diagnostic)).setText(String.valueOf(aileronPercent));
 		
 		//ELEVATOR
 		int elevator = ByteOperation.twoByteToSigInt(b[2], b[3]);
-		int elevatorPercent = Math.round((100f / 340f) *  elevator);
+		int elevatorPercent = Math.round((100 / 340) *  elevator);
 		((ProgressBar)findViewById(R.id.elevator_progress_diagnostic)).setProgress(Math.round(elevatorPercent + 100));
 		((TextView)findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent ));
 		
 		//RUDDER
 		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
-		int rudderPercent = Math.round((100f / 340f) *  rudder);
+		int rudderPercent = Math.round((100 / 340) *  rudder);
 		((ProgressBar)findViewById(R.id.rudder_progress_diagnostic)).setProgress(Math.round(rudderPercent + 100));
 		((TextView)findViewById(R.id.rudder_value_diagnostic)).setText(String.valueOf(rudderPercent));
 		
 		//PITCH
 		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
-		int pitchPercent = Math.round((100f / 340f) *  pitch);
+		int pitchPercent = Math.round((100 / 340) *  pitch);
 		((ProgressBar)findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
 		((TextView)findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
 		
 		//GYRO
 		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]) + 427;
-		int gyroPercent = Math.round((100f / 765f) *  gyro);
+		int gyroPercent = Math.round((100 / 765) *  gyro);
 		((ProgressBar)findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent));
 		((TextView)findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(gyroPercent));
 		
