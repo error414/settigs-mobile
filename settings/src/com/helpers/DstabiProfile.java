@@ -96,7 +96,7 @@ public class DstabiProfile {
 		
 		profileMap.put("STABI_COL", new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
 		
-		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 200, "H")); // konzistence piruet
+		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H")); // konzistence piruet
 		
 		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat 
 	
