@@ -279,6 +279,7 @@ public class ConnectionActivity extends BaseActivity{
 				connectButton.setText(R.string.connect);
 				
 				curentDeviceText.setText(null);
+				
 				sendInSuccessDialog();
 				
 				((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
