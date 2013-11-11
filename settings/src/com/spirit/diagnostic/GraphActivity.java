@@ -285,7 +285,7 @@ public class GraphActivity extends BaseActivity{
 
 	    	        			// aplikujeme Hamming okno
 	    	        			for (int i = 0; i < FFT_N; i ++)
-	    	        				input_xr[i] = (double) ((input_xr[i]))  * (0.54f - (0.46 * Math.cos ((2*Math.PI*i) / (FFT_N-1))));
+	    	        				input_xr[i] = (double) ((input_xr[i]))  * (0.54f - (0.46f * Math.cos ((2*Math.PI*i) / (FFT_N-1))));
 	    	        			
 	    	        			// fft pocitam zatim primo tady - je to docela rychle
 	    	        			// TODO udelat v samostatnem vlaknu
@@ -360,7 +360,7 @@ public class GraphActivity extends BaseActivity{
 				        FileOutputStream fos;
 						
 						fos = new FileOutputStream(filename, true);
-						bmp.compress(CompressFormat.JPEG, 100, fos);
+						bmp.compress(CompressFormat.PNG, 100, fos);
 						
 						Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
 					} catch (FileNotFoundException e) {

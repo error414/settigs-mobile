@@ -220,8 +220,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	/**
 	 * nastaveni offsetu
 	 * 
-	 * @param mMin
-	 * @param mMax
+	 * @param mOffset
 	 */
 	public void setOffset(int mOffset) {
 		this.mOffset = mOffset;
@@ -322,7 +321,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
     }
 	
 	/**
-     * We start the long click here but rely on the {@link NumberPickerButton}
+     * We start the long click here but rely on the {@link ProgresEx}
      * to inform us when the long click has ended.
      */
     public boolean onLongClick(View v) {

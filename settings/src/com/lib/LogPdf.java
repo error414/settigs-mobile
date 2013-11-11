@@ -171,7 +171,7 @@ public class LogPdf {
 	 /**
 	  * vytvori z resource ID pole bytu
 	  * 
-	  * @param resource
+	  * @param imageName
 	  * @return
 	  */
 	 private byte[] getByteArrayFromImageResource(String imageName){
