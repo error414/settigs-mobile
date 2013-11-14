@@ -124,7 +124,6 @@ public class GraphActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.graph_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		Log.d(TAG, "create");
     }
 	
 	/**
@@ -181,7 +180,6 @@ public class GraphActivity extends BaseActivity{
 	@Override
     public void onStop() 
 	{
-		Log.d(TAG, "stop");
         super.onStop();
         stabiProvider.stopGraph();
     }
@@ -216,7 +214,6 @@ public class GraphActivity extends BaseActivity{
 	 */
 	@Override
 	public void onResume(){
-		Log.d(TAG, "resume");
 		super.onResume();
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
@@ -238,7 +235,6 @@ public class GraphActivity extends BaseActivity{
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
 		    @Override
 		    public boolean handleMessage(Message msg) {
-	        	//Log.d(TAG, "prisla zprava");
 	        	switch(msg.what){
 		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 		        		
@@ -293,7 +289,7 @@ public class GraphActivity extends BaseActivity{
 							
 								// vypocet amplitud celeho spektra
 								for (int i = 0; i < FFT_NYQUIST; i ++) {
-									seriesX[i] = (double) Math.sqrt ((input_xr[i]*input_xr[i]) + (input_xi[i]*input_xi[i]));
+									seriesX[i] = (double) Math.sqrt ((input_xr[i]*input_xr[i]) + (input_xi[i]*input_xi[i])) * 5.33;
 									
 									// nezobrazujeme prvnich par Hz - je to urcite pohyb heli
 									if (i < 5)
@@ -303,21 +299,6 @@ public class GraphActivity extends BaseActivity{
 								// prekreslime graf - TODO udelat v samostatnem vlaknu
 	    	        			updateGraph (seriesX);
 	        				}
-
-	        				//sem prisla jedna sada dat ze zarizeni, pokud neni dost dlouha je mozne sadu dat ulozit do tem promene a pockat az prijde dalsi sada dat
-	        				// pokud delka uz vyhovuje vypocteme hodnoty grafu
-	        				// vypocet se musi spustit v novem vlakne
-	        				
-	        				/*Runnable thread = new Runnable() {
-	        					@Override
-	        					public void run() {
-	        						// zde spustime vypocet FFT
-	        						// nejak takto FFT.getForX(handler, int caalback);
-	        						// handler FFThandler pak zachyti dokonceni vypoctu
-	        					}
-	        				};*/
-	        				
-	        				//thread.run();
 	        			}
 	        			break;
 	        	}
@@ -325,27 +306,8 @@ public class GraphActivity extends BaseActivity{
 	        }
 	    });
 	    
-	    
-	    // handler pro vypocet FFT
-		 /*private final Handler FFThandler = new Handler() {
-		        @Override
-		        public void handleMessage(Message msg) {
-		        	switch(msg.what){
-			        	case MESSAGE_FFT:
-			        		if(msg.getData().containsKey("data")){
-		    				Log.d(TAG, "Odpoved: " + (msg.getData().getByteArray("data").length));
-		    				//prisli vypocitane data
-		    				// zavolame updateGraph(Numbers[]);
-		    			}
-						break;
-		    	}
-		    }
-		};*/
-	 
 		View.OnClickListener saveScreenShotListener = new View.OnClickListener() {
 			public void onClick(View v) {
-				Log.d(TAG, "clik");
-				Log.d(TAG, "tapToScreenShot je: " + tapToScreenShot);
 				if(tapToScreenShot){
 					
 					String filename = dir_for_save_screen_shot + "/" + sdf.format(new Date()) + "-log.png";
@@ -402,20 +364,23 @@ public class GraphActivity extends BaseActivity{
 	    	super.onOptionsItemSelected(item);
 	    	//zobrazeni osy X 
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_X){
+                Toast.makeText(getApplicationContext(), getString(R.string.graph_change_axis) + getString(R.string.axis_X), Toast.LENGTH_SHORT).show();
 	    		stabiProvider.sendDataImmediately("4DA\1".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
 	    	
 	    	//zobrazeni osy Y 
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_Y){
+                Toast.makeText(getApplicationContext(), getString(R.string.graph_change_axis) + getString(R.string.axis_Y), Toast.LENGTH_SHORT).show();
 	    		stabiProvider.sendDataImmediately("4DA\2".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
 	    	
 	    	//zobrazeni osy Z 
 	    	if(item.getGroupId() == GROUP_AXIS && item.getItemId() == AXIS_Z){
+                Toast.makeText(getApplicationContext(), getString(R.string.graph_change_axis) + getString(R.string.axis_Z), Toast.LENGTH_SHORT).show();
 	    		stabiProvider.sendDataImmediately("4DA\3".getBytes());			// HACK, chtelo by to vylepsit :)
 	    	}
 	    	
-	    	//zobrazeni osy Z 
+	    	//ulozeni obrazku grafu
 	    	if(item.getGroupId() == GROUP_SCREENSHOT && item.getItemId() == CHOOSE_DIRECOTORY){
 	    		if(tapToScreenShot){
 	    			tapToScreenShot = false;
@@ -439,7 +404,6 @@ public class GraphActivity extends BaseActivity{
 	    	switch (requestCode) {
 	    		case REQUEST_DIR_FOR_SCREEN_SHOT:
 			        if (resultCode == Activity.RESULT_OK) {
-			        	Log.d(TAG, "prisel filepath: " + data.getStringExtra(FileDialog.RESULT_PATH));
 			        	tapToScreenShot = true;
 			        	dir_for_save_screen_shot = data.getStringExtra(FileDialog.RESULT_PATH);
 			        }
