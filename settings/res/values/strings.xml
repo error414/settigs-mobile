@@ -231,7 +231,6 @@
     <string name="pdf_time_run">Run time</string>
     <string name="pdf_time_create">Create time</string>
     <string name="saving_log">Saving log</string>
-    <string name="save_done">Done</string>
     <string name="tap_to_screenshot_on">Tap screenshot On</string>
     <string name="tap_to_screenshot_off">Tap screenshot Off</string>
     <string name="not_save">Save failed</string>
