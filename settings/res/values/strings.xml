@@ -75,6 +75,12 @@
     <string name="aileron">Aileron (CH1)</string>
     <string name="elevator">Elevator (CH2)</string>
     <string name="pitch">Pitch (CH3)</string>
+
+    <string name="servo_ch1">Aileron (CH1)</string>
+    <string name="servo_ch2">Elevator (CH2)</string>
+    <string name="servo_ch3">Aileron (CH3)</string>
+    <string name="servo_travel_correction">Servos travel correction</string>
+
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
@@ -236,4 +242,8 @@
     <string name="not_save">Save failed</string>
     <string name="save_done">Save Done</string>
     <string name="graph_change_axis">Axis changed to </string>
+
+    <string name="min">Minimum</string>
+    <string name="max">Maximum</string>
+
 </resources>

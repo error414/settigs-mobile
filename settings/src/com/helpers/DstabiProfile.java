@@ -58,8 +58,7 @@ public class DstabiProfile {
 		//profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "D", 	"R"));
 		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C"));
-		profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
-		
+
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST"));
 		profileMap.put("CYCLIC_FREQ",	new ProfileItem(8, "A", "F", 	"SF"));
 		profileMap.put("RUDDER_TYPE",	new ProfileItem(9, "A", "C", 	"St"));
@@ -92,25 +91,32 @@ public class DstabiProfile {
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s")); 
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
-		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); 
-		
+        profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
+		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m"));
+
 		profileMap.put("STABI_COL", new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
 		
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H")); // konzistence piruet
-		
-		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat 
-	
+
+		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
+
 		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5"));
 		//profileMap.put("GEOMETRY_CORR",	new ProfileItem(41, "0", "1", "6"));	// korekce geometrie
-		//profileMap.put("TRAVEL_PIT",	new ProfileItem(43, 64, 192, "7"));
-		
+
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// kompenzace zpinani vyskovky
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
 		
 		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l"));		// letovy projev
-		
+
+        profileMap.put("TRAVEL_UAIL",	new ProfileItem(47, 63, 191, "QA"));
+        profileMap.put("TRAVEL_UELE",	new ProfileItem(48, 63, 191, "QE"));
+        profileMap.put("TRAVEL_UPIT",	new ProfileItem(49, 63, 191, "QP"));
+        profileMap.put("TRAVEL_DAIL",	new ProfileItem(50, 63, 191, "Qa"));
+        profileMap.put("TRAVEL_DELE",	new ProfileItem(51, 63, 191, "Qe"));
+        profileMap.put("TRAVEL_DPIT",	new ProfileItem(52, 63, 191, "Qp"));
+
 		this.mProfile = mProfile;
 		
 		

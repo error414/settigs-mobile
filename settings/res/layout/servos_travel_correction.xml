@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/background_color">
+	 <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color">
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/background_color" >
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:src="@drawable/black_line" />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="@string/servo_travel_correction"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="@color/text_color"
+	            android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/nadpis1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/servo_ch1"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_color"
+                android:layout_marginTop="32dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/imageView1"
+                android:layout_alignLeft="@+id/textView2"/>
+
+            <com.customWidget.picker.ProgresEx
+	            android:id="@+id/servo_travel_ch1_min"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/imageView1"
+	            android:layout_below="@+id/imageView1"
+	            android:layout_marginTop="64dp" >
+            </com.customWidget.picker.ProgresEx>
+
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/servo_travel_ch1_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/servo_travel_ch1_min"
+                android:layout_marginTop="32dp" >
+
+	        </com.customWidget.picker.ProgresEx>
+
+            <TextView
+                android:id="@+id/nadpis2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/servo_ch2"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_color"
+                android:layout_marginTop="64dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/servo_travel_ch1_max"
+                android:layout_alignLeft="@+id/nadpis1"/>
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/servo_travel_ch2_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/servo_travel_ch1_max"
+                android:layout_marginTop="96dp" >
+            </com.customWidget.picker.ProgresEx>
+
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/servo_travel_ch2_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/servo_travel_ch2_min"
+                android:layout_marginTop="32dp" >
+
+            </com.customWidget.picker.ProgresEx>
+
+            <TextView
+                android:id="@+id/nadpis3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/servo_ch3"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@color/text_color"
+                android:layout_marginTop="64dp"
+                android:textStyle="bold"
+                android:layout_below="@+id/servo_travel_ch2_max"
+                android:layout_alignLeft="@+id/nadpis1"/>
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/servo_travel_ch3_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/servo_travel_ch2_max"
+                android:layout_marginTop="96dp" >
+            </com.customWidget.picker.ProgresEx>
+
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/servo_travel_ch3_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/servo_travel_ch3_min"
+                android:layout_marginTop="32dp" >
+
+            </com.customWidget.picker.ProgresEx>
+
+
+        </RelativeLayout>
+
+	</ScrollView>
+</LinearLayout>

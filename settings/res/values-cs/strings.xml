@@ -85,6 +85,13 @@
     <string name="aileron">Křidélka (CH1)</string>
     <string name="elevator">Výškovka (CH2)</string>
     <string name="pitch">Kolektiv (CH3)</string>
+
+    <string name="servo_ch1">Křidélka (CH1)</string>
+    <string name="servo_ch2">Výškovka (CH2)</string>
+    <string name="servo_ch3">Křidélka (CH3)</string>
+
+    <string name="servo_travel_correction">Korekce dráhy serv</string>
+
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
@@ -261,5 +268,8 @@
     <string name="not_save">Uložení selhalo</string>
     <string name="save_done">Uloženo</string>
     <string name="graph_change_axis">Osa změněna na </string>
+
+    <string name="min">Minimum</string>
+    <string name="max">Maximum</string>
 
 </resources>

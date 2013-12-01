@@ -19,12 +19,14 @@ package com.spirit.servo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.helpers.ByteOperation;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.spirit.R;
 import com.spirit.BaseActivity;
-import android.annotation.SuppressLint;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -76,6 +78,9 @@ public class ServosActivity extends BaseActivity{
             		case 2://limit
             			openServosLimitActivity(view);
             			break;
+                    case 3://travel
+                        openServosCorrection(view);
+                        break;
             	}
             }
 		});
@@ -94,7 +99,7 @@ public class ServosActivity extends BaseActivity{
 			finish();
 		}
 	}
-	
+
 	/**
 	 * vytvoreni pole pro adapter menu listu
 	 * 
@@ -102,7 +107,6 @@ public class ServosActivity extends BaseActivity{
 	 * 
 	 * @return
 	 */
-	@SuppressLint("UseSparseArrays")
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
 		//type
@@ -122,6 +126,12 @@ public class ServosActivity extends BaseActivity{
 		limit.put(TITLE_FOR_MENU, R.string.limit);
 		limit.put(ICO_RESOURCE_ID, R.drawable.i11);
 		menuListData.add(limit);
+
+        //korekce drahy serv
+        HashMap<Integer, Integer> correction = new HashMap<Integer, Integer>();
+        correction.put(TITLE_FOR_MENU, R.string.servo_travel_correction);
+        correction.put(ICO_RESOURCE_ID, R.drawable.na);
+        menuListData.add(correction);
 		
 		return menuListData;
 	}
@@ -158,6 +168,17 @@ public class ServosActivity extends BaseActivity{
 		Intent i = new Intent(ServosActivity.this, ServosLimitActivity.class);
     	startActivity(i);
 	}
+
+    /**
+     * korekce drahy serva
+     *
+     * @param v
+     */
+    public void openServosCorrection(View v)
+    {
+        Intent i = new Intent(ServosActivity.this, TravelCorrectionActivity.class);
+        startActivity(i);
+    }
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
@@ -176,5 +197,4 @@ public class ServosActivity extends BaseActivity{
 	        	return true;
 	        }
 	    });
-	
 }
