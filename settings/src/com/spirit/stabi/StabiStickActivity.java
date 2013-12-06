@@ -38,24 +38,24 @@ import com.lib.DstabiProvider;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class StabiPitchActivity extends BaseActivity{
+public class StabiStickActivity extends BaseActivity{
 
 	@SuppressWarnings("unused")
-	final private String TAG = "StabiPitchActivity";
+	final private String TAG = "StabiStickActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"STABI_PITCH",
+			"STABI_STICK",
 	};
 	
 	private int formItems[] = {
-			R.id.stabi_pitch,
+			R.id.stabi_stick,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.stabi_pitch,
+			R.string.stabi_stick,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -70,10 +70,10 @@ public class StabiPitchActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.stabi_pitch);
+        setContentView(R.layout.stabi_stick);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_pitch)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_stick)));
         
         stabiProvider = DstabiProvider.getInstance(connectionHandler);
         
@@ -139,7 +139,6 @@ public class StabiPitchActivity extends BaseActivity{
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-             tempPicker.setTranslate(new StabiRollProgressExTranslate());
 
              tempPicker.setRange(item.getMinimum(), item.getMaximum());
              tempPicker.setCurrentNoNotify(item.getValueInteger());
@@ -226,28 +225,6 @@ public class StabiPitchActivity extends BaseActivity{
     		saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
     	}
     	return false;
-    }
-
-    /**
-     *
-     * @author petrcada
-     *
-     */
-    protected class StabiRollProgressExTranslate implements ProgresExViewTranslateInterface{
-        @Override
-        public String translateCurrent(int current) {
-            return String.valueOf(current - 127);
-        }
-
-        @Override
-        public String translateMin(int min) {
-            return String.valueOf(min - 127);
-        }
-
-        @Override
-        public String translateMax(int max) {
-            return String.valueOf(max - 127);
-        }
     }
 }
 

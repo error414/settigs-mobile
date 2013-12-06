@@ -30,20 +30,19 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/stabi_pitch"
+	            android:text="@string/stabi_roll"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/stabi_pitch"
+	            android:id="@+id/stabi_roll"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignRight="@+id/imageView1"
 	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="32dp"
-                android:focusable="false">
+	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
 

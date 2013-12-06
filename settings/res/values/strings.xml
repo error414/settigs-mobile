@@ -126,7 +126,11 @@
     <string name="cyclic_phase_deg">Rotation angle [°]</string>
     <string name="cyclic_ff">Cyclic feed forward</string>
     <string name="stabi_function">Function</string>
-    <string name="stabi_pitch">Pitch</string>
+    <string name="stabi_col">Collective</string>
+    <string name="stabi_roll">Roll compensation</string>
+    <string name="stabi_pitch">Pitch compensation</string>
+    <string name="stabi_stick">Stick priority</string>
+
     <string name="log_button_text">Flight log</string>
     <string-array name="position_values">
         <item>Horizontal</item>

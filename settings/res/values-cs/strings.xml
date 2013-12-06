@@ -142,8 +142,11 @@
     <string name="cyclic_phase_deg">Úhel rotace [°]</string>
     <string name="cyclic_ff">Počáteční reakce cykliky</string>
     <string name="stabi_function">Funkce</string>
-    <string name="stabi_pitch">Kolektiv</string>
-    
+    <string name="stabi_col">Kolektiv</string>
+    <string name="stabi_roll">Kompenzace momentu pro křidélka</string>
+    <string name="stabi_pitch">Kompenzace momentu pro výškovku</string>
+    <string name="stabi_stick">Priorita kniplů</string>
+
     <string-array name="position_values">
         <item>Horizontální</item>
         <item>Vertikální</item>

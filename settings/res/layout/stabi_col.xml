@@ -30,7 +30,7 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/stabi_pitch"
+	            android:text="@string/stabi_col"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
@@ -42,8 +42,7 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignRight="@+id/imageView1"
 	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="32dp"
-                android:focusable="false">
+	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
 

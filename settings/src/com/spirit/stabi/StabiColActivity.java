@@ -35,19 +35,19 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-import com.spirit.BaseActivity;
 import com.spirit.R;
+import com.spirit.BaseActivity;
 
-public class StabiPitchActivity extends BaseActivity{
+public class StabiColActivity extends BaseActivity{
 
 	@SuppressWarnings("unused")
-	final private String TAG = "StabiPitchActivity";
+	final private String TAG = "SenzorActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"STABI_PITCH",
+			"STABI_COL",
 	};
 	
 	private int formItems[] = {
@@ -55,7 +55,7 @@ public class StabiPitchActivity extends BaseActivity{
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.stabi_pitch,
+			R.string.stabi_col,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -70,10 +70,10 @@ public class StabiPitchActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.stabi_pitch);
+        setContentView(R.layout.stabi_col);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_pitch)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_col)));
         
         stabiProvider = DstabiProvider.getInstance(connectionHandler);
         
@@ -99,6 +99,10 @@ public class StabiPitchActivity extends BaseActivity{
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			 
+			 tempPicker.setTranslate(new StabiPichProgressExTranslate());
+			 tempPicker.setOffset(-127);			 // zobrazujeme od stredu, 127 => 0 
+			 tempPicker.setRange(117, 137, -10, 10); // hack, ble
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		 }
 	}
@@ -139,12 +143,8 @@ public class StabiPitchActivity extends BaseActivity{
 		 for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-             tempPicker.setTranslate(new StabiRollProgressExTranslate());
 
-             tempPicker.setRange(item.getMinimum(), item.getMaximum());
-             tempPicker.setCurrentNoNotify(item.getValueInteger());
-
-
+			 tempPicker.setCurrentNoNotify(item.getValueInteger());
 		 }
 				
 	 }
@@ -159,7 +159,14 @@ public class StabiPitchActivity extends BaseActivity{
 					if(parent.getId() == formItems[i]){
 						showInfoBarWrite();
 						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+						
+						if (newVal > 127 && newVal < 127+4)
+							newVal = 127-4;
+						if (newVal < 127 && newVal > 127-4)
+							newVal = 127+4;
+
 						parent.setCurrentNoNotify(newVal);
+							
 						item.setValue(newVal);
 
 						stabiProvider.sendDataNoWaitForResponce(item);
@@ -227,28 +234,35 @@ public class StabiPitchActivity extends BaseActivity{
     	}
     	return false;
     }
-
+    
     /**
-     *
+     * trida nam prelozi cislo z velikosti stabiPitch na procenta
+     * 
+     * -10 az 10 prelozi na -100% az 100%, vnitrne se ale bude pocitat porad s -10 az 10
+     * 
+     * 
      * @author petrcada
      *
      */
-    protected class StabiRollProgressExTranslate implements ProgresExViewTranslateInterface{
-        @Override
-        public String translateCurrent(int current) {
-            return String.valueOf(current - 127);
-        }
+    protected class StabiPichProgressExTranslate implements ProgresExViewTranslateInterface{
 
-        @Override
-        public String translateMin(int min) {
-            return String.valueOf(min - 127);
-        }
+		@Override
+		public String translateCurrent(int current) {
+			return String.valueOf((current * 10)) + " %"; 
+		}
 
-        @Override
-        public String translateMax(int max) {
-            return String.valueOf(max - 127);
-        }
+		@Override
+		public String translateMin(int min) {
+			return String.valueOf((min * 10)) + " %";
+		}
+
+		@Override
+		public String translateMax(int max) {
+			return String.valueOf((max * 10)) + " %";
+		}
+    	
     }
+	
 }
 
 

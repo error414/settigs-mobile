@@ -71,12 +71,18 @@ public class StabiActivity extends BaseActivity{
             		case 0://function
             			openStabiFunctionActivity(view);
             			break;
-            		case 1://pitch
-            			openStabiPitchActivity(view);
+            		case 1://collective
+            			openStabiColActivity(view);
             			break;
-            		/*case 2://
-            			openSenzorRotationSpeedActivity(view);
-            			break;*/
+            		case 2://
+                        openStabiRollActivity(view);
+            			break;
+                    case 3://
+                        openStabiPitchActivity(view);
+                        break;
+                    case 4://
+                        openStabiStickActivity(view);
+                        break;
             	}
             }
 		});
@@ -111,11 +117,29 @@ public class StabiActivity extends BaseActivity{
 		function.put(ICO_RESOURCE_ID, R.drawable.na);
 		menuListData.add(function);
 		
-		//pitch
-		HashMap<Integer, Integer> pitch = new HashMap<Integer, Integer>();
-		pitch.put(TITLE_FOR_MENU, R.string.stabi_pitch);
-		pitch.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(pitch);
+		//kolektiv zachraneho rezimu
+		HashMap<Integer, Integer> col = new HashMap<Integer, Integer>();
+		col.put(TITLE_FOR_MENU, R.string.stabi_col);
+		col.put(ICO_RESOURCE_ID, R.drawable.na);
+		menuListData.add(col);
+
+        //kompenzace kridelek
+        HashMap<Integer, Integer> roll = new HashMap<Integer, Integer>();
+        roll.put(TITLE_FOR_MENU, R.string.stabi_roll);
+        roll.put(ICO_RESOURCE_ID, R.drawable.na);
+        menuListData.add(roll);
+
+        //kompenzace vyskovky
+        HashMap<Integer, Integer> pitch = new HashMap<Integer, Integer>();
+        pitch.put(TITLE_FOR_MENU, R.string.stabi_pitch);
+        pitch.put(ICO_RESOURCE_ID, R.drawable.na);
+        menuListData.add(pitch);
+
+        //priorita knyplu
+        HashMap<Integer, Integer> stick = new HashMap<Integer, Integer>();
+        stick.put(TITLE_FOR_MENU, R.string.stabi_stick);
+        stick.put(ICO_RESOURCE_ID, R.drawable.na);
+        menuListData.add(stick);
 		
 		//rotation speed
 		/*HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
@@ -138,15 +162,44 @@ public class StabiActivity extends BaseActivity{
 	}
 	
 	/**
-	 * otevreni aktivity reverz senzoru
-	 * 
+	 *
 	 * @param v
 	 */
-	public void openStabiPitchActivity(View v)
+	public void openStabiColActivity(View v)
 	{
-		Intent i = new Intent(StabiActivity.this, StabiPitchActivity.class);
+		Intent i = new Intent(StabiActivity.this, StabiColActivity.class);
 		startActivity(i);
 	}
+
+    /**
+     *
+     * @param v
+     */
+    public void openStabiRollActivity(View v)
+    {
+        Intent i = new Intent(StabiActivity.this, StabiRollActivity.class);
+        startActivity(i);
+    }
+
+    /**
+     *
+     * @param v
+     */
+    public void openStabiPitchActivity(View v)
+    {
+        Intent i = new Intent(StabiActivity.this, StabiPitchActivity.class);
+        startActivity(i);
+    }
+
+    /**
+     *
+     * @param v
+     */
+    public void openStabiStickActivity(View v)
+    {
+        Intent i = new Intent(StabiActivity.this, StabiStickActivity.class);
+        startActivity(i);
+    }
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {

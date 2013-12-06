@@ -38,24 +38,24 @@ import com.lib.DstabiProvider;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class StabiPitchActivity extends BaseActivity{
+public class StabiRollActivity extends BaseActivity{
 
 	@SuppressWarnings("unused")
-	final private String TAG = "StabiPitchActivity";
+	final private String TAG = "StabiRollActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"STABI_PITCH",
+			"STABI_ROLL",
 	};
 	
 	private int formItems[] = {
-			R.id.stabi_pitch,
+			R.id.stabi_roll,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.stabi_pitch,
+			R.string.stabi_roll,
 		};
 	
 	private DstabiProvider stabiProvider;
@@ -70,10 +70,10 @@ public class StabiPitchActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.stabi_pitch);
+        setContentView(R.layout.stabi_roll);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_pitch)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_roll)));
         
         stabiProvider = DstabiProvider.getInstance(connectionHandler);
         
@@ -229,6 +229,10 @@ public class StabiPitchActivity extends BaseActivity{
     }
 
     /**
+     * trida nam prelozi cislo z velikosti stabiPitch na procenta
+     *
+     * -10 az 10 prelozi na -100% az 100%, vnitrne se ale bude pocitat porad s -10 az 10
+     *
      *
      * @author petrcada
      *

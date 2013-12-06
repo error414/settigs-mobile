@@ -87,15 +87,17 @@ public class DstabiProfile {
 		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 10, 	"b"));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
-		profileMap.put("PITCHUP",	new ProfileItem(28, 0, 3, "r")); 	// zpracovani signalu
+		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 3, "r")); 	// zpracovani signalu
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s")); 
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m"));
 
-		profileMap.put("STABI_COL", new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
-		
+		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
+        profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
+        profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu
+
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H")); // konzistence piruet
 
 		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
@@ -109,6 +111,8 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
 		
 		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l"));		// letovy projev
+
+        profileMap.put("STABI_PITCH",new ProfileItem(46, 63, 191, "q")); // stabi, kompenzace pro vyskovku
 
         profileMap.put("TRAVEL_UAIL",	new ProfileItem(47, 63, 191, "QA"));
         profileMap.put("TRAVEL_UELE",	new ProfileItem(48, 63, 191, "QE"));
@@ -318,7 +322,6 @@ public class DstabiProfile {
 		/**
 		 * hodnota pro checkBox, 
 		 * 
-		 * @param max
 		 * @return
 		 * @throws IndexOutOfException
 		 */
@@ -333,7 +336,6 @@ public class DstabiProfile {
 		/**
 		 * vratime hodnotu
 		 * 
-		 * @param value
 		 */
 		public Byte getValueByte()
 		{
@@ -357,7 +359,6 @@ public class DstabiProfile {
 		/**
 		 * hodnota pro checkBox, 
 		 * 
-		 * @param max
 		 * @return
 		 * @throws IndexOutOfException
 		 */
@@ -368,7 +369,6 @@ public class DstabiProfile {
 		/**
 		 * vratime hodnotu
 		 * 
-		 * @param value
 		 */
 		public byte[] getValueBytesArray()
 		{
@@ -380,7 +380,6 @@ public class DstabiProfile {
 		/**
 		 * vratime hodnotu
 		 * 
-		 * @param value
 		 */
 		public Integer getValueInteger()
 		{
@@ -390,7 +389,6 @@ public class DstabiProfile {
 		/**
 		 * vratime hodnotu
 		 * 
-		 * @param value
 		 */
 		public String getValueString()
 		{
@@ -418,7 +416,6 @@ public class DstabiProfile {
 		/**
 		 * vratime hodnotu reprezentujici minimum pro dany item
 		 * 
-		 * @param value
 		 */
 		public Integer getMinimum()
 		{
@@ -428,7 +425,6 @@ public class DstabiProfile {
 		/**
 		 * vratime hodnotu reprezentujici maximum pro dany item
 		 * 
-		 * @param value
 		 */
 		public Integer getMaximum()
 		{
