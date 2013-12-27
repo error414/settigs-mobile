@@ -71,7 +71,7 @@ final private String TAG = "PirouetteConsistencyActivity";
         setContentView(R.layout.advanced_rudder_delay);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.rudder_delay)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         

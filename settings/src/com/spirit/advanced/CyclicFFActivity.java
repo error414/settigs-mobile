@@ -71,7 +71,7 @@ public class CyclicFFActivity extends BaseActivity{
         setContentView(R.layout.advanced_cyclic_ff);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.cyclic_ff)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         

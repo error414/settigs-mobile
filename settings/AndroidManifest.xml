@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="11"
-    android:versionName="0.21">
+    android:versionCode="13"
+    android:versionName="0.22">
 
     <uses-sdk   android:minSdkVersion="7"
                 android:targetSdkVersion="7"
@@ -249,6 +249,13 @@
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.servo.TravelCorrectionActivity"
+            android:theme="@style/CustomTheme"
+            android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:label="@string/short_title"
+            android:configChanges="orientation"
+            android:name="com.spirit.advanced.SignalProcessingActivity"
             android:theme="@style/CustomTheme"
             android:screenOrientation="portrait"></activity>
 

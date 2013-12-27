@@ -63,7 +63,7 @@ public class ConnectionActivity extends BaseActivity{
 	/*#############################################*/
 	final protected String APLICATION_MAJOR_VERSION = "1"; 
 	final protected String APLICATION_MINOR1_VERSION = "0"; 
-	final protected String APLICATION_MINOR2_VERSION = "21"; 
+	final protected String APLICATION_MINOR2_VERSION = "22";
 	/*#############################################*/
 	
 	final protected int REQUEST_SAVE = 1;
@@ -188,13 +188,14 @@ public class ConnectionActivity extends BaseActivity{
 			 
 		 }else{
 			 version.setText(R.string.unknow_version);
+             //showConfirmDialog(R.string.spirit_not_found);
 		 }
 	 }
 	 
 	 /**
 	  * prisla informace o seriovem cisle
 	  * initGuiBySerialNumber
-	  * @param profile
+	  * @param serialNumber
 	  */
 	 private void initGuiBySerialNumber(byte[] serialNumber){
 		 Log.d(TAG, ByteOperation.getIntegerStringByByteArray(serialNumber));

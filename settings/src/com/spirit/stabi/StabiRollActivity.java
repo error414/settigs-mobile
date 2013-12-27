@@ -73,7 +73,7 @@ public class StabiRollActivity extends BaseActivity{
         setContentView(R.layout.stabi_roll);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_roll)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_roll_short)));
         
         stabiProvider = DstabiProvider.getInstance(connectionHandler);
         

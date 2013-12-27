@@ -73,7 +73,7 @@ public class StabiPitchActivity extends BaseActivity{
         setContentView(R.layout.stabi_pitch);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_pitch)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_pitch_short)));
         
         stabiProvider = DstabiProvider.getInstance(connectionHandler);
         

@@ -71,7 +71,7 @@ final private String TAG = "PirouetteConsistencyActivity";
         setContentView(R.layout.advanced_cyclic_phase);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 "));
+		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.cyclic_phase)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         

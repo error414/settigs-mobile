@@ -128,8 +128,12 @@
     <string name="stabi_function">Function</string>
     <string name="stabi_col">Collective</string>
     <string name="stabi_roll">Roll compensation</string>
+    <string name="stabi_roll_short">Roll compensation</string>
     <string name="stabi_pitch">Pitch compensation</string>
+    <string name="stabi_pitch_short">Pitch compensation</string>
     <string name="stabi_stick">Stick priority</string>
+    <string name="signal_processing">Signal Processing</string>
+    <string name="advance">Advance</string>
 
     <string name="log_button_text">Flight log</string>
     <string-array name="position_values">
@@ -246,6 +250,7 @@
     <string name="not_save">Save failed</string>
     <string name="save_done">Save Done</string>
     <string name="graph_change_axis">Axis changed to </string>
+    <string name="spirit_not_found">Spirit Unit not found</string>
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>

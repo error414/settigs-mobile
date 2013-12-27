@@ -56,6 +56,8 @@ public class DstabiProfile {
 		
 		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P"));
 		//profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
+        profileMap.put("SIGNAL_PROCESSING",	new ProfileItem(4, "0", "1", "7")); // rozsirene zpracovani signalu
+
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "D", 	"R"));
 		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C"));
 
@@ -87,7 +89,7 @@ public class DstabiProfile {
 		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 10, 	"b"));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
-		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 3, "r")); 	// zpracovani signalu
+		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r")); 	// kompenzace zpinani vyskovky
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s")); 
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce

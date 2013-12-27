@@ -56,7 +56,9 @@
     <string name="senzor_senzivity_button_text">Citlivost</string>
     <string name="advanced_button_text">Pokročilé</string>
     <string name="stabi_button_text">Stabi</string>
-    
+    <string name="signal_processing">Zpracování signálu</string>
+    <string name="advance">Rozšířené</string>
+
     <string name="status">Stav</string>
     <string name="connected">Připojeno</string>
     <string name="connecting">Připojování</string>
@@ -144,7 +146,9 @@
     <string name="stabi_function">Funkce</string>
     <string name="stabi_col">Kolektiv</string>
     <string name="stabi_roll">Kompenzace momentu pro křidélka</string>
+    <string name="stabi_roll_short">Kom.  křidélka</string>
     <string name="stabi_pitch">Kompenzace momentu pro výškovku</string>
+    <string name="stabi_pitch_short">Kom. výškovka</string>
     <string name="stabi_stick">Priorita kniplů</string>
 
     <string-array name="position_values">
@@ -271,6 +275,7 @@
     <string name="not_save">Uložení selhalo</string>
     <string name="save_done">Uloženo</string>
     <string name="graph_change_axis">Osa změněna na </string>
+    <string name="spirit_not_found">Spirit nebyl nalezen</string>
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>

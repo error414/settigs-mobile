@@ -99,8 +99,11 @@ public class AdvancedActivity extends BaseActivity{
             			openCyclicPhaseActivity(view);
             			break;
             		case 10://cyclic ff
-            			openCyclicFFActivity(view);
-            			break;
+                        openCyclicFFActivity(view);
+                        break;
+                    case 11://rozisrene zpracovani signalu
+                        openSignalProcessing(view);
+                        break;
             	}
  
             }
@@ -197,6 +200,12 @@ public class AdvancedActivity extends BaseActivity{
 		cyclic_ff.put(TITLE_FOR_MENU, R.string.cyclic_ff);
 		cyclic_ff.put(ICO_RESOURCE_ID, R.drawable.na);
 		menuListData.add(cyclic_ff);
+
+        //rozisrene zpracovani signalu
+        HashMap<Integer, Integer> signal_processing = new HashMap<Integer, Integer>();
+        signal_processing.put(TITLE_FOR_MENU, R.string.signal_processing);
+        signal_processing.put(ICO_RESOURCE_ID, R.drawable.na);
+        menuListData.add(signal_processing);
 		
 		return menuListData;
 	}
@@ -322,6 +331,17 @@ public class AdvancedActivity extends BaseActivity{
 		Intent i = new Intent(AdvancedActivity.this, CyclicFFActivity.class);
 		startActivity(i);
 	}
+
+    /**
+     *
+     *
+     * @param v
+     */
+    public void openSignalProcessing(View v)
+    {
+        Intent i = new Intent(AdvancedActivity.this, SignalProcessingActivity.class);
+        startActivity(i);
+    }
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {

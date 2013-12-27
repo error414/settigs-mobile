@@ -26,39 +26,40 @@ import android.view.MenuItem;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-import com.spirit.R;
 import com.spirit.BaseActivity;
+import com.spirit.R;
 
-public class PiroOptimalizationActivity extends BaseActivity{
 
-	@SuppressWarnings("unused")
-	final private String TAG = "PiroOptimalizationActivity";
+public class SignalProcessingActivity extends BaseActivity{
+
+@SuppressWarnings("unused")
+final private String TAG = "SenzorReverseActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"PIRO_OPT",
+			"SIGNAL_PROCESSING",
 	};
 	
 	private int formItems[] = {
-			R.id.piro_opt,
-		};
+			R.id.signal_processing,
+	};
 	
 	private DstabiProvider stabiProvider;
 	
 	private DstabiProfile profileCreator;
 	
 	private int lock = 0;
+	
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
@@ -67,18 +68,18 @@ public class PiroOptimalizationActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.advanced_piro_opt);
+        setContentView(R.layout.advanced_signal_processing);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.piro_opt)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 " , getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.signal_processing)));
         
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         
-       initConfiguration();
-       delegateListener();
+        initConfiguration();
+		delegateListener();
     }
 	
-	/**
+	 /**
 	  * prvotni konfigurace view
 	  */
 	 private void initConfiguration()
@@ -87,8 +88,8 @@ public class PiroOptimalizationActivity extends BaseActivity{
 		 // ziskani konfigurace z jednotky
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
-	 
-	 /**
+	
+	/**
 	  * prirazeni udalosti k prvkum
 	  */
 	 private void delegateListener(){
@@ -107,16 +108,9 @@ public class PiroOptimalizationActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
 		}else{
 			finish();
 		}
-	}
-	
-	@Override
-	public void onPause(){
-		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
 	}
 	
 	/**
@@ -140,9 +134,10 @@ public class PiroOptimalizationActivity extends BaseActivity{
 			tempCheckbox.setChecked(checked);
 		}
 	 }
-	 
-	 
-	 private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
+	
+	
+	private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
+
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView,
 				boolean isChecked) {
@@ -197,7 +192,6 @@ public class PiroOptimalizationActivity extends BaseActivity{
 	    			showProfileSavedDialog();
 	    			break;
 	    	}
-	        
 	        return true;
 	    }
 	});
@@ -227,6 +221,4 @@ public class PiroOptimalizationActivity extends BaseActivity{
     	}
     	return false;
     }
-
-	
 }
