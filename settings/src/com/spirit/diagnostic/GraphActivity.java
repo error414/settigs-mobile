@@ -271,9 +271,11 @@ public class GraphActivity extends BaseActivity{
 		        					if ((int)dataBuffer[i] == -5) {	// nasli jsme magic byte	-5 & 0xFF = 251 = 0xFB
 		        						short val = (short) ((dataBuffer[i+1] & 0xFF) | ((dataBuffer[i+2] & 0xFF) << 8));
 
-		        						input_xr[i/3] = val;
+		        						input_xr[i/3] = val / 2;
 		        						input_xi[i/3] = 0;
 
+		        						//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);
+		        						
 		        						i += 3;
 		        					} else		        					
 		        						i ++;
@@ -286,10 +288,10 @@ public class GraphActivity extends BaseActivity{
 	    	        			// fft pocitam zatim primo tady - je to docela rychle
 	    	        			// TODO udelat v samostatnem vlaknu
 								fft.doFFT(input_xr, input_xi, false);
-							
+								
 								// vypocet amplitud celeho spektra
 								for (int i = 0; i < FFT_NYQUIST; i ++) {
-									seriesX[i] = (double) Math.sqrt ((input_xr[i]*input_xr[i]) + (input_xi[i]*input_xi[i])) * 5.33;
+									seriesX[i] = (double) Math.sqrt ((input_xr[i]*input_xr[i]) + (input_xi[i]*input_xi[i])) * 5.07;
 									
 									// nezobrazujeme prvnich par Hz - je to urcite pohyb heli
 									if (i < 5)
