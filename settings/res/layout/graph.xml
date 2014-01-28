@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/graph"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -16,4 +16,26 @@
         android:layout_marginTop="3dp"
         title="" />
 
-</LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vibration_level"
+        android:id="@+id/vibration_level_text"
+        style="@style/CustomTheme"
+        android:layout_alignTop="@+id/vibration"
+        android:layout_alignRight="@+id/vibration"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="21dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="100%"
+        android:id="@+id/vibrationLevel"
+        style="@style/CustomTheme"
+        android:layout_alignBaseline="@+id/vibration_level_text"
+        android:layout_alignBottom="@+id/vibration_level_text"
+        android:layout_alignRight="@+id/vibration"
+        android:layout_marginRight="15dp"/>
+
+</RelativeLayout>

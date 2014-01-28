@@ -105,7 +105,9 @@ public class GraphActivity extends BaseActivity{
 	final static protected int REQUEST_DIR_FOR_SCREEN_SHOT = 15;
 	
 	private String dir_for_save_screen_shot;
-	
+
+    private float vibDelay = 0;
+
 	@SuppressLint("SimpleDateFormat")
 	SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd_HHmmss");
 
@@ -182,6 +184,7 @@ public class GraphActivity extends BaseActivity{
 	{
         super.onStop();
         stabiProvider.stopGraph();
+        vibDelay = 0;
     }
 	
 	
@@ -230,6 +233,32 @@ public class GraphActivity extends BaseActivity{
 			finish();
 		}
 	}
+
+    /**
+     * pocitani velikosti vibraci v %
+     *
+     * @param seriesX
+     * @return void
+     */
+    protected void updateVibratonLevel(Number[] seriesX){
+        int vib = 0;
+        for(int i = 0; i < seriesX.length; i++) {
+            vib += seriesX[i].intValue();
+        }
+
+        vib /= (FFT_NYQUIST / 25);
+
+        vibDelay += 0.5f * (vib - vibDelay);
+
+        if (vibDelay > 100){
+            vibDelay = 100;
+        }else if (vibDelay < 2){
+            vibDelay = 0;
+        }
+
+        ((TextView)findViewById(R.id.vibrationLevel)).setText(String.valueOf(vibDelay) + "%");
+
+    }
 	
 	 // The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {

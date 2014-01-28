@@ -251,6 +251,7 @@
     <string name="save_done">Save Done</string>
     <string name="graph_change_axis">Axis changed to </string>
     <string name="spirit_not_found">Spirit Unit not found</string>
+    <string name="vibration_level">Vibration level:</string>
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>

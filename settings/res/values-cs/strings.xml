@@ -276,6 +276,7 @@
     <string name="save_done">Uloženo</string>
     <string name="graph_change_axis">Osa změněna na </string>
     <string name="spirit_not_found">Spirit nebyl nalezen</string>
+    <string name="vibration_level">Velikost vibrací:</string>
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>
