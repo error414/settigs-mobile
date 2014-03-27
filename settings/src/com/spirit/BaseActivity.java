@@ -30,11 +30,13 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -83,7 +85,17 @@ abstract public class BaseActivity extends Activity{
 	 * pocitadlo otevreni info boxu
 	 */
 	public int progressInfoCount = 0;
-	
+
+    /**
+     * zavolani pri vytvoreni instance aktivity servo type
+     */
+    @Override
+    public void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+    }
+
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -232,7 +244,6 @@ abstract public class BaseActivity extends Activity{
 	 /**
 	  * pri chybe pozadavku 
 	  * 
-	  * @param finishActivity
 	  */
 	 protected void sendInError(){
 		 sendInError(true);
@@ -271,7 +282,6 @@ abstract public class BaseActivity extends Activity{
 	  * otevreni napovedy, dialog box
 	  * 
 	  * @param resourceTextId
-	  * @param resourceTitleId
 	  */
 	 protected void openHelp(int resourceTextId)
 	 {
@@ -352,7 +362,7 @@ abstract public class BaseActivity extends Activity{
     /**
 	  * otevreni napovedy pro position
 	  * 
-	  * @param V
+	  * @param v
 	  */
 	 public void showHelp(View v)
 	 {
@@ -387,7 +397,7 @@ abstract public class BaseActivity extends Activity{
 	 
 	 /**
 	  * 
-	  * @param text
+	  * @param textId
 	  */
 	 protected void showConfirmDialog(int textId)
 	 {

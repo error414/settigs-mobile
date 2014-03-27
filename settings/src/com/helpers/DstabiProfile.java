@@ -50,7 +50,7 @@ public class DstabiProfile {
 	
 	public DstabiProfile(byte[] mProfile)
 	{
-		
+		/* MTODO nazvy udelat v konstantach */
 		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null));
 		profileMap.put("MINOR", 	new ProfileItem(2, 0, 255, 		null));
 		

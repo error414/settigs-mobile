@@ -186,7 +186,7 @@
 	             android:layout_alignLeft="@+id/TextView02"
 	             android:layout_alignRight="@+id/pitch_progress_diagnostic"
 	             android:layout_below="@+id/TextView02"
-	             android:max="100"
+	             android:max="200"
 	             android:progressDrawable="@drawable/my_custom_pb" />
 
 	         <TextView
