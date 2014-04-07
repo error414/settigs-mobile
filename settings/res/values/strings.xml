@@ -160,8 +160,9 @@
     <string-array name="receiver_values">
         <item>PWM</item>
         <item>PPM</item>
-        <item>Spectrum DSM2</item>
+        <item>Spektrum DSM2/DSMX</item>
         <item>Futaba S-BUS</item>
+        <item>Jeti EX-BUS</item>
     </string-array>
     <string-array name="cyclic_servo_reverse_values">
         <item>No Reverse</item>

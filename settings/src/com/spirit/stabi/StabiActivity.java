@@ -74,13 +74,7 @@ public class StabiActivity extends BaseActivity{
             		case 1://collective
             			openStabiColActivity(view);
             			break;
-            		case 2://
-                        openStabiRollActivity(view);
-            			break;
-                    case 3://
-                        openStabiPitchActivity(view);
-                        break;
-                    case 4://
+                    case 2://stick priority
                         openStabiStickActivity(view);
                         break;
             	}
@@ -123,18 +117,6 @@ public class StabiActivity extends BaseActivity{
 		col.put(ICO_RESOURCE_ID, R.drawable.na);
 		menuListData.add(col);
 
-        //kompenzace kridelek
-        HashMap<Integer, Integer> roll = new HashMap<Integer, Integer>();
-        roll.put(TITLE_FOR_MENU, R.string.stabi_roll);
-        roll.put(ICO_RESOURCE_ID, R.drawable.na);
-        menuListData.add(roll);
-
-        //kompenzace vyskovky
-        HashMap<Integer, Integer> pitch = new HashMap<Integer, Integer>();
-        pitch.put(TITLE_FOR_MENU, R.string.stabi_pitch);
-        pitch.put(ICO_RESOURCE_ID, R.drawable.na);
-        menuListData.add(pitch);
-
         //priorita knyplu
         HashMap<Integer, Integer> stick = new HashMap<Integer, Integer>();
         stick.put(TITLE_FOR_MENU, R.string.stabi_stick);
@@ -170,26 +152,6 @@ public class StabiActivity extends BaseActivity{
 		Intent i = new Intent(StabiActivity.this, StabiColActivity.class);
 		startActivity(i);
 	}
-
-    /**
-     *
-     * @param v
-     */
-    public void openStabiRollActivity(View v)
-    {
-        Intent i = new Intent(StabiActivity.this, StabiRollActivity.class);
-        startActivity(i);
-    }
-
-    /**
-     *
-     * @param v
-     */
-    public void openStabiPitchActivity(View v)
-    {
-        Intent i = new Intent(StabiActivity.this, StabiPitchActivity.class);
-        startActivity(i);
-    }
 
     /**
      *

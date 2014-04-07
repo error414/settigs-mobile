@@ -63,7 +63,7 @@ public class ConnectionActivity extends BaseActivity{
 	/*#############################################*/
 	final protected String APLICATION_MAJOR_VERSION = "1"; 
 	final protected String APLICATION_MINOR1_VERSION = "0"; 
-	final protected String APLICATION_MINOR2_VERSION = "22";
+	final protected String APLICATION_MINOR2_VERSION = "23";
 	/*#############################################*/
 	
 	final protected int REQUEST_SAVE = 1;
