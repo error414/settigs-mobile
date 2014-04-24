@@ -56,10 +56,6 @@ public class StabiFbModeActivity extends BaseActivity{
 			R.id.stabi_fbmode,
 		};
 	
-	private int formItemsTitle[] = {
-			R.string.stabi_fbmode,
-		};
-	
 	private DstabiProvider stabiProvider;
 	
 	private DstabiProfile profileCreator;
@@ -74,14 +70,13 @@ public class StabiFbModeActivity extends BaseActivity{
 	{
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.stabi_stick);
+        setContentView(R.layout.stabi_fbmode);
         
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_stick)));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text), " \u2192 " , getString(R.string.stabi_fbmode)));
         
         stabiProvider = DstabiProvider.getInstance(connectionHandler);
         
-        initGui();
         initConfiguration();
 		delegateListener();
     }
@@ -97,14 +92,6 @@ public class StabiFbModeActivity extends BaseActivity{
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		else
 			finish();
-	}
-	
-	private void initGui()
-	{
-		for(int i = 0; i < formItems.length; i++){
-			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-		 }
 	}
 	
 	/**
@@ -148,8 +135,8 @@ public class StabiFbModeActivity extends BaseActivity{
 			tempCheckbox.setChecked(checked);
 		}
 	 }
-	
-	
+
+
 	private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
 
 		@Override

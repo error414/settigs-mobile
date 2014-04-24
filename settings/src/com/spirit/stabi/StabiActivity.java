@@ -77,6 +77,10 @@ public class StabiActivity extends BaseActivity{
                     case 2://stick priority
                         openStabiStickActivity(view);
                         break;
+                    case 3://flybar mechanic
+                        openStabiFlybarMechanic(view);
+                        break;
+
             	}
             }
 		});
@@ -166,6 +170,16 @@ public class StabiActivity extends BaseActivity{
     public void openStabiStickActivity(View v)
     {
         Intent i = new Intent(StabiActivity.this, StabiStickActivity.class);
+        startActivity(i);
+    }
+
+    /**
+     *
+     * @param v
+     */
+    public void openStabiFlybarMechanic(View v)
+    {
+        Intent i = new Intent(StabiActivity.this, StabiFbModeActivity.class);
         startActivity(i);
     }
 	
