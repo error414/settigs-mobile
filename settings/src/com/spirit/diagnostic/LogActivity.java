@@ -73,8 +73,7 @@ public class LogActivity extends BaseActivity{
 	final protected int LOG_SAVE  = 1;
 	
 	final protected int REQUEST_SAVE = 1;
-	final protected int REQUEST_OPEN = 2;
-	
+
 	final static String FILE_LOG_EXT = "pdf";
 	
 	final static protected String DEFAULT_LOG_PATH = "/sdcard/";
@@ -117,8 +116,7 @@ public class LogActivity extends BaseActivity{
 	/**
 	 * nacteni dat z jednotky log
 	 * 
-	 * @param data
-	 * @return
+	 * @param log
 	 */
 	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log){

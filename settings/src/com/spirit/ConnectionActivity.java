@@ -72,7 +72,10 @@ public class ConnectionActivity extends BaseActivity{
 	final protected int GROUP_PROFILE = 3;  
 	final protected int PROFILE_LOAD = 1;
 	final protected int PROFILE_SAVE = 2;
-	
+
+    final protected int GROUP_ERROR = 4;
+    final protected int PROFILE_ERROR = 1;
+
 	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/";
 	
 	private TextView textStatusView;
@@ -296,7 +299,9 @@ public class ConnectionActivity extends BaseActivity{
     public boolean onCreateOptionsMenu(Menu menu)
     {
 	    super.onCreateOptionsMenu(menu);
-	    
+
+        menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
+
 	    SubMenu profile = menu.addSubMenu(R.string.profile);
 	    profile.add(GROUP_PROFILE, PROFILE_LOAD, Menu.NONE, R.string.load_profile);
 	    profile.add(GROUP_PROFILE, PROFILE_SAVE, Menu.NONE, R.string.save_profile);
@@ -310,7 +315,17 @@ public class ConnectionActivity extends BaseActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) 
     {
-    	super.onOptionsItemSelected(item); 
+    	super.onOptionsItemSelected(item);
+
+        //zobrazeni chyb profilu
+        if(item.getGroupId() == GROUP_ERROR && item.getItemId() == PROFILE_ERROR){
+            String listString = "";
+            for (String error : this.profileCreator.getErrors()){
+                listString +=  error + "\n\n";
+            }
+            this.showConfirmDialog(listString);
+        }
+
     	//nahrani / ulozeni profilu
     	if(item.getGroupId() == GROUP_PROFILE){
     		// musime byt pripojeni k zarizeni

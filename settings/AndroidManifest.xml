@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="15"
-    android:versionName="0.22">
+    android:versionCode="17"
+    android:versionName="0.23">
 
     <uses-sdk   android:minSdkVersion="7"
                 android:targetSdkVersion="7"
@@ -32,212 +32,194 @@
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="AuthorActivity"
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="ConnectionActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:name="HelpActivity"
-            android:theme="@style/CustomTheme"
-            android:configChanges="orientation"
-            android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.lib.FileDialog"
             android:theme="@style/CustomTheme"
-            android:label="@string/short_title"></activity>
+            android:label="@string/short_title"/>
         <activity
             android:name="com.spirit.servo.ServosActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.servo.ServosTypeActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.servo.ServosSubtrimActivity"
             android:configChanges="orientation"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:configChanges="orientation"
             android:name="com.spirit.servo.ServosLimitActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.spirit.servo.ServosCyclickRingRangeActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:configChanges="orientation"
             android:name="com.spirit.servo.ServosRudderEndPointsActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.senzor.SenzorSenzivityActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.senzor.SenzorActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.senzor.SenzorReverseActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.senzor.SenzorRotationSpeedActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.AdvancedActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.StickDeadBandActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.GeometryAngleActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.PiroOptimalizationActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.advanced.RudderDelayActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.PirouetteConsistencyActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.RudderDynamicActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.RudderRevomixActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.PitchupActivity"
             android:theme="@style/CustomTheme"
             android:configChanges="orientation"
             android:label="@string/short_title"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name="com.spirit.advanced.EFilterActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.advanced.CyclicPhaseActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.advanced.CyclicFFActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
-            android:configChanges="orientation"></activity>
+            android:configChanges="orientation"/>
         <activity
             android:name="com.spirit.diagnostic.DiagnosticActivity"
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:name="com.spirit.diagnostic.GraphActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
             android:configChanges="orientation"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape"/>
         <activity
             android:name="com.spirit.stabi.StabiActivity"
             android:theme="@style/CustomTheme"
             android:label="@string/short_title"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.stabi.StabiFunctionActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.stabi.StabiColActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:label="@string/short_title"
-            android:configChanges="orientation"
-            android:name="com.spirit.stabi.StabiRollActivity"
-            android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
-        <activity
-            android:label="@string/short_title"
-            android:configChanges="orientation"
-            android:name="com.spirit.stabi.StabiPitchActivity"
-            android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.stabi.StabiStickActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
@@ -249,21 +231,21 @@
             android:configChanges="orientation"
             android:name="com.spirit.diagnostic.LogActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.servo.TravelCorrectionActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
             android:name="com.spirit.advanced.SignalProcessingActivity"
             android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait"/>
 
 
 

@@ -22,7 +22,6 @@ package com.spirit;
 import com.helpers.StatusNotificationBuilder;
 import com.lib.DstabiProvider;
 import com.lib.Globals;
-import com.spirit.R;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -278,19 +277,6 @@ abstract public class BaseActivity extends Activity{
 		 stabiProvider.sendDataForResponce(SAVE_PROFILE, call_back_code);
 	 }
 	
-	 /**
-	  * otevreni napovedy, dialog box
-	  * 
-	  * @param resourceTextId
-	  */
-	 protected void openHelp(int resourceTextId)
-	 {
-		 Intent i = new Intent(this, HelpActivity.class);
-		 i.putExtra("content", resourceTextId);
-
-		 startActivity(i);
-	 }
-	
 	/**
      * vytvoreni kontextoveho menu
      */
@@ -412,5 +398,23 @@ abstract public class BaseActivity extends Activity{
 		 
 		
 	 }
+
+    /**
+     *
+     * @param text
+     */
+    protected void showConfirmDialog(String text)
+    {
+        changeChangedState(false);
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+        alert.setPositiveButton("OK", null);
+
+        alert.setMessage(text);
+
+        alert.show();
+
+
+    }
     
 }
