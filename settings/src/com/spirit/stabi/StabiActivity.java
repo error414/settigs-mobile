@@ -123,6 +123,12 @@ public class StabiActivity extends BaseActivity{
         stick.put(ICO_RESOURCE_ID, R.drawable.na);
         menuListData.add(stick);
 		
+        //flybar mechanic
+        HashMap<Integer, Integer> fbmode = new HashMap<Integer, Integer>();
+        fbmode.put(TITLE_FOR_MENU, R.string.stabi_fbmode);
+        fbmode.put(ICO_RESOURCE_ID, R.drawable.na);
+        menuListData.add(fbmode);
+        
 		//rotation speed
 		/*HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
 		rotation.put(TITLE_FOR_MENU, R.string.rotation_speed);

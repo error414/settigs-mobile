@@ -241,6 +241,12 @@
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
+            android:name="com.spirit.stabi.StabiFbModeActivity"
+            android:theme="@style/CustomTheme"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:label="@string/short_title"
+            android:configChanges="orientation"
             android:name="com.spirit.diagnostic.LogActivity"
             android:theme="@style/CustomTheme"
             android:screenOrientation="portrait"></activity>

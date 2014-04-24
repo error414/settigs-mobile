@@ -97,7 +97,7 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m"));
 
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
-        profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
+        //profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
         profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu
 
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H")); // konzistence piruet
@@ -114,8 +114,9 @@ public class DstabiProfile {
 		
 		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l"));		// letovy projev
 
-        profileMap.put("STABI_PITCH",new ProfileItem(46, 63, 191, "q")); // stabi, kompenzace pro vyskovku
-
+        //profileMap.put("STABI_PITCH",new ProfileItem(46, 63, 191, "q")); // stabi, kompenzace pro vyskovku
+        profileMap.put("FB_MODE",		new ProfileItem(46, "0", "1", "i")); // flybar mechanic
+        
         profileMap.put("TRAVEL_UAIL",	new ProfileItem(47, 63, 191, "QA"));
         profileMap.put("TRAVEL_UELE",	new ProfileItem(48, 63, 191, "QE"));
         profileMap.put("TRAVEL_UPIT",	new ProfileItem(49, 63, 191, "QP"));

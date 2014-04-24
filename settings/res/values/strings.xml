@@ -132,7 +132,11 @@
     <string name="stabi_pitch">Pitch compensation</string>
     <string name="stabi_pitch_short">Pitch compensation</string>
     <string name="stabi_stick">Stick priority</string>
+    <string name="stabi_fbmode">Flybar mechanic</string>
+    <string name="stabi_fbmode_en">Enable</string>
+    
     <string name="signal_processing">Signal Processing</string>
+
     <string name="advance">Advance</string>
 
     <string name="log_button_text">Flight log</string>

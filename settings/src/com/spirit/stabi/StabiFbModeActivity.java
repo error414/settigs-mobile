@@ -25,8 +25,11 @@ import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
@@ -37,29 +40,31 @@ import com.lib.DstabiProvider;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class StabiStickActivity extends BaseActivity{
+public class StabiFbModeActivity extends BaseActivity{
 
 	@SuppressWarnings("unused")
-	final private String TAG = "StabiStickActivity";
+	final private String TAG = "StabiFbModeActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 	
 	private final String protocolCode[] = {
-			"STABI_STICK",
+			"FB_MODE",
 	};
 	
 	private int formItems[] = {
-			R.id.stabi_stick,
+			R.id.stabi_fbmode,
 		};
 	
 	private int formItemsTitle[] = {
-			R.string.stabi_stick,
+			R.string.stabi_fbmode,
 		};
 	
 	private DstabiProvider stabiProvider;
 	
 	private DstabiProfile profileCreator;
+	
+	private int lock = 0;
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity stabi
@@ -108,7 +113,7 @@ public class StabiStickActivity extends BaseActivity{
 	 private void delegateListener(){
 		//nastaveni posluchacu pro formularove prvky
 		 for(int i = 0; i < formItems.length; i++){
-			 ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			 ((CheckBox) findViewById(formItems[i])).setOnCheckedChangeListener(checkboxListener);
 		 }
 	 }
 	 
@@ -122,52 +127,57 @@ public class StabiStickActivity extends BaseActivity{
 		 stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	 }
 	 
-	 /**
+		/**
 	  * naplneni formulare
 	  * 
 	  * @param profile
 	  */
 	 private void initGuiByProfileString(byte[] profile){
-		 profileCreator = new DstabiProfile(profile);
+		profileCreator = new DstabiProfile(profile);
 		 
-		 if(!profileCreator.isValid()){
-			 errorInActivity(R.string.damage_profile);
-			 return;
-		 }
-		 
-		 for(int i = 0; i < formItems.length; i++){
-			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			 ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-
-             tempPicker.setRange(item.getMinimum(), item.getMaximum());
-             tempPicker.setCurrentNoNotify(item.getValueInteger());
-
-
-		 }
-				
+		if(!profileCreator.isValid()){
+			errorInActivity(R.string.damage_profile);
+			return;
+		}
+		
+		for(int i = 0; i < formItems.length; i++){
+			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
+			
+			Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
+			if(checked)lock = lock + 1;
+			tempCheckbox.setChecked(checked);
+		}
 	 }
-	 
-	 protected OnChangedListener numberPicekrListener = new OnChangedListener(){
-			@Override
-			public void onChanged(ProgresEx parent, int newVal) {
-				// TODO Auto-generated method stub
-				// prohledani jestli udalost vyvolal znamy prvek
-				// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
-				for(int i = 0; i < formItems.length; i++){
-					if(parent.getId() == formItems[i]){
-						showInfoBarWrite();
-						ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-						parent.setCurrentNoNotify(newVal);
-						item.setValue(newVal);
+	
+	
+	private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener(){
 
-						stabiProvider.sendDataNoWaitForResponce(item);
-					}
+		@Override
+		public void onCheckedChanged(CompoundButton buttonView,
+				boolean isChecked) {
+			
+			if(lock != 0){
+				lock -= 1;
+				return;
+			}
+			lock = Math.max(lock - 1, 0);
+			
+			// TODO Auto-generated method stub
+			// prohledani jestli udalost vyvolal znamy prvek
+			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
+			for(int i = 0; i < formItems.length; i++){
+				if(buttonView.getId() == formItems[i]){
+					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+					item.setValueFromCheckBox(isChecked);
+					stabiProvider.sendDataNoWaitForResponce(item);
+					
+					showInfoBarWrite();
 				}
 			}
-
-	 };
-		 
-	
+			
+		}
+		
+	};	
 	
 		// The Handler that gets information back from the 
 		 private final Handler connectionHandler = new Handler(new Handler.Callback() {
