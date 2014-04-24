@@ -26,6 +26,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
@@ -47,7 +48,8 @@ public class DstabiProfile {
 	private byte[] mProfile;
 	private HashMap<String, ProfileItem> profileMap = new HashMap<String, ProfileItem>();
 	
-	
+	private ArrayList<String> profileErrors = new ArrayList<String>();
+
 	public DstabiProfile(byte[] mProfile)
 	{
 		/* MTODO nazvy udelat v konstantach */
@@ -90,7 +92,7 @@ public class DstabiProfile {
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r")); 	// kompenzace zpinani vyskovky
-		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s")); 
+		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s"));  // mrtva zona knyplu
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
@@ -104,13 +106,12 @@ public class DstabiProfile {
 
 		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
 
-		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5"));
-		//profileMap.put("GEOMETRY_CORR",	new ProfileItem(41, "0", "1", "6"));	// korekce geometrie
+		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pootočení cykliky
 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// kompenzace zpinani vyskovky
 
-		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9"));
+		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9")); // zpozdeni vrtulky
 		
 		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l"));		// letovy projev
 
@@ -213,21 +214,33 @@ public class DstabiProfile {
 			Log.d(TAG, "Invalid checksum !");
 			return false;
 		}
-			
+
+        boolean isValid = true;
+        this.profileErrors.clear();
 		Iterator<String> iteration = profileMap.keySet().iterator();
-		while(iteration.hasNext()) {
+
+        while(iteration.hasNext()) {
 			String key=(String)iteration.next();
 			ProfileItem item = (ProfileItem)profileMap.get(key);
-			
+
 			if(!item.isValid()){
 				Log.d(TAG, "polozka " + key + " neni validni s hodnotou " + item.getValueString());
-				return false;
+                this.profileErrors.add("polozka " + key + " neni validni s hodnotou " + item.getValueString());
+                isValid = false;
 			}
 		}
 
-		return true;
-		
+		return isValid;
 	}
+
+    /**
+     * po metode isValid vrati chyby profilu
+     *
+     * @return
+     */
+    public ArrayList<String> getErrors(){
+        return this.profileErrors;
+    }
 
 	///////////////// PRIVATE ////////////////////////
 	

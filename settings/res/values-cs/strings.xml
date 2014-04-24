@@ -282,4 +282,6 @@
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>
 
+    <string name="show_errors">Zobrazit chyby</string>
+
 </resources>
