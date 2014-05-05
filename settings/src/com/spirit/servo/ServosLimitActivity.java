@@ -23,6 +23,7 @@ import java.util.HashMap;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
@@ -42,9 +43,12 @@ import android.widget.AdapterView.OnItemClickListener;
 public class ServosLimitActivity extends BaseActivity{
 	
 	private DstabiProvider stabiProvider;
-	
-	
-	
+
+    /**
+     * seznam polozek pro menu
+     */
+    protected Integer[] menuListIndex;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -59,7 +63,10 @@ public class ServosLimitActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.servos_button_text), " \u2192 " , getString(R.string.limit)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
+
+        //naplnime seznam polozek pro menu
+        menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SERVOLIMIT);
+
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
@@ -67,15 +74,9 @@ public class ServosLimitActivity extends BaseActivity{
 			@Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	
-            	switch(position){
-            		case 0://cyclic ring
-            			openCyclicRingRange(view);
-            			break;
-            		case 1://rudder endpoints
-            			openRudderEndPoints(view);
-            			break;
-            	}
+
+                Intent i = new Intent(ServosLimitActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+                startActivity(i);
             }
 		});
     }
@@ -103,44 +104,18 @@ public class ServosLimitActivity extends BaseActivity{
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//cyclic ring
-		HashMap<Integer, Integer> ring = new HashMap<Integer, Integer>();
-		ring.put(TITLE_FOR_MENU, R.string.cyclic_ring_range_no_break);
-		ring.put(ICO_RESOURCE_ID, R.drawable.i12);
-		menuListData.add(ring);
-		
-		//rudder endpoints
-		HashMap<Integer, Integer> endpoints = new HashMap<Integer, Integer>();
-		endpoints.put(TITLE_FOR_MENU, R.string.rudder_end_points_no_break);
-		endpoints.put(ICO_RESOURCE_ID, R.drawable.i13);
-		menuListData.add(endpoints);
+        // vytvorime pole pro adapter
+        for(Integer key : menuListIndex){
+            HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+            item.put(Menu.TITLE_FOR_MENU,  Menu.getInstance().getItem(key).getTitle());
+            item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+            menuListData.add(item);
+        }
 		
 		return menuListData;
 	}
 	
-	/**
-	 * otevreni aktivity pro typ serva
-	 * 
-	 * @param v
-	 */
-	public void openCyclicRingRange(View v)
-	{
-		Intent i = new Intent(ServosLimitActivity.this, ServosCyclickRingRangeActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity pro subtrim serva
-	 * 
-	 * @param v
-	 */
-	public void openRudderEndPoints(View v)
-	{
-		Intent i = new Intent(ServosLimitActivity.this, ServosRudderEndPointsActivity.class);
-    	startActivity(i);
-	}
-	
-	// The Handler that gets information back from the 
+	// The Handler that gets information back from the
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
 		    @Override
 		    public boolean handleMessage(Message msg) {

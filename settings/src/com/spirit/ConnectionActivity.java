@@ -34,6 +34,7 @@ import com.spirit.R;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -87,8 +88,6 @@ public class ConnectionActivity extends BaseActivity{
 	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 17;
 	final private int GET_SERIAL_NUMBER = 18;
 	
-	final private String PREF_BT_ADRESS= "pref_bt_adress";
-	
 	final static String FILE_EXT = "4ds";
 	
 	private DstabiProvider stabiProvider;
@@ -131,7 +130,7 @@ public class ConnectionActivity extends BaseActivity{
 		 //pozice vybraneho selectu
 		 int position = 0;
 		 if (pairedDevices.size() > 0) {
-			 SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, 0);
+			 SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
 			 String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
 			
 			// iterator
@@ -229,7 +228,7 @@ public class ConnectionActivity extends BaseActivity{
 			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
 			
 			//ulozeni vybraneho selectu / zarizeni
-			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, 0);
+			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
 	        SharedPreferences.Editor editor = settings.edit();
 	        editor.putString(PREF_BT_ADRESS, deviceAdress);
 

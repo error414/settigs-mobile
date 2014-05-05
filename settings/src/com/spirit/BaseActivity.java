@@ -43,13 +43,11 @@ abstract public class BaseActivity extends Activity{
 	
 	//for debug
 	private final String TAG = "BaseActivity";
-	
-	/**
-	 * klice pro adapter aby vedel k jakemu prvku jaky klic priradit
-	 */
-	public static Integer TITLE_FOR_MENU = 1;  
-	public static Integer ICO_RESOURCE_ID = 2;  
-	
+
+    // klice pro nastaveni
+    final protected String PREF_BT_ADRESS     = "pref_bt_adress";
+    final protected String PREF_FAVOURITES    = "pref_favourites";
+
 	// Intent request codes
     private static final int REQUEST_ENABLE_BT = 22;
 

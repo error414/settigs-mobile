@@ -19,6 +19,8 @@ package com.helpers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import com.lib.menu.Menu;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 import android.annotation.SuppressLint;
@@ -56,8 +58,8 @@ public class MenuListAdapter extends MyListAdapter {
         row = data.get(position);
  
         // Setting all values in listview
-        title.setText(row.get(BaseActivity.TITLE_FOR_MENU));
-        ico_image.setImageResource(row.get(BaseActivity.ICO_RESOURCE_ID));
+        title.setText(row.get(Menu.TITLE_FOR_MENU));
+        ico_image.setImageResource(row.get(Menu.ICO_RESOURCE_ID));
         return vi;
     }
 

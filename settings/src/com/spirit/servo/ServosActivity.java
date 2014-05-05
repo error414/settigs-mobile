@@ -19,11 +19,14 @@ package com.spirit.servo;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.helpers.ByteOperation;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
+import com.lib.menu.MenuItem;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
@@ -32,6 +35,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -45,6 +49,12 @@ public class ServosActivity extends BaseActivity{
 	final private String TAG = "ServosActivity";
 	
 	private DstabiProvider stabiProvider;
+
+    /**
+     * seznam polozek pro menu
+     */
+    protected Integer[] menuListIndex;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -59,7 +69,10 @@ public class ServosActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.servos_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
+
+        //naplnime seznam polozek pro menu
+        menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SERVO);
+
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
@@ -67,21 +80,9 @@ public class ServosActivity extends BaseActivity{
 			@Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	
-            	switch(position){
-            		case 0://servo type
-            			openServosTypeActivity(view);
-            			break;
-            		case 1://subtrim
-            			openServosSubtrimActivity(view);
-            			break;
-            		case 2://limit
-            			openServosLimitActivity(view);
-            			break;
-                    case 3://travel
-                        openServosCorrection(view);
-                        break;
-            	}
+
+                Intent i = new Intent(ServosActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+                startActivity(i);
             }
 		});
     }
@@ -108,79 +109,20 @@ public class ServosActivity extends BaseActivity{
 	 * @return
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
-		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//type
-		HashMap<Integer, Integer> type = new HashMap<Integer, Integer>();
-		type.put(TITLE_FOR_MENU, R.string.type);
-		type.put(ICO_RESOURCE_ID, R.drawable.i9);
-		menuListData.add(type);
-		
-		//subtrim
-		HashMap<Integer, Integer> subtrim = new HashMap<Integer, Integer>();
-		subtrim.put(TITLE_FOR_MENU, R.string.subtrim);
-		subtrim.put(ICO_RESOURCE_ID, R.drawable.i10);
-		menuListData.add(subtrim);
-		
-		//limit
-		HashMap<Integer, Integer> limit = new HashMap<Integer, Integer>();
-		limit.put(TITLE_FOR_MENU, R.string.limit);
-		limit.put(ICO_RESOURCE_ID, R.drawable.i11);
-		menuListData.add(limit);
+        ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
 
-        //korekce drahy serv
-        HashMap<Integer, Integer> correction = new HashMap<Integer, Integer>();
-        correction.put(TITLE_FOR_MENU, R.string.servo_travel_correction);
-        correction.put(ICO_RESOURCE_ID, R.drawable.na);
-        menuListData.add(correction);
-		
-		return menuListData;
-	}
-	
-	/**
-	 * otevreni aktivity pro typ serva
-	 * 
-	 * @param v
-	 */
-	public void openServosTypeActivity(View v)
-	{
-		Intent i = new Intent(ServosActivity.this, ServosTypeActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity pro subtrim serva
-	 * 
-	 * @param v
-	 */
-	public void openServosSubtrimActivity(View v)
-	{
-		Intent i = new Intent(ServosActivity.this, ServosSubtrimActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity pro limit serva
-	 * 
-	 * @param v
-	 */
-	public void openServosLimitActivity(View v)
-	{
-		Intent i = new Intent(ServosActivity.this, ServosLimitActivity.class);
-    	startActivity(i);
-	}
+        // vytvorime pole pro adapter
+        for(Integer key : menuListIndex){
+            HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+            item.put(Menu.TITLE_FOR_MENU, Menu.getInstance().getItem(key).getTitle());
+            item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+            menuListData.add(item);
+        }
 
-    /**
-     * korekce drahy serva
-     *
-     * @param v
-     */
-    public void openServosCorrection(View v)
-    {
-        Intent i = new Intent(ServosActivity.this, TravelCorrectionActivity.class);
-        startActivity(i);
+        return menuListData;
     }
 	
-	// The Handler that gets information back from the 
+	// The Handler that gets information back from the
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
 		    @Override
 		    public boolean handleMessage(Message msg) {

@@ -19,6 +19,7 @@ package com.spirit.stabi;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
+import com.lib.menu.MenuItem;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
@@ -44,7 +47,14 @@ public class StabiActivity extends BaseActivity{
 	final private String TAG = "StabiActivity";
 	
 	private DstabiProvider stabiProvider;
-	/**
+
+    /**
+     * seznam polozek pro menu
+     */
+    protected Integer[] menuListIndex;
+
+
+    /**
 	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
@@ -58,7 +68,10 @@ public class StabiActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.stabi_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
+
+        //naplnime seznam polozek pro menu
+        menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_STABI);
+
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
@@ -66,22 +79,9 @@ public class StabiActivity extends BaseActivity{
 			@Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	
-            	switch(position){
-            		case 0://function
-            			openStabiFunctionActivity(view);
-            			break;
-            		case 1://collective
-            			openStabiColActivity(view);
-            			break;
-                    case 2://stick priority
-                        openStabiStickActivity(view);
-                        break;
-                    case 3://flybar mechanic
-                        openStabiFlybarMechanic(view);
-                        break;
 
-            	}
+                Intent i = new Intent(StabiActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+                startActivity(i);
             }
 		});
     }
@@ -108,82 +108,19 @@ public class StabiActivity extends BaseActivity{
 	 * @return
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
-		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//function
-		HashMap<Integer, Integer> function = new HashMap<Integer, Integer>();
-		function.put(TITLE_FOR_MENU, R.string.stabi_function);
-		function.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(function);
-		
-		//kolektiv zachraneho rezimu
-		HashMap<Integer, Integer> col = new HashMap<Integer, Integer>();
-		col.put(TITLE_FOR_MENU, R.string.stabi_col);
-		col.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(col);
+        ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
+        // vytvorime pole pro adapter
+        for(Integer key : menuListIndex){
+            HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+            item.put(Menu.TITLE_FOR_MENU,  Menu.getInstance().getItem(key).getTitle());
+            item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+            menuListData.add(item);
+        }
 
-        //priorita knyplu
-        HashMap<Integer, Integer> stick = new HashMap<Integer, Integer>();
-        stick.put(TITLE_FOR_MENU, R.string.stabi_stick);
-        stick.put(ICO_RESOURCE_ID, R.drawable.na);
-        menuListData.add(stick);
-		
-        //flybar mechanic
-        HashMap<Integer, Integer> fbmode = new HashMap<Integer, Integer>();
-        fbmode.put(TITLE_FOR_MENU, R.string.stabi_fbmode);
-        fbmode.put(ICO_RESOURCE_ID, R.drawable.na);
-        menuListData.add(fbmode);
-        
-		//rotation speed
-		/*HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
-		rotation.put(TITLE_FOR_MENU, R.string.rotation_speed);
-		rotation.put(ICO_RESOURCE_ID, R.drawable.i18);
-		menuListData.add(rotation);*/
-		
-		return menuListData;
-	}
-	
-	/**
-	 * otevreni aktivity senzivitu senzoru
-	 * 
-	 * @param v
-	 */
-	public void openStabiFunctionActivity(View v)
-	{
-		Intent i = new Intent(StabiActivity.this, StabiFunctionActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 *
-	 * @param v
-	 */
-	public void openStabiColActivity(View v)
-	{
-		Intent i = new Intent(StabiActivity.this, StabiColActivity.class);
-		startActivity(i);
-	}
-
-    /**
-     *
-     * @param v
-     */
-    public void openStabiStickActivity(View v)
-    {
-        Intent i = new Intent(StabiActivity.this, StabiStickActivity.class);
-        startActivity(i);
-    }
-
-    /**
-     *
-     * @param v
-     */
-    public void openStabiFlybarMechanic(View v)
-    {
-        Intent i = new Intent(StabiActivity.this, StabiFbModeActivity.class);
-        startActivity(i);
+        return menuListData;
     }
 	
-	// The Handler that gets information back from the 
+	// The Handler that gets information back from the
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
 		    @Override
 		    public boolean handleMessage(Message msg) {

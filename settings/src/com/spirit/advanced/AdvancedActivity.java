@@ -19,12 +19,15 @@ package com.spirit.advanced;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -35,6 +38,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
+import com.lib.menu.MenuItem;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
@@ -43,6 +48,12 @@ public class AdvancedActivity extends BaseActivity{
 	final private String TAG = "AdvancedActivity";
 	
 	private DstabiProvider stabiProvider;
+
+    /**
+     * seznam polozek pro menu
+     */
+    protected Integer[] menuListIndex;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -57,7 +68,10 @@ public class AdvancedActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.advanced_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
+
+        //naplnime seznam polozek pro menu
+        menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_ADVANCED);
+
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
@@ -66,45 +80,9 @@ public class AdvancedActivity extends BaseActivity{
             @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	
-            	switch(position){
-            		case 0://deadband
-            			openStickDeadBandActivity(view);
-            			break;
-            		case 1://geometry angle
-            			openGeometryAngleActivity(view);
-            			break;
-            		case 2://pirouette optimization
-            			openPiroOptimalizationActivity(view);
-            			break;
-            		case 3://rudder delay
-            			openRudderDelayActivity(view);
-            			break;
-            		case 4://pirouette const
-            			openPirouetteConsistencyActivity(view);
-            			break;
-            		case 5://rudder dynamic
-            			openRudderDynamicActivity(view);
-            			break;
-            		case 6://rudder revomix
-            			openRudderRevomixActivity(view);
-            			break;
-            		case 7://elevator filter
-            			openEFilterActivity(view);
-            			break;
-            		case 8://elevator pitchup
-            			openPitchupActivity(view);
-            			break;
-            		case 9://cyclic phase
-            			openCyclicPhaseActivity(view);
-            			break;
-            		case 10://cyclic ff
-                        openCyclicFFActivity(view);
-                        break;
-                    case 11://rozisrene zpracovani signalu
-                        openSignalProcessing(view);
-                        break;
-            	}
+
+                Intent i = new Intent(AdvancedActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+                startActivity(i);
  
             }
         });
@@ -134,216 +112,18 @@ public class AdvancedActivity extends BaseActivity{
 	@SuppressLint("UseSparseArrays")
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-	
-		//stick deadband
-		HashMap<Integer, Integer> deadband = new HashMap<Integer, Integer>();
-		deadband.put(TITLE_FOR_MENU, R.string.stick_deadband);
-		deadband.put(ICO_RESOURCE_ID, R.drawable.i22);
-		menuListData.add(deadband);
-		
-		//geometry 6deg
-		HashMap<Integer, Integer> geom_6deg = new HashMap<Integer, Integer>();
-		geom_6deg.put(TITLE_FOR_MENU, R.string.geom_6deg);
-		geom_6deg.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(geom_6deg);
-		
-		//piruette opt
-		HashMap<Integer, Integer> piro = new HashMap<Integer, Integer>();
-		piro.put(TITLE_FOR_MENU, R.string.piro_opt);
-		piro.put(ICO_RESOURCE_ID, R.drawable.i26);
-		menuListData.add(piro);
-		
-		//rudder delay
-		HashMap<Integer, Integer> rudder_delay = new HashMap<Integer, Integer>();
-		rudder_delay.put(TITLE_FOR_MENU, R.string.rudder_delay);
-		rudder_delay.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(rudder_delay);
-		
-		//piruette const
-		HashMap<Integer, Integer> piro_const = new HashMap<Integer, Integer>();
-		piro_const.put(TITLE_FOR_MENU, R.string.pirouette_consistency);
-		piro_const.put(ICO_RESOURCE_ID, R.drawable.i36);
-		menuListData.add(piro_const);
-		
-		//rudder dynamic
-		HashMap<Integer, Integer> rudder_dynamic = new HashMap<Integer, Integer>();
-		rudder_dynamic.put(TITLE_FOR_MENU, R.string.rudder_dynamic);
-		rudder_dynamic.put(ICO_RESOURCE_ID, R.drawable.i23);
-		menuListData.add(rudder_dynamic);
-		
-		//rudder revomix
-		HashMap<Integer, Integer> rudder_revomix = new HashMap<Integer, Integer>();
-		rudder_revomix.put(TITLE_FOR_MENU, R.string.rudder_revomix);
-		rudder_revomix.put(ICO_RESOURCE_ID, R.drawable.i24);
-		menuListData.add(rudder_revomix);
-		
-		//elevator filter
-		HashMap<Integer, Integer> e_filter = new HashMap<Integer, Integer>();
-		e_filter.put(TITLE_FOR_MENU, R.string.e_filter);
-		e_filter.put(ICO_RESOURCE_ID, R.drawable.i33);
-		menuListData.add(e_filter);
-		
-		//elevator pitchup
-		HashMap<Integer, Integer> pitchup = new HashMap<Integer, Integer>();
-		pitchup.put(TITLE_FOR_MENU, R.string.pitchup);
-		pitchup.put(ICO_RESOURCE_ID, R.drawable.i33);
-		menuListData.add(pitchup);
-		
-		//cyclic phase
-		HashMap<Integer, Integer> cyclic_phase = new HashMap<Integer, Integer>();
-		cyclic_phase.put(TITLE_FOR_MENU, R.string.cyclic_phase);
-		cyclic_phase.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(cyclic_phase);
-	
-		//cyclic ff
-		HashMap<Integer, Integer> cyclic_ff = new HashMap<Integer, Integer>();
-		cyclic_ff.put(TITLE_FOR_MENU, R.string.cyclic_ff);
-		cyclic_ff.put(ICO_RESOURCE_ID, R.drawable.na);
-		menuListData.add(cyclic_ff);
 
-        //rozisrene zpracovani signalu
-        HashMap<Integer, Integer> signal_processing = new HashMap<Integer, Integer>();
-        signal_processing.put(TITLE_FOR_MENU, R.string.signal_processing);
-        signal_processing.put(ICO_RESOURCE_ID, R.drawable.na);
-        menuListData.add(signal_processing);
-		
+        for(Integer key : menuListIndex){
+            HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+            item.put(Menu.TITLE_FOR_MENU,  Menu.getInstance().getItem(key).getTitle());
+            item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+            menuListData.add(item);
+        }
+
 		return menuListData;
 	}
 	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openStickDeadBandActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, StickDeadBandActivity.class);
-    	startActivity(i);
-	}
-	
-
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openGeometryAngleActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, GeometryAngleActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openRudderDelayActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, RudderDelayActivity.class);
-    	startActivity(i);
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openPiroOptimalizationActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, PiroOptimalizationActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openRudderDynamicActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, RudderDynamicActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openRudderRevomixActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, RudderRevomixActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openPirouetteConsistencyActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, PirouetteConsistencyActivity.class);
-		startActivity(i);
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openEFilterActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, EFilterActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openPitchupActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, PitchupActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openCyclicPhaseActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, CyclicPhaseActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * 
-	 * 
-	 * @param v
-	 */
-	public void openCyclicFFActivity(View v)
-	{
-		Intent i = new Intent(AdvancedActivity.this, CyclicFFActivity.class);
-		startActivity(i);
-	}
-
-    /**
-     *
-     *
-     * @param v
-     */
-    public void openSignalProcessing(View v)
-    {
-        Intent i = new Intent(AdvancedActivity.this, SignalProcessingActivity.class);
-        startActivity(i);
-    }
-	
-	// The Handler that gets information back from the 
+	// The Handler that gets information back from the
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
 		    @Override
 		    public boolean handleMessage(Message msg) {

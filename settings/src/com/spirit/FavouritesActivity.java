@@ -17,19 +17,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-
-import com.helpers.MenuListAdapter;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.lib.menu.Menu;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -40,10 +29,19 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.helpers.MenuListAdapter;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * aktivita pro hlavni obrazku
@@ -51,9 +49,9 @@ import android.widget.Toast;
  * @author error414
  *
  */
-public class SettingsActivity extends BaseActivity {
+public class FavouritesActivity extends BaseActivity {
 	@SuppressWarnings("unused")
-	final private String TAG = "SettingsActivity";
+	final private String TAG = "FavouritesActivity";
 	
 	private DstabiProvider stabiProvider;
 
@@ -71,76 +69,39 @@ public class SettingsActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.main);
+        setContentView(R.layout.favourites);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView)findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 		
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 
         //naplnime seznam polozek pro menu
-        menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SETTINGS);
+        SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+        Map<String,?> keys = prefs.getAll();
 
-		
+        menuListIndex = new Integer[keys.size()];
+        int i = 0;
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
+        }
+
+		////////////////////////////////////////////////////////////////////////
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
 		menuList.setOnItemClickListener(new OnItemClickListener() {
+			 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                if(position != 0){ // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene
-                    if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
-                        Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
-                        return ;
-                    }
+                if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+                    Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+                    return ;
                 }
 
-                Intent i = new Intent(SettingsActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+                Intent i = new Intent(FavouritesActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
                 startActivity(i);
             }
         });
-
-        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
-
-                    final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
-                    final SharedPreferences.Editor editor = prefs.edit();
-
-                    new AlertDialog.Builder(SettingsActivity.this)
-                            .setTitle("Favourites")
-                            .setMessage(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? "odebrat" : "pridat")
-                            .setPositiveButton("ano", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
-                                        editor.remove(String.valueOf(menuListIndex[position]));
-                                        Toast.makeText(getApplicationContext(), "odebrano z oblibenych", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        editor.putInt(String.valueOf(menuListIndex[position]), menuListIndex[position]);
-                                        Toast.makeText(getApplicationContext(), "pridano do oblibenych", Toast.LENGTH_SHORT).show();
-                                    }
-                                    editor.commit();
-
-                                    Map<String,?> keys = prefs.getAll();
-
-                                    for (Map.Entry<String, ?> entry : keys.entrySet()) {
-                                        Log.d("map values", entry.getKey() + ": " +
-                                                entry.getValue().toString());
-                                    }
-
-
-                                }
-
-                            })
-                            .setNegativeButton("ne", null)
-                            .show();
-
-                    return true;
-                }
-            }
-        );
     }
 	
 	public void onResume(){
@@ -149,7 +110,7 @@ public class SettingsActivity extends BaseActivity {
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		}else{
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+           // finish();
 		}
 	}
 	
@@ -182,8 +143,7 @@ public class SettingsActivity extends BaseActivity {
  	        	switch(msg.what){
  	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
  						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
- 							sendInError(false);
- 							((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+ 							//sendInError();
  						}else{
  							((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
  						}

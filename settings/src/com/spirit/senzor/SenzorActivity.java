@@ -19,6 +19,7 @@ package com.spirit.senzor;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -36,6 +37,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
+import com.lib.menu.MenuItem;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
@@ -44,6 +47,12 @@ public class SenzorActivity extends BaseActivity{
 	final private String TAG = "SenzorActivity";
 	
 	private DstabiProvider stabiProvider;
+
+    /**
+     * seznam polozek pro menu
+     */
+    protected Integer[] menuListIndex;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -58,7 +67,10 @@ public class SenzorActivity extends BaseActivity{
 		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.senzor_button_text)));
         
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
+
+        //naplnime seznam polozek pro menu
+        menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SENZOR);
+
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
@@ -66,18 +78,9 @@ public class SenzorActivity extends BaseActivity{
 			@Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
-            	
-            	switch(position){
-            		case 0://senzivity
-            			openSenzorSenzivityActivity(view);
-            			break;
-            		case 1://reverse
-            			openSenzorReverseActivity(view);
-            			break;
-            		case 2://rotation speed
-            			openSenzorRotationSpeedActivity(view);
-            			break;
-            	}
+
+                Intent i = new Intent(SenzorActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+                startActivity(i);
             }
 		});
     }
@@ -104,62 +107,20 @@ public class SenzorActivity extends BaseActivity{
 	 * @return
 	 */
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
-		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-		//senzivity
-		HashMap<Integer, Integer> senzivity = new HashMap<Integer, Integer>();
-		senzivity.put(TITLE_FOR_MENU, R.string.senzivity);
-		senzivity.put(ICO_RESOURCE_ID, R.drawable.i16);
-		menuListData.add(senzivity);
-		
-		//reverse
-		HashMap<Integer, Integer> reverse = new HashMap<Integer, Integer>();
-		reverse.put(TITLE_FOR_MENU, R.string.reverse);
-		reverse.put(ICO_RESOURCE_ID, R.drawable.i17);
-		menuListData.add(reverse);
-		
-		//rotation speed
-		HashMap<Integer, Integer> rotation = new HashMap<Integer, Integer>();
-		rotation.put(TITLE_FOR_MENU, R.string.rotation_speed);
-		rotation.put(ICO_RESOURCE_ID, R.drawable.i18);
-		menuListData.add(rotation);
-		
-		return menuListData;
+        ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
+
+        // vytvorime pole pro adapter
+        for(Integer key : menuListIndex){
+            HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+            item.put(Menu.TITLE_FOR_MENU,  Menu.getInstance().getItem(key).getTitle());
+            item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+            menuListData.add(item);
+        }
+
+        return menuListData;
 	}
 	
-	/**
-	 * otevreni aktivity senzivitu senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorSenzivityActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorSenzivityActivity.class);
-    	startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity reverz senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorReverseActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorReverseActivity.class);
-		startActivity(i);
-	}
-	
-	/**
-	 * otevreni aktivity rotation speed senzoru
-	 * 
-	 * @param v
-	 */
-	public void openSenzorRotationSpeedActivity(View v)
-	{
-		Intent i = new Intent(SenzorActivity.this, SenzorRotationSpeedActivity.class);
-		startActivity(i);
-	}
-	
-	
+
 	
 	// The Handler that gets information back from the 
 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
