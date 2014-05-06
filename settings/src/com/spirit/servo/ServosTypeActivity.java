@@ -60,6 +60,14 @@ public class ServosTypeActivity extends BaseActivity{
 			R.id.rudder_pulse,
 			R.id.rudder_frequency
 		};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.cyclic_pulse,
+            R.id.cyclic_frequency,
+            R.id.rudder_pulse,
+            R.id.rudder_frequency
+    };
 	
 	private int lock = formItems.length;
 	
@@ -95,10 +103,22 @@ public class ServosTypeActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            Spinner spinner = (Spinner) findViewById(item);
+            spinner.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	/**
 	  * prirazeni udalosti k prvkum

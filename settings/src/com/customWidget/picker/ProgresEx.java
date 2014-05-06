@@ -24,6 +24,7 @@ import com.spirit.R;
 import android.content.Context;
 import android.os.Handler;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -106,25 +107,25 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	    LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    inflater.inflate(R.layout.progres_ex, this, true);
 	    
-	    mainLayout = (RelativeLayout) findViewById(R.id.progres_main); 
-	    mainLayout.setOnClickListener(this);
-	    
+	    mainLayout = (RelativeLayout) findViewById(R.id.progres_main);
+        mainLayout.setOnClickListener(this);
+
 	    mObjTitle 	= (TextView) findViewById(R.id.progres_title); 
 	    
 	    mObjMin 	= (TextView) findViewById(R.id.progres_min); 
 	    mObjMax 	= (TextView) findViewById(R.id.progres_max); 
 	    mObjCurrent = (TextView) findViewById(R.id.progres_current); 
 	    
-	    mObjProgres = (ProgressBar) findViewById(R.id.progres_bar); 
-	    
+	    mObjProgres = (ProgressBar) findViewById(R.id.progres_bar);
+
 	    mObjProgresValue = (EditText) findViewById(R.id.progres_value); 
 	    mObjProgresValue.setFocusable(false);
-	    
+
 	    mDecrementButton = (ProgresExButton) findViewById(R.id.progres_minus);
 	    mDecrementButton.setOnClickListener(this);
 	    mDecrementButton.setOnLongClickListener(this);
 	    mDecrementButton.setProgresEx(this);
-	    
+
 	    mIncrementButton = (ProgresExButton) findViewById(R.id.progres_plus);
 	    mIncrementButton.setOnClickListener(this);
 	    mIncrementButton.setOnLongClickListener(this);
@@ -132,10 +133,29 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 
 	    childLayout = (RelativeLayout) findViewById(R.id.progres_child);
 	    childLayout.setVisibility(View.GONE);
-	    childLayout.setOnClickListener(this);;
-	    
+
+        childLayout.setOnClickListener(this);
+
 	    mHandler = new Handler();
 	}
+
+    /**
+     *
+     * @param status
+     */
+    public void setEnabled(boolean status)
+    {
+        super.setEnabled(status);
+        if(!status){
+            mObjProgres.setProgressDrawable(getResources().getDrawable(R.drawable.my_disable_custom_pb));
+            mainLayout.setOnClickListener(null);
+            mainLayout.setBackgroundResource(R.drawable.disabled_list_selector);
+        }else{
+            mObjProgres.setProgressDrawable(getResources().getDrawable(R.drawable.my_custom_pb));
+            mainLayout.setOnClickListener(this);
+            mainLayout.setBackgroundResource(R.drawable.list_selector);
+        }
+    }
 	
 	/**
 	 * zobrazit progres jako procenta, min a max ukazuji 0 a 100, k cislu ve vypisu se pridaji procenta
@@ -348,7 +368,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
      */
     private void toogleInput(){
     	if(childLayout.getVisibility() == View.GONE){
-    		showInput();
+            showInput();
     	}else{
     		hideInput();
     	}

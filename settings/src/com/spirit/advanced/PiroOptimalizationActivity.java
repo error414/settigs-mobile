@@ -53,6 +53,11 @@ public class PiroOptimalizationActivity extends BaseActivity{
 	private int formItems[] = {
 			R.id.piro_opt,
 		};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.piro_opt,
+    };
 	
 	private DstabiProvider stabiProvider;
 	
@@ -107,16 +112,33 @@ public class PiroOptimalizationActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
+
+            if(!getAppBasicMode()) {
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
+            }
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            CheckBox checkBox = (CheckBox) findViewById(item);
+            checkBox.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	@Override
 	public void onPause(){
 		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
+        if(!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
+        }
 	}
 	
 	/**

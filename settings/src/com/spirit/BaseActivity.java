@@ -27,7 +27,9 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -37,6 +39,7 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 abstract public class BaseActivity extends Activity{
@@ -72,6 +75,8 @@ abstract public class BaseActivity extends Activity{
 	
 	// TOHLE PUJDE do DSTABI PROFILE ASI :D
 	final protected String SAVE_PROFILE = "g";
+
+    final protected String PREF_BASIC_MODE = "pref_basic_mode";
 	
 	/**
 	 * pocitadlo otevreni dialog boxu
@@ -114,26 +119,37 @@ abstract public class BaseActivity extends Activity{
 		closeAllBar();
 		super.onStop();
 	}
-	
+
+    /**
+     *
+     */
 	public void onResume(){
 		super.onResume();
-		if(Globals.getInstance().changed == true){
-			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.not_equal);
-		}else{
-			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
-		}
+
+        ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
+        ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().changed ? R.drawable.not_equal : R.drawable.equals);
 	}
-	
+
+    /**
+     *
+     * @param state
+     */
 	public void changeChangedState(Boolean state){
 		Globals.getInstance().changed = state;
-		
-		if(state == true){
-			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.not_equal);
-		}else{
-			((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
-		}
+        ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(state ? R.drawable.not_equal : R.drawable.equals);
 	}
-	
+
+    /**
+     * nachazi se aplikace v basic modu ?
+     *
+     * @return
+     */
+    public boolean getAppBasicMode()
+    {
+        SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
+        return settings.getBoolean(PREF_BASIC_MODE, false);
+    }
+
 	/**
 	 * zavreni vsechn notofikaci a dialogu
 	 */

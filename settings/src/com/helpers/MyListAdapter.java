@@ -51,10 +51,14 @@ public class MyListAdapter extends BaseAdapter {
 	 */
 	protected ArrayList<HashMap<Integer, Integer>> data;
 
-	public MyListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
+    public MyListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
         activity = a;
-        data=d;
+        data = d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+    }
+
+    public void setData(ArrayList<HashMap<Integer, Integer>> data) {
+        this.data = data;
     }
 	
 	@Override

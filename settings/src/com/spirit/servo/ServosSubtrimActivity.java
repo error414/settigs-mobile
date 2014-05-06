@@ -31,6 +31,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -58,6 +59,14 @@ public class ServosSubtrimActivity extends BaseActivity{
 			R.id.pitch_picker,
 			R.id.rudder_picker,
 		};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.aileron_picker,
+            R.id.elevator_picker,
+            R.id.pitch_picker,
+            R.id.rudder_picker,
+    };
 	
 	private int formItemsTitle[] = {
 			R.string.aileron,
@@ -99,17 +108,33 @@ public class ServosSubtrimActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni subtrimu
+
+            if(!getAppBasicMode()) {
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni subtrimu
+            }
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            ProgresEx progressEx = (ProgresEx) findViewById(item);
+            progressEx.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	@Override
 	public void onPause(){
 		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
+        if(!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
+        }
 	}
 	
 	@Override

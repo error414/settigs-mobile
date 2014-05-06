@@ -70,6 +70,14 @@ public class GeneralActivity extends BaseActivity{
 		R.id.cyclic_servo_reverse_select_id,
 		R.id.flight_style_select_id
 	};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.position_select_id,
+            R.id.mix_select_id,
+            R.id.receiver_select_id,
+            R.id.cyclic_servo_reverse_select_id,
+    };
 	
 	private int lock = formItems.length;
 
@@ -105,12 +113,24 @@ public class GeneralActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initBasicMode();
 		}else{
 			finish();
 		}
 	 }
-	 
-	 /**
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            Spinner spinner = (Spinner) findViewById(item);
+            spinner.setEnabled(!getAppBasicMode());
+        }
+    }
+
+    /**
 	  * prirazeni udalosti k prvkum
 	  */
 	 private void delegateListener(){
@@ -119,7 +139,7 @@ public class GeneralActivity extends BaseActivity{
 			 ((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
 		 }
 	 }
-	 
+
 	 /**
 	  * ziskani profilu z jednotky
 	  */

@@ -18,12 +18,15 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -59,7 +62,9 @@ public class FavouritesActivity extends BaseActivity {
      * seznam polozek pro menu
      */
     protected Integer[] menuListIndex;
-	
+
+    private MenuListAdapter adapter;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
@@ -71,7 +76,7 @@ public class FavouritesActivity extends BaseActivity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.favourites);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(getText(R.string.full_app_name));
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
 		
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 
@@ -87,8 +92,9 @@ public class FavouritesActivity extends BaseActivity {
 
 		////////////////////////////////////////////////////////////////////////
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
-		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
+		adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
+
 		menuList.setOnItemClickListener(new OnItemClickListener() {
 			 
             @Override
@@ -102,6 +108,37 @@ public class FavouritesActivity extends BaseActivity {
                 startActivity(i);
             }
         });
+
+        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
+
+                final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = prefs.edit();
+
+                if(prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
+                    new AlertDialog.Builder(FavouritesActivity.this)
+                            .setTitle(R.string.remove_from_favourites)
+                            .setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle())
+                            .setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    editor.remove(String.valueOf(menuListIndex[position]));
+                                    Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
+                                    editor.commit();
+
+                                    updateListView();
+                                }
+
+                            })
+                            .setNegativeButton(R.string.no, null)
+                            .show();
+                }
+
+                return true;
+            }
+        });
     }
 	
 	public void onResume(){
@@ -109,10 +146,26 @@ public class FavouritesActivity extends BaseActivity {
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            updateListView();
 		}else{
            // finish();
 		}
 	}
+
+    private void updateListView()
+    {
+        SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+        Map<String,?> keys = prefs.getAll();
+
+        menuListIndex = new Integer[keys.size()];
+        int i = 0;
+        for (Map.Entry<String, ?> entry : keys.entrySet()) {
+            menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
+        }
+
+        adapter.setData(createArrayForMenuList());
+        adapter.notifyDataSetChanged();
+    }
 	
 	/**
 	 * vytvoreni pole pro adapter menu listu

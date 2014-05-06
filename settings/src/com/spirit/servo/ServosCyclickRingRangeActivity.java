@@ -53,6 +53,12 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 			R.id.cyclic_ring_ail_ele,
 			R.id.cyclic_ring_pitch,
 		};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.cyclic_ring_ail_ele,
+            R.id.cyclic_ring_pitch,
+    };
 	
 	private int formItemsTitle[] = {
 			R.string.ail_ele,
@@ -94,17 +100,32 @@ public class ServosCyclickRingRangeActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu
+			if(!getAppBasicMode()) {
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu
+            }
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            ProgresEx progressEx = (ProgresEx) findViewById(item);
+            progressEx.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	@Override
 	public void onPause(){
 		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
+        if(!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
+        }
 	}
 	
 	private void initGui()

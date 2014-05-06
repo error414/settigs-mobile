@@ -52,6 +52,12 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 			R.id.rudder_limit_min,
 			R.id.rudder_limit_max,
 		};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.rudder_limit_min,
+            R.id.rudder_limit_max,
+    };
 	
 	private int formItemsTitle[] = {
 			R.string.min_max,
@@ -92,10 +98,22 @@ public class ServosRudderEndPointsActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            ProgresEx progressEx = (ProgresEx) findViewById(item);
+            progressEx.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	private void initGui()
 	{

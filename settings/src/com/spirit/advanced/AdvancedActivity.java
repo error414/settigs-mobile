@@ -22,7 +22,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +39,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
+
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -84,6 +90,38 @@ public class AdvancedActivity extends BaseActivity{
                 Intent i = new Intent(AdvancedActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
                 startActivity(i);
  
+            }
+        });
+
+        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
+
+                final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = prefs.edit();
+
+                new AlertDialog.Builder(AdvancedActivity.this)
+                        .setTitle(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ?  R.string.remove_from_favourites : R.string.add_to_favourites)
+                        .setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle())
+                        .setPositiveButton(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove : R.string.add, new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
+                                    editor.remove(String.valueOf(menuListIndex[position]));
+                                    Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    editor.putInt(String.valueOf(menuListIndex[position]), menuListIndex[position]);
+                                    Toast.makeText(getApplicationContext(), R.string.add_to_favourites_done, Toast.LENGTH_SHORT).show();
+                                }
+                                editor.commit();
+                            }
+
+                        })
+                        .setNegativeButton(R.string.no, null)
+                        .show();
+
+                return true;
             }
         });
     }

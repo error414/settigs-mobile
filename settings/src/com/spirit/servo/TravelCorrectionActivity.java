@@ -62,6 +62,16 @@ public class TravelCorrectionActivity extends BaseActivity{
         R.id.servo_travel_ch3_min,
     };
 
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.servo_travel_ch1_max,
+            R.id.servo_travel_ch2_max,
+            R.id.servo_travel_ch3_max,
+            R.id.servo_travel_ch1_min,
+            R.id.servo_travel_ch2_min,
+            R.id.servo_travel_ch3_min,
+    };
+
     private int formItemsTitle[] = {
             R.string.max,
             R.string.max,
@@ -115,10 +125,23 @@ public class TravelCorrectionActivity extends BaseActivity{
         stabiProvider =  DstabiProvider.getInstance(connectionHandler);
         if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
             ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-
-            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
+            if(!getAppBasicMode()) {
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
+            }
+            initBasicMode();
         }else{
             finish();
+        }
+    }
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            ProgresEx progressEx = (ProgresEx) findViewById(item);
+            progressEx.setEnabled(!getAppBasicMode());
         }
     }
 

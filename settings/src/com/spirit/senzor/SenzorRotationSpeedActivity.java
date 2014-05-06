@@ -53,7 +53,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 			R.id.x_pitch_rates,
 			R.id.z_yaw_rates,
 		};
-	
+
 	private int formItemsTitle[] = {
 			R.string.cyc_rate,
 			R.string.rud_rate,
@@ -89,20 +89,20 @@ public class SenzorRotationSpeedActivity extends BaseActivity{
 	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
-	public void onResume(){
-		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED)
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		else
-			finish();
+	public void onResume() {
+        super.onResume();
+        stabiProvider = DstabiProvider.getInstance(connectionHandler);
+        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+        }else {
+            finish();
+        }
 	}
-	
+
 	private void initGui()
 	{
 		for(int i = 0; i < formItems.length; i++){
 			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-
 			 tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
 		 }
 	}

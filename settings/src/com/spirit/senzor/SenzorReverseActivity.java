@@ -57,6 +57,13 @@ final private String TAG = "SenzorReverseActivity";
 			R.id.y_roll_reverse,
 			R.id.z_yaw_reverse,
 	};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.x_pitch_reverse,
+            R.id.y_roll_reverse,
+            R.id.z_yaw_reverse,
+    };
 	
 	private DstabiProvider stabiProvider;
 	
@@ -112,10 +119,22 @@ final private String TAG = "SenzorReverseActivity";
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            CheckBox checkbox = (CheckBox) findViewById(item);
+            checkbox.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	/**
 	  * naplneni formulare

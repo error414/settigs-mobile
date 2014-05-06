@@ -284,6 +284,20 @@
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>
 
+    <string name="favourites_button_text">Oblíbené</string>
+    <string name="add_to_favourites">Přidat do oblíbených</string>
+    <string name="remove_from_favourites">Odebrat z oblíbených</string>
+
+    <string name="add_to_favourites_done">Přidáno do oblíbených</string>
+    <string name="remove_from_favourites_done">Odebráno z oblbených</string>
+    <string name="add">přidat</string>
+    <string name="remove">odebrat</string>
+    <string name="no">zrušit</string>
+
     <string name="show_errors">Zobrazit chyby</string>
+
+    <string name="basic_mode">Bezpečný režim</string>
+    <string name="app_basic_mode_on">Basic mode ZAPNUT</string>
+    <string name="app_basic_mode_off">Basic mode VYPNUT</string>
 
 </resources>

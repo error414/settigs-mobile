@@ -74,6 +74,8 @@ public class ConnectionActivity extends BaseActivity{
 	final protected int PROFILE_LOAD = 1;
 	final protected int PROFILE_SAVE = 2;
 
+    final protected int APP_BASIC_MODE = 3;
+
     final protected int GROUP_ERROR = 4;
     final protected int PROFILE_ERROR = 1;
 
@@ -289,8 +291,15 @@ public class ConnectionActivity extends BaseActivity{
 				break;
 		}
 	}
-	
-	
+
+    public void setAppBasicMode(boolean state)
+    {
+        SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
+        settings.edit().putBoolean(PREF_BASIC_MODE, state).commit();
+
+        ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(state ? R.drawable.app_basic_mode_on : R.drawable.none);
+    }
+
 	/**
      * vytvoreni kontextoveho menu
      */
@@ -300,6 +309,7 @@ public class ConnectionActivity extends BaseActivity{
 	    super.onCreateOptionsMenu(menu);
 
         menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
+        menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
 
 	    SubMenu profile = menu.addSubMenu(R.string.profile);
 	    profile.add(GROUP_PROFILE, PROFILE_LOAD, Menu.NONE, R.string.load_profile);
@@ -319,10 +329,26 @@ public class ConnectionActivity extends BaseActivity{
         //zobrazeni chyb profilu
         if(item.getGroupId() == GROUP_ERROR && item.getItemId() == PROFILE_ERROR){
             String listString = "";
-            for (String error : this.profileCreator.getErrors()){
-                listString +=  error + "\n\n";
+
+            if(this.profileCreator.getErrors().size() > 0) {
+                for (String error : this.profileCreator.getErrors()) {
+                    listString += error + "\n\n";
+                }
+            }else{
+                listString = "No Errors";
             }
             this.showConfirmDialog(listString);
+        }
+
+        //preponani bezpecneh rezimu
+        if(item.getGroupId() == GROUP_GENERAL && item.getItemId() == APP_BASIC_MODE){
+            if(getAppBasicMode()){
+                Toast.makeText(getApplicationContext(), R.string.app_basic_mode_off, Toast.LENGTH_SHORT).show();
+                setAppBasicMode(false);
+            }else{
+                Toast.makeText(getApplicationContext(), R.string.app_basic_mode_on, Toast.LENGTH_SHORT).show();
+                setAppBasicMode(true);
+            }
         }
 
     	//nahrani / ulozeni profilu

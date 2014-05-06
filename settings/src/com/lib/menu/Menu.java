@@ -175,7 +175,7 @@ public class Menu {
         menuList.put(MENU_LOG,          new MenuItem(R.drawable.na,     R.string.log_button_text, LogActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_FAVOURITES, MENU_CONNECTION, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG});
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG});
 
 
 
@@ -282,7 +282,7 @@ public class Menu {
         menuList.put(MENU_ENDPOINTS,   new MenuItem(R.drawable.i13,     R.string.rudder_end_points_no_break, ServosRudderEndPointsActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SERVOLIMIT, new Integer[]{MENU_STABIFBMODE, MENU_STABIFBMODE});
+        menuGroups.put(MENU_INDEX_SERVOLIMIT, new Integer[]{MENU_CYCLICRING, MENU_ENDPOINTS});
 
     }
 

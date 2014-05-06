@@ -26,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
@@ -52,6 +53,11 @@ public class GeometryAngleActivity extends BaseActivity{
 	private int formItems[] = {
 			R.id.geom_6deg,
 		};
+
+    // gui prvky ktere jsou pri basic mode disablovane
+    private int formItemsNotInBasicMode[] = {
+            R.id.geom_6deg,
+    };
 	
 	private int formItemsTitle[] = {
 			R.string.geom_6deg_tune,
@@ -110,11 +116,26 @@ public class GeometryAngleActivity extends BaseActivity{
 		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni nastaveni geometrie
+            if(!getAppBasicMode()) {
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni nastaveni geometrie
+            }
+
+            initBasicMode();
 		}else{
 			finish();
 		}
 	}
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for(int item : formItemsNotInBasicMode){
+            ProgresEx progressEx = (ProgresEx) findViewById(item);
+            progressEx.setEnabled(!getAppBasicMode());
+        }
+    }
 	
 	private void initGui()
 	{
@@ -127,7 +148,9 @@ public class GeometryAngleActivity extends BaseActivity{
 	@Override
 	public void onPause(){
 		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
+        if(!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
+        }
 	}
 	
 	/**

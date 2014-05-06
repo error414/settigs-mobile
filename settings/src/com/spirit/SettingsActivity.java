@@ -19,23 +19,16 @@ package com.spirit;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -99,48 +92,6 @@ public class SettingsActivity extends BaseActivity {
                 startActivity(i);
             }
         });
-
-        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
-
-                    final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
-                    final SharedPreferences.Editor editor = prefs.edit();
-
-                    new AlertDialog.Builder(SettingsActivity.this)
-                            .setTitle("Favourites")
-                            .setMessage(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? "odebrat" : "pridat")
-                            .setPositiveButton("ano", new DialogInterface.OnClickListener() {
-
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
-                                        editor.remove(String.valueOf(menuListIndex[position]));
-                                        Toast.makeText(getApplicationContext(), "odebrano z oblibenych", Toast.LENGTH_SHORT).show();
-                                    } else {
-                                        editor.putInt(String.valueOf(menuListIndex[position]), menuListIndex[position]);
-                                        Toast.makeText(getApplicationContext(), "pridano do oblibenych", Toast.LENGTH_SHORT).show();
-                                    }
-                                    editor.commit();
-
-                                    Map<String,?> keys = prefs.getAll();
-
-                                    for (Map.Entry<String, ?> entry : keys.entrySet()) {
-                                        Log.d("map values", entry.getKey() + ": " +
-                                                entry.getValue().toString());
-                                    }
-
-
-                                }
-
-                            })
-                            .setNegativeButton("ne", null)
-                            .show();
-
-                    return true;
-                }
-            }
-        );
     }
 	
 	public void onResume(){

@@ -262,7 +262,19 @@
     <string name="max">Maximum</string>
 
     <string name="favourites_button_text">Favourites</string>
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+
+    <string name="add_to_favourites_done">item has been added</string>
+    <string name="remove_from_favourites_done">item was removed</string>
+    <string name="add">add</string>
+    <string name="remove">remove</string>
+    <string name="no">no</string>
 
     <string name="show_errors">Show profile errors</string>
+
+    <string name="basic_mode">Basic mode</string>
+    <string name="app_basic_mode_on">Basic mode ON</string>
+    <string name="app_basic_mode_off">Basic mode OFF</string>
 
 </resources>
