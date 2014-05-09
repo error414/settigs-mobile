@@ -134,7 +134,9 @@
     <string name="stabi_stick">Stick priority</string>
     <string name="stabi_fbmode">Flybar mechanic</string>
     <string name="stabi_fbmode_en">Enable</string>
-    
+    <string name="amplitude">Amplitude</string>
+	<string name="hz">[Hz]</string>
+
     <string name="signal_processing">Signal Processing</string>
 
     <string name="advance">Advance</string>
@@ -272,9 +274,11 @@
     <string name="no">no</string>
 
     <string name="show_errors">Show profile errors</string>
+    <string name="no_error">No errors</string>
 
     <string name="basic_mode">Basic mode</string>
+
     <string name="app_basic_mode_on">Basic mode ON</string>
     <string name="app_basic_mode_off">Basic mode OFF</string>
-
+    <string name="refresh_log">Refresh</string>
 </resources>

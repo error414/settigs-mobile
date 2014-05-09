@@ -37,245 +37,255 @@ import com.lib.DstabiProvider;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
-public class DiagnosticActivity extends BaseActivity{
+public class DiagnosticActivity extends BaseActivity
+{
+
 	final private String TAG = "DiagnosticActivity";
 
-    final private int PROFILE_CALL_BACK_CODE = 16;
+	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
 	final private int PROFILE_SAVE_CALL_BACK_CODE = 22;
-	
+
 	private DstabiProvider stabiProvider;
 
-    private DstabiProfile profileCreator;
+	private DstabiProfile profileCreator;
 
-    /**
-     * mrtva zona kterou ziskame z profilu
-     */
-    private int stickDB;
+	/**
+	 * mrtva zona kterou ziskame z profilu
+	 */
+	private int stickDB;
 
-    /**
-     * v jakem stavu je stabilizace, pokud je zapnuta tak se pro gyro vypisuji jine hodnoty
-     */
-    private int stabiMode;
+	/**
+	 * v jakem stavu je stabilizace, pokud je zapnuta tak se pro gyro vypisuji jine hodnoty
+	 */
+	private int stabiMode;
 
 	final private Handler delayHandle = new Handler();
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
+	public void onCreate(Bundle savedInstanceState)
 	{
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.diagnostic);
-        
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.diagnostic_button_text)));
-        
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		setContentView(R.layout.diagnostic);
 
-        initConfiguration();
-    }
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.diagnostic_button_text)));
 
-    /**
-     * prvotni konfigurace view
-     */
-    private void initConfiguration()
-    {
-        showDialogRead();
-        // ziskani konfigurace z jednotky
-        stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
-    }
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
-    /**
-     * zjistime ulozime si hodnotu mrtve zony
-     *
-     * @param profile
-     */
-    private void initByProfileString(byte[] profile){
-        profileCreator = new DstabiProfile(profile);
+		initConfiguration();
+	}
 
-        if(!profileCreator.isValid()){
-            errorInActivity(R.string.damage_profile);
-            return;
-        }
-        /* MTODO nazvy udelat v konstantach */
-        this.stickDB    = profileCreator.getProfileItemByName("STICK_DB").getValueInteger();
-        this.stabiMode  = profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger();
+	/**
+	 * prvotni konfigurace view
+	 */
+	private void initConfiguration()
+	{
+		showDialogRead();
+		// ziskani konfigurace z jednotky
+		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
+	}
 
-        //mame profil muzeme zazadat o data o pohybu kniplu
-        getPositionFromUnit();
-    }
-	
+	/**
+	 * zjistime ulozime si hodnotu mrtve zony
+	 *
+	 * @param profile
+	 */
+	private void initByProfileString(byte[] profile)
+	{
+		profileCreator = new DstabiProfile(profile);
+
+		if (!profileCreator.isValid()) {
+			errorInActivity(R.string.damage_profile);
+			return;
+		}
+	    /* MTODO nazvy udelat v konstantach */
+		this.stickDB = profileCreator.getProfileItemByName("STICK_DB").getValueInteger();
+		this.stabiMode = profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger();
+
+		//mame profil muzeme zazadat o data o pohybu kniplu
+		getPositionFromUnit();
+	}
+
 	/**
 	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
-	public void onResume(){
+	public void onResume()
+	{
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}else{
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+		} else {
 			finish();
 		}
 	}
-	
+
 	/**
 	 * ziskani informace o poloze kniplu z jednotky
 	 */
-	protected void getPositionFromUnit(){
-		delayHandle.postDelayed(new Runnable() {
-		  @Override
-		  public void run() {
-			  stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
-		  }
+	protected void getPositionFromUnit()
+	{
+		delayHandle.postDelayed(new Runnable()
+		{
+			@Override
+			public void run()
+			{
+				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+			}
 		}, 250); // 250ms
-		
+
 	}
-	
-	protected void updateGui(byte[] b){
-		
+
+	protected void updateGui(byte[] b)
+	{
+
 		//AILERON
 		int aileron = ByteOperation.twoByteToSigInt(b[0], b[1]);
-		int aileronPercent = Math.round((100 *aileron) / 340);
-		((ProgressBar)findViewById(R.id.aileron_progress_diagnostic)).setProgress(Math.round(aileronPercent + 100));
-		((TextView)findViewById(R.id.aileron_value_diagnostic)).setText(String.valueOf(aileronPercent));
+		int aileronPercent = Math.round((100 * aileron) / 340);
+		((ProgressBar) findViewById(R.id.aileron_progress_diagnostic)).setProgress(Math.round(aileronPercent + 100));
+		((TextView) findViewById(R.id.aileron_value_diagnostic)).setText(String.valueOf(aileronPercent));
 
-        if (Math.abs(aileron) > this.stickDB) {
-            ((TextView)findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.BOLD);
-        } else {
-            ((TextView)findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		if (Math.abs(aileron) > this.stickDB) {
+			((TextView) findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.BOLD);
+		} else {
+			((TextView) findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//ELEVATOR
 		int elevator = ByteOperation.twoByteToSigInt(b[2], b[3]);
-		int elevatorPercent = Math.round((100 * elevator) /  340);
-		((ProgressBar)findViewById(R.id.elevator_progress_diagnostic)).setProgress(Math.round(elevatorPercent + 100));
-		((TextView)findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent ));
+		int elevatorPercent = Math.round((100 * elevator) / 340);
+		((ProgressBar) findViewById(R.id.elevator_progress_diagnostic)).setProgress(Math.round(elevatorPercent + 100));
+		((TextView) findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent));
 
-        if (Math.abs(elevator) > this.stickDB) {
-            ((TextView)findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.BOLD);
-        } else {
-            ((TextView)findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		if (Math.abs(elevator) > this.stickDB) {
+			((TextView) findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.BOLD);
+		} else {
+			((TextView) findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//RUDDER
 		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
 		int rudderPercent = Math.round((100 * rudder) / 340);
-		((ProgressBar)findViewById(R.id.rudder_progress_diagnostic)).setProgress(Math.round(rudderPercent + 100));
-		((TextView)findViewById(R.id.rudder_value_diagnostic)).setText(String.valueOf(rudderPercent));
+		((ProgressBar) findViewById(R.id.rudder_progress_diagnostic)).setProgress(Math.round(rudderPercent + 100));
+		((TextView) findViewById(R.id.rudder_value_diagnostic)).setText(String.valueOf(rudderPercent));
 
-        if (Math.abs(rudder) > this.stickDB) {
-            ((TextView)findViewById(R.id.rudder_value_diagnostic)).setTypeface(null, Typeface.BOLD);
-        } else {
-            ((TextView)findViewById(R.id.rudder_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
-        }
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
+		if (Math.abs(rudder) > this.stickDB) {
+			((TextView) findViewById(R.id.rudder_value_diagnostic)).setTypeface(null, Typeface.BOLD);
+		} else {
+			((TextView) findViewById(R.id.rudder_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
+		}
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		//PITCH
 		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
 		int pitchPercent = Math.round((100 * pitch) / 340);
-		((ProgressBar)findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
-		((TextView)findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
+		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
+		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
 
 		//GYRO
-        int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
-        int gyroPercent = Math.round((100 * gyro) /  388);
+		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
+		int gyroPercent = Math.round((100 * gyro) / 388);
 
-        String mode = "";
-        if(this.stabiMode == 65 /* A z profilu */ && gyro < 0){
-            mode = " N";
-        }else{
-            mode = " HL";
-        }
+		String mode = "";
+		if (this.stabiMode == 65 /* A z profilu */ && gyro < 0) {
+			mode = " N";
+		} else {
+			mode = " HL";
+		}
 
-		((ProgressBar)findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
-		((TextView)findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
-        ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
+		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 		//SENZOR X Y Z
-		((TextView)findViewById(R.id.diagnostic_x)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[10], b[11])));
-		((TextView)findViewById(R.id.diagnostic_y)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[12], b[13])));
-		((TextView)findViewById(R.id.diagnostic_z)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[14], b[15])));
-		
+		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[10], b[11])));
+		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[12], b[13])));
+		((TextView) findViewById(R.id.diagnostic_z)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[14], b[15])));
+
 	}
-	
-	
-	
+
+
 	// The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
-		    @Override
-		    public boolean handleMessage(Message msg) {
-	        	switch(msg.what){
-		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-		        		Log.d(TAG, "Prisla chyba");
-		        		getPositionFromUnit();
-		        		
-		        		//sendInError();
-						break;
-					case DstabiProvider.MESSAGE_SEND_COMPLETE:
-						sendInSuccessInfo();
-						break;
-	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
-							sendInError();
+	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	{
+		@Override
+		public boolean handleMessage(Message msg)
+		{
+			switch (msg.what) {
+				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+					Log.d(TAG, "Prisla chyba");
+					getPositionFromUnit();
+
+					//sendInError();
+					break;
+				case DstabiProvider.MESSAGE_SEND_COMPLETE:
+					sendInSuccessInfo();
+					break;
+				case DstabiProvider.MESSAGE_STATE_CHANGE:
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						sendInError();
+					}
+					break;
+				case PROFILE_CALL_BACK_CODE:
+					if (msg.getData().containsKey("data")) {
+						initByProfileString(msg.getData().getByteArray("data"));
+						sendInSuccessDialog();
+					}
+				case DIAGNOSTIC_CALL_BACK_CODE:
+					if (msg.getData().containsKey("data")) {
+
+						if (msg.getData().getByteArray("data").length > 16) {
+							Log.d(TAG, "Odpoved delsi nez 16");
 						}
-						break;
-                    case PROFILE_CALL_BACK_CODE:
-                        if(msg.getData().containsKey("data")){
-                            initByProfileString(msg.getData().getByteArray("data"));
-                            sendInSuccessDialog();
-                        }
-	        		case DIAGNOSTIC_CALL_BACK_CODE:
-	        			if(msg.getData().containsKey("data")){
-	        				
-	        				if(msg.getData().getByteArray("data").length > 16){
-	        					Log.d(TAG, "Odpoved delsi nez 16");
-	        				}
-	        				
-	        				updateGui(msg.getData().getByteArray("data"));
-	        				
-	        				getPositionFromUnit();
-	        			}
-	        			break;
-	        		case PROFILE_SAVE_CALL_BACK_CODE:
-	        			sendInSuccessDialog();
-	        			showProfileSavedDialog();
-	        			break;
-	        	}
-	        	
-	        	return true;
-	        }
-	    });
+
+						updateGui(msg.getData().getByteArray("data"));
+
+						getPositionFromUnit();
+					}
+					break;
+				case PROFILE_SAVE_CALL_BACK_CODE:
+					sendInSuccessDialog();
+					showProfileSavedDialog();
+					break;
+			}
+
+			return true;
+		}
+	});
 
 	/**
-     * vytvoreni kontextoveho menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-	    super.onCreateOptionsMenu(menu);
-	    
-	    menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
-	    return true;
-    }
-    
-    /**
-     * reakce na kliknuti polozky v kontextovem menu
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
-    {
-    	 super.onOptionsItemSelected(item);
-    	//ulozit do jednotky
-    	if(item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU){
-    		saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-    	}
-    	return false;
-    }
-	
+	 * vytvoreni kontextoveho menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		super.onCreateOptionsMenu(menu);
+
+		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
+		return true;
+	}
+
+	/**
+	 * reakce na kliknuti polozky v kontextovem menu
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		super.onOptionsItemSelected(item);
+		//ulozit do jednotky
+		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
+			saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+		}
+		return false;
+	}
+
 }

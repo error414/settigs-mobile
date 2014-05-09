@@ -37,270 +37,253 @@ import com.spirit.BaseActivity;
 import com.spirit.R;
 
 
-public class TravelCorrectionActivity extends BaseActivity{
+public class TravelCorrectionActivity extends BaseActivity
+{
+
 	@SuppressWarnings("unused")
 	final private String TAG = "TravelCorrectionActivity";
 
-    final private int PROFILE_CALL_BACK_CODE = 16;
-    final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
+	final private int PROFILE_CALL_BACK_CODE = 16;
+	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 
-    private final String protocolCode[] = {
-            "TRAVEL_UAIL",
-            "TRAVEL_UELE",
-            "TRAVEL_UPIT",
-            "TRAVEL_DAIL",
-            "TRAVEL_DELE",
-            "TRAVEL_DPIT",
-    };
+	private final String protocolCode[] = {"TRAVEL_UAIL", "TRAVEL_UELE", "TRAVEL_UPIT", "TRAVEL_DAIL", "TRAVEL_DELE", "TRAVEL_DPIT",};
 
-    private int formItems[] = {
-        R.id.servo_travel_ch1_max,
-        R.id.servo_travel_ch2_max,
-        R.id.servo_travel_ch3_max,
-        R.id.servo_travel_ch1_min,
-        R.id.servo_travel_ch2_min,
-        R.id.servo_travel_ch3_min,
-    };
+	private int formItems[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
 
-    // gui prvky ktere jsou pri basic mode disablovane
-    private int formItemsNotInBasicMode[] = {
-            R.id.servo_travel_ch1_max,
-            R.id.servo_travel_ch2_max,
-            R.id.servo_travel_ch3_max,
-            R.id.servo_travel_ch1_min,
-            R.id.servo_travel_ch2_min,
-            R.id.servo_travel_ch3_min,
-    };
+	// gui prvky ktere jsou pri basic mode disablovane
+	private int formItemsNotInBasicMode[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
 
-    private int formItemsTitle[] = {
-            R.string.max,
-            R.string.max,
-            R.string.max,
-            R.string.min,
-            R.string.min,
-            R.string.min,
-    };
+	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
 
-    private DstabiProvider stabiProvider;
-    private DstabiProfile profileCreator;
+	private DstabiProvider stabiProvider;
+	private DstabiProfile profileCreator;
 
-    /**
-     * zavolani pri vytvoreni instance aktivity servos
-     */
-    @Override
-    public void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.servos_travel_correction);
+	/**
+	 * zavolani pri vytvoreni instance aktivity servos
+	 */
+	@Override
+	public void onCreate(Bundle savedInstanceState)
+	{
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		setContentView(R.layout.servos_travel_correction);
 
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(
-                TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction))
-        );
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction)));
 
-        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
-        initGui();
-        initConfiguration();
-        delegateListener();
-    }
+		initGui();
+		initConfiguration();
+		delegateListener();
+	}
 
-    /**
-     * prirazeni udalosti k prvkum
-     */
-    private void delegateListener(){
-        //nastaveni posluchacu pro formularove prvky
-        for(int i = 0; i < formItems.length; i++){
-            ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
-        }
-    }
+	/**
+	 * prirazeni udalosti k prvkum
+	 */
+	private void delegateListener()
+	{
+		//nastaveni posluchacu pro formularove prvky
+		for (int i = 0; i < formItems.length; i++) {
+			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+		}
+	}
 
-    /**
-     * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
-     */
-    @Override
-    public void onResume(){
-        super.onResume();
-        stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-        if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-            ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-            if(!getAppBasicMode()) {
-                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
-            }
-            initBasicMode();
-        }else{
-            finish();
-        }
-    }
+	/**
+	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 */
+	@Override
+	public void onResume()
+	{
+		super.onResume();
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+			if (!getAppBasicMode()) {
+				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
+			}
+			initBasicMode();
+		} else {
+			finish();
+		}
+	}
 
-    /**
-     * disablovani prvku v bezpecnem rezimu
-     */
-    protected void initBasicMode()
-    {
-        for(int item : formItemsNotInBasicMode){
-            ProgresEx progressEx = (ProgresEx) findViewById(item);
-            progressEx.setEnabled(!getAppBasicMode());
-        }
-    }
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int item : formItemsNotInBasicMode) {
+			ProgresEx progressEx = (ProgresEx) findViewById(item);
+			progressEx.setEnabled(!getAppBasicMode());
+		}
+	}
 
 
-    @Override
-    public void onPause(){
-        super.onPause();
-        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani ladeni
-    }
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani ladeni
+	}
 
-    @Override
-    public void onStop(){
-        super.onStop();
-    }
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+	}
 
-    private void initGui()
-    {
-        for(int i = 0; i < formItems.length; i++){
-            ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-            tempPicker.setTranslate(new ServoCorrectionProgressExTranslate());
-            tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
-        }
-    }
+	private void initGui()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			tempPicker.setTranslate(new ServoCorrectionProgressExTranslate());
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
+		}
+	}
 
-    /**
-     * prvotni konfigurace view
-     */
-    private void initConfiguration()
-    {
-        showDialogRead();
-        // ziskani konfigurace z jednotky
-        stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
-    }
+	/**
+	 * prvotni konfigurace view
+	 */
+	private void initConfiguration()
+	{
+		showDialogRead();
+		// ziskani konfigurace z jednotky
+		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
+	}
 
-    /**
-     * naplneni formulare
-     *
-     * @param profile
-     */
-    private void initGuiByProfileString(byte[] profile){
-        profileCreator = new DstabiProfile(profile);
+	/**
+	 * naplneni formulare
+	 *
+	 * @param profile
+	 */
+	private void initGuiByProfileString(byte[] profile)
+	{
+		profileCreator = new DstabiProfile(profile);
 
-        if(!profileCreator.isValid()){
-            errorInActivity(R.string.damage_profile);
-            return;
-        }
+		if (!profileCreator.isValid()) {
+			errorInActivity(R.string.damage_profile);
+			return;
+		}
 
-        for(int i = 0; i < formItems.length; i++){
-            ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-            int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
 
-            DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-            tempPicker.setCurrentNoNotify(size);
-        }
+			DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setCurrentNoNotify(size);
+		}
 
-    }
+	}
 
-    protected ProgresEx.OnChangedListener numberPicekrListener = new ProgresEx.OnChangedListener(){
-        @Override
-        public void onChanged(ProgresEx parent, int newVal) {
-            // prohledani jestli udalost vyvolal znamy prvek
-            // pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
-            for(int i = 0; i < formItems.length; i++){
-                if(parent.getId() == formItems[i]){
-                    showInfoBarWrite();
-                    DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-                    item.setValue(newVal);
-                    stabiProvider.sendDataNoWaitForResponce(item);
-                }
-            }
-        }
+	protected ProgresEx.OnChangedListener numberPicekrListener = new ProgresEx.OnChangedListener()
+	{
+		@Override
+		public void onChanged(ProgresEx parent, int newVal)
+		{
+			// prohledani jestli udalost vyvolal znamy prvek
+			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
+			for (int i = 0; i < formItems.length; i++) {
+				if (parent.getId() == formItems[i]) {
+					showInfoBarWrite();
+					DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+					item.setValue(newVal);
+					stabiProvider.sendDataNoWaitForResponce(item);
+				}
+			}
+		}
 
-    };
+	};
 
 
-    // The Handler that gets information back from the
-    private final Handler connectionHandler = new Handler(new Handler.Callback() {
-        @Override
-        public boolean handleMessage(Message msg) {
-            switch(msg.what){
-                case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-                    sendInError();
-                    break;
-                case DstabiProvider.MESSAGE_SEND_COMPLETE:
-                    sendInSuccessInfo();
-                    break;
-                case DstabiProvider.MESSAGE_STATE_CHANGE:
-                    if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
-                        sendInError();
-                    }
-                    break;
-                case PROFILE_CALL_BACK_CODE:
-                    if(msg.getData().containsKey("data")){
-                        initGuiByProfileString(msg.getData().getByteArray("data"));
-                        sendInSuccessDialog();
-                    }
-                    break;
-                case PROFILE_SAVE_CALL_BACK_CODE:
-                    sendInSuccessDialog();
-                    showProfileSavedDialog();
-                    break;
-            }
-            return true;
-        }
-    });
+	// The Handler that gets information back from the
+	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	{
+		@Override
+		public boolean handleMessage(Message msg)
+		{
+			switch (msg.what) {
+				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+					sendInError();
+					break;
+				case DstabiProvider.MESSAGE_SEND_COMPLETE:
+					sendInSuccessInfo();
+					break;
+				case DstabiProvider.MESSAGE_STATE_CHANGE:
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						sendInError();
+					}
+					break;
+				case PROFILE_CALL_BACK_CODE:
+					if (msg.getData().containsKey("data")) {
+						initGuiByProfileString(msg.getData().getByteArray("data"));
+						sendInSuccessDialog();
+					}
+					break;
+				case PROFILE_SAVE_CALL_BACK_CODE:
+					sendInSuccessDialog();
+					showProfileSavedDialog();
+					break;
+			}
+			return true;
+		}
+	});
 
-    /**
-     * vytvoreni kontextoveho menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        super.onCreateOptionsMenu(menu);
+	/**
+	 * vytvoreni kontextoveho menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		super.onCreateOptionsMenu(menu);
 
-        menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
-        return true;
-    }
+		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
+		return true;
+	}
 
-    /**
-     * reakce na kliknuti polozky v kontextovem menu
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        super.onOptionsItemSelected(item);
-        //ulozit do jednotky
-        if(item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU){
-            saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-        }
-        return false;
-    }
+	/**
+	 * reakce na kliknuti polozky v kontextovem menu
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		super.onOptionsItemSelected(item);
+		//ulozit do jednotky
+		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
+			saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+		}
+		return false;
+	}
 
-    /**
-     * trida nam prelozi cislo z velikosti stabiPitch na procenta
-     *
-     * z 63 -191 na -64 + 64
-     *
-     *
-     * @author petrcada
-     *
-     */
-    protected class ServoCorrectionProgressExTranslate implements ProgresExViewTranslateInterface {
+	/**
+	 * trida nam prelozi cislo z velikosti stabiPitch na procenta
+	 * <p/>
+	 * z 63 -191 na -64 + 64
+	 *
+	 * @author petrcada
+	 */
+	protected class ServoCorrectionProgressExTranslate implements ProgresExViewTranslateInterface
+	{
 
-        @Override
-        public String translateCurrent(int current) {
-            return String.valueOf(current - 127);
-        }
+		@Override
+		public String translateCurrent(int current)
+		{
+			return String.valueOf(current - 127);
+		}
 
-        @Override
-        public String translateMin(int min) {
-            return String.valueOf(min - 127);
-        }
+		@Override
+		public String translateMin(int min)
+		{
+			return String.valueOf(min - 127);
+		}
 
-        @Override
-        public String translateMax(int max) {
-            return String.valueOf(max - 127);
-        }
+		@Override
+		public String translateMax(int max)
+		{
+			return String.valueOf(max - 127);
+		}
 
-    }
-	
+	}
+
 }

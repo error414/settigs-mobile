@@ -280,6 +280,9 @@
     <string name="graph_change_axis">Osa změněna na </string>
     <string name="spirit_not_found">Spirit nebyl nalezen</string>
     <string name="vibration_level">Velikost vibrací:</string>
+	<string name="amplitude">Aplituda</string>
+	<string name="hz">[Hz]</string>
+
 
     <string name="min">Minimum</string>
     <string name="max">Maximum</string>
@@ -295,9 +298,10 @@
     <string name="no">zrušit</string>
 
     <string name="show_errors">Zobrazit chyby</string>
+    <string name="no_error">Žádné chyby</string>
 
     <string name="basic_mode">Bezpečný režim</string>
     <string name="app_basic_mode_on">Basic mode ZAPNUT</string>
     <string name="app_basic_mode_off">Basic mode VYPNUT</string>
-
+	<string name="refresh_log">Obnovit</string>
 </resources>

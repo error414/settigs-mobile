@@ -48,7 +48,10 @@
 	         android:id="@+id/logList"
 	         android:layout_width="fill_parent"
 	         android:layout_height="wrap_content"
-	         android:divider="#00000000" >
+	         android:divider="#00000000"
+	         android:stackFromBottom="true"
+	         android:transcriptMode="alwaysScroll"
+		     >
 
 	     </ListView>
 	     

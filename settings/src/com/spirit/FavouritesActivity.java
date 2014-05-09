@@ -27,7 +27,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -48,161 +47,167 @@ import java.util.Map;
 
 /**
  * aktivita pro hlavni obrazku
- * 
- * @author error414
  *
+ * @author error414
  */
-public class FavouritesActivity extends BaseActivity {
+public class FavouritesActivity extends BaseActivity
+{
+
 	@SuppressWarnings("unused")
 	final private String TAG = "FavouritesActivity";
-	
+
 	private DstabiProvider stabiProvider;
 
-    /**
-     * seznam polozek pro menu
-     */
-    protected Integer[] menuListIndex;
+	/**
+	 * seznam polozek pro menu
+	 */
+	protected Integer[] menuListIndex;
 
-    private MenuListAdapter adapter;
+	private MenuListAdapter adapter;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
+	public void onCreate(Bundle savedInstanceState)
 	{
-        super.onCreate(savedInstanceState);
-        
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.favourites);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
-		
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
+		super.onCreate(savedInstanceState);
 
-        //naplnime seznam polozek pro menu
-        SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
-        Map<String,?> keys = prefs.getAll();
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		setContentView(R.layout.favourites);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
 
-        menuListIndex = new Integer[keys.size()];
-        int i = 0;
-        for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
-        }
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+
+		//naplnime seznam polozek pro menu
+		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+		Map<String, ?> keys = prefs.getAll();
+
+		menuListIndex = new Integer[keys.size()];
+		int i = 0;
+		for (Map.Entry<String, ?> entry : keys.entrySet()) {
+			menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
+		}
 
 		////////////////////////////////////////////////////////////////////////
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
 		adapter = new MenuListAdapter(this, createArrayForMenuList());
 		menuList.setAdapter(adapter);
 
-		menuList.setOnItemClickListener(new OnItemClickListener() {
-			 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
-                    Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
-                    return ;
-                }
+		menuList.setOnItemClickListener(new OnItemClickListener()
+		{
 
-                Intent i = new Intent(FavouritesActivity.this,  Menu.getInstance().getItem(menuListIndex[position]).getActivity());
-                startActivity(i);
-            }
-        });
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+					return;
+				}
 
-        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id) {
+				Intent i = new Intent(FavouritesActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+				startActivity(i);
+			}
+		});
 
-                final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
-                final SharedPreferences.Editor editor = prefs.edit();
+		menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+		{
+			@Override
+			public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
+			{
 
-                if(prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
-                    new AlertDialog.Builder(FavouritesActivity.this)
-                            .setTitle(R.string.remove_from_favourites)
-                            .setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle())
-                            .setPositiveButton(R.string.remove, new DialogInterface.OnClickListener() {
+				final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+				final SharedPreferences.Editor editor = prefs.edit();
 
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    editor.remove(String.valueOf(menuListIndex[position]));
-                                    Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
-                                    editor.commit();
+				if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
+					new AlertDialog.Builder(FavouritesActivity.this).setTitle(R.string.remove_from_favourites).setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle()).setPositiveButton(R.string.remove, new DialogInterface.OnClickListener()
+					{
 
-                                    updateListView();
-                                }
+						@Override
+						public void onClick(DialogInterface dialog, int which)
+						{
+							editor.remove(String.valueOf(menuListIndex[position]));
+							Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
+							editor.commit();
 
-                            })
-                            .setNegativeButton(R.string.no, null)
-                            .show();
-                }
+							updateListView();
+						}
 
-                return true;
-            }
-        });
-    }
-	
-	public void onResume(){
+					}).setNegativeButton(R.string.no, null).show();
+				}
+
+				return true;
+			}
+		});
+	}
+
+	public void onResume()
+	{
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-            updateListView();
-		}else{
-           // finish();
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+			updateListView();
+		} else {
+			// finish();
 		}
 	}
 
-    private void updateListView()
-    {
-        SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
-        Map<String,?> keys = prefs.getAll();
+	private void updateListView()
+	{
+		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+		Map<String, ?> keys = prefs.getAll();
 
-        menuListIndex = new Integer[keys.size()];
-        int i = 0;
-        for (Map.Entry<String, ?> entry : keys.entrySet()) {
-            menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
-        }
+		menuListIndex = new Integer[keys.size()];
+		int i = 0;
+		for (Map.Entry<String, ?> entry : keys.entrySet()) {
+			menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
+		}
 
-        adapter.setData(createArrayForMenuList());
-        adapter.notifyDataSetChanged();
-    }
-	
+		adapter.setData(createArrayForMenuList());
+		adapter.notifyDataSetChanged();
+	}
+
 	/**
 	 * vytvoreni pole pro adapter menu listu
-	 * 
+	 * <p/>
 	 * tohle se bude vytvaret dynamicky z pole
-	 * 
+	 *
 	 * @return
 	 */
 	@SuppressLint("UseSparseArrays")
-	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList(){
+	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList()
+	{
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
 
-        // vytvorime pole pro adapter
-        for(Integer key : menuListIndex){
-            HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
-            item.put(Menu.TITLE_FOR_MENU,  Menu.getInstance().getItem(key).getTitle());
-            item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
-            menuListData.add(item);
-        }
+		// vytvorime pole pro adapter
+		for (Integer key : menuListIndex) {
+			HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+			item.put(Menu.TITLE_FOR_MENU, Menu.getInstance().getItem(key).getTitle());
+			item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+			menuListData.add(item);
+		}
 
 		return menuListData;
 	}
-	
- // The Handler that gets information back from the
- 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
-	 	    @Override
-	 	    public boolean handleMessage(Message msg) {
- 	        	switch(msg.what){
- 	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
- 						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
- 							//sendInError();
- 						}else{
- 							((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
- 						}
- 						break;
- 	        	}
- 	        	return true;
- 	        }
- 	    });
+
+	// The Handler that gets information back from the
+	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	{
+		@Override
+		public boolean handleMessage(Message msg)
+		{
+			switch (msg.what) {
+				case DstabiProvider.MESSAGE_STATE_CHANGE:
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						//sendInError();
+					} else {
+						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+					}
+					break;
+			}
+			return true;
+		}
+	});
 }

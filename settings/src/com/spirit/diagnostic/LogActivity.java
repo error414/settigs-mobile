@@ -45,269 +45,278 @@ import com.spirit.BaseActivity;
 import com.spirit.R;
 
 @SuppressLint("SdCardPath")
-public class LogActivity extends BaseActivity{
+public class LogActivity extends BaseActivity
+{
+
 	final private String TAG = "LogActivity";
-	
+
 	//provider pro pripojeni k zarizeni ////////////////
 	private DstabiProvider stabiProvider;
 	////////////////////////////////////////////////////
-	
+
 	//KODY PRO CALLBACKY //////////////////////////////
 	final private int LOG_CALL_BACK_CODE = 20;
-	
-	public static Integer TITLE_FOR_LOG 		= 4;  
-	public static Integer ICO_RESOURCE_LOG 		= 5;  
-	public static Integer POSITION 				= 6;  
-	
+
+	public static Integer TITLE_FOR_LOG = 4;
+	public static Integer ICO_RESOURCE_LOG = 5;
+	public static Integer POSITION = 6;
+
 	////////////////////////////////////////////////////
-	final static Integer LOG_EVENT_OK 		= 0x0;
-	final static Integer LOG_EVENT_CAL 		= 0x1;
-	final static Integer LOG_EVENT_CYCRING 	= 0x2;
-	final static Integer LOG_EVENT_RUDLIM 	= 0x4;
-	final static Integer LOG_EVENT_VIBES 	= 0x8;
-	final static Integer LOG_EVENT_HANG 	= 0x10;
-	final static Integer LOG_EVENT_RXLOSS 	= 0x20;
+	final static Integer LOG_EVENT_OK = 0x0;
+	final static Integer LOG_EVENT_CAL = 0x1;
+	final static Integer LOG_EVENT_CYCRING = 0x2;
+	final static Integer LOG_EVENT_RUDLIM = 0x4;
+	final static Integer LOG_EVENT_VIBES = 0x8;
+	final static Integer LOG_EVENT_HANG = 0x10;
+	final static Integer LOG_EVENT_RXLOSS = 0x20;
 	////////////////////////////////////////////////////
-	
-	final protected int GROUP_LOG = 4;  
-	final protected int LOG_SAVE  = 1;
-	
+
+	final protected int GROUP_LOG = 4;
+	final protected int LOG_SAVE = 1;
+	final protected int LOG_REFRESH = 2;
+
 	final protected int REQUEST_SAVE = 1;
 
 	final static String FILE_LOG_EXT = "pdf";
-	
+
 	final static protected String DEFAULT_LOG_PATH = "/sdcard/";
-	
+
 	private ListView menuList;
-	
+
 	private ArrayList<HashMap<Integer, Integer>> logListData;
-	
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
+	public void onCreate(Bundle savedInstanceState)
 	{
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.log);
-        
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle() , " \u2192 " , getString(R.string.log_button_text)));
-        
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		
+		super.onCreate(savedInstanceState);
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		setContentView(R.layout.log);
+
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.log_button_text)));
+
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+
 		menuList = (ListView) findViewById(R.id.logList);
 		LogListAdapter adapter = new LogListAdapter(this, new ArrayList<HashMap<Integer, Integer>>());
 		menuList.setAdapter(adapter);
-		
 		initConfiguration();
-    }
-	
+	}
+
 	/**
-	 * 
+	 *
 	 */
-	protected  void initConfiguration() {
+	protected void initConfiguration()
+	{
 		showDialogRead();
-		 // ziskani konfigurace z jednotky
+		// ziskani konfigurace z jednotky
 		stabiProvider.getLog(LOG_CALL_BACK_CODE);
 	}
-	
+
 	/**
 	 * nacteni dat z jednotky log
-	 * 
+	 *
 	 * @param log
 	 */
 	@SuppressLint("UseSparseArrays")
-	protected void updateGuiByLog(byte[] log){
+	protected void updateGuiByLog(byte[] log)
+	{
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
-		
-		for(int i = 1 ; i < log.length; i++){
-			if(log[i] == LOG_EVENT_OK){
+
+		for (int i = 1; i < log.length; i++) {
+			if (log[i] == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_ok);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_ok);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_ok);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
-			if ((log[i] & LOG_EVENT_CAL) != 0){
+
+			if ((log[i] & LOG_EVENT_CAL) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_cal);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_info);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_cal);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
-			if ((log[i] & LOG_EVENT_CYCRING) != 0){
+
+			if ((log[i] & LOG_EVENT_CYCRING) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_cycring);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_info);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_cycring);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
-			if ((log[i] & LOG_EVENT_RUDLIM) != 0){
+
+			if ((log[i] & LOG_EVENT_RUDLIM) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_rudlim);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_info);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_rudlim);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
-			if ((log[i] & LOG_EVENT_VIBES) != 0){
+
+			if ((log[i] & LOG_EVENT_VIBES) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_vibes);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_warn);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_vibes);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
-			if ((log[i] & LOG_EVENT_HANG) != 0){
+
+			if ((log[i] & LOG_EVENT_HANG) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_hang);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_warn2);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_hang);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
-			if ((log[i] & LOG_EVENT_RXLOSS) != 0){
+
+			if ((log[i] & LOG_EVENT_RXLOSS) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, 		R.string.log_event_rxloss);
-				row.put(ICO_RESOURCE_LOG,	R.drawable.ic_warn2);
-				row.put(POSITION,			i);
+				row.put(TITLE_FOR_LOG, R.string.log_event_rxloss);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				row.put(POSITION, i);
 				logListData.add(row);
 			}
 		}
-		
+
 		LogListAdapter adapter = new LogListAdapter(this, logListData);
 		menuList.setAdapter(adapter);
 		menuList.invalidate();
 	}
-	
+
 	/**
 	 * stopnuti aktovity, posle pozadavek na ukonceni streamu
 	 */
 	@Override
-    public void onStop() 
+	public void onStop()
 	{
-        super.onStop();
-    }
-	
+		super.onStop();
+	}
+
 	/**
 	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
-	public void onResume(){
+	public void onResume()
+	{
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}else{
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+		} else {
 			finish();
 		}
 	}
-	
-	 // The Handler that gets information back from the 
-	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
-		    @Override
-		    public boolean handleMessage(Message msg) {
-	        	//Log.d(TAG, "prisla zprava");
-	        	switch(msg.what){
-		        	case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-		        		sendInError();
-						break;
-					case DstabiProvider.MESSAGE_SEND_COMPLETE:
-						sendInSuccessInfo();
-						break;
-	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
-							sendInError();
+
+	// The Handler that gets information back from the
+	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	{
+		@Override
+		public boolean handleMessage(Message msg)
+		{
+			//Log.d(TAG, "prisla zprava");
+			switch (msg.what) {
+				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+					sendInError();
+					break;
+				case DstabiProvider.MESSAGE_SEND_COMPLETE:
+					sendInSuccessInfo();
+					break;
+				case DstabiProvider.MESSAGE_STATE_CHANGE:
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						sendInError();
+					}
+					break;
+				case LOG_CALL_BACK_CODE:
+					sendInSuccessDialog();
+					if (msg.getData().containsKey("data")) {
+						updateGuiByLog(msg.getData().getByteArray("data"));
+					}
+					break;
+			}
+			return true;
+		}
+	});
+
+	/**
+	 * vytvoreni kontextoveho menu
+	 */
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu)
+	{
+		super.onCreateOptionsMenu(menu);
+		menu.add(GROUP_LOG, LOG_SAVE, Menu.NONE, R.string.save_log);
+		menu.add(GROUP_LOG, LOG_REFRESH, Menu.NONE, R.string.refresh_log);
+		return true;
+	}
+
+	/**
+	 * reakce na kliknuti polozky v kontextovem menu
+	 */
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		super.onOptionsItemSelected(item);
+		//nahrani / ulozeni profilu
+		if (item.getGroupId() == GROUP_LOG && item.getItemId() == LOG_SAVE) {
+			// musime byt pripojeni k zarizeni
+			if (logListData == null) {
+				Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+				return false;
+			}
+
+			Intent intent = new Intent(getBaseContext(), FileDialog.class);
+			intent.putExtra(FileDialog.START_PATH, DEFAULT_LOG_PATH);
+			intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
+			intent.putExtra(FileDialog.FORMAT_FILTER, new String[]{FILE_LOG_EXT});
+
+			if (item.getItemId() == LOG_SAVE) {
+				Log.d(TAG, "ID");
+				intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_CREATE);
+				startActivityForResult(intent, REQUEST_SAVE);
+				return true;
+			}
+		}else if(item.getGroupId() == GROUP_LOG && item.getItemId() == LOG_REFRESH){
+			initConfiguration();
+		}
+		return false;
+	}
+
+	/**
+	 * zachytavani vysledku z aktivit
+	 */
+	public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data)
+	{
+		switch (requestCode) {
+			case REQUEST_SAVE:
+				if (resultCode == Activity.RESULT_OK) {
+					if (requestCode == REQUEST_SAVE) {
+						if (logListData == null) {
+							Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+							return;
 						}
-						break;
-	        		case LOG_CALL_BACK_CODE:
-	        			sendInSuccessDialog();
-	        			if(msg.getData().containsKey("data")){
-	        				updateGuiByLog(msg.getData().getByteArray("data"));
-	        			}
-	        			break;
-	        	}
-	        	return true;
-	        }
-	    });
-	    
-    /**
-     * vytvoreni kontextoveho menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-	    super.onCreateOptionsMenu(menu);
-	    menu.add(GROUP_LOG, LOG_SAVE, Menu.NONE, R.string.save_log);
-	    return true;
-    }
-    
-    /**
-     * reakce na kliknuti polozky v kontextovem menu
-     */
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) 
-    {
-    	super.onOptionsItemSelected(item); 
-    	//nahrani / ulozeni profilu
-    	if(item.getGroupId() == GROUP_LOG){
-    		// musime byt pripojeni k zarizeni
-    		if(logListData == null){
-        		Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
-        		return false;
-        	}
-    		
-    		Intent intent = new Intent(getBaseContext(), FileDialog.class);
-            intent.putExtra(FileDialog.START_PATH, DEFAULT_LOG_PATH);
-            intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
-            intent.putExtra(FileDialog.FORMAT_FILTER, new String[] { FILE_LOG_EXT });
-            
-            if(item.getItemId() == LOG_SAVE){
-            	Log.d(TAG, "ID");
-            	intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_CREATE);
-            	startActivityForResult(intent, REQUEST_SAVE);
-            	return true;
-            }
-    	}
-    	return false;
-    }
-    
-    /**
-     * zachytavani vysledku z aktivit
-     * 
-     */
-    public synchronized void onActivityResult(final int requestCode,
-        int resultCode, final Intent data) {
-    	switch (requestCode) {
-    		case REQUEST_SAVE:
-		        if (resultCode == Activity.RESULT_OK) {
-		        	if (requestCode == REQUEST_SAVE) {
-		        		if(logListData == null){
-		            		Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
-		            		return;
-		            	}
-		        		
-		        		String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
-		        		
-		        		if(!filePath.endsWith(FILE_LOG_EXT)){ // konci nazev souboru na string .pdf, pokud ano nepridavame priponu
-		        			filePath += "." + FILE_LOG_EXT;
-		    			}
-		        		
+
+						String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
+
+						if (!filePath.endsWith(FILE_LOG_EXT)) { // konci nazev souboru na string .pdf, pokud ano nepridavame priponu
+							filePath += "." + FILE_LOG_EXT;
+						}
+
 						LogPdf log = new LogPdf(this, logListData);
 						log.create(filePath);
 
-	                }
-		        } else if (resultCode == Activity.RESULT_CANCELED) {
-		        	// zruzeni vybirani souboru
-		        }
-		        break;
-    	}
-    }
-    
+					}
+				} else if (resultCode == Activity.RESULT_CANCELED) {
+					// zruzeni vybirani souboru
+				}
+				break;
+		}
+	}
+
 }
 	

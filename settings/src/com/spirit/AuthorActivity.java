@@ -26,57 +26,59 @@ import android.widget.TextView;
 
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-import com.spirit.R;
 
-public class AuthorActivity extends BaseActivity{
+public class AuthorActivity extends BaseActivity
+{
 
 	@SuppressWarnings("unused")
 	final private String TAG = "AuthorActivity";
-	
+
 	private DstabiProvider stabiProvider;
-	
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
 	@Override
-    public void onCreate(Bundle savedInstanceState) 
+	public void onCreate(Bundle savedInstanceState)
 	{
-        super.onCreate(savedInstanceState);
-        
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        setContentView(R.layout.author);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView)findViewById(R.id.title)).setText(getText(R.string.full_app_name));
-		
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-    }
-	
-	public void onResume(){
+		super.onCreate(savedInstanceState);
+
+		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+		setContentView(R.layout.author);
+		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
+
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+	}
+
+	public void onResume()
+	{
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}else{
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+		} else {
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
 	}
-	
-	// The Handler that gets information back from the 
-	 	 private final Handler connectionHandler = new Handler(new Handler.Callback() {
-			    @Override
-			    public boolean handleMessage(Message msg) {
-	 	        	switch(msg.what){
-	 	        		case DstabiProvider.MESSAGE_STATE_CHANGE:
-	 						if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
-	 							((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
-	 						}else{
-	 							((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-	 						}
-	 						break;
-	 	        	}
-	 	        	
-	 	        	return true;
-	 	        }
-	 	    });
-	
+
+	// The Handler that gets information back from the
+	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	{
+		@Override
+		public boolean handleMessage(Message msg)
+		{
+			switch (msg.what) {
+				case DstabiProvider.MESSAGE_STATE_CHANGE:
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+					} else {
+						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+					}
+					break;
+			}
+
+			return true;
+		}
+	});
 }
