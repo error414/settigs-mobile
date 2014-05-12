@@ -60,7 +60,7 @@ public class DstabiProfile {
 		//profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
         profileMap.put("SIGNAL_PROCESSING",	new ProfileItem(4, "0", "1", "7")); // rozsirene zpracovani signalu
 
-		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "D", 	"R"));
+		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "E", 	"R"));
 		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C"));
 
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST"));
