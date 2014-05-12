@@ -230,9 +230,10 @@ public class DiagnosticActivity extends BaseActivity
 					getPositionFromUnit();
 				}
 				break;
+			default:
+				super.handleMessage(msg);
 		}
 
-		super.handleMessage(msg);
 		return true;
 	}
 }

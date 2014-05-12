@@ -163,9 +163,10 @@ public class StabiFbModeActivity extends BaseActivity
 					sendInSuccessDialog();
 				}
 				break;
+			default:
+				super.handleMessage(msg);
 		}
 
-		super.handleMessage(msg);
 		return true;
 	}
 }

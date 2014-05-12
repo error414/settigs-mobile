@@ -323,9 +323,10 @@ public class GraphActivity extends BaseActivity
 					}
 				}
 				break;
+			default:
+				super.handleMessage(msg);
 		}
 
-		super.handleMessage(msg);
 		return true;
 	}
 

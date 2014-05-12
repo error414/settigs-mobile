@@ -215,9 +215,10 @@ public class LogActivity extends BaseActivity
 					updateGuiByLog(msg.getData().getByteArray("data"));
 				}
 				break;
+			default:
+				super.handleMessage(msg);
 		}
 
-		super.handleMessage(msg);
 		return true;
 	}
 

@@ -178,8 +178,9 @@ public class StabiFunctionActivity extends BaseActivity
 					sendInSuccessDialog();
 				}
 				break;
+			default:
+				super.handleMessage(msg);
 		}
-		super.handleMessage(msg);
 		return true;
 	}
 }
