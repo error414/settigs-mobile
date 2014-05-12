@@ -66,7 +66,7 @@ public class DstabiProvider {
 	
 	final protected String GET_PROFILE = "G";
 	final protected String GET_STICKED_AND_SENZORS_VALUE = "D";
-	final protected String SAVE_PROFILE = "g";
+	final public String SAVE_PROFILE = "g";
 	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
@@ -151,7 +151,6 @@ public class DstabiProvider {
 	/**
 	 * zprava pro odpojeni device
 	 * 
-	 * @param device
 	 */
 	public void disconnect() {
 		BTservice.cancel();
@@ -243,7 +242,6 @@ public class DstabiProvider {
 	/**
 	 * ziska informace pro graf z jednotky
 	 * 
-	 * @param comand
 	 * @param callBack
 	 */
 	public void getGraph(int callBack){
@@ -260,8 +258,6 @@ public class DstabiProvider {
 	/**
 	 * ziska informace pro graf z jednotky
 	 * 
-	 * @param comand
-	 * @param callBack
 	 */
 	public void stopGraph(){
 		if(mode == GRAPH){
@@ -296,7 +292,6 @@ public class DstabiProvider {
 	 * odelsani dat do zarizeni
 	 * 
 	 * @param command
-	 * @param data
 	 */
 	private void sendData(String command){
 		Log.d(TAG, "pozadavek na odeslani pozadavku do zarizeni cmd");

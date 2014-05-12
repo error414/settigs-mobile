@@ -27,7 +27,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
@@ -41,9 +40,7 @@ import android.widget.Toast;
 
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
-import com.lib.menu.MenuItem;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
@@ -52,8 +49,6 @@ public class SenzorActivity extends BaseActivity
 
 	@SuppressWarnings("unused")
 	final private String TAG = "SenzorActivity";
-
-	private DstabiProvider stabiProvider;
 
 	/**
 	 * seznam polozek pro menu
@@ -72,8 +67,6 @@ public class SenzorActivity extends BaseActivity
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text)));
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
 		//naplnime seznam polozek pro menu
 		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SENZOR);
@@ -131,7 +124,6 @@ public class SenzorActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
@@ -161,24 +153,15 @@ public class SenzorActivity extends BaseActivity
 		return menuListData;
 	}
 
-
-	// The Handler that gets information back from the 
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	/**
+	 * obsluha callbacku
+	 *
+	 * @param msg
+	 * @return
+	 */
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError();
-						finish();
-					} else {
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-					}
-					break;
-			}
-			return true;
-		}
-	});
+		super.handleMessage(msg);
+		return true;
+	}
 }

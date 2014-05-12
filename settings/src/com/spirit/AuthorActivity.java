@@ -33,8 +33,6 @@ public class AuthorActivity extends BaseActivity
 	@SuppressWarnings("unused")
 	final private String TAG = "AuthorActivity";
 
-	private DstabiProvider stabiProvider;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
@@ -47,14 +45,11 @@ public class AuthorActivity extends BaseActivity
 		setContentView(R.layout.author);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 	}
 
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
@@ -63,22 +58,20 @@ public class AuthorActivity extends BaseActivity
 	}
 
 	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
-					} else {
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-					}
-					break;
-			}
-
-			return true;
+		switch (msg.what) {
+			case DstabiProvider.MESSAGE_STATE_CHANGE:
+				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					sendInError(false);
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+				} else {
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+				}
+				break;
+			default:
+				super.handleMessage(msg);
 		}
-	});
+		return true;
+	}
 }

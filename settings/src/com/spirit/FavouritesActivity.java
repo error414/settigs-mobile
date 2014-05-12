@@ -56,8 +56,6 @@ public class FavouritesActivity extends BaseActivity
 	@SuppressWarnings("unused")
 	final private String TAG = "FavouritesActivity";
 
-	private DstabiProvider stabiProvider;
-
 	/**
 	 * seznam polozek pro menu
 	 */
@@ -77,8 +75,6 @@ public class FavouritesActivity extends BaseActivity
 		setContentView(R.layout.favourites);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
 		//naplnime seznam polozek pro menu
 		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
@@ -145,12 +141,9 @@ public class FavouritesActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 			updateListView();
-		} else {
-			// finish();
 		}
 	}
 
@@ -192,22 +185,20 @@ public class FavouritesActivity extends BaseActivity
 		return menuListData;
 	}
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						//sendInError();
-					} else {
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-					}
-					break;
-			}
-			return true;
+		switch (msg.what) {
+			case DstabiProvider.MESSAGE_STATE_CHANGE:
+				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					sendInError(false);
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+				} else {
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+				}
+				break;
+			default:
+				super.handleMessage(msg);
 		}
-	});
+		return true;
+	}
 }

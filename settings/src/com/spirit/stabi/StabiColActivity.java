@@ -45,15 +45,12 @@ public class StabiColActivity extends BaseActivity
 	final private String TAG = "SenzorActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
-	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 
 	private final String protocolCode[] = {"STABI_COL",};
 
 	private int formItems[] = {R.id.stabi_pitch,};
 
 	private int formItemsTitle[] = {R.string.stabi_col,};
-
-	private DstabiProvider stabiProvider;
 
 	private DstabiProfile profileCreator;
 
@@ -70,8 +67,6 @@ public class StabiColActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_col)));
 
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
-
 		initGui();
 		initConfiguration();
 		delegateListener();
@@ -84,7 +79,6 @@ public class StabiColActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED)
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		else finish();
@@ -174,63 +168,18 @@ public class StabiColActivity extends BaseActivity
 	};
 
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-					sendInError();
-					break;
-				case DstabiProvider.MESSAGE_SEND_COMPLETE:
-					sendInSuccessInfo();
-					break;
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError();
-					}
-					break;
-				case PROFILE_CALL_BACK_CODE:
-					if (msg.getData().containsKey("data")) {
-						initGuiByProfileString(msg.getData().getByteArray("data"));
-						sendInSuccessDialog();
-					}
-					break;
-				case PROFILE_SAVE_CALL_BACK_CODE:
+		switch (msg.what) {
+			case PROFILE_CALL_BACK_CODE:
+				if (msg.getData().containsKey("data")) {
+					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
-					showProfileSavedDialog();
-					break;
-			}
-			return true;
+				}
+				break;
 		}
-	});
-
-	/**
-	 * vytvoreni kontextoveho menu
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		super.onCreateOptionsMenu(menu);
-
-		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
+		super.handleMessage(msg);
 		return true;
-	}
-
-	/**
-	 * reakce na kliknuti polozky v kontextovem menu
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		super.onOptionsItemSelected(item);
-		//ulozit do jednotky
-		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
-			saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-		}
-		return false;
 	}
 
 	/**

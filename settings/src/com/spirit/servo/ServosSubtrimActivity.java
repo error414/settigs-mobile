@@ -23,17 +23,12 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
 import com.spirit.R;
 import com.spirit.BaseActivity;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,7 +40,6 @@ public class ServosSubtrimActivity extends BaseActivity
 	final private String TAG = "ServosSubtrimActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
-	final private int PROFILE_SAVE_CALL_BACK_CODE = 17;
 
 	private final String protocolCode[] = {"SUBTRIM_AIL", "SUBTRIM_ELE", "SUBTRIM_PIT", "SUBTRIM_RUD",};
 
@@ -55,8 +49,6 @@ public class ServosSubtrimActivity extends BaseActivity
 	private int formItemsNotInBasicMode[] = {R.id.aileron_picker, R.id.elevator_picker, R.id.pitch_picker, R.id.rudder_picker,};
 
 	private int formItemsTitle[] = {R.string.aileron, R.string.elevator, R.string.pitch, R.string.rudder,};
-
-	private DstabiProvider stabiProvider;
 
 	private DstabiProfile profileCreator;
 
@@ -73,8 +65,6 @@ public class ServosSubtrimActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.subtrim)));
 
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
-
 		initGui();
 		initConfiguration();
 		delegateListener();
@@ -87,7 +77,6 @@ public class ServosSubtrimActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
@@ -202,63 +191,18 @@ public class ServosSubtrimActivity extends BaseActivity
 	};
 
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-					sendInError();
-					break;
-				case DstabiProvider.MESSAGE_SEND_COMPLETE:
-					sendInSuccessInfo();
-					break;
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError();
-					}
-					break;
-				case PROFILE_CALL_BACK_CODE:
-					if (msg.getData().containsKey("data")) {
-						initGuiByProfileString(msg.getData().getByteArray("data"));
-						sendInSuccessDialog();
-					}
-					break;
-				case PROFILE_SAVE_CALL_BACK_CODE:
+		switch (msg.what) {
+			case PROFILE_CALL_BACK_CODE:
+				if (msg.getData().containsKey("data")) {
+					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
-					showProfileSavedDialog();
-					break;
-			}
-			return true;
+				}
+				break;
+			default:
+				super.handleMessage(msg);
 		}
-	});
-
-	/**
-	 * vytvoreni kontextoveho menu
-	 */
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu)
-	{
-		super.onCreateOptionsMenu(menu);
-
-		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
 	}
-
-	/**
-	 * reakce na kliknuti polozky v kontextovem menu
-	 */
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item)
-	{
-		super.onOptionsItemSelected(item);
-		//ulozit do jednotky
-		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
-			saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-		}
-		return false;
-	}
-
 }

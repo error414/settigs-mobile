@@ -30,10 +30,8 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -43,7 +41,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
 import com.lib.FFT;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
@@ -73,10 +70,6 @@ public class GraphActivity extends BaseActivity
 
 	@SuppressWarnings("unused")
 	final private int MESSAGE_FFT = 100;
-	////////////////////////////////////////////////////
-
-	//provider pro pripojeni k zarizeni ////////////////
-	private DstabiProvider stabiProvider;
 	////////////////////////////////////////////////////
 
 	//pro graf ////////////////////////////////////////
@@ -131,9 +124,6 @@ public class GraphActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
 		((TextView) findViewById(R.id.title)).setText(baseTitle);
-
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 	}
 
 	/**
@@ -232,7 +222,6 @@ public class GraphActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
@@ -277,83 +266,68 @@ public class GraphActivity extends BaseActivity
 
 	}
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+		switch (msg.what) {
+			case GRAPH_CALL_BACK_CODE:
+				if (msg.getData().containsKey("data")) {
+					int len = msg.getData().getByteArray("data").length;
+					byte[] data = msg.getData().getByteArray("data");
 
-					sendInError();
-					break;
-				case DstabiProvider.MESSAGE_SEND_COMPLETE:
-					sendInSuccessInfo();
-					break;
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError();
-					}
-					break;
-				case GRAPH_CALL_BACK_CODE:
-					if (msg.getData().containsKey("data")) {
-						int len = msg.getData().getByteArray("data").length;
-						byte[] data = msg.getData().getByteArray("data");
+					if (dataBuffer == null)
+						dataBuffer = new byte[DATABUFFER_SIZE + 72];    // 3byte*1024
 
-						if (dataBuffer == null)
-							dataBuffer = new byte[DATABUFFER_SIZE + 72];    // 3byte*1024
+					if ((dataBuffer_len + len) > DATABUFFER_SIZE)        // osetreni preteceni
+						len = DATABUFFER_SIZE - dataBuffer_len;
 
-						if ((dataBuffer_len + len) > DATABUFFER_SIZE)        // osetreni preteceni
-							len = DATABUFFER_SIZE - dataBuffer_len;
+					// rychlejsi konkatenace
+					System.arraycopy(data, 0, dataBuffer, dataBuffer_len, len);
+					dataBuffer_len += len;
 
-						// rychlejsi konkatenace
-						System.arraycopy(data, 0, dataBuffer, dataBuffer_len, len);
-						dataBuffer_len += len;
+					// buffer je plny
+					if (dataBuffer_len == DATABUFFER_SIZE) {
+						dataBuffer_len = 0;
 
-						// buffer je plny
-						if (dataBuffer_len == DATABUFFER_SIZE) {
-							dataBuffer_len = 0;
+						for (int i = 0; i < DATABUFFER_SIZE; ) {
+							if ((int) dataBuffer[i] == -5) {    // nasli jsme magic byte	-5 & 0xFF = 251 = 0xFB
+								short val = (short) ((dataBuffer[i + 1] & 0xFF) | ((dataBuffer[i + 2] & 0xFF) << 8));
 
-							for (int i = 0; i < DATABUFFER_SIZE; ) {
-								if ((int) dataBuffer[i] == -5) {    // nasli jsme magic byte	-5 & 0xFF = 251 = 0xFB
-									short val = (short) ((dataBuffer[i + 1] & 0xFF) | ((dataBuffer[i + 2] & 0xFF) << 8));
+								input_xr[i / 3] = val;
+								input_xi[i / 3] = 0;
 
-									input_xr[i / 3] = val;
-									input_xi[i / 3] = 0;
+								//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);
 
-									//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);
-
-									i += 3;
-								} else i++;
-							}
-
-							// aplikujeme Hamming okno
-							for (int i = 0; i < FFT_N; i++)
-								input_xr[i] = (double) ((input_xr[i])) * (0.54f - (0.46f * Math.cos((2 * Math.PI * i) / (FFT_N - 1))));
-
-							// fft pocitam zatim primo tady - je to docela rychle
-							// TODO udelat v samostatnem vlaknu
-							fft.doFFT(input_xr, input_xi, false);
-
-							// vypocet amplitud celeho spektra
-							for (int i = 0; i < FFT_NYQUIST; i++) {
-								seriesX[i] = (double) Math.sqrt((input_xr[i] * input_xr[i]) + (input_xi[i] * input_xi[i])) * 5.07;
-
-								// nezobrazujeme prvnich par Hz - je to urcite pohyb heli
-								if (i < 5) seriesX[i] = 0;
-							}
-
-							// prekreslime graf - TODO udelat v samostatnem vlaknu
-							updateGraph(seriesX);
-							updateVibratonLevel(seriesX);
+								i += 3;
+							} else i++;
 						}
+
+						// aplikujeme Hamming okno
+						for (int i = 0; i < FFT_N; i++)
+							input_xr[i] = (double) ((input_xr[i])) * (0.54f - (0.46f * Math.cos((2 * Math.PI * i) / (FFT_N - 1))));
+
+						// fft pocitam zatim primo tady - je to docela rychle
+						// TODO udelat v samostatnem vlaknu
+						fft.doFFT(input_xr, input_xi, false);
+
+						// vypocet amplitud celeho spektra
+						for (int i = 0; i < FFT_NYQUIST; i++) {
+							seriesX[i] = (double) Math.sqrt((input_xr[i] * input_xr[i]) + (input_xi[i] * input_xi[i])) * 5.07;
+
+							// nezobrazujeme prvnich par Hz - je to urcite pohyb heli
+							if (i < 5) seriesX[i] = 0;
+						}
+
+						// prekreslime graf - TODO udelat v samostatnem vlaknu
+						updateGraph(seriesX);
+						updateVibratonLevel(seriesX);
 					}
-					break;
-			}
-			return true;
+				}
+				break;
 		}
-	});
+
+		super.handleMessage(msg);
+		return true;
+	}
 
 	View.OnClickListener saveScreenShotListener = new View.OnClickListener()
 	{

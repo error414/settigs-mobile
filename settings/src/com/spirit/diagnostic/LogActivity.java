@@ -23,7 +23,6 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
@@ -49,10 +48,6 @@ public class LogActivity extends BaseActivity
 {
 
 	final private String TAG = "LogActivity";
-
-	//provider pro pripojeni k zarizeni ////////////////
-	private DstabiProvider stabiProvider;
-	////////////////////////////////////////////////////
 
 	//KODY PRO CALLBACKY //////////////////////////////
 	final private int LOG_CALL_BACK_CODE = 20;
@@ -97,8 +92,6 @@ public class LogActivity extends BaseActivity
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.log_button_text)));
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
 		menuList = (ListView) findViewById(R.id.logList);
 		LogListAdapter adapter = new LogListAdapter(this, new ArrayList<HashMap<Integer, Integer>>());
@@ -205,7 +198,6 @@ public class LogActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
@@ -213,35 +205,21 @@ public class LogActivity extends BaseActivity
 		}
 	}
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			//Log.d(TAG, "prisla zprava");
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-					sendInError();
-					break;
-				case DstabiProvider.MESSAGE_SEND_COMPLETE:
-					sendInSuccessInfo();
-					break;
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError();
-					}
-					break;
-				case LOG_CALL_BACK_CODE:
-					sendInSuccessDialog();
-					if (msg.getData().containsKey("data")) {
-						updateGuiByLog(msg.getData().getByteArray("data"));
-					}
-					break;
-			}
-			return true;
+		//Log.d(TAG, "prisla zprava");
+		switch (msg.what) {
+			case LOG_CALL_BACK_CODE:
+				sendInSuccessDialog();
+				if (msg.getData().containsKey("data")) {
+					updateGuiByLog(msg.getData().getByteArray("data"));
+				}
+				break;
 		}
-	});
+
+		super.handleMessage(msg);
+		return true;
+	}
 
 	/**
 	 * vytvoreni kontextoveho menu

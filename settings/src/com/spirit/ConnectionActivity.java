@@ -95,8 +95,6 @@ public class ConnectionActivity extends BaseActivity
 
 	final static String FILE_EXT = "4ds";
 
-	private DstabiProvider stabiProvider;
-
 	DstabiProfile profileCreator;
 
 	private String fileForSave;
@@ -119,9 +117,6 @@ public class ConnectionActivity extends BaseActivity
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.connection_button_text)));
-
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
 		textStatusView = (TextView) findViewById(R.id.status_text);
 		btDeviceSpinner = (Spinner) findViewById(R.id.bt_device_spinner);
@@ -169,8 +164,6 @@ public class ConnectionActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
-
 		TextView serial = (TextView) findViewById(R.id.serial_number);
 		serial.setText(R.string.unknow_serial);
 
@@ -211,8 +204,6 @@ public class ConnectionActivity extends BaseActivity
 	 */
 	private void initGuiBySerialNumber(byte[] serialNumber)
 	{
-		Log.d(TAG, ByteOperation.getIntegerStringByByteArray(serialNumber));
-
 		if (serialNumber == null || serialNumber.length != 6) {
 			return;
 		}
@@ -430,47 +421,44 @@ public class ConnectionActivity extends BaseActivity
 	}
 
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					updateState();
-					break;
-				case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-					isPosibleSendData = false;
-					stabiProvider.abortAll();
-					sendInError(false); // ukazat error ale neukoncovat activitu
-					break;
-				case DstabiProvider.MESSAGE_SEND_COMPLETE:
-					sendInSuccessDialog();
-					Log.d(TAG, "prisly data count je " + String.valueOf(progressCount));
-					break;
-				case PROFILE_CALL_BACK_CODE:
-					sendInSuccessDialog();
-					if (msg.getData().containsKey("data")) {
-						initGuiByProfileString(msg.getData().getByteArray("data"));
-					}
-					break;
-				case PROFILE_CALL_BACK_CODE_FOR_SAVE:
-					sendInSuccessDialog();
-					if (msg.getData().containsKey("data")) {
-						saveProfileTofile(msg.getData().getByteArray("data"));
-					}
-					break;
-				case GET_SERIAL_NUMBER:
-					sendInSuccessDialog();
-					if (msg.getData().containsKey("data")) {
-						initGuiBySerialNumber(msg.getData().getByteArray("data"));
-					}
-					break;
-			}
-			return true;
+		switch (msg.what) {
+			case DstabiProvider.MESSAGE_STATE_CHANGE:
+				updateState();
+				break;
+			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+				isPosibleSendData = false;
+				stabiProvider.abortAll();
+				sendInError(false); // ukazat error ale neukoncovat activitu
+				break;
+			case DstabiProvider.MESSAGE_SEND_COMPLETE:
+				sendInSuccessDialog();
+				Log.d(TAG, "prisly data count je " + String.valueOf(progressCount));
+				break;
+			case PROFILE_CALL_BACK_CODE:
+				sendInSuccessDialog();
+				if (msg.getData().containsKey("data")) {
+					initGuiByProfileString(msg.getData().getByteArray("data"));
+				}
+				break;
+			case PROFILE_CALL_BACK_CODE_FOR_SAVE:
+				sendInSuccessDialog();
+				if (msg.getData().containsKey("data")) {
+					saveProfileTofile(msg.getData().getByteArray("data"));
+				}
+				break;
+			case GET_SERIAL_NUMBER:
+				sendInSuccessDialog();
+				if (msg.getData().containsKey("data")) {
+					initGuiBySerialNumber(msg.getData().getByteArray("data"));
+				}
+				break;
+			default:
+				super.handleMessage(msg);
 		}
-	});
+		return true;
+	}
 
 	/**
 	 * nacteni profilu ze souboru a nahrani do jednotky

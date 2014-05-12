@@ -53,8 +53,6 @@ public class StabiActivity extends BaseActivity
 	@SuppressWarnings("unused")
 	final private String TAG = "StabiActivity";
 
-	private DstabiProvider stabiProvider;
-
 	/**
 	 * seznam polozek pro menu
 	 */
@@ -73,8 +71,6 @@ public class StabiActivity extends BaseActivity
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text)));
-
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 
 		//naplnime seznam polozek pro menu
 		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_STABI);
@@ -132,7 +128,6 @@ public class StabiActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
@@ -160,24 +155,4 @@ public class StabiActivity extends BaseActivity
 
 		return menuListData;
 	}
-
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
-	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError();
-						finish();
-					} else {
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-					}
-					break;
-			}
-			return true;
-		}
-	});
 }

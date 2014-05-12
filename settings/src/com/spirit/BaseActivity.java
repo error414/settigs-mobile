@@ -19,6 +19,7 @@ package com.spirit;
 
 
 import com.helpers.StatusNotificationBuilder;
+import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.Globals;
 
@@ -31,6 +32,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -40,7 +43,7 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-abstract public class BaseActivity extends Activity
+abstract public class BaseActivity extends Activity implements Handler.Callback
 {
 
 	//for debug
@@ -52,6 +55,11 @@ abstract public class BaseActivity extends Activity
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 22;
+
+	/**
+	 * ulozeni profilu do jednotky
+ 	 */
+	final protected int PROFILE_SAVE_CALL_BACK_CODE = 17;
 
 	final protected int GROUP_GENERAL = 5;
 	final protected int OPEN_AUTHOR = 5;
@@ -72,10 +80,15 @@ abstract public class BaseActivity extends Activity
 	ProgressDialog generalDialog;
 	StatusNotificationBuilder infoBar;
 
-	// TOHLE PUJDE do DSTABI PROFILE ASI :D
-	final protected String SAVE_PROFILE = "g";
-
 	final protected String PREF_BASIC_MODE = "pref_basic_mode";
+
+	// The Handler that gets information back from the
+	protected final Handler connectionHandler = new Handler(this);
+
+	/**
+	 *
+	 */
+	protected DstabiProvider stabiProvider;
 
 	/**
 	 * pocitadlo otevreni dialog boxu
@@ -94,6 +107,7 @@ abstract public class BaseActivity extends Activity
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
@@ -127,7 +141,7 @@ abstract public class BaseActivity extends Activity
 	public void onResume()
 	{
 		super.onResume();
-
+		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().changed ? R.drawable.not_equal : R.drawable.equals);
 	}
@@ -303,7 +317,7 @@ abstract public class BaseActivity extends Activity
 	{
 		showDialogWrite();
 		// ziskani konfigurace z jednotky
-		stabiProvider.sendDataForResponce(SAVE_PROFILE, call_back_code);
+		stabiProvider.sendDataForResponce(stabiProvider.SAVE_PROFILE, call_back_code);
 	}
 
 	/**
@@ -319,6 +333,8 @@ abstract public class BaseActivity extends Activity
 		manual.add(GROUP_HELP, OPEN_MANUAL_GOOGLE_DOCS, Menu.NONE, R.string.open_manual_google_docs);
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
+
+		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
 	}
 
@@ -347,6 +363,15 @@ abstract public class BaseActivity extends Activity
 		if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_AUTHOR) {
 			Intent i = new Intent(this, AuthorActivity.class);
 			startActivity(i);
+		}
+
+		//ulozit do jednotky
+		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
+			if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+				saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+			}else{
+				Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+			}
 		}
 
 
@@ -439,8 +464,37 @@ abstract public class BaseActivity extends Activity
 		alert.setMessage(text);
 
 		alert.show();
+	}
 
-
+	/**
+	 * obsluha callbacku
+	 *
+	 * @param msg
+	 * @return
+	 */
+	public boolean handleMessage(Message msg)
+	{
+		Log.d(TAG, "handle base");
+		switch (msg.what) {
+			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+				sendInError();
+				break;
+			case DstabiProvider.MESSAGE_SEND_COMPLETE:
+				sendInSuccessInfo();
+				break;
+			case DstabiProvider.MESSAGE_STATE_CHANGE:
+				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					sendInError();
+				} else {
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+				}
+				break;
+			case PROFILE_SAVE_CALL_BACK_CODE:
+				sendInSuccessDialog();
+				showProfileSavedDialog();
+				break;
+		}
+		return true;
 	}
 
 }

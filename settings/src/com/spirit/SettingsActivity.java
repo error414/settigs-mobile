@@ -28,8 +28,8 @@ import com.lib.menu.Menu;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -50,8 +50,6 @@ public class SettingsActivity extends BaseActivity
 	@SuppressWarnings("unused")
 	final private String TAG = "SettingsActivity";
 
-	private DstabiProvider stabiProvider;
-
 	/**
 	 * seznam polozek pro menu
 	 */
@@ -70,8 +68,6 @@ public class SettingsActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
-
 		//naplnime seznam polozek pro menu
 		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SETTINGS);
 
@@ -84,7 +80,7 @@ public class SettingsActivity extends BaseActivity
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
 			{
-				if (position != 0) { // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene
+				if (position != 0 && position != 1) { // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene a u favourites
 					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
 						Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
 						return;
@@ -100,7 +96,6 @@ public class SettingsActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
@@ -131,23 +126,35 @@ public class SettingsActivity extends BaseActivity
 		return menuListData;
 	}
 
-	// The Handler that gets information back from the
-	private final Handler connectionHandler = new Handler(new Handler.Callback()
+	/**
+	 * obsluha callbacku
+	 *
+	 * @param msg
+	 * @return
+	 */
+	public boolean handleMessage(Message msg)
 	{
-		@Override
-		public boolean handleMessage(Message msg)
-		{
-			switch (msg.what) {
-				case DstabiProvider.MESSAGE_STATE_CHANGE:
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						sendInError(false);
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
-					} else {
-						((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-					}
-					break;
-			}
-			return true;
+		switch (msg.what) {
+			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+				sendInError(false);
+				break;
+			case DstabiProvider.MESSAGE_SEND_COMPLETE:
+				sendInSuccessInfo();
+				break;
+			case DstabiProvider.MESSAGE_STATE_CHANGE:
+				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					sendInError(false);
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+				} else {
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+				}
+				break;
+			default:
+				super.handleMessage(msg);
+
 		}
-	});
+		Log.d(TAG, "handle setting");
+		return true;
+	}
+
 }
