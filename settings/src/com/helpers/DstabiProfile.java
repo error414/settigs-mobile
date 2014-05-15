@@ -81,7 +81,7 @@ public class DstabiProfile {
 		
 		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 60, "x")); 		// procenta
 		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8"));		// geometrie hlavy - 6°
-		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z")); 	// procenta
+		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z")); 	// nasobic
 		
 		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", "X"));
 		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y"));
