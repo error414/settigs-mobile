@@ -16,9 +16,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 package com.spirit.diagnostic;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
@@ -36,12 +33,14 @@ import android.widget.Toast;
 
 import com.helpers.LogListAdapter;
 import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.LogPdf;
 import com.lib.SelectionMode;
 import com.spirit.BaseActivity;
 import com.spirit.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @SuppressLint("SdCardPath")
 public class LogActivity extends BaseActivity

@@ -17,14 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.helpers.MenuListAdapter;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.lib.menu.Menu;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,10 +26,18 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.helpers.MenuListAdapter;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * aktivita pro hlavni obrazku

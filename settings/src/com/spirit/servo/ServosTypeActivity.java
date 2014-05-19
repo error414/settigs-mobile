@@ -17,24 +17,24 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.servo;
 
-import com.exception.IndexOutOfException;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.spirit.R;
-import com.spirit.BaseActivity;
-
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
+
+import com.exception.IndexOutOfException;
+import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.lib.BluetoothCommandService;
+import com.spirit.BaseActivity;
+import com.spirit.R;
 
 public class ServosTypeActivity extends BaseActivity
 {

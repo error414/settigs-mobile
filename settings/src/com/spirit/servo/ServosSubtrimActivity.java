@@ -17,21 +17,21 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.servo;
 
-import com.customWidget.picker.ProgresEx.OnChangedListener;
-import com.customWidget.picker.ProgresEx;
-import com.helpers.ByteOperation;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.spirit.R;
-import com.spirit.BaseActivity;
-
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.helpers.ByteOperation;
+import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.lib.BluetoothCommandService;
+import com.spirit.BaseActivity;
+import com.spirit.R;
 
 public class ServosSubtrimActivity extends BaseActivity
 {

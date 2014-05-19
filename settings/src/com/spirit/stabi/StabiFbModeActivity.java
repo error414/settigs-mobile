@@ -24,9 +24,9 @@ import android.text.TextUtils;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;

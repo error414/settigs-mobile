@@ -31,8 +31,8 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.spirit.R;
 import com.spirit.BaseActivity;
+import com.spirit.R;
 
 public class GeometryAngleActivity extends BaseActivity
 {

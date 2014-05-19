@@ -18,11 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
-import com.helpers.StatusNotificationBuilder;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.lib.Globals;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -42,6 +37,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.helpers.StatusNotificationBuilder;
+import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
+import com.lib.Globals;
 
 abstract public class BaseActivity extends Activity implements Handler.Callback
 {

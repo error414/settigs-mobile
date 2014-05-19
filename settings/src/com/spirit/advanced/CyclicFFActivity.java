@@ -31,8 +31,8 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
-import com.spirit.R;
 import com.spirit.BaseActivity;
+import com.spirit.R;
 
 public class CyclicFFActivity extends BaseActivity
 {
@@ -46,8 +46,6 @@ public class CyclicFFActivity extends BaseActivity
 	private int formItems[] = {R.id.cyclicff,};
 
 	private int formItemsTitle[] = {R.string.cyclic_ff,};
-
-	private DstabiProvider stabiProvider;
 
 	private DstabiProfile profileCreator;
 

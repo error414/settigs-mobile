@@ -17,33 +17,30 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.servo;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import com.helpers.MenuListAdapter;
-import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.lib.menu.Menu;
-import com.spirit.R;
-import com.spirit.BaseActivity;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Toast;
+
+import com.helpers.MenuListAdapter;
+import com.lib.BluetoothCommandService;
+import com.lib.menu.Menu;
+import com.spirit.BaseActivity;
+import com.spirit.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class ServosLimitActivity extends BaseActivity
 {

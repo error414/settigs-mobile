@@ -18,12 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit.senzor;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -34,9 +31,8 @@ import com.customWidget.picker.ProgresExViewTranslateInterface;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
-import com.spirit.R;
 import com.spirit.BaseActivity;
+import com.spirit.R;
 
 public class SenzorSenzivityActivity extends BaseActivity
 {

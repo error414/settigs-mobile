@@ -23,16 +23,16 @@ import android.text.TextUtils;
 import android.view.Window;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.spirit.R;
 import com.spirit.BaseActivity;
+import com.spirit.R;
 
 public class PiroOptimalizationActivity extends BaseActivity
 {
