@@ -17,12 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.lib;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.apache.http.util.EncodingUtils;
-
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +25,12 @@ import android.util.Log;
 
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile.ProfileItem;
+
+import org.apache.http.util.EncodingUtils;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * trida pro praci s protokolem 4dstabi a posilanim pres BT
