@@ -215,7 +215,7 @@ public class Menu {
         //cyclic ff
         menuList.put(MENU_CYCLICFF,   new MenuItem(R.drawable.na,     R.string.cyclic_ff, CyclicFFActivity.class));
 
-        //cyclic ff
+        //signal procesing
         //menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.na,     R.string.signal_processing, SignalProcessingActivity.class));
 
         //add to groups
