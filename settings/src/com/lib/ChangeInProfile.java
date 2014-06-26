@@ -55,7 +55,7 @@ public class ChangeInProfile
 		ArrayList<DiffItem> resultDiff = new ArrayList<DiffItem>();
 		if(changedProfile.isValid() && originalProfile.isValid()){
 			for(String itemName : changedProfile.getProfileItems().keySet()){
-				if(changedProfile.getProfileItemByName(itemName).getValueInteger() != originalProfile.getProfileItemByName(itemName).getValueInteger()){
+				if(changedProfile.getProfileItemByName(itemName).getValueByte() != originalProfile.getProfileItemByName(itemName).getValueByte()){
 					resultDiff.add(new DiffItem(originalProfile.getProfileItemByName(itemName), changedProfile.getProfileItemByName(itemName), itemName));
 				}
 			}

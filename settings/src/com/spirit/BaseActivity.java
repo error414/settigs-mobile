@@ -323,7 +323,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	protected void reloadOriginalProfile()
 	{
 		if(stabiProvider != null){
-			showDialogRead();
+			showInfoBarRead();
 			stabiProvider.getProfile(PROFILE_FOR_UPDATE_ORIGINAL);
 		}
 	}

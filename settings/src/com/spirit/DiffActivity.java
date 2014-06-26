@@ -126,7 +126,7 @@ public class DiffActivity extends BaseActivity
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-					sendInError(false);
+					sendInError();
 					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 				} else {
 					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
