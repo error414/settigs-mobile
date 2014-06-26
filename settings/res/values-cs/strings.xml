@@ -56,8 +56,6 @@
     <string name="senzor_senzivity_button_text">Citlivost</string>
     <string name="advanced_button_text">Pokročilé</string>
     <string name="stabi_button_text">Stabi</string>
-    <string name="signal_processing">Zpracování signálu</string>
-    <string name="advance">Rozšířené</string>
 
     <string name="status">Stav</string>
     <string name="connected">Připojeno</string>

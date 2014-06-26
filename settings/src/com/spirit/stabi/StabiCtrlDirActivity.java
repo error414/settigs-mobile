@@ -129,8 +129,7 @@ public class StabiCtrlDirActivity extends BaseActivity
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
-
-			if(!profileCreator.getProfileItemByName("ALT_FUNCTION").getValueString().equals("D")){
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() != 68){
 				tempPicker.setEnabled(false);
 			}
 		}

@@ -15,7 +15,6 @@ import com.spirit.advanced.PitchupActivity;
 import com.spirit.advanced.RudderDelayActivity;
 import com.spirit.advanced.RudderDynamicActivity;
 import com.spirit.advanced.RudderRevomixActivity;
-import com.spirit.advanced.SignalProcessingActivity;
 import com.spirit.advanced.StickDeadBandActivity;
 import com.spirit.diagnostic.DiagnosticActivity;
 import com.spirit.diagnostic.GraphActivity;
@@ -90,7 +89,7 @@ public class Menu {
     public static Integer MENU_PITCHUP              = 18;
     public static Integer MENU_CYCLICPHASE          = 19;
     public static Integer MENU_CYCLICFF             = 20;
-    public static Integer MENU_SIGNALPROCESSING     = 21;
+    //public static Integer MENU_SIGNALPROCESSING     = 21;
 
     public static Integer MENU_SENZIVITY            = 22;
     public static Integer MENU_REVERSE              = 23;
@@ -217,7 +216,7 @@ public class Menu {
         menuList.put(MENU_CYCLICFF,   new MenuItem(R.drawable.na,     R.string.cyclic_ff, CyclicFFActivity.class));
 
         //cyclic ff
-        menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.na,     R.string.signal_processing, SignalProcessingActivity.class));
+        //menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.na,     R.string.signal_processing, SignalProcessingActivity.class));
 
         //add to groups
         menuGroups.put(
@@ -225,7 +224,7 @@ public class Menu {
                  new Integer[]{
                          MENU_DEADBAND, MENU_6DEG, MENU_PIROOPT, MENU_RUDDERDELAY,
                          MENU_PIROUETTECONSISTENCY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX, MENU_EFILTER, MENU_PITCHUP,
-                         MENU_CYCLICPHASE, MENU_CYCLICFF, MENU_SIGNALPROCESSING
+                         MENU_CYCLICPHASE, MENU_CYCLICFF /*, MENU_SIGNALPROCESSING */
                  }
         );
 

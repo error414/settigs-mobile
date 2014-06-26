@@ -243,13 +243,6 @@
         <activity
             android:label="@string/short_title"
             android:configChanges="orientation"
-            android:name="com.spirit.advanced.SignalProcessingActivity"
-            android:theme="@style/CustomTheme"
-            android:screenOrientation="portrait"/>
-
-        <activity
-            android:label="@string/short_title"
-            android:configChanges="orientation"
             android:name="com.spirit.FavouritesActivity"
             android:theme="@style/CustomTheme"
             android:screenOrientation="portrait"/>

@@ -138,10 +138,6 @@
     <string name="amplitude">Amplitude</string>
 	<string name="hz">[Hz]</string>
 
-    <string name="signal_processing">Signal Processing</string>
-
-    <string name="advance">Advance</string>
-
     <string name="log_button_text">Flight log</string>
     <string-array name="position_values">
         <item>Horizontal</item>
