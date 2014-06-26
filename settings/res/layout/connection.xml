@@ -86,6 +86,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView3"
 	            android:layout_alignRight="@+id/imageView1"
+	            android:layout_marginRight="10dp"
 	            android:layout_below="@+id/textView3" />
 
 	        <Button

@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * aktivita pro hlavni obrazku
+ * aktivita pro obrazku favourites
  *
  * @author error414
  */

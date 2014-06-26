@@ -137,6 +137,8 @@
     <string name="amplitude">Amplitude</string>
 	<string name="hz">[Hz]</string>
 
+	<string name="profile_diff">Changes made</string>
+
     <string name="signal_processing">Signal Processing</string>
 
     <string name="advance">Advance</string>

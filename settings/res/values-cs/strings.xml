@@ -153,6 +153,8 @@
     <string name="stabi_fbmode">Pádlová mechanika</string>
     <string name="stabi_fbmode_en">Povolit</string>
 
+	<string name="profile_diff">Provedené změny</string>
+
     <string-array name="position_values">
         <item>Horizontální</item>
         <item>Vertikální</item>

@@ -49,11 +49,11 @@ public class LogListAdapter extends MyListAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.menu_list_item_log, null);
+            vi = inflater.inflate(R.layout.log_list_item, null);
  
         TextView time 		= (TextView)vi.findViewById(R.id.time); // time
         TextView title 		= (TextView)vi.findViewById(R.id.title); // title
-        ImageView ico_image	=(ImageView)vi.findViewById(R.id.list_image); // thumb image
+        ImageView ico_image	= (ImageView)vi.findViewById(R.id.list_image); // thumb image
  
         HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
         row = data.get(position);

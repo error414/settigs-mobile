@@ -45,9 +45,9 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
-import com.lib.Globals;
 import com.lib.SelectionMode;
 
 import java.io.File;
@@ -188,7 +188,7 @@ public class ConnectionActivity extends BaseActivity
 			}
 
 			//prvotni naplaneni profilu pro zobrzeni rozdilu, bude se udrovt v globalni tride.
-			Globals.getInstance().setOriginalProfile(new DstabiProfile(profile));
+			ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
 
 
 		} else {
