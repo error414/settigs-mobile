@@ -96,8 +96,9 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p")); 		// dynamika vrtulky
 		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f")); 	// alternativni funkce
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
-		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m"));
+		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); //
 
+		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0"));  // Míra změny směru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
         //profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
         profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu

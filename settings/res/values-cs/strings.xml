@@ -152,6 +152,7 @@
     <string name="stabi_stick">Priorita kniplů</string>
     <string name="stabi_fbmode">Pádlová mechanika</string>
     <string name="stabi_fbmode_en">Povolit</string>
+    <string name="stabi_ctrldir">Míra změny směru</string>
 
     <string-array name="position_values">
         <item>Horizontální</item>

@@ -132,6 +132,10 @@ public class StabiColActivity extends BaseActivity
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
+
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueString().equals("A")){
+				tempPicker.setEnabled(false);
+			}
 		}
 
 	}

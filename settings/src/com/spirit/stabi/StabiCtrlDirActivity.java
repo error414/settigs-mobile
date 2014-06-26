@@ -15,70 +15,77 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
+
 package com.spirit.stabi;
 
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.exception.IndexOutOfException;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class StabiFunctionActivity extends BaseActivity
+public class StabiCtrlDirActivity extends BaseActivity
 {
 
-	final private String TAG = "StabiFunctionActivity";
+	@SuppressWarnings("unused")
+	final private String TAG = "StabiCtrlDirActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"ALT_FUNCTION",};
+	private final String protocolCode[] = {"STABI_CTRLDIR",};
 
-	private int formItems[] = {R.id.function_select_id};
+	private int formItems[] = {R.id.stabi_ctrldir,};
 
-	private int lock = formItems.length;
+	private int formItemsTitle[] = {R.string.stabi_ctrldir,};
 
 	private DstabiProfile profileCreator;
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity servo type
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.stabi_function);
+		setContentView(R.layout.stabi_ctrldir);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_function)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_ctrldir)));
 
+		initGui();
 		initConfiguration();
 		delegateListener();
 	}
 
 	/**
-	 * prvotni konfigurace view
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED)
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		} else {
-			finish();
+		else finish();
+	}
+
+	private void initGui()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+
+			tempPicker.setRange(1, 5);
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		}
 	}
 
@@ -89,12 +96,12 @@ public class StabiFunctionActivity extends BaseActivity
 	{
 		//nastaveni posluchacu pro formularove prvky
 		for (int i = 0; i < formItems.length; i++) {
-			((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
+			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		}
 	}
 
 	/**
-	 * ziskani profilu z jednotky
+	 * prvotni konfigurace view
 	 */
 	private void initConfiguration()
 	{
@@ -116,56 +123,40 @@ public class StabiFunctionActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
-		try {
-			for (int i = 0; i < formItems.length; i++) {
-				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
-				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-				if (pos != 0) lock = lock + 1;
-				tempSpinner.setSelection(pos);
+			tempPicker.setCurrentNoNotify(item.getValueInteger());
+
+			if(!profileCreator.getProfileItemByName("ALT_FUNCTION").getValueString().equals("D")){
+				tempPicker.setEnabled(false);
 			}
-		} catch (IndexOutOfException e) {
-			errorInActivity(R.string.damage_profile);
-			return;
 		}
+
 	}
 
-	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
+	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+		public void onChanged(ProgresEx parent, int newVal)
 		{
-
-
-			if (lock != 0) {
-				lock -= 1;
-				return;
-			}
-			lock = Math.max(lock - 1, 0);
-
+			// TODO Auto-generated method stub
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					Log.d(TAG, profileCreator.getProfileItemByName(protocolCode[i]).getCommand());
-
-
-					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValueFromSpinner(pos);
-					stabiProvider.sendDataNoWaitForResponce(item);
-
 					showInfoBarWrite();
+					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
+					item.setValue(newVal);
+
+					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
 		}
 
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0)
-		{
-			// TODO Auto-generated method stub
-
-		}
 	};
 
 
@@ -184,4 +175,6 @@ public class StabiFunctionActivity extends BaseActivity
 		return true;
 	}
 }
+
+
 

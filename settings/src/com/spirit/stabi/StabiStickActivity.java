@@ -129,7 +129,10 @@ public class StabiStickActivity extends BaseActivity
 			tempPicker.setRange(item.getMinimum(), item.getMaximum());
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueString().equals("A")){
+				tempPicker.setEnabled(false);
 
+			}
 		}
 
 	}

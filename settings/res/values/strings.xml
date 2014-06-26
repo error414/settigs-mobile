@@ -134,6 +134,7 @@
     <string name="stabi_stick">Stick priority</string>
     <string name="stabi_fbmode">Flybar mechanic</string>
     <string name="stabi_fbmode_en">Enable</string>
+    <string name="stabi_ctrldir">Direction control rate</string>
     <string name="amplitude">Amplitude</string>
 	<string name="hz">[Hz]</string>
 

@@ -33,6 +33,7 @@ import com.spirit.servo.ServosTypeActivity;
 import com.spirit.servo.TravelCorrectionActivity;
 import com.spirit.stabi.StabiActivity;
 import com.spirit.stabi.StabiColActivity;
+import com.spirit.stabi.StabiCtrlDirActivity;
 import com.spirit.stabi.StabiFbModeActivity;
 import com.spirit.stabi.StabiFunctionActivity;
 import com.spirit.stabi.StabiStickActivity;
@@ -104,6 +105,7 @@ public class Menu {
     public static Integer MENU_STABICOL             = 30;
     public static Integer MENU_STABISTICK           = 31;
     public static Integer MENU_STABIFBMODE          = 32;
+    public static Integer STABI_CTRLDIR             = 35;
 
     public static Integer MENU_CYCLICRING            = 33;
     public static Integer MENU_ENDPOINTS             = 34;
@@ -271,8 +273,11 @@ public class Menu {
         //flybar mechanic
         menuList.put(MENU_STABIFBMODE,   new MenuItem(R.drawable.na,     R.string.stabi_fbmode, StabiFbModeActivity.class));
 
+	    //STABI_CTRLDIR
+	    menuList.put(STABI_CTRLDIR,   new MenuItem(R.drawable.na,     R.string.stabi_ctrldir, StabiCtrlDirActivity.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION, MENU_STABICOL, MENU_STABISTICK, MENU_STABIFBMODE});
+        menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION, MENU_STABICOL, MENU_STABISTICK, MENU_STABIFBMODE, STABI_CTRLDIR});
 
         //SERVO LIMIT ACTIVITY
         //cyclic ring
