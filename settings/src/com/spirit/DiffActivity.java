@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.exception.IndexOutOfException;
 import com.exception.ProfileNotValidException;
 import com.helpers.DiffListAdapter;
 import com.helpers.DstabiProfile;
@@ -90,13 +91,15 @@ public class DiffActivity extends BaseActivity
 
 		diffListData = new ArrayList<HashMap<Integer, String>>();
 
-
 		try {
 			for(ChangeInProfile.DiffItem diffItem : ChangeInProfile.getInstance().getDiff(changedProfile)) {
 				HashMap<Integer, String> row = new HashMap<Integer, String>();
+
+				diffItem = this.translateDiffItem(diffItem);
+
 				row.put(DiffListAdapter.NAME, diffItem.getLabel());
-				row.put(DiffListAdapter.FROM, diffItem.getOriginalValue().getValueString());
-				row.put(DiffListAdapter.TO,   diffItem.getChangedValue().getValueString());
+				row.put(DiffListAdapter.FROM, diffItem.getFrom());
+				row.put(DiffListAdapter.TO,   diffItem.getTo());
 				diffListData.add(row);
 			}
 
@@ -105,7 +108,36 @@ public class DiffActivity extends BaseActivity
 
 		} catch (ProfileNotValidException e) {
 			e.printStackTrace();
+		} catch (IndexOutOfException e) {
+			e.printStackTrace();
 		}
+	}
+
+	/**
+	 *
+	 * @param diffItem
+	 * @return
+	 * @throws IndexOutOfException
+	 */
+	private ChangeInProfile.DiffItem translateDiffItem(ChangeInProfile.DiffItem diffItem) throws IndexOutOfException
+	{
+		String from = diffItem.getOriginalValue().getValueString();
+		String to   = diffItem.getChangedValue().getValueString();
+
+		if(diffItem.getLabel().equals("POSITION")){
+			diffItem.setLabel(getResources().getString(R.string.position_text));
+
+			String[] values = getResources().getStringArray(R.array.position_values);
+
+			from = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+		}
+
+		diffItem.setFrom(from);
+		diffItem.setTo(to);
+
+
+		return diffItem;
 	}
 
 	public void onResume()

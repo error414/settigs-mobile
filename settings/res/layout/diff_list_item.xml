@@ -6,17 +6,6 @@
     android:orientation="horizontal"
     android:padding="5dip" >
  
-    <!--  ListRow Left sied Thumbnail image -->
-    <LinearLayout android:id="@+id/thumbnail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="3dip"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="5dip">
-
-    </LinearLayout>
- 
-    <!-- Title Of Song-->
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
@@ -35,7 +24,7 @@
 		android:text="50"
 		android:textColor="#040404"
 		android:textSize="15dip"
-		android:layout_marginLeft="88dp"
+		android:layout_marginLeft="15dp"
 		android:layout_alignParentTop="true"
 		android:layout_toRightOf="@+id/name"/>
 

@@ -20,8 +20,9 @@ package com.lib;
 import com.exception.ProfileNotValidException;
 import com.helpers.DstabiProfile;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Arrays;
 
 
 public class ChangeInProfile
@@ -31,6 +32,8 @@ public class ChangeInProfile
 	protected DstabiProfile originalProfile;
 
 	private ChangeInProfile(){}
+
+	private String[] exceptProfileItems = {"MAJOR", "MINOR", "CHECKSUM"};
 
 	/**
 	 * pristupovat jen pres singleton
@@ -44,20 +47,35 @@ public class ChangeInProfile
 		return instance;
 	}
 
+	/**
+	 *
+	 * @param originalProfile
+	 */
 	public void setOriginalProfile(DstabiProfile originalProfile)
 	{
 		this.originalProfile = originalProfile;
 	}
 
-
+	/**
+	 *
+	 * @param changedProfile
+	 * @return
+	 * @throws ProfileNotValidException
+	 */
 	public ArrayList<DiffItem> getDiff(DstabiProfile changedProfile) throws ProfileNotValidException
 	{
 		ArrayList<DiffItem> resultDiff = new ArrayList<DiffItem>();
 		if(changedProfile.isValid() && originalProfile.isValid()){
 			for(String itemName : changedProfile.getProfileItems().keySet()){
-				if(changedProfile.getProfileItemByName(itemName).getValueByte() != originalProfile.getProfileItemByName(itemName).getValueByte()){
+
+				if(
+						changedProfile.getProfileItemByName(itemName).getValueByte() != originalProfile.getProfileItemByName(itemName).getValueByte()
+						&&
+						!Arrays.asList(exceptProfileItems).contains(itemName)
+				){
 					resultDiff.add(new DiffItem(originalProfile.getProfileItemByName(itemName), changedProfile.getProfileItemByName(itemName), itemName));
 				}
+
 			}
 			return resultDiff;
 		}
@@ -71,6 +89,10 @@ public class ChangeInProfile
 	public class DiffItem{
 		private DstabiProfile.ProfileItem originalValue;
 		private DstabiProfile.ProfileItem changedValue;
+
+		private String from;
+		private String to;
+
 		private String label;
 
 		DiffItem(DstabiProfile.ProfileItem originalValue, DstabiProfile.ProfileItem changedValue, String label)
@@ -94,9 +116,42 @@ public class ChangeInProfile
 		{
 			return label;
 		}
+
+		public void setOriginalValue(DstabiProfile.ProfileItem originalValue)
+		{
+			this.originalValue = originalValue;
+		}
+
+		public void setChangedValue(DstabiProfile.ProfileItem changedValue)
+		{
+			this.changedValue = changedValue;
+		}
+
+		public void setLabel(String label)
+		{
+			this.label = label;
+		}
+
+		public String getFrom()
+		{
+			return from;
+		}
+
+		public void setFrom(String from)
+		{
+			this.from = from;
+		}
+
+		public String getTo()
+		{
+			return to;
+		}
+
+		public void setTo(String to)
+		{
+			this.to = to;
+		}
 	}
-
-
 }
 
 
