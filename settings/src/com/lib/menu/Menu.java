@@ -104,7 +104,7 @@ public class Menu {
     public static Integer MENU_STABICOL             = 30;
     public static Integer MENU_STABISTICK           = 31;
     public static Integer MENU_STABIFBMODE          = 32;
-    public static Integer STABI_CTRLDIR             = 35;
+    public static Integer STABI_CTRLDIR             = 36;
 
     public static Integer MENU_CYCLICRING            = 33;
     public static Integer MENU_ENDPOINTS             = 34;
