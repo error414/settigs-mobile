@@ -77,6 +77,19 @@ public class DiffActivity extends BaseActivity
 		initConfiguration();
 	}
 
+    /**
+     *
+     */
+    public void onResume()
+    {
+        super.onResume();
+        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+        } else {
+            finish();
+        }
+    }
+
 	/**
 	 *
 	 */
@@ -575,17 +588,6 @@ public class DiffActivity extends BaseActivity
 
 
 		return diffItem;
-	}
-
-    /**
-     *
-     */
-	public void onResume()
-	{
-		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}
 	}
 
 	/**

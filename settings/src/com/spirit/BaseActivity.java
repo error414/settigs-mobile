@@ -33,7 +33,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -66,7 +65,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 	final protected int GROUP_GENERAL = 5;
 	final protected int OPEN_AUTHOR = 5;
-
+    final protected int OPEN_DIFF = 55;
 
 	final protected int GROUP_HELP = 2;
 	final protected int OPEN_MANUAL = 2;
@@ -341,6 +340,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		manual.add(GROUP_HELP, OPEN_MANUAL_GOOGLE_DOCS, Menu.NONE, R.string.open_manual_google_docs);
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
+        menu.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
 
 		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
@@ -372,6 +372,16 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			Intent i = new Intent(this, AuthorActivity.class);
 			startActivity(i);
 		}
+
+        //otevreni diffu profilu
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_DIFF) {
+            if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                Intent i = new Intent(this, DiffActivity.class);
+                startActivity(i);
+            }else{
+                Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+            }
+        }
 
 		//ulozit do jednotky
 		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {

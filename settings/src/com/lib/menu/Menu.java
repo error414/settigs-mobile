@@ -1,7 +1,6 @@
 package com.lib.menu;
 
 import com.spirit.ConnectionActivity;
-import com.spirit.DiffActivity;
 import com.spirit.FavouritesActivity;
 import com.spirit.GeneralActivity;
 import com.spirit.R;
@@ -78,7 +77,7 @@ public class Menu {
     public static Integer MENU_GRAPH            = 8;
     public static Integer MENU_LOG              = 9;
     public static Integer MENU_FAVOURITES       = 35;
-    public static Integer MENU_DIFF             = 36;
+   // public static Integer MENU_DIFF             = 36;
 
     public static Integer MENU_DEADBAND             = 10;
     public static Integer MENU_6DEG                 = 11;
@@ -176,10 +175,10 @@ public class Menu {
         //log
         menuList.put(MENU_LOG,          new MenuItem(R.drawable.na,     R.string.log_button_text, LogActivity.class));
 
-	    menuList.put(MENU_DIFF,          new MenuItem(R.drawable.na,     R.string.profile_diff, DiffActivity.class));
+	    //menuList.put(MENU_DIFF,          new MenuItem(R.drawable.na,     R.string.profile_diff, DiffActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG, MENU_DIFF});
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG/*, MENU_DIFF*/});
 
 
 
