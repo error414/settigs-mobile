@@ -245,7 +245,6 @@
     <string name="nnew">Nový</string>
     <string name="select">Vybrat</string>
     <string name="file_name">Název souboru:</string>
-    <string name="cancel">Zrušit</string>
     <string name="create">Uložit</string>
     <string name="no_data">Chybí data</string>
     <string name="err">Chyba</string>
@@ -297,7 +296,7 @@
     <string name="remove_from_favourites_done">Odebráno z oblbených</string>
     <string name="add">přidat</string>
     <string name="remove">odebrat</string>
-    <string name="no">zrušit</string>
+    <string name="cancel">zrušit</string>
 
     <string name="show_errors">Zobrazit chyby</string>
     <string name="no_error">Žádné chyby</string>
@@ -306,4 +305,8 @@
     <string name="app_basic_mode_on">Basic mode ZAPNUT</string>
     <string name="app_basic_mode_off">Basic mode VYPNUT</string>
 	<string name="refresh_log">Obnovit</string>
+
+
+    <string name="yes">Ano</string>
+    <string name="no">Ne</string>
 </resources>

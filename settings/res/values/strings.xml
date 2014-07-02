@@ -137,7 +137,7 @@
     <string name="amplitude">Amplitude</string>
 	<string name="hz">[Hz]</string>
 
-	<string name="profile_diff">Changes made</string>
+	<string name="profile_diff">Profile diff</string>
 
     <string name="signal_processing">Signal Processing</string>
 
@@ -273,7 +273,6 @@
     <string name="remove_from_favourites_done">item was removed</string>
     <string name="add">add</string>
     <string name="remove">remove</string>
-    <string name="no">no</string>
 
     <string name="show_errors">Show profile errors</string>
     <string name="no_error">No errors</string>
@@ -283,4 +282,7 @@
     <string name="app_basic_mode_on">Basic mode ON</string>
     <string name="app_basic_mode_off">Basic mode OFF</string>
     <string name="refresh_log">Refresh</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>

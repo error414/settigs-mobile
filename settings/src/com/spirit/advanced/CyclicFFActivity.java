@@ -148,7 +148,6 @@ public class CyclicFFActivity extends BaseActivity
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValue(newVal);
-					Log.d(TAG, String.valueOf(newVal));
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
