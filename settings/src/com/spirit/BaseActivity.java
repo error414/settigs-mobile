@@ -33,15 +33,15 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
-import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.helpers.DstabiProfile;
 import com.helpers.StatusNotificationBuilder;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
-import com.lib.Globals;
 
 abstract public class BaseActivity extends Activity implements Handler.Callback
 {
@@ -61,9 +61,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
  	 */
 	final protected int PROFILE_SAVE_CALL_BACK_CODE = 17;
 
+	final protected int PROFILE_FOR_UPDATE_ORIGINAL = 100;
+
 	final protected int GROUP_GENERAL = 5;
 	final protected int OPEN_AUTHOR = 5;
-
+    final protected int OPEN_DIFF = 55;
 
 	final protected int GROUP_HELP = 2;
 	final protected int OPEN_MANUAL = 2;
@@ -143,16 +145,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onResume();
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().changed ? R.drawable.not_equal : R.drawable.equals);
-	}
-
-	/**
-	 * @param state
-	 */
-	public void changeChangedState(Boolean state)
-	{
-		Globals.getInstance().changed = state;
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(state ? R.drawable.not_equal : R.drawable.equals);
 	}
 
 	/**
@@ -249,7 +241,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showInfoBarWrite()
 	{
-		changeChangedState(true);
 		Log.i(TAG, "zapisuji");
 		showInfoBar(getString(R.string.write_data));
 	}
@@ -320,6 +311,22 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		stabiProvider.sendDataForResponce(stabiProvider.SAVE_PROFILE, call_back_code);
 	}
 
+	protected void setOriginalProfileProfile(DstabiProfile profile)
+	{
+		ChangeInProfile.getInstance().setOriginalProfile(profile);
+	}
+
+	/**
+	 * pokud se napriklad ulozi profil tak prenactem profil
+	 */
+	protected void reloadOriginalProfile()
+	{
+		if(stabiProvider != null){
+			showInfoBarRead();
+			stabiProvider.getProfile(PROFILE_FOR_UPDATE_ORIGINAL);
+		}
+	}
+
 	/**
 	 * vytvoreni kontextoveho menu
 	 */
@@ -333,6 +340,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		manual.add(GROUP_HELP, OPEN_MANUAL_GOOGLE_DOCS, Menu.NONE, R.string.open_manual_google_docs);
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
+        menu.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
 
 		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
@@ -364,6 +372,16 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			Intent i = new Intent(this, AuthorActivity.class);
 			startActivity(i);
 		}
+
+        //otevreni diffu profilu
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_DIFF) {
+            if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                Intent i = new Intent(this, DiffActivity.class);
+                startActivity(i);
+            }else{
+                Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+            }
+        }
 
 		//ulozit do jednotky
 		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
@@ -399,33 +417,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	}
 
 	/**
-	 * otevreni napovedy pro position
-	 *
-	 * @param v
-	 */
-	public void showHelp(View v)
-	{
-		 
-		 /*switch(v.getId()){
-		 	case R.id.position_help: 
-		 		this.openHelp(R.layout.help_test);	
-		 		break;
-		 	case R.id.model_help: 
-		 		this.openHelp(R.layout.help_test);	
-		 		break;
-		 	default:
-		 		this.openHelp(R.layout.help_test);	
-		 		break;
-		 }*/
-	}
-
-	/**
 	 *
 	 */
 	protected void showProfileSavedDialog()
 	{
-		changeChangedState(false);
-
 		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
 		alert.setPositiveButton("OK", null);
 
@@ -439,8 +434,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showConfirmDialog(int textId)
 	{
-		changeChangedState(false);
-
 		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
 		alert.setPositiveButton("OK", null);
 
@@ -456,8 +449,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showConfirmDialog(String text)
 	{
-		changeChangedState(false);
-
 		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
 		alert.setPositiveButton("OK", null);
 
@@ -474,7 +465,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	public boolean handleMessage(Message msg)
 	{
-		Log.d(TAG, "handle base");
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 				sendInError();
@@ -492,6 +482,13 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			case PROFILE_SAVE_CALL_BACK_CODE:
 				sendInSuccessDialog();
 				showProfileSavedDialog();
+				//po ulozeni profilu nacteme novy original profile
+				reloadOriginalProfile();
+				break;
+
+			case PROFILE_FOR_UPDATE_ORIGINAL:
+				sendInSuccessInfo();
+				setOriginalProfileProfile(new DstabiProfile(msg.getData().getByteArray("data")));
 				break;
 		}
 		return true;

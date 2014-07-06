@@ -27,10 +27,10 @@ import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
-import com.customWidget.picker.ProgresExViewTranslateInterface;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.translate.StabiPichProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -182,37 +182,6 @@ public class StabiColActivity extends BaseActivity
 		}
 		return true;
 	}
-
-	/**
-	 * trida nam prelozi cislo z velikosti stabiPitch na procenta
-	 * <p/>
-	 * -10 az 10 prelozi na -100% az 100%, vnitrne se ale bude pocitat porad s -10 az 10
-	 *
-	 * @author petrcada
-	 */
-	protected class StabiPichProgressExTranslate implements ProgresExViewTranslateInterface
-	{
-
-		@Override
-		public String translateCurrent(int current)
-		{
-			return String.valueOf((current * 10)) + " %";
-		}
-
-		@Override
-		public String translateMin(int min)
-		{
-			return String.valueOf((min * 10)) + " %";
-		}
-
-		@Override
-		public String translateMax(int max)
-		{
-			return String.valueOf((max * 10)) + " %";
-		}
-
-	}
-
 }
 
 

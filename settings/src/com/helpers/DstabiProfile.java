@@ -44,19 +44,43 @@ public class DstabiProfile {
 	final static String TAG = "DstabiProfile";
 	
 	private int profileLenght;
-	//private
+
 	private byte[] mProfile;
+
 	private HashMap<String, ProfileItem> profileMap = new HashMap<String, ProfileItem>();
 	
 	private ArrayList<String> profileErrors = new ArrayList<String>();
 
+	/**
+	 *
+	 * @param mProfile
+	 */
 	public DstabiProfile(byte[] mProfile)
 	{
+		this.buildProfile(mProfile);
+	}
+
+	/**
+	 * update profilu, doporucuji nedelat s ostrym profilem
+	 *
+	 * @param mProfile
+	 */
+	public void updateProfile(byte[] mProfile){
+		this.buildProfile(mProfile);
+	}
+
+	/**
+	 * vytvoreni profilu
+	 *
+	 * @param mProfile
+	 */
+	protected void buildProfile(byte[] mProfile)
+	{
 		/* MTODO nazvy udelat v konstantach */
-		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null));
-		profileMap.put("MINOR", 	new ProfileItem(2, 0, 255, 		null));
-		
-		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P"));
+		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null)); // 'major', INT,
+		profileMap.put("MINOR", 	new ProfileItem(2, 0, 255, 		null)); // 'minor', INT
+
+		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P")); // position_text, ENUM, position_values
 		//profileMap.put("MODEL", 	new ProfileItem(4, "A", "C", 	"M"));
         //profileMap.put("SIGNAL_PROCESSING",	new ProfileItem(4, "0", "1", "7")); // rozsirene zpracovani signalu
 
@@ -67,26 +91,26 @@ public class DstabiProfile {
 		profileMap.put("CYCLIC_FREQ",	new ProfileItem(8, "A", "F", 	"SF"));
 		profileMap.put("RUDDER_TYPE",	new ProfileItem(9, "A", "C", 	"St"));
 		profileMap.put("RUDDER_FREQ",	new ProfileItem(10, "A", "G", 	"Sf"));
-		
+
 		profileMap.put("SUBTRIM_AIL",	new ProfileItem(16, 0, 255, 	"SA"));
 		profileMap.put("SUBTRIM_ELE",	new ProfileItem(17, 0, 255, 	"SE"));
 		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 255, 	"SP"));
 		profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 255, 	"Se"));
-		
+
 		profileMap.put("RANGE_AIL",		new ProfileItem(11, 0, 255, 	"Sa"));	// cyclic ring
 		profileMap.put("RANGE_PIT",		new ProfileItem(13, 0, 255, 	"Sp"));	// rozsah kolektivu
-		
+
 		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm"));
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
-		
+
 		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 60, "x")); 		// procenta
 		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8"));		// geometrie hlavy - 6°
 		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z")); 	// nasobic
-		
+
 		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", "X"));
 		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y"));
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
-		
+        //
 		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a"));		// rychlost rotace cykliky
 		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 10, 	"b"));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
@@ -100,8 +124,8 @@ public class DstabiProfile {
 
 		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0"));  // Míra změny směru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
-        //profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
-        profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu
+		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
+		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu
 
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H")); // konzistence piruet
 
@@ -109,49 +133,47 @@ public class DstabiProfile {
 
 		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pootočení cykliky
 
-		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o")); 
+		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o"));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// kompenzace zpinani vyskovky
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9")); // zpozdeni vrtulky
-		
+
 		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l"));		// letovy projev
 
-        //profileMap.put("STABI_PITCH",new ProfileItem(46, 63, 191, "q")); // stabi, kompenzace pro vyskovku
-        profileMap.put("FB_MODE",		new ProfileItem(46, "0", "1", "i")); // flybar mechanic
-        
-        profileMap.put("TRAVEL_UAIL",	new ProfileItem(47, 63, 191, "QA"));
-        profileMap.put("TRAVEL_UELE",	new ProfileItem(48, 63, 191, "QE"));
-        profileMap.put("TRAVEL_UPIT",	new ProfileItem(49, 63, 191, "QP"));
-        profileMap.put("TRAVEL_DAIL",	new ProfileItem(50, 63, 191, "Qa"));
-        profileMap.put("TRAVEL_DELE",	new ProfileItem(51, 63, 191, "Qe"));
-        profileMap.put("TRAVEL_DPIT",	new ProfileItem(52, 63, 191, "Qp"));
+		//profileMap.put("STABI_PITCH",new ProfileItem(46, 63, 191, "q")); // stabi, kompenzace pro vyskovku
+		profileMap.put("FB_MODE",		new ProfileItem(46, "0", "1", "i")); // flybar mechanic
+
+		profileMap.put("TRAVEL_UAIL",	new ProfileItem(47, 63, 191, "QA"));
+		profileMap.put("TRAVEL_UELE",	new ProfileItem(48, 63, 191, "QE"));
+		profileMap.put("TRAVEL_UPIT",	new ProfileItem(49, 63, 191, "QP"));
+		profileMap.put("TRAVEL_DAIL",	new ProfileItem(50, 63, 191, "Qa"));
+		profileMap.put("TRAVEL_DELE",	new ProfileItem(51, 63, 191, "Qe"));
+		profileMap.put("TRAVEL_DPIT",	new ProfileItem(52, 63, 191, "Qp"));
 
 		this.mProfile = mProfile;
-		
-		
+
+
 		Iterator<String> iteration = profileMap.keySet().iterator();
 		while(iteration.hasNext()) {
 			String key=(String)iteration.next();
 			ProfileItem item = (ProfileItem)profileMap.get(key);
-			
+
 			if(mProfile!= null && mProfile.length > item.getPosition()){
 				item.setValue(mProfile[item.getPosition()]);
 			}
-			
+
 		}
-		
+
 		if(mProfile!= null && mProfile.length > 1){
 			profileLenght = mProfile[0];
 		}else{
 			profileLenght = 0;
 		}
-		
+
 		//uprava zavyslosti polozek
 		/*if(profileMap.containsKey("MODEL") && profileMap.get("MODEL").isValid() && profileMap.get("MODEL").getValueInteger() != 67 ){ // letadlo
 			profileMap.remove("SENSOR_SENZ");
 		}*/
-		
-		
 	}
 	
 	///////////////// PUBLIC ////////////////////////

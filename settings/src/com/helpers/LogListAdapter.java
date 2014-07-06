@@ -17,16 +17,18 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.helpers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import com.spirit.R;
-import com.spirit.diagnostic.LogActivity;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.spirit.R;
+import com.spirit.diagnostic.LogActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * trida pro naplneni listview hodnotama
@@ -47,11 +49,11 @@ public class LogListAdapter extends MyListAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
         if(convertView==null)
-            vi = inflater.inflate(R.layout.menu_list_item_log, null);
+            vi = inflater.inflate(R.layout.log_list_item, null);
  
         TextView time 		= (TextView)vi.findViewById(R.id.time); // time
         TextView title 		= (TextView)vi.findViewById(R.id.title); // title
-        ImageView ico_image	=(ImageView)vi.findViewById(R.id.list_image); // thumb image
+        ImageView ico_image	= (ImageView)vi.findViewById(R.id.list_image); // thumb image
  
         HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
         row = data.get(position);

@@ -25,10 +25,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
-import com.customWidget.picker.ProgresExViewTranslateInterface;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.lib.BluetoothCommandService;
+import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -201,36 +201,6 @@ public class TravelCorrectionActivity extends BaseActivity
 				super.handleMessage(msg);
 		}
 		return true;
-	}
-
-	/**
-	 * trida nam prelozi cislo z velikosti stabiPitch na procenta
-	 * <p/>
-	 * z 63 -191 na -64 + 64
-	 *
-	 * @author petrcada
-	 */
-	protected class ServoCorrectionProgressExTranslate implements ProgresExViewTranslateInterface
-	{
-
-		@Override
-		public String translateCurrent(int current)
-		{
-			return String.valueOf(current - 127);
-		}
-
-		@Override
-		public String translateMin(int min)
-		{
-			return String.valueOf(min - 127);
-		}
-
-		@Override
-		public String translateMax(int max)
-		{
-			return String.valueOf(max - 127);
-		}
-
 	}
 
 }

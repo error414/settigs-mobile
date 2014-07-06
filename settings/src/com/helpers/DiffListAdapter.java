@@ -17,49 +17,83 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.helpers;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.TextView;
+
+import com.spirit.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
  * trida pro naplneni listview hodnotama
- * 
+ *
  * @author error414
  *
  */
-public class MyListAdapter extends BaseAdapter {
+@SuppressLint("UseSparseArrays")
+public class DiffListAdapter extends BaseAdapter
+{
+
+	public static Integer NAME      = 1;
+	public static Integer FROM      = 2;
+	public static Integer TO        = 3;
 
 	/**
-	 * 
+	 *
 	 */
 	protected LayoutInflater inflater;
-	
+
 	/**
 	 * aktivata kde zobrazujeme listview
 	 */
 	protected Activity activity;
-	
+
 	/**
-	 * pole [title ID resource, ID obrazku (resource)]
 	 */
-	protected ArrayList<HashMap<Integer, Integer>> data;
+	protected ArrayList<HashMap<Integer, String>> data;
 
-    public MyListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
-        activity = a;
-        data = d;
-        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-    }
-
-    public void setData(ArrayList<HashMap<Integer, Integer>> data) {
-        this.data = data;
-    }
+	/**
+	 *
+	 * @param a
+	 * @param d
+	 */
+	public DiffListAdapter(Activity a, ArrayList<HashMap<Integer, String>> d) {
+		activity = a;
+		data = d;
+		inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	}
 	
+	@Override
+	public View getView(int position, View convertView, ViewGroup parent) {
+        View vi=convertView;
+        if(convertView==null)
+            vi = inflater.inflate(R.layout.diff_list_item, null);
+ 
+        TextView name   = (TextView)vi.findViewById(R.id.name); // title
+        TextView from   = (TextView)vi.findViewById(R.id.from);
+        TextView to     = (TextView)vi.findViewById(R.id.to);
+
+        HashMap<Integer, String> row = new HashMap<Integer, String>();
+        row = data.get(position);
+ 
+        // Setting all values in listview
+		name.setText(row.get(DiffListAdapter.NAME));
+		from.setText(row.get(DiffListAdapter.FROM));
+		to.setText(row.get(DiffListAdapter.TO));
+        return vi;
+    }
+
+	public void setData(ArrayList<HashMap<Integer, String>> data) {
+		this.data = data;
+	}
+
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
@@ -77,12 +111,5 @@ public class MyListAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		return position;
 	}
-
-	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 
 }

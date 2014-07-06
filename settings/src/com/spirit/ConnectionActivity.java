@@ -45,6 +45,7 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
@@ -185,6 +186,9 @@ public class ConnectionActivity extends BaseActivity
 			if (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR").getValueString().equals(APLICATION_MINOR2_VERSION)) {
 				showConfirmDialog(R.string.version_not_match);
 			}
+
+			//prvotni naplaneni profilu pro zobrzeni rozdilu, bude se udrovt v globalni tride.
+			ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
 
 
 		} else {

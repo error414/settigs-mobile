@@ -112,7 +112,7 @@ public class AdvancedActivity extends BaseActivity
 						editor.commit();
 					}
 
-				}).setNegativeButton(R.string.no, null).show();
+				}).setNegativeButton(R.string.cancel, null).show();
 
 				return true;
 			}

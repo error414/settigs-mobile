@@ -154,14 +154,11 @@ public class GeneralActivity extends BaseActivity
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-
-
 			if (lock != 0) {
 				lock -= 1;
 				return;
 			}
 			lock = Math.max(lock - 1, 0);
-
 
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme

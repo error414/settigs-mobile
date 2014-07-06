@@ -75,7 +75,7 @@ public class LogActivity extends BaseActivity
 
 	final static protected String DEFAULT_LOG_PATH = "/sdcard/";
 
-	private ListView menuList;
+	private ListView logList;
 
 	private ArrayList<HashMap<Integer, Integer>> logListData;
 
@@ -92,9 +92,9 @@ public class LogActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.log_button_text)));
 
-		menuList = (ListView) findViewById(R.id.logList);
+		logList = (ListView) findViewById(R.id.logList);
 		LogListAdapter adapter = new LogListAdapter(this, new ArrayList<HashMap<Integer, Integer>>());
-		menuList.setAdapter(adapter);
+		logList.setAdapter(adapter);
 		initConfiguration();
 	}
 
@@ -177,8 +177,8 @@ public class LogActivity extends BaseActivity
 		}
 
 		LogListAdapter adapter = new LogListAdapter(this, logListData);
-		menuList.setAdapter(adapter);
-		menuList.invalidate();
+		logList.setAdapter(adapter);
+		logList.invalidate();
 	}
 
 	/**

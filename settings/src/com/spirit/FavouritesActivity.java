@@ -45,7 +45,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * aktivita pro hlavni obrazku
+ * aktivita pro obrazku favourites
  *
  * @author error414
  */
@@ -129,7 +129,7 @@ public class FavouritesActivity extends BaseActivity
 							updateListView();
 						}
 
-					}).setNegativeButton(R.string.no, null).show();
+					}).setNegativeButton(R.string.cancel, null).show();
 				}
 
 				return true;

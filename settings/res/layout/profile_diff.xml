@@ -4,19 +4,11 @@
     android:layout_height="fill_parent"
     android:background="@color/background_color"
     android:orientation="vertical" >
-
-	 <ScrollView
-            android:id="@+id/scrollView1"
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/background_color">
-
 	    <RelativeLayout
-	        android:layout_width="fill_parent"
+	        android:layout_width="320dp"
 	        android:layout_height="wrap_content"
 	        android:background="@color/background_color" >
-
+	        
 	        <ImageView
 	            android:id="@+id/imageView1"
 	            android:layout_width="wrap_content"
@@ -32,7 +24,7 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/piro_opt"
+	            android:text="@string/profile_diff"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
@@ -43,26 +35,14 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:src="@drawable/black_line_small" />
-
-	        <ImageView
-	            android:id="@+id/imageView3"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:src="@drawable/black_line_small" />
-
-	        <CheckBox
-	            android:id="@+id/piro_opt"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView2"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="32dp"
-	            android:text="@string/reverse"
-	            android:textColor="@color/text_color"
-	            android:textStyle="bold"
-                android:checked="false" />
-
 	    </RelativeLayout>
+	    
+	     <ListView
+           android:id="@+id/listMenu"
+           android:layout_width="fill_parent"
+           android:layout_height="fill_parent"
+           android:layout_weight="1" >
+       </ListView>
+	    
 
-	</ScrollView>
 </LinearLayout>
