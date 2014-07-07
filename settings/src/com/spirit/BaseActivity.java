@@ -46,6 +46,13 @@ import com.lib.DstabiProvider;
 abstract public class BaseActivity extends Activity implements Handler.Callback
 {
 
+    /*#############################################*/
+	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
+	/*#############################################*/
+    final protected String APLICATION_MAJOR_VERSION = "1";
+    final protected String APLICATION_MINOR1_VERSION = "0";
+    final protected String APLICATION_MINOR2_VERSION = "24";
+
 	//for debug
 	private final String TAG = "BaseActivity";
 
@@ -74,8 +81,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_SAVE = 3;
 	final protected int SAVE_PROFILE_MENU = 4;
 
-	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-1.0.22_cz.pdf";
-	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-1.0.22_cz.pdf";
+	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION + "." + APLICATION_MINOR2_VERSION +"_cz.pdf";
+	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION + "." + APLICATION_MINOR2_VERSION +"_cz.pdf";
 
 	final protected BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
