@@ -19,9 +19,10 @@ package com.spirit;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
-import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -49,6 +50,8 @@ public class SettingsActivity extends BaseActivity
 
 	@SuppressWarnings("unused")
 	final private String TAG = "SettingsActivity";
+
+    final protected int DONATE = 6;
 
 	/**
 	 * seznam polozek pro menu
@@ -91,6 +94,7 @@ public class SettingsActivity extends BaseActivity
 				startActivity(i);
 			}
 		});
+
 	}
 
 	public void onResume()
@@ -153,8 +157,35 @@ public class SettingsActivity extends BaseActivity
 				super.handleMessage(msg);
 
 		}
-		Log.d(TAG, "handle setting");
 		return true;
 	}
+
+    /**
+     * vytvoreni kontextoveho menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu)
+    {
+        super.onCreateOptionsMenu(menu);
+
+        menu.add(GROUP_GENERAL, DONATE, android.view.Menu.NONE, R.string.donate);
+        return true;
+    }
+
+    /**
+     * reakce na kliknuti polozky v kontextovem menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        super.onOptionsItemSelected(item);
+
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == DONATE) {
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"));
+            startActivity(browserIntent);
+        }
+
+        return false;
+    }
 
 }
