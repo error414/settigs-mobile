@@ -94,7 +94,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 
 			if (i == 0) {
 				tempPicker.setOffset(20);
-				tempPicker.setRange(0, 60, 20, 80); // nastavuji rozmezi prvku z profilu
+				tempPicker.setRange(0, 80, 20, 100); // nastavuji rozmezi prvku z profilu
 			} else {
 				tempPicker.setTranslate(new StabiSenzivityProgressExTranslate());
 				tempPicker.setOffset(50);

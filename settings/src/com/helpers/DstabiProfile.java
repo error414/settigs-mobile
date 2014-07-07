@@ -103,7 +103,7 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm"));
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 
-		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 60, "x")); 		// procenta
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x")); 		// procenta
 		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8"));		// geometrie hlavy - 6°
 		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z")); 	// nasobic
 
