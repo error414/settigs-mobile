@@ -260,9 +260,7 @@ public class GraphActivity extends BaseActivity
 
 		vibDelay += 0.5f * (vib - vibDelay);
 
-		if (vibDelay > 100) {
-			vibDelay = 100;
-		} else if (vibDelay < 2) {
+		if (vibDelay < 2) {
 			vibDelay = 0;
 		}
 

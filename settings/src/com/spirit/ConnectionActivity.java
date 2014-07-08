@@ -311,7 +311,7 @@ public class ConnectionActivity extends BaseActivity
 	{
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
+		//menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
 		menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
 
 		SubMenu profile = menu.addSubMenu(R.string.profile);

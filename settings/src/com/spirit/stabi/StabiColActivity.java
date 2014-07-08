@@ -133,7 +133,7 @@ public class StabiColActivity extends BaseActivity
 
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
-			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65){ // 65 is "A" in profile
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65 || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68){ // 65 is "A" in profile, 68 is D
 				tempPicker.setEnabled(false);
 			}
 		}
