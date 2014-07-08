@@ -20,7 +20,6 @@ package com.lib;
 import com.exception.ProfileNotValidException;
 import com.helpers.DstabiProfile;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -56,7 +55,11 @@ public class ChangeInProfile
 		this.originalProfile = originalProfile;
 	}
 
-	/**
+    public DstabiProfile getOriginalProfile() {
+        return originalProfile;
+    }
+
+    /**
 	 *
 	 * @param changedProfile
 	 * @return

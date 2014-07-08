@@ -83,9 +83,9 @@ public class ConnectionActivity extends BaseActivity
 	private Button connectButton;
 	private TextView curentDeviceText;
 
-	final private int PROFILE_CALL_BACK_CODE = 16;
-	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 17;
-	final private int GET_SERIAL_NUMBER = 18;
+	final private int PROFILE_CALL_BACK_CODE = 116;
+	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 117;
+	final private int GET_SERIAL_NUMBER = 118;
 
 	final static String FILE_EXT = "4ds";
 
@@ -181,8 +181,10 @@ public class ConnectionActivity extends BaseActivity
 				showConfirmDialog(R.string.version_not_match);
 			}
 
-			//prvotni naplaneni profilu pro zobrzeni rozdilu, bude se udrovt v globalni tride.
-			ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
+			//prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
+            if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
+                ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
+            }
 
 
 		} else {
@@ -224,6 +226,9 @@ public class ConnectionActivity extends BaseActivity
 	public void manageConnectionToBTDevice(View v)
 	{
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_LISTEN || stabiProvider.getState() == BluetoothCommandService.STATE_NONE) {
+
+            //pripripojovani vymazeme profil pro diff
+            ChangeInProfile.getInstance().setOriginalProfile(null);
 
 			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
 

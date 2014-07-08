@@ -14,7 +14,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="492dp"
 	        android:background="@color/background_color"
-	        android:onClick="showHelp" >
+	         >
 	
 	        <TextView
 	            android:id="@+id/textView1"

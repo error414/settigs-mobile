@@ -73,8 +73,8 @@ public class DiffActivity extends BaseActivity
 		adapter = new DiffListAdapter(this, new ArrayList<HashMap<Integer, String>>());
 		diffList.setAdapter(adapter);
 
-		//dame pozadavek na ziskani profilu z jednotky
-		initConfiguration();
+
+		//initConfiguration();
 	}
 
     /**
@@ -85,6 +85,8 @@ public class DiffActivity extends BaseActivity
         super.onResume();
         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
             ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            //dame pozadavek na ziskani profilu z jednotky
+            initConfiguration();
         } else {
             finish();
         }
