@@ -46,8 +46,6 @@ public class PitchupActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.pitchup,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

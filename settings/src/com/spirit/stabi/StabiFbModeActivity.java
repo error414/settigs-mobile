@@ -46,8 +46,6 @@ public class StabiFbModeActivity extends BaseActivity
 
 	private int formItems[] = {R.id.stabi_fbmode,};
 
-	private DstabiProfile profileCreator;
-
 	private int lock = 0;
 
 	/**

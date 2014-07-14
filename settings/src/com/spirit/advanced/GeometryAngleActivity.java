@@ -50,8 +50,6 @@ public class GeometryAngleActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.geom_6deg_tune,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity GeometryAngle
 	 */

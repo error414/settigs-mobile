@@ -89,8 +89,6 @@ public class ConnectionActivity extends BaseActivity
 
 	final static String FILE_EXT = "4ds";
 
-	DstabiProfile profileCreator;
-
 	private String fileForSave;
 
 	/**
@@ -497,6 +495,7 @@ public class ConnectionActivity extends BaseActivity
 					continue;
 				}
 			}
+			checkChange(mstabiProfile);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.damage_profile, Toast.LENGTH_SHORT).show();
 		}

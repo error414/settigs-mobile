@@ -49,8 +49,6 @@ public class PiroOptimalizationActivity extends BaseActivity
 	// gui prvky ktere jsou pri basic mode disablovane
 	private int formItemsNotInBasicMode[] = {R.id.piro_opt,};
 
-	private DstabiProfile profileCreator;
-
 	private int lock = 0;
 
 	/**

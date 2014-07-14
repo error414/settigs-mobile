@@ -46,9 +46,6 @@ public class SenzorRotationSpeedActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.cyc_rate, R.string.rud_rate,};
 
-	private DstabiProfile profileCreator;
-
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */

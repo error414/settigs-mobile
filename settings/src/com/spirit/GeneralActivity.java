@@ -56,8 +56,6 @@ public class GeneralActivity extends BaseActivity
 
 	private int lock = formItems.length;
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
@@ -167,7 +165,7 @@ public class GeneralActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-
+					
 					showInfoBarWrite();
 				}
 			}

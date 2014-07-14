@@ -49,8 +49,6 @@ public class StabiFunctionActivity extends BaseActivity
 
 	private int lock = formItems.length;
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

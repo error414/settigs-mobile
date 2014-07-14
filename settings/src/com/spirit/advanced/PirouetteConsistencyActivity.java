@@ -46,8 +46,6 @@ public class PirouetteConsistencyActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.pirouette_consistency,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

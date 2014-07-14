@@ -46,8 +46,6 @@ public class RudderRevomixActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.rudder_revomix,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

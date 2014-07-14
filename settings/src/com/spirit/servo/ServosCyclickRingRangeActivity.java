@@ -50,8 +50,6 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.ail_ele, R.string.limit_pitch,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */

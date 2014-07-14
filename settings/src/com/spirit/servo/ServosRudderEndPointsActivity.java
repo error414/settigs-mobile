@@ -49,8 +49,6 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.min_max, R.string.blank,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */

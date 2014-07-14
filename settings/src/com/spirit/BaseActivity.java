@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -36,13 +37,14 @@ import android.view.SubMenu;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.helpers.StatusNotificationBuilder;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 
+@SuppressLint("InflateParams")
 abstract public class BaseActivity extends Activity implements Handler.Callback
 {
 
@@ -108,6 +110,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 * pocitadlo otevreni info boxu
 	 */
 	public int progressInfoCount = 0;
+	
+	/**
+	 * 
+	 */
+	protected DstabiProfile profileCreator;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -152,8 +159,20 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onResume();
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
+		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().getChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
-
+	
+	/**
+	 * zkontroluje a nastavi do global storage jestli se prifil zmenil nebo ne
+	 */
+	public void checkChange(DstabiProfile profile){
+		
+		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
+		
+		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().getChanged() ? R.drawable.not_equal : R.drawable.equals);
+	}
+	
 	/**
 	 * nachazi se aplikace v basic modu ?
 	 *
@@ -317,7 +336,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		// ziskani konfigurace z jednotky
 		stabiProvider.sendDataForResponce(stabiProvider.SAVE_PROFILE, call_back_code);
 	}
-
+	
+	/**
+	 * 
+	 * @param profile
+	 */
 	protected void setOriginalProfileProfile(DstabiProfile profile)
 	{
 		ChangeInProfile.getInstance().setOriginalProfile(profile);
@@ -477,7 +500,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 				sendInError();
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
+				if(profileCreator != null){
+					checkChange(profileCreator);
+				}
 				sendInSuccessInfo();
+				
 				break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
@@ -495,7 +522,12 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 			case PROFILE_FOR_UPDATE_ORIGINAL:
 				sendInSuccessInfo();
-				setOriginalProfileProfile(new DstabiProfile(msg.getData().getByteArray("data")));
+				
+				DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
+				
+				setOriginalProfileProfile(profile);
+				checkChange(profile);
+				
 				break;
 		}
 		return true;

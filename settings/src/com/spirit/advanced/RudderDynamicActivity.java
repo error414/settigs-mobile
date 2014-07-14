@@ -45,8 +45,6 @@ public class RudderDynamicActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.rudder_dynamic,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

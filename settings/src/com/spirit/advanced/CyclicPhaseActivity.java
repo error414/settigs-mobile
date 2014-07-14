@@ -46,8 +46,6 @@ public class CyclicPhaseActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.cyclic_phase_deg,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

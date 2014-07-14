@@ -47,8 +47,6 @@ public class StabiCtrlDirActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.stabi_ctrldir,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity stabi
 	 */

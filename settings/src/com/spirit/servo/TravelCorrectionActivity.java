@@ -50,8 +50,6 @@ public class TravelCorrectionActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */

@@ -53,8 +53,6 @@ public class SenzorSenzivityActivity extends BaseActivity
 			//R.string.z_yaw,
 	};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

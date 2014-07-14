@@ -50,8 +50,6 @@ public class ServosSubtrimActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.aileron, R.string.elevator, R.string.pitch, R.string.rudder,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

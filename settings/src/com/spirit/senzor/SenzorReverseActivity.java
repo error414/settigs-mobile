@@ -49,8 +49,6 @@ public class SenzorReverseActivity extends BaseActivity
 	// gui prvky ktere jsou pri basic mode disablovane
 	private int formItemsNotInBasicMode[] = {R.id.x_pitch_reverse, R.id.y_roll_reverse, R.id.z_yaw_reverse,};
 
-	private DstabiProfile profileCreator;
-
 	private int lock = 0;
 
 	/**

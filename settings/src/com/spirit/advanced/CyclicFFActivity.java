@@ -46,8 +46,6 @@ public class CyclicFFActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.cyclic_ff,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

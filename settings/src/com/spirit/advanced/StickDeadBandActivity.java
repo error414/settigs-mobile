@@ -46,8 +46,6 @@ public class StickDeadBandActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.stick_deadband,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

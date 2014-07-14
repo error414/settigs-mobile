@@ -20,6 +20,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
  */
 package com.helpers;
 
+import android.R.integer;
 import android.util.Log;
 
 import com.exception.IndexOutOfException;
@@ -104,7 +105,7 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM"));
 
 		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x")); 		// procenta
-		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8"));		// geometrie hlavy - 6°
+		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8"));		// geometrie hlavy - 6��
 		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z")); 	// nasobic
 
 		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", "X"));
@@ -122,7 +123,7 @@ public class DstabiProfile {
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); //
 
-		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0"));  // Míra změny směru
+		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0"));  // M��ra zm��ny sm��ru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
 		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
 		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu
@@ -131,7 +132,7 @@ public class DstabiProfile {
 
 		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
 
-		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pootočení cykliky
+		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pooto��en�� cykliky
 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o"));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// kompenzace zpinani vyskovky
@@ -226,15 +227,7 @@ public class DstabiProfile {
 		int id = profileMap.get("CHECKSUM").positionInConfig;
 		int checksum = mProfile[id] & 0xff;
 
-		int ch = 0;
-		
-		for (int i = 1; i < mProfile.length; i ++)
-			if (i != id)
-				ch += mProfile[i];
-		
-		ch &= 0xff;
-		
-		if (ch != checksum) {
+		if (getCheckSum() != checksum) {
 			Log.d(TAG, "Invalid checksum !");
 			return false;
 		}
@@ -255,6 +248,51 @@ public class DstabiProfile {
 		}
 
 		return isValid;
+	}
+	
+	/**
+	 * spocita a vrati checksum ze zakladniho profilu, pri chybe vraci -1
+	 * 
+	 * @return
+	 */
+	public int getCheckSum(){
+		if(mProfile != null){
+			int id = profileMap.get("CHECKSUM").positionInConfig;
+			int ch = 0;
+			
+			for (int i = 1; i < mProfile.length; i ++){
+				if (i != id){
+					ch += mProfile[i];
+				}
+			}
+			ch &= 0xff;
+			return ch;
+		}
+		
+		return -1;
+	}
+	
+	/**
+	 * spocita a vrati checsum aktualniho profilu, pri chybe vraci -1
+	 * 
+	 * @return
+	 */
+	public int getCheckSumFromKnowItem(){
+		if(mProfile != null){
+			int id = profileMap.get("CHECKSUM").positionInConfig;
+			int ch = 0;
+			
+			for(ProfileItem item : profileMap.values()){
+				if (item.positionInConfig != id){
+					ch += item.getValueInteger();
+				}
+			}
+			
+			ch &= 0xff;
+			return ch;
+		}
+		
+		return -1;
 	}
 
     /**

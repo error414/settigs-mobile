@@ -47,8 +47,6 @@ public class StabiStickActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.stabi_stick,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity stabi
 	 */

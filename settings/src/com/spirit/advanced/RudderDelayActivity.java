@@ -46,8 +46,6 @@ public class RudderDelayActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.rudder_delay,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */

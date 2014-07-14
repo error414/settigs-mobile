@@ -46,8 +46,6 @@ public class EFilterActivity extends BaseActivity
 
 	private int formItemsTitle[] = {R.string.e_filter,};
 
-	private DstabiProfile profileCreator;
-
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
