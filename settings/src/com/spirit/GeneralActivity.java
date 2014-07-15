@@ -42,6 +42,7 @@ import com.lib.BluetoothCommandService;
 public class GeneralActivity extends BaseActivity
 {
 
+	@SuppressWarnings("unused")
 	final private String TAG = "GeneralActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;

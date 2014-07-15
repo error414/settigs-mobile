@@ -20,7 +20,6 @@ package com.spirit.advanced;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,6 +35,7 @@ import com.spirit.R;
 public class CyclicFFActivity extends BaseActivity
 {
 
+	@SuppressWarnings("unused")
 	final private String TAG = "CyclicFFActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;

@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\n \n sestavení: 15.05.14</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\n \n build: 15.07.14</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -64,7 +64,7 @@
     <string name="cyclic_servo_reverse_text">Cyclic Servo Reverse</string>
     <string name="flight_style_text">Flight Style</string>
     <string name="must_first_connect_to_device">Connect to your BT module first, please</string>
-    <string name="connection_successfull">Connection successfull</string>
+    <string name="connection_successfull">Connection successful</string>
     <string name="type">Type</string>
     <string name="subtrim">Subtrim</string>
     <string name="limit">Limit</string>
@@ -233,7 +233,7 @@
     <string name="log_event_cycring">Cyclic Ring Activated</string>
     <string name="log_event_rudlim">Rudder Limit Reached</string>
     <string name="log_event_vibes">Vibration Level is very high</string>
-    <string name="log_event_hang">Main Loop Hang Occured</string>
+    <string name="log_event_hang">Main Loop Hang Occurred</string>
     <string name="log_event_rxloss">Receiver Signal Lost</string>
     <string name="not_log_for_save">None log to save</string>
     <string name="save_log">Save log</string>

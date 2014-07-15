@@ -22,4 +22,9 @@ package com.exception;
 public class ProfileNotValidException extends Exception
 {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 }

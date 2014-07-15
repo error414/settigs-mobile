@@ -56,6 +56,7 @@ import java.util.Date;
 public class GraphActivity extends BaseActivity
 {
 
+	@SuppressWarnings("unused")
 	final private String TAG = "GraphActivity";
 
 

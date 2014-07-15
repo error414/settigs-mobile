@@ -35,6 +35,7 @@ import com.spirit.R;
 public class RudderDynamicActivity extends BaseActivity
 {
 
+	@SuppressWarnings("unused")
 	final private String TAG = "RudderDynamicActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;

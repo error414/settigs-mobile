@@ -39,6 +39,7 @@ import com.spirit.R;
 public class ServosTypeActivity extends BaseActivity
 {
 
+	@SuppressWarnings("unused")
 	final private String TAG = "ServosTypeActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
