@@ -218,7 +218,7 @@ public class FileDialog extends ListActivity{
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
 			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		}else{
-			finish();
+			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
 	}
 

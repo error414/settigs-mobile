@@ -19,7 +19,9 @@ package com.spirit.diagnostic;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
@@ -37,15 +39,19 @@ import android.widget.Toast;
 import com.androidplot.Plot;
 import com.androidplot.xy.BoundaryMode;
 import com.androidplot.xy.LineAndPointFormatter;
-import com.androidplot.xy.LineAndPointRenderer;
+import com.androidplot.xy.PointLabelFormatter;
+import com.androidplot.xy.PointLabeler;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
+import com.androidplot.xy.XYSeries;
 import com.lib.BluetoothCommandService;
 import com.lib.FFT;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
 import com.spirit.BaseActivity;
+import com.spirit.PrefsActivity;
 import com.spirit.R;
+import com.spirit.SettingsActivity;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -70,7 +76,7 @@ public class GraphActivity extends BaseActivity
 
 
 	final private int GROUP_SCREENSHOT = 333;
-	final private int CHOOSE_DIRECOTORY = 444;
+	final private int CHOOSE_SCREENSHOT = 444;
 
 
 	@SuppressWarnings("unused")
@@ -102,18 +108,16 @@ public class GraphActivity extends BaseActivity
 	private double[] input_xr = null;
 	private double[] input_xi = null;
 
-	@SuppressLint("SdCardPath")
-	final static protected String DEFAULT_SCREEN_SHOT_PATH = "/sdcard/";
-	final static protected int REQUEST_DIR_FOR_SCREEN_SHOT = 15;
-
-	private String dir_for_save_screen_shot;
-
 	private float vibDelay = 0;
 
 	private CharSequence baseTitle = getTitle();
 
 	@SuppressLint("SimpleDateFormat")
-	SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd_HHmmss");
+	protected SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd_HHmmss");
+	
+	protected int[] topThree = {0,0,0};
+	
+	private LineAndPointFormatter formater;
 
 
 	/**
@@ -149,17 +153,31 @@ public class GraphActivity extends BaseActivity
 	private void inicializeGraph()
 	{
 		seriesX = new Number[FFT_NYQUIST];
-		seriesY = new Number[FFT_NYQUIST];
 
-		aprLevelsSeries = new SimpleXYSeries(Arrays.asList(seriesX), Arrays.asList(seriesY), "");
-
+		aprLevelsSeries = new SimpleXYSeries(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "");
+		
+		PointLabelFormatter plf = new PointLabelFormatter(Color.WHITE);
+		plf.getTextPaint().setTextSize(13);
+		
+		formater = new LineAndPointFormatter(Color.rgb(0, 0, 200), null, null, plf);
+		formater.setPointLabeler(
+			new PointLabeler() {
+		        @Override
+		        public String getLabel(XYSeries series, int index) {
+		        	if((index > 5 && (topThree[0] == index || topThree[1] == index || topThree[2] == index)) && series.getY(index).intValue() > 10){
+		        		return String.valueOf(Math.round(index * 60)) + " RPM";
+		        	}
+		        	return "";
+		        }
+		        	
+			});
 		// setup the APR Levels plot:
 		aprLevelsPlot = (XYPlot) findViewById(R.id.vibration);
-		aprLevelsPlot.addSeries(aprLevelsSeries, LineAndPointRenderer.class, new LineAndPointFormatter(Color.rgb(0, 200, 0), null, null));
-		aprLevelsPlot.disableAllMarkup();
+		aprLevelsPlot.addSeries(aprLevelsSeries, formater);
+		//aprLevelsPlot.disableAllMarkup();
 		aprLevelsPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
 
-		aprLevelsPlot.setRangeBoundaries(0, 100, BoundaryMode.FIXED);
+		aprLevelsPlot.setRangeBoundaries(0, 110, BoundaryMode.FIXED);
 		aprLevelsPlot.setRangeLabel(getString(R.string.amplitude));
 		aprLevelsPlot.setRangeStepValue(50);
 
@@ -177,6 +195,7 @@ public class GraphActivity extends BaseActivity
 	 */
 	private void updateGraph(Number[] seriesX)
 	{
+		topThree = this.topThree(seriesX);
 		aprLevelsSeries.setModel(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY);
 		aprLevelsPlot.redraw();
 	}
@@ -209,15 +228,6 @@ public class GraphActivity extends BaseActivity
 
 		//startTime = System.nanoTime();//START
 		thread.run();
-	}
-
-	/**
-	 * tuhle metodu potrebuje graf, asi ho psal blbec
-	 *
-	 * @param v
-	 */
-	public void getData(View v)
-	{
 	}
 
 	/**
@@ -277,11 +287,13 @@ public class GraphActivity extends BaseActivity
 					int len = msg.getData().getByteArray("data").length;
 					byte[] data = msg.getData().getByteArray("data");
 
-					if (dataBuffer == null)
+					if (dataBuffer == null){
 						dataBuffer = new byte[DATABUFFER_SIZE + 72];    // 3byte*1024
+					}
 
-					if ((dataBuffer_len + len) > DATABUFFER_SIZE)        // osetreni preteceni
+					if ((dataBuffer_len + len) > DATABUFFER_SIZE){        // osetreni preteceni
 						len = DATABUFFER_SIZE - dataBuffer_len;
+					}
 
 					// rychlejsi konkatenace
 					System.arraycopy(data, 0, dataBuffer, dataBuffer_len, len);
@@ -301,12 +313,15 @@ public class GraphActivity extends BaseActivity
 								//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);
 
 								i += 3;
-							} else i++;
+							} else {
+								i++;
+							}
 						}
 
 						// aplikujeme Hamming okno
-						for (int i = 0; i < FFT_N; i++)
+						for (int i = 0; i < FFT_N; i++){
 							input_xr[i] = (double) ((input_xr[i])) * (0.54f - (0.46f * Math.cos((2 * Math.PI * i) / (FFT_N - 1))));
+						}
 
 						// fft pocitam zatim primo tady - je to docela rychle
 						// TODO udelat v samostatnem vlaknu
@@ -338,8 +353,8 @@ public class GraphActivity extends BaseActivity
 		public void onClick(View v)
 		{
 			if (tapToScreenShot) {
-
-				String filename = dir_for_save_screen_shot + "/" + sdf.format(new Date()) + "-log.png";
+				SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
+				String filename = preferences.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
 
 				try {
 					aprLevelsPlot.setDrawingCacheEnabled(true);
@@ -376,9 +391,9 @@ public class GraphActivity extends BaseActivity
 		menu.add(GROUP_AXIS, AXIS_Y, Menu.NONE, R.string.axis_Y);
 		menu.add(GROUP_AXIS, AXIS_Z, Menu.NONE, R.string.axis_Z);
 		if (tapToScreenShot) {
-			menu.add(GROUP_SCREENSHOT, CHOOSE_DIRECOTORY, Menu.NONE, R.string.tap_to_screenshot_off);
+			menu.add(GROUP_SCREENSHOT, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_off);
 		} else {
-			menu.add(GROUP_SCREENSHOT, CHOOSE_DIRECOTORY, Menu.NONE, R.string.tap_to_screenshot_on);
+			menu.add(GROUP_SCREENSHOT, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_on);
 		}
 
 		return super.onPrepareOptionsMenu(menu);
@@ -416,33 +431,49 @@ public class GraphActivity extends BaseActivity
 		}
 
 		//ulozeni obrazku grafu
-		if (item.getGroupId() == GROUP_SCREENSHOT && item.getItemId() == CHOOSE_DIRECOTORY) {
+		if (item.getGroupId() == GROUP_SCREENSHOT && item.getItemId() == CHOOSE_SCREENSHOT) {
 			if (tapToScreenShot) {
 				tapToScreenShot = false;
 			} else {
-				Intent intent = new Intent(getBaseContext(), FileDialog.class);
-				intent.putExtra(FileDialog.START_PATH, DEFAULT_SCREEN_SHOT_PATH);
-				intent.putExtra(FileDialog.CAN_SELECT_DIR, true);
-				intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_OPEN);
-				intent.putExtra(FileDialog.FORMAT_FILTER, new String[]{});
-				startActivityForResult(intent, REQUEST_DIR_FOR_SCREEN_SHOT);
+				
+				//zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
+				SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
+				if(!preferences.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
+					Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
+					Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
+					startActivity(i);
+					//return false;
+				}
+				
+				tapToScreenShot = true;
 			}
 		}
 		return false;
 	}
 
-	/**
-	 * zachytavani vysledku z aktivit
-	 */
-	public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data)
-	{
-		switch (requestCode) {
-			case REQUEST_DIR_FOR_SCREEN_SHOT:
-				if (resultCode == Activity.RESULT_OK) {
-					tapToScreenShot = true;
-					dir_for_save_screen_shot = data.getStringExtra(FileDialog.RESULT_PATH);
-				}
-		}
-	}
+	public int[] topThree(Number[] seriesX2) {
+		int max1 = Integer.MIN_VALUE;
+		int max2 = Integer.MIN_VALUE;
+		int max3 = Integer.MIN_VALUE;
+		int i = 0;
+		
+        for (Number number : seriesX2) {
+            if (number.intValue() > max1) {
+                max3 = max2;
+                max2 = max1;
+                max1 = i;
+            } else if (number.intValue() > max2) {
+            	max3 = max2;
+                max2 = i;
+            }else if (number.intValue() > max3) {
+                max3 = i;
+            }
+            
+            i++;
+        }
+        
+        int[] ret = { max1, max2, max3};
+        return ret;
+    }
 
 }

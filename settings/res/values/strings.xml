@@ -268,4 +268,16 @@
     <string name="no">No</string>
     <string name="no_diff">no difference</string>
     <string name="donate">Donate</string>
+    
+    <string name="changelog_full_title">Change Log</string>
+    <string name="changelog_title">What\'s New</string>
+    <string name="changelog_ok_button">OK</string>
+    <string name="changelog_show_full">more...</string>
+    
+    <string name="graph_direcotory">Graph Directory</string>
+    <string name="log_direcotory">Log Directory</string>
+    <string name="graph_direcotory_sumarry">Pick to choose directory for save graph image</string>
+    <string name="log_direcotory_sumarry">Pick to choose directory for save log PDF file</string>
+    
+    <string name="first_choose_directory">First choose directory</string>
 </resources>

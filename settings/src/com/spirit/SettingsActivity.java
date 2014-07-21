@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
 
@@ -52,6 +53,7 @@ public class SettingsActivity extends BaseActivity
 	final private String TAG = "SettingsActivity";
 
     final protected int DONATE = 6;
+    final protected int SETTINGS = 7;
 
 	/**
 	 * seznam polozek pro menu
@@ -94,6 +96,11 @@ public class SettingsActivity extends BaseActivity
 				startActivity(i);
 			}
 		});
+		
+		//change log
+		ChangeLog cl = new ChangeLog(this);
+	   // if (cl.firstRun())
+	        cl.getLogDialog().show();
 
 	}
 
@@ -169,6 +176,7 @@ public class SettingsActivity extends BaseActivity
         super.onCreateOptionsMenu(menu);
 
         menu.add(GROUP_GENERAL, DONATE, android.view.Menu.NONE, R.string.donate);
+        menu.add(GROUP_GENERAL, SETTINGS, android.view.Menu.NONE, R.string.settings);
         return true;
     }
 
@@ -183,6 +191,11 @@ public class SettingsActivity extends BaseActivity
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == DONATE) {
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"));
             startActivity(browserIntent);
+        }
+        
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == SETTINGS) {
+			Intent i = new Intent(SettingsActivity.this, PrefsActivity.class);
+			startActivity(i);
         }
 
         return false;

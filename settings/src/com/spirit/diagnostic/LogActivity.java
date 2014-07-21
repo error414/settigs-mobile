@@ -18,7 +18,9 @@ package com.spirit.diagnostic;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -37,9 +39,12 @@ import com.lib.FileDialog;
 import com.lib.LogPdf;
 import com.lib.SelectionMode;
 import com.spirit.BaseActivity;
+import com.spirit.PrefsActivity;
 import com.spirit.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 @SuppressLint("SdCardPath")
@@ -69,11 +74,9 @@ public class LogActivity extends BaseActivity
 	final protected int LOG_SAVE = 1;
 	final protected int LOG_REFRESH = 2;
 
-	final protected int REQUEST_SAVE = 1;
-
 	final static String FILE_LOG_EXT = "pdf";
-
-	final static protected String DEFAULT_LOG_PATH = "/sdcard/";
+	@SuppressLint("SimpleDateFormat")
+	protected SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd_HHmmss");
 
 	private ListView logList;
 
@@ -247,54 +250,27 @@ public class LogActivity extends BaseActivity
 				Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
 				return false;
 			}
-
-			Intent intent = new Intent(getBaseContext(), FileDialog.class);
-			intent.putExtra(FileDialog.START_PATH, DEFAULT_LOG_PATH);
-			intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
-			intent.putExtra(FileDialog.FORMAT_FILTER, new String[]{FILE_LOG_EXT});
-
-			if (item.getItemId() == LOG_SAVE) {
-				Log.d(TAG, "ID");
-				intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_CREATE);
-				startActivityForResult(intent, REQUEST_SAVE);
-				return true;
+			
+			SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
+			if(!preferences.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+				Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(LogActivity.this, PrefsActivity.class);
+				startActivity(i);
+				//return false;
 			}
+			
+			String filename = preferences.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
+
+			LogPdf log = new LogPdf(this, logListData);
+			log.create(filename);
+			
+			Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+			
+			
 		}else if(item.getGroupId() == GROUP_LOG && item.getItemId() == LOG_REFRESH){
 			initConfiguration();
 		}
 		return false;
 	}
-
-	/**
-	 * zachytavani vysledku z aktivit
-	 */
-	public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data)
-	{
-		switch (requestCode) {
-			case REQUEST_SAVE:
-				if (resultCode == Activity.RESULT_OK) {
-					if (requestCode == REQUEST_SAVE) {
-						if (logListData == null) {
-							Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
-							return;
-						}
-
-						String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
-
-						if (!filePath.endsWith(FILE_LOG_EXT)) { // konci nazev souboru na string .pdf, pokud ano nepridavame priponu
-							filePath += "." + FILE_LOG_EXT;
-						}
-
-						LogPdf log = new LogPdf(this, logListData);
-						log.create(filePath);
-
-					}
-				} else if (resultCode == Activity.RESULT_CANCELED) {
-					// zruzeni vybirani souboru
-				}
-				break;
-		}
-	}
-
 }
 	
