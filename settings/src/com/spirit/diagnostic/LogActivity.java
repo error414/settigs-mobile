@@ -256,7 +256,7 @@ public class LogActivity extends BaseActivity
 				Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(LogActivity.this, PrefsActivity.class);
 				startActivity(i);
-				//return false;
+				return false;
 			}
 			
 			String filename = preferences.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;

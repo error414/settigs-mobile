@@ -28,6 +28,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -164,7 +165,7 @@ public class GraphActivity extends BaseActivity
 			new PointLabeler() {
 		        @Override
 		        public String getLabel(XYSeries series, int index) {
-		        	if((index > 5 && (topThree[0] == index || topThree[1] == index || topThree[2] == index)) && series.getY(index).intValue() > 10){
+		        	if((index > 5 && (topThree[0] == index || topThree[1] == index || topThree[2] == index)) && series.getY(index).intValue() > 5){
 		        		return String.valueOf(Math.round(index * 60)) + " RPM";
 		        	}
 		        	return "";
@@ -434,6 +435,7 @@ public class GraphActivity extends BaseActivity
 		if (item.getGroupId() == GROUP_SCREENSHOT && item.getItemId() == CHOOSE_SCREENSHOT) {
 			if (tapToScreenShot) {
 				tapToScreenShot = false;
+				Toast.makeText(getApplicationContext(), R.string.tap_to_screenshot_off, Toast.LENGTH_SHORT).show();
 			} else {
 				
 				//zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
@@ -442,33 +444,68 @@ public class GraphActivity extends BaseActivity
 					Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
 					Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
 					startActivity(i);
-					//return false;
+					return false;
 				}
-				
+				Toast.makeText(getApplicationContext(), R.string.tap_to_screenshot_on, Toast.LENGTH_SHORT).show();
 				tapToScreenShot = true;
 			}
 		}
 		return false;
 	}
 
+	/**
+	 * tohle je zatim nastrel
+	 * 
+	 * @param seriesX2
+	 * @return
+	 */
 	public int[] topThree(Number[] seriesX2) {
 		int max1 = Integer.MIN_VALUE;
 		int max2 = Integer.MIN_VALUE;
 		int max3 = Integer.MIN_VALUE;
+		
+		Number max1Value = 0;
+		Number max2Value = 0;
+		Number max3Value = 0;
+		
+		Number prewValueValue = 0;
+		
+		boolean lock = false;
+		
 		int i = 0;
 		
         for (Number number : seriesX2) {
-            if (number.intValue() > max1) {
+        	
+        	if(number.floatValue() > prewValueValue.floatValue() || number.floatValue() < (/*prewValueValue.floatValue() +*/ 5f) ){
+        		lock = false;
+        	}
+        	
+            if (number.floatValue() > max1Value.floatValue() && !lock) {
                 max3 = max2;
                 max2 = max1;
                 max1 = i;
-            } else if (number.intValue() > max2) {
+                
+                max3Value = max2Value;
+                max2Value = max1Value;
+                max1Value = number;
+                lock = true;
+                
+            } else if (number.floatValue() > max2Value.floatValue() && !lock) {
             	max3 = max2;
                 max2 = i;
-            }else if (number.intValue() > max3) {
+                
+                max3Value = max2Value;
+                max2Value = number;
+                
+                lock = true;
+            }else if (number.floatValue() > max3Value.floatValue() && !lock) {
                 max3 = i;
+                
+                max3Value = number;
+                lock = true;
             }
             
+            prewValueValue = number;
             i++;
         }
         
