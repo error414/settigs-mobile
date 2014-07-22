@@ -1,5 +1,16 @@
 package com.lib;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -18,17 +29,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 import com.spirit.diagnostic.LogActivity;
-
-import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Locale;
 
 public class LogPdf {
 	 private Font catFont 	= new Font(Font.FontFamily.HELVETICA, 18, Font.NORMAL);

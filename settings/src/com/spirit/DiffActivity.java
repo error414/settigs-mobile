@@ -17,6 +17,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -35,9 +38,6 @@ import com.lib.DstabiProvider;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
 import com.lib.translate.StabiSenzivityProgressExTranslate;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * @author error414

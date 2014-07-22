@@ -17,6 +17,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,9 +40,6 @@ import com.lib.BluetoothCommandService;
 import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * aktivita pro hlavni obrazku
@@ -99,8 +99,9 @@ public class SettingsActivity extends BaseActivity
 		
 		//change log
 		ChangeLog cl = new ChangeLog(this);
-	   // if (cl.firstRun())
+	    if (cl.firstRun()){
 	        cl.getLogDialog().show();
+	    }
 
 	}
 

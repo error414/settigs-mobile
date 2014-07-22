@@ -17,11 +17,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.lib;
 
-import com.exception.ProfileNotValidException;
-import com.helpers.DstabiProfile;
-
 import java.util.ArrayList;
 import java.util.Arrays;
+
+import com.exception.ProfileNotValidException;
+import com.helpers.DstabiProfile;
 
 
 public class ChangeInProfile

@@ -1,5 +1,8 @@
 package com.lib.menu;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.spirit.ConnectionActivity;
 import com.spirit.FavouritesActivity;
 import com.spirit.GeneralActivity;
@@ -36,9 +39,6 @@ import com.spirit.stabi.StabiCtrlDirActivity;
 import com.spirit.stabi.StabiFbModeActivity;
 import com.spirit.stabi.StabiFunctionActivity;
 import com.spirit.stabi.StabiStickActivity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * trida obsluhujici vytvoreni a praci s menu

@@ -1,8 +1,5 @@
 package com.spirit;
 
-import com.lib.FileDialog;
-import com.lib.SelectionMode;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +7,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+
+import com.lib.FileDialog;
+import com.lib.SelectionMode;
 
 public class PrefsActivity extends PreferenceActivity{
 	
