@@ -129,8 +129,9 @@ public class DstabiProfile {
 
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H")); // konzistence piruet
 
-		profileMap.put("CHECKSUM",		new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
-
+		profileMap.put("CHECKSUM_LO",	new ProfileItem(36, 0, 255, null)); 	// checksum pro kontrolu dat
+		profileMap.put("CHECKSUM_HI",	new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
+		
 		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pooto��en�� cykliky
 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o"));
@@ -223,8 +224,9 @@ public class DstabiProfile {
 			return false;
 		}
 		
-		int id = profileMap.get("CHECKSUM").positionInConfig;
-		int checksum = mProfile[id] & 0xff;
+		int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
+		int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
+		int checksum = (mProfile[id_hi] & 0xff) << 8 | (mProfile[id_lo] & 0xff);
 
 		if (getCheckSum() != checksum) {
 			Log.d(TAG, "Invalid checksum !");
@@ -254,18 +256,42 @@ public class DstabiProfile {
 	 * 
 	 * @return
 	 */
+	
 	public int getCheckSum(){
 		if(mProfile != null){
-			int id = profileMap.get("CHECKSUM").positionInConfig;
-			int ch = 0;
+			int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
+			int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
 			
-			for (int i = 1; i < mProfile.length; i ++){
-				if (i != id){
-					ch += mProfile[i];
-				}
+			int bytes = mProfile.length-1;
+
+			int sum1 = 0xff;
+			int sum2 = 0xff;    
+			int i = 1;
+
+			while (bytes != 0) {
+			  	int tlen = bytes > 20 ? 20 : bytes;
+				
+			  	bytes -= tlen;
+					
+			    do {
+			     	int d = 0;
+
+			       	if (i != id_lo && i != id_hi)
+			       		d = mProfile[i ++] & 0xff;
+			       	else
+			       		i ++;
+
+			       	sum2 += sum1 += d;
+			    } while ((-- tlen) != 0);
+			       
+			    sum1 = (sum1 & 0xff) + (sum1 >> 8);
+			    sum2 = (sum2 & 0xff) + (sum2 >> 8);
 			}
-			ch &= 0xff;
-			return ch;
+
+			sum1 = (sum1 & 0xff) + (sum1 >> 8);
+			sum2 = (sum2 & 0xff) + (sum2 >> 8);
+
+			return (sum2 << 8 | sum1);
 		}
 		
 		return -1;
@@ -277,18 +303,45 @@ public class DstabiProfile {
 	 * @return
 	 */
 	public int getCheckSumFromKnowItem(){
-		if(mProfile != null){
-			int id = profileMap.get("CHECKSUM").positionInConfig;
-			int ch = 0;
+		if(mProfile != null){		
+			int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
+			int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
 			
-			for(ProfileItem item : profileMap.values()){
-				if (item.positionInConfig != id){
-					ch += item.getValueInteger();
-				}
+			int bytes = profileMap.size()-1;
+
+			int sum1 = 0xff;
+			int sum2 = 0xff;    
+			int i = 1;
+
+			Iterator<ProfileItem> it = profileMap.values().iterator();
+			
+			while (bytes != 0) {
+			  	int tlen = bytes > 20 ? 20 : bytes;
+				
+			  	bytes -= tlen;
+					
+			    do {
+			     	int d = 0;
+
+			       	if (i != id_lo && i != id_hi) {
+			       		ProfileItem item = it.next();
+			       		d = item.getValueInteger() & 0xff;
+			       	} else
+			       		it.next();
+			       		
+			       	i ++;
+
+			       	sum2 += sum1 += d;
+			    } while ((-- tlen) != 0);
+			       
+			    sum1 = (sum1 & 0xff) + (sum1 >> 8);
+			    sum2 = (sum2 & 0xff) + (sum2 >> 8);
 			}
-			
-			ch &= 0xff;
-			return ch;
+
+			sum1 = (sum1 & 0xff) + (sum1 >> 8);
+			sum2 = (sum2 & 0xff) + (sum2 >> 8);
+
+			return (sum2 << 8 | sum1);
 		}
 		
 		return -1;
