@@ -29,9 +29,10 @@
     <string name="choose_device">Vyberte zařízení</string>
     <string name="connect">Připojit</string>
     <string name="disconnect">Odpojit</string>
+    <string name="disconnected">Odpojeno</string>
     <string name="write_please_wait">Zapisuji data. Čekejte\.\.\.</string>
     <string name="write_data">Zapisuji data\.\.\.</string>
-    <string name="read_please_wait">Čtu data. Čekejte\.\.\.</string>
+    <string name="read_please_wait">Čtení dat. Čekejte\.\.\.</string>
     <string name="read_data">Čtu data.\.\.\.</string>
     <string name="damage_profile">Poškozený profil</string>
     <string name="unknow_version">Neznámá verze</string>

@@ -177,6 +177,7 @@ public class ConnectionActivity extends BaseActivity
 
 			if (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR").getValueString().equals(APLICATION_MINOR2_VERSION)) {
 				showConfirmDialog(R.string.version_not_match);
+				stabiProvider.disconnect();
 			}
 
 			//prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
@@ -279,7 +280,7 @@ public class ConnectionActivity extends BaseActivity
 
 				break;
 			default:
-				textStatusView.setText(R.string.disconnect);
+				textStatusView.setText(R.string.disconnected);
 				textStatusView.setTextColor(Color.RED);
 
 				connectButton.setText(R.string.connect);

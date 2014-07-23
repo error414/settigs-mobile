@@ -28,6 +28,7 @@
     <string name="choose_device">Choose device</string>
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
+    <string name="disconnected">Disconnected</string>
     <string name="write_please_wait">Writing data. Please wait\.\.\.</string>
     <string name="write_data">Writing data\.\.\.</string>
     <string name="read_please_wait">Reading data. Please wait\.\.\.</string>
