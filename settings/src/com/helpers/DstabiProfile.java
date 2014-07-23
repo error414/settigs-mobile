@@ -112,7 +112,7 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z"));
         //
 		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a"));		// rychlost rotace cykliky
-		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 10, 	"b"));		// pocatecni reakce cykliky
+		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 12, 	"b"));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c"));		// rychlost rotace vrtulky
 
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r")); 	// kompenzace zpinani vyskovky

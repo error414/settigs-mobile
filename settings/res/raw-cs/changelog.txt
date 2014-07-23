@@ -24,9 +24,11 @@
     </style>
   </head>
  <body>
- $ 1.0.24-1
-  % Version 1.0.24-1
-  _ 2014-07-21
+ $ 1.0.25
+  % Version 1.0.25-1
+  _ 2014-07-23
+  	* podpora pro verzi FW 1.0.25
+  	
     * v grafu se zobrazuje RPM u třech špiček
     
     * adresář pro uložení grafu a logu je nově v nastavení <br><span class="path">hlavní obrazovka => kontextové menu => nastavení</span>
