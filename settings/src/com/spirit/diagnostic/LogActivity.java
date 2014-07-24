@@ -28,6 +28,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -64,6 +65,7 @@ public class LogActivity extends BaseActivity
 	final static Integer LOG_EVENT_VIBES = 0x8;
 	final static Integer LOG_EVENT_HANG = 0x10;
 	final static Integer LOG_EVENT_RXLOSS = 0x20;
+	final static Integer LOG_EVENT_LOWVOLT = 0x40;
 	////////////////////////////////////////////////////
 
 	final protected int GROUP_LOG = 4;
@@ -115,9 +117,28 @@ public class LogActivity extends BaseActivity
 	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log)
 	{
+		int len = log.length; // tady prijde 121
+		// kontrola jestli je log z pameti
+		if (len == 121) {
+			len /= 2;
+	
+	        int i;
+	        for (i = len-1; i >= 0; i --) {
+	            if ((log[i] & LOG_EVENT_LOWVOLT) != 0 && log[i] != 0xff){
+	                break;
+	            }
+	        }
+	
+	        len = i+1;
+	        showConfirmDialog(R.string.log_from_previous_flight);
+	    }
+		//////////
+		
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
-
-		for (int i = 1; i < log.length; i++) {
+		
+		//tady vzdy 60 = i
+		//taky je me divne ze logo zacinam od indexu 1
+		for (int i = 1; i < len; i++) {
 			if (log[i] == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
@@ -169,6 +190,14 @@ public class LogActivity extends BaseActivity
 			if ((log[i] & LOG_EVENT_RXLOSS) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rxloss);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				row.put(POSITION, i);
+				logListData.add(row);
+			}
+			
+			if ((log[i] & LOG_EVENT_LOWVOLT) != 0) {
+				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
+				row.put(TITLE_FOR_LOG, R.string.log_event_lowvolt);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
 				row.put(POSITION, i);
 				logListData.add(row);

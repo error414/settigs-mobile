@@ -265,7 +265,7 @@
     <string name="log_event_vibes">Úroveň vibrací je příliš vysoká</string>
     <string name="log_event_hang">Hlavní smyčka programu uvázla</string>
     <string name="log_event_rxloss">Ztracen signál přijímače</string>
-    
+    <string name="log_event_lowvolt">Nízké napětí</string>
     <string name="not_log_for_save">Žádný záznam letu k uložení</string>
     <string name="save_log">Uložit záznam letu</string>
     
@@ -324,4 +324,5 @@
      <string name="log_direcotory_sumarry">Kliknutím vyberte adresář pro uložení PDF logu</string>
      
      <string name="first_choose_directory">Prvně vyberte adresář</string>
+      <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticly cleared.</string>
 </resources>

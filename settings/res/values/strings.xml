@@ -236,6 +236,7 @@
     <string name="log_event_vibes">Vibration Level is very high</string>
     <string name="log_event_hang">Main Loop Hang Occurred</string>
     <string name="log_event_rxloss">Receiver Signal Lost</string>
+    <string name="log_event_lowvolt">Low volt</string>
     <string name="not_log_for_save">None log to save</string>
     <string name="save_log">Save log</string>
     <string name="pdf_title">Flight log</string>
@@ -281,4 +282,6 @@
     <string name="log_direcotory_sumarry">Pick to choose directory for save log PDF file</string>
     
     <string name="first_choose_directory">First choose directory</string>
+    <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticly cleared.</string>
+    
 </resources>
