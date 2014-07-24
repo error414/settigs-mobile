@@ -117,9 +117,9 @@ public class LogActivity extends BaseActivity
 	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log)
 	{
-		int len = log.length; // tady prijde 121
+		int len = log.length - 1; // tady prijde 121
 		// kontrola jestli je log z pameti
-		if (len == 121) {
+		if (len == 120) {
 			len /= 2;
 	
 	        int i;
@@ -138,7 +138,7 @@ public class LogActivity extends BaseActivity
 		
 		//tady vzdy 60 = i
 		//taky je me divne ze logo zacinam od indexu 1
-		for (int i = 1; i < len; i++) {
+		for (int i = 1; i <= len; i++) {
 			if (log[i] == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
