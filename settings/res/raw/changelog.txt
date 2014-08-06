@@ -25,12 +25,10 @@
   </head>
  <body>
  $ 1.0.25
-  % Version 1.0.25-2
+  % Version 1.0.25
   _ 2014-08-06
  	* repair log from flight
  	
-  % Version 1.0.25-1
-  _ 2014-07-23
   	* support for version FW 1.0.25
  
     * the graph shows three peaks at RPM
