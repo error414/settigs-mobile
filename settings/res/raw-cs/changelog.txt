@@ -25,10 +25,16 @@
   </head>
  <body>
  $ 1.0.25
+  % Version 1.0.25-2
+  _ 2014-08-06
+ 	* oprava českých textů
+ 	
+ 	* oprava zobrazení záznamu letu
+ 	
   % Version 1.0.25-1
   _ 2014-07-23
   	* podpora pro verzi FW 1.0.25
-  	
+ 
     * v grafu se zobrazuje RPM u třech špiček
     
     * oprava zobrazeni letového logu (podpora pro uložený log)

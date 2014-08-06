@@ -25,22 +25,24 @@
   </head>
  <body>
  $ 1.0.25
+  % Version 1.0.25-2
+  _ 2014-08-06
+ 	* repair log from flight
+ 	
   % Version 1.0.25-1
   _ 2014-07-23
-  	* podpora pro verzi FW 1.0.25
+  	* support for version FW 1.0.25
  
-    * v grafu se zobrazuje RPM u třech špiček
+    * the graph shows three peaks at RPM
     
-    * oprava zobrazeni letového logu (podpora pro uložený log)
+    * directory for storing log and graph in the newly setup <br> <span class = "path"> main screen => context menu => Settings </ span>
     
-    * adresář pro uložení grafu a logu je nově v nastavení <br><span class="path">hlavní obrazovka => kontextové menu => nastavení</span>
-    
-    * přídáno donate <br><span class="path">hlavní obrazovka => kontextové menu => donate</span>
+    * will are added donate <br> <span class = "path"> main screen => context menu => Donate </ span>
  
  $ 1.0.24
   % Version 1.0.24
   _ 2014-07-18
-  	*Přídán change log
+  	* adding change log
   	
 $ END_OF_CHANGE_LOG
   </body>

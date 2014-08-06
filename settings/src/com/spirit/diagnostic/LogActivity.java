@@ -158,7 +158,7 @@ public class LogActivity extends BaseActivity
 			if ((log[i] & LOG_EVENT_CYCRING) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cycring);
-				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 				row.put(POSITION, i);
 				logListData.add(row);
 			}
@@ -166,7 +166,7 @@ public class LogActivity extends BaseActivity
 			if ((log[i] & LOG_EVENT_RUDLIM) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rudlim);
-				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 				row.put(POSITION, i);
 				logListData.add(row);
 			}

@@ -122,7 +122,7 @@ public class DstabiProfile {
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v"));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m")); //
 
-		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0"));  // M��ra zm��ny sm��ru
+		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0"));  // Mira zmeny smeru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1")); 		// kolektiv zachranneho rezimu
 		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
 		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3")); // priorita knyplu
@@ -132,7 +132,7 @@ public class DstabiProfile {
 		profileMap.put("CHECKSUM_LO",	new ProfileItem(36, 0, 255, null)); 	// checksum pro kontrolu dat
 		profileMap.put("CHECKSUM_HI",	new ProfileItem(39, 0, 255, null)); 	// checksum pro kontrolu dat
 		
-		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pooto��en�� cykliky
+		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5")); // virtualni pootoceni cykliky
 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o"));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4")); 		// kompenzace zpinani vyskovky

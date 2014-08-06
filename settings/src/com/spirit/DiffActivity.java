@@ -429,12 +429,10 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("STABI_CTRLDIR")){
 
-            StabiPichProgressExTranslate translate = new StabiPichProgressExTranslate();
-
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.stabi_button_text), textSeparator , getResources().getString(R.string.stabi_ctrldir)).toString());
 
-            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
-            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
         }
         // #############################################################################################
 
