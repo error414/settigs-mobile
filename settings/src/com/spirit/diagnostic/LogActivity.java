@@ -117,14 +117,14 @@ public class LogActivity extends BaseActivity
 	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log)
 	{
-		int len = log.length - 1; // tady prijde 121
+		int len = log[0] & 0xff;
 		// kontrola jestli je log z pameti
 		if (len == 120) {
 			len /= 2;
 	
 	        int i;
 	        for (i = len-1; i >= 0; i --) {
-	            if ((log[i] & LOG_EVENT_LOWVOLT) != 0 && log[i] != 0xff){
+	            if (((log[i+1] & 0xff) & LOG_EVENT_LOWVOLT) != 0 && (log[i+1] & 0xff) != 0xff){
 	                break;
 	            }
 	        }
@@ -139,7 +139,7 @@ public class LogActivity extends BaseActivity
 		//tady vzdy 60 = i
 		//taky je me divne ze logo zacinam od indexu 1
 		for (int i = 1; i <= len; i++) {
-			if (log[i] == LOG_EVENT_OK) {
+			if ((log[i] & 0xff) == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_ok);
@@ -147,7 +147,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_CAL) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_CAL) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cal);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
@@ -155,7 +155,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_CYCRING) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_CYCRING) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cycring);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
@@ -163,7 +163,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_RUDLIM) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_RUDLIM) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rudlim);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
@@ -171,7 +171,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_VIBES) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_VIBES) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_vibes);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
@@ -179,7 +179,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_HANG) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_HANG) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_hang);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
@@ -187,7 +187,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_RXLOSS) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_RXLOSS) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rxloss);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
@@ -195,7 +195,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 			
-			if ((log[i] & LOG_EVENT_LOWVOLT) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_LOWVOLT) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_lowvolt);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
