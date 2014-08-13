@@ -1,10 +1,12 @@
 package com.spirit;
 
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
@@ -13,19 +15,22 @@ import com.lib.SelectionMode;
 
 public class PrefsActivity extends PreferenceActivity{
 	
+	private final String TAG = "PrefsActivity";
+	
 	public final static int REQUEST_APP_GRAPH_DIR 	= 1;
 	public final static int REQUEST_APP_LOG_DIR 	= 2;
 	
 	public final static String PREF_APP 			= "pref_app";
 	public final static String PREF_APP_GRAPH_DIR 	= "pref_app_graph_dir";
 	public final static String PREF_APP_LOG_DIR 	= "pref_app_log_dir";
+	public final static String PREF_APP_LANGUAGE 	= "prefs_language";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	   super.onCreate(savedInstanceState);
 	   addPreferencesFromResource(R.xml.prefs);
 	    
-	    final SharedPreferences preferences = getSharedPreferences(PREF_APP, Context.MODE_PRIVATE);
+	   final SharedPreferences preferences = getSharedPreferences(PREF_APP, Context.MODE_PRIVATE);
 	    
 	    //CHOOSE DIR FOR GRAPH
 	    final Preference grafDir = (Preference) findPreference("grafDir");
@@ -50,6 +55,12 @@ public class PrefsActivity extends PreferenceActivity{
 	        }
 	    });
 	    ////////////////////////////
+	    
+	    //// LANGUAGE 
+		ListPreference language = (ListPreference) findPreference (PREF_APP_LANGUAGE);
+		if(language.getValue() == null){
+			language.setValueIndex(0);
+		}
 	}
 	
 	@Override

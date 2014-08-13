@@ -228,8 +228,23 @@
         <item>Rescue (Acro)</item>
         <item>Stabilisation</item>
     </string-array>
-
+	
+     <string-array name="language_values">
+        <item>Automatically</item>
+        <item>Čeština</item>
+        <item>English</item>
+       
+    </string-array>
+    
+     <string-array name="language_pref_values">
+        <item>none</item>
+        <item>cs</item>
+        <item>en</item>
+    </string-array>
+    
     <string name="location">Location</string>
+    <string name="language">Language</string>
+    <string name="language_sumary">Need restart application</string>
     <string name="cant_read_folder">folder can\'t be opened!</string>
     <string name="nnew">New</string>
     <string name="select">Select</string>

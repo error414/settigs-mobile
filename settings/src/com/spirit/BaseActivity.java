@@ -18,6 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
+import java.util.Date;
+import java.util.Locale;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -29,10 +32,13 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -130,6 +136,19 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onCreate(savedInstanceState);
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+		
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+		String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
+		
+		if(!language.equals("none")){
+			Log.d(TAG, "language changed");
+			Resources res = getResources();
+		    // Change locale settings in the app.
+		    DisplayMetrics dm = res.getDisplayMetrics();
+		    android.content.res.Configuration conf = res.getConfiguration();
+		    conf.locale = new Locale(language);
+		    res.updateConfiguration(conf, dm);
+		}
 	}
 
 	@Override
@@ -162,6 +181,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	public void onResume()
 	{
 		super.onResume();
+		
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().getChanged() ? R.drawable.not_equal : R.drawable.equals);

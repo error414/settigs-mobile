@@ -13,5 +13,13 @@
       android:summary="@string/log_direcotory_sumarry"
       android:key="logDir" 
     />
+  
+   <ListPreference
+     android:key="prefs_language"
+     android:title="@string/language"
+     android:summary="@string/language_sumary"
+     android:entries="@array/language_values"
+     android:entryValues="@array/language_pref_values"
+     />
  
 </PreferenceScreen>

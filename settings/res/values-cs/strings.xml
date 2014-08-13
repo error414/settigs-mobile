@@ -98,7 +98,7 @@
     <string name="reg_d">D</string>
     <string name="pirouette_consistency">Držení piruet</string>
     <string name="rear_up">Elevator pitching-up compensation</string>
-    <string name="filter">Sensor filter</string>
+    <string name="filter">Sensor filr</string>
     <string name="gyro">Gyro</string>
     
     <string name="diag_rudder">Vrtulka</string>
@@ -255,8 +255,21 @@
         <item>Stabilizace</item>
     </string-array>
     
+    <string-array name="language_values">
+        <item>Automaticky</item>
+        <item>Čeština</item>
+        <item>English</item>
+    </string-array>
+    
+    <string-array name="language_pref_values">
+        <item>none</item>
+        <item>cs</item>
+        <item>en</item>
+    </string-array>
     
     <string name="location">Umístění</string>
+    <string name="language">Jazyk</string>
+    <string name="language_sumary">Pro aplikování změny je potřeba restart aplikace</string>
     <string name="cant_read_folder">Adresář nelze otevřít!</string>
     <string name="nnew">Nový</string>
     <string name="select">Vybrat</string>
