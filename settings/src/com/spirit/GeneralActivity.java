@@ -38,7 +38,7 @@ import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.spirit.General.ChannelsActivity;
+import com.spirit.general.ChannelsActivity;
 
 /**
  * aktivita na zobrazeni general moznosti nastaveni

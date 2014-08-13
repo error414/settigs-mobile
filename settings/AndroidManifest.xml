@@ -30,7 +30,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".GeneralActivity"
+            android:name="com.spirit.general.GeneralActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -262,7 +262,7 @@
             android:screenOrientation="portrait"
              />
        	<activity
-            android:name=".General.ChannelsActivity"
+            android:name="com.spirit.general.ChannelsActivity"
              android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

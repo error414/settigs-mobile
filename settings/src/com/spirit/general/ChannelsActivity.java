@@ -1,4 +1,4 @@
-package com.spirit.General;
+package com.spirit.general;
 
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
