@@ -55,7 +55,9 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView1"
+	            android:layout_alignRight="@+id/imageView1"
 	            android:layout_below="@+id/textView1"
+	            android:layout_marginRight="80dp"
 	            android:entries="@array/position_values"
 	            android:minWidth="230dp" />
 
@@ -74,6 +76,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView4"
+	            android:layout_alignRight="@+id/position_select_id"
 	            android:layout_below="@+id/textView4"
 	            android:entries="@array/mix_values"
 	            android:minWidth="230dp" />
@@ -93,9 +96,8 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView5"
-	            android:layout_alignParentRight="true"
+	            android:layout_alignRight="@+id/mix_select_id"
 	            android:layout_below="@+id/textView5"
-	            android:layout_marginRight="100dp"
 	            android:entries="@array/receiver_values"
 	            android:minWidth="230dp" />
 
@@ -114,6 +116,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView6"
+	            android:layout_alignRight="@+id/receiver_select_id"
 	            android:layout_below="@+id/textView6"
 	            android:entries="@array/cyclic_servo_reverse_values"
 	            android:minWidth="230dp" />
@@ -133,6 +136,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView7"
+	            android:layout_alignRight="@+id/cyclic_servo_reverse_select_id"
 	            android:layout_below="@+id/textView7"
 	            android:entries="@array/flight_style_values"
 	            android:minWidth="230dp" />
@@ -142,10 +146,11 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignBottom="@+id/receiver_select_id"
-	            android:layout_alignParentRight="true"
-	            android:layout_below="@+id/textView5"
+	            android:layout_alignTop="@+id/receiver_select_id"
+	            android:layout_toRightOf="@+id/receiver_select_id"
 	            android:onClick="openChannelsActivity"
-	            android:text="@string/channels" />
+	            android:text="@string/channels"
+	            android:textSize="12sp" />
 
 	    </RelativeLayout>
 	</ScrollView>
