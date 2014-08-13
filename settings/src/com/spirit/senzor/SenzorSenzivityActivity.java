@@ -101,7 +101,8 @@ public class SenzorSenzivityActivity extends BaseActivity
 					tempPicker.setRange(50, 100, 100, 150); // nastavuji rozmezi prvku z profilu
 					break;
 				case 2:
-					tempPicker.setRange(-100, 155, 0, 200); // nastavuji rozmezi prvku z profilu
+					tempPicker.setOffset(-100);
+					tempPicker.setRange(0, 200, -100, 100); // nastavuji rozmezi prvku z profilu
 					break;
 			
 			}
