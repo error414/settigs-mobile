@@ -692,7 +692,7 @@ public class DstabiProvider {
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
     				if(length == 0){
-    					length = ByteOperation.byteToUnsignedInt(part[0]);
+    					length = ByteOperation.byteToUnsignedInt(part[0]) + 1;
     				}
     				profile = part;
     			}

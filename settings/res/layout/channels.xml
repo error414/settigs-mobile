@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:onClick="openChannlesActivity"
+    android:orientation="vertical" >
+
+	 <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color">
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="492dp"
+	        android:background="@color/background_color" >
+
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="16dp"
+	            android:layout_marginTop="60dp"
+	            android:text="@string/throttle"
+	            android:textColor="@color/text_color" />
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:src="@drawable/black_line" />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="@string/channels"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="@color/text_color"
+	            android:textStyle="bold" />
+
+	        <Spinner
+	            android:id="@+id/tht_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView1"
+	            android:layout_below="@+id/textView1"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+
+	        <TextView
+	            android:id="@+id/textView6"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/tht_select_id"
+	            android:layout_below="@+id/tht_select_id"
+	            android:layout_marginTop="32dp"
+	            android:text="@string/diag_aileron"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/aile_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView6"
+	            android:layout_below="@+id/textView6"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+
+	        <TextView
+	            android:id="@+id/TextView01"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/aile_select_id"
+	            android:layout_below="@+id/aile_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/diag_elevator"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/ele_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView01"
+	            android:layout_below="@+id/TextView01"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+	        
+	        
+	         <TextView
+	            android:id="@+id/TextView02"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/ele_select_id"
+	            android:layout_below="@+id/ele_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/diag_rudder"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/run_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView02"
+	            android:layout_below="@+id/TextView02"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+	        
+	        <TextView
+	            android:id="@+id/TextView03"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/run_select_id"
+	            android:layout_below="@+id/run_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/gyro_gain"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/gain_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView03"
+	            android:layout_below="@+id/TextView03"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+	        
+	       	
+	        <TextView
+	            android:id="@+id/TextView04"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/gain_select_id"
+	            android:layout_below="@+id/gain_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/diag_pitch"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/pitch_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView04"
+	            android:layout_below="@+id/TextView04"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+	        
+	         <TextView
+	            android:id="@+id/TextView05"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/pitch_select_id"
+	            android:layout_below="@+id/pitch_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/banks"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/bank_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView05"
+	            android:layout_below="@+id/TextView05"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+
+	    </RelativeLayout>
+
+	</ScrollView>
+</LinearLayout>

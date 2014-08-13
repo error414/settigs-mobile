@@ -138,7 +138,23 @@
     <string name="hz">[Hz]</string>
     <string name="profile_diff">Profile diff</string>
     <string name="log_button_text">Flight log</string>
-
+    <string name="channels">Channels</string>
+    <string name="throttle">Throttle</string>
+    <string name="gyro_gain">Gyro gain</string>
+    <string name="banks">Banks</string>
+    <string name="channelColision">There was a collision %1$s. channel, please choose differently.</string>
+	
+    <string-array name="channels_values">
+        <item>1. channel</item>
+        <item>2. channel</item>
+        <item>3. channel</item>
+        <item>4. channel</item>
+        <item>5. channel</item>
+        <item>6. channel</item>
+        <item>7. channel</item>
+        <item>Unassigned</item>
+    </string-array>
+    
     <string-array name="position_values">
         <item>Horizontal</item>
         <item>Vertical</item>

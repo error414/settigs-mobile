@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.helpers.DstabiProfile;
 import com.helpers.Globals;
 import com.helpers.StatusNotificationBuilder;
+import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
@@ -167,9 +168,14 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 * zkontroluje a nastavi do global storage jestli se prifil zmenil nebo ne
 	 */
 	public void checkChange(DstabiProfile profile){
+		if(profile == null){
+			Globals.getInstance().setChanged(false);
+			((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
+			return;
+		}
 		
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
-		
+
 		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().getChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}

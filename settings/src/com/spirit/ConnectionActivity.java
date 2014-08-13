@@ -228,7 +228,7 @@ public class ConnectionActivity extends BaseActivity
 
             //pripripojovani vymazeme profil pro diff
             ChangeInProfile.getInstance().setOriginalProfile(null);
-
+            checkChange(null);
 			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
 
 			//ulozeni vybraneho selectu / zarizeni
@@ -310,7 +310,7 @@ public class ConnectionActivity extends BaseActivity
 	{
 		super.onCreateOptionsMenu(menu);
 
-		//menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
+		menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
 		menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
 
 		SubMenu profile = menu.addSubMenu(R.string.profile);

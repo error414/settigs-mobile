@@ -150,6 +150,15 @@ public class DstabiProfile {
 		profileMap.put("TRAVEL_DAIL",	new ProfileItem(50, 63, 191, "Qa"));
 		profileMap.put("TRAVEL_DELE",	new ProfileItem(51, 63, 191, "Qe"));
 		profileMap.put("TRAVEL_DPIT",	new ProfileItem(52, 63, 191, "Qp"));
+		
+		//prirazeni kanalu
+		profileMap.put("CHANNELS_THT",	new ProfileItem(53, 0, 7, "Et"));
+		profileMap.put("CHANNELS_AIL",	new ProfileItem(54, 0, 7, "Ea"));
+		profileMap.put("CHANNELS_ELE",	new ProfileItem(55, 0, 7, "Ee"));
+		profileMap.put("CHANNELS_RUD",	new ProfileItem(56, 0, 7, "Er"));
+		profileMap.put("CHANNELS_GAIN",	new ProfileItem(57, 0, 7, "Eg"));
+		profileMap.put("CHANNELS_PITH",	new ProfileItem(58, 0, 7, "Ep"));
+		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb"));
 
 		this.mProfile = mProfile;
 
@@ -227,11 +236,12 @@ public class DstabiProfile {
 		int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
 		int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
 		int checksum = (mProfile[id_hi] & 0xff) << 8 | (mProfile[id_lo] & 0xff);
-
+		
 		if (getCheckSum() != checksum) {
 			Log.d(TAG, "Invalid checksum !");
 			return false;
 		}
+		
 
         boolean isValid = true;
         this.profileErrors.clear();
@@ -304,14 +314,11 @@ public class DstabiProfile {
 	 */
 	public int getCheckSumFromKnowItem(){
 		if(mProfile != null){		
-			int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
-			int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
 			
 			int bytes = profileMap.size()-1;
 
 			int sum1 = 0xff;
 			int sum2 = 0xff;    
-			int i = 1;
 
 			Iterator<ProfileItem> it = profileMap.values().iterator();
 			
@@ -322,15 +329,12 @@ public class DstabiProfile {
 					
 			    do {
 			     	int d = 0;
-
-			       	if (i != id_lo && i != id_hi) {
-			       		ProfileItem item = it.next();
+			     	
+			     	ProfileItem item = it.next();
+			       	if (item.getCommand() != null) {
 			       		d = item.getValueInteger() & 0xff;
-			       	} else
-			       		it.next();
-			       		
-			       	i ++;
-
+			       	}
+			       	
 			       	sum2 += sum1 += d;
 			    } while ((-- tlen) != 0);
 			       
@@ -512,6 +516,9 @@ public class DstabiProfile {
 		 */
 		public Integer getValueInteger()
 		{
+			if(this.value == null){
+				return 0;
+			}
 			return ByteOperation.byteToUnsignedInt(this.value);
 		}
 		

@@ -1,27 +1,12 @@
-/*
-Copyright (C) Petr Cada and Tomas Jedrzejek
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
+package com.spirit.General;
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+import com.exception.IndexOutOfException;
+import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
+import com.lib.BluetoothCommandService;
+import com.spirit.BaseActivity;
+import com.spirit.R;
 
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-package com.spirit;
-
-
-import java.util.Iterator;
-import java.util.Map;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -29,40 +14,28 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-import com.exception.IndexOutOfException;
-import com.helpers.DstabiProfile;
-import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
-import com.spirit.General.ChannelsActivity;
-
-/**
- * aktivita na zobrazeni general moznosti nastaveni
- *
- * @author error414
- */
-public class GeneralActivity extends BaseActivity
-{
-
+public class ChannelsActivity extends BaseActivity{
+	
 	@SuppressWarnings("unused")
-	final private String TAG = "GeneralActivity";
-
+	final private String TAG = "ChannelsActivity";
+	
 	final private int PROFILE_CALL_BACK_CODE = 16;
-
-	private final String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
+	
+	private final String protocolCode[] = {"CHANNELS_THT", "CHANNELS_AIL", "CHANNELS_ELE", "CHANNELS_RUD", "CHANNELS_GAIN", "CHANNELS_PITH", "CHANNELS_BANK"};
 
 	// gui prvky ktere sou v teto aktivite aktivni
-	private int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
-
+	private int formItems[] = {R.id.tht_select_id, R.id.aile_select_id, R.id.ele_select_id, R.id.run_select_id, R.id.gain_select_id, R.id.pitch_select_id, R.id.bank_select_id};
+	
 	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id,};
-
+	private int formItemsNotInBasicMode[] = formItems;
+	
 	private int lock = formItems.length;
-
+	
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
@@ -70,23 +43,14 @@ public class GeneralActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.general);
+		setContentView(R.layout.channels);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text), " \u2192 ", getString(R.string.channels)));
+
+		initConfiguration();
 		delegateListener();
 	}
 	
-	/**
-	 * stiknuti tlacitka channels
-	 * 
-	 * @param v
-	 */
-	public void openChannelsActivity(View v)
-	{
-		Intent i = new Intent(GeneralActivity.this, ChannelsActivity.class);
-		startActivity(i);
-	}
-
 	/**
 	 * prvotni konfigurace view
 	 */
@@ -97,12 +61,11 @@ public class GeneralActivity extends BaseActivity
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 			initBasicMode();
-			initConfiguration();
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -113,7 +76,23 @@ public class GeneralActivity extends BaseActivity
 			spinner.setEnabled(!getAppBasicMode());
 		}
 	}
-
+	
+	/**
+	 * disablovani prvku v zavislosti na vyberu typu prijmace
+	 */
+	protected void initByTypeReceiver()
+	{
+		if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65){ // 65 je A coz je PWM prijmac
+			int ppmDisallow[] = {R.id.tht_select_id, R.id.aile_select_id, R.id.ele_select_id, R.id.run_select_id, R.id.pitch_select_id};
+			
+			//nepovolime menit kanaly
+			for (int item : ppmDisallow) {
+				Spinner spinner = (Spinner) findViewById(item);
+				spinner.setEnabled(false);
+			}
+		}
+	}
+	
 	/**
 	 * prirazeni udalosti k prvkum
 	 */
@@ -124,7 +103,7 @@ public class GeneralActivity extends BaseActivity
 			((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
 		}
 	}
-
+	
 	/**
 	 * ziskani profilu z jednotky
 	 */
@@ -134,7 +113,7 @@ public class GeneralActivity extends BaseActivity
 		// ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
-
+	
 	/**
 	 * naplneni formulare
 	 *
@@ -143,21 +122,20 @@ public class GeneralActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-		
+			
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		initByTypeReceiver();
 		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if (pos != tempSpinner.getSelectedItemPosition()){
-					lock = lock + 1;
-				}
-
+				if (pos != 0) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 			}
 		} catch (IndexOutOfException e) {
@@ -165,13 +143,12 @@ public class GeneralActivity extends BaseActivity
 			return;
 		}
 	}
-
+	
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-			
 			if (lock != 0) {
 				lock -= 1;
 				return;
@@ -182,11 +159,30 @@ public class GeneralActivity extends BaseActivity
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
+					
+					//pro PWM jsou povoleny jen kanaly 5 a 7
+					if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 && (pos != 4 && pos != 7)){ // 65 je A coz je PWM prijmac, hodnoty 4 = kanal 5, 7 = neprirazeno
+						Spinner sp =  (Spinner) findViewById(formItems[i]);
+						sp.setSelection(7); // neprirazeno
+						return;
+					}
+					
+					//nejprve zkontrolujeme jestli uz nekde hodnota neni pouzita
+					for(int a = 0; a < formItems.length; a++){
+						Spinner sp =  (Spinner) findViewById(formItems[a]);
+						if(sp.getSelectedItemPosition() == pos && i != a && pos != 7){ // neprirazeno muze mit kolizi, 7 = neprirazeno
+							showConfirmDialog(String.format(getResources().getString(R.string.channelColision), i));
+							return;
+						}
+					}
+					
+					//tady bude kontrola integrity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
 					
 					showInfoBarWrite();
+						
 				}
 			}
 		}
@@ -198,7 +194,7 @@ public class GeneralActivity extends BaseActivity
 
 		}
 	};
-
+	
 	/**
 	 * obsluha callbacku
 	 *

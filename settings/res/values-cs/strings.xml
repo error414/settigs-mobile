@@ -154,7 +154,23 @@
     <string name="stabi_ctrldir">Míra změny směru</string>
 
 	<string name="profile_diff">Provedené změny</string>
-
+	<string name="channels">Kanály</string>
+	<string name="throttle">Throttle</string>
+	<string name="gyro_gain">Zisk vrtulky</string>
+	<string name="banks">Banky</string>
+	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlisný.</string>
+	
+	<string-array name="channels_values">
+        <item>1. kanál</item>
+        <item>2. kanál</item>
+        <item>3. kanál</item>
+        <item>4. kanál</item>
+        <item>5. kanál</item>
+        <item>6. kanál</item>
+        <item>7. kanál</item>
+        <item>Nepřiřazeno</item>
+    </string-array>
+	
     <string-array name="position_values">
         <item>Horizontální</item>
         <item>Vertikální</item>
