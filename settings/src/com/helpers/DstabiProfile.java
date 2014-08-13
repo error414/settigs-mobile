@@ -159,6 +159,8 @@ public class DstabiProfile {
 		profileMap.put("CHANNELS_GAIN",	new ProfileItem(57, 0, 7, "Eg"));
 		profileMap.put("CHANNELS_PITH",	new ProfileItem(58, 0, 7, "Ep"));
 		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb"));
+		
+		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7"));
 
 		this.mProfile = mProfile;
 
