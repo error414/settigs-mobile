@@ -21,9 +21,12 @@ package com.spirit;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -490,6 +493,21 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		alert.setPositiveButton("OK", null);
 
 		alert.setMessage(text);
+
+		alert.show();
+	}
+	
+	/**
+	 * @param graphWarn
+	 */
+	protected void showConfirmDialogWithCancel(int graphWarn, OnClickListener handlerOk, OnClickListener handlerCancel)
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+		alert.setPositiveButton(R.string.ok, handlerOk);
+		alert.setNegativeButton(R.string.cancel, handlerCancel);
+		alert.setCancelable(false);
+		
+		alert.setMessage(graphWarn);
 
 		alert.show();
 	}

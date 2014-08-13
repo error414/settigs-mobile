@@ -25,6 +25,8 @@ import java.util.Date;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -234,16 +236,29 @@ public class GraphActivity extends BaseActivity
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			showConfirmDialogWithCancel(R.string.graph_warn, 
+				new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						// inicializace FFT
+						initFFT();
+						// inicializujeme graf
+						inicializeGraph();
+
+						startGraph();
+					}
+				}	
+				, new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						finish();
+					}
+				});
+			
+			
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
 			((TextView) findViewById(R.id.title)).setText(TextUtils.concat(baseTitle, " ", getString(R.string.axis_X)));
-
-			// inicializace FFT
-			initFFT();
-			// inicializujeme graf
-			inicializeGraph();
-
-			startGraph();
 
 		} else {
 			finish();

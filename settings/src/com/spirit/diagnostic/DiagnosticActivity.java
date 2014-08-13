@@ -131,7 +131,25 @@ public class DiagnosticActivity extends BaseActivity
 		}, 250); // 250ms
 
 	}
-
+	
+	/*[17:38] <zexx86@gmail.com > jo diagnostika je ted predelana
+[17:38] <zexx86@gmail.com > data chodi jinak
+[17:38] <zexx86@gmail.com > a vic
+[17:39] <zexx86@gmail.com > int ail = diag[0];
+int ele = diag[1];
+int pit = diag[2];
+int rud = diag[3];
+int aux = diag[4];
+int aux2 = diag[5];
+int thr = diag[6];
+[17:39] <zexx86@gmail.com > diag je typu short
+[17:39] <zexx86@gmail.com > char *lcd = (char *) &diag[7];
+    
+lcd_senx->display (lcd[0]);
+lcd_seny->display (lcd[1]);
+lcd_senz->display (lcd[2]);
+[17:40] <zexx86@gmail.com > a pak aby jsem usetril trochu bajtu, jsem dal za to 3 chary*/
+	
 	protected void updateGui(byte[] b)
 	{
 
