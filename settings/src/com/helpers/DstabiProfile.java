@@ -68,14 +68,6 @@ public class DstabiProfile {
 	public void updateProfile(byte[] mProfile){
 		this.buildProfile(mProfile);
 	}
-	/*
-	//letovy projev, 
-	//Rozsah nabehu - kolektiv, 
-	//zisk cykliky, 
-	//vrtulkovy zisk znasobeni,
-// rychlost rotace cykliky i vrtulky,
-  //vse ve stabi krome padlove mechaniky, 
-  vse v pokrocile krome optimalizace piruet a  geometrie hlavy a  virtualni pootoceni cykliky;*/ 
 	
 	/**
 	 * vytvoreni profilu

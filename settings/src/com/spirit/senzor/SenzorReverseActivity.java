@@ -27,6 +27,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.customWidget.picker.ProgresEx;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -45,9 +46,6 @@ public class SenzorReverseActivity extends BaseActivity
 	private final String protocolCode[] = {"SENSOR_REVX", "SENSOR_REVY", "SENSOR_REVZ",};
 
 	private int formItems[] = {R.id.x_pitch_reverse, R.id.y_roll_reverse, R.id.z_yaw_reverse,};
-
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.x_pitch_reverse, R.id.y_roll_reverse, R.id.z_yaw_reverse,};
 
 	private int lock = 0;
 
@@ -98,7 +96,6 @@ public class SenzorReverseActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initBasicMode();
 		} else {
 			finish();
 		}
@@ -109,9 +106,11 @@ public class SenzorReverseActivity extends BaseActivity
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			CheckBox checkbox = (CheckBox) findViewById(item);
-			checkbox.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			CheckBox check = (CheckBox) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			check.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -128,6 +127,9 @@ public class SenzorReverseActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
@@ -177,6 +179,10 @@ public class SenzorReverseActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

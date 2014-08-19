@@ -479,9 +479,7 @@ public class ConnectionActivity extends BaseActivity
 			HashMap<String, ProfileItem> items = mstabiProfile.getProfileItems();
 			
 			for (ProfileItem item : items.values()) {
-				if (item.getCommand() != null && isPosibleSendData) {
-					
-					// BANKY
+				if (item.getCommand() != null && isPosibleSendData && item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
 					// pro banky 1 a 2 nahravame jen povolene hodnoty
 					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 || !item.isDeactiveInBasicMode()){
 						showDialogRead();

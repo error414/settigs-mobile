@@ -31,6 +31,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -97,6 +98,15 @@ public class LogActivity extends BaseActivity
 		LogListAdapter adapter = new LogListAdapter(this, new ArrayList<HashMap<Integer, Integer>>());
 		logList.setAdapter(adapter);
 		initConfiguration();
+	}
+	
+	/**
+	 * handle for change banks
+	 * 
+	 * @param v
+	 */
+	public void changeBankOpenDialog(View v){
+		//disabled change bank in this activity
 	}
 
 	/**

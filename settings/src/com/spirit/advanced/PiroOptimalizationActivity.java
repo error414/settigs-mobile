@@ -27,6 +27,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.customWidget.picker.ProgresEx;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -45,9 +46,6 @@ public class PiroOptimalizationActivity extends BaseActivity
 	private final String protocolCode[] = {"PIRO_OPT",};
 
 	private int formItems[] = {R.id.piro_opt,};
-
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.piro_opt,};
 
 	private int lock = 0;
 
@@ -102,20 +100,21 @@ public class PiroOptimalizationActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
 			}
-			initBasicMode();
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			CheckBox checkBox = (CheckBox) findViewById(item);
-			checkBox.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			CheckBox check = (CheckBox) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			check.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -141,6 +140,9 @@ public class PiroOptimalizationActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
@@ -189,6 +191,10 @@ public class PiroOptimalizationActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);
