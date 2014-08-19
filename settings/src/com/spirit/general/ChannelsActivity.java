@@ -176,10 +176,13 @@ public class ChannelsActivity extends BaseActivity{
 						}
 					}
 					
-					//tady bude kontrola integrity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
+					
+					if(protocolCode[i] == "CHANNELS_BANK"){
+						checkBankNumber(profileCreator); // na tomto banky zavisi takze po zmene musime volat
+					}
 					
 					showInfoBarWrite();
 						

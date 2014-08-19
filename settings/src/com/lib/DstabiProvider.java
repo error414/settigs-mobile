@@ -321,6 +321,19 @@ public class DstabiProvider {
 			queue.add(command, null, NORMAL, callBackCode);
 		}
 	}
+	
+	public void sendDataForResponce(ProfileItem item, int callBackCode){
+		if(item.isValid() && item.getCommand() != null){
+			if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+				this.callBackCode = callBackCode;
+				sendData(item.getCommand(), item.getValueBytesArray());
+			}else{
+				queue.add(item.getCommand(), item.getValueBytesArray(), NORMAL, callBackCode);
+			}
+		}else{
+			connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+		}
+	}
 	/////////////////////////////////////////////////
 	
 	////////////////// NO RESPONSE//////////////////

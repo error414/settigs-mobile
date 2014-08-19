@@ -8,13 +8,23 @@ package com.helpers;
  */
 public class Globals {
 	
+	public final static int BANK_NULL = -1;
+	public final static int BANK_0 = 0;
+	public final static int BANK_1 = 1;
+	public final static int BANK_2 = 2;
+	
 	static private Globals instance;
 	
 	/**
 	 * byla data v jednotce zmenena
 	 */
 	private Boolean changed = false;
-
+	
+	/**
+	 * byla data v jednotce zmenena
+	 */
+	private int activeBank;
+	
 	/**
 	 *
 	 */
@@ -28,12 +38,14 @@ public class Globals {
 		
 		return instance;
 	}
-
+	
+	
+	///// CHANGED ///////////////////////////////////
 	/**
 	 *
 	 * @return
 	 */
-	public Boolean getChanged()
+	public Boolean isChanged()
 	{
 		return changed;
 	}
@@ -42,4 +54,15 @@ public class Globals {
 	{
 		this.changed = changed;
 	}
+	///////////////////////////////////
+	
+	///// BANK ///////////////////////////////////
+	public int getActiveBank() {
+		return activeBank;
+	}
+
+	public void setActiveBank(int activeBank) {
+		this.activeBank = activeBank;
+	}
+	///////////////////////////////////
 }

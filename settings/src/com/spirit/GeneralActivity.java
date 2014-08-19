@@ -55,9 +55,6 @@ public class GeneralActivity extends BaseActivity
 	// gui prvky ktere sou v teto aktivite aktivni
 	private int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
 
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id,};
-
 	private int lock = formItems.length;
 
 	/**
@@ -93,7 +90,6 @@ public class GeneralActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initBasicMode();
 			initConfiguration();
 		} else {
 			finish();
@@ -105,9 +101,11 @@ public class GeneralActivity extends BaseActivity
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			Spinner spinner = (Spinner) findViewById(item);
-			spinner.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -145,6 +143,9 @@ public class GeneralActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
@@ -210,6 +211,10 @@ public class GeneralActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

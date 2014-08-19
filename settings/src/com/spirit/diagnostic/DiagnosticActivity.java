@@ -28,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.exception.IndexOutOfException;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.lib.BluetoothCommandService;
@@ -132,24 +133,6 @@ public class DiagnosticActivity extends BaseActivity
 
 	}
 	
-	/*[17:38] <zexx86@gmail.com > jo diagnostika je ted predelana
-[17:38] <zexx86@gmail.com > data chodi jinak
-[17:38] <zexx86@gmail.com > a vic
-[17:39] <zexx86@gmail.com > int ail = diag[0];
-int ele = diag[1];
-int pit = diag[2];
-int rud = diag[3];
-int aux = diag[4];
-int aux2 = diag[5];
-int thr = diag[6];
-[17:39] <zexx86@gmail.com > diag je typu short
-[17:39] <zexx86@gmail.com > char *lcd = (char *) &diag[7];
-    
-lcd_senx->display (lcd[0]);
-lcd_seny->display (lcd[1]);
-lcd_senz->display (lcd[2]);
-[17:40] <zexx86@gmail.com > a pak aby jsem usetril trochu bajtu, jsem dal za to 3 chary*/
-	
 	protected void updateGui(byte[] b)
 	{
 
@@ -178,7 +161,14 @@ lcd_senz->display (lcd[2]);
 			((TextView) findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		
+		//PITCH
+		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
+		int pitchPercent = Math.round((100 * pitch) / 340);
+		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
+		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		//RUDDER
 		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
 		int rudderPercent = Math.round((100 * rudder) / 340);
@@ -192,13 +182,7 @@ lcd_senz->display (lcd[2]);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//PITCH
-		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
-		int pitchPercent = Math.round((100 * pitch) / 340);
-		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
-		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
-
-		//GYRO
+		//GYRO 
 		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
 		int gyroPercent = Math.round((100 * gyro) / 388);
 
@@ -208,16 +192,66 @@ lcd_senz->display (lcd[2]);
 		} else {
 			mode = " HL";
 		}
-
+		
 		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
 		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+
+		//AUX1  / throttle
+		int throttle = ByteOperation.twoByteToSigInt(b[10], b[11]);
+		int throttlePercent = Math.round((50 * throttle) / 340); 
+		
+		// pokud neni throttli prirazen zadny kanal
+		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
+		try {
+			int max = getResources().getStringArray(R.array.channels_values).length;
+			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max) == 8){ // 8 = unbind
+				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
+			}else{
+				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
+			}
+		} catch (IndexOutOfException e) {
+			e.printStackTrace();
+		}
+		
+		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
+		throttleValueDiagnostic.setText(String.valueOf(Math.abs(throttlePercent)));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//AUX2  / banks 
+		int banks = ByteOperation.twoByteToSigInt(b[12], b[13]);
+		int banksPercent = Math.round((100 * banks) / 340); 
+		
+		int bank = 1;
+		if (banks < (1400-1520)){
+			bank = 0;
+		}else if (banks > (1640-1520)){
+			bank = 2;
+		}
+		
+		// pokud neni v bankach prirazen zadny kanal
+		TextView bankProgressDiagnostic = (TextView) findViewById(R.id.bank_value_diagnostic);
+		try {
+			int max = getResources().getStringArray(R.array.channels_values).length;
+			if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max) == 8){ // 8  = unbind
+				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.grey));
+			}else{
+				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
+			}
+		} catch (IndexOutOfException e) {
+			e.printStackTrace();
+		}
+		
+		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
+		bankProgressDiagnostic.setText(String.valueOf(Math.abs(banksPercent)) + " " + getString(R.string.banks) + " " + String.valueOf(bank));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
 		//SENZOR X Y Z
-		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[10], b[11])));
-		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[12], b[13])));
-		((TextView) findViewById(R.id.diagnostic_z)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[14], b[15])));
+		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf((int)b[14]));
+		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf((int)b[15]));
+		((TextView) findViewById(R.id.diagnostic_z)).setText(String.valueOf((int)b[16]));
 
 	}
 
@@ -237,8 +271,8 @@ lcd_senz->display (lcd[2]);
 			case DIAGNOSTIC_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 
-					if (msg.getData().getByteArray("data").length > 16) {
-						Log.d(TAG, "Odpoved delsi nez 16");
+					if (msg.getData().getByteArray("data").length > 17) {
+						Log.d(TAG, "Odpoved delsi nez 17");
 					}
 
 					updateGui(msg.getData().getByteArray("data"));

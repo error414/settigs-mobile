@@ -36,7 +36,7 @@ import com.spirit.R;
 public class EFilterActivity extends BaseActivity
 {
 
-	final private String TAG = "PirouetteConsistencyActivity";
+	final private String TAG = "EFilterActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 

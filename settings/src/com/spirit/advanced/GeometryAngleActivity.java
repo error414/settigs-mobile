@@ -37,7 +37,7 @@ import com.spirit.R;
 public class GeometryAngleActivity extends BaseActivity
 {
 
-	final private String TAG = "PiroOptimalizationActivity";
+	final private String TAG = "GeometryAngleActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 

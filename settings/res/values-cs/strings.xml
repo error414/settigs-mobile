@@ -158,7 +158,15 @@
 	<string name="throttle">Throttle</string>
 	<string name="gyro_gain">Zisk vrtulky</string>
 	<string name="banks">Banky</string>
+	<string name="choose_bank">Choose bank</string>
+	<string name="bank_short_code">B</string>
 	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlisný.</string>
+	
+	<string-array name="bank_values">
+        <item>0. banka</item>
+        <item>1. banka</item>
+        <item>2. banka</item>
+    </string-array>
 	
 	<string-array name="channels_values">
         <item>1. kanál</item>
@@ -333,6 +341,7 @@
     <string name="basic_mode">Bezpečný režim</string>
     <string name="app_basic_mode_on">Basic mode ZAPNUT</string>
     <string name="app_basic_mode_off">Basic mode VYPNUT</string>
+    <string name="basic_mode_is_lock">Basic mode je ZAMČEN</string>
 	<string name="refresh_log">Obnovit</string>
 
 
@@ -355,4 +364,5 @@
      
      <string name="first_choose_directory">Prvně vyberte adresář</string>
      <string name="log_from_previous_flight">Zobrazen i log z předchozího letu! \n Log bude automaticky vymazán.</string>
+     <string name="want_save_item">Přejete si uložit nastavení?</string>
 </resources>

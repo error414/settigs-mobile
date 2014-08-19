@@ -21,6 +21,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +38,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeLog;
@@ -54,6 +58,8 @@ public class SettingsActivity extends BaseActivity
 
     final protected int DONATE = 6;
     final protected int SETTINGS = 7;
+    
+    final protected static int PROFILE_SAVE_CALL_BACK_CODE_AND_FINISH = 1000;
 
 	/**
 	 * seznam polozek pro menu
@@ -114,6 +120,45 @@ public class SettingsActivity extends BaseActivity
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
 	}
+	
+	/**
+	 * BANK
+	 * zkontrolovat jestli jsou ulozene zmeny a pripadne zobrazit upozorneni
+	 */
+	public void finish() {
+		if(Globals.getInstance().isChanged()){
+			AlertDialog.Builder alert = new AlertDialog.Builder(SettingsActivity.this);
+			alert.setNegativeButton(R.string.no, new OnClickListener(){
+	
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					quit();
+				}
+				
+			});
+			
+			alert.setPositiveButton(R.string.yes, new OnClickListener(){
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) {
+					saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE_AND_FINISH);
+				}
+				
+			});
+			
+			alert.setCancelable(true);
+			alert.setMessage(R.string.want_save_item);
+			alert.show();
+		}else{
+			quit();
+		}
+	};
+	
+	/**
+	 * tohle metoda je tu proto ze nelze volat super.finish z onclicklisteneru
+	 */
+	public void quit() {
+        super.finish();
+    };
 
 	/**
 	 * vytvoreni pole pro adapter menu listu
@@ -153,6 +198,9 @@ public class SettingsActivity extends BaseActivity
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessInfo();
 				break;
+			case SettingsActivity.PROFILE_SAVE_CALL_BACK_CODE_AND_FINISH:
+				super.finish();
+				break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
 					sendInError(false);
@@ -190,7 +238,7 @@ public class SettingsActivity extends BaseActivity
         super.onOptionsItemSelected(item);
 
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == DONATE) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"));
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(DONATE_URL));
             startActivity(browserIntent);
         }
         

@@ -72,9 +72,6 @@ public class DiffActivity extends BaseActivity
 		ListView diffList = (ListView) findViewById(R.id.listMenu);
 		adapter = new DiffListAdapter(this, new ArrayList<HashMap<Integer, String>>());
 		diffList.setAdapter(adapter);
-
-
-		//initConfiguration();
 	}
 
     /**
@@ -95,7 +92,7 @@ public class DiffActivity extends BaseActivity
 	/**
 	 *
 	 */
-	protected void initConfiguration()
+	private void initConfiguration()
 	{
 		showDialogRead();
 		// ziskani konfigurace z jednotky

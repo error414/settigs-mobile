@@ -102,7 +102,7 @@ public class LogActivity extends BaseActivity
 	/**
 	 *
 	 */
-	protected void initConfiguration()
+	private void initConfiguration()
 	{
 		showDialogRead();
 		// ziskani konfigurace z jednotky
@@ -136,8 +136,6 @@ public class LogActivity extends BaseActivity
 		
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
 		
-		//tady vzdy 60 = i
-		//taky je me divne ze logo zacinam od indexu 1
 		for (int i = 1; i <= len; i++) {
 			if ((log[i] & 0xff) == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
