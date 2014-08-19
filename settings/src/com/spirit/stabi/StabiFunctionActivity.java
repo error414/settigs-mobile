@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.customWidget.picker.ProgresEx;
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -79,6 +80,19 @@ public class StabiFunctionActivity extends BaseActivity
 			finish();
 		}
 	}
+	
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
+	}
 
 	/**
 	 * prirazeni udalosti k prvkum
@@ -114,6 +128,10 @@ public class StabiFunctionActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
+		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
@@ -175,6 +193,10 @@ public class StabiFunctionActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

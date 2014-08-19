@@ -132,6 +132,15 @@ public class GraphActivity extends BaseActivity
 		baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
 		((TextView) findViewById(R.id.title)).setText(baseTitle);
 	}
+	
+	/**
+	 * handle for change banks
+	 * 
+	 * @param v
+	 */
+	public void changeBankOpenDialog(View v){
+		//disabled change bank in this activity
+	}
 
 	/**
 	 * inicializace a nastaveni FFT

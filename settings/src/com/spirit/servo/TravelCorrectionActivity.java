@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.customWidget.picker.ProgresEx;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.spirit.BaseActivity;
@@ -44,9 +45,6 @@ public class TravelCorrectionActivity extends BaseActivity
 	private final String protocolCode[] = {"TRAVEL_UAIL", "TRAVEL_UELE", "TRAVEL_UPIT", "TRAVEL_DAIL", "TRAVEL_DELE", "TRAVEL_DPIT",};
 
 	private int formItems[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
-
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
 
 	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
 
@@ -91,23 +89,23 @@ public class TravelCorrectionActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
 			}
-			initBasicMode();
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			ProgresEx progressEx = (ProgresEx) findViewById(item);
-			progressEx.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
-
 
 	@Override
 	public void onPause()
@@ -154,6 +152,9 @@ public class TravelCorrectionActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -194,6 +195,10 @@ public class TravelCorrectionActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

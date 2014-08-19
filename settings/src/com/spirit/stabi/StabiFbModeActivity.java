@@ -28,6 +28,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.customWidget.picker.ProgresEx;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -76,6 +77,19 @@ public class StabiFbModeActivity extends BaseActivity
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		else finish();
 	}
+	
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			CheckBox check = (CheckBox) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			check.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
+	}
 
 	/**
 	 * prirazeni udalosti k prvkum
@@ -111,6 +125,9 @@ public class StabiFbModeActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
@@ -160,6 +177,10 @@ public class StabiFbModeActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

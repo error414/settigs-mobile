@@ -1,5 +1,6 @@
 package com.spirit.general;
 
+import com.customWidget.picker.ProgresEx;
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -31,9 +32,6 @@ public class ChannelsActivity extends BaseActivity{
 	// gui prvky ktere sou v teto aktivite aktivni
 	private int formItems[] = {R.id.tht_select_id, R.id.aile_select_id, R.id.ele_select_id, R.id.run_select_id, R.id.gain_select_id, R.id.pitch_select_id, R.id.bank_select_id};
 	
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = formItems;
-	
 	private int lock = formItems.length;
 	
 	/**
@@ -60,7 +58,6 @@ public class ChannelsActivity extends BaseActivity{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initBasicMode();
 		} else {
 			finish();
 		}
@@ -71,9 +68,11 @@ public class ChannelsActivity extends BaseActivity{
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			Spinner spinner = (Spinner) findViewById(item);
-			spinner.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 	
@@ -129,6 +128,8 @@ public class ChannelsActivity extends BaseActivity{
 		}
 		
 		initByTypeReceiver();
+		checkBankNumber(profileCreator);
+		initBasicMode();
 		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
@@ -212,6 +213,10 @@ public class ChannelsActivity extends BaseActivity{
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

@@ -29,6 +29,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.customWidget.picker.ProgresEx;
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -47,9 +48,6 @@ public class ServosTypeActivity extends BaseActivity
 	private final String protocolCode[] = {"CYCLIC_TYPE", "CYCLIC_FREQ", "RUDDER_TYPE", "RUDDER_FREQ"};
 
 	private int formItems[] = {R.id.cyclic_pulse, R.id.cyclic_frequency, R.id.rudder_pulse, R.id.rudder_frequency};
-
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.cyclic_pulse, R.id.cyclic_frequency, R.id.rudder_pulse, R.id.rudder_frequency};
 
 	private int lock = formItems.length;
 
@@ -79,7 +77,6 @@ public class ServosTypeActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initBasicMode();
 		} else {
 			finish();
 		}
@@ -90,9 +87,11 @@ public class ServosTypeActivity extends BaseActivity
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			Spinner spinner = (Spinner) findViewById(item);
-			spinner.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -152,6 +151,9 @@ public class ServosTypeActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		try {
 			for (int i = 0; i < formItems.length; i++) {
@@ -222,6 +224,10 @@ public class ServosTypeActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

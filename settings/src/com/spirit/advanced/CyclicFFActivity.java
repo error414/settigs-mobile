@@ -22,6 +22,7 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
@@ -77,6 +78,19 @@ public class CyclicFFActivity extends BaseActivity
 			finish();
 		}
 	}
+	
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
+	}
 
 	private void initGui()
 	{
@@ -120,6 +134,9 @@ public class CyclicFFActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -162,6 +179,11 @@ public class CyclicFFActivity extends BaseActivity
 					sendInSuccessDialog();
 				}
 				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
+				break;	
+				
 			default:
 				super.handleMessage(msg);
 		}
