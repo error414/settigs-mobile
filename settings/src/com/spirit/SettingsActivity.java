@@ -41,6 +41,7 @@ import android.widget.Toast;
 import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeInProfile;
 import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
@@ -59,8 +60,6 @@ public class SettingsActivity extends BaseActivity
     final protected int DONATE = 6;
     final protected int SETTINGS = 7;
     
-    final protected static int PROFILE_SAVE_CALL_BACK_CODE_AND_FINISH = 1000;
-
 	/**
 	 * seznam polozek pro menu
 	 */
@@ -122,45 +121,6 @@ public class SettingsActivity extends BaseActivity
 	}
 	
 	/**
-	 * BANK
-	 * zkontrolovat jestli jsou ulozene zmeny a pripadne zobrazit upozorneni
-	 */
-	public void finish() {
-		if(Globals.getInstance().isChanged()){
-			AlertDialog.Builder alert = new AlertDialog.Builder(SettingsActivity.this);
-			alert.setNegativeButton(R.string.no, new OnClickListener(){
-	
-				@Override
-				public void onClick(DialogInterface arg0, int arg1) {
-					quit();
-				}
-				
-			});
-			
-			alert.setPositiveButton(R.string.yes, new OnClickListener(){
-				@Override
-				public void onClick(DialogInterface arg0, int arg1) {
-					saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE_AND_FINISH);
-				}
-				
-			});
-			
-			alert.setCancelable(true);
-			alert.setMessage(R.string.want_save_item);
-			alert.show();
-		}else{
-			quit();
-		}
-	};
-	
-	/**
-	 * tohle metoda je tu proto ze nelze volat super.finish z onclicklisteneru
-	 */
-	public void quit() {
-        super.finish();
-    };
-
-	/**
 	 * vytvoreni pole pro adapter menu listu
 	 * <p/>
 	 * tohle se bude vytvaret dynamicky z pole
@@ -197,9 +157,6 @@ public class SettingsActivity extends BaseActivity
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessInfo();
-				break;
-			case SettingsActivity.PROFILE_SAVE_CALL_BACK_CODE_AND_FINISH:
-				super.finish();
 				break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {

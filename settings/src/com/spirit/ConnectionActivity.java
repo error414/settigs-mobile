@@ -474,12 +474,12 @@ public class ConnectionActivity extends BaseActivity
 
 		DstabiProfile mstabiProfile = new DstabiProfile(ByteOperation.combineByteArray(lenght, profile));
 
-		if (mstabiProfile.isValid()) {
+		if (mstabiProfile.isValid(DstabiProfile.DONT_CHECK_CHECKSUM)) {
 			
 			HashMap<String, ProfileItem> items = mstabiProfile.getProfileItems();
 			
 			for (ProfileItem item : items.values()) {
-				if (item.getCommand() != null && isPosibleSendData && item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
+				if (item.getCommand() != null && isPosibleSendData && !item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
 					// pro banky 1 a 2 nahravame jen povolene hodnoty
 					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 || !item.isDeactiveInBasicMode()){
 						showDialogRead();
@@ -520,11 +520,12 @@ public class ConnectionActivity extends BaseActivity
 		}
 		showDialogWrite();
 		try {
-			System.arraycopy(profile, 1, profile, 0, profile.length - 1);
+			byte[] clearProfile = new byte[profile.length - 1];
+			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
 			if (fileForSave.endsWith(FILE_EXT)) { // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
-				DstabiProfile.saveProfileToFile(new File(fileForSave), profile);
+				DstabiProfile.saveProfileToFile(new File(fileForSave), clearProfile);
 			} else {
-				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), profile);
+				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), clearProfile);
 			}
 
 			fileForSave = null;

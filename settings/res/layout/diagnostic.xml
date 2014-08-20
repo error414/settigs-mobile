@@ -62,7 +62,7 @@
 	             android:layout_alignParentRight="true"
 	             android:layout_below="@+id/textView10"
 	             android:layout_marginRight="10dp"
-	             android:max="200"
+	             android:max="100"
 	             android:progressDrawable="@drawable/my_custom_pb" />
 
 	         <TextView
@@ -262,7 +262,7 @@
 	             android:layout_alignTop="@+id/bank_progress_diagnostic"
 	             android:layout_centerHorizontal="true"
 	             android:layout_marginTop="2dp"
-	             android:text="50%"
+	             android:text="B 1"
 	             android:textColor="@color/text_color" />
 
 	         <RelativeLayout

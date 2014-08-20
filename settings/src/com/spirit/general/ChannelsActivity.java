@@ -69,10 +69,10 @@ public class ChannelsActivity extends BaseActivity{
 	protected void initBasicMode()
 	{
 		for (int i = 0; i < formItems.length; i++) {
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			
-			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 	

@@ -22,7 +22,8 @@
             android:configChanges="orientation"
             android:label="@string/full_app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomTheme" >
+            android:theme="@style/CustomTheme"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

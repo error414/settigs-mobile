@@ -235,9 +235,9 @@ public class DiagnosticActivity extends BaseActivity
 		int banksPercent = Math.round((100 * banks) / 340); 
 		
 		int bank = 1;
-		if (banks < (1400-1520)){
+		if (banks < (1400-1520)){ // - 120
 			bank = 0;
-		}else if (banks > (1640-1520)){
+		}else if (banks > (1640-1520)){ // 120
 			bank = 2;
 		}
 		
@@ -255,7 +255,7 @@ public class DiagnosticActivity extends BaseActivity
 		}
 		
 		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
-		bankProgressDiagnostic.setText(String.valueOf(Math.abs(banksPercent)) + " " + getString(R.string.banks) + " " + String.valueOf(bank));
+		bankProgressDiagnostic.setText(getString(R.string.bank_short_code) + " " + String.valueOf(bank));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

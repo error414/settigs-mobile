@@ -47,6 +47,9 @@ public class DstabiProfile {
 
 	private byte[] mProfile;
 
+	final static public int CHECK_ALL = 0;
+	final static public int DONT_CHECK_CHECKSUM = 1;
+	
 	private HashMap<String, ProfileItem> profileMap = new HashMap<String, ProfileItem>();
 	
 	private ArrayList<String> profileErrors = new ArrayList<String>();
@@ -224,7 +227,15 @@ public class DstabiProfile {
 	 * @return
 	 */
 	public Boolean isValid(){
-		Log.d(TAG, "kontroluji delku profilu");
+		return isValid(CHECK_ALL);
+	}
+	
+	/**
+	 * je profil validni?
+	 * 
+	 * @return
+	 */
+	public Boolean isValid(int mode){
 		if(profileLenght == 0){
 			Log.d(TAG, "delka profilu 0");
 			return false;
@@ -235,13 +246,14 @@ public class DstabiProfile {
 			return false;
 		}
 		
-		int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
-		int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
-		int checksum = (mProfile[id_hi] & 0xff) << 8 | (mProfile[id_lo] & 0xff);
-		
-		if (getCheckSum() != checksum) {
-			Log.d(TAG, "Invalid checksum !");
-			return false;
+		if(mode != DONT_CHECK_CHECKSUM){
+			int id_lo = profileMap.get("CHECKSUM_LO").positionInConfig;
+			int id_hi = profileMap.get("CHECKSUM_HI").positionInConfig;
+			int checksum = (mProfile[id_hi] & 0xff) << 8 | (mProfile[id_lo] & 0xff);
+			if (getCheckSum() != checksum) {
+				Log.d(TAG, "Invalid checksum !");
+				return false;
+			}
 		}
 		
 
@@ -288,10 +300,12 @@ public class DstabiProfile {
 			    do {
 			     	int d = 0;
 
-			       	if (i != id_lo && i != id_hi)
+			       	if (i != id_lo && i != id_hi){
 			       		d = mProfile[i ++] & 0xff;
-			       	else
+			       		Log.d(TAG, String.valueOf(d));
+			       	}else{
 			       		i ++;
+			       	}
 
 			       	sum2 += sum1 += d;
 			    } while ((-- tlen) != 0);
