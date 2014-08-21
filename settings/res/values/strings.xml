@@ -320,9 +320,9 @@
     <string name="log_direcotory">Log Directory</string>
     <string name="graph_direcotory_sumarry">Pick to choose directory for save graph image</string>
     <string name="log_direcotory_sumarry">Pick to choose directory for save log PDF file</string>
-    <string name="graph_warn">Servos will be locked in a chart view!!!</string>
+    <string name="graph_warn">Warning! Servos will be locked during measurement!</string>
     
-    <string name="first_choose_directory">First choose directory</string>
+    <string name="first_choose_directory">First select a directory</string>
     <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticaly cleared.</string>
     
     <string name="want_save_item">Do you want to save your settings?</string>
