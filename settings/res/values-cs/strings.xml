@@ -160,12 +160,12 @@
 	<string name="banks">Banky</string>
 	<string name="choose_bank">Choose bank</string>
 	<string name="bank_short_code">B</string>
-	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlisný.</string>
+	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlišný.</string>
 	
 	<string-array name="bank_values">
-        <item>0. banka</item>
-        <item>1. banka</item>
-        <item>2. banka</item>
+        <item>Bank 0</item>
+        <item>Bank 1</item>
+        <item>Bank 2</item>
     </string-array>
 	
 	<string-array name="channels_values">
@@ -370,7 +370,7 @@
      <string name="log_direcotory">Adresář pro log</string>
      <string name="graph_direcotory_sumarry">Kliknutím vyberte adresář pro uložení obrazku z grafu</string>
      <string name="log_direcotory_sumarry">Kliknutím vyberte adresář pro uložení PDF logu</string>
-     <string name="graph_warn">Při zobrazení grafu se zamikají serva!!!</string>
+     <string name="graph_warn">Pozor! Během zobrazení grafu jsou serva uzamčena!</string>
      
      <string name="first_choose_directory">Prvně vyberte adresář</string>
      <string name="log_from_previous_flight">Zobrazen i log z předchozího letu! \n Log bude automaticky vymazán.</string>

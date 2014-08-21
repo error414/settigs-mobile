@@ -45,7 +45,6 @@ public class DiagnosticActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
-	
 	final static public int PROFILE_LENGTH = 16;
 	
 	/**
@@ -210,37 +209,14 @@ public class DiagnosticActivity extends BaseActivity
 		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
-		
-		//AUX1  / throttle
-		int throttle = ByteOperation.twoByteToSigInt(b[11], b[12]);
-		int throttlePercent = Math.round((50 * throttle) / 340); 
-		
-		// pokud neni throttli prirazen zadny kanal
-		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
-		try {
-			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max) == 8){ // 8 = unbind
-				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
-			}else{
-				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
-			}
-		} catch (IndexOutOfException e) {
-			e.printStackTrace();
-		}
-		
-		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
-		throttleValueDiagnostic.setText(String.valueOf(Math.abs(throttlePercent)));
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		
 		//AUX2  / banks 
-		int banks = ByteOperation.twoByteToSigInt(b[13], b[14]);
+		int banks = ByteOperation.twoByteToSigInt(b[10], b[11]);
 		int banksPercent = Math.round((100 * banks) / 340); 
 		
 		int bank = 1;
-		if (banks < (1400-1520)){ // - 120
+		if (banks < (1400-1520)){
 			bank = 0;
-		}else if (banks > (1640-1520)){ // 120
+		}else if (banks > (1640-1520)){
 			bank = 2;
 		}
 		
@@ -258,9 +234,30 @@ public class DiagnosticActivity extends BaseActivity
 		}
 		
 		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
-		bankProgressDiagnostic.setText(getString(R.string.bank_short_code) + " " + String.valueOf(banks));
+		bankProgressDiagnostic.setText(String.valueOf(Math.abs(banksPercent)) + " " + getString(R.string.banks) + " " + String.valueOf(bank));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//AUX1  / throttle
+		int throttle = ByteOperation.twoByteToSigInt(b[12], b[13]);
+		int throttlePercent = Math.round((50 * throttle) / 340); 
 		
+		// pokud neni throttle prirazen zadny kanal
+		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
+		try {
+			int max = getResources().getStringArray(R.array.channels_values).length;
+			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max) == 8){ // 8 = unbind
+				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
+			}else{
+				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
+			}
+		} catch (IndexOutOfException e) {
+			e.printStackTrace();
+		}
+		
+		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
+		throttleValueDiagnostic.setText(String.valueOf(Math.abs(throttlePercent)));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 		//SENZOR X Y Z
 		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf((int)b[14]));
 		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf((int)b[15]));
