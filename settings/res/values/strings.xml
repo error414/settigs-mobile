@@ -163,6 +163,16 @@
         <item>Unassigned</item>
     </string-array>
     
+    <string-array name="channels_restrict_values">
+        <item>1. channel</item>
+        <item>2. channel</item>
+        <item>3. channel</item>
+        <item>4. channel</item>
+        <item>5. channel</item>
+        <item>6. channel</item>
+        <item>7. channel</item>
+    </string-array>
+    
     <string-array name="position_values">
         <item>Horizontal</item>
         <item>Vertical</item>

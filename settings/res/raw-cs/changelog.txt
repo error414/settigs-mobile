@@ -31,7 +31,7 @@
  	
  	* oprava zobrazení záznamu letu
 
-  	* podpora pro verzi FW 1.0.25
+  	* podpora pro verzi FW 1.0.25 (banky, prirazeni kanalu)
  
     * v grafu se zobrazuje RPM u třech špiček
     

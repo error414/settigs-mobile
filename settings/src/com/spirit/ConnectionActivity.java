@@ -87,8 +87,14 @@ public class ConnectionActivity extends BaseActivity
 	private TextView version;
 
 	final private int PROFILE_CALL_BACK_CODE = 116;
+	final private int UNLOCKBANK_CALL_BACK_CODE = 119;
 	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 117;
 	final private int GET_SERIAL_NUMBER = 118;
+	
+	/**
+	 * priznak jestli se chceme odpojit od jednotky, kdyz prijde connection error aby jsme prece byly schopni se od jednotky odpojit
+	 */
+	private boolean disconect = false;
 
 	final static String FILE_EXT = "4ds";
 
@@ -225,7 +231,7 @@ public class ConnectionActivity extends BaseActivity
 	public void manageConnectionToBTDevice(View v)
 	{
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_LISTEN || stabiProvider.getState() == BluetoothCommandService.STATE_NONE) {
-
+			disconect = false;
             //pripripojovani vymazeme profil pro diff
             ChangeInProfile.getInstance().setOriginalProfile(null);
             checkChange(null);
@@ -246,7 +252,9 @@ public class ConnectionActivity extends BaseActivity
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTING) {
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			stabiProvider.disconnect();
+			disconect = true;
+			showDialogWrite();
+			stabiProvider.sendDataForResponce("e", UNLOCKBANK_CALL_BACK_CODE);
 		}
 	}
 
@@ -425,6 +433,11 @@ public class ConnectionActivity extends BaseActivity
 				isPosibleSendData = false;
 				stabiProvider.abortAll();
 				sendInError(false); // ukazat error ale neukoncovat activitu
+				if(disconect){
+					disconect = false;
+					stabiProvider.disconnect();
+				}
+				
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessDialog();
@@ -447,6 +460,9 @@ public class ConnectionActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiBySerialNumber(msg.getData().getByteArray("data"));
 				}
+				break;
+			case UNLOCKBANK_CALL_BACK_CODE:
+				stabiProvider.disconnect();
 				break;
 			default:
 				super.handleMessage(msg);

@@ -302,7 +302,6 @@ public class DstabiProfile {
 
 			       	if (i != id_lo && i != id_hi){
 			       		d = mProfile[i ++] & 0xff;
-			       		Log.d(TAG, String.valueOf(d));
 			       	}else{
 			       		i ++;
 			       	}
