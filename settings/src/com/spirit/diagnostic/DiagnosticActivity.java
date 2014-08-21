@@ -224,7 +224,7 @@ public class DiagnosticActivity extends BaseActivity
 		TextView bankProgressDiagnostic = (TextView) findViewById(R.id.bank_value_diagnostic);
 		try {
 			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max) == 8){ // 8  = unbind
+			if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max - 1) == 7){ // 7  = unbind
 				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.grey));
 			}else{
 				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
@@ -234,7 +234,7 @@ public class DiagnosticActivity extends BaseActivity
 		}
 		
 		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
-		bankProgressDiagnostic.setText(String.valueOf(Math.abs(banksPercent)) + " " + getString(R.string.banks) + " " + String.valueOf(bank));
+		bankProgressDiagnostic.setText(String.valueOf(getString(R.string.banks) + " " + String.valueOf(bank)));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//AUX1  / throttle
@@ -245,7 +245,7 @@ public class DiagnosticActivity extends BaseActivity
 		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
 		try {
 			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max) == 8){ // 8 = unbind
+			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max - 1) == 7){ // 7 = unbind
 				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
 			}else{
 				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
@@ -255,7 +255,7 @@ public class DiagnosticActivity extends BaseActivity
 		}
 		
 		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
-		throttleValueDiagnostic.setText(String.valueOf(Math.abs(throttlePercent)));
+		throttleValueDiagnostic.setText(String.valueOf(Math.max(-1, throttlePercent + 50)));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//SENZOR X Y Z
