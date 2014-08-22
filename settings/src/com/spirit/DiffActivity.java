@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -38,6 +35,9 @@ import com.lib.DstabiProvider;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
 import com.lib.translate.StabiSenzivityProgressExTranslate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author error414
@@ -317,6 +317,15 @@ public class DiffActivity extends BaseActivity
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger() + 50));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger() + 50));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SENSOR_GYROGAIN")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.gyro_gain)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 100);
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger() - 100);
         }
         // #############################################################################################
 

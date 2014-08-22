@@ -18,12 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
@@ -50,12 +44,17 @@ import android.widget.Toast;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
 
 @SuppressLint("SdCardPath")
 public class ConnectionActivity extends BaseActivity
@@ -252,9 +251,13 @@ public class ConnectionActivity extends BaseActivity
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTING) {
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			disconect = true;
-			showDialogWrite();
-			stabiProvider.sendDataForResponce("e", UNLOCKBANK_CALL_BACK_CODE);
+            if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) { // 7 = neprirazeno
+                stabiProvider.disconnect();
+            }else{
+                disconect = true;
+                showDialogWrite();
+                stabiProvider.sendDataForResponce("e", UNLOCKBANK_CALL_BACK_CODE);
+            }
 		}
 	}
 
@@ -317,7 +320,7 @@ public class ConnectionActivity extends BaseActivity
 	{
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
+		//menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
 		menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
 
 		SubMenu profile = menu.addSubMenu(R.string.profile);
