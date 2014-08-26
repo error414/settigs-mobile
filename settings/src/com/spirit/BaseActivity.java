@@ -18,14 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
-import java.util.Date;
-import java.util.Locale;
-
-import android.R.bool;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -47,18 +42,24 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
-import com.helpers.Globals;
-import com.helpers.StatusNotificationBuilder;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.Globals;
+import com.helpers.SlideMenuListAdapter;
+import com.helpers.StatusNotificationBuilder;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
+
+import net.simonvt.menudrawer.MenuDrawer;
+
+import java.util.Locale;
 
 @SuppressLint("InflateParams")
 abstract public class BaseActivity extends Activity implements Handler.Callback
@@ -127,11 +128,18 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 * pocitadlo otevreni info boxu
 	 */
 	public int progressInfoCount = 0;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	protected DstabiProfile profileCreator;
+
+    /**
+     *
+     */
+    protected MenuDrawer mDrawer;
+
+    protected SlideMenuListAdapter slideMenuListAdapter;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -142,10 +150,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onCreate(savedInstanceState);
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-		
+
 		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
-		
+
 		if(!language.equals("none")){
 			Resources res = getResources();
 		    // Change locale settings in the app.
@@ -186,19 +194,103 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	public void onResume()
 	{
 		super.onResume();
-		
+
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
-		
+
 		// check BANKS
 		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ){
 			((TextView) findViewById(R.id.title_banks)).setText(TextUtils.concat(getString(R.string.bank_short_code), String.valueOf(Globals.getInstance().getActiveBank())));
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(Globals.getInstance().getActiveBank());
+                slideMenuListAdapter.setDisabledAll(false);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
 		}else{
 			((TextView) findViewById(R.id.title_banks)).setText("");
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(-1);
+                slideMenuListAdapter.setDisabledAll(true);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
 		}
 	}
-	
+
+    /**
+     * inicializace slide menu
+     *
+     * @param layout
+     */
+    protected void initSlideMenu(int layout){
+        mDrawer = MenuDrawer.attach(this);
+        mDrawer.setContentView(layout);
+        mDrawer.setMenuView(R.layout.left_menu);
+
+        slideMenuListAdapter = new SlideMenuListAdapter(this, getResources().getStringArray(R.array.bank_values));
+
+        ListView leftMenuList = (ListView) findViewById(R.id.leftMenu);
+        leftMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ) {
+                    if (Globals.getInstance().isChanged()) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+
+                        //dont save profile
+                        alert.setNegativeButton(R.string.no, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                return;
+                            }
+
+                        });
+
+                        //save profile
+                        alert.setPositiveButton(R.string.yes, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+                            }
+
+                        });
+
+                        alert.setCancelable(true);
+                        alert.setMessage(R.string.want_save_item);
+                        alert.show();
+
+                        return;
+                    }
+
+
+                    // change bank
+                    ProfileItem profileItem;
+                    DstabiProfile localProfileCreator = profileCreator;
+                    if (profileCreator == null) {
+                        localProfileCreator = new DstabiProfile(null);
+                        profileItem = localProfileCreator.getProfileItemByName("BANKS");
+                    } else {
+                        profileItem = profileCreator.getProfileItemByName("BANKS");
+                    }
+
+                    profileItem.setValueFromSpinner(position);
+                    stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
+                    checkBankNumber(localProfileCreator);
+                    showInfoBarWrite();
+                    slideMenuListAdapter.setActivePosition(position);
+                    slideMenuListAdapter.notifyDataSetChanged();
+                    mDrawer.closeMenu();
+                }
+            }
+        });
+
+        leftMenuList.setAdapter(slideMenuListAdapter);
+
+
+    }
+
 	/**
 	 * check if profile was changed and save to GLobal storage
 	 */
@@ -208,106 +300,54 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
 			return;
 		}
-		
+
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
 
 		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 */
 	public void checkBankNumber(DstabiProfile profile){
 		if(profile == null){
 			Globals.getInstance().setActiveBank(Globals.BANK_NULL);
 			((TextView) findViewById(R.id.title_banks)).setText("");
+
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(-1);
+                slideMenuListAdapter.setDisabledAll(true);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
+
 			return;
 		}
-		
+
 		if(profile.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7){ // 7 = unbind bank
-			
 			((TextView) findViewById(R.id.title_banks)).setText("");
+            Globals.getInstance().setActiveBank(Globals.BANK_NULL);
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(-1);
+                slideMenuListAdapter.setDisabledAll(true);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
+
 			return;
 		}
-		
+
 		Globals.getInstance().setActiveBank(profile.getProfileItemByName("BANKS").getValueInteger());
 		((TextView) findViewById(R.id.title_banks)).setText(TextUtils.concat(getString(R.string.bank_short_code), String.valueOf(Globals.getInstance().getActiveBank())));
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
-		
+
+        if(slideMenuListAdapter != null){
+            slideMenuListAdapter.setActivePosition(Globals.getInstance().getActiveBank());
+            slideMenuListAdapter.setDisabledAll(false);
+            slideMenuListAdapter.notifyDataSetChanged();
+        }
+
 	}
-	
-	/**
-	 * handle for change banks
-	 * 
-	 * @param v
-	 */
-	public void changeBankOpenDialog(View v){
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			// cant change bank if spirit have unchanged settings
-			if(Globals.getInstance().isChanged()){
-				AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
-				
-				//dont save profile
-				alert.setNegativeButton(R.string.no, new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						return;
-					}
-					
-				});
-				
-				//save profile
-				alert.setPositiveButton(R.string.yes, new OnClickListener(){
-					@Override
-					public void onClick(DialogInterface arg0, int arg1) {
-						saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
-					}
-					
-				});
-				
-				alert.setCancelable(true);
-				alert.setMessage(R.string.want_save_item);
-				alert.show();
-				
-				return;
-			}
-			
-			
-			final CharSequence[] items = getResources().getStringArray(R.array.bank_values);
-			
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(R.string.choose_bank);
-            builder.setSingleChoiceItems(items, Globals.getInstance().getActiveBank(), new DialogInterface.OnClickListener() {
-	            public void onClick(DialogInterface dialog, int item) {
-	            	// BANKY
-	            	// 3 ) pokud sme na nejake strance kde sou prvky je potreba prenacist profil, nejspis init configuration
-	            	
-	                dialog.dismiss();
-	                
-	        		// change bank
-	                ProfileItem profileItem;
-	                DstabiProfile localProfileCreator = profileCreator;
-	                if(profileCreator == null){
-	                	localProfileCreator = new DstabiProfile(null);
-	                	profileItem = localProfileCreator.getProfileItemByName("BANKS");
-	                }else{
-	                	profileItem = profileCreator.getProfileItemByName("BANKS");
-	                }
-	                
-	                profileItem.setValueFromSpinner(item);
-					stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
-					checkBankNumber(localProfileCreator);
-					showInfoBarWrite();
-	            }
-            });
-            
-            builder.create().show();
-		}else{
-			Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
-		}
-	}
-	
+
 	/**
 	 * is application in basic mode?
 	 *
@@ -318,7 +358,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
 		return settings.getBoolean(PREF_BASIC_MODE, false) || Globals.getInstance().getActiveBank() > 0;
 	}
-	
+
 	/**
 	 * basic mode set on
 	 * @param state
@@ -326,18 +366,18 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	public void setAppBasicMode(boolean state)
 	{
 		SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
-		
+
 		settings.edit().putBoolean(PREF_BASIC_MODE, state).commit();
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
-		
-		
-		if(getAppBasicMode()){
+
+
+		if(state){
 			Toast.makeText(getApplicationContext(), R.string.app_basic_mode_on, Toast.LENGTH_SHORT).show();
 		}else{
 			Toast.makeText(getApplicationContext(), R.string.app_basic_mode_off, Toast.LENGTH_SHORT).show();
 		}
 	}
-	
+
 	/**
 	 * cloase all dialog notification
 	 */
@@ -379,9 +419,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			generalDialog = ProgressDialog.show(BaseActivity.this, "", text, true);
 		}
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param text
 	 */
 	protected void showInfoBar(String text)
@@ -494,9 +534,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		// ziskani konfigurace z jednotky
 		stabiProvider.sendDataForResponce(stabiProvider.SAVE_PROFILE, call_back_code);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param profile
 	 */
 	protected void setOriginalProfileProfile(DstabiProfile profile)
@@ -624,7 +664,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	{
 		showConfirmDialog(textId, null);
 	}
-	
+
 	/**
 	 * @param textId
 	 */
@@ -650,7 +690,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		alert.show();
 	}
-	
+
 	/**
 	 * @param graphWarn
 	 */
@@ -660,7 +700,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		alert.setPositiveButton(R.string.ok, handlerOk);
 		alert.setNegativeButton(R.string.cancel, handlerCancel);
 		alert.setCancelable(false);
-		
+
 		alert.setMessage(graphWarn);
 
 		alert.show();
@@ -683,7 +723,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 					checkChange(profileCreator);
 				}
 				sendInSuccessInfo();
-				
+
 				break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
@@ -701,14 +741,14 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 			case PROFILE_FOR_UPDATE_ORIGINAL:
 				sendInSuccessInfo();
-				
+
 				DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
-				
+
 				setOriginalProfileProfile(profile);
 				checkChange(profile);
-				
+
 				break;
-			
+
 			case BANK_CHANGE_CALL_BACK_CODE:
 				sendInSuccessInfo();
 				reloadOriginalProfile();

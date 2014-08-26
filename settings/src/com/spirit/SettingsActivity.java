@@ -17,13 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,13 +32,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
-import com.lib.ChangeInProfile;
-import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * aktivita pro hlavni obrazku
@@ -74,7 +68,9 @@ public class SettingsActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.main);
+
+		//setContentView(R.layout.main);
+        initSlideMenu(R.layout.main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 

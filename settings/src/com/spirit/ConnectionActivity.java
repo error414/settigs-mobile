@@ -98,7 +98,6 @@ public class ConnectionActivity extends BaseActivity
 	final static String FILE_EXT = "4ds";
 
 	private String fileForSave;
-
 	/**
 	 * je mozne odesilat data do zarizeni
 	 */
@@ -113,7 +112,8 @@ public class ConnectionActivity extends BaseActivity
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
-		setContentView(R.layout.connection);
+		//setContentView(R.layout.connection);
+        initSlideMenu(R.layout.connection);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.connection_button_text)));
@@ -308,6 +308,8 @@ public class ConnectionActivity extends BaseActivity
 	            checkChange(null);
 
 				((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+                ((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
+                ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
 				break;
 		}
 	}
@@ -354,7 +356,8 @@ public class ConnectionActivity extends BaseActivity
 
 		//change basic mode
 		if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == APP_BASIC_MODE) {
-			setAppBasicMode(!getAppBasicMode());
+            SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
+			setAppBasicMode(!settings.getBoolean(PREF_BASIC_MODE, false));
 		}
  
 		//nahrani / ulozeni profilu
@@ -502,7 +505,6 @@ public class ConnectionActivity extends BaseActivity
 					// pro banky 1 a 2 nahravame jen povolene hodnoty
 					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 || !item.isDeactiveInBasicMode()){
 						showDialogRead();
-						Log.d(TAG, "odesilam prikaz " + item.getCommand() + " : count je " + String.valueOf(progressCount));
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}else{
 						continue;

@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.helpers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -30,6 +27,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.spirit.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * trida pro naplneni listview hodnotama
@@ -96,19 +96,16 @@ public class DiffListAdapter extends BaseAdapter
 
 	@Override
 	public int getCount() {
-		// TODO Auto-generated method stub
 		return data.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		// TODO Auto-generated method stub
-		return position;
+		return data.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		// TODO Auto-generated method stub
 		return position;
 	}
 
