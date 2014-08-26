@@ -54,7 +54,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.servos_rudder_end_points);
+		initSlideMenu(R.layout.servos_rudder_end_points);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limit), getString(R.string.rudder_end_points_no_break)));

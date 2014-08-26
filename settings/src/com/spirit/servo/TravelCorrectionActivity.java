@@ -56,7 +56,7 @@ public class TravelCorrectionActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.servos_travel_correction);
+		initSlideMenu(R.layout.servos_travel_correction);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction)));

@@ -64,7 +64,9 @@ public class GeneralActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.general);
+		//setContentView(R.layout.general);
+        initSlideMenu(R.layout.general);
+
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
 		delegateListener();

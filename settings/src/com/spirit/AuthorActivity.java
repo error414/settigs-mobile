@@ -41,7 +41,7 @@ public class AuthorActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.author);
+		initSlideMenu(R.layout.author);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 	}

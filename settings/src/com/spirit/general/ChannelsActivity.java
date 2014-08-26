@@ -1,24 +1,22 @@
 package com.spirit.general;
 
-import com.customWidget.picker.ProgresEx;
+import android.os.Bundle;
+import android.os.Message;
+import android.text.TextUtils;
+import android.view.View;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
-
-import android.os.Bundle;
-import android.os.Message;
-import android.text.TextUtils;
-import android.util.Log;
-import android.view.View;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 public class ChannelsActivity extends BaseActivity{
 	
@@ -41,7 +39,7 @@ public class ChannelsActivity extends BaseActivity{
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.channels);
+		initSlideMenu(R.layout.channels);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text), " \u2192 ", getString(R.string.channels)));
 
@@ -136,7 +134,7 @@ public class ChannelsActivity extends BaseActivity{
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if (pos != 0) lock = lock + 1;
+				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 			}
 		} catch (IndexOutOfException e) {

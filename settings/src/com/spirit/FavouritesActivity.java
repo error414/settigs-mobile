@@ -17,10 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -43,6 +39,10 @@ import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * aktivita pro obrazku favourites
@@ -71,7 +71,7 @@ public class FavouritesActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.favourites);
+		initSlideMenu(R.layout.favourites);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
 

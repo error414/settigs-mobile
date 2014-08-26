@@ -55,7 +55,7 @@ public class ServosSubtrimActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.servos_subtrim);
+		initSlideMenu(R.layout.servos_subtrim);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.subtrim)));

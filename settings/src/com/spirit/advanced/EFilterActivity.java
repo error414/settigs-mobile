@@ -55,7 +55,7 @@ public class EFilterActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.advanced_e_filter);
+		initSlideMenu(R.layout.advanced_e_filter);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.e_filter)));

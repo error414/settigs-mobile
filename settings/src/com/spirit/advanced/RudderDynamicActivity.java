@@ -54,7 +54,7 @@ public class RudderDynamicActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.advanced_rudder_stop);
+		initSlideMenu(R.layout.advanced_rudder_stop);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.rudder_dynamic)));

@@ -55,7 +55,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.cyclic_ring_range);
+		initSlideMenu(R.layout.cyclic_ring_range);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limit), getString(R.string.cyclic_ring_range_no_break)));

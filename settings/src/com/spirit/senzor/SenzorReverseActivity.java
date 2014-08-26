@@ -27,7 +27,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.ProgresEx;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -57,7 +56,7 @@ public class SenzorReverseActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.senzor_reverse);
+		initSlideMenu(R.layout.senzor_reverse);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text), " \u2192 ", getString(R.string.reverse)));

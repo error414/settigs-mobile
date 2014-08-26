@@ -78,7 +78,7 @@ public class SlideMenuListAdapter extends BaseAdapter {
         RelativeLayout item = (RelativeLayout)vi.findViewById(R.id.item); // item
         if(!isEnabled(position)){
             title.setTextColor(activity.getResources().getColor(R.color.dashed_dark));
-        }else{
+        }else if(!disabledAll){
             title.setTextColor(activity.getResources().getColor(R.color.text_color));
         }
 
@@ -88,7 +88,11 @@ public class SlideMenuListAdapter extends BaseAdapter {
         }else if(!disabledAll){
             item.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.slide_menu_list_selector));
             title.setTextColor(activity.getResources().getColor(R.color.text_color));
+        }else{
+            title.setTextColor(activity.getResources().getColor(R.color.dashed_dark));
+            item.setBackgroundColor(activity.getResources().getColor(R.color.text_color_white));
         }
+
 
 
         // Setting all values in listview

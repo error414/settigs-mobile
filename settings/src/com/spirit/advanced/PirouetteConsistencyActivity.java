@@ -54,7 +54,7 @@ public class PirouetteConsistencyActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.advanced_pirouette_const);
+		initSlideMenu(R.layout.advanced_pirouette_const);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pirouette_consistency)));

@@ -27,7 +27,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.ProgresEx;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -57,7 +56,7 @@ public class PiroOptimalizationActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.advanced_piro_opt);
+		initSlideMenu(R.layout.advanced_piro_opt);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.piro_opt)));

@@ -29,7 +29,6 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.customWidget.picker.ProgresEx;
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -59,7 +58,7 @@ public class ServosTypeActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.servos_type);
+		initSlideMenu(R.layout.servos_type);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.type)));
@@ -166,7 +165,7 @@ public class ServosTypeActivity extends BaseActivity
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 
-				if (pos != 0) lock = lock + 1;
+				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 			}
 		} catch (IndexOutOfException e) {
