@@ -147,9 +147,9 @@
     <string name="channelColision">There was a collision %1$s. channel, please choose differently.</string>
 	
     <string-array name="bank_values">
-        <item>0. bank</item>
-        <item>1. bank</item>
-        <item>2. bank</item>
+        <item>Bank 0</item>
+        <item>Bank 1</item>
+        <item>Bank 2</item>
     </string-array>
     
     <string-array name="channels_values">
