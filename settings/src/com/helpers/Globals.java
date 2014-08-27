@@ -24,7 +24,12 @@ public class Globals {
 	 * byla data v jednotce zmenena
 	 */
 	private int activeBank;
-	
+
+    /**
+     * priznak jestli volat init ktery se ma volat jen po pripojeni
+     */
+    private boolean callInitAfterConnect = true;
+
 	/**
 	 *
 	 */
@@ -65,4 +70,13 @@ public class Globals {
 		this.activeBank = activeBank;
 	}
 	///////////////////////////////////
+
+
+    public boolean isCallInitAfterConnect() {
+        return callInitAfterConnect;
+    }
+
+    public void setCallInitAfterConnect(boolean callInitAfterConnect) {
+        this.callInitAfterConnect = callInitAfterConnect;
+    }
 }

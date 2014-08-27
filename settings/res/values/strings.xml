@@ -336,5 +336,6 @@
     <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticaly cleared.</string>
     
     <string name="want_save_item">Do you want to save your settings?</string>
+    <string name="bank_change_after_connect">Current bank was switched to <b>Bank 0</b>.\nBank switching via transmitter is disabled while the software is connected.</string>
     
 </resources>

@@ -44,6 +44,7 @@ import android.widget.Toast;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
@@ -76,6 +77,8 @@ public class ConnectionActivity extends BaseActivity
 	final protected int GROUP_ERROR = 4;
 	final protected int PROFILE_ERROR = 1;
 
+    final protected int DEFAULT_BANK = 0;
+
 	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/";
 
 	private TextView textStatusView;
@@ -89,7 +92,7 @@ public class ConnectionActivity extends BaseActivity
 	final private int UNLOCKBANK_CALL_BACK_CODE = 119;
 	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 117;
 	final private int GET_SERIAL_NUMBER = 118;
-	
+
 	/**
 	 * priznak jestli se chceme odpojit od jednotky, kdyz prijde connection error aby jsme prece byly schopni se od jednotky odpojit
 	 */
@@ -193,6 +196,11 @@ public class ConnectionActivity extends BaseActivity
             
             //nacteni banky 
             checkBankNumber(profileCreator);
+
+            //kontrola jestli po prvnim pripojeni banka 0
+            if(Globals.getInstance().isCallInitAfterConnect()){
+                initAfterConnection();
+            }
 
 
 		} else {
@@ -306,13 +314,30 @@ public class ConnectionActivity extends BaseActivity
 				// clear diff info
 				ChangeInProfile.getInstance().setOriginalProfile(null);
 	            checkChange(null);
+                Globals.getInstance().setCallInitAfterConnect(true);
 
 				((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
                 ((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
                 ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
+
 				break;
 		}
 	}
+
+    private void initAfterConnection(){
+        //zkontrolujme jestli maji banky prirazen kanal, pokud ano zkontrolujeme jestli je banka 0
+        if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() != 7 && profileCreator.getProfileItemByName("BANKS").getValueInteger() != 0){ // 7 = unbind bank, 0 = Bank 0
+            ProfileItem profileItem = profileCreator.getProfileItemByName("BANKS");
+            profileItem.setValueFromSpinner(DEFAULT_BANK);
+            stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
+
+            slideMenuListAdapter.setActivePosition(DEFAULT_BANK);
+            slideMenuListAdapter.notifyDataSetChanged();
+            checkBankNumber(profileCreator);
+
+            showInfoBarWrite();
+        }
+    }
 
 	/**
 	 * vytvoreni kontextoveho menu
@@ -432,6 +457,13 @@ public class ConnectionActivity extends BaseActivity
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
+            case BANK_CHANGE_CALL_BACK_CODE:
+                if(Globals.getInstance().isCallInitAfterConnect()) {
+                    showConfirmDialog(R.string.bank_change_after_connect);
+                }
+                Globals.getInstance().setCallInitAfterConnect(false);
+                super.handleMessage(msg);
+                break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				updateState();
 				break;
