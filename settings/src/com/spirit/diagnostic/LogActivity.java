@@ -16,11 +16,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 package com.spirit.diagnostic;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -28,7 +23,6 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -44,6 +38,11 @@ import com.lib.LogPdf;
 import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
 import com.spirit.R;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 @SuppressLint("SdCardPath")
 public class LogActivity extends BaseActivity

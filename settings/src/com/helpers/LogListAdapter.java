@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.helpers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.view.View;
@@ -29,6 +26,9 @@ import android.widget.TextView;
 
 import com.spirit.R;
 import com.spirit.diagnostic.LogActivity;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * trida pro naplneni listview hodnotama

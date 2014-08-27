@@ -28,7 +28,6 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.exception.IndexOutOfException;
 import com.helpers.ByteOperation;

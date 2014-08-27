@@ -23,7 +23,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;

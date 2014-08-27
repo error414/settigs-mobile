@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.advanced;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -43,6 +40,9 @@ import com.lib.BluetoothCommandService;
 import com.lib.menu.Menu;
 import com.spirit.BaseActivity;
 import com.spirit.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class AdvancedActivity extends BaseActivity
 {
