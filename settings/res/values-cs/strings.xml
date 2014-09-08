@@ -23,7 +23,7 @@
     <string name="save_profile">Uložit profil</string>
     <string name="save_profile_to_unit">Uložit profil do jednotky</string>
     <string name="profile_saved">Profil uložen</string>
-    <string name="file_manager">File manager</string>
+    <string name="file_manager">Správce souborů</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="bt_not_enabled_leaving">Bluetooth není povolen, ukončuji..</string>
     <string name="choose_device">Vyberte zařízení</string>
@@ -97,8 +97,7 @@
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
     <string name="pirouette_consistency">Držení piruet</string>
-    <string name="rear_up">Elevator pitching-up compensation</string>
-    <string name="filter">Sensor filr</string>
+    <string name="filter">Sensor filtr</string>
     <string name="gyro">Gyro</string>
     
     <string name="diag_rudder">Vrtulka</string>
@@ -155,7 +154,7 @@
 
 	<string name="profile_diff">Provedené změny</string>
 	<string name="channels">Kanály</string>
-	<string name="throttle">Throttle</string>
+	<string name="throttle">Plyn</string>
 	<string name="gyro_gain">Zisk vrtulky</string>
 	<string name="banks">Banky</string>
 	<string name="choose_bank">Choose bank</string>

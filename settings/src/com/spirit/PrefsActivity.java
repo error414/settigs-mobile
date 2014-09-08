@@ -5,13 +5,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
+
+import java.util.Locale;
 
 public class PrefsActivity extends PreferenceActivity{
 	
@@ -28,6 +33,18 @@ public class PrefsActivity extends PreferenceActivity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 	   super.onCreate(savedInstanceState);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String languageCurent = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
+        if(!languageCurent.equals("none")){
+            Resources res = getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(languageCurent);
+            res.updateConfiguration(conf, dm);
+        }
+
 	   addPreferencesFromResource(R.xml.prefs);
 	    
 	   final SharedPreferences preferences = getSharedPreferences(PREF_APP, Context.MODE_PRIVATE);
@@ -62,6 +79,13 @@ public class PrefsActivity extends PreferenceActivity{
 			language.setValueIndex(0);
 		}
 	}
+
+    /**
+     *
+     */
+    public void onResume(){
+        super.onResume();
+    }
 	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

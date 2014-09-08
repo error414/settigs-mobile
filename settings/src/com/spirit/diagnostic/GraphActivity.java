@@ -245,7 +245,7 @@ public class GraphActivity extends BaseActivity
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			showConfirmDialogWithCancel(R.string.graph_warn, 
+			showConfirmDialogWithCancel(R.string.graph_warn,
 				new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
@@ -256,15 +256,15 @@ public class GraphActivity extends BaseActivity
 
 						startGraph();
 					}
-				}	
+				}
 				, new OnClickListener(){
 					@Override
 					public void onClick(DialogInterface arg0, int arg1) {
 						finish();
 					}
 				});
-			
-			
+
+
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
 			((TextView) findViewById(R.id.title)).setText(TextUtils.concat(baseTitle, " ", getString(R.string.axis_X)));

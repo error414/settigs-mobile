@@ -150,18 +150,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onCreate(savedInstanceState);
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-		String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
-
-		if(!language.equals("none")){
-			Resources res = getResources();
-		    // Change locale settings in the app.
-		    DisplayMetrics dm = res.getDisplayMetrics();
-		    android.content.res.Configuration conf = res.getConfiguration();
-		    conf.locale = new Locale(language);
-		    res.updateConfiguration(conf, dm);
-		}
 	}
 
 	@Override
@@ -194,6 +182,17 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	public void onResume()
 	{
 		super.onResume();
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
+        if(!language.equals("none")){
+            Resources res = getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(language);
+            res.updateConfiguration(conf, dm);
+        }
 
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);

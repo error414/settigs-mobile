@@ -84,7 +84,6 @@
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
     <string name="pirouette_consistency">Pirouette consistency</string>
-    <string name="rear_up">Elevator pitching-up compensation</string>
     <string name="filter">Sensor filter</string>
     <string name="gyro">Gyro</string>
     <string name="diag_rudder">Rudder</string>
