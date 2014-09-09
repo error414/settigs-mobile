@@ -214,12 +214,10 @@ public class FileDialog extends ListActivity{
 	@Override
 	public void onResume(){
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}else{
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
-		}
+        ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.none);
+        ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.none);
+        ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(R.drawable.none);
+        ((TextView)findViewById(R.id.title_banks)).setText("");
 	}
 
 	private void getDir(String dirPath) {

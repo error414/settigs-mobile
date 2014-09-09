@@ -21,7 +21,9 @@
     <string name="load_profile">Load profile</string>
     <string name="save_profile">Save profile</string>
     <string name="save_profile_to_unit">Save profile to unit</string>
-    <string name="profile_saved">Profile saved</string>
+    <string name="profile_saved_file">Settings have been saved to a file</string>
+    <string name="profile_saved">Settings have been saved</string>
+    <string name="profile_load">Settings have been loaded</string>
     <string name="file_manager">File manager</string>
     <string name="file_not_found">File not found</string>
     <string name="bt_not_enabled_leaving">Bluetooth not enabled leaving</string>
@@ -144,7 +146,7 @@
     <string name="bank_short_code">B</string>
     <string name="choose_bank">Vyberte banky</string>
     <string name="channelColision">There was a collision %1$s. channel, please choose differently.</string>
-	
+
     <string-array name="bank_values">
         <item>Bank 0</item>
         <item>Bank 1</item>

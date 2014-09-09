@@ -93,6 +93,11 @@ public class ConnectionActivity extends BaseActivity
 	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 117;
 	final private int GET_SERIAL_NUMBER = 118;
 
+    /**
+     * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
+     */
+    private Boolean readProfileFromFile = false;
+
 	/**
 	 * priznak jestli se chceme odpojit od jednotky, kdyz prijde connection error aby jsme prece byly schopni se od jednotky odpojit
 	 */
@@ -336,6 +341,21 @@ public class ConnectionActivity extends BaseActivity
             checkBankNumber(profileCreator);
 
             showInfoBarWrite();
+        }else{
+            Globals.getInstance().setCallInitAfterConnect(false);
+        }
+    }
+
+    /**
+     * pri dokonceni odesilani dat
+     * aby zmenila gui tak aby slo znova odeslat dasli pozadavek
+     */
+    protected void sendInSuccessDialog()
+    {
+        super.sendInSuccessDialog();
+        if(readProfileFromFile && progressCount <= 0){
+            readProfileFromFile = false;
+            showConfirmDialog(R.string.profile_load);
         }
     }
 
@@ -531,7 +551,7 @@ public class ConnectionActivity extends BaseActivity
 		if (mstabiProfile.isValid(DstabiProfile.DONT_CHECK_CHECKSUM)) {
 			
 			HashMap<String, ProfileItem> items = mstabiProfile.getProfileItems();
-			
+            readProfileFromFile = true;
 			for (ProfileItem item : items.values()) {
 				if (item.getCommand() != null && isPosibleSendData && !item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
 					// pro banky 1 a 2 nahravame jen povolene hodnoty
@@ -582,6 +602,7 @@ public class ConnectionActivity extends BaseActivity
 			}
 
 			fileForSave = null;
+            showConfirmDialog(R.string.profile_saved_file);
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
 		}

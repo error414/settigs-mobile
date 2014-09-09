@@ -22,7 +22,9 @@
     <string name="load_profile">Načíst profil</string>
     <string name="save_profile">Uložit profil</string>
     <string name="save_profile_to_unit">Uložit profil do jednotky</string>
-    <string name="profile_saved">Profil uložen</string>
+    <string name="profile_saved_file">Nastavení uloženo do souboru</string>
+    <string name="profile_saved">Nastavení uloženo</string>
+    <string name="profile_load">Nastavení bylo nahráno</string>
     <string name="file_manager">Správce souborů</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="bt_not_enabled_leaving">Bluetooth není povolen, ukončuji..</string>

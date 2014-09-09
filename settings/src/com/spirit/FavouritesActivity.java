@@ -143,7 +143,9 @@ public class FavouritesActivity extends BaseActivity
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 			updateListView();
-		}
+		}else{
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+        }
 	}
 
 	private void updateListView()

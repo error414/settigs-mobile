@@ -129,8 +129,6 @@ public class GraphActivity extends BaseActivity
 		setContentView(R.layout.graph);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
-		((TextView) findViewById(R.id.title)).setText(baseTitle);
 	}
 	
 	/**
@@ -244,6 +242,10 @@ public class GraphActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
+        baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
+        ((TextView) findViewById(R.id.title)).setText(baseTitle);
+        ((TextView) findViewById(R.id.vibration_level_text)).setText(R.string.vibration_level);
+
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			showConfirmDialogWithCancel(R.string.graph_warn,
 				new OnClickListener(){
