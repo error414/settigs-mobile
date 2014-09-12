@@ -57,6 +57,15 @@
 	            android:entries="@array/function_values"
 	            android:minWidth="230dp" />
 
-	    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/function_select_id_default"
+                android:layout_below="@+id/function_select_id"
+                android:layout_alignLeft="@+id/function_select_id" />
+
+        </RelativeLayout>
 	</ScrollView>
 </LinearLayout>

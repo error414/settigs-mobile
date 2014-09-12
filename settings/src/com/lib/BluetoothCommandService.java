@@ -57,12 +57,6 @@ public class BluetoothCommandService {
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
     
-    // Constants that indicate command to computer
-    public static final int EXIT_CMD = -1;
-    public static final int VOL_UP = 1;
-    public static final int VOL_DOWN = 2;
-    public static final int MOUSE_MOVE = 3;
-    
     /**
      * Constructor. Prepares a new BluetoothChat session.
      * @param handler  A Handler to send messages back to the UI Activity
@@ -420,7 +414,6 @@ public class BluetoothCommandService {
 
         public void cancel() {
             try {
-            	mmOutStream.write(EXIT_CMD);
                 mmSocket.close();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);

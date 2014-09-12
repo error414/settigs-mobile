@@ -50,10 +50,10 @@ public class GeneralActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
+    protected String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
 
 	// gui prvky ktere sou v teto aktivite aktivni
-	private int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
+	protected int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
 
 	private int lock = formItems.length;
 
@@ -71,6 +71,29 @@ public class GeneralActivity extends BaseActivity
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SPINNER;
+    }
 	
 	/**
 	 * stiknuti tlacitka channels
@@ -189,6 +212,8 @@ public class GeneralActivity extends BaseActivity
 					showInfoBarWrite();
 				}
 			}
+
+            initDefaultValue();
 		}
 
 		@Override
@@ -211,6 +236,7 @@ public class GeneralActivity extends BaseActivity
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
+                    initDefaultValue();
 					sendInSuccessDialog();
 				}
 				break;
@@ -223,5 +249,4 @@ public class GeneralActivity extends BaseActivity
 		}
 		return true;
 	}
-	
 }

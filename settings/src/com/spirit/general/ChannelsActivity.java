@@ -46,6 +46,29 @@ public class ChannelsActivity extends BaseActivity{
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SPINNER;
+    }
 	
 	/**
 	 * prvotni konfigurace view
@@ -187,6 +210,7 @@ public class ChannelsActivity extends BaseActivity{
 						
 				}
 			}
+            initDefaultValue();
 		}
 
 		@Override
@@ -210,6 +234,7 @@ public class ChannelsActivity extends BaseActivity{
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:

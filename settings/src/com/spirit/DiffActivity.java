@@ -348,6 +348,15 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
+        if(diffItem.getLabel().equals("SENSOR_REVZ")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.z_yaw)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
+
+        // #############################################################################################
         if(diffItem.getLabel().equals("RATE_PITCH")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.rotation_speed),  textSeparator , getResources().getString(R.string.cyc_rate)).toString());
 

@@ -67,6 +67,29 @@ public class ServosTypeActivity extends BaseActivity
 		delegateListener();
 	}
 
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SPINNER;
+    }
+
 	/**
 	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
@@ -201,9 +224,9 @@ public class ServosTypeActivity extends BaseActivity
 					if (parent.getId() == formItems[2]) {
 						updateItemRudderFrequency(pos);
 					}
-
 				}
 			}
+            initDefaultValue();
 		}
 
 		@Override
@@ -221,6 +244,7 @@ public class ServosTypeActivity extends BaseActivity
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
+                    initDefaultValue();
 					sendInSuccessDialog();
 				}
 				break;

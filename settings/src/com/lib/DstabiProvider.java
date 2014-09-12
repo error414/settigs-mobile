@@ -154,7 +154,8 @@ public class DstabiProvider {
 	 * 
 	 */
 	public void disconnect() {
-		BTservice.cancel();
+		BTservice.stop();
+        BTservice.cancel();
 	}
 	
 	/**

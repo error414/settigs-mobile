@@ -58,6 +58,16 @@
             android:textColor="@color/text_color" />
 
         <TextView
+            android:id="@+id/original_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text=""
+            android:layout_alignBaseline="@+id/progres_title"
+            android:layout_alignBottom="@+id/progres_title"
+            android:layout_alignParentRight="true" />
+
+        <TextView
             android:id="@+id/progres_max"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,6 +77,7 @@
             android:layout_marginRight="3dp"
             android:text="100"
             android:textColor="@color/text_color" />
+
 
         <RelativeLayout
             android:id="@+id/progres_child"

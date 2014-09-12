@@ -43,11 +43,15 @@ import android.view.SubMenu;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.customWidget.picker.ProgresEx;
+import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
@@ -139,6 +143,16 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
      */
     protected MenuDrawer mDrawer;
 
+    final protected int DEFAULT_VALUE_TYPE_NONE = 0;
+    final protected int DEFAULT_VALUE_TYPE_SPINNER = 1;
+    final protected int DEFAULT_VALUE_TYPE_CHECKBOX = 2;
+    final protected int DEFAULT_VALUE_TYPE_SEEK = 3;
+
+
+    protected int formItems[] = {};
+
+    protected String protocolCode[] = {};
+
     protected SlideMenuListAdapter slideMenuListAdapter;
 
 	/**
@@ -215,6 +229,86 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             }
 		}
 	}
+
+    /**
+     * zobrazeni defaultnich hodnot ve formulari
+     */
+    protected void initDefaultValue(){
+        DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
+        switch(getDefaultValueType()){
+            case DEFAULT_VALUE_TYPE_NONE :
+                break;
+
+            case DEFAULT_VALUE_TYPE_SPINNER:
+                for (int i = 0; i < getFormItems().length; i++) {
+                    try {
+                        Spinner spinner = (Spinner) findViewById(getFormItems()[i]);
+                        String originalItem = (String) spinner.getItemAtPosition(originalProfile.getProfileItemByName(getProtocolCode()[i]).getValueForSpinner(spinner.getCount()));
+                        String selectedItem = (String) spinner.getSelectedItem();
+
+                        String viewName = getResources().getResourceEntryName(getFormItems()[i]);
+                        ((TextView)findViewById(getResources().getIdentifier(viewName + "_default", "id", getPackageName())))
+                                .setText( selectedItem.equals(originalItem) ? "" : originalItem );
+
+
+                    } catch (IndexOutOfException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            case DEFAULT_VALUE_TYPE_CHECKBOX:
+                for (int i = 0; i < getFormItems().length; i++) {
+
+                    CheckBox checkBox = (CheckBox)findViewById(getFormItems()[i]);
+
+                    String viewName = getResources().getResourceEntryName(getFormItems()[i]);
+
+                    if(checkBox.isChecked() == originalProfile.getProfileItemByName(getProtocolCode()[i]).getValueForCheckBox()){
+                        ((TextView) findViewById(getResources().getIdentifier(viewName + "_default", "id", getPackageName())))
+                                .setText("");
+                    }else {
+                        ((TextView) findViewById(getResources().getIdentifier(viewName + "_default", "id", getPackageName())))
+                                .setText(originalProfile.getProfileItemByName(getProtocolCode()[i]).getValueForCheckBox() ? "(X)" : "(   )");
+                    }
+                }
+                break;
+
+            case DEFAULT_VALUE_TYPE_SEEK:
+                for (int i = 0; i < getFormItems().length; i++) {
+                    ProgresEx tempPicker = (ProgresEx) findViewById(getFormItems()[i]);
+                    ProfileItem item = originalProfile.getProfileItemByName(getProtocolCode()[i]);
+
+                    tempPicker.setOriginalValue(item.getValueInteger());
+                }
+
+                break;
+
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_NONE;
+    }
 
     /**
      * inicializace slide menu
@@ -745,6 +839,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 				setOriginalProfileProfile(profile);
 				checkChange(profile);
+                initDefaultValue();
 
 				break;
 

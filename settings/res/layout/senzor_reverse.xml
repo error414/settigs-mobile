@@ -80,8 +80,44 @@
 	            android:layout_marginTop="32dp"
 	            android:text="@string/z_yaw"
 	            android:textColor="@color/text_color" />
-	        
-	    </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/x_pitch_reverse_default"
+                android:layout_alignTop="@+id/x_pitch_reverse"
+                android:layout_toRightOf="@+id/x_pitch_reverse"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBaseline="@+id/x_pitch_reverse"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/y_roll_reverse_default"
+                android:layout_alignTop="@+id/y_roll_reverse"
+                android:layout_toRightOf="@+id/y_roll_reverse"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBaseline="@+id/y_roll_reverse"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/z_yaw_reverse_default"
+                android:layout_alignTop="@+id/z_yaw_reverse"
+                android:layout_toRightOf="@+id/z_yaw_reverse"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBaseline="@+id/z_yaw_reverse"
+                />
+
+        </RelativeLayout>
 
 	</ScrollView>
 </LinearLayout>

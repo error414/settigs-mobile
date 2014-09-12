@@ -62,7 +62,19 @@
 	            android:textStyle="bold"
                 android:checked="false" />
 
-	    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/piro_opt_default"
+                android:layout_alignTop="@+id/piro_opt"
+                android:layout_toRightOf="@+id/piro_opt"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBaseline="@+id/piro_opt"
+                />
+
+        </RelativeLayout>
 
 	</ScrollView>
 </LinearLayout>

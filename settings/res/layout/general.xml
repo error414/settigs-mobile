@@ -9,12 +9,12 @@
 	 <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:background="@color/background_color">
 
 	    <RelativeLayout
 	        android:layout_width="fill_parent"
-	        android:layout_height="492dp"
+	        android:layout_height="fill_parent"
 	        android:background="@color/background_color"
 	        >
 	
@@ -152,6 +152,56 @@
 	            android:text="@string/channels"
 	            android:textSize="12sp" />
 
-	    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/position_select_id_default"
+                android:layout_below="@+id/position_select_id"
+                android:layout_alignLeft="@+id/textView4"
+                android:textColor="@color/dashed_dark" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/mix_select_id_default"
+                android:textColor="@color/dashed_dark"
+                android:layout_below="@+id/mix_select_id"
+                android:layout_alignLeft="@+id/mix_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/receiver_select_id_default"
+                android:textColor="@color/dashed_dark"
+                android:layout_below="@+id/receiver_select_id"
+                android:layout_alignLeft="@+id/receiver_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/cyclic_servo_reverse_select_id_default"
+                android:textColor="@color/dashed_dark"
+                android:layout_below="@+id/cyclic_servo_reverse_select_id"
+                android:layout_alignLeft="@+id/cyclic_servo_reverse_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/flight_style_select_id_default"
+                android:textColor="@color/dashed_dark"
+                android:layout_below="@+id/flight_style_select_id"
+                android:layout_alignLeft="@+id/flight_style_select_id" />
+
+        </RelativeLayout>
 	</ScrollView>
 </LinearLayout>

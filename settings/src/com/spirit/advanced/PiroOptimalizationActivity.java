@@ -65,6 +65,29 @@ public class PiroOptimalizationActivity extends BaseActivity
 		delegateListener();
 	}
 
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_CHECKBOX;
+    }
+
 	/**
 	 * prvotni konfigurace view
 	 */
@@ -177,6 +200,7 @@ public class PiroOptimalizationActivity extends BaseActivity
 					showInfoBarWrite();
 				}
 			}
+            initDefaultValue();
 
 		}
 
@@ -189,6 +213,7 @@ public class PiroOptimalizationActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
