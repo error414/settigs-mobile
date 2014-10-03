@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit.diagnostic;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -28,6 +27,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -375,8 +375,8 @@ public class GraphActivity extends BaseActivity
 		public void onClick(View v)
 		{
 			if (tapToScreenShot) {
-				SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
-				String filename = preferences.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+				String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
 
 				try {
 					aprLevelsPlot.setDrawingCacheEnabled(true);
@@ -460,8 +460,8 @@ public class GraphActivity extends BaseActivity
 			} else {
 				
 				//zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
-				SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
-				if(!preferences.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+				if(!sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
 					Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
 					Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
 					startActivity(i);

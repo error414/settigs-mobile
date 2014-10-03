@@ -33,7 +33,7 @@ import java.util.HashMap;
  * @author error414
  *
  */
-public class MyListAdapter extends BaseAdapter {
+public class BaseStandartListAdapter extends BaseAdapter {
 
 	/**
 	 * 
@@ -50,7 +50,7 @@ public class MyListAdapter extends BaseAdapter {
 	 */
 	protected ArrayList<HashMap<Integer, Integer>> data;
 
-    public MyListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
+    public BaseStandartListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

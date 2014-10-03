@@ -17,11 +17,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit.diagnostic;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -282,16 +282,16 @@ public class LogActivity extends BaseActivity
 				Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
 				return false;
 			}
-			
-			SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
-			if(!preferences.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
+			if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
 				Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(LogActivity.this, PrefsActivity.class);
 				startActivity(i);
 				return false;
 			}
 			
-			String filename = preferences.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
+			String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
 
 			LogPdf log = new LogPdf(this, logListData);
 			log.create(filename);

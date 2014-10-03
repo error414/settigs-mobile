@@ -37,7 +37,7 @@ import java.util.HashMap;
  *
  */
 @SuppressLint("UseSparseArrays")
-public class MenuListAdapter extends MyListAdapter {
+public class MenuListAdapter extends BaseStandartListAdapter {
 
 
 	public MenuListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {

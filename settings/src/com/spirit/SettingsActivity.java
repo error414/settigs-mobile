@@ -97,7 +97,7 @@ public class SettingsActivity extends BaseActivity
 				startActivity(i);
 			}
 		});
-		
+
 		//change log
 		/*ChangeLog cl = new ChangeLog(this);
 	    if (cl.firstRun()){

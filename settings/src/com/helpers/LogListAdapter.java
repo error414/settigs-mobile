@@ -37,7 +37,7 @@ import java.util.HashMap;
  *
  */
 @SuppressLint("UseSparseArrays")
-public class LogListAdapter extends MyListAdapter {
+public class LogListAdapter extends BaseStandartListAdapter {
 
 	
 	public LogListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {

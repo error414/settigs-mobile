@@ -132,39 +132,10 @@ public class ConnectionActivity extends BaseActivity
 		curentDeviceText = (TextView) findViewById(R.id.curent_device_text);
 		serial = (TextView) findViewById(R.id.serial_number);
 		version = (TextView) findViewById(R.id.version);
-		
-		Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-		ArrayAdapter<CharSequence> BTListSpinnerAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-		BTListSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-		//pozice vybraneho selectu
-		int position = 0;
-		if (pairedDevices.size() > 0) {
-			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
-			String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
-
-			// iterator
-			int i = 0;
-			// Loop through paired devices
-			for (BluetoothDevice device : pairedDevices) {
-				// Add the name and address to an array adapter to show in a ListView
-				BTListSpinnerAdapter.add(device.getName().toString() + " [" + device.getAddress().toString() + "]");
-
-				//hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
-				if (prefs_adress.equals(device.getAddress().toString())) {
-					position = i;
-				}
-				i++;
-			}
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
-			finish();
-		}
-
-		btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
-		//ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
-		btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position));
-		////////////////////////////////////////////////////////////////
+        if(mBluetoothAdapter.getBondedDevices().size() == 0){
+            Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
+        }
 	}
 
 	/**
@@ -174,6 +145,35 @@ public class ConnectionActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
+
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        ArrayAdapter<CharSequence> BTListSpinnerAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        BTListSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //pozice vybraneho selectu
+        int position = 0;
+        SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
+        String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
+
+        // iterator
+        int i = 0;
+        // Loop through paired devices
+        for (BluetoothDevice device : pairedDevices) {
+            // Add the name and address to an array adapter to show in a ListView
+            BTListSpinnerAdapter.add(device.getName().toString() + " [" + device.getAddress().toString() + "]");
+
+            //hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
+            if (prefs_adress.equals(device.getAddress().toString())) {
+                position = i;
+            }
+            i++;
+        }
+
+        btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
+        //ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
+        btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position));
+        ////////////////////////////////////////////////////////////////
+
 		updateState();
 	}
 
