@@ -159,6 +159,19 @@ public class ChannelsActivity extends BaseActivity{
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
+
+                if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65){// 65 je A coz je PWM prijmac,
+                    switch (pos){
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 5: ((Spinner) findViewById(formItems[i])).setEnabled(false); break;
+                    }
+                }else{
+                    ((Spinner) findViewById(formItems[i])).setEnabled(true);
+                }
+
 			}
 		} catch (IndexOutOfException e) {
 			errorInActivity(R.string.damage_profile);
@@ -181,7 +194,7 @@ public class ChannelsActivity extends BaseActivity{
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					
+
 					//pro PWM jsou povoleny jen kanaly 5 a 7
 					if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 && (pos != 4 && pos != 7)){ // 65 je A coz je PWM prijmac, hodnoty 4 = kanal 5, 7 = neprirazeno
 						Spinner sp =  (Spinner) findViewById(formItems[i]);

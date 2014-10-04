@@ -106,8 +106,8 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm",	true));
 		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM",	true));
 
-		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false)); 		// procenta
-		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8",	true));		// geometrie hlavy - 6��
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false)); 		// zisk cyklikt
+		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8",	true));		// geometrie hlavy - 6
 		profileMap.put("SENSOR_SENZ",	new ProfileItem(21, 50, 100, "z",	false)); 	// nasobic
 
 		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", "X",	true));
@@ -121,7 +121,7 @@ public class DstabiProfile {
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r",	false)); 	// kompenzace zpinani vyskovky
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p",	false)); 		// dynamika vrtulky
-		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f",	false)); 	// alternativni funkce
+		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f",	false)); 	// stabi mode
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v",	true));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m",	false)); //
 

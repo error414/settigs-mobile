@@ -384,7 +384,7 @@ public class FileDialog extends ListActivity{
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+		/*if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			selectButton.setEnabled(false);
 
 			if (layoutCreate.getVisibility() == View.VISIBLE) {
@@ -399,9 +399,9 @@ public class FileDialog extends ListActivity{
 			}
 
 			return true;
-		} else {
+		} else {*/
 			return super.onKeyDown(keyCode, event);
-		}
+		/*}*/
 	}
 
 	/**
