@@ -413,7 +413,11 @@ public class DstabiProvider {
 		queue.clear();
 		clearState("abort all");
 	}
-	
+
+    /**
+     *
+     * @param kdo
+     */
 	private void clearState(String kdo){
 		
 		Log.d(TAG, "mazu stav:" + kdo);

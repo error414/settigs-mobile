@@ -20,7 +20,6 @@ package com.spirit.stabi;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -186,12 +185,13 @@ public class StabiFunctionActivity extends BaseActivity
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					Log.d(TAG, profileCreator.getProfileItemByName(protocolCode[i]).getCommand());
-
-
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
+
+                    if(i == 0 && pos != 0){ // i == 0 je stabi function a pokud se vybere nejaka jina moznost nez vypnuto tak zobrazit upozorneni
+                        showConfirmDialog(R.string.stabi_piruete_warning);
+                    }
 
 					showInfoBarWrite();
 				}
