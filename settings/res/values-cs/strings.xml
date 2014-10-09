@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com \n \n sestavení: 27.08.14</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com \n \n sestavení: 9.10.14</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -163,6 +163,7 @@
 	<string name="bank_short_code">B</string>
 	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlišný.</string>
     <string name="signal_processing">Zpracování signálu</string>
+    <string name="advance">Rozšířené</string>
 
 	<string-array name="bank_values">
         <item>Bank 0</item>
