@@ -135,6 +135,7 @@ public class ConnectionActivity extends BaseActivity
 
         if(mBluetoothAdapter.getBondedDevices().size() == 0){
             Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
+            finish();
         }
 	}
 
@@ -269,7 +270,7 @@ public class ConnectionActivity extends BaseActivity
             }else{
                 disconect = true;
                 showDialogWrite();
-                stabiProvider.sendDataForResponce("e", UNLOCKBANK_CALL_BACK_CODE);
+                stabiProvider.sendDataForResponce(stabiProvider.REACTIVATION_BANK, UNLOCKBANK_CALL_BACK_CODE);
             }
 		}
 	}

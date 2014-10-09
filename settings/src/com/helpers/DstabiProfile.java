@@ -137,6 +137,8 @@ public class DstabiProfile {
 		
 		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5",	true)); // virtualni pootoceni cykliky
 
+        profileMap.put("SIGNAL_PROCESSING",		new ProfileItem(41, "0", "1", "6",	false)); // rozisrene zpracovani siganlu
+
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o",	true));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4",	false)); 		// kompenzace zpinani vyskovky
 

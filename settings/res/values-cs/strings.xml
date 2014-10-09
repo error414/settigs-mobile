@@ -159,10 +159,11 @@
 	<string name="throttle">Plyn</string>
 	<string name="gyro_gain">Zisk vrtulky</string>
 	<string name="banks">Banky</string>
-	<string name="choose_bank">Choose bank</string>
+	<string name="choose_bank">Vyberte banku</string>
 	<string name="bank_short_code">B</string>
 	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlišný.</string>
-	
+    <string name="signal_processing">Zpracování signálu</string>
+
 	<string-array name="bank_values">
         <item>Bank 0</item>
         <item>Bank 1</item>
@@ -378,4 +379,5 @@
      <string name="want_save_item">Přejete si uložit nastavení?</string>
 
     <string name="bank_change_after_connect">Aktuální banka byla přepnuta na <b>Bank 0</b>.\nZměna banky přes vysílač je vypnuta dokud je software připojen.</string>
+    <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně jinak tyto režimy nebudou fungovat korektně!</string>
 </resources>

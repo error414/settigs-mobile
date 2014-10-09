@@ -144,8 +144,10 @@
     <string name="gyro_gain">Gyro gain</string>
     <string name="banks">Banks</string>
     <string name="bank_short_code">B</string>
-    <string name="choose_bank">Vyberte banky</string>
+    <string name="choose_bank">Select bank</string>
     <string name="channelColision">There was a collision %1$s. channel, please choose differently.</string>
+    <string name="signal_processing">Signal Processing</string>
+    <string name="advance">Advance</string>
 
     <string-array name="bank_values">
         <item>Bank 0</item>
@@ -338,5 +340,7 @@
     
     <string name="want_save_item">Do you want to save your settings?</string>
     <string name="bank_change_after_connect">Current bank was switched to <b>Bank 0</b>.\nBank switching via transmitter is disabled while the software is connected.</string>
+
+    <string name="stabi_piruete_warning">Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</string>
     
 </resources>

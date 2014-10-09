@@ -211,7 +211,7 @@ public class DiffActivity extends BaseActivity
 		if(diffItem.getLabel().equals("RUDDER_FREQ")){
 			diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.rudder), textSeparator, getResources().getString(R.string.frequency)).toString());
 
-			String[] values = getResources().getStringArray(R.array.cyclic_frequency_value);
+			String[] values = getResources().getStringArray(R.array.rudder_frequency_value_extend);
 
 			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
 			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
@@ -486,7 +486,16 @@ public class DiffActivity extends BaseActivity
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getResources().getString(R.string.cyclic_phase)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
-            to = String.valueOf(diffItem.getOriginalValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
+            to = String.valueOf(diffItem.getChangedValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SIGNAL_PROCESSING")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.signal_processing)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 

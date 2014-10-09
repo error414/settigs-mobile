@@ -71,6 +71,7 @@ public class DstabiProvider {
 	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
+    final public String REACTIVATION_BANK = "e";
 	
 	private int protocolState = 0;
 	

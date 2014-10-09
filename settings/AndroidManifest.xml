@@ -269,6 +269,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/CustomTheme"
        />
+        <activity
+            android:name=".advanced.SignalProcessingActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomTheme"
+            />
     </application>
 
 </manifest>
