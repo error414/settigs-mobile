@@ -137,7 +137,7 @@ public class DstabiProfile {
 		
 		profileMap.put("CYCLIC_PHASE",	new ProfileItem(40, -90, 90, "5",	true)); // virtualni pootoceni cykliky
 
-        profileMap.put("SIGNAL_PROCESSING",		new ProfileItem(41, "0", "1", "6",	false)); // rozisrene zpracovani siganlu
+        profileMap.put("SIGNAL_PROCESSING",		new ProfileItem(41, 0, 1, "6",	true)); // rozisrene zpracovani siganlu
 
 		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o",	true));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4",	false)); 		// kompenzace zpinani vyskovky
@@ -187,10 +187,23 @@ public class DstabiProfile {
 			profileLenght = 0;
 		}
 
-		//uprava zavyslosti polozek
-		/*if(profileMap.containsKey("MODEL") && profileMap.get("MODEL").isValid() && profileMap.get("MODEL").getValueInteger() != 67 ){ // letadlo
-			profileMap.remove("SENSOR_SENZ");
-		}*/
+        //////////////////////////////////////////////////////////////////
+		//oprava hodnot polozek ///
+        this.profileErrors.clear();
+        Iterator<String> iterationProfile = profileMap.keySet().iterator();
+
+        while(iterationProfile.hasNext()) {
+            String key=(String)iterationProfile.next();
+            ProfileItem item = (ProfileItem)profileMap.get(key);
+
+            if(!item.isValid()){
+                Log.d(TAG, "polozka " + key + " neni validni s hodnotou " + item.getValueString() + " byla opravena na " + String.valueOf(item.getMinimum()));
+                this.profileErrors.add("polozka " + key + " neni validni s hodnotou " + item.getValueString() + " byla opravena na " + String.valueOf(item.getMinimum()));
+                item.setValue(item.getMinimum());
+            }
+        }
+        ///////////////////////////////////////////////////////////////////
+
 	}
 	
 	///////////////// PUBLIC ////////////////////////
@@ -258,23 +271,7 @@ public class DstabiProfile {
 			}
 		}
 		
-
-        boolean isValid = true;
-        this.profileErrors.clear();
-		Iterator<String> iteration = profileMap.keySet().iterator();
-
-        while(iteration.hasNext()) {
-			String key=(String)iteration.next();
-			ProfileItem item = (ProfileItem)profileMap.get(key);
-
-			if(!item.isValid()){
-				Log.d(TAG, "polozka " + key + " neni validni s hodnotou " + item.getValueString());
-                this.profileErrors.add("polozka " + key + " neni validni s hodnotou " + item.getValueString());
-                isValid = false;
-			}
-		}
-
-		return isValid;
+       return true;
 	}
 	
 	/**
@@ -490,9 +487,9 @@ public class DstabiProfile {
 		 */
 		public void setValueFromCheckBox(Boolean checked){
 			if(checked == true){
-				value = 49; // "1"
+				value = ByteOperation.intToByte(this.getMaximum()); // "1"
 			}else{
-				value = 48; // "0"
+				value = ByteOperation.intToByte(this.getMaximum()); // "0"
 			}
 		}
 		

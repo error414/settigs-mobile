@@ -235,6 +235,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
      */
     protected void initDefaultValue(){
         DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
+        if(originalProfile == null || !originalProfile.isValid()){
+            return;
+        }
+
         switch(getDefaultValueType()){
             case DEFAULT_VALUE_TYPE_NONE :
                 break;
