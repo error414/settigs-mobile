@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
@@ -37,9 +34,11 @@ import android.widget.Toast;
 
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
-import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * aktivita pro hlavni obrazku
@@ -54,7 +53,7 @@ public class SettingsActivity extends BaseActivity
 
     final protected int DONATE = 6;
     final protected int SETTINGS = 7;
-
+    
 	/**
 	 * seznam polozek pro menu
 	 */
@@ -69,7 +68,9 @@ public class SettingsActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.main);
+
+		//setContentView(R.layout.main);
+        initSlideMenu(R.layout.main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 
@@ -96,12 +97,12 @@ public class SettingsActivity extends BaseActivity
 				startActivity(i);
 			}
 		});
-		
+
 		//change log
-		ChangeLog cl = new ChangeLog(this);
+		/*ChangeLog cl = new ChangeLog(this);
 	    if (cl.firstRun()){
 	        cl.getLogDialog().show();
-	    }
+	    }*/
 
 	}
 
@@ -114,7 +115,7 @@ public class SettingsActivity extends BaseActivity
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
 	}
-
+	
 	/**
 	 * vytvoreni pole pro adapter menu listu
 	 * <p/>
@@ -190,7 +191,7 @@ public class SettingsActivity extends BaseActivity
         super.onOptionsItemSelected(item);
 
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == DONATE) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted"));
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(DONATE_URL));
             startActivity(browserIntent);
         }
         

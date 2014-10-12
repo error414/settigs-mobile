@@ -41,15 +41,15 @@ public class SenzorSenzivityActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SENSOR_SENX", "SENSOR_SENZ",
+	private final String protocolCode[] = {"SENSOR_SENX", "SENSOR_SENZ", "SENSOR_GYROGAIN"
 			//"SENSOR_SENZ",
 	};
 
-	private int formItems[] = {R.id.x_cyclic, R.id.z_rudder,
+	private int formItems[] = {R.id.x_cyclic, R.id.z_rudder,  R.id.gyro_gain,
 			//R.id.z_yaw,
 	};
 
-	private int formItemsTitle[] = {R.string.x_cyclic, R.string.z_rudder,
+	private int formItemsTitle[] = {R.string.x_cyclic, R.string.z_rudder,  R.string.gyro_gain,
 			//R.string.z_yaw,
 	};
 
@@ -61,7 +61,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.senzor_senzivity);
+		initSlideMenu(R.layout.senzor_senzivity);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text), " \u2192 ", getString(R.string.senzivity)));
@@ -70,6 +70,29 @@ public class SenzorSenzivityActivity extends BaseActivity
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SEEK;
+    }
 
 	/**
 	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
@@ -84,19 +107,40 @@ public class SenzorSenzivityActivity extends BaseActivity
 			finish();
 		}
 	}
+	
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
+	}
 
 	private void initGui()
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-
-			if (i == 0) {
-				tempPicker.setOffset(20);
-				tempPicker.setRange(0, 80, 20, 100); // nastavuji rozmezi prvku z profilu
-			} else {
-				tempPicker.setTranslate(new StabiSenzivityProgressExTranslate());
-				tempPicker.setOffset(50);
-				tempPicker.setRange(50, 100, 100, 150); // nastavuji rozmezi prvku z profilu
+			
+			switch(i){
+				case 0:
+					tempPicker.setOffset(20);
+					tempPicker.setRange(0, 80, 20, 100); // nastavuji rozmezi prvku z profilu
+					break;
+				case 1:
+					tempPicker.setTranslate(new StabiSenzivityProgressExTranslate());
+					tempPicker.setOffset(50);
+					tempPicker.setRange(50, 100, 100, 150); // nastavuji rozmezi prvku z profilu
+					break;
+				case 2:
+					tempPicker.setOffset(-100);
+					tempPicker.setRange(0, 200, -100, 100); // nastavuji rozmezi prvku z profilu
+					break;
+			
 			}
 
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
@@ -139,12 +183,19 @@ public class SenzorSenzivityActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			if (profileCreator.exits(protocolCode[i])) {
 				ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 				ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-
+				
+				if(profileCreator.getProfileItemByName("CHANNELS_GAIN").getValueInteger() != 7 && i == 2){ // 7 = neprirazeno / i = 2 = SENSOR_GYROGAIN
+					tempPicker.setEnabled(false);
+				}
+				
 				tempPicker.setCurrentNoNotify(item.getValueInteger());
 			}
 		}
@@ -177,6 +228,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
+            initDefaultValue();
 		}
 
 	};
@@ -188,7 +240,12 @@ public class SenzorSenzivityActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

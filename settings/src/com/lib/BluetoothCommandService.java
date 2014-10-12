@@ -17,11 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.lib;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.UUID;
-
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
@@ -31,6 +26,11 @@ import android.os.Message;
 import android.util.Log;
 
 import com.helpers.ByteOperation;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.UUID;
 
 public class BluetoothCommandService {
 	// Debugging
@@ -56,12 +56,6 @@ public class BluetoothCommandService {
     public static final int STATE_LISTEN = 1;     // now listening for incoming connections
     public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
     public static final int STATE_CONNECTED = 3;  // now connected to a remote device
-    
-    // Constants that indicate command to computer
-    public static final int EXIT_CMD = -1;
-    public static final int VOL_UP = 1;
-    public static final int VOL_DOWN = 2;
-    public static final int MOUSE_MOVE = 3;
     
     /**
      * Constructor. Prepares a new BluetoothChat session.
@@ -420,7 +414,6 @@ public class BluetoothCommandService {
 
         public void cancel() {
             try {
-            	mmOutStream.write(EXIT_CMD);
                 mmSocket.close();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);

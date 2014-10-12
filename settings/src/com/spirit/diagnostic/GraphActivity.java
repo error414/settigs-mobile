@@ -17,14 +17,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.diagnostic;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
-import java.util.Date;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -32,6 +27,7 @@ import android.graphics.Bitmap.CompressFormat;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -54,6 +50,12 @@ import com.lib.FFT;
 import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
 import com.spirit.R;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
+import java.util.Date;
 
 public class GraphActivity extends BaseActivity
 {
@@ -127,8 +129,15 @@ public class GraphActivity extends BaseActivity
 		setContentView(R.layout.graph);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
-		((TextView) findViewById(R.id.title)).setText(baseTitle);
+	}
+	
+	/**
+	 * handle for change banks
+	 * 
+	 * @param v
+	 */
+	public void changeBankOpenDialog(View v){
+		//disabled change bank in this activity
 	}
 
 	/**
@@ -233,17 +242,34 @@ public class GraphActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
+        baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
+        ((TextView) findViewById(R.id.title)).setText(baseTitle);
+        ((TextView) findViewById(R.id.vibration_level_text)).setText(R.string.vibration_level);
+
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			showConfirmDialogWithCancel(R.string.graph_warn,
+				new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						// inicializace FFT
+						initFFT();
+						// inicializujeme graf
+						inicializeGraph();
+
+						startGraph();
+					}
+				}
+				, new OnClickListener(){
+					@Override
+					public void onClick(DialogInterface arg0, int arg1) {
+						finish();
+					}
+				});
+
+
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
 			((TextView) findViewById(R.id.title)).setText(TextUtils.concat(baseTitle, " ", getString(R.string.axis_X)));
-
-			// inicializace FFT
-			initFFT();
-			// inicializujeme graf
-			inicializeGraph();
-
-			startGraph();
 
 		} else {
 			finish();
@@ -349,8 +375,8 @@ public class GraphActivity extends BaseActivity
 		public void onClick(View v)
 		{
 			if (tapToScreenShot) {
-				SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
-				String filename = preferences.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+				String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
 
 				try {
 					aprLevelsPlot.setDrawingCacheEnabled(true);
@@ -434,8 +460,8 @@ public class GraphActivity extends BaseActivity
 			} else {
 				
 				//zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
-				SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
-				if(!preferences.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+				if(!sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
 					Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
 					Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
 					startActivity(i);

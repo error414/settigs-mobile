@@ -37,16 +37,13 @@ import com.spirit.R;
 public class GeometryAngleActivity extends BaseActivity
 {
 
-	final private String TAG = "PiroOptimalizationActivity";
+	final private String TAG = "GeometryAngleActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
 	private final String protocolCode[] = {"GEOMETRY",};
 
 	private int formItems[] = {R.id.geom_6deg,};
-
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.geom_6deg,};
 
 	private int formItemsTitle[] = {R.string.geom_6deg_tune,};
 
@@ -58,7 +55,7 @@ public class GeometryAngleActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.advanced_geom_angle);
+		initSlideMenu(R.layout.advanced_geom_angle);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.geom_6deg)));
@@ -67,6 +64,29 @@ public class GeometryAngleActivity extends BaseActivity
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SEEK;
+    }
 
 	/**
 	 * prvotni konfigurace view
@@ -101,8 +121,6 @@ public class GeometryAngleActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni nastaveni geometrie
 			}
-
-			initBasicMode();
 		} else {
 			finish();
 		}
@@ -113,9 +131,11 @@ public class GeometryAngleActivity extends BaseActivity
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			ProgresEx progressEx = (ProgresEx) findViewById(item);
-			progressEx.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -149,6 +169,9 @@ public class GeometryAngleActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -179,6 +202,7 @@ public class GeometryAngleActivity extends BaseActivity
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
+            initDefaultValue();
 		}
 
 	};
@@ -190,7 +214,12 @@ public class GeometryAngleActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

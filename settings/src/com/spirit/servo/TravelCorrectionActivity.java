@@ -27,6 +27,7 @@ import android.widget.TextView;
 import com.customWidget.picker.ProgresEx;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.spirit.BaseActivity;
@@ -45,9 +46,6 @@ public class TravelCorrectionActivity extends BaseActivity
 
 	private int formItems[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
 
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
-
 	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
 
 	/**
@@ -58,7 +56,7 @@ public class TravelCorrectionActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.servos_travel_correction);
+		initSlideMenu(R.layout.servos_travel_correction);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction)));
@@ -67,6 +65,29 @@ public class TravelCorrectionActivity extends BaseActivity
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SEEK;
+    }
 
 	/**
 	 * prirazeni udalosti k prvkum
@@ -91,23 +112,23 @@ public class TravelCorrectionActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
 			}
-			initBasicMode();
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			ProgresEx progressEx = (ProgresEx) findViewById(item);
-			progressEx.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
-
 
 	@Override
 	public void onPause()
@@ -154,6 +175,9 @@ public class TravelCorrectionActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -181,6 +205,7 @@ public class TravelCorrectionActivity extends BaseActivity
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
+            initDefaultValue();
 		}
 
 	};
@@ -193,7 +218,12 @@ public class TravelCorrectionActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

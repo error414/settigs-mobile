@@ -20,7 +20,6 @@ package com.spirit.stabi;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -57,7 +56,7 @@ public class StabiFunctionActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.stabi_function);
+		initSlideMenu(R.layout.stabi_function);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_function)));
@@ -65,6 +64,29 @@ public class StabiFunctionActivity extends BaseActivity
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SPINNER;
+    }
 
 	/**
 	 * prvotni konfigurace view
@@ -77,6 +99,19 @@ public class StabiFunctionActivity extends BaseActivity
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
 			finish();
+		}
+	}
+	
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -114,13 +149,17 @@ public class StabiFunctionActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
+		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 
-				if (pos != 0) lock = lock + 1;
+				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 			}
 		} catch (IndexOutOfException e) {
@@ -146,16 +185,18 @@ public class StabiFunctionActivity extends BaseActivity
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					Log.d(TAG, profileCreator.getProfileItemByName(protocolCode[i]).getCommand());
-
-
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
 
+                    if(i == 0 && pos != 0){ // i == 0 je stabi function a pokud se vybere nejaka jina moznost nez vypnuto tak zobrazit upozorneni
+                        showConfirmDialog(R.string.stabi_piruete_warning);
+                    }
+
 					showInfoBarWrite();
 				}
 			}
+            initDefaultValue();
 		}
 
 		@Override
@@ -174,7 +215,12 @@ public class StabiFunctionActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

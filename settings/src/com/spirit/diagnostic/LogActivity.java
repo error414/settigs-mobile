@@ -16,21 +16,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 package com.spirit.diagnostic;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -43,6 +38,11 @@ import com.lib.LogPdf;
 import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
 import com.spirit.R;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 
 @SuppressLint("SdCardPath")
 public class LogActivity extends BaseActivity
@@ -98,11 +98,20 @@ public class LogActivity extends BaseActivity
 		logList.setAdapter(adapter);
 		initConfiguration();
 	}
+	
+	/**
+	 * handle for change banks
+	 * 
+	 * @param v
+	 */
+	public void changeBankOpenDialog(View v){
+		//disabled change bank in this activity
+	}
 
 	/**
 	 *
 	 */
-	protected void initConfiguration()
+	private void initConfiguration()
 	{
 		showDialogRead();
 		// ziskani konfigurace z jednotky
@@ -117,14 +126,14 @@ public class LogActivity extends BaseActivity
 	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log)
 	{
-		int len = log.length - 1; // tady prijde 121
+		int len = log[0] & 0xff;
 		// kontrola jestli je log z pameti
 		if (len == 120) {
 			len /= 2;
 	
 	        int i;
 	        for (i = len-1; i >= 0; i --) {
-	            if ((log[i] & LOG_EVENT_LOWVOLT) != 0 && log[i] != 0xff){
+	            if (((log[i+1] & 0xff) & LOG_EVENT_LOWVOLT) != 0 && (log[i+1] & 0xff) != 0xff){
 	                break;
 	            }
 	        }
@@ -136,10 +145,8 @@ public class LogActivity extends BaseActivity
 		
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
 		
-		//tady vzdy 60 = i
-		//taky je me divne ze logo zacinam od indexu 1
 		for (int i = 1; i <= len; i++) {
-			if (log[i] == LOG_EVENT_OK) {
+			if ((log[i] & 0xff) == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_ok);
@@ -147,7 +154,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_CAL) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_CAL) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cal);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
@@ -155,23 +162,23 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_CYCRING) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_CYCRING) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cycring);
-				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 				row.put(POSITION, i);
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_RUDLIM) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_RUDLIM) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rudlim);
-				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 				row.put(POSITION, i);
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_VIBES) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_VIBES) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_vibes);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
@@ -179,7 +186,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_HANG) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_HANG) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_hang);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
@@ -187,7 +194,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if ((log[i] & LOG_EVENT_RXLOSS) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_RXLOSS) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rxloss);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
@@ -195,7 +202,7 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 			
-			if ((log[i] & LOG_EVENT_LOWVOLT) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_LOWVOLT) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_lowvolt);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
@@ -275,16 +282,16 @@ public class LogActivity extends BaseActivity
 				Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
 				return false;
 			}
-			
-			SharedPreferences preferences = getSharedPreferences(PrefsActivity.PREF_APP, Context.MODE_PRIVATE);
-			if(!preferences.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
+			if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
 				Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(LogActivity.this, PrefsActivity.class);
 				startActivity(i);
 				return false;
 			}
 			
-			String filename = preferences.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
+			String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
 
 			LogPdf log = new LogPdf(this, logListData);
 			log.create(filename);

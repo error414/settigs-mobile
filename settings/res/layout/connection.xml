@@ -97,7 +97,6 @@
 	            android:layout_alignRight="@+id/bt_device_spinner"
 	            android:layout_below="@+id/bt_device_spinner"
 	            android:layout_marginBottom="10dp"
-	            android:layout_marginRight="10dp"
 	            android:layout_marginTop="33dp"
 	            android:background="@drawable/button_hover"
 	            android:onClick="manageConnectionToBTDevice"

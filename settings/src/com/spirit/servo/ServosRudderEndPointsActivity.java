@@ -44,9 +44,6 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 
 	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
 
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
-
 	private int formItemsTitle[] = {R.string.min_max, R.string.blank,};
 
 	/**
@@ -57,7 +54,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.servos_rudder_end_points);
+		initSlideMenu(R.layout.servos_rudder_end_points);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limit), getString(R.string.rudder_end_points_no_break)));
@@ -66,6 +63,29 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SEEK;
+    }
 
 	/**
 	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
@@ -76,20 +96,21 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initBasicMode();
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			ProgresEx progressEx = (ProgresEx) findViewById(item);
-			progressEx.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -137,6 +158,9 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -165,6 +189,8 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
+
+            initDefaultValue();
 		}
 
 	};
@@ -176,7 +202,12 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="35"
-    android:versionName="1.0.25-1" 
+    android:versionCode="44"
+
+    android:versionName="1.0.25-8"
 >
 
     <uses-sdk
@@ -22,7 +23,8 @@
             android:configChanges="orientation"
             android:label="@string/full_app_name"
             android:screenOrientation="portrait"
-            android:theme="@style/CustomTheme" >
+            android:theme="@style/CustomTheme"
+        >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -261,6 +263,20 @@
             android:label="@string/app_name"
             android:screenOrientation="portrait"
              />
+       	<activity
+            android:name=".general.ChannelsActivity"
+             android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomTheme"
+       />
+        <activity
+            android:name=".advanced.SignalProcessingActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomTheme"
+            />
     </application>
 
 </manifest>

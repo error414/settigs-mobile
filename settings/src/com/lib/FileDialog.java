@@ -1,13 +1,5 @@
 package com.lib;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.TreeMap;
-
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
@@ -29,6 +21,14 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.spirit.R;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.TreeMap;
 
 /**
  * Activity para escolha de arquivos/diretorios.
@@ -214,12 +214,10 @@ public class FileDialog extends ListActivity{
 	@Override
 	public void onResume(){
 		super.onResume();
-		stabiProvider =  DstabiProvider.getInstance(connectionHandler);
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED){
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		}else{
-			((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
-		}
+        ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.none);
+        ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.none);
+        ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(R.drawable.none);
+        ((TextView)findViewById(R.id.title_banks)).setText("");
 	}
 
 	private void getDir(String dirPath) {
@@ -386,7 +384,7 @@ public class FileDialog extends ListActivity{
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+		/*if ((keyCode == KeyEvent.KEYCODE_BACK)) {
 			selectButton.setEnabled(false);
 
 			if (layoutCreate.getVisibility() == View.VISIBLE) {
@@ -401,9 +399,9 @@ public class FileDialog extends ListActivity{
 			}
 
 			return true;
-		} else {
+		} else {*/
 			return super.onKeyDown(keyCode, event);
-		}
+		/*}*/
 	}
 
 	/**

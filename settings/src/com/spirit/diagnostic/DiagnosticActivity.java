@@ -23,11 +23,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.exception.IndexOutOfException;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.lib.BluetoothCommandService;
@@ -42,7 +44,8 @@ public class DiagnosticActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
-
+	final static public int PROFILE_LENGTH = 16;
+	
 	/**
 	 * mrtva zona kterou ziskame z profilu
 	 */
@@ -69,6 +72,15 @@ public class DiagnosticActivity extends BaseActivity
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.diagnostic_button_text)));
 
 		initConfiguration();
+	}
+	
+	/**
+	 * handle for change banks
+	 * 
+	 * @param v
+	 */
+	public void changeBankOpenDialog(View v){
+		//disabled change bank in this activity
 	}
 
 	/**
@@ -131,7 +143,7 @@ public class DiagnosticActivity extends BaseActivity
 		}, 250); // 250ms
 
 	}
-
+	
 	protected void updateGui(byte[] b)
 	{
 
@@ -160,7 +172,14 @@ public class DiagnosticActivity extends BaseActivity
 			((TextView) findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+		
+		//PITCH
+		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
+		int pitchPercent = Math.round((100 * pitch) / 340);
+		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
+		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
 		//RUDDER
 		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
 		int rudderPercent = Math.round((100 * rudder) / 340);
@@ -174,13 +193,7 @@ public class DiagnosticActivity extends BaseActivity
 		}
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-		//PITCH
-		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
-		int pitchPercent = Math.round((100 * pitch) / 340);
-		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
-		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
-
-		//GYRO
+		//GYRO 
 		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
 		int gyroPercent = Math.round((100 * gyro) / 388);
 
@@ -190,16 +203,64 @@ public class DiagnosticActivity extends BaseActivity
 		} else {
 			mode = " HL";
 		}
-
+		
 		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
 		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+		
+		//AUX2  / banks 
+		int banks = ByteOperation.twoByteToSigInt(b[10], b[11]);
+		int banksPercent = Math.round((100 * banks) / 340); 
+		
+		int bank = 1;
+		if (banks < (1400-1520)){
+			bank = 0;
+		}else if (banks > (1640-1520)){
+			bank = 2;
+		}
+		
+		// pokud neni v bankach prirazen zadny kanal
+		TextView bankProgressDiagnostic = (TextView) findViewById(R.id.bank_value_diagnostic);
+		try {
+			int max = getResources().getStringArray(R.array.channels_values).length;
+			if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max - 1) == 7){ // 7  = unbind
+				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.grey));
+			}else{
+				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
+			}
+		} catch (IndexOutOfException e) {
+			e.printStackTrace();
+		}
+		
+		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
+		bankProgressDiagnostic.setText(String.valueOf(getString(R.string.banks) + " " + String.valueOf(bank)));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+		//AUX1  / throttle
+		int throttle = ByteOperation.twoByteToSigInt(b[12], b[13]);
+		int throttlePercent = Math.round((50 * throttle) / 340); 
+		
+		// pokud neni throttle prirazen zadny kanal
+		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
+		try {
+			int max = getResources().getStringArray(R.array.channels_values).length;
+			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max - 1) == 7){ // 7 = unbind
+				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
+			}else{
+				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
+			}
+		} catch (IndexOutOfException e) {
+			e.printStackTrace();
+		}
+		
+		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
+		throttleValueDiagnostic.setText(String.valueOf(Math.max(-1, throttlePercent + 50)));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//SENZOR X Y Z
-		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[10], b[11])));
-		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[12], b[13])));
-		((TextView) findViewById(R.id.diagnostic_z)).setText(String.valueOf(ByteOperation.twoByteToSigInt(b[14], b[15])));
+		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf((int)b[14]));
+		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf((int)b[15]));
+		((TextView) findViewById(R.id.diagnostic_z)).setText(String.valueOf((int)b[16]));
 
 	}
 
@@ -219,8 +280,8 @@ public class DiagnosticActivity extends BaseActivity
 			case DIAGNOSTIC_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 
-					if (msg.getData().getByteArray("data").length > 16) {
-						Log.d(TAG, "Odpoved delsi nez 16");
+					if (msg.getData().getByteArray("data").length > 17) {
+						Log.d(TAG, "Odpoved delsi nez 17");
 					}
 
 					updateGui(msg.getData().getByteArray("data"));

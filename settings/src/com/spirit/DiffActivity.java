@@ -72,9 +72,6 @@ public class DiffActivity extends BaseActivity
 		ListView diffList = (ListView) findViewById(R.id.listMenu);
 		adapter = new DiffListAdapter(this, new ArrayList<HashMap<Integer, String>>());
 		diffList.setAdapter(adapter);
-
-
-		//initConfiguration();
 	}
 
     /**
@@ -95,7 +92,7 @@ public class DiffActivity extends BaseActivity
 	/**
 	 *
 	 */
-	protected void initConfiguration()
+	private void initConfiguration()
 	{
 		showDialogRead();
 		// ziskani konfigurace z jednotky
@@ -324,6 +321,15 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
+        if(diffItem.getLabel().equals("SENSOR_GYROGAIN")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.gyro_gain)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 100);
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger() - 100);
+        }
+        // #############################################################################################
+
+        // #############################################################################################
         if(diffItem.getLabel().equals("SENSOR_REVX")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.x_picth)).toString());
 
@@ -335,6 +341,15 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("SENSOR_REVY")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.y_rool)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SENSOR_REVZ")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.z_yaw)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -429,12 +444,10 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("STABI_CTRLDIR")){
 
-            StabiPichProgressExTranslate translate = new StabiPichProgressExTranslate();
-
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.stabi_button_text), textSeparator , getResources().getString(R.string.stabi_ctrldir)).toString());
 
-            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
-            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
         }
         // #############################################################################################
 
@@ -473,7 +486,16 @@ public class DiffActivity extends BaseActivity
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getResources().getString(R.string.cyclic_phase)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
-            to = String.valueOf(diffItem.getOriginalValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
+            to = String.valueOf(diffItem.getChangedValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SIGNAL_PROCESSING")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.signal_processing)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -593,6 +615,83 @@ public class DiffActivity extends BaseActivity
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_THT")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.throttle)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_AIL")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.diag_aileron)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_ELE")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.diag_elevator)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_RUD")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.diag_rudder)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_GAIN")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.gyro_gain)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_PITH")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.diag_pitch)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+        
+        // #############################################################################################
+        if(diffItem.getLabel().equals("CHANNELS_BANK")){
+        	diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.channels), textSeparator , getResources().getString(R.string.banks)).toString());
+
+			String[] values = getResources().getStringArray(R.array.channels_values);
+
+			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
         }
         // #############################################################################################
 

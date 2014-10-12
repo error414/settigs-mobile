@@ -61,6 +61,18 @@
 	            android:text="@string/stabi_fbmode_en"
 	            android:textColor="@color/text_color" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/stabi_fbmode_default"
+                android:layout_alignTop="@+id/stabi_fbmode"
+                android:layout_toRightOf="@+id/stabi_fbmode"
+                android:layout_marginLeft="10dp"
+                android:layout_alignBaseline="@+id/stabi_fbmode"
+                />
+
         </RelativeLayout>
 
 	</ScrollView>

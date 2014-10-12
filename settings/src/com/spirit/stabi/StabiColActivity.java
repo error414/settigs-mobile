@@ -55,7 +55,7 @@ public class StabiColActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.stabi_col);
+		initSlideMenu(R.layout.stabi_col);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_col)));
@@ -64,6 +64,29 @@ public class StabiColActivity extends BaseActivity
 		initConfiguration();
 		delegateListener();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SEEK;
+    }
 
 	/**
 	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
@@ -75,6 +98,19 @@ public class StabiColActivity extends BaseActivity
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED)
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		else finish();
+	}
+	
+	/**
+	 * disablovani prvku v bezpecnem rezimu
+	 */
+	protected void initBasicMode()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
 	}
 
 	private void initGui()
@@ -123,6 +159,9 @@ public class StabiColActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -160,6 +199,7 @@ public class StabiColActivity extends BaseActivity
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
+            initDefaultValue();
 		}
 
 	};
@@ -172,7 +212,12 @@ public class StabiColActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

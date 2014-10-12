@@ -1,21 +1,4 @@
-/*
-Copyright (C) Petr Cada and Tomas Jedrzejek
-This program is free software; you can redistribute it and/or
-modify it under the terms of the GNU General Public License
-as published by the Free Software Foundation; either version 2
-of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
-*/
-
-package com.spirit.servo;
+package com.spirit.general;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -24,7 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,32 +18,30 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class ServosTypeActivity extends BaseActivity
-{
-
+public class ChannelsActivity extends BaseActivity{
+	
 	@SuppressWarnings("unused")
-	final private String TAG = "ServosTypeActivity";
-
+	final private String TAG = "ChannelsActivity";
+	
 	final private int PROFILE_CALL_BACK_CODE = 16;
+	
+	private final String protocolCode[] = {"CHANNELS_THT", "CHANNELS_AIL", "CHANNELS_ELE", "CHANNELS_RUD", "CHANNELS_GAIN", "CHANNELS_PITH", "CHANNELS_BANK"};
 
-	private final String protocolCode[] = {"CYCLIC_TYPE", "CYCLIC_FREQ", "RUDDER_TYPE", "RUDDER_FREQ"};
-
-	private int formItems[] = {R.id.cyclic_pulse, R.id.cyclic_frequency, R.id.rudder_pulse, R.id.rudder_frequency};
-
+	// gui prvky ktere sou v teto aktivite aktivni
+	private int formItems[] = {R.id.tht_select_id, R.id.aile_select_id, R.id.ele_select_id, R.id.run_select_id, R.id.gain_select_id, R.id.pitch_select_id, R.id.bank_select_id};
+	
 	private int lock = formItems.length;
-
+	
 	/**
-	 * zavolani pri vytvoreni instance aktivity servo type
+	 * zavolani pri vytvoreni instance aktivity settings
 	 */
-	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.servos_type);
-
+		initSlideMenu(R.layout.channels);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.type)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text), " \u2192 ", getString(R.string.channels)));
 
 		initConfiguration();
 		delegateListener();
@@ -89,9 +69,9 @@ public class ServosTypeActivity extends BaseActivity
     protected int getDefaultValueType(){
         return DEFAULT_VALUE_TYPE_SPINNER;
     }
-
+	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * prvotni konfigurace view
 	 */
 	@Override
 	public void onResume()
@@ -103,7 +83,7 @@ public class ServosTypeActivity extends BaseActivity
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -116,7 +96,23 @@ public class ServosTypeActivity extends BaseActivity
 			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
-
+	
+	/**
+	 * disablovani prvku v zavislosti na vyberu typu prijmace
+	 */
+	protected void initByTypeReceiver()
+	{
+		if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65){ // 65 je A coz je PWM prijmac
+			int ppmDisallow[] = {R.id.tht_select_id, R.id.aile_select_id, R.id.ele_select_id, R.id.run_select_id, R.id.pitch_select_id};
+			
+			//nepovolime menit kanaly
+			for (int item : ppmDisallow) {
+				Spinner spinner = (Spinner) findViewById(item);
+				spinner.setEnabled(false);
+			}
+		}
+	}
+	
 	/**
 	 * prirazeni udalosti k prvkum
 	 */
@@ -127,9 +123,9 @@ public class ServosTypeActivity extends BaseActivity
 			((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
 		}
 	}
-
+	
 	/**
-	 * prvotni konfigurace view
+	 * ziskani profilu z jednotky
 	 */
 	private void initConfiguration()
 	{
@@ -137,29 +133,7 @@ public class ServosTypeActivity extends BaseActivity
 		// ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
-
-	/**
-	 * pri zmenene rudder pulse se podvame jestli neni potreba zmenit i select
-	 * rudder frequency
-	 *
-	 * @param pos
-	 */
-	private void updateItemRudderFrequency(int pos)
-	{
-		ArrayAdapter<?> adapter;
-		Spinner rudderFrequency = (Spinner) findViewById(R.id.rudder_frequency);
-		int freqPos = (int) rudderFrequency.getSelectedItemPosition();
-		if (pos == 2) {
-			adapter = ArrayAdapter.createFromResource(this, R.array.rudder_frequency_value_extend, android.R.layout.simple_spinner_item);
-		} else {
-			adapter = ArrayAdapter.createFromResource(this, R.array.rudder_frequency_value, android.R.layout.simple_spinner_item);
-		}
-
-		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		rudderFrequency.setAdapter(adapter);
-		rudderFrequency.setSelection(Math.min(freqPos, adapter.getCount() - 1));
-	}
-
+	
 	/**
 	 * naplneni formulare
 	 *
@@ -168,42 +142,48 @@ public class ServosTypeActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-
+			
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
 		
+		initByTypeReceiver();
 		checkBankNumber(profileCreator);
 		initBasicMode();
-
+		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
-				//TOHLE MUSIM VYRESIT LIP
-				if (tempSpinner.getId() == formItems[2]) {
-					updateItemRudderFrequency(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
-				}
-
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-
 				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
+
+                if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65){// 65 je A coz je PWM prijmac,
+                    switch (pos){
+                        case 0:
+                        case 1:
+                        case 2:
+                        case 3:
+                        case 5: ((Spinner) findViewById(formItems[i])).setEnabled(false); break;
+                    }
+                }else{
+                    ((Spinner) findViewById(formItems[i])).setEnabled(true);
+                }
+
 			}
 		} catch (IndexOutOfException e) {
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
 	}
-
+	
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-
-
 			if (lock != 0) {
 				lock -= 1;
 				return;
@@ -214,16 +194,33 @@ public class ServosTypeActivity extends BaseActivity
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
+
+					//pro PWM jsou povoleny jen kanaly 5 a 7
+					if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 && (pos != 4 && pos != 7)){ // 65 je A coz je PWM prijmac, hodnoty 4 = kanal 5, 7 = neprirazeno
+						Spinner sp =  (Spinner) findViewById(formItems[i]);
+						sp.setSelection(7); // neprirazeno
+						return;
+					}
+					
+					//nejprve zkontrolujeme jestli uz nekde hodnota neni pouzita
+					for(int a = 0; a < formItems.length; a++){
+						Spinner sp =  (Spinner) findViewById(formItems[a]);
+						if(sp.getSelectedItemPosition() == pos && i != a && pos != 7){ // neprirazeno muze mit kolizi, 7 = neprirazeno
+							showConfirmDialog(String.format(getResources().getString(R.string.channelColision), i));
+							return;
+						}
+					}
+					
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-
-					showInfoBarWrite();
-
-					//pro prvrk rudder pulse volame jeste obsluhu zmeny seznamu rudder frequency
-					if (parent.getId() == formItems[2]) {
-						updateItemRudderFrequency(pos);
+					
+					if(protocolCode[i] == "CHANNELS_BANK"){
+						checkBankNumber(profileCreator); // na tomto banky zavisi takze po zmene musime volat
 					}
+					
+					showInfoBarWrite();
+						
 				}
 			}
             initDefaultValue();
@@ -236,16 +233,21 @@ public class ServosTypeActivity extends BaseActivity
 
 		}
 	};
-
-
+	
+	/**
+	 * obsluha callbacku
+	 *
+	 * @param msg
+	 * @return
+	 */
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
-                    initDefaultValue();
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
@@ -257,4 +259,5 @@ public class ServosTypeActivity extends BaseActivity
 		}
 		return true;
 	}
+	
 }

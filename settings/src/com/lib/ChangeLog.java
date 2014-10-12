@@ -14,11 +14,6 @@
  */
 package com.lib;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,6 +26,11 @@ import android.view.ContextThemeWrapper;
 import android.webkit.WebView;
 
 import com.spirit.R;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
 public class ChangeLog {
 

@@ -18,6 +18,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -33,6 +35,7 @@ import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.spirit.general.ChannelsActivity;
 
 /**
  * aktivita na zobrazeni general moznosti nastaveni
@@ -47,13 +50,10 @@ public class GeneralActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
+    protected String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
 
 	// gui prvky ktere sou v teto aktivite aktivni
-	private int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
-
-	// gui prvky ktere jsou pri basic mode disablovane
-	private int formItemsNotInBasicMode[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id,};
+	protected int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
 
 	private int lock = formItems.length;
 
@@ -64,13 +64,46 @@ public class GeneralActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.general);
+		//setContentView(R.layout.general);
+        initSlideMenu(R.layout.general);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
-
-		initConfiguration();
 		delegateListener();
+	}
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_SPINNER;
+    }
+	
+	/**
+	 * stiknuti tlacitka channels
+	 * 
+	 * @param v
+	 */
+	public void openChannelsActivity(View v)
+	{
+		Intent i = new Intent(GeneralActivity.this, ChannelsActivity.class);
+		startActivity(i);
 	}
 
 	/**
@@ -82,7 +115,7 @@ public class GeneralActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initBasicMode();
+			initConfiguration();
 		} else {
 			finish();
 		}
@@ -93,9 +126,11 @@ public class GeneralActivity extends BaseActivity
 	 */
 	protected void initBasicMode()
 	{
-		for (int item : formItemsNotInBasicMode) {
-			Spinner spinner = (Spinner) findViewById(item);
-			spinner.setEnabled(!getAppBasicMode());
+		for (int i = 0; i < formItems.length; i++) {
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -128,17 +163,23 @@ public class GeneralActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-
+		
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+		
+		checkBankNumber(profileCreator);
+		initBasicMode();
+		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if (pos != 0) lock = lock + 1;
+				if (pos != tempSpinner.getSelectedItemPosition()){
+					lock = lock + 1;
+				}
 
 				tempSpinner.setSelection(pos);
 			}
@@ -153,6 +194,7 @@ public class GeneralActivity extends BaseActivity
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
+			
 			if (lock != 0) {
 				lock -= 1;
 				return;
@@ -170,6 +212,8 @@ public class GeneralActivity extends BaseActivity
 					showInfoBarWrite();
 				}
 			}
+
+            initDefaultValue();
 		}
 
 		@Override
@@ -192,8 +236,13 @@ public class GeneralActivity extends BaseActivity
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
+                    initDefaultValue();
 					sendInSuccessDialog();
 				}
+				break;
+			case BANK_CHANGE_CALL_BACK_CODE:
+				initConfiguration();
+				super.handleMessage(msg);
 				break;
 			default:
 				super.handleMessage(msg);

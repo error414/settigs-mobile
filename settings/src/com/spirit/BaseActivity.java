@@ -24,26 +24,46 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.CheckBox;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.customWidget.picker.ProgresEx;
+import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
+import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
+import com.helpers.SlideMenuListAdapter;
 import com.helpers.StatusNotificationBuilder;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
+
+import net.simonvt.menudrawer.MenuDrawer;
+
+import java.util.Locale;
 
 @SuppressLint("InflateParams")
 abstract public class BaseActivity extends Activity implements Handler.Callback
@@ -70,7 +90,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 * ulozeni profilu do jednotky
  	 */
 	final protected int PROFILE_SAVE_CALL_BACK_CODE = 17;
-
+	final protected int BANK_CHANGE_CALL_BACK_CODE  = 150;
 	final protected int PROFILE_FOR_UPDATE_ORIGINAL = 100;
 
 	final protected int GROUP_GENERAL = 5;
@@ -86,13 +106,14 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION + "." + APLICATION_MINOR2_VERSION +"_cz.pdf";
 	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION + "." + APLICATION_MINOR2_VERSION +"_cz.pdf";
+	final protected String DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
 
 	final protected BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 	ProgressDialog generalDialog;
 	StatusNotificationBuilder infoBar;
 
-	final protected String PREF_BASIC_MODE = "pref_basic_mode";
+	final protected String PREF_BASIC_MODE 		= "pref_basic_mode";
 
 	// The Handler that gets information back from the
 	protected final Handler connectionHandler = new Handler(this);
@@ -111,11 +132,28 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 * pocitadlo otevreni info boxu
 	 */
 	public int progressInfoCount = 0;
-	
+
 	/**
-	 * 
+	 *
 	 */
 	protected DstabiProfile profileCreator;
+
+    /**
+     *
+     */
+    protected MenuDrawer mDrawer;
+
+    final protected int DEFAULT_VALUE_TYPE_NONE = 0;
+    final protected int DEFAULT_VALUE_TYPE_SPINNER = 1;
+    final protected int DEFAULT_VALUE_TYPE_CHECKBOX = 2;
+    final protected int DEFAULT_VALUE_TYPE_SEEK = 3;
+
+
+    protected int formItems[] = {};
+
+    protected String protocolCode[] = {};
+
+    protected SlideMenuListAdapter slideMenuListAdapter;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -158,35 +196,287 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	public void onResume()
 	{
 		super.onResume();
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
+        if(!language.equals("none")){
+            Resources res = getResources();
+            // Change locale settings in the app.
+            DisplayMetrics dm = res.getDisplayMetrics();
+            android.content.res.Configuration conf = res.getConfiguration();
+            conf.locale = new Locale(language);
+            res.updateConfiguration(conf, dm);
+        }
+
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().getChanged() ? R.drawable.not_equal : R.drawable.equals);
+		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
+
+		// check BANKS
+		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ){
+			((TextView) findViewById(R.id.title_banks)).setText(TextUtils.concat(getString(R.string.bank_short_code), String.valueOf(Globals.getInstance().getActiveBank())));
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(Globals.getInstance().getActiveBank());
+                slideMenuListAdapter.setDisabledAll(false);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
+		}else{
+			((TextView) findViewById(R.id.title_banks)).setText("");
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(-1);
+                slideMenuListAdapter.setDisabledAll(true);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
+		}
 	}
-	
+
+    /**
+     * zobrazeni defaultnich hodnot ve formulari
+     */
+    protected void initDefaultValue(){
+        DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
+        if(originalProfile == null || !originalProfile.isValid()){
+            return;
+        }
+
+        switch(getDefaultValueType()){
+            case DEFAULT_VALUE_TYPE_NONE :
+                break;
+
+            case DEFAULT_VALUE_TYPE_SPINNER:
+                for (int i = 0; i < getFormItems().length; i++) {
+                    try {
+                        Spinner spinner = (Spinner) findViewById(getFormItems()[i]);
+                        String originalItem = (String) spinner.getItemAtPosition(originalProfile.getProfileItemByName(getProtocolCode()[i]).getValueForSpinner(spinner.getCount()));
+                        String selectedItem = (String) spinner.getSelectedItem();
+
+                        String viewName = getResources().getResourceEntryName(getFormItems()[i]);
+                        ((TextView)findViewById(getResources().getIdentifier(viewName + "_default", "id", getPackageName())))
+                                .setText( selectedItem.equals(originalItem) ? "" : originalItem );
+
+
+                    } catch (IndexOutOfException e) {
+                        e.printStackTrace();
+                    }
+                }
+                break;
+
+            case DEFAULT_VALUE_TYPE_CHECKBOX:
+                for (int i = 0; i < getFormItems().length; i++) {
+
+                    CheckBox checkBox = (CheckBox)findViewById(getFormItems()[i]);
+
+                    String viewName = getResources().getResourceEntryName(getFormItems()[i]);
+
+                    if(checkBox.isChecked() == originalProfile.getProfileItemByName(getProtocolCode()[i]).getValueForCheckBox()){
+                        ((TextView) findViewById(getResources().getIdentifier(viewName + "_default", "id", getPackageName())))
+                                .setText("");
+                    }else {
+                        ((TextView) findViewById(getResources().getIdentifier(viewName + "_default", "id", getPackageName())))
+                                .setText(originalProfile.getProfileItemByName(getProtocolCode()[i]).getValueForCheckBox() ? "(X)" : "(   )");
+                    }
+                }
+                break;
+
+            case DEFAULT_VALUE_TYPE_SEEK:
+                for (int i = 0; i < getFormItems().length; i++) {
+                    ProgresEx tempPicker = (ProgresEx) findViewById(getFormItems()[i]);
+                    ProfileItem item = originalProfile.getProfileItemByName(getProtocolCode()[i]);
+
+                    tempPicker.setOriginalValue(item.getValueInteger());
+                }
+
+                break;
+
+        }
+    }
+
+    /**
+     *
+     * @return
+     */
+    public int[] getFormItems() {
+        return formItems;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String[] getProtocolCode() {
+        return protocolCode;
+    }
+
+    /**
+     *
+     */
+    protected int getDefaultValueType(){
+        return DEFAULT_VALUE_TYPE_NONE;
+    }
+
+    /**
+     * inicializace slide menu
+     *
+     * @param layout
+     */
+    protected void initSlideMenu(int layout){
+        mDrawer = MenuDrawer.attach(this);
+        mDrawer.setContentView(layout);
+        mDrawer.setMenuView(R.layout.left_menu);
+
+        slideMenuListAdapter = new SlideMenuListAdapter(this, getResources().getStringArray(R.array.bank_values));
+
+        ListView leftMenuList = (ListView) findViewById(R.id.leftMenu);
+        leftMenuList.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ) {
+                    if (Globals.getInstance().isChanged()) {
+                        AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+
+                        //dont save profile
+                        alert.setNegativeButton(R.string.no, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                return;
+                            }
+
+                        });
+
+                        //save profile
+                        alert.setPositiveButton(R.string.yes, new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+                            }
+
+                        });
+
+                        alert.setCancelable(true);
+                        alert.setMessage(R.string.want_save_item);
+                        alert.show();
+
+                        return;
+                    }
+
+
+                    // change bank
+                    ProfileItem profileItem;
+                    DstabiProfile localProfileCreator = profileCreator;
+                    if (profileCreator == null) {
+                        localProfileCreator = new DstabiProfile(null);
+                        profileItem = localProfileCreator.getProfileItemByName("BANKS");
+                    } else {
+                        profileItem = profileCreator.getProfileItemByName("BANKS");
+                    }
+
+                    profileItem.setValueFromSpinner(position);
+                    stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
+                    checkBankNumber(localProfileCreator);
+                    showInfoBarWrite();
+                    slideMenuListAdapter.setActivePosition(position);
+                    slideMenuListAdapter.notifyDataSetChanged();
+                    mDrawer.closeMenu();
+                }
+            }
+        });
+
+        leftMenuList.setAdapter(slideMenuListAdapter);
+
+
+    }
+
 	/**
-	 * zkontroluje a nastavi do global storage jestli se prifil zmenil nebo ne
+	 * check if profile was changed and save to GLobal storage
 	 */
 	public void checkChange(DstabiProfile profile){
-		
+		if(profile == null){
+			Globals.getInstance().setChanged(false);
+			((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
+			return;
+		}
+
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
-		
+
 		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().getChanged() ? R.drawable.not_equal : R.drawable.equals);
+		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
-	
+
 	/**
-	 * nachazi se aplikace v basic modu ?
+	 *
+	 */
+	public void checkBankNumber(DstabiProfile profile){
+		if(profile == null){
+			Globals.getInstance().setActiveBank(Globals.BANK_NULL);
+			((TextView) findViewById(R.id.title_banks)).setText("");
+
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(-1);
+                slideMenuListAdapter.setDisabledAll(true);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
+
+			return;
+		}
+
+		if(profile.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7){ // 7 = unbind bank
+			((TextView) findViewById(R.id.title_banks)).setText("");
+            Globals.getInstance().setActiveBank(Globals.BANK_NULL);
+            if(slideMenuListAdapter != null){
+                slideMenuListAdapter.setActivePosition(-1);
+                slideMenuListAdapter.setDisabledAll(true);
+                slideMenuListAdapter.notifyDataSetChanged();
+            }
+
+			return;
+		}
+
+		Globals.getInstance().setActiveBank(profile.getProfileItemByName("BANKS").getValueInteger());
+		((TextView) findViewById(R.id.title_banks)).setText(TextUtils.concat(getString(R.string.bank_short_code), String.valueOf(Globals.getInstance().getActiveBank())));
+		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
+
+        if(slideMenuListAdapter != null){
+            slideMenuListAdapter.setActivePosition(Globals.getInstance().getActiveBank());
+            slideMenuListAdapter.setDisabledAll(false);
+            slideMenuListAdapter.notifyDataSetChanged();
+        }
+
+	}
+
+	/**
+	 * is application in basic mode?
 	 *
 	 * @return
 	 */
 	public boolean getAppBasicMode()
 	{
 		SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
-		return settings.getBoolean(PREF_BASIC_MODE, false);
+		return settings.getBoolean(PREF_BASIC_MODE, false) || Globals.getInstance().getActiveBank() > 0;
 	}
 
 	/**
-	 * zavreni vsechn notofikaci a dialogu
+	 * basic mode set on
+	 * @param state
+	 */
+	public void setAppBasicMode(boolean state)
+	{
+		SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
+
+		settings.edit().putBoolean(PREF_BASIC_MODE, state).commit();
+		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
+
+
+		if(state){
+			Toast.makeText(getApplicationContext(), R.string.app_basic_mode_on, Toast.LENGTH_SHORT).show();
+		}else{
+			Toast.makeText(getApplicationContext(), R.string.app_basic_mode_off, Toast.LENGTH_SHORT).show();
+		}
+	}
+
+	/**
+	 * cloase all dialog notification
 	 */
 	protected void closeAllBar()
 	{
@@ -195,7 +485,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	}
 
 	/**
-	 * zavreni dialogu
+	 * close dialog
 	 */
 	protected void closeDialog()
 	{
@@ -215,7 +505,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	}
 
 	/**
-	 * otevreni dialogu
+	 * open dialog
 	 *
 	 * @param text
 	 */
@@ -227,6 +517,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
 	}
 
+	/**
+	 *
+	 * @param text
+	 */
 	protected void showInfoBar(String text)
 	{
 		progressInfoCount++;
@@ -337,9 +631,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		// ziskani konfigurace z jednotky
 		stabiProvider.sendDataForResponce(stabiProvider.SAVE_PROFILE, call_back_code);
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param profile
 	 */
 	protected void setOriginalProfileProfile(DstabiProfile profile)
@@ -465,14 +759,20 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showConfirmDialog(int textId)
 	{
+		showConfirmDialog(textId, null);
+	}
+
+	/**
+	 * @param textId
+	 */
+	protected void showConfirmDialog(int textId, OnClickListener handlerOk)
+	{
 		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
-		alert.setPositiveButton("OK", null);
+		alert.setPositiveButton("OK", handlerOk);
 
 		alert.setMessage(getText(textId));
 
 		alert.show();
-
-
 	}
 
 	/**
@@ -484,6 +784,21 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		alert.setPositiveButton("OK", null);
 
 		alert.setMessage(text);
+
+		alert.show();
+	}
+
+	/**
+	 * @param graphWarn
+	 */
+	protected void showConfirmDialogWithCancel(int graphWarn, OnClickListener handlerOk, OnClickListener handlerCancel)
+	{
+		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+		alert.setPositiveButton(R.string.ok, handlerOk);
+		alert.setNegativeButton(R.string.cancel, handlerCancel);
+		alert.setCancelable(false);
+
+		alert.setMessage(graphWarn);
 
 		alert.show();
 	}
@@ -505,7 +820,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 					checkChange(profileCreator);
 				}
 				sendInSuccessInfo();
-				
+
 				break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
@@ -523,12 +838,18 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 			case PROFILE_FOR_UPDATE_ORIGINAL:
 				sendInSuccessInfo();
-				
+
 				DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
-				
+
 				setOriginalProfileProfile(profile);
 				checkChange(profile);
-				
+                initDefaultValue();
+
+				break;
+
+			case BANK_CHANGE_CALL_BACK_CODE:
+				sendInSuccessInfo();
+				reloadOriginalProfile();
 				break;
 		}
 		return true;

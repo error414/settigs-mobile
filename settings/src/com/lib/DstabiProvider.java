@@ -17,12 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.lib;
 
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
-
-import org.apache.http.util.EncodingUtils;
-
 import android.bluetooth.BluetoothDevice;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +25,13 @@ import android.util.Log;
 
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.spirit.diagnostic.DiagnosticActivity;
+
+import org.apache.http.util.EncodingUtils;
+
+import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * trida pro praci s protokolem 4dstabi a posilanim pres BT
@@ -70,6 +71,7 @@ public class DstabiProvider {
 	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
+    final public String REACTIVATION_BANK = "e";
 	
 	private int protocolState = 0;
 	
@@ -153,7 +155,8 @@ public class DstabiProvider {
 	 * 
 	 */
 	public void disconnect() {
-		BTservice.cancel();
+		BTservice.stop();
+        BTservice.cancel();
 	}
 	
 	/**
@@ -321,6 +324,19 @@ public class DstabiProvider {
 			queue.add(command, null, NORMAL, callBackCode);
 		}
 	}
+	
+	public void sendDataForResponce(ProfileItem item, int callBackCode){
+		if(item.isValid() && item.getCommand() != null){
+			if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+				this.callBackCode = callBackCode;
+				sendData(item.getCommand(), item.getValueBytesArray());
+			}else{
+				queue.add(item.getCommand(), item.getValueBytesArray(), NORMAL, callBackCode);
+			}
+		}else{
+			connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+		}
+	}
 	/////////////////////////////////////////////////
 	
 	////////////////// NO RESPONSE//////////////////
@@ -398,7 +414,11 @@ public class DstabiProvider {
 		queue.clear();
 		clearState("abort all");
 	}
-	
+
+    /**
+     *
+     * @param kdo
+     */
 	private void clearState(String kdo){
 		
 		Log.d(TAG, "mazu stav:" + kdo);
@@ -528,7 +548,7 @@ public class DstabiProvider {
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC;
-	    								dataBuilder = new DataBuilder(16); // diagnostika je dlouhe 16 bytu
+	    								dataBuilder = new DataBuilder(DiagnosticActivity.PROFILE_LENGTH + 1); // diagnostika je dlouhe 16 bytu
 	    								dataBuilder.add(byteMessage); // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
@@ -692,7 +712,7 @@ public class DstabiProvider {
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
     				if(length == 0){
-    					length = ByteOperation.byteToUnsignedInt(part[0]);
+    					length = ByteOperation.byteToUnsignedInt(part[0]) + 1;
     				}
     				profile = part;
     			}

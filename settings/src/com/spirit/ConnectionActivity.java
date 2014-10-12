@@ -18,12 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Set;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
@@ -50,11 +44,18 @@ import android.widget.Toast;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Set;
 
 @SuppressLint("SdCardPath")
 public class ConnectionActivity extends BaseActivity
@@ -76,21 +77,35 @@ public class ConnectionActivity extends BaseActivity
 	final protected int GROUP_ERROR = 4;
 	final protected int PROFILE_ERROR = 1;
 
+    final protected int DEFAULT_BANK = 0;
+
 	final static protected String DEFAULT_PROFILE_PATH = "/sdcard/";
 
 	private TextView textStatusView;
 	private Spinner btDeviceSpinner;
 	private Button connectButton;
 	private TextView curentDeviceText;
+	private TextView serial;
+	private TextView version;
 
 	final private int PROFILE_CALL_BACK_CODE = 116;
+	final private int UNLOCKBANK_CALL_BACK_CODE = 119;
 	final private int PROFILE_CALL_BACK_CODE_FOR_SAVE = 117;
 	final private int GET_SERIAL_NUMBER = 118;
+
+    /**
+     * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
+     */
+    private Boolean readProfileFromFile = false;
+
+	/**
+	 * priznak jestli se chceme odpojit od jednotky, kdyz prijde connection error aby jsme prece byly schopni se od jednotky odpojit
+	 */
+	private boolean disconect = false;
 
 	final static String FILE_EXT = "4ds";
 
 	private String fileForSave;
-
 	/**
 	 * je mozne odesilat data do zarizeni
 	 */
@@ -105,7 +120,8 @@ public class ConnectionActivity extends BaseActivity
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
-		setContentView(R.layout.connection);
+		//setContentView(R.layout.connection);
+        initSlideMenu(R.layout.connection);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.connection_button_text)));
@@ -114,39 +130,13 @@ public class ConnectionActivity extends BaseActivity
 		btDeviceSpinner = (Spinner) findViewById(R.id.bt_device_spinner);
 		connectButton = (Button) findViewById(R.id.connection_button);
 		curentDeviceText = (TextView) findViewById(R.id.curent_device_text);
+		serial = (TextView) findViewById(R.id.serial_number);
+		version = (TextView) findViewById(R.id.version);
 
-		Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
-		ArrayAdapter<CharSequence> BTListSpinnerAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
-		BTListSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-		//pozice vybraneho selectu
-		int position = 0;
-		if (pairedDevices.size() > 0) {
-			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
-			String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
-
-			// iterator
-			int i = 0;
-			// Loop through paired devices
-			for (BluetoothDevice device : pairedDevices) {
-				// Add the name and address to an array adapter to show in a ListView
-				BTListSpinnerAdapter.add(device.getName().toString() + " [" + device.getAddress().toString() + "]");
-
-				//hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
-				if (prefs_adress.equals(device.getAddress().toString())) {
-					position = i;
-				}
-				i++;
-			}
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
-			finish();
-		}
-
-		btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
-		//ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
-		btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position));
-		////////////////////////////////////////////////////////////////
+        if(mBluetoothAdapter.getBondedDevices().size() == 0){
+            Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
+            finish();
+        }
 	}
 
 	/**
@@ -156,8 +146,34 @@ public class ConnectionActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		TextView serial = (TextView) findViewById(R.id.serial_number);
-		serial.setText(R.string.unknow_serial);
+
+        Set<BluetoothDevice> pairedDevices = mBluetoothAdapter.getBondedDevices();
+        ArrayAdapter<CharSequence> BTListSpinnerAdapter = new ArrayAdapter<CharSequence>(this, android.R.layout.simple_spinner_item);
+        BTListSpinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+        //pozice vybraneho selectu
+        int position = 0;
+        SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
+        String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
+
+        // iterator
+        int i = 0;
+        // Loop through paired devices
+        for (BluetoothDevice device : pairedDevices) {
+            // Add the name and address to an array adapter to show in a ListView
+            BTListSpinnerAdapter.add(device.getName().toString() + " [" + device.getAddress().toString() + "]");
+
+            //hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
+            if (prefs_adress.equals(device.getAddress().toString())) {
+                position = i;
+            }
+            i++;
+        }
+
+        btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
+        //ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
+        btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position));
+        ////////////////////////////////////////////////////////////////
 
 		updateState();
 	}
@@ -170,7 +186,6 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-		TextView version = (TextView) findViewById(R.id.version);
 
 		if (profileCreator.isValid()) {
 			version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + APLICATION_MINOR1_VERSION + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
@@ -184,11 +199,18 @@ public class ConnectionActivity extends BaseActivity
             if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
                 ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
             }
+            
+            //nacteni banky 
+            checkBankNumber(profileCreator);
+
+            //kontrola jestli po prvnim pripojeni banka 0
+            if(Globals.getInstance().isCallInitAfterConnect()){
+                initAfterConnection();
+            }
 
 
 		} else {
 			version.setText(R.string.unknow_version);
-			TextView serial = (TextView) findViewById(R.id.serial_number);
 			serial.setText(R.string.unknow_serial);
 			//showConfirmDialog(R.string.spirit_not_found);
 		}
@@ -206,9 +228,6 @@ public class ConnectionActivity extends BaseActivity
 			return;
 		}
 
-		TextView serial = (TextView) findViewById(R.id.serial_number);
-
-
 		String serialFormat = "";
 		for (byte b : serialNumber) {
 			serialFormat = serialFormat + ByteOperation.byteToHexString(b) + " ";
@@ -225,10 +244,11 @@ public class ConnectionActivity extends BaseActivity
 	public void manageConnectionToBTDevice(View v)
 	{
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_LISTEN || stabiProvider.getState() == BluetoothCommandService.STATE_NONE) {
-
+			disconect = false;
             //pripripojovani vymazeme profil pro diff
             ChangeInProfile.getInstance().setOriginalProfile(null);
-
+            checkChange(null);
+            
 			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
 
 			//ulozeni vybraneho selectu / zarizeni
@@ -245,8 +265,13 @@ public class ConnectionActivity extends BaseActivity
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTING) {
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			// DISCONNECT
-			stabiProvider.disconnect();
+            if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) { // 7 = neprirazeno
+                stabiProvider.disconnect();
+            }else{
+                disconect = true;
+                showDialogWrite();
+                stabiProvider.sendDataForResponce(stabiProvider.REACTIVATION_BANK, UNLOCKBANK_CALL_BACK_CODE);
+            }
 		}
 	}
 
@@ -259,6 +284,8 @@ public class ConnectionActivity extends BaseActivity
 				textStatusView.setText(R.string.connecting);
 				textStatusView.setTextColor(Color.MAGENTA);
 				curentDeviceText.setText(null);
+				serial.setText(null);
+				version.setText(null);
 				sendInSuccessDialog();
 				break;
 			case BluetoothCommandService.STATE_CONNECTED:
@@ -286,21 +313,52 @@ public class ConnectionActivity extends BaseActivity
 				connectButton.setText(R.string.connect);
 
 				curentDeviceText.setText(null);
-
+				serial.setText(null);
+				version.setText(null);
 				sendInSuccessDialog();
+				checkBankNumber(null);
+				// clear diff info
+				ChangeInProfile.getInstance().setOriginalProfile(null);
+	            checkChange(null);
+                Globals.getInstance().setCallInitAfterConnect(true);
 
 				((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+                ((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
+                ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
+
 				break;
 		}
 	}
 
-	public void setAppBasicMode(boolean state)
-	{
-		SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
-		settings.edit().putBoolean(PREF_BASIC_MODE, state).commit();
+    private void initAfterConnection(){
+        //zkontrolujme jestli maji banky prirazen kanal, pokud ano zkontrolujeme jestli je banka 0
+        if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() != 7 && profileCreator.getProfileItemByName("BANKS").getValueInteger() != 0){ // 7 = unbind bank, 0 = Bank 0
+            ProfileItem profileItem = profileCreator.getProfileItemByName("BANKS");
+            profileItem.setValueFromSpinner(DEFAULT_BANK);
+            stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
 
-		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(state ? R.drawable.app_basic_mode_on : R.drawable.none);
-	}
+            slideMenuListAdapter.setActivePosition(DEFAULT_BANK);
+            slideMenuListAdapter.notifyDataSetChanged();
+            checkBankNumber(profileCreator);
+
+            showInfoBarWrite();
+        }else{
+            Globals.getInstance().setCallInitAfterConnect(false);
+        }
+    }
+
+    /**
+     * pri dokonceni odesilani dat
+     * aby zmenila gui tak aby slo znova odeslat dasli pozadavek
+     */
+    protected void sendInSuccessDialog()
+    {
+        super.sendInSuccessDialog();
+        if(readProfileFromFile && progressCount <= 0){
+            readProfileFromFile = false;
+            showConfirmDialog(R.string.profile_load);
+        }
+    }
 
 	/**
 	 * vytvoreni kontextoveho menu
@@ -310,7 +368,7 @@ public class ConnectionActivity extends BaseActivity
 	{
 		super.onCreateOptionsMenu(menu);
 
-		//menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
+		menu.add(GROUP_ERROR, PROFILE_ERROR, Menu.NONE, R.string.show_errors);
 		menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
 
 		SubMenu profile = menu.addSubMenu(R.string.profile);
@@ -342,17 +400,12 @@ public class ConnectionActivity extends BaseActivity
 			this.showConfirmDialog(listString);
 		}
 
-		//preponani bezpecneh rezimu
+		//change basic mode
 		if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == APP_BASIC_MODE) {
-			if (getAppBasicMode()) {
-				Toast.makeText(getApplicationContext(), R.string.app_basic_mode_off, Toast.LENGTH_SHORT).show();
-				setAppBasicMode(false);
-			} else {
-				Toast.makeText(getApplicationContext(), R.string.app_basic_mode_on, Toast.LENGTH_SHORT).show();
-				setAppBasicMode(true);
-			}
+            SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
+			setAppBasicMode(!settings.getBoolean(PREF_BASIC_MODE, false));
 		}
-
+ 
 		//nahrani / ulozeni profilu
 		if (item.getGroupId() == GROUP_PROFILE) {
 			// musime byt pripojeni k zarizeni
@@ -405,7 +458,7 @@ public class ConnectionActivity extends BaseActivity
 						try {
 							byte[] profile = DstabiProfile.loadProfileFromFile(file);
 							//////////////////////////////////////////////////////////////////////////////
-							insertProfileTounit(profile);
+							insertProfileToUnit(profile);
 
 						} catch (FileNotFoundException e) {
 							Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
@@ -425,6 +478,13 @@ public class ConnectionActivity extends BaseActivity
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
+            case BANK_CHANGE_CALL_BACK_CODE:
+                if(Globals.getInstance().isCallInitAfterConnect()) {
+                    showConfirmDialog(R.string.bank_change_after_connect);
+                }
+                Globals.getInstance().setCallInitAfterConnect(false);
+                super.handleMessage(msg);
+                break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
 				updateState();
 				break;
@@ -432,6 +492,11 @@ public class ConnectionActivity extends BaseActivity
 				isPosibleSendData = false;
 				stabiProvider.abortAll();
 				sendInError(false); // ukazat error ale neukoncovat activitu
+				if(disconect){
+					disconect = false;
+					stabiProvider.disconnect();
+				}
+				
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessDialog();
@@ -455,6 +520,9 @@ public class ConnectionActivity extends BaseActivity
 					initGuiBySerialNumber(msg.getData().getByteArray("data"));
 				}
 				break;
+			case UNLOCKBANK_CALL_BACK_CODE:
+				stabiProvider.disconnect();
+				break;
 			default:
 				super.handleMessage(msg);
 		}
@@ -466,7 +534,7 @@ public class ConnectionActivity extends BaseActivity
 	 *
 	 * @param profile
 	 */
-	private void insertProfileTounit(byte[] profile)
+	private void insertProfileToUnit(byte[] profile)
 	{
 		isPosibleSendData = true;
 		Log.d(TAG, "delka profilu na odeslani " + String.valueOf(profile.length));
@@ -481,14 +549,19 @@ public class ConnectionActivity extends BaseActivity
 
 		DstabiProfile mstabiProfile = new DstabiProfile(ByteOperation.combineByteArray(lenght, profile));
 
-		if (mstabiProfile.isValid()) {
+		if (mstabiProfile.isValid(DstabiProfile.DONT_CHECK_CHECKSUM)) {
+			
 			HashMap<String, ProfileItem> items = mstabiProfile.getProfileItems();
-
+            readProfileFromFile = true;
 			for (ProfileItem item : items.values()) {
-				if (item.getCommand() != null && isPosibleSendData) {
-					showDialogRead();
-					Log.d(TAG, "odesilam prikaz " + item.getCommand() + " : count je " + String.valueOf(progressCount));
-					stabiProvider.sendDataNoWaitForResponce(item);
+				if (item.getCommand() != null && isPosibleSendData && !item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
+					// pro banky 1 a 2 nahravame jen povolene hodnoty
+					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 || !item.isDeactiveInBasicMode()){
+						showDialogRead();
+						stabiProvider.sendDataNoWaitForResponce(item);
+					}else{
+						continue;
+					}
 				} else if (!isPosibleSendData) {
 					isPosibleSendData = true;
 					break;
@@ -521,14 +594,16 @@ public class ConnectionActivity extends BaseActivity
 		}
 		showDialogWrite();
 		try {
-			System.arraycopy(profile, 1, profile, 0, profile.length - 1);
+			byte[] clearProfile = new byte[profile.length - 1];
+			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
 			if (fileForSave.endsWith(FILE_EXT)) { // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
-				DstabiProfile.saveProfileToFile(new File(fileForSave), profile);
+				DstabiProfile.saveProfileToFile(new File(fileForSave), clearProfile);
 			} else {
-				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), profile);
+				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), clearProfile);
 			}
 
 			fileForSave = null;
+            showConfirmDialog(R.string.profile_saved_file);
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
 		}

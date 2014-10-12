@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com \n \n sestavení: 25.07.14</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com \n \n sestavení: 11.10.14</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -22,8 +22,10 @@
     <string name="load_profile">Načíst profil</string>
     <string name="save_profile">Uložit profil</string>
     <string name="save_profile_to_unit">Uložit profil do jednotky</string>
-    <string name="profile_saved">Profil uložen</string>
-    <string name="file_manager">File manager</string>
+    <string name="profile_saved_file">Nastavení uloženo do souboru</string>
+    <string name="profile_saved">Nastavení uloženo</string>
+    <string name="profile_load">Nastavení bylo nahráno</string>
+    <string name="file_manager">Správce souborů</string>
     <string name="file_not_found">Soubor nenalezen</string>
     <string name="bt_not_enabled_leaving">Bluetooth není povolen, ukončuji..</string>
     <string name="choose_device">Vyberte zařízení</string>
@@ -97,8 +99,7 @@
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
     <string name="pirouette_consistency">Držení piruet</string>
-    <string name="rear_up">Elevator pitching-up compensation</string>
-    <string name="filter">Sensor filter</string>
+    <string name="filter">Sensor filtr</string>
     <string name="gyro">Gyro</string>
     
     <string name="diag_rudder">Vrtulka</string>
@@ -154,7 +155,43 @@
     <string name="stabi_ctrldir">Míra změny směru</string>
 
 	<string name="profile_diff">Provedené změny</string>
+	<string name="channels">Kanály</string>
+	<string name="throttle">Plyn</string>
+	<string name="gyro_gain">Zisk vrtulky</string>
+	<string name="banks">Banky</string>
+	<string name="choose_bank">Vyberte banku</string>
+	<string name="bank_short_code">B</string>
+	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlišný.</string>
+    <string name="signal_processing">Zpracování signálu</string>
+    <string name="advance">Rozšířené</string>
 
+	<string-array name="bank_values">
+        <item>Bank 0</item>
+        <item>Bank 1</item>
+        <item>Bank 2</item>
+    </string-array>
+	
+	<string-array name="channels_values">
+        <item>1. kanál</item>
+        <item>2. kanál</item>
+        <item>3. kanál</item>
+        <item>4. kanál</item>
+        <item>5. kanál</item>
+        <item>6. kanál</item>
+        <item>7. kanál</item>
+        <item>Nepřiřazeno</item>
+    </string-array>
+    
+	<string-array name="channels_restrict_values">
+        <item>1. kanál</item>
+        <item>2. kanál</item>
+        <item>3. kanál</item>
+        <item>4. kanál</item>
+        <item>5. kanál</item>
+        <item>6. kanál</item>
+        <item>7. kanál</item>
+    </string-array>
+	
     <string-array name="position_values">
         <item>Horizontální</item>
         <item>Vertikální</item>
@@ -239,8 +276,21 @@
         <item>Stabilizace</item>
     </string-array>
     
+    <string-array name="language_values">
+        <item>Automaticky</item>
+        <item>Čeština</item>
+        <item>English</item>
+    </string-array>
+    
+    <string-array name="language_pref_values">
+        <item>none</item>
+        <item>cs</item>
+        <item>en</item>
+    </string-array>
     
     <string name="location">Umístění</string>
+    <string name="language">Jazyk</string>
+    <string name="language_sumary">Pro aplikování změny je potřeba restart aplikace</string>
     <string name="cant_read_folder">Adresář nelze otevřít!</string>
     <string name="nnew">Nový</string>
     <string name="select">Vybrat</string>
@@ -304,6 +354,7 @@
     <string name="basic_mode">Bezpečný režim</string>
     <string name="app_basic_mode_on">Basic mode ZAPNUT</string>
     <string name="app_basic_mode_off">Basic mode VYPNUT</string>
+    <string name="basic_mode_is_lock">Basic mode je ZAMČEN</string>
 	<string name="refresh_log">Obnovit</string>
 
 
@@ -322,7 +373,12 @@
      <string name="log_direcotory">Adresář pro log</string>
      <string name="graph_direcotory_sumarry">Kliknutím vyberte adresář pro uložení obrazku z grafu</string>
      <string name="log_direcotory_sumarry">Kliknutím vyberte adresář pro uložení PDF logu</string>
+     <string name="graph_warn">Pozor! Během zobrazení grafu jsou serva uzamčena!</string>
      
      <string name="first_choose_directory">Prvně vyberte adresář</string>
-      <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticly cleared.</string>
+     <string name="log_from_previous_flight">Zobrazen i log z předchozího letu! \n Log bude automaticky vymazán.</string>
+     <string name="want_save_item">Přejete si uložit nastavení?</string>
+
+    <string name="bank_change_after_connect">Aktuální banka byla přepnuta na <b>Bank 0</b>.\nZměna banky přes vysílač je vypnuta dokud je software připojen.</string>
+    <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně jinak tyto režimy nebudou fungovat korektně!</string>
 </resources>

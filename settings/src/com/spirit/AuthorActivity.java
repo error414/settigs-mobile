@@ -19,6 +19,8 @@ package com.spirit;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,7 +43,7 @@ public class AuthorActivity extends BaseActivity
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.author);
+		initSlideMenu(R.layout.author);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 	}
@@ -73,4 +75,22 @@ public class AuthorActivity extends BaseActivity
 		}
 		return true;
 	}
+
+    /**
+     * vytvoreni kontextoveho menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        return false;
+    }
+
+    /**
+     * reakce na kliknuti polozky v kontextovem menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        return false;
+    }
 }

@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.helpers;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -27,13 +24,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 /**
  * trida pro naplneni listview hodnotama
  * 
  * @author error414
  *
  */
-public class MyListAdapter extends BaseAdapter {
+public class BaseStandartListAdapter extends BaseAdapter {
 
 	/**
 	 * 
@@ -50,7 +50,7 @@ public class MyListAdapter extends BaseAdapter {
 	 */
 	protected ArrayList<HashMap<Integer, Integer>> data;
 
-    public MyListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
+    public BaseStandartListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
         activity = a;
         data = d;
         inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);

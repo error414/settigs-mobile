@@ -15,6 +15,7 @@
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
         android:text="TextView"
+        android:textSize="11sp"
         android:textStyle="bold" />
 
     <ImageView
@@ -23,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="78dp"
+        android:layout_marginRight="48dp"
         android:src="@drawable/none" />
 
     <ImageView
@@ -32,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="48dp"
+        android:layout_marginRight="25dp"
         android:src="@drawable/equals" />
     
     <ImageView
@@ -41,7 +42,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="18dp"
+        android:layout_marginRight="5dp"
         android:src="@drawable/red" />
+
+    <TextView
+        android:id="@+id/title_banks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="75dp"
+        android:clickable="false"
+        android:text="B1"
+        android:textColor="@color/onclick_text_color"
+        android:textSize="22sp"
+        android:textStyle="bold" />
   
 </RelativeLayout>
