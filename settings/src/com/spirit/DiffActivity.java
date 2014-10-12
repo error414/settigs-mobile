@@ -375,7 +375,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("RATE_YAW")){
+        if(diffItem.getLabel().equals("CYCLIC_FF")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.cyclic_ff),  textSeparator , getResources().getString(R.string.cyclic_ff)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
