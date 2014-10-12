@@ -17,9 +17,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -38,6 +35,9 @@ import com.lib.DstabiProvider;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
 import com.lib.translate.StabiSenzivityProgressExTranslate;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author error414
@@ -214,7 +214,7 @@ public class DiffActivity extends BaseActivity
 		if(diffItem.getLabel().equals("RUDDER_FREQ")){
 			diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.rudder), textSeparator, getResources().getString(R.string.frequency)).toString());
 
-			String[] values = getResources().getStringArray(R.array.cyclic_frequency_value);
+			String[] values = getResources().getStringArray(R.array.rudder_frequency_value_extend);
 
 			from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
 			to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
@@ -529,7 +529,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -541,7 +541,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -553,7 +553,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -565,7 +565,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -577,7 +577,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch3)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch3), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -589,7 +589,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch3)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch3), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
