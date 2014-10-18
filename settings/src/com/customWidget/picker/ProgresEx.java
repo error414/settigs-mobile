@@ -71,7 +71,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	private ProgresExButton mDecrementButton;
 	
 	private OnChangedListener mListener;
-	
+
+    private OnLongClickListener mListenerLongClick;
+
 	private boolean mIncrement;
     private boolean mDecrement;
 	
@@ -93,7 +95,11 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	public interface OnChangedListener {
 		void onChanged(ProgresEx picker, int newVal);
 	}
-	
+
+    public interface setOnLongClickListener {
+        void OnLongClickListener(ProgresEx picker);
+    }
+
 	public ProgresEx(Context context) {
 	    this(context, null);
 	}
@@ -110,6 +116,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	    
 	    mainLayout = (RelativeLayout) findViewById(R.id.progres_main);
         mainLayout.setOnClickListener(this);
+        mainLayout.setOnLongClickListener(this);
 
 	    mObjTitle 	= (TextView) findViewById(R.id.progres_title); 
 	    
@@ -199,6 +206,15 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	 */
 	public void setOnChangeListener(OnChangedListener listener) {
         mListener = listener;
+    }
+
+    /**
+     * nastaveni posluchace na dlouhy klik
+     *
+     * @param listener
+     */
+    public void setOnLongClickListener(OnLongClickListener listener) {
+        mListenerLongClick = listener;
     }
 	
 	/**
@@ -360,6 +376,8 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
         } else if (R.id.progres_minus == v.getId()) {
             mDecrement = true;
             mHandler.post(mRunnable);
+        }else if(R.id.progres_main == v.getId()){
+            mListenerLongClick.onLongClick(this);
         }
         return true;
     }

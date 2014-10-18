@@ -55,6 +55,7 @@ import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
+import com.helpers.HelpMap;
 import com.helpers.SlideMenuListAdapter;
 import com.helpers.StatusNotificationBuilder;
 import com.lib.BluetoothCommandService;
@@ -228,7 +229,79 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 slideMenuListAdapter.notifyDataSetChanged();
             }
 		}
+
+        initHelp();
 	}
+
+    protected void initHelp()
+    {
+        switch(getDefaultValueType()){
+            case DEFAULT_VALUE_TYPE_NONE :
+                break;
+
+            case DEFAULT_VALUE_TYPE_SPINNER:
+                for (int i = 0; i < getFormItems().length; i++) {
+
+                    Spinner spinner = (Spinner) findViewById(getFormItems()[i]);
+                    spinner.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            try {
+                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
+                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return true;
+                        }
+                    });
+                }
+                break;
+
+            case DEFAULT_VALUE_TYPE_CHECKBOX:
+                for (int i = 0; i < getFormItems().length; i++) {
+
+                    CheckBox checkBox = (CheckBox) findViewById(getFormItems()[i]);
+                    checkBox.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            try {
+                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
+                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return true;
+                        }
+                    });
+                }
+                break;
+
+            case DEFAULT_VALUE_TYPE_SEEK:
+
+                for (int i = 0; i < getFormItems().length; i++) {
+
+                    ProgresEx seekBar = (ProgresEx) findViewById(getFormItems()[i]);
+                    seekBar.setOnLongClickListener(new View.OnLongClickListener() {
+                        @Override
+                        public boolean onLongClick(View view) {
+                            try {
+                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
+                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                }
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                            return true;
+                        }
+                    });
+                }
+                break;
+
+        }
+    }
 
     /**
      * zobrazeni defaultnich hodnot ve formulari
