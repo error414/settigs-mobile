@@ -118,7 +118,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			tempPicker.setRange(32, 255); // tohle rozmezi asi brat ze stabi profilu
 			tempPicker.setTitle(formItemsTitle[i]); // tohle rozmezi asi brat ze stabi profilu
 		}
 	}
@@ -165,7 +165,8 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-
+            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(size);
 		}
 
