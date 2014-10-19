@@ -100,11 +100,11 @@ public class DstabiProfile {
 		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 255, 	"SP",	true));
 		profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 255, 	"Se",	true));
 
-		profileMap.put("RANGE_AIL",		new ProfileItem(11, 0, 255, 	"Sa",	true));	// cyclic ring
-		profileMap.put("RANGE_PIT",		new ProfileItem(13, 0, 255, 	"Sp",	false));	// rozsah kolektivu
+		profileMap.put("RANGE_AIL",		new ProfileItem(11, 32, 255, 	"Sa",	true));	// cyclic ring
+		profileMap.put("RANGE_PIT",		new ProfileItem(13, 32, 255, 	"Sp",	false));	// rozsah kolektivu
 
-		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 0, 255, 	"Sm",	true));
-		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 0, 255, 	"SM",	true));
+		profileMap.put("RUDDER_MIN",	new ProfileItem(14, 32, 255, 	"Sm",	true));
+		profileMap.put("RUDDER_MAX",	new ProfileItem(15, 32, 255, 	"SM",	true));
 
 		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false)); 		// zisk cyklikt
 		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8",	true));		// geometrie hlavy - 6
