@@ -4,17 +4,17 @@
 <context>
     <name>AdvancedTab</name>
     <message>
-        <location filename="advanced.cpp" line="134"/>
+        <location filename="advanced.cpp" line="136"/>
         <source>Stick deadband</source>
         <translation>Pásmo necitlivosti kniplů</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="139"/>
+        <location filename="advanced.cpp" line="141"/>
         <source>Range around stick center where movement is zero.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 4 - 30&lt;/i&gt;</source>
         <translation>Rozsah polohy páček kolem středu, který je považován za nulový.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 4 - 30&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="145"/>
+        <location filename="advanced.cpp" line="147"/>
         <source>Rudder dynamic</source>
         <oldsource>Rudder dynamics</oldsource>
         <translation>Dynamika vrtulky</translation>
@@ -54,71 +54,73 @@ Value: </oldsource>
 Hodnota: </translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="94"/>
+        <location filename="advanced.cpp" line="96"/>
         <source>Pirouette optimization setup enabled</source>
         <translation>Nastavení optimalizace piruet zapnuto</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="97"/>
+        <location filename="advanced.cpp" line="99"/>
         <source>Pirouette optimization setup disabled</source>
         <translation>Nastavení optimalizace piruet vypnuto</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="114"/>
+        <location filename="advanced.cpp" line="116"/>
         <source>Geometry setup enabled</source>
         <translation>Nastavení geometrie zapnuto</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="117"/>
+        <location filename="advanced.cpp" line="119"/>
         <source>Geometry setup disabled</source>
         <translation>Nastavení geometrie vypnuto</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="150"/>
+        <location filename="advanced.cpp" line="152"/>
         <source>&lt;b&gt;Aggressiveness of rudder response&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase for harder rudder stop behavior.&lt;br/&gt;- Decrease if rudder bounce-back occurs.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 3 - 10&lt;/i&gt;</source>
         <translation>&lt;b&gt;Agresivita odezvy vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte pro tvrdší zastavení.&lt;br/&gt;- Uberte pokud vrtulka po zastavení překmitne.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 3 - 10&lt;/i&gt;</translation>
     </message>
     <message>
-        <source>Enables extended signal processing&lt;br/&gt;&lt;br/&gt;- Mostly disabled.&lt;br/&gt;- Enable for better vibration imunity and precision.</source>
-        <translation type="vanished">Zapne rozšířené zpracování signálu.&lt;br/&gt;&lt;br/&gt;- Nejčastěji je vypnuté.&lt;br/&gt;- Pro zlepšení přesnosti a odolnosti vůči vibracím povolte.</translation>
+        <location filename="advanced.cpp" line="162"/>
+        <source>Enables extended signal processing&lt;br/&gt;&lt;br/&gt;- Normally should be disabled.&lt;br/&gt;- Used for operation with extreme vibrations.</source>
+        <oldsource>Enables extended signal processing&lt;br/&gt;&lt;br/&gt;- Mostly disabled.&lt;br/&gt;- Enable for better vibration imunity and precision.</oldsource>
+        <translation>Zapne rozšířené zpracování signálu&lt;br/&gt;&lt;br/&gt;- Ve většině případech by mělo být vypnuté.&lt;br/&gt;- Pro chod v prostředí extrémních vibrací.</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="189"/>
+        <location filename="advanced.cpp" line="191"/>
         <source>&lt;b&gt;Increase/decrease value until blades pitch is at 6 degress&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- In some cases it can be -6 degress.&lt;br/&gt;- Set this after Servo Subtrim is configured.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 64 - 250&lt;/i&gt;</source>
         <translation>&lt;b&gt;Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- V některých případech to může být -6 stupňů.&lt;br/&gt;- Nastavujte až po konfiguraci Subtrimů serv.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 64 - 250&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="201"/>
+        <location filename="advanced.cpp" line="203"/>
         <source>&lt;b&gt;Specifies heading hold performance&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly between 155 - 180.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 130 - 250&lt;/i&gt;</source>
         <translation>&lt;b&gt;Udává míru držení směru vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nejčastěji v rozsahu 155 - 180.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 130 - 250&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="215"/>
+        <location filename="advanced.cpp" line="217"/>
         <source>&lt;b&gt;Precompensation for collective pitch movement&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Correct direction has to be chosen&lt;br/&gt;- Mostly in the middle (0)&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -10 - +10&lt;/i&gt;</source>
         <translation>&lt;b&gt;Prekompenzace pohybu kolektivu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nutné zvolit správný směr.&lt;br/&gt;- Nejčastěji nulová hodnota, uprostřed.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -10 - +10&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="230"/>
+        <location filename="advanced.cpp" line="232"/>
         <source>&lt;b&gt;Specifies delay of the rudder&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Very fast servo:	0 - 5&lt;br/&gt;- Fast servo:	5 - 15&lt;br/&gt;- Slow servo:	15 - 20&lt;br/&gt;- Analog servo:	20 - 25&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 30&lt;/i&gt;</source>
         <translation>&lt;b&gt;Udává rychlost odezvy vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Velmi rychlé servo:	0 - 5&lt;br/&gt;- Rychlé servo:	5 - 15&lt;br/&gt;- Pomalé servo:	15 - 20&lt;br/&gt;- Analogové servo:	20 - 25&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 30&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="249"/>
+        <location filename="advanced.cpp" line="251"/>
         <source>&lt;b&gt;Elevator debounce amount&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase when elevator bounce is visible during agressive elevator movement.&lt;br/&gt;- Mostly configured to 1.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 4&lt;/i&gt;</source>
         <translation>&lt;b&gt;Velikost kompenzace zhoupnutí výškovky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte, pokud je během agresivního pohybu páčky výškovky viditelné zhoupnutí.&lt;br/&gt;- Nejčastěji hodnota 1.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 4&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="262"/>
+        <location filename="advanced.cpp" line="264"/>
         <source>&lt;b&gt;Eliminates pitchup effect&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly configured to 0.&lt;br/&gt;- Increase when pitchup is visible.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 4&lt;/i&gt;</source>
         <translation>&lt;b&gt;Eliminuje vzpínání modelu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nejčastěji nastaveno na 0.&lt;br/&gt;- Přidejte je-li viditelné vzpínání.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 4&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="273"/>
+        <location filename="advanced.cpp" line="275"/>
         <source>&lt;b&gt;Specifies degree of which cyclic has to be rotated&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Used in some multi-rotor heads.&lt;br/&gt;- Mostly configured to 0.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -90 - +90&lt;/i&gt;</source>
         <translation>&lt;b&gt;Udává počet stupňů, o který se má cyklika otočit&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Používá se u vícelistých rotorových hlav.&lt;br/&gt;- Nejčastěji nastaveno na 0.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -90 - +90&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="293"/>
+        <location filename="advanced.cpp" line="295"/>
         <source>&lt;b&gt;Aggressiveness of aileron/elevator stick response&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase for more direct feel.&lt;br/&gt;- Decrease for smooth behavior.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 12&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Aggressiveness of aileron/elevator stick response&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase for more direct feel.&lt;br/&gt;- Decrease for smooth behavior.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 10&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte pro přímější pocit propojení.&lt;br/&gt;- Uberte pro plynulejší chování modelu.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1 - 12&lt;/i&gt;</translation>
@@ -132,12 +134,14 @@ Hodnota: </translation>
         <translation type="obsolete">&lt;b&gt;Agresivita odezvy vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte pro tvrdší zastavení&lt;br/&gt;- Uberte pokud vrtulka po zastavení překmitne</translation>
     </message>
     <message>
+        <location filename="advanced.cpp" line="159"/>
         <source>Signal processing</source>
-        <translation type="vanished">Zpracování signálu</translation>
+        <translation>Zpracování signálu</translation>
     </message>
     <message>
+        <location filename="advanced.cpp" line="161"/>
         <source>Extended</source>
-        <translation type="vanished">Rozšířené</translation>
+        <translation>Rozšířené</translation>
     </message>
     <message>
         <source>Paddle simulation</source>
@@ -152,7 +156,7 @@ Hodnota: </translation>
         <translation type="obsolete">Konstantnost cykliky</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="244"/>
+        <location filename="advanced.cpp" line="246"/>
         <source>Elevator filter</source>
         <translation>Výškovkový filtr</translation>
     </message>
@@ -162,7 +166,7 @@ Hodnota: </translation>
         <translation type="obsolete">&lt;b&gt;Velikost kompenzace zhoupnutí výškovky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte, pokud je během agresivního pohybu páčky výškovky viditelné zhoupnutí.&lt;br/&gt;- Nejčastěji hodnota 1.</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="257"/>
+        <location filename="advanced.cpp" line="259"/>
         <source>Elevator pitchup compensation</source>
         <translation>Kompenzace vzpínání výškovky</translation>
     </message>
@@ -176,12 +180,12 @@ Hodnota: </translation>
         <translation type="obsolete">Automatická</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="288"/>
+        <location filename="advanced.cpp" line="290"/>
         <source>Cyclic feed forward</source>
         <translation>Počáteční reakce cykliky</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="169"/>
+        <location filename="advanced.cpp" line="171"/>
         <source>Pirouette optimization (tuning)</source>
         <translation>Optimalizace piruet (ladění)</translation>
     </message>
@@ -202,12 +206,12 @@ Hodnota: </translation>
         <translation type="obsolete">Zapne rozšířené zpracování signálu.&lt;br/&gt;- Nejčastěji je vypnuté.&lt;br/&gt;- Pro zlepšení přesnosti a odolnosti vůči vibracím povolte.</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="174"/>
+        <location filename="advanced.cpp" line="176"/>
         <source>Reverse</source>
         <translation>Reverz</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="175"/>
+        <location filename="advanced.cpp" line="177"/>
         <source>Reverse when cyclic is not behaving like a compass during rotation.&lt;br/&gt;&lt;br/&gt;- Double check this when sensor Z axis is reversed.</source>
         <oldsource>Reverse when cyclic is not behaving like a compass during rotation.
 
@@ -215,7 +219,7 @@ Hodnota: </translation>
         <translation>Reverzujte v případě, že se deska cykliky nechová jako kompas během otáčení modelu.&lt;br/&gt;&lt;br/&gt;- Zkontrolujte pokud byl upraven reverz senzoru v ose Z.</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="182"/>
+        <location filename="advanced.cpp" line="184"/>
         <source>Geometry 6deg (tuning)</source>
         <translation>Geometrie hlavy 6st. (ladění)</translation>
     </message>
@@ -228,7 +232,7 @@ Hodnota: </translation>
         <translation type="obsolete">Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů.&lt;br/&gt;&lt;br/&gt;- V některých případech to může být -6 stupňů.&lt;br/&gt;- Nastavujte až po konfiguraci Subtrimů serv.</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="196"/>
+        <location filename="advanced.cpp" line="198"/>
         <source>Pirouette consistency</source>
         <translation>Držení piruet</translation>
     </message>
@@ -238,7 +242,8 @@ Hodnota: </translation>
         <translation type="obsolete">&lt;b&gt;Udává míru držení směru vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nejčastěji v rozsahu 155 - 180.</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="208"/>
+        <location filename="advanced.cpp" line="51"/>
+        <location filename="advanced.cpp" line="210"/>
         <source>Rudder - Revomix</source>
         <oldsource>Rudder - Pitch precompensation</oldsource>
         <translation>Vrtulka - Revomix</translation>
@@ -289,7 +294,7 @@ Hodnota: </translation>
         <translation type="obsolete">Kompenzace vzpínání výškovky</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="268"/>
+        <location filename="advanced.cpp" line="270"/>
         <source>Cyclic phase</source>
         <translation>Virtuální pootočení cykliky</translation>
     </message>
@@ -314,7 +319,7 @@ Hodnota: </translation>
         <translation type="obsolete">Optimalizace piruet</translation>
     </message>
     <message>
-        <location filename="advanced.cpp" line="225"/>
+        <location filename="advanced.cpp" line="227"/>
         <source>Rudder delay</source>
         <translation>Zpoždění vrtulky</translation>
     </message>
@@ -427,116 +432,125 @@ Hodnota: </translation>
 <context>
     <name>BackupTab</name>
     <message>
-        <location filename="backup.cpp" line="91"/>
+        <location filename="backup.cpp" line="39"/>
+        <source>Profile version mismatch</source>
+        <translation>Verze profilu se neshoduje</translation>
+    </message>
+    <message>
+        <location filename="backup.cpp" line="39"/>
+        <source>Selected profile was created with a different software version (%1)!  Double check all loaded values, please.</source>
+        <translation>Zvolený profil byl vytvořen odlišnou verzí software (%1)! Prosím zkontrolujte hodnoty všech parametrů.</translation>
+    </message>
+    <message>
+        <location filename="backup.cpp" line="107"/>
         <source>Open profile settings</source>
         <translation>Otevřít nastavení profilu</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="91"/>
+        <location filename="backup.cpp" line="107"/>
         <source>4Dstabi Files (*.4ds)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="99"/>
-        <location filename="backup.cpp" line="109"/>
+        <location filename="backup.cpp" line="115"/>
+        <location filename="backup.cpp" line="125"/>
         <source>Failed to load file, please check if file &apos;%1&apos; exists or copy it to other directory</source>
         <translation>Nepovedlo se načíst soubor. Zkontrolujte prosím, zda soubor &apos;%1&apos; existuje, příp. ho zkuste nakopírovat do jiného adresáře</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="99"/>
-        <location filename="backup.cpp" line="109"/>
+        <location filename="backup.cpp" line="115"/>
+        <location filename="backup.cpp" line="125"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="99"/>
-        <location filename="backup.cpp" line="109"/>
+        <location filename="backup.cpp" line="115"/>
+        <location filename="backup.cpp" line="125"/>
         <source>Abort</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="122"/>
+        <location filename="backup.cpp" line="138"/>
         <source>Save profile settings</source>
         <translation>Uložit nastavení profilu</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="122"/>
+        <location filename="backup.cpp" line="138"/>
         <source>Spirit Settings Files (*.4ds)</source>
         <translation>Profil jednotky Spirit (*.4ds)</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="154"/>
+        <location filename="backup.cpp" line="170"/>
         <source>Saved</source>
         <translation>Uloženo</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="154"/>
+        <location filename="backup.cpp" line="170"/>
         <source>Settings saved succesfully</source>
         <translation>Nastavení bylo úspěšně uloženo</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="163"/>
-        <location filename="backup.cpp" line="174"/>
+        <location filename="backup.cpp" line="179"/>
+        <location filename="backup.cpp" line="190"/>
         <source>Factory settings</source>
         <translation>Tovární nastavení</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="164"/>
+        <location filename="backup.cpp" line="180"/>
         <source>Do you want to reset the unit to factory settings ?</source>
         <translation>Přejete si resetovat jednotku do továrního nastavení ?</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="167"/>
+        <location filename="backup.cpp" line="183"/>
         <source>Yes</source>
         <translation>Ano</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="168"/>
+        <location filename="backup.cpp" line="184"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="174"/>
+        <location filename="backup.cpp" line="190"/>
         <source>Resetting to factory settings succesfully finished.
 Start this program again, please.</source>
         <translation>Resetování do továrního nastavení je hotovo.
 Nyní spusťte program znovu.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="203"/>
+        <location filename="backup.cpp" line="219"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="205"/>
+        <location filename="backup.cpp" line="221"/>
         <source>Profile settings are saved as data files
 and can be everytime loaded as needed.</source>
         <translation>Nastavení profilu jsou ukládány jako
 datové soubory. Lze je kdykoliv načíst.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="208"/>
-        <location filename="backup.cpp" line="229"/>
+        <location filename="backup.cpp" line="224"/>
+        <location filename="backup.cpp" line="246"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="209"/>
+        <location filename="backup.cpp" line="225"/>
         <source>Load</source>
         <translation>Načíst</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="210"/>
         <source>Cloud</source>
-        <translation>Cloud</translation>
+        <translation type="vanished">Cloud</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="220"/>
+        <location filename="backup.cpp" line="237"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="222"/>
+        <location filename="backup.cpp" line="239"/>
         <source>Unit stores settings in flash memory permanently,
 but settings you&apos;ve made are only temporarily until
 you save it by clicking following Save button.
@@ -551,7 +565,7 @@ Pro resetování do továrního nastavení
 stiskněte tlačítko Tovární nastavení.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="230"/>
+        <location filename="backup.cpp" line="247"/>
         <source>Factory Settings</source>
         <translation>Tovární nastavení</translation>
     </message>
@@ -640,8 +654,8 @@ kdy kliknete na tlačítko uložit !</translation>
     <name>CProfileDialog</name>
     <message>
         <location filename="cloud.cpp" line="396"/>
-        <location filename="cloud.cpp" line="422"/>
-        <location filename="cloud.cpp" line="442"/>
+        <location filename="cloud.cpp" line="425"/>
+        <location filename="cloud.cpp" line="445"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
@@ -651,7 +665,7 @@ kdy kliknete na tlačítko uložit !</translation>
         <translation>Nejdříve vyberte profil, který chcete načíst ze serveru.</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="422"/>
+        <location filename="cloud.cpp" line="425"/>
         <source>Select profile for deletion from the cloud, please.</source>
         <translation>Nejdříve vyberte profil, který si přejete smazat.</translation>
     </message>
@@ -661,44 +675,49 @@ kdy kliknete na tlačítko uložit !</translation>
 </translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="442"/>
-        <location filename="cloud.cpp" line="454"/>
-        <location filename="cloud.cpp" line="476"/>
+        <location filename="cloud.cpp" line="445"/>
+        <location filename="cloud.cpp" line="457"/>
+        <location filename="cloud.cpp" line="479"/>
         <source>Description</source>
         <translation>Popis</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="454"/>
+        <location filename="cloud.cpp" line="457"/>
         <source>Profile with this description already exist!</source>
         <translation>Profil s tímto popisem již existuje!</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="477"/>
+        <location filename="cloud.cpp" line="480"/>
         <source>Date</source>
         <translation>Datum</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="511"/>
+        <location filename="cloud.cpp" line="481"/>
+        <source>Controller</source>
+        <translation>Jednotka</translation>
+    </message>
+    <message>
+        <location filename="cloud.cpp" line="523"/>
         <source>Profile Manager</source>
         <translation>Manažer profilů</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="514"/>
+        <location filename="cloud.cpp" line="526"/>
         <source>Profile list</source>
         <translation>Seznam profilů</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="528"/>
+        <location filename="cloud.cpp" line="538"/>
         <source>Load</source>
         <translation>Načíst</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="529"/>
+        <location filename="cloud.cpp" line="539"/>
         <source>Delete</source>
         <translation>Smazat</translation>
     </message>
     <message>
-        <location filename="cloud.cpp" line="530"/>
+        <location filename="cloud.cpp" line="540"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
@@ -778,30 +797,30 @@ kdy kliknete na tlačítko uložit !</translation>
 <context>
     <name>ConnectionTab</name>
     <message>
-        <location filename="connection.cpp" line="395"/>
+        <location filename="connection.cpp" line="440"/>
         <source>Connected</source>
         <translation>Připojena</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="397"/>
+        <location filename="connection.cpp" line="442"/>
         <source>Ready</source>
         <translation>Připravena</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="452"/>
+        <location filename="connection.cpp" line="497"/>
         <source>Old version</source>
         <translation>Stará verze</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="452"/>
+        <location filename="connection.cpp" line="497"/>
         <source>Your software version is not equal with firmware!
 Please update unit or your software to same one.</source>
         <translation>Verze vašeho software neodpovídá verzi firmware!
 Prosíme aktualizujte jednotku nebo software na stejnou verzi.</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="188"/>
-        <location filename="connection.cpp" line="452"/>
+        <location filename="connection.cpp" line="212"/>
+        <location filename="connection.cpp" line="497"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -822,74 +841,72 @@ Zkontrolujte, zda máte nainstalovanou kompatibilní verzi SW/FW.</translation>
         <translation type="obsolete">Zrušit</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="534"/>
+        <location filename="connection.cpp" line="579"/>
         <source>Disconnected</source>
         <translation>Odpojena</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="610"/>
+        <location filename="connection.cpp" line="660"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="612"/>
+        <location filename="connection.cpp" line="662"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="624"/>
         <source>Logged as:</source>
-        <translation>Přihlášen:</translation>
+        <translation type="vanished">Přihlášen:</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="626"/>
         <source>offline</source>
-        <translation>ne</translation>
+        <translation type="vanished">ne</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="656"/>
+        <location filename="connection.cpp" line="706"/>
         <source>Wizard</source>
         <translation>Průvodce</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="658"/>
+        <location filename="connection.cpp" line="708"/>
         <source>Setup with wizard</source>
         <translation>Nastavit pomocí průvodce</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="532"/>
-        <location filename="connection.cpp" line="614"/>
+        <location filename="connection.cpp" line="577"/>
+        <location filename="connection.cpp" line="664"/>
         <source>Not connected</source>
         <translation>Není připojena</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="188"/>
+        <location filename="connection.cpp" line="212"/>
         <source>Permissions</source>
         <translation>Oprávnění</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="188"/>
+        <location filename="connection.cpp" line="212"/>
         <source>Software is not able to access hard drive. Try to start software as administrator.</source>
         <translation>Programu byl odepřen přístup na disk. Prosíme spusťte ho jako správce nebo nastavte oprávnění.</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="478"/>
+        <location filename="connection.cpp" line="523"/>
         <source>Bank switched</source>
         <translation>Přepnutá banka</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="478"/>
+        <location filename="connection.cpp" line="523"/>
         <source>Current bank was switched to &lt;b&gt;Bank 0&lt;/b&gt;.&lt;br/&gt;Bank switching via transmitter is disabled while the software is connected.</source>
         <translation>Aktuální banka byla přepnuta na &lt;b&gt;Bank 0&lt;/b&gt;.&lt;br/&gt;Změna banky přes vysílač je vypnuta dokud je software připojen.</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="616"/>
+        <location filename="connection.cpp" line="666"/>
         <source>Version:</source>
         <translation>Verze:</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="531"/>
-        <location filename="connection.cpp" line="618"/>
+        <location filename="connection.cpp" line="576"/>
+        <location filename="connection.cpp" line="668"/>
         <source>N/A</source>
         <translation>Nedostupná</translation>
     </message>
@@ -912,17 +929,17 @@ Přejete si vstoupit do demonstračního módu?</translation>
         <translation type="obsolete">Ne</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="620"/>
+        <location filename="connection.cpp" line="670"/>
         <source>Serial number:</source>
         <translation>Sériové číslo:</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="639"/>
+        <location filename="connection.cpp" line="689"/>
         <source>Link</source>
         <translation>Spojení</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="641"/>
+        <location filename="connection.cpp" line="691"/>
         <source>Device:</source>
         <translation>Zařízení:</translation>
     </message>
@@ -930,9 +947,8 @@ Přejete si vstoupit do demonstračního módu?</translation>
 <context>
     <name>ConnectionThread</name>
     <message>
-        <location filename="connection.cpp" line="360"/>
         <source>offline</source>
-        <translation>ne</translation>
+        <translation type="vanished">ne</translation>
     </message>
 </context>
 <context>
@@ -1183,42 +1199,42 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="obsolete">Tvrdé 3D</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="187"/>
+        <location filename="general.cpp" line="192"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="187"/>
+        <location filename="general.cpp" line="192"/>
         <source>Collision in &lt;b&gt;%1&lt;/b&gt; occured! Please select a different channel.</source>
         <translation>Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="303"/>
+        <location filename="general.cpp" line="317"/>
         <source>Position</source>
         <translation>Pozice</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="306"/>
+        <location filename="general.cpp" line="320"/>
         <source>Horizontal</source>
         <translation>Horizontální</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="307"/>
+        <location filename="general.cpp" line="321"/>
         <source>Vertical</source>
         <translation>Vertikální</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="308"/>
+        <location filename="general.cpp" line="322"/>
         <source>Vertical (top)</source>
         <translation>Vertikální (stojící)</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="309"/>
+        <location filename="general.cpp" line="323"/>
         <source>Mounting position of the unit.</source>
         <translation>Pozice umístění jednotky na modelu.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="353"/>
+        <location filename="general.cpp" line="367"/>
         <source>Receiver type equipped on the model.
 
 - PWM for classical receiver.</source>
@@ -1230,12 +1246,12 @@ PWM for classical receiver.</oldsource>
 - PWM pro klasický typ přijímače.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="359"/>
+        <location filename="general.cpp" line="373"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="374"/>
+        <location filename="general.cpp" line="388"/>
         <source>Specifies behavior of flight characteristics.
 
 - Decrease for more constant and linear behavior.
@@ -1246,12 +1262,12 @@ PWM for classical receiver.</oldsource>
 - Přidejte pro dosažení chování pádlové mechaniky.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="413"/>
+        <location filename="general.cpp" line="427"/>
         <source>channel</source>
         <translation>kanál</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="416"/>
+        <location filename="general.cpp" line="430"/>
         <source>unassigned</source>
         <translation>nepřiřazen</translation>
     </message>
@@ -1272,12 +1288,12 @@ PWM for classical receiver.</oldsource>
         <translation type="obsolete">Letadlo</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="329"/>
+        <location filename="general.cpp" line="343"/>
         <source>Mix</source>
         <translation>Mixování</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="336"/>
+        <location filename="general.cpp" line="350"/>
         <source>Cyclic mixing function used on the model.
 
 - In the most cases it is CCPM 120.</source>
@@ -1289,7 +1305,7 @@ In most cases it is CCPM 120.</oldsource>
 - Nejčastěji se jedná o CCPM 120.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="345"/>
+        <location filename="general.cpp" line="359"/>
         <source>Receiver</source>
         <translation>Přijímač</translation>
     </message>
@@ -1302,7 +1318,8 @@ In most cases it is CCPM 120.</oldsource>
         <translation type="obsolete">Bez reverzu</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="367"/>
+        <location filename="general.cpp" line="165"/>
+        <location filename="general.cpp" line="381"/>
         <source>Flight style</source>
         <translation>Letový projev</translation>
     </message>
@@ -1329,48 +1346,48 @@ Value: </oldsource>
         <translation>&lt;b&gt;Rozsah Křidélka / Výškovka&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="34"/>
+        <location filename="limits.cpp" line="36"/>
         <source>&lt;b&gt;Min/Max Collective pitch&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Min/Max Collective pitch
 Value: </oldsource>
         <translation>&lt;b&gt;Rozsah kolektivu&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="46"/>
+        <location filename="limits.cpp" line="50"/>
         <source>&lt;b&gt;Rudder servo - Minimum limit&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Rudder servo - Minimum limit
 Value: </oldsource>
         <translation>&lt;b&gt;Vrtulkové servo - Minimum&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="58"/>
+        <location filename="limits.cpp" line="64"/>
         <source>&lt;b&gt;Rudder servo - Maximum limit&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Rudder servo - Maximum limit
 Value: </oldsource>
         <translation>&lt;b&gt;Vrtulkové servo - Maximum&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="69"/>
+        <location filename="limits.cpp" line="77"/>
         <source>Cyclic Ring setup enabled</source>
         <translation>Nastavení Cyclic Ring zapnuto</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="72"/>
+        <location filename="limits.cpp" line="80"/>
         <source>Cyclic Ring setup disabled</source>
         <translation>Nastavení Cyclic Ring vypnuto</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="89"/>
+        <location filename="limits.cpp" line="97"/>
         <source>Cyclic Ring (tuning)</source>
         <translation>Cyclic Ring (ladění)</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="93"/>
+        <location filename="limits.cpp" line="25"/>
         <source>Aileron / Elevator range</source>
         <translation>Rozsah Křidélka / Výškovka</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="100"/>
+        <location filename="limits.cpp" line="108"/>
         <source>&lt;b&gt;Specifies range of cyclic servo travel for aileron and elevator&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase this parameter as much as possible.&lt;br/&gt;- Carefully check for any binding!</source>
         <translation>&lt;b&gt;Udává rozsah dráhy serv cykliky - křidélka a výškovka&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte tento parametr jak nejvíce je to možné.&lt;br/&gt;- Opatrně kontrolujte zda nedochází k nárazu serv v žádné poloze!</translation>
     </message>
@@ -1389,43 +1406,43 @@ Value: </oldsource>
 - Opatrně kontrolujte zda nedochází k nárazu serv v žádné poloze!</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="109"/>
+        <location filename="limits.cpp" line="117"/>
         <source>Collective pitch</source>
         <translation>Kolektiv</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="111"/>
+        <location filename="limits.cpp" line="39"/>
         <source>Pitch range</source>
         <translation>Rozsah náběhu</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="118"/>
+        <location filename="limits.cpp" line="126"/>
         <source>Specifies range of collective pitch for both positive and negative.</source>
         <translation>Udává rozsah kolektivu pro kladný a záporný směr.</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="127"/>
+        <location filename="limits.cpp" line="135"/>
         <source>Rudder end-points</source>
         <translation>Limity směrovky</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="129"/>
+        <location filename="limits.cpp" line="53"/>
         <source>Minimum limit</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="130"/>
+        <location filename="limits.cpp" line="67"/>
         <source>Maximum limit</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="137"/>
+        <location filename="limits.cpp" line="145"/>
         <source>Specifies minimum travel limit for rudder servo.</source>
         <oldsource>Specifies minimum limit for rudder servo.</oldsource>
         <translation>Udává spodní limit dráhy vrtulkového serva.</translation>
     </message>
     <message>
-        <location filename="limits.cpp" line="144"/>
+        <location filename="limits.cpp" line="152"/>
         <source>Specifies maximum travel limit for rudder servo.</source>
         <oldsource>Specifies maximum limit for rudder servo.</oldsource>
         <translation>Udává horní limit dráhy vrtulkového serva.</translation>
@@ -1503,24 +1520,24 @@ Value: </oldsource>
         <translation>Čekejte prosím - skenuji zařízení</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="206"/>
+        <location filename="connection.cpp" line="230"/>
         <source>Connection</source>
         <translation>Spojení</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="208"/>
+        <location filename="connection.cpp" line="232"/>
         <source>Your connection is unstable.
 Please double check if unit is connected correctly.</source>
         <translation>Spojení s jednotkou je nestabilní.
 Zkontrolujte prosím, zda je připojena korektně.</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="212"/>
+        <location filename="connection.cpp" line="236"/>
         <source>Reconnect</source>
         <translation>Znovu připojit</translation>
     </message>
     <message>
-        <location filename="connection.cpp" line="213"/>
+        <location filename="connection.cpp" line="237"/>
         <source>Exit</source>
         <translation>Ukončit</translation>
     </message>
@@ -1664,7 +1681,7 @@ Mostly in 8-11 range.</oldsource>
 <context>
     <name>ServosTab</name>
     <message>
-        <location filename="servos.cpp" line="248"/>
+        <location filename="servos.cpp" line="254"/>
         <source>&lt;b&gt;Channel 1 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 1 Servo
 Value: </oldsource>
@@ -1691,89 +1708,89 @@ Value: </source>
 Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="263"/>
+        <location filename="servos.cpp" line="269"/>
         <source>&lt;b&gt;Channel 2 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 2 Servo
 Value: </oldsource>
         <translation>&lt;b&gt;Servo Kanál 2&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="267"/>
-        <location filename="servos.cpp" line="311"/>
+        <location filename="servos.cpp" line="273"/>
+        <location filename="servos.cpp" line="317"/>
         <source>Elevator (CH2) : </source>
         <translation>Výškovka (CH2) : </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="278"/>
+        <location filename="servos.cpp" line="284"/>
         <source>&lt;b&gt;Channel 3 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 3 Servo
 Value: </oldsource>
         <translation>&lt;b&gt;Servo Kanál 3&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="282"/>
-        <location filename="servos.cpp" line="312"/>
+        <location filename="servos.cpp" line="288"/>
+        <location filename="servos.cpp" line="318"/>
         <source>Aileron (CH3) : </source>
         <translation>Křidélka (CH3) : </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="293"/>
+        <location filename="servos.cpp" line="299"/>
         <source>&lt;b&gt;Rudder Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Rudder Servo
 Value: </oldsource>
         <translation>&lt;b&gt;Vrtulkové servo&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="297"/>
-        <location filename="servos.cpp" line="313"/>
+        <location filename="servos.cpp" line="303"/>
+        <location filename="servos.cpp" line="319"/>
         <source>Rudder (CH4) : </source>
         <translation>Vrtulka (CH4) : </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="307"/>
+        <location filename="servos.cpp" line="313"/>
         <source>Subtrim setup enabled</source>
         <translation>Nastavení subtrimu zapnuto</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="315"/>
+        <location filename="servos.cpp" line="321"/>
         <source>Subtrim setup disabled</source>
         <translation>Nastavení subtrimu vypnuto</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="318"/>
-        <location filename="servos.cpp" line="423"/>
+        <location filename="servos.cpp" line="324"/>
+        <location filename="servos.cpp" line="429"/>
         <source>Aileron (CH1)</source>
         <oldsource>Aileron : CH1</oldsource>
         <translation>Křidélka (CH1)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="319"/>
-        <location filename="servos.cpp" line="424"/>
+        <location filename="servos.cpp" line="325"/>
+        <location filename="servos.cpp" line="430"/>
         <source>Elevator (CH2)</source>
         <oldsource>Elevator : CH2</oldsource>
         <translation>Výškovka (CH2)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="320"/>
-        <location filename="servos.cpp" line="425"/>
+        <location filename="servos.cpp" line="326"/>
+        <location filename="servos.cpp" line="431"/>
         <source>Aileron (CH3)</source>
         <oldsource>Aileron : CH3</oldsource>
         <translation>Křidélka (CH3)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="321"/>
-        <location filename="servos.cpp" line="426"/>
+        <location filename="servos.cpp" line="327"/>
+        <location filename="servos.cpp" line="432"/>
         <source>Rudder (CH4)</source>
         <oldsource>Rudder : CH4</oldsource>
         <translation>Vrtulka (CH4)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="342"/>
+        <location filename="servos.cpp" line="348"/>
         <source>Type</source>
         <translation>Typ</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="402"/>
+        <location filename="servos.cpp" line="408"/>
         <source>Reverses cyclic servo travel for specified channel.
 CH3 - aileron / pitch servo
 CH2 - elevator servo.</source>
@@ -1783,74 +1800,74 @@ CH3 - křidélkové servo
 CH2 - výškovkové servo</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="409"/>
+        <location filename="servos.cpp" line="415"/>
         <source>Servo Travel Correction</source>
         <translation>Korekce dráhy serv</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="411"/>
+        <location filename="servos.cpp" line="417"/>
         <source>Setup</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="252"/>
-        <location filename="servos.cpp" line="310"/>
+        <location filename="servos.cpp" line="258"/>
+        <location filename="servos.cpp" line="316"/>
         <source>Aileron (CH1) : </source>
         <translation>Křidélka (CH1) : </translation>
     </message>
     <message>
         <location filename="servos.cpp" line="24"/>
-        <location filename="servos.cpp" line="60"/>
+        <location filename="servos.cpp" line="62"/>
         <source>&lt;b&gt;Channel 1 Servo Travel&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 1 Servo Travel
 Value: </oldsource>
         <translation>&lt;b&gt;Dráha serva - kanál 1&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="36"/>
-        <location filename="servos.cpp" line="72"/>
+        <location filename="servos.cpp" line="38"/>
+        <location filename="servos.cpp" line="74"/>
         <source>&lt;b&gt;Channel 2 Servo Travel&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 2 Servo Travel
 Value: </oldsource>
         <translation>&lt;b&gt;Dráha serva - kanál 2&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="48"/>
-        <location filename="servos.cpp" line="84"/>
+        <location filename="servos.cpp" line="50"/>
+        <location filename="servos.cpp" line="86"/>
         <source>&lt;b&gt;Channel 3 Servo Travel&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 3 Servo Travel
 Value: </oldsource>
         <translation>&lt;b&gt;Dráha serva - kanál 3&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="344"/>
+        <location filename="servos.cpp" line="350"/>
         <source>Cyclic</source>
         <translation>Cyklika</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="347"/>
+        <location filename="servos.cpp" line="353"/>
         <source>Rudder</source>
         <translation>Směrovka</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="350"/>
-        <location filename="servos.cpp" line="352"/>
+        <location filename="servos.cpp" line="356"/>
+        <location filename="servos.cpp" line="358"/>
         <source>pulse</source>
         <translation>střed</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="351"/>
-        <location filename="servos.cpp" line="353"/>
+        <location filename="servos.cpp" line="357"/>
+        <location filename="servos.cpp" line="359"/>
         <source>frequency</source>
         <translation>frekvence</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="395"/>
+        <location filename="servos.cpp" line="401"/>
         <source>Cyclic Servo Reverse</source>
         <translation>Reverz serv cykliky</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="398"/>
+        <location filename="servos.cpp" line="404"/>
         <source>No reverse</source>
         <translation>Bez reverzu</translation>
     </message>
@@ -1891,7 +1908,7 @@ Value: </oldsource>
         <translation type="obsolete">Min/Max</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="419"/>
+        <location filename="servos.cpp" line="425"/>
         <source>Subtrim (tuning)</source>
         <translation>Subtrim (ladění)</translation>
     </message>
@@ -1911,28 +1928,28 @@ Value: </oldsource>
 <context>
     <name>StabiTab</name>
     <message>
-        <location filename="stabi.cpp" line="93"/>
+        <location filename="stabi.cpp" line="97"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="96"/>
+        <location filename="stabi.cpp" line="100"/>
         <source>Disabled</source>
         <oldsource>Disable</oldsource>
         <translation>Vypnuto</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="97"/>
+        <location filename="stabi.cpp" line="101"/>
         <source>Rescue (Normal)</source>
         <translation>Záchrana (Normál)</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="98"/>
+        <location filename="stabi.cpp" line="102"/>
         <source>Rescue (Acro)</source>
         <translation>Záchrana (Akro)</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="99"/>
+        <location filename="stabi.cpp" line="103"/>
         <source>Stabilisation</source>
         <translation>Stabilizace</translation>
     </message>
@@ -1941,7 +1958,8 @@ Value: </oldsource>
         <translation type="obsolete">Stabi zisk</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="138"/>
+        <location filename="stabi.cpp" line="70"/>
+        <location filename="stabi.cpp" line="142"/>
         <source>Rescue collective pitch</source>
         <translation>Kolektiv u záchranného režimu</translation>
     </message>
@@ -1961,7 +1979,7 @@ Value: </oldsource>
         <translation>&lt;b&gt;Míra změny směru&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="101"/>
+        <location filename="stabi.cpp" line="105"/>
         <source>&lt;b&gt;Function activated when gyro gain is negative&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Disabled - Rate gyro mode&lt;br/&gt;Rescue - rescue mode with HH gyro&lt;br/&gt;Stabilisation - stabilisation mode with HH gyro</source>
         <oldsource>Function activated when gyro gain is negative.
 
@@ -1971,28 +1989,29 @@ Stabilisation - stabilisation mode with HH gyro</oldsource>
         <translation>&lt;b&gt;Funkce aktivovaná pokud je zisk gyra záporný&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Vypnuto - Rate režim gyra&lt;br/&gt;Záchrana - záchranný režim a HH gyro&lt;br/&gt;Stabilizace - stabilizace a HH gyro</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="114"/>
+        <location filename="stabi.cpp" line="118"/>
         <source>&lt;b&gt;Pirouette optimization&lt;/b&gt;</source>
         <translation>&lt;b&gt;Optimalizace piruet&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="116"/>
+        <location filename="stabi.cpp" line="120"/>
         <source>Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</source>
         <translation>Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně jinak tyto režimy nebudou fungovat korektně!</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="121"/>
+        <location filename="stabi.cpp" line="49"/>
+        <location filename="stabi.cpp" line="125"/>
         <source>Direction control rate</source>
         <translation>Míra změny směru</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="128"/>
+        <location filename="stabi.cpp" line="132"/>
         <source>&lt;b&gt;Specifies a rate of direction change for stabilization&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Low values are suitable for beginners to achieve coaxial-like behavior.&lt;br/&gt;- Higher values are suitable for scale flying.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 5&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Specifies a rate of direction change&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Low values are suitable for beginners to achieve coaxial-like behavior.&lt;br/&gt;- Higher values are suitable for scale flying.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 5&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Udává míru ovlivnění směru pro stabilizaci&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.&lt;br/&gt;- Vyšší hodnoty jsou vhodné pro maketové létání.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1 - 5&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="145"/>
+        <location filename="stabi.cpp" line="149"/>
         <source>&lt;b&gt;Amount of collective pitch during rescue activation&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Activate the rescue mode and check collective direction.&lt;br/&gt;- Very important is to select positive or negative value correctly!&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -10 - +10&lt;/i&gt;</source>
         <oldsource>Amount of collective pitch during rescue activation.
 
@@ -2001,52 +2020,52 @@ Stabilisation - stabilisation mode with HH gyro</oldsource>
         <translation>&lt;b&gt;Velikost kolektivu během aktivního záchranného režimu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Aktivujte záchranný režim a zkontrolujte směr kolektivu.&lt;br/&gt;- Je nezbytné zvolit správně kladný nebo záporný směr!&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -10 - +10&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="158"/>
+        <location filename="stabi.cpp" line="162"/>
         <source>Aileron torque compensation</source>
         <translation>Kompenzace momentu pro křidélka</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="163"/>
+        <location filename="stabi.cpp" line="167"/>
         <source>Aileron precompensation needed to get helicopter to correct angle&lt;br/&gt;during stabilisation or while rescue mode is active.</source>
         <oldsource>Aileron precompensation needed to get helicopter to correct angle
 during stabilisation or while rescue mode is active.</oldsource>
         <translation>Prekompenzace v ose křidélek potřebná pro dosažení správného úhlu&lt;br/&gt;během aktivního režimu stabilizace nebo záchrany.</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="170"/>
+        <location filename="stabi.cpp" line="174"/>
         <source>Elevator torque compensation</source>
         <translation>Kompenzace momentu pro výškovku</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="175"/>
+        <location filename="stabi.cpp" line="179"/>
         <source>Elevator precompensation needed to get helicopter to correct angle&lt;br/&gt;during stabilisation or while rescue mode is active.</source>
         <oldsource>Elevator precompensation needed to get helicopter to correct angle
 during stabilisation or while rescue mode is active.</oldsource>
         <translation>Prekompenzace v ose výškovky potřebná pro dosažení správného úhlu&lt;br/&gt;během aktivního režimu stabilizace nebo záchrany.</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="182"/>
+        <location filename="stabi.cpp" line="186"/>
         <source>Sticks priority</source>
         <translation>Priorita kniplů</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="187"/>
+        <location filename="stabi.cpp" line="191"/>
         <source>Steering signal amount during stabilisation or rescue mode.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 10&lt;/i&gt;</source>
         <oldsource>Steering signal amount during stabilisation or rescue mode.</oldsource>
         <translation>Míra řízení během aktivní stabilizace nebo záchranného režimu.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 10&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="196"/>
+        <location filename="stabi.cpp" line="200"/>
         <source>Flybar mechanic</source>
         <translation>Pádlová mechanika</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="198"/>
+        <location filename="stabi.cpp" line="202"/>
         <source>Enable</source>
         <translation>Povolit</translation>
     </message>
     <message>
-        <location filename="stabi.cpp" line="199"/>
+        <location filename="stabi.cpp" line="203"/>
         <source>Enables special mode for flybared helicopters to be able use the unit with stabilisation or rescue mode.&lt;br/&gt;&lt;br/&gt;- Always disabled for flybarless helicopters.&lt;br/&gt;- Enabled for flybar helicopters only!.</source>
         <oldsource>Enables special mode for flybared helicopters to be able use the unit with stabilisation or rescue mode.
 
@@ -2058,7 +2077,7 @@ during stabilisation or while rescue mode is active.</oldsource>
 <context>
     <name>TabDialog</name>
     <message>
-        <location filename="tabdialog.cpp" line="100"/>
+        <location filename="tabdialog.cpp" line="111"/>
         <source>Banks</source>
         <translation>Banky</translation>
     </message>
@@ -2079,183 +2098,183 @@ during stabilisation or while rescue mode is active.</oldsource>
         <translation type="obsolete">Nastavení</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="55"/>
+        <location filename="tabdialog.cpp" line="66"/>
         <source>&lt;b&gt;Selects active bank&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vybere aktivní banku&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="64"/>
+        <location filename="tabdialog.cpp" line="75"/>
         <source>&lt;b&gt;Displays current settings state&lt;/b&gt;</source>
         <translation>&lt;b&gt;Zobrazuje současný stav konfigurace&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="66"/>
+        <location filename="tabdialog.cpp" line="77"/>
         <source>Active bank:</source>
         <translation>Aktivní banka:</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="108"/>
+        <location filename="tabdialog.cpp" line="119"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="115"/>
+        <location filename="tabdialog.cpp" line="126"/>
         <source>&lt;b&gt;Save profile settings to the unit&lt;/b&gt;</source>
         <translation>&lt;b&gt;Uložit nastavení profilu do jednotky&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="140"/>
-        <location filename="tabdialog.cpp" line="165"/>
+        <location filename="tabdialog.cpp" line="151"/>
+        <location filename="tabdialog.cpp" line="176"/>
         <source>Connection</source>
         <translation>Spojení</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="141"/>
-        <location filename="tabdialog.cpp" line="166"/>
+        <location filename="tabdialog.cpp" line="152"/>
+        <location filename="tabdialog.cpp" line="177"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="142"/>
-        <location filename="tabdialog.cpp" line="167"/>
+        <location filename="tabdialog.cpp" line="153"/>
+        <location filename="tabdialog.cpp" line="178"/>
         <source>Diagnostic</source>
         <translation>Diagnostika</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="143"/>
-        <location filename="tabdialog.cpp" line="168"/>
+        <location filename="tabdialog.cpp" line="154"/>
+        <location filename="tabdialog.cpp" line="179"/>
         <source>Servos</source>
         <translation>Serva</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="144"/>
-        <location filename="tabdialog.cpp" line="169"/>
+        <location filename="tabdialog.cpp" line="155"/>
+        <location filename="tabdialog.cpp" line="180"/>
         <source>Limits</source>
         <translation>Limity</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="145"/>
-        <location filename="tabdialog.cpp" line="170"/>
+        <location filename="tabdialog.cpp" line="156"/>
+        <location filename="tabdialog.cpp" line="181"/>
         <source>Sensor</source>
         <translation>Senzor</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="146"/>
-        <location filename="tabdialog.cpp" line="171"/>
+        <location filename="tabdialog.cpp" line="157"/>
+        <location filename="tabdialog.cpp" line="182"/>
         <source>Stabi</source>
         <translation>Stabi</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="147"/>
-        <location filename="tabdialog.cpp" line="172"/>
+        <location filename="tabdialog.cpp" line="158"/>
+        <location filename="tabdialog.cpp" line="183"/>
         <source>Advanced</source>
         <translation>Pokročilé</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="148"/>
-        <location filename="tabdialog.cpp" line="173"/>
+        <location filename="tabdialog.cpp" line="159"/>
+        <location filename="tabdialog.cpp" line="184"/>
         <source>Backup</source>
         <translation>Záloha</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="149"/>
-        <location filename="tabdialog.cpp" line="174"/>
+        <location filename="tabdialog.cpp" line="160"/>
+        <location filename="tabdialog.cpp" line="185"/>
         <source>Update</source>
         <translation>Aktualizace</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="252"/>
+        <location filename="tabdialog.cpp" line="264"/>
         <source>Demo mode</source>
         <translation>Demo mód</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="255"/>
+        <location filename="tabdialog.cpp" line="267"/>
         <source>Interface was not detected.
 Do you want to switch to demonstration mode?</source>
         <translation>Interface nebyl rozpoznán.
 Přejete si vstoupit do demonstračního módu?</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="257"/>
+        <location filename="tabdialog.cpp" line="269"/>
         <source>Unit was not detected.
 Do you want to switch to demonstration mode?</source>
         <translation>Jednotka nebyla detekována.
 Přejete si vstoupit do demonstračního módu?</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="261"/>
+        <location filename="tabdialog.cpp" line="273"/>
         <source>Yes</source>
         <translation>Ano</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="262"/>
+        <location filename="tabdialog.cpp" line="274"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="303"/>
+        <location filename="tabdialog.cpp" line="315"/>
         <source>Settings changed</source>
         <translation>Došlo ke změně nastavení</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="304"/>
+        <location filename="tabdialog.cpp" line="316"/>
         <source>Do you want to save your new settings?</source>
         <translation>Přejete si uložit nové nastavení?</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="307"/>
-        <location filename="tabdialog.cpp" line="344"/>
+        <location filename="tabdialog.cpp" line="319"/>
+        <location filename="tabdialog.cpp" line="356"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="308"/>
-        <location filename="tabdialog.cpp" line="345"/>
+        <location filename="tabdialog.cpp" line="320"/>
+        <location filename="tabdialog.cpp" line="357"/>
         <source>Discard</source>
         <translation>Zapomenout</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="312"/>
-        <location filename="tabdialog.cpp" line="349"/>
-        <location filename="tabdialog.cpp" line="392"/>
+        <location filename="tabdialog.cpp" line="324"/>
+        <location filename="tabdialog.cpp" line="361"/>
+        <location filename="tabdialog.cpp" line="407"/>
         <source>Saved</source>
         <translation>Uloženo</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="312"/>
-        <location filename="tabdialog.cpp" line="349"/>
+        <location filename="tabdialog.cpp" line="324"/>
+        <location filename="tabdialog.cpp" line="361"/>
         <source>Settings saved succesfully.</source>
         <translation>Nastavení bylo úspěšně uloženo.</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="314"/>
-        <location filename="tabdialog.cpp" line="351"/>
+        <location filename="tabdialog.cpp" line="326"/>
+        <location filename="tabdialog.cpp" line="363"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="314"/>
-        <location filename="tabdialog.cpp" line="351"/>
+        <location filename="tabdialog.cpp" line="326"/>
+        <location filename="tabdialog.cpp" line="363"/>
         <source>Error during saving. Check your interface connection.</source>
         <translation>Chyba běhěm ukládání. Zkontrolujte datový kabel.</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="340"/>
+        <location filename="tabdialog.cpp" line="352"/>
         <source>Bank settings changed</source>
         <translation>Nastavení banky změněno</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="341"/>
+        <location filename="tabdialog.cpp" line="353"/>
         <source>Do you want to save new bank settings?</source>
         <translation>Přejete si uložit nové nastavení banky?</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="392"/>
+        <location filename="tabdialog.cpp" line="407"/>
         <source>Settings saved succesfully</source>
         <translation>Nastavení bylo úspěšně uloženo</translation>
     </message>
     <message>
-        <location filename="tabdialog.cpp" line="420"/>
+        <location filename="tabdialog.cpp" line="439"/>
         <source>(Unsaved changes)</source>
         <translation>(Neuložené změny)</translation>
     </message>
@@ -2281,47 +2300,52 @@ Value: </source>
 Hodnota: </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="127"/>
+        <location filename="servos.cpp" line="129"/>
         <source>Aileron (CH1) : </source>
         <translation>Křidélka (CH1) : </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="128"/>
+        <location filename="servos.cpp" line="130"/>
         <source>Elevator (CH2) : </source>
         <translation>Výškovka (CH2) : </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="129"/>
+        <location filename="servos.cpp" line="131"/>
         <source>Aileron (CH3) : </source>
         <translation>Křidélka (CH3) : </translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="147"/>
+        <location filename="servos.cpp" line="149"/>
         <source>Servo Travel Correction</source>
         <translation>Korekce dráhy serv</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="162"/>
+        <location filename="servos.cpp" line="151"/>
+        <source>Col.</source>
+        <translation>Kol.</translation>
+    </message>
+    <message>
+        <location filename="servos.cpp" line="164"/>
         <source>Aileron (CH1)</source>
         <translation>Křidélka (CH1)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="163"/>
+        <location filename="servos.cpp" line="165"/>
         <source>Elevator (CH2)</source>
         <translation>Výškovka (CH2)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="164"/>
+        <location filename="servos.cpp" line="166"/>
         <source>Aileron (CH3)</source>
         <translation>Křidélka (CH3)</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="166"/>
+        <location filename="servos.cpp" line="168"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="servos.cpp" line="175"/>
+        <location filename="servos.cpp" line="177"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
     </message>
@@ -2518,7 +2542,7 @@ baterii a také bindovací konektor.</translation>
     </message>
     <message>
         <location filename="wizard.cpp" line="95"/>
-        <location filename="wizard.cpp" line="222"/>
+        <location filename="wizard.cpp" line="224"/>
         <source>Receiver</source>
         <translation>Přijímač</translation>
     </message>
@@ -2564,7 +2588,7 @@ It&apos;s necessary to save it and then reconnect battery.</source>
 Je nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="222"/>
+        <location filename="wizard.cpp" line="224"/>
         <source>Receiver type was changed in the unit settings.
 It&apos;s necessary to save it and then reconnect battery.
 Click the Connect button after unit initialization again, please
@@ -2574,18 +2598,18 @@ Je nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.
 Po inicializaci jednotky klikněte znovu na tlačítko Připojit.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="227"/>
+        <location filename="wizard.cpp" line="230"/>
         <source>Reconnect is needed</source>
         <translation>Nutno znovu připojit</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="243"/>
+        <location filename="wizard.cpp" line="246"/>
         <source>Connection test (Step 2/11)</source>
         <oldsource>Connection test (Step 2/10)</oldsource>
         <translation>Test spojení (Krok 2/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="245"/>
+        <location filename="wizard.cpp" line="248"/>
         <source>Connect a battery to ESC/BEC (max. input voltage is 15V).
 This should turn the unit on and initialization process as well.
 This mean Status LED will be pulsing until unit is initialized and prepared to work.
@@ -2612,39 +2636,39 @@ není inicializace dokončena.
 Inicializační proces trvá přibližně 3 až 6 sekund v závislosti na podmínkách.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="252"/>
+        <location filename="wizard.cpp" line="255"/>
         <source>If your unit is Ready, click following button to make connection.
 Be sure your Interface cable is plugged in and your drivers are installed properly.</source>
         <translation>Pokud je jednotka připravena, klikněte na následující tlačítko.
 Ujistěte se, že je datový kabel správně připojen a máte nainstalovány ovladače v OS.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="255"/>
+        <location filename="wizard.cpp" line="258"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="257"/>
+        <location filename="wizard.cpp" line="260"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="259"/>
+        <location filename="wizard.cpp" line="262"/>
         <source>Not connected</source>
         <translation>Není připojena</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="261"/>
+        <location filename="wizard.cpp" line="264"/>
         <source>Version:</source>
         <translation>Verze:</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="263"/>
+        <location filename="wizard.cpp" line="266"/>
         <source>N/A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="265"/>
+        <location filename="wizard.cpp" line="268"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
@@ -2653,19 +2677,19 @@ Ujistěte se, že je datový kabel správně připojen a máte nainstalovány ov
         <translation type="obsolete">Obecné nastavení (Krok 3/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="379"/>
+        <location filename="wizard.cpp" line="382"/>
         <source>Select position of the unit with respect to R/C model.
 Also select model type/size and servo mixing function.</source>
         <translation>Nastavte pozici jednotky vzhledem k R/C modelu.
 Také zvolte typ modelu/velikost a funkci pro mixování serv.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="383"/>
+        <location filename="wizard.cpp" line="386"/>
         <source>Model preset</source>
         <translation>Přednastavený model</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="391"/>
+        <location filename="wizard.cpp" line="394"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
@@ -2674,7 +2698,7 @@ Také zvolte typ modelu/velikost a funkci pro mixování serv.</translation>
         <translation type="obsolete">Základní nastavení serv (Krok 4/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="415"/>
+        <location filename="wizard.cpp" line="418"/>
         <source>Select correct servo type and frequency.
 
 If you are unsure, please check technical details in servo manufacturer
@@ -2696,7 +2720,7 @@ Poté co provedete nastavení, můžete připojit serva.</translation>
         <translation type="obsolete">Nastavení smyslu serv (Krok 5/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="435"/>
+        <location filename="wizard.cpp" line="438"/>
         <source>Please check if your cyclic and rudder servos are responding correctly to
 helicopter movement. If not, reverse it as needed.
 
@@ -2723,7 +2747,7 @@ Stejně tak i vrtulkové listy musí jít na druhou stranu směru pohybu.</trans
         <translation type="obsolete">Dotrimování serv (Krok 6/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="458"/>
+        <location filename="wizard.cpp" line="461"/>
         <source>Insert cyclic leveler to main shaft and set your servos as precise as possible
 to achieve the best results during flight. Cyclic should be perfectly level with
 cyclic leveler. Your servo arms should be in same time perpendicular to push rods
@@ -2786,7 +2810,7 @@ Přidávejte hodnotu parametru dokud úhel nebude přesně 6st.</translation>
         <translation type="obsolete">Nastavení kompenzace piruet (Krok 9/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="521"/>
+        <location filename="wizard.cpp" line="524"/>
         <source>Setup correct orientation of the pirouette compensation.
 If you need, disconnect cable from the unit and grab your model.
 But be sure you plug cable in before you touch any settings here!
@@ -2812,12 +2836,12 @@ Pokud cyklika rotuje v opačném směru, změňte smysl otáčení.</translation
         <translation type="obsolete">Uložení nastavení (Krok 10/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="357"/>
+        <location filename="wizard.cpp" line="360"/>
         <source>Diagnostic panel (Step 3/11)</source>
         <translation>Diagnostika (Krok 3/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="359"/>
+        <location filename="wizard.cpp" line="362"/>
         <source>Check center of listed channels. Do the necessary changes in your transmitter.
 Try to adjust end-points to be +-100% exactly.
 Adjust center of collective pitch channel to be as close as possible to 0%
@@ -2834,32 +2858,32 @@ kdy je páka kolektivu uprostřed a křivka kolektivu lineární.
 Na směru pohybu kanálů v této chvíli nezáleží.  </translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="377"/>
+        <location filename="wizard.cpp" line="380"/>
         <source>General settings (Step 4/11)</source>
         <translation>Obecné nastavení (Krok 4/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="412"/>
+        <location filename="wizard.cpp" line="415"/>
         <source>Basic Servo settings (Step 5/11)</source>
         <translation>Základní nastavení serv (Krok 5/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="432"/>
+        <location filename="wizard.cpp" line="435"/>
         <source>Servo Operation settings (Step 6/11)</source>
         <translation>Nastavení smyslu serv (Krok 6/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="455"/>
+        <location filename="wizard.cpp" line="458"/>
         <source>Servo Subtrim settings (Step 7/11)</source>
         <translation>Dotrimování serv (Krok 7/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="475"/>
+        <location filename="wizard.cpp" line="478"/>
         <source>Servo limits settings (Step 8/11)</source>
         <translation>Limity serv (Krok 8/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="478"/>
+        <location filename="wizard.cpp" line="481"/>
         <source>Firstly setup your maximum collective pitch range you want to fly. Use stick to
 check your max. and min. angle with pitch gauge. Set throttle/collective stick to
 the highest position and check blade&apos;s pitch. Increase or decrease Pitch parameter
@@ -2886,12 +2910,12 @@ opatrně na jednu stranu a pozvolna přidávejte dokud nedojde smykátko
 na konec hřídele. To stejné proveďte na opačnou stranu pomocí kniplu a limitu.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="502"/>
+        <location filename="wizard.cpp" line="505"/>
         <source>Head Geometry settings (Step 9/11)</source>
         <translation>Geometrie rotorové hlavy (Krok 9/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="504"/>
+        <location filename="wizard.cpp" line="507"/>
         <source>Set your rotor head and blades parallelly with helicopter body.
 Set your pitch gauge to 6° and check blade angle.
 
@@ -2902,17 +2926,17 @@ Snažte se dosáhnout 6 stupňového náběhu.
 Přidávejte hodnotu parametru dokud úhel nebude přesně 6st.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="519"/>
+        <location filename="wizard.cpp" line="522"/>
         <source>Pirouette compensation settings (Step 10/11)</source>
         <translation>Nastavení kompenzace piruet (Krok 10/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="541"/>
+        <location filename="wizard.cpp" line="544"/>
         <source>Settings save (Step 11/11)</source>
         <translation>Uložení nastavení (Krok 11/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="543"/>
+        <location filename="wizard.cpp" line="546"/>
         <source>Congratulations!
 You have passed wizard settings and your helicopter
 should be ready to fly.For more settings use configration software.
@@ -2938,76 +2962,76 @@ správný smysl, jinak bude řízení nekontrolovatelné!
 Klikněte na tlačítko Dokončit pro uložení nastavení do paměti jednotky.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="568"/>
+        <location filename="wizard.cpp" line="572"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="568"/>
+        <location filename="wizard.cpp" line="572"/>
         <source>Your unit connection was&apos;nt created at all.
 Something is broken</source>
         <translation>Spojení vaší jednotky nebylo vůbec navázáno.
 Něco se pokazilo...</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="573"/>
+        <location filename="wizard.cpp" line="577"/>
         <source>Settings save</source>
         <translation>Uložení nastavení</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="574"/>
+        <location filename="wizard.cpp" line="578"/>
         <source>Do you want to save your settings?</source>
         <translation>Přejete si uložit nastavení?</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="577"/>
+        <location filename="wizard.cpp" line="581"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="578"/>
+        <location filename="wizard.cpp" line="582"/>
         <source>Discard</source>
         <translation>Zapomenout</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="582"/>
+        <location filename="wizard.cpp" line="587"/>
         <source>Saved</source>
         <translation>Uloženo</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="582"/>
+        <location filename="wizard.cpp" line="587"/>
         <source>Settings saved succesfully.</source>
         <translation>Nastavení bylo úspěšně uloženo.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="585"/>
+        <location filename="wizard.cpp" line="590"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="585"/>
+        <location filename="wizard.cpp" line="590"/>
         <source>Error during saving. Check your interface connection.</source>
         <translation>Chyba běhěm ukládání. Zkontrolujte datový kabel.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="680"/>
+        <location filename="wizard.cpp" line="688"/>
         <source>Setup Wizard</source>
         <translation>Průvodce nastavením</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="688"/>
+        <location filename="wizard.cpp" line="696"/>
         <source>Next</source>
         <oldsource>Next &gt;</oldsource>
         <translation>Další</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="689"/>
+        <location filename="wizard.cpp" line="697"/>
         <source>Back</source>
         <oldsource>&lt; Back</oldsource>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="690"/>
+        <location filename="wizard.cpp" line="698"/>
         <source>Finish</source>
         <translation>Dokončit</translation>
     </message>

@@ -132,11 +132,6 @@ public class ConnectionActivity extends BaseActivity
 		curentDeviceText = (TextView) findViewById(R.id.curent_device_text);
 		serial = (TextView) findViewById(R.id.serial_number);
 		version = (TextView) findViewById(R.id.version);
-
-        if(mBluetoothAdapter.getBondedDevices().size() == 0){
-            Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
-            finish();
-        }
 	}
 
 	/**
@@ -243,6 +238,11 @@ public class ConnectionActivity extends BaseActivity
 	 */
 	public void manageConnectionToBTDevice(View v)
 	{
+        if(btDeviceSpinner.getCount() == 0){
+            Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_LISTEN || stabiProvider.getState() == BluetoothCommandService.STATE_NONE) {
 			disconect = false;
             //pripripojovani vymazeme profil pro diff
