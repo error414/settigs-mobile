@@ -159,6 +159,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
             mObjProgres.setProgressDrawable(getResources().getDrawable(R.drawable.my_disable_custom_pb));
             mainLayout.setOnClickListener(null);
             mainLayout.setBackgroundResource(R.drawable.disabled_list_selector);
+            hideInput();
         }else{
             mObjProgres.setProgressDrawable(getResources().getDrawable(R.drawable.my_custom_pb));
             mainLayout.setOnClickListener(this);

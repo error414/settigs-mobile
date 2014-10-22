@@ -168,8 +168,6 @@ public class ChannelsActivity extends BaseActivity{
                         case 3:
                         case 5: ((Spinner) findViewById(formItems[i])).setEnabled(false); break;
                     }
-                }else{
-                    ((Spinner) findViewById(formItems[i])).setEnabled(true);
                 }
 
 			}

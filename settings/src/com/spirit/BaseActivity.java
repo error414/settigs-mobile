@@ -91,6 +91,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 * ulozeni profilu do jednotky
  	 */
 	final protected int PROFILE_SAVE_CALL_BACK_CODE = 17;
+    final protected int PROFILE_SAVE_CALL_BACK_CODE_CHANGE_BANK = 1717;
 	final protected int BANK_CHANGE_CALL_BACK_CODE  = 150;
 	final protected int PROFILE_FOR_UPDATE_ORIGINAL = 100;
 
@@ -138,6 +139,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 *
 	 */
 	protected DstabiProfile profileCreator;
+
+    /**
+     *
+     */
+    private int bankForChange = 0;
 
     /**
      *
@@ -409,10 +415,13 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                     if (Globals.getInstance().isChanged()) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
 
+
+                        final int bankNumber = position;
                         //dont save profile
                         alert.setNegativeButton(R.string.no, new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
+                                changeBank(bankNumber);
                                 return;
                             }
 
@@ -422,7 +431,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                         alert.setPositiveButton(R.string.yes, new OnClickListener() {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
-                                saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
+                                bankForChange = bankNumber;
+                                saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE_CHANGE_BANK);
                             }
 
                         });
@@ -436,28 +446,31 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 
                     // change bank
-                    ProfileItem profileItem;
-                    DstabiProfile localProfileCreator = profileCreator;
-                    if (profileCreator == null) {
-                        localProfileCreator = new DstabiProfile(null);
-                        profileItem = localProfileCreator.getProfileItemByName("BANKS");
-                    } else {
-                        profileItem = profileCreator.getProfileItemByName("BANKS");
-                    }
-
-                    profileItem.setValueFromSpinner(position);
-                    stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
-                    checkBankNumber(localProfileCreator);
-                    showInfoBarWrite();
-                    slideMenuListAdapter.setActivePosition(position);
-                    slideMenuListAdapter.notifyDataSetChanged();
-                    mDrawer.closeMenu();
+                    changeBank(position);
                 }
             }
         });
 
         leftMenuList.setAdapter(slideMenuListAdapter);
+    }
 
+    private void changeBank(int bankNumber){
+        ProfileItem profileItem;
+        DstabiProfile localProfileCreator = profileCreator;
+        if (profileCreator == null) {
+            localProfileCreator = new DstabiProfile(null);
+            profileItem = localProfileCreator.getProfileItemByName("BANKS");
+        } else {
+            profileItem = profileCreator.getProfileItemByName("BANKS");
+        }
+
+        profileItem.setValueFromSpinner(bankNumber);
+        stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
+        checkBankNumber(localProfileCreator);
+        showInfoBarWrite();
+        slideMenuListAdapter.setActivePosition(bankNumber);
+        slideMenuListAdapter.notifyDataSetChanged();
+        mDrawer.closeMenu();
 
     }
 
@@ -902,6 +915,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 				}
 				break;
+            case PROFILE_SAVE_CALL_BACK_CODE_CHANGE_BANK:
+                changeBank(bankForChange);
+                // this no break
 			case PROFILE_SAVE_CALL_BACK_CODE:
 				sendInSuccessDialog();
 				showProfileSavedDialog();

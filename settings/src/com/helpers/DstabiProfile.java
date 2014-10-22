@@ -87,7 +87,7 @@ public class DstabiProfile {
 		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
         //profileMap.put("SIGNAL_PROCESSING",	new ProfileItem(4, "0", "1", "7")); // rozsirene zpracovani signalu
 
-		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "E", 	"R",	true));
+		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "F", 	"R",	true));
 		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C",	true));
 
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST",	true));
@@ -95,10 +95,10 @@ public class DstabiProfile {
 		profileMap.put("RUDDER_TYPE",	new ProfileItem(9, "A", "C", 	"St",	true));
 		profileMap.put("RUDDER_FREQ",	new ProfileItem(10, "A", "G", 	"Sf",	true));
 
-		profileMap.put("SUBTRIM_AIL",	new ProfileItem(16, 0, 255, 	"SA",	true));
-		profileMap.put("SUBTRIM_ELE",	new ProfileItem(17, 0, 255, 	"SE",	true));
-		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 255, 	"SP",	true));
-		profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 255, 	"Se",	true));
+		profileMap.put("SUBTRIM_AIL",	new ProfileItem(16, 0, 254, 	"SA",	true));
+		profileMap.put("SUBTRIM_ELE",	new ProfileItem(17, 0, 254, 	"SE",	true));
+		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 254, 	"SP",	true));
+		profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 254, 	"Se",	true));
 
 		profileMap.put("RANGE_AIL",		new ProfileItem(11, 32, 255, 	"Sa",	true));	// cyclic ring
 		profileMap.put("RANGE_PIT",		new ProfileItem(13, 32, 255, 	"Sp",	false));	// rozsah kolektivu
@@ -115,8 +115,8 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z",	true));
         //
 		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a",	false));		// rychlost rotace cykliky
-		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 0, 12, 	"b",	false));		// pocatecni reakce cykliky
-		profileMap.put("RATE_YAW",		new ProfileItem(27, 4, 20, 	"c",	false));		// rychlost rotace vrtulky
+		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 1, 12, 	"b",	false));		// pocatecni reakce cykliky
+		profileMap.put("RATE_YAW",		new ProfileItem(27, 5, 20, 	"c",	false));		// rychlost rotace vrtulky
 
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r",	false)); 	// kompenzace zpinani vyskovky
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
@@ -130,7 +130,7 @@ public class DstabiProfile {
 		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
 		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3",	false)); // priorita knyplu
 
-		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 64, 250, "H",	false)); // konzistence piruet
+		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 130, 250, "H",	false)); // konzistence piruet
 
 		profileMap.put("CHECKSUM_LO",	new ProfileItem(36, 0, 255, null,	true)); 	// checksum pro kontrolu dat
 		profileMap.put("CHECKSUM_HI",	new ProfileItem(39, 0, 255, null,	true)); 	// checksum pro kontrolu dat

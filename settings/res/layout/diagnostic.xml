@@ -148,37 +148,6 @@
 	             android:layout_alignLeft="@+id/elevator_progress_diagnostic"
 	             android:layout_below="@+id/elevator_progress_diagnostic"
 	             android:layout_marginTop="20dp"
-	             android:text="@string/diag_rudder"
-	             android:textColor="@color/text_color" />
-
-	         <ProgressBar
-	             android:id="@+id/rudder_progress_diagnostic"
-	             style="?android:attr/progressBarStyleHorizontal"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/textView3"
-	             android:layout_alignRight="@+id/elevator_progress_diagnostic"
-	             android:layout_below="@+id/textView3"
-	             android:max="200"
-	             android:progressDrawable="@drawable/my_custom_pb" />
-
-	         <TextView
-	             android:id="@+id/rudder_value_diagnostic"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignTop="@+id/rudder_progress_diagnostic"
-	             android:layout_centerHorizontal="true"
-	             android:layout_marginTop="2dp"
-	             android:text="50%"
-	             android:textColor="@color/text_color" />
-
-	         <TextView
-	             android:id="@+id/textView4"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/rudder_progress_diagnostic"
-	             android:layout_below="@+id/rudder_progress_diagnostic"
-	             android:layout_marginTop="20dp"
 	             android:text="@string/diag_pitch"
 	             android:textColor="@color/text_color" />
 
@@ -187,9 +156,9 @@
 	             style="?android:attr/progressBarStyleHorizontal"
 	             android:layout_width="wrap_content"
 	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/textView4"
-	             android:layout_alignRight="@+id/rudder_progress_diagnostic"
-	             android:layout_below="@+id/textView4"
+	             android:layout_alignLeft="@+id/textView3"
+	             android:layout_alignRight="@+id/elevator_progress_diagnostic"
+	             android:layout_below="@+id/textView3"
 	             android:max="200"
 	             android:progressDrawable="@drawable/my_custom_pb" />
 
@@ -204,11 +173,42 @@
 	             android:textColor="@color/text_color" />
 
 	         <TextView
-	             android:id="@+id/TextView02"
+	             android:id="@+id/textView4"
 	             android:layout_width="wrap_content"
 	             android:layout_height="wrap_content"
 	             android:layout_alignLeft="@+id/pitch_progress_diagnostic"
 	             android:layout_below="@+id/pitch_progress_diagnostic"
+	             android:layout_marginTop="20dp"
+	             android:text="@string/diag_rudder"
+	             android:textColor="@color/text_color" />
+
+	         <ProgressBar
+	             android:id="@+id/rudder_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/textView4"
+	             android:layout_alignRight="@+id/pitch_progress_diagnostic"
+	             android:layout_below="@+id/textView4"
+	             android:max="200"
+	             android:progressDrawable="@drawable/my_custom_pb" />
+
+	         <TextView
+	             android:id="@+id/rudder_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/rudder_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+
+	         <TextView
+	             android:id="@+id/TextView02"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/rudder_progress_diagnostic"
+	             android:layout_below="@+id/rudder_progress_diagnostic"
 	             android:layout_marginTop="20dp"
 	             android:text="@string/gyro"
 	             android:textColor="@color/text_color" />

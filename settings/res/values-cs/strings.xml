@@ -107,10 +107,10 @@
     <string name="diag_elevator">Výškovka</string>
     <string name="diag_pitch">Kolektiv</string>
     
-    <string name="cyclic_ring_range">Koncové body cykliky\n (rozsah)</string>
-    <string name="cyclic_ring_range_no_break">Koncové body cykliky (rozsah)</string>
-    <string name="ail_ele">Kři/Výš</string>
-    <string name="limit_pitch">Kolektiv</string>
+    <string name="cyclic_ring_range">Koncové body cykliky</string>
+    <string name="cyclic_ring_range_no_break">Koncové body cykliky</string>
+    <string name="ail_ele">Cyclic Ring \n(rozsah Křidélka / Výškovka)</string>
+    <string name="limit_pitch">Kolektiv (rozsah náběhu)</string>
     
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
     <string name="rudder_end_points_no_break">Koncové body vrtulky</string>
@@ -222,6 +222,7 @@
         <item>Spektrum DSM2/DSMX</item>
         <item>Futaba S-BUS</item>
         <item>Jeti EX-BUS</item>
+        <item>SRXL/SUMD</item>
     </string-array>
     
      <string-array name="cyclic_servo_reverse_values">
@@ -331,7 +332,7 @@
     <string name="graph_change_axis">Osa změněna na </string>
     <string name="spirit_not_found">Spirit nebyl nalezen</string>
     <string name="vibration_level">Velikost vibrací:</string>
-	<string name="amplitude">Aplituda</string>
+	<string name="amplitude">Amplituda</string>
 	<string name="hz">[Hz]</string>
 
 
@@ -380,7 +381,7 @@
      <string name="want_save_item">Přejete si uložit nastavení?</string>
 
     <string name="bank_change_after_connect">Aktuální banka byla přepnuta na <b>Bank 0</b>.\nZměna banky přes vysílač je vypnuta dokud je software připojen.</string>
-    <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně jinak tyto režimy nebudou fungovat korektně!</string>
+    <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně, jinak tyto režimy nebudou fungovat korektně!</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>

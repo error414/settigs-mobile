@@ -33,6 +33,7 @@ import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
+import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
 import com.lib.translate.StabiSenzivityProgressExTranslate;
 
@@ -220,37 +221,45 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SUBTRIM_AIL")){
+            ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.aileron)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SUBTRIM_ELE")){
+            ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.elevator)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SUBTRIM_PIT")){
+            ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.pitch)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SUBTRIM_RUD")){
+            ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.rudder)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 

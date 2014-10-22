@@ -30,6 +30,7 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -138,7 +139,8 @@ public class ServosSubtrimActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setRange(0, 255); // tohle rozmezi asi brat ze stabi profilu
+			tempPicker.setRange(0, 254); // tohle rozmezi asi brat ze stabi profilu
+            tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
 			tempPicker.setTitle(formItemsTitle[i]);
 		}
 	}

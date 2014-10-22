@@ -92,10 +92,12 @@
     <string name="diag_aileron">Aileron</string>
     <string name="diag_elevator">Elevator</string>
     <string name="diag_pitch">Pitch</string>
-    <string name="cyclic_ring_range">Cyclic end-points \n (range)</string>
-    <string name="cyclic_ring_range_no_break">Cyclic end-points (range)</string>
-    <string name="ail_ele">Ail/Ele</string>
-    <string name="limit_pitch">Pitch</string>
+
+    <string name="cyclic_ring_range">Cyclic end-points</string>
+    <string name="cyclic_ring_range_no_break">Cyclic end-points</string>
+    <string name="ail_ele">Cyclic Ring \n(Aileron / Elevator range)</string>
+    <string name="limit_pitch">Pitch (Pitch range)</string>
+
     <string name="rudder_end_points">Rudder \n end-points</string>
     <string name="rudder_end_points_no_break">Rudder end-points</string>
     <string name="min_max">Min/Max</string>
@@ -203,6 +205,7 @@
         <item>Spektrum DSM2/DSMX</item>
         <item>Futaba S-BUS</item>
         <item>Jeti EX-BUS</item>
+        <item>SRXL/SUMD</item>
     </string-array>
     <string-array name="cyclic_servo_reverse_values">
         <item>No Reverse</item>
