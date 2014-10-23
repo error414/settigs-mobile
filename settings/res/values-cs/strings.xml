@@ -395,6 +395,7 @@
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverzujte v případě, že se deska cykliky nechová jako kompas během otáčení modelu.\n\n- Zkontrolujte, pokud byl upraven reverz senzoru v ose Z.</string>
     <string name="st_472b0880db5cbccd3313e907fdc060b8">Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů.\n\n- V některých případech to může být -6 stupňů.\n- Nastavujte až po konfiguraci Subtrimů serv.</string>
     <string name="st_7ce4b0712e836431a22ff08c683ad49f"><b>Udává míru držení směru vrtulky</b>\n\n- Nejčastěji v rozsahu 155 - 180.</string>
+    <string name="st_686fb3385b5643aee06ef0d818ff7f00"><b>Prekompenzace pohybu kolektivu</b>\n\n- Nutné zvolit správný směr.\n- Nejčastěji nulová hodnota, uprostřed.</string>
     <string name="st_6385c49bb6758a6bd3d458d4da55e7f7"><b>Eliminuje vzpínání modelu</b>\n\n- Nejčastěji nastaveno na 0.\n- Přidejte je-li viditelné vzpínání.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Pozice umístění jednotky na modelu.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
@@ -408,8 +409,10 @@
     <string name="st_6008eeff8fc4acff6e4ac6c6236c392e">Udává směr kompenzace gyra pro osu vrtulky.</string>
     <string name="st_4e53a94a4c21b522bce145863f4a5172">Udává nejvyšší rychlost rotace\nběhem plné výchylky páky křidélek/výškovky.\n\n- Nejčastěji v rozsahu 8-12.\n\n<i>Rozsah: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Udává nejvyšší rychlost piruet\nběhem plné výchylky páky vrtulky.\n\n- Nejčastěji v rozsahu 8-11.\n\n<i>Rozsah: 5 - 20</i></string>
+    <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Obrací smysl dráhy serv cykliky pro zadaný kanál.\n\nCH3 - křidélkové servo\nCH2 - výškovkové servo</string>
     <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Funkce aktivována, pokud je zisk gyra záporný</b>\n\nVypnuto - Rate režim gyra\nZáchrana - záchranný režim a HH gyro\nStabilizace - stabilizace a HH gyro</string>
     <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 1 - 5</i></string>
+    <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n- Je nezbytné zvolit správně kladný nebo záporný směr!\n\n<i>Rozsah: -100 - +100%</i></string>
     <string name="st_701a785854a820040b882b1496fc7955">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 10</i></string>
     <!--  END AUTO GENERATE STUB --> 
 

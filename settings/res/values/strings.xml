@@ -358,6 +358,7 @@
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverse when cyclic is not behaving like a compass during rotation.\n\n- Double check this when sensor Z axis is reversed.</string>
     <string name="st_472b0880db5cbccd3313e907fdc060b8">Increase/decrease value until blades pitch is at 6 degress.\n\n- In some cases it can be -6 degress.\n- Set this after Servo Subtrim is configured.</string>
     <string name="st_7ce4b0712e836431a22ff08c683ad49f"><b>Specifies heading hold performance</b>\n\n- Mostly between 155 - 180.</string>
+    <string name="st_686fb3385b5643aee06ef0d818ff7f00"><b>Precompensation for collective pitch movement</b>\n\n- Correct direction has to be chosen\n- Mostly in the middle (0)</string>
     <string name="st_6385c49bb6758a6bd3d458d4da55e7f7"><b>Eliminates pitchup effect</b>\n\n- Mostly configured to 0.\n- Increase when pitchup is visible.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Mounting position of the unit.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
@@ -371,8 +372,10 @@
     <string name="st_6008eeff8fc4acff6e4ac6c6236c392e">Specifies direction of rudder gyro compensation.</string>
     <string name="st_4e53a94a4c21b522bce145863f4a5172">Specifies how fast model can rotate\nwith full aileron/elevator stick deflection.\n\n- Mostly in 8-12 range.\n\n<i>Range: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Specifies pirouette speed\nwith full rudder stick deflection.\n\n- Mostly in 8-11 range.\n\n<i>Range: 5 - 20</i></string>
+    <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Reverses cyclic servo travel for specified channel.\nCH3 - aileron / pitch servo\nCH2 - elevator servo</string>
     <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode\nRescue - rescue mode with HH gyro\nStabilisation - stabilisation mode with HH gyro</string>
     <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 1 - 5</i></string>
+    <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n- Very important is to select positive or negative value correctly!\n\n<i>Range: -100 - +100%</i></string>
     <string name="st_701a785854a820040b882b1496fc7955">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 10</i></string>
     <!--  END AUTO GENERATE STUB -->     
 </resources>
