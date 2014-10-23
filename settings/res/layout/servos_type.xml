@@ -99,7 +99,7 @@
             android:layout_alignLeft="@+id/cyclic_frequency"
             android:layout_below="@+id/cyclic_frequency"
             android:layout_marginTop="40dp"
-            android:text="@string/rudder"
+            android:text="@string/rudder_only"
             android:textColor="@color/text_color"
             android:textSize="15dp"
             android:textStyle="bold" />

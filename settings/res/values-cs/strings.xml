@@ -84,6 +84,7 @@
     <string name="cyclic">Cyklika</string>
     <string name="frequency">Frekvence</string>
     <string name="pulse">Pulz</string>
+    <string name="rudder_only">Směrovka</string>
     <string name="rudder">Vrtulka (CH4)</string>
     <string name="aileron">Křidélka (CH1)</string>
     <string name="elevator">Výškovka (CH2)</string>
@@ -91,7 +92,7 @@
 
     <string name="servo_ch1">Křidélka (CH1)</string>
     <string name="servo_ch2">Výškovka (CH2)</string>
-    <string name="servo_ch3">Křidélka (CH3)</string>
+    <string name="servo_ch3">Kolektiv (CH3)</string>
 
     <string name="servo_travel_correction">Korekce dráhy serv</string>
 
@@ -122,7 +123,7 @@
     <string name="x_picth">X-Výškovka</string>
     <string name="x_cyclic">Cyklika</string>
     <string name="y_rool">Y-Křidélka</string>
-    <string name="z_yaw">Z-Vrtulka</string>
+    <string name="z_yaw">Z-Směrovka</string>
     <string name="z_rudder">Vrtulka</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
@@ -161,7 +162,7 @@
 	<string name="banks">Banky</string>
 	<string name="choose_bank">Vyberte banku</string>
 	<string name="bank_short_code">B</string>
-	<string name="channelColision">Nastala kolize %1$s. kanalu, zvolte prosím odlišný.</string>
+	<string name="channelColision">Nastala kolize <b>%1$s</b>. kanálu, zvolte prosím odlišný kanál.</string>
     <string name="signal_processing">Zpracování signálu</string>
     <string name="advance">Rozšířené</string>
 
@@ -199,10 +200,10 @@
     </string-array>
     
     <string-array name="mix_values">
-        <item>CCPM 120</item>
-        <item>CCPM 135</item>
-        <item>CCPM 140</item>
-        <item>CCPM 90</item>
+        <item>CCPM 120º</item>
+        <item>CCPM 135º</item>
+        <item>CCPM 140º</item>
+        <item>CCPM 90º</item>
     </string-array>
     
     <string-array name="flight_style_values">
@@ -233,7 +234,7 @@
     </string-array>
     
     <string-array name="cyclic_pulse_value">
-        <item>1520us</item>
+        <item>1520µs</item>
     </string-array>
     
     <string-array name="cyclic_frequency_value">
@@ -246,9 +247,9 @@
     </string-array>
     
     <string-array name="rudder_pulse_value">
-        <item>1520us</item>
-        <item>960us</item>
-        <item>760us</item>
+        <item>1520µs</item>
+        <item>960µs</item>
+        <item>760µs</item>
     </string-array>
     
      <string-array name="rudder_frequency_value">

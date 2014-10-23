@@ -74,13 +74,14 @@
     <string name="cyclic">Cyclic</string>
     <string name="frequency">Frequency</string>
     <string name="pulse">Pulse</string>
+    <string name="rudder_only">Rudder</string>
     <string name="rudder">Rudder (CH4)</string>
     <string name="aileron">Aileron (CH1)</string>
     <string name="elevator">Elevator (CH2)</string>
     <string name="pitch">Pitch (CH3)</string>
     <string name="servo_ch1">Aileron (CH1)</string>
     <string name="servo_ch2">Elevator (CH2)</string>
-    <string name="servo_ch3">Aileron (CH3)</string>
+    <string name="servo_ch3">Pitch (CH3)</string>
     <string name="servo_travel_correction">Servos travel correction</string>
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
@@ -147,7 +148,7 @@
     <string name="banks">Banks</string>
     <string name="bank_short_code">B</string>
     <string name="choose_bank">Select bank</string>
-    <string name="channelColision">There was a collision %1$s. channel, please choose differently.</string>
+    <string name="channelColision">Collision in <b>%1$s</b> occured! Please select a different channel.</string>
     <string name="signal_processing">Signal Processing</string>
     <string name="advance">Advance</string>
 
@@ -184,10 +185,10 @@
         <item>Vertical (Top)</item>
     </string-array>
     <string-array name="mix_values">
-        <item>CCPM 120</item>
-        <item>CCPM 135</item>
-        <item>CCPM 140</item>
-        <item>CCPM 90</item>
+        <item>CCPM 120º</item>
+        <item>CCPM 135º</item>
+        <item>CCPM 140º</item>
+        <item>CCPM 90º</item>
     </string-array>
     <string-array name="flight_style_values">
         <item>1</item>
@@ -225,9 +226,9 @@
         <item>333Hz</item>
     </string-array>
     <string-array name="rudder_pulse_value">
-        <item>1520us</item>
-        <item>960us</item>
-        <item>760us</item>
+        <item>1520µs</item>
+        <item>960µs</item>
+        <item>760µs</item>
     </string-array>
     <string-array name="rudder_frequency_value">
         <item>50Hz</item>
