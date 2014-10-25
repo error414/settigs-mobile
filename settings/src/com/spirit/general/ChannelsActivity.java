@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -90,24 +91,36 @@ public class ChannelsActivity extends BaseActivity{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            //zkontrolujme konzistenci kanalu
-            ArrayList<Integer> positions = new ArrayList<Integer>();
-            for(int a = 0; a < formItems.length; a++){
-                Spinner sp =  (Spinner) findViewById(formItems[a]);
-                positions.add(sp.getSelectedItemPosition());
-            }
+           if(!checkColision()){
+               return false;
+           }
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     * kontrola kolizi v kanalech
+     *
+     * @return
+     */
+    public boolean checkColision(){
+        //zkontrolujme konzistenci kanalu
+        ArrayList<Integer> positions = new ArrayList<Integer>();
+        for(int a = 0; a < formItems.length; a++){
+            Spinner sp =  (Spinner) findViewById(formItems[a]);
+            positions.add(sp.getSelectedItemPosition());
+        }
 
 
-            for(int a = 0; a < positions.size(); a++){
-                for(int sub_a = 0; sub_a < positions.size(); sub_a++) {
-                    if (positions.get(a) == positions.get(sub_a) && a != sub_a && positions.get(sub_a) != 7) {
-                        showConfirmDialog(String.format(getResources().getString(R.string.channelColision), positions.get(sub_a) + 1 ));
-                        return false;
-                    }
+        for(int a = 0; a < positions.size(); a++){
+            for(int sub_a = 0; sub_a < positions.size(); sub_a++) {
+                if (positions.get(a) == positions.get(sub_a) && a != sub_a && positions.get(sub_a) != 7) {
+                    showConfirmDialog(String.format(getResources().getString(R.string.channelColision), positions.get(sub_a) + 1 ));
+                    return false;
                 }
             }
         }
-        return super.onKeyDown(keyCode, event);
+        return true;
     }
 
 	/**
@@ -255,6 +268,31 @@ public class ChannelsActivity extends BaseActivity{
 
 		}
 	};
+
+    /**
+     * reakce na kliknuti polozky v kontextovem menu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+
+        //otevreni informace o autorovi
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_AUTHOR) {
+            if(!checkColision()){
+                return false;
+            }
+        }
+
+        //ulozit do jednotky
+        if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
+            if(!checkColision()){
+                return false;
+            }
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
 	
 	/**
 	 * obsluha callbacku
