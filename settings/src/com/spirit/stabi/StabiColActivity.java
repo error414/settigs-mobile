@@ -95,9 +95,12 @@ public class StabiColActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED)
-			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-		else finish();
+		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initDefaultValue();
+        }else{
+            finish();
+        }
 	}
 	
 	/**

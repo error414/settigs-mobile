@@ -489,7 +489,7 @@ public class DstabiProfile {
 			if(checked == true){
 				value = ByteOperation.intToByte(this.getMaximum()); // "1"
 			}else{
-				value = ByteOperation.intToByte(this.getMaximum()); // "0"
+				value = ByteOperation.intToByte(this.getMinimum()); // "0"
 			}
 		}
 		

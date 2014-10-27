@@ -100,6 +100,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu
 			}
+            initDefaultValue();
 		} else {
 			finish();
 		}

@@ -112,6 +112,7 @@ public class TravelCorrectionActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
 			}
+            initDefaultValue();
 		} else {
 			finish();
 		}

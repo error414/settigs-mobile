@@ -116,6 +116,7 @@ public class GeneralActivity extends BaseActivity
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 			initConfiguration();
+            initDefaultValue();
 		} else {
 			finish();
 		}

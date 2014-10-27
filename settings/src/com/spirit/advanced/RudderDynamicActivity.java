@@ -96,6 +96,7 @@ public class RudderDynamicActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initDefaultValue();
 		} else {
 			finish();
 		}

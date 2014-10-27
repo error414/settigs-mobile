@@ -121,6 +121,7 @@ public class GeometryAngleActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03)); //povoleni nastaveni geometrie
 			}
+            initDefaultValue();
 		} else {
 			finish();
 		}

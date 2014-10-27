@@ -122,6 +122,7 @@ public class PiroOptimalizationActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
 			}
+            initDefaultValue();
 		} else {
 			finish();
 		}

@@ -102,6 +102,7 @@ public class ServosSubtrimActivity extends BaseActivity
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni subtrimu
 			}
+            initDefaultValue();
 		} else {
 			finish();
 		}
