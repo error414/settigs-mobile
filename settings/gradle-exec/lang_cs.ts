@@ -1165,7 +1165,7 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
 <context>
     <name>GeneralTab</name>
     <message>
-        <location filename="general.cpp" line="203"/>
+        <location filename="general.cpp" line="210"/>
         <source>Flight style (Agility): </source>
         <oldsource>Flight style
 =&gt; </oldsource>
@@ -1216,42 +1216,51 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="obsolete">Tvrdé 3D</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="229"/>
+        <location filename="general.cpp" line="236"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="229"/>
+        <location filename="general.cpp" line="236"/>
         <source>Collision in &lt;b&gt;%1&lt;/b&gt; occured! Please select a different channel.</source>
         <translation>Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="354"/>
+        <location filename="general.cpp" line="361"/>
         <source>Position</source>
         <translation>Pozice</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="357"/>
+        <location filename="general.cpp" line="364"/>
         <source>Horizontal</source>
         <translation>Horizontální</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="358"/>
+        <location filename="general.cpp" line="365"/>
         <source>Vertical</source>
         <translation>Vertikální</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="359"/>
+        <location filename="general.cpp" line="366"/>
         <source>Vertical (top)</source>
         <translation>Vertikální (stojící)</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="360"/>
+        <location filename="general.cpp" line="367"/>
         <source>Mounting position of the unit.</source>
         <translation>Pozice umístění jednotky na modelu.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="405"/>
+        <location filename="general.cpp" line="394"/>
+        <source>Cyclic mixing function used on the model.
+
+- In the most cases it is CCPM 120%1.</source>
+        <translation type="unfinished">Funkce mixování cykliky použitá na modelu.
+
+- Nejčastěji se jedná o CCPM 120%1.</translation>
+    </message>
+    <message>
+        <location filename="general.cpp" line="412"/>
         <source>Receiver type equipped on the model.
 
 - PWM for classical receiver.</source>
@@ -1263,12 +1272,12 @@ PWM for classical receiver.</oldsource>
 - PWM pro klasický typ přijímače.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="411"/>
+        <location filename="general.cpp" line="418"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="426"/>
+        <location filename="general.cpp" line="433"/>
         <source>Specifies behavior of flight characteristics.
 
 - Decrease for more constant and linear behavior.
@@ -1279,12 +1288,12 @@ PWM for classical receiver.</oldsource>
 - Přidejte pro dosažení chování pádlové mechaniky.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="465"/>
+        <location filename="general.cpp" line="472"/>
         <source>channel</source>
         <translation>kanál</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="468"/>
+        <location filename="general.cpp" line="475"/>
         <source>unassigned</source>
         <translation>nepřiřazen</translation>
     </message>
@@ -1305,24 +1314,23 @@ PWM for classical receiver.</oldsource>
         <translation type="obsolete">Letadlo</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="380"/>
+        <location filename="general.cpp" line="387"/>
         <source>Mix</source>
         <translation>Mixování</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="387"/>
         <source>Cyclic mixing function used on the model.
 
 - In the most cases it is CCPM 120.</source>
         <oldsource>Cyclic mixing function used on the model.
 
 In most cases it is CCPM 120.</oldsource>
-        <translation>Funkce mixování cykliky použitá na modelu.
+        <translation type="vanished">Funkce mixování cykliky použitá na modelu.
 
 - Nejčastěji se jedná o CCPM 120.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="396"/>
+        <location filename="general.cpp" line="403"/>
         <source>Receiver</source>
         <translation>Přijímač</translation>
     </message>
@@ -1335,8 +1343,8 @@ In most cases it is CCPM 120.</oldsource>
         <translation type="obsolete">Bez reverzu</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="205"/>
-        <location filename="general.cpp" line="419"/>
+        <location filename="general.cpp" line="212"/>
+        <location filename="general.cpp" line="426"/>
         <source>Flight style</source>
         <translation>Letový projev</translation>
     </message>
@@ -1473,47 +1481,47 @@ Value: </oldsource>
         <translation>Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="50"/>
+        <location filename="general.cpp" line="57"/>
         <source>Receiver channel mapping</source>
         <translation>Rozvržení kanálů přijímače</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="67"/>
+        <location filename="general.cpp" line="74"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="69"/>
+        <location filename="general.cpp" line="76"/>
         <source>Channel</source>
         <translation>Kanál</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="73"/>
+        <location filename="general.cpp" line="80"/>
         <source>Aileron</source>
         <translation>Křidélka</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="74"/>
+        <location filename="general.cpp" line="81"/>
         <source>Elevator</source>
         <translation>Výškovka</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="75"/>
+        <location filename="general.cpp" line="82"/>
         <source>Pitch</source>
         <translation>Kolektiv</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="76"/>
+        <location filename="general.cpp" line="83"/>
         <source>Rudder</source>
         <translation>Směrovka</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="77"/>
+        <location filename="general.cpp" line="84"/>
         <source>Gyro Gain</source>
         <translation>Zisk gyra</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="72"/>
+        <location filename="general.cpp" line="79"/>
         <source>Throttle</source>
         <translation>Plyn</translation>
     </message>
@@ -1527,7 +1535,7 @@ Value: </oldsource>
         <translation type="obsolete">Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="78"/>
+        <location filename="general.cpp" line="85"/>
         <source>Bank</source>
         <translation>Banky</translation>
     </message>
@@ -1546,7 +1554,7 @@ Value: </oldsource>
 <context>
     <name>QObject</name>
     <message>
-        <location filename="main.cpp" line="208"/>
+        <location filename="main.cpp" line="209"/>
         <source>Please wait - scanning devices</source>
         <translation>Čekejte prosím - skenuji zařízení</translation>
     </message>

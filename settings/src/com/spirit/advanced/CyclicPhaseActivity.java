@@ -57,7 +57,7 @@ public class CyclicPhaseActivity extends BaseActivity
 		initSlideMenu(R.layout.advanced_cyclic_phase);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.cyclic_phase)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.cyclic_phase)));
 
 		initGui();
 		initConfiguration();

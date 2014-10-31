@@ -39,7 +39,7 @@ public class HelpMap {
 
         result.put(R.id.stabi_pitch,                        R.string.st_e26228953ce397eb25e87bcff3607d0e);
         result.put(R.id.stabi_ctrldir,                      R.string.st_9b25a70239fd85bc298f57a20029fbd1);
-        result.put(R.id.stabi_fbmode,                       R.string.st_e0b37eca21ca760ec03fd9ac52a6593e);
+        result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
         result.put(R.id.function_select_id,                 R.string.st_e0b37eca21ca760ec03fd9ac52a6593e);
         result.put(R.id.stabi_stick,                        R.string.st_701a785854a820040b882b1496fc7955);
 
@@ -57,15 +57,21 @@ public class HelpMap {
         result.put(R.id.cyclicff,                           R.string.st_6c27918077d556edb488f0516b5965b6);
         result.put(R.id.cyclic_phase,                       R.string.st_cdf89e8bd20739bdc69e8c3bd7e1ae17);
         result.put(R.id.e_filter,                           R.string.st_45b61e5018b2249985746acf8e3424b3);
-        result.put(R.id.geom_6deg,                          R.string.st_472b0880db5cbccd3313e907fdc060b8);
+        result.put(R.id.geom_6deg,                          R.string.st_ce24a87287c6bcdc3c22b0432e7b7d87);
         result.put(R.id.piro_opt,                           R.string.st_91bffbd63276730c22ff5dc509529fa7);
-        result.put(R.id.pirouette_const,                    R.string.st_7ce4b0712e836431a22ff08c683ad49f);
-        result.put(R.id.pitchup,                            R.string.st_6385c49bb6758a6bd3d458d4da55e7f7);
+        result.put(R.id.pirouette_const,                    R.string.st_a09dcd0b0fd2a8ed24f9d8a81b66668f);
+        result.put(R.id.pitchup,                            R.string.st_28953f535f7d4bbe0b04ab8ffcbf3fde);
         result.put(R.id.rudder_delay,                       R.string.st_88ffaae209a942ffdcbf08d25ada6106);
-        result.put(R.id.rudder_stop,                        R.string.st_756f850763677150a656703d746c341d);
-        result.put(R.id.rudder_revomix,                     R.string.st_686fb3385b5643aee06ef0d818ff7f00);
-        result.put(R.id.signal_processing,                  R.string.st_89812e191ca975f09841f272d593c418);
+        result.put(R.id.rudder_stop,                        R.string.st_050eaf6851d88f98084291c19b591a0d);
+        result.put(R.id.rudder_revomix,                     R.string.st_f879dceafa5b8c110b5e108f25dd1b83);
+        result.put(R.id.signal_processing,                  R.string.st_9a77db935bc1b64ee6402e6c8d019d44);
         result.put(R.id.stick_db,                           R.string.st_02282a0a0af7a569d19732b906395ed5);
+
+        result.put(R.id.rudder_limit_min,                   R.string.st_3042744980d10a21a6e46a5834af02b1);
+        result.put(R.id.rudder_limit_max,                   R.string.st_399fe255b29e9f87fd15daede396fdd7);
+
+        result.put(R.id.cyclic_ring_ail_ele,                R.string.st_399fe255b29e9f87fd15daede396fdd7);
+        result.put(R.id.cyclic_ring_pitch,                  R.string.st_228ef0c717ed4671ff6c7d148917aeb2);
 
 
         return Collections.unmodifiableMap(result);

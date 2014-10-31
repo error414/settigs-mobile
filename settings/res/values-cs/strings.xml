@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com \n \n sestavení: 25.10.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com \n \n sestavení: 31.10.2014</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -83,7 +83,7 @@
     <string name="limit">Limity</string>
     <string name="cyclic">Cyklika</string>
     <string name="frequency">Frekvence</string>
-    <string name="pulse">Pulz</string>
+    <string name="pulse">Střed</string>
     <string name="rudder_only">Směrovka</string>
     <string name="rudder">Vrtulka (CH4)</string>
     <string name="aileron">Křidélka (CH1)</string>
@@ -141,7 +141,7 @@
     <string name="piro_opt">Optimalizace piruet</string>
     <string name="e_filter">Výškovkový filtr</string>
     <string name="pitchup">Kompenzace vzpínání výškovky</string>
-    <string name="cyclic_phase">Pootočení cykliky</string>
+    <string name="cyclic_phase">Virtuální pootočení cykliky</string>
     <string name="cyclic_phase_deg">Úhel rotace [°]</string>
     <string name="cyclic_ff">Počáteční reakce cykliky</string>
     <string name="stabi_function">Funkce</string>
@@ -386,21 +386,24 @@
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
+    <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Agresivita odezvy vrtulky</b>\n\n- Přidejte pro tvrdší zastavení.\n- Uberte pokud vrtulka po zastavení překmitne.\n\n<i>Rozsah: 3 - 10</i></string>
+    <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Zapne rozšířené zpracování signálu\n\n- Ve většině případech by mělo být vypnuté.\n- Pro chod v prostředí extrémních vibrací.</string>
+    <string name="st_ce24a87287c6bcdc3c22b0432e7b7d87"><b>Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů</b>\n\n- V některých případech to může být -6 stupňů.\n- Nastavujte až po konfiguraci Subtrimů serv.\n\n<i>Rozsah: 64 - 250</i></string>
+    <string name="st_a09dcd0b0fd2a8ed24f9d8a81b66668f"><b>Udává míru držení směru vrtulky</b>\n\n- Nejčastěji v rozsahu 155 - 180.\n\n<i>Rozsah: 130 - 250</i></string>
+    <string name="st_f879dceafa5b8c110b5e108f25dd1b83"><b>Prekompenzace pohybu kolektivu</b>\n\n- Nutné zvolit správný směr.\n- Nejčastěji nulová hodnota, uprostřed.\n\n<i>Rozsah: -10 - +10</i></string>
     <string name="st_88ffaae209a942ffdcbf08d25ada6106"><b>Udává rychlost odezvy vrtulky</b>\n\n- Velmi rychlé servo:	0 - 5\n- Rychlé servo:	5 - 15\n- Pomalé servo:	15 - 20\n- Analogové servo:	20 - 25\n\n<i>Rozsah: 0 - 30</i></string>
     <string name="st_45b61e5018b2249985746acf8e3424b3"><b>Velikost kompenzace zhoupnutí výškovky</b>\n\n- Přidejte, pokud je během agresivního pohybu páčky výškovky viditelné zhoupnutí.\n- Nejčastěji hodnota 1.\n\n<i>Rozsah: 0 - 4</i></string>
+    <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminuje vzpínání modelu</b>\n\n- Nejčastěji nastaveno na 0.\n- Přidejte je-li viditelné vzpínání.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Udává počet stupňů pootočení cykliky</b>\n\n- Používá se u vícelistých rotorových hlav.\n- Nejčastěji nastaveno na 0.\n\n<i>Rozsah: -90 - +90</i></string>
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy</b>\n\n- Přidejte pro přímější pocit propojení.\n- Uberte pro plynulejší chování modelu.\n\n<i>Rozsah: 1 - 12</i></string>
-    <string name="st_756f850763677150a656703d746c341d"><b>Agresivita odezvy vrtulky</b>\n\n- Přidejte pro tvrdší zastavení\n- Uberte pokud vrtulka po zastavení překmitne</string>
-    <string name="st_89812e191ca975f09841f272d593c418">Zapne rozšířené zpracování signálu.\n- Nejčastěji je vypnuté.\n- Pro zlepšení přesnosti a odolnosti vůči vibracím povolte.</string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverzujte v případě, že se deska cykliky nechová jako kompas během otáčení modelu.\n\n- Zkontrolujte, pokud byl upraven reverz senzoru v ose Z.</string>
-    <string name="st_472b0880db5cbccd3313e907fdc060b8">Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů.\n\n- V některých případech to může být -6 stupňů.\n- Nastavujte až po konfiguraci Subtrimů serv.</string>
-    <string name="st_7ce4b0712e836431a22ff08c683ad49f"><b>Udává míru držení směru vrtulky</b>\n\n- Nejčastěji v rozsahu 155 - 180.</string>
-    <string name="st_686fb3385b5643aee06ef0d818ff7f00"><b>Prekompenzace pohybu kolektivu</b>\n\n- Nutné zvolit správný směr.\n- Nejčastěji nulová hodnota, uprostřed.</string>
-    <string name="st_6385c49bb6758a6bd3d458d4da55e7f7"><b>Eliminuje vzpínání modelu</b>\n\n- Nejčastěji nastaveno na 0.\n- Přidejte je-li viditelné vzpínání.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Pozice umístění jednotky na modelu.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Udává chování modelu, letové charakteristiky.\n\n- Uberte pro konstantnější a lineárnější řízení.\n- Přidejte pro dosažení chování pádlové mechaniky.</string>
     <string name="st_b85e1174f4196a0bc9953209b0fdd6e0">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120.</string>
+    <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Udává rozsah kolektivu pro kladný a záporný směr.</string>
+    <string name="st_3042744980d10a21a6e46a5834af02b1">Udává spodní limit dráhy vrtulkového serva.</string>
+    <string name="st_399fe255b29e9f87fd15daede396fdd7">Udává horní limit dráhy vrtulkového serva.</string>
     <string name="st_57d3739e1771229afb2a5cf08f4de57f"><b>Udává zisk cykliky</b>\n\n- Nejčastěji 60 - 70% pro optimální funkci.\n\n<i>Rozsah: 20 - 100%</i></string>
     <string name="st_db27f93942fe39c3180a2dce7ae1ade7"><b>Udává zisk gyra vrtulky</b>\n\n- Pro optimální chod je většinou v rozmezí 60 - 70%.\n\n<i>Rozsah: -100 - +100%</i></string>
     <string name="st_a0a5325d05a2fcf5406274dd8e8d4bbb"><b>Násobič zisku gyra z vysílače</b>\n\n- 1x znamená bez násobení.\n- 1,50x znamená 1,5x násobení zisku gyra.\n\n<i>Rozsah: 1,00 - 1,50</i></string>
@@ -414,6 +417,7 @@
     <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 1 - 5</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n- Je nezbytné zvolit správně kladný nebo záporný směr!\n\n<i>Rozsah: -100 - +100%</i></string>
     <string name="st_701a785854a820040b882b1496fc7955">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 10</i></string>
+    <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
     <!--  END AUTO GENERATE STUB --> 
 
 </resources>
