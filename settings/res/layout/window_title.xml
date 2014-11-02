@@ -16,6 +16,20 @@
         android:layout_centerVertical="true"
         android:text="TextView"
         android:textSize="11sp"
+        android:textStyle="bold"
+        android:layout_toLeftOf="@+id/title_banks" />
+
+    <TextView
+        android:id="@+id/title_banks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="93dp"
+        android:clickable="false"
+        android:text="B1"
+        android:textColor="@color/onclick_text_color"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <ImageView
@@ -24,8 +38,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="48dp"
-        android:src="@drawable/none" />
+        android:layout_marginRight="70dp"
+        android:src="@drawable/app_basic_mode_on" />
 
     <ImageView
         android:id="@+id/image_title_saved"
@@ -33,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="25dp"
+        android:layout_marginRight="47dp"
         android:src="@drawable/equals" />
     
     <ImageView
@@ -42,20 +56,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="5dp"
+        android:layout_marginRight="27dp"
         android:src="@drawable/red" />
 
-    <TextView
-        android:id="@+id/title_banks"
+    <ImageView
+        android:id="@+id/option_bar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="75dp"
-        android:clickable="false"
-        android:text="B1"
-        android:textColor="@color/onclick_text_color"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-  
+        android:layout_marginRight="4dp"
+        android:src="@drawable/option_hover"
+        android:clickable="true"
+        android:onClick="openOptionsMenu" />
+
 </RelativeLayout>

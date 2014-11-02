@@ -11,7 +11,12 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
@@ -35,7 +40,12 @@ public class PrefsActivity extends PreferenceActivity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		super.onCreate(savedInstanceState);
+
+        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+        ((TextView)findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.settings)));
 
 		final SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 		String languageCurent = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
@@ -122,6 +132,14 @@ public class PrefsActivity extends PreferenceActivity {
 	}
 
     /**
+     *
+     * @param v
+    */
+    public void openOptionsMenu(View v) {
+        //openOptionsMenu();
+    }
+
+    /**
      * kontrola jestli jsou prihlasovaci udaje spravne
      *
      * @param email
@@ -145,6 +163,11 @@ public class PrefsActivity extends PreferenceActivity {
 	 */
 	public void onResume() {
 		super.onResume();
+        ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.none);
+        ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.none);
+        ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(R.drawable.none);
+        ((TextView)findViewById(R.id.title_banks)).setText("");
+        ((ImageView)findViewById(R.id.option_bar)).setImageResource(R.drawable.none);
 	}
 
 	@Override

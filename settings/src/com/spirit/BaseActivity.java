@@ -738,6 +738,14 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
 	}
 
+    /**
+     *
+     * @param v
+     */
+    public void openOptionsMenu(View v) {
+        openOptionsMenu();
+    }
+
 	/**
 	 * vytvoreni kontextoveho menu
 	 */

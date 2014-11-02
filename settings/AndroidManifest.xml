@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="53"
+    android:versionCode="54"
 
-    android:versionName="1.0.25-1"
+    android:versionName="1.0.25-2"
 >
 
     <uses-sdk
@@ -262,6 +262,7 @@
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:theme="@style/CustomTheme"
              />
        	<activity
             android:name=".general.ChannelsActivity"

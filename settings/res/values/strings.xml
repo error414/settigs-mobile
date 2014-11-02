@@ -38,7 +38,7 @@
     <string name="damage_profile">Damaged profile</string>
     <string name="unknow_version">Unknown version</string>
     <string name="unknow_serial">Unknown serial</string>
-    <string name="first_paired_device">First paired devices</string>
+    <string name="first_paired_device">Pair your BT device first, please</string>
     <string name="connection_error">Connection error</string>
     <string name="BT_connection_progress">Bluetooth connection in progress</string>
     <string name="axis_X">X</string>

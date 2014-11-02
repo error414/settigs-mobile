@@ -206,10 +206,19 @@ public class FileDialog extends ListActivity{
 			selectButton.setEnabled(true);
 		}
 		getDir(startPath);
+
+
 	}
+
+    /**
+     *
+     * @param v
+     */
+    public void openOptionsMenu(View v) {
+        //openOptionsMenu();
+    }
 	
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume(){
@@ -218,6 +227,7 @@ public class FileDialog extends ListActivity{
         ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.none);
         ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(R.drawable.none);
         ((TextView)findViewById(R.id.title_banks)).setText("");
+        ((ImageView)findViewById(R.id.option_bar)).setImageResource(R.drawable.none);
 	}
 
 	private void getDir(String dirPath) {
