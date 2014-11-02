@@ -182,13 +182,14 @@ public class ConnectionActivity extends BaseActivity
 	{
 		profileCreator = new DstabiProfile(profile);
 
+        if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR").getValueString().equals(APLICATION_MINOR2_VERSION))) {
+            stabiProvider.disconnect();
+            showConfirmDialog(R.string.version_not_match);
+        }
+
+
 		if (profileCreator.isValid()) {
 			version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + APLICATION_MINOR1_VERSION + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
-
-			if (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR").getValueString().equals(APLICATION_MINOR2_VERSION)) {
-				showConfirmDialog(R.string.version_not_match);
-				stabiProvider.disconnect();
-			}
 
 			//prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
             if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
