@@ -138,6 +138,7 @@
     <string name="amplitude">Amplitude</string>
     <string name="hz">[Hz]</string>
     <string name="profile_diff">Profile diff</string>
+    <string name="profile_bank_diff">Bank comparison</string>
     <string name="log_button_text">Flight log</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
@@ -342,5 +343,9 @@
     <string name="bank_change_after_connect">Current bank was switched to <b>Bank 0</b>.\nBank switching via transmitter is disabled while the software is connected.</string>
 
     <string name="stabi_piruete_warning">Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</string>
-    
+
+    <string name="bank_choice_title">Choose bank</string>
+    <string name="bank_comparison_changes">Profile must be saved before bank comparison</string>
+    <string name="no_active_bank">No bank is active</string>
+
 </resources>

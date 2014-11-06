@@ -96,6 +96,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_GENERAL = 5;
 	final protected int OPEN_AUTHOR = 5;
     final protected int OPEN_DIFF = 55;
+    final protected int OPEN_BANK_DIFF = 56;
 
 	final protected int GROUP_HELP = 2;
 	final protected int OPEN_MANUAL = 2;
@@ -363,21 +364,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 
                     // change bank
-                    ProfileItem profileItem;
-                    DstabiProfile localProfileCreator = profileCreator;
-                    if (profileCreator == null) {
-                        localProfileCreator = new DstabiProfile(null);
-                        profileItem = localProfileCreator.getProfileItemByName("BANKS");
-                    } else {
-                        profileItem = profileCreator.getProfileItemByName("BANKS");
-                    }
-
-                    profileItem.setValueFromSpinner(position);
-                    stabiProvider.sendDataForResponce(profileItem, BANK_CHANGE_CALL_BACK_CODE);
-                    checkBankNumber(localProfileCreator);
+                    changeBank(position, BANK_CHANGE_CALL_BACK_CODE);
                     showInfoBarWrite();
-                    slideMenuListAdapter.setActivePosition(position);
-                    slideMenuListAdapter.notifyDataSetChanged();
                     mDrawer.closeMenu();
                 }
             }
@@ -388,7 +376,26 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
     }
 
-	/**
+    protected void changeBank(int bank, int callbackCode) {
+        ProfileItem profileItem;
+        DstabiProfile localProfileCreator = profileCreator;
+        if (profileCreator == null) {
+            localProfileCreator = new DstabiProfile(null);
+            profileItem = localProfileCreator.getProfileItemByName("BANKS");
+        } else {
+            profileItem = profileCreator.getProfileItemByName("BANKS");
+        }
+
+        profileItem.setValueFromSpinner(bank);
+        stabiProvider.sendDataForResponce(profileItem, callbackCode);
+        checkBankNumber(localProfileCreator);
+        if (slideMenuListAdapter != null) {
+            slideMenuListAdapter.setActivePosition(bank);
+            slideMenuListAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
 	 * check if profile was changed and save to GLobal storage
 	 */
 	public void checkChange(DstabiProfile profile){
@@ -666,6 +673,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
         menu.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
+        menu.add(GROUP_GENERAL, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
 
 		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
@@ -708,7 +716,16 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             }
         }
 
-		//ulozit do jednotky
+        //otevreni rozdilu bank
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_BANK_DIFF) {
+            if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                showBankDiff();
+            }else{
+                Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        //ulozit do jednotky
 		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
 			if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 				saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
@@ -721,7 +738,59 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		return false;
 	}
 
-	/**
+    private void showBankDiff() {
+
+        int activeBank = Globals.getInstance().getActiveBank();
+        if (activeBank == Globals.BANK_NULL) {
+            Toast.makeText(this, R.string.no_active_bank, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (activeBank > Globals.BANK_2 || activeBank < Globals.BANK_0) {
+            Log.w("BANK_DIFF", "unexpected active bank");
+            return;
+        }
+
+        if (Globals.getInstance().isChanged()) {
+            new AlertDialog.Builder(this)
+                .setNeutralButton(R.string.ok, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dlg, int arg1) {
+                        dlg.dismiss();
+                    }
+                })
+                .setCancelable(true)
+                .setMessage(R.string.bank_comparison_changes)
+             .show();
+
+            return;
+        }
+
+
+        CharSequence[] banksToCompare = new CharSequence[2];
+        final int[] banksToCompareValue = new int[banksToCompare.length];
+        String[] banks = getResources().getStringArray(R.array.bank_values);
+        int pos = -1;
+        for (int i = 0; i < banks.length; i++) {
+            if (activeBank != i) {
+                banksToCompareValue[++pos] = i;
+                banksToCompare[pos] = banks[i];
+            }
+
+        }
+        new AlertDialog.Builder(this)
+                .setTitle(getString(R.string.bank_choice_title))
+                .setSingleChoiceItems(banksToCompare, -1, new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                        startActivity(DiffActivity.createBankCompareIntent(BaseActivity.this, banksToCompareValue[which]));
+                    }
+                })
+                .show()
+        ;
+    }
+
+    /**
 	 * zachytavani vysledku z aktivit
 	 */
 	public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data)

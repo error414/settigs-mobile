@@ -17,6 +17,8 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -29,6 +31,7 @@ import com.exception.IndexOutOfException;
 import com.exception.ProfileNotValidException;
 import com.helpers.DiffListAdapter;
 import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
@@ -37,6 +40,7 @@ import com.lib.translate.StabiPichProgressExTranslate;
 import com.lib.translate.StabiSenzivityProgressExTranslate;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 /**
@@ -44,18 +48,26 @@ import java.util.HashMap;
  */
 public class DiffActivity extends BaseActivity
 {
-	@SuppressWarnings("unused")
+    @SuppressWarnings("unused")
 	final private String TAG = "DiffActivity";
 
-	final static private int PROFILE_CALL_BACK_CODE = 101;
+    private static final String ARG_BANK = "bank";
+    private static final String ARG_ACTIVE_BANK = "activeBank";
+
+    final static private int PROFILE_CALL_BACK_CODE = 101;
+    final static private int BANK_TO_COMAPARE_CALL_BACK_CODE = 102;
+    final static private int BANK_ACTIVE_CALL_BACK_CODE = 103;
+    final static private int PROFILE_TO_COMPARE_CALL_BACK_CODE = 104;
+    final static private int ACTIVE_PROFILE_CALL_BACK_CODE = 105;
 
 	private DiffListAdapter adapter;
 
 	private ArrayList<HashMap<Integer, String>> diffListData;
 
 	final private String textSeparator = "\u2192";
+    private DstabiProfile profileToCompare;
 
-	/**
+    /**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
 	@Override
@@ -66,7 +78,15 @@ public class DiffActivity extends BaseActivity
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 		setContentView(R.layout.profile_diff);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.profile_diff)));
+        Integer bankToCompare = getBankToCompare();
+        if (bankToCompare == null) {
+            ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.profile_diff)));
+        }
+        else {
+            String title = getString(R.string.profile_bank_diff);
+            ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", title));
+            ((TextView) findViewById(R.id.textView2)).setText(TextUtils.concat(title, " B" + bankToCompare + "\u2192B" + Globals.getInstance().getActiveBank()));
+        }
 
 		////////////////////////////////////////////////////////////////////////
 		ListView diffList = (ListView) findViewById(R.id.listMenu);
@@ -95,9 +115,25 @@ public class DiffActivity extends BaseActivity
 	private void initConfiguration()
 	{
 		showDialogRead();
-		// ziskani konfigurace z jednotky
+
+        Integer bankToCompare = getBankToCompare();
+        if (bankToCompare != null) {
+            readBankProfile(bankToCompare);
+            return;
+        }
+
+        // ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
+
+    private void readBankProfile(int bankToCompare) {
+        changeBank(bankToCompare, BANK_TO_COMAPARE_CALL_BACK_CODE);
+    }
+
+    private Integer getBankToCompare() {
+        int bank = getIntent().getIntExtra(ARG_BANK, Globals.BANK_NULL);
+        return bank == Globals.BANK_NULL ? null : bank;
+    }
 
 	/**
 	 *
@@ -105,32 +141,46 @@ public class DiffActivity extends BaseActivity
 	 */
 	protected void updateGui(byte[] profile){
 		DstabiProfile changedProfile = new DstabiProfile(profile);
-
-		diffListData = new ArrayList<HashMap<Integer, String>>();
-
 		try {
-			for(ChangeInProfile.DiffItem diffItem : ChangeInProfile.getInstance().getDiff(changedProfile)) {
-				HashMap<Integer, String> row = new HashMap<Integer, String>();
-
-				diffItem = this.translateDiffItem(diffItem);
-
-				row.put(DiffListAdapter.NAME, diffItem.getLabel());
-				row.put(DiffListAdapter.FROM, diffItem.getFrom());
-				row.put(DiffListAdapter.TO,   diffItem.getTo());
-				diffListData.add(row);
-			}
-
-			adapter.setData(diffListData);
-			adapter.notifyDataSetChanged();
-
+            updateGui(ChangeInProfile.getInstance().getDiff(changedProfile));
 		} catch (ProfileNotValidException e) {
-			e.printStackTrace();
-		} catch (IndexOutOfException e) {
 			e.printStackTrace();
 		}
 	}
 
-	/**
+    private void updateGui(DstabiProfile profileToCompare, DstabiProfile activeProfile) {
+        try {
+            updateGui(ChangeInProfile.getDiff(profileToCompare, activeProfile));
+        } catch (ProfileNotValidException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void updateGui(Collection<ChangeInProfile.DiffItem> diffItems) {
+        diffListData = new ArrayList<HashMap<Integer, String>>();
+
+        try {
+            for(ChangeInProfile.DiffItem diffItem : diffItems) {
+                HashMap<Integer, String> row = new HashMap<Integer, String>();
+
+                diffItem = this.translateDiffItem(diffItem);
+
+                row.put(DiffListAdapter.NAME, diffItem.getLabel());
+                row.put(DiffListAdapter.FROM, diffItem.getFrom());
+                row.put(DiffListAdapter.TO,   diffItem.getTo());
+                diffListData.add(row);
+            }
+
+            adapter.setData(diffListData);
+            adapter.notifyDataSetChanged();
+
+        } catch (IndexOutOfException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
 	 *
 	 * @param diffItem
 	 * @return
@@ -729,10 +779,39 @@ public class DiffActivity extends BaseActivity
                 super.handleMessage(msg);
                 initConfiguration();
                 break;
-
+            case BANK_TO_COMAPARE_CALL_BACK_CODE:
+                stabiProvider.getProfile(PROFILE_TO_COMPARE_CALL_BACK_CODE);
+                break;
+            case BANK_ACTIVE_CALL_BACK_CODE:
+                stabiProvider.getProfile(ACTIVE_PROFILE_CALL_BACK_CODE);
+                break;
+            case PROFILE_TO_COMPARE_CALL_BACK_CODE:
+                if (msg.getData().containsKey("data")) {
+                    profileToCompare = new DstabiProfile(msg.getData().getByteArray("data"));
+                    changeBank(getIntent().getIntExtra(ARG_ACTIVE_BANK, 0), BANK_ACTIVE_CALL_BACK_CODE);
+                }
+                else {
+                    sendInSuccessDialog();
+                }
+                break;
+            case ACTIVE_PROFILE_CALL_BACK_CODE:
+                sendInSuccessDialog();
+                if (msg.getData().containsKey("data")) {
+                    DstabiProfile activeProfile = new DstabiProfile(msg.getData().getByteArray("data"));
+                    updateGui(profileToCompare, activeProfile);
+                    profileToCompare = null;
+                }
+                break;
 			default:
 				super.handleMessage(msg);
 		}
 		return true;
 	}
+
+    public static Intent createBankCompareIntent(Context context, int bank) {
+        Intent intent = new Intent(context, DiffActivity.class);
+        intent.putExtra(ARG_BANK, bank);
+        intent.putExtra(ARG_ACTIVE_BANK, Globals.getInstance().getActiveBank());
+        return intent;
+    }
 }
