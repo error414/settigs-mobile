@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -102,8 +103,10 @@ public class GeneralActivity extends BaseActivity
 	 */
 	public void openChannelsActivity(View v)
 	{
-		Intent i = new Intent(GeneralActivity.this, ChannelsActivity.class);
-		startActivity(i);
+        if(!getAppBasicMode()) {
+            Intent i = new Intent(GeneralActivity.this, ChannelsActivity.class);
+            startActivity(i);
+        }
 	}
 
 	/**
@@ -117,6 +120,10 @@ public class GeneralActivity extends BaseActivity
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 			initConfiguration();
             initDefaultValue();
+
+            ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
+
+
 		} else {
 			finish();
 		}
@@ -244,6 +251,7 @@ public class GeneralActivity extends BaseActivity
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
+                ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
 				break;
 			default:
 				super.handleMessage(msg);
