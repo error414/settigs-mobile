@@ -457,7 +457,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         leftMenuList.setAdapter(slideMenuListAdapter);
     }
 
-    private void changeBank(int bankNumber, int callbackCode){
+    protected void changeBank(int bankNumber, int callbackCode){
         ProfileItem profileItem;
         DstabiProfile localProfileCreator = profileCreator;
         if (profileCreator == null) {
@@ -982,7 +982,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 				}
 				break;
             case PROFILE_SAVE_CALL_BACK_CODE_CHANGE_BANK:
-                changeBank(bankForChange);
+                changeBank(bankForChange, BANK_CHANGE_CALL_BACK_CODE);
                 // this no break
 			case PROFILE_SAVE_CALL_BACK_CODE:
 				sendInSuccessDialog();
