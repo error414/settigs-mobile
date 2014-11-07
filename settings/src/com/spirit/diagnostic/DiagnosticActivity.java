@@ -23,6 +23,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -264,8 +265,21 @@ public class DiagnosticActivity extends BaseActivity
 
 	}
 
+    /**
+     * vytvoreni kontextoveho menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        super.onCreateOptionsMenu(menu);
 
-	public boolean handleMessage(Message msg)
+        menu.removeItem(OPEN_DIFF);
+        menu.removeItem(OPEN_BANK_DIFF);
+
+        return true;
+    }
+
+    public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
