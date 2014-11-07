@@ -156,6 +156,7 @@
     <string name="stabi_ctrldir">Míra změny směru</string>
 
 	<string name="profile_diff">Provedené změny</string>
+    <string name="profile_bank_diff">Porovnání bank</string>
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>
 	<string name="gyro_gain">Zisk vrtulky</string>
@@ -383,6 +384,10 @@
 
     <string name="bank_change_after_connect">Aktuální banka byla přepnuta na <b>Bank 0</b>.\nZměna banky přes vysílač je vypnuta dokud je software připojen.</string>
     <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně, jinak tyto režimy nebudou fungovat korektně!</string>
+
+    <string name="bank_choice_title">Vyberte banku</string>
+    <string name="bank_comparison_changes">Před porovnáním bank musíte uložit profil</string>
+    <string name="no_active_bank">Není aktivní žádná banka</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>

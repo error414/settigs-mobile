@@ -32,7 +32,7 @@ public class ChangeInProfile
 
 	private ChangeInProfile(){}
 
-	private String[] exceptProfileItems = {"MAJOR", "MINOR", "CHECKSUM_LO", "CHECKSUM_HI"};
+	private static String[] exceptProfileItems = {"MAJOR", "MINOR", "CHECKSUM_LO", "CHECKSUM_HI", "BANKS"};
 
 	/**
 	 * pristupovat jen pres singleton
@@ -65,17 +65,19 @@ public class ChangeInProfile
 	 * @return
 	 * @throws ProfileNotValidException
 	 */
-	public ArrayList<DiffItem> getDiff(DstabiProfile changedProfile) throws ProfileNotValidException
+	public ArrayList<DiffItem> getDiff(DstabiProfile changedProfile) throws ProfileNotValidException {
+		return getDiff(originalProfile, changedProfile);
+	}
+
+	public static ArrayList<DiffItem> getDiff(DstabiProfile originalProfile, DstabiProfile changedProfile) throws ProfileNotValidException
 	{
 		ArrayList<DiffItem> resultDiff = new ArrayList<DiffItem>();
 		if(changedProfile.isValid() && originalProfile.isValid()){
 			for(String itemName : changedProfile.getProfileItems().keySet()){
-
-				if(
-						changedProfile.getProfileItemByName(itemName).getValueByte() != originalProfile.getProfileItemByName(itemName).getValueByte()
-						&&
-						!Arrays.asList(exceptProfileItems).contains(itemName)
-				){
+				if (changedProfile.getProfileItemByName(itemName).getValueByte().byteValue() != originalProfile.getProfileItemByName(itemName).getValueByte()
+								&&
+								!Arrays.asList(exceptProfileItems).contains(itemName)
+				) {
 					resultDiff.add(new DiffItem(originalProfile.getProfileItemByName(itemName), changedProfile.getProfileItemByName(itemName), itemName));
 				}
 
@@ -86,10 +88,11 @@ public class ChangeInProfile
 		throw new ProfileNotValidException();
 	}
 
+
 	/**
 	 * polozka diffu
 	 */
-	public class DiffItem{
+	public static class DiffItem{
 		private DstabiProfile.ProfileItem originalValue;
 		private DstabiProfile.ProfileItem changedValue;
 
