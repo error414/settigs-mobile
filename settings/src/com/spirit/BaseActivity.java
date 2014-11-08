@@ -174,6 +174,25 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 	}
 
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        savedInstanceState.putInt("bankForChange", bankForChange);
+    }
+
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        bankForChange = savedInstanceState.getInt("bankForChange", 0);
+    }
+
 	@Override
 	protected void onStart()
 	{
@@ -477,7 +496,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         if (mDrawer != null) {
             mDrawer.closeMenu();
         }
-
     }
 
 	/**

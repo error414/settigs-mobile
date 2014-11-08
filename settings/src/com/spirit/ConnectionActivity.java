@@ -134,6 +134,25 @@ public class ConnectionActivity extends BaseActivity
 		version = (TextView) findViewById(R.id.version);
 	}
 
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        savedInstanceState.putBoolean("disconect", disconect);
+    }
+
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        disconect = savedInstanceState.getBoolean("disconect", false);
+    }
+
 	/**
 	 * prvotni konfigurace view
 	 */
