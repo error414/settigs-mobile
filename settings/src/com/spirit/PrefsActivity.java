@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -213,9 +214,8 @@ public class PrefsActivity extends PreferenceActivity {
                 notify.setLatestEventInfo(getApplicationContext(), "test", "body",pending);
 
                 try {
-                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-                    r.play();
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alert);
+                    mediaPlayer.start();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
