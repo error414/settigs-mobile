@@ -390,7 +390,7 @@
     <string name="no_active_bank">Není aktivní žádná banka</string>
 
     <string name="unsaved_changes">Neuložené změny</string>
-    <string name="unsaved_changes_description">Nezapomeňte uložit nastavení</string>
+    <string name="unsaved_changes_description">Změny nejsou uloženy</string>
     <string name="unsaved_changes_before_disconnect">Před odpojením nebyly uloženy změny!!!</string>
 
     <!-- HELP AUTO GENERATE STUB --> 

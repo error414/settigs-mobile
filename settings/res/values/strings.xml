@@ -353,8 +353,8 @@
     <string name="no_active_bank">No bank is active</string>
 
     <string name="unsaved_changes">Unsaved changes</string>
-    <string name="unsaved_changes_description">Remember to save settings</string>
-    <string name="unsaved_changes_before_disconnect">Before disconnecting the changes were not saved !!!</string>
+    <string name="unsaved_changes_description">Settings were not saved</string>
+    <string name="unsaved_changes_before_disconnect">Before disconnecting the changes were not saved</string>
 
 
     <!-- HELP AUTO GENERATE STUB --> 
