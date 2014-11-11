@@ -209,9 +209,9 @@ public class PrefsActivity extends PreferenceActivity {
                 }
 
                 Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
-                Notification notify=new Notification(android.R.drawable.stat_notify_more,"Unsave change",System.currentTimeMillis());
-                PendingIntent pending=PendingIntent.getActivity(getApplicationContext(), 0, new Intent(),0);
-                notify.setLatestEventInfo(getApplicationContext(), "test", "body",pending);
+                Notification notify     = new Notification(R.drawable.notify_ico, getString(R.string.unsaved_changes), System.currentTimeMillis());
+                PendingIntent pending   = PendingIntent.getActivity(getApplicationContext(), 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notify.setLatestEventInfo(getApplicationContext(), getString(R.string.unsaved_changes), getString(R.string.unsaved_changes_description), pending);
 
                 try {
                     MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alert);
