@@ -1,5 +1,10 @@
 package com.helpers;
 
+import android.app.NotificationManager;
+
+import java.util.Timer;
+import java.util.TimerTask;
+
 /**
  * trida pro globalni uloziste persistetnich dat, ne nastaveni
  * 
@@ -29,6 +34,14 @@ public class Globals {
      * priznak jestli volat init ktery se ma volat jen po pripojeni
      */
     private boolean callInitAfterConnect = true;
+
+    /* for protect unsave change */
+    public static final long MAX_ACTIVITY_TRANSITION_TIME_MS = 2000;
+
+    private Timer mActivityTransitionTimer;
+    private TimerTask mActivityTransitionTimerTask;
+    private NotificationManager unsaveNotify;
+    /* **************************** */
 
 	/**
 	 *
@@ -79,4 +92,33 @@ public class Globals {
     public void setCallInitAfterConnect(boolean callInitAfterConnect) {
         this.callInitAfterConnect = callInitAfterConnect;
     }
+
+    ///// PROTECT unchange ///////////////////////////////////
+    public Timer getmActivityTransitionTimer() {
+        return mActivityTransitionTimer;
+    }
+
+    public void setmActivityTransitionTimer(Timer mActivityTransitionTimer) {
+        this.mActivityTransitionTimer = mActivityTransitionTimer;
+    }
+
+    public TimerTask getmActivityTransitionTimerTask() {
+        return mActivityTransitionTimerTask;
+    }
+
+    public void setmActivityTransitionTimerTask(TimerTask mActivityTransitionTimerTask) {
+        this.mActivityTransitionTimerTask = mActivityTransitionTimerTask;
+    }
+
+    public NotificationManager getUnsaveNotify() {
+        return unsaveNotify;
+    }
+
+    public void setUnsaveNotify(NotificationManager unsaveNotify) {
+        this.unsaveNotify = unsaveNotify;
+    }
+
+
+
+
 }

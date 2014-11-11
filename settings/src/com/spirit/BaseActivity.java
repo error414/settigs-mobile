@@ -21,6 +21,9 @@ package com.spirit;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -29,6 +32,8 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -65,6 +70,8 @@ import com.lib.DstabiProvider;
 import net.simonvt.menudrawer.MenuDrawer;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SuppressLint("InflateParams")
 abstract public class BaseActivity extends Activity implements Handler.Callback
@@ -198,6 +205,15 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onStop();
 	}
 
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        if(Globals.getInstance().isChanged()) {
+            this.startActivityTransitionTimer();
+        }
+    }
+
 	/**
 	 *
 	 */
@@ -205,6 +221,14 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	{
 		super.onResume();
 
+         /* ################ PROTECT UNSAVE CHANGE ################ */
+        if(Globals.getInstance().getUnsaveNotify() != null){
+            Globals.getInstance().getUnsaveNotify().cancelAll();
+        }
+        this.stopActivityTransitionTimer();
+        /* ################################################ */
+
+        /* #### CHANGE LANGUAGE ################  */
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
         if(!language.equals("none")){
@@ -215,6 +239,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             conf.locale = new Locale(language);
             res.updateConfiguration(conf, dm);
         }
+        /* ####################################  */
 
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
@@ -236,10 +261,59 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 slideMenuListAdapter.notifyDataSetChanged();
             }
 		}
-
         initHelp();
 	}
 
+    /* ################ PROTECT UNSAVE CHANGE ################ */
+    /**
+     *
+     */
+    public void startActivityTransitionTimer() {
+        Globals.getInstance().setmActivityTransitionTimer(new Timer());
+        Globals.getInstance().setmActivityTransitionTimerTask(new TimerTask() {
+            public void run() {
+                if(Globals.getInstance().getUnsaveNotify() == null){
+                    Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                }
+
+                Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                Notification notify     = new Notification(R.drawable.notify_ico, getString(R.string.unsaved_changes), System.currentTimeMillis());
+                PendingIntent pending   = PendingIntent.getActivity(getApplicationContext(), 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notify.setLatestEventInfo(getApplicationContext(), getString(R.string.unsaved_changes), getString(R.string.unsaved_changes_description), pending);
+
+                try {
+                    Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+                    Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+                    r.play();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Globals.getInstance().getUnsaveNotify().notify(0, notify);
+            }
+        });
+
+        Globals.getInstance().getmActivityTransitionTimer().schedule( Globals.getInstance().getmActivityTransitionTimerTask(),
+                Globals.MAX_ACTIVITY_TRANSITION_TIME_MS);
+    }
+
+    /**
+     *
+     */
+    public void stopActivityTransitionTimer() {
+        if (Globals.getInstance().getmActivityTransitionTimerTask() != null) {
+            Globals.getInstance().getmActivityTransitionTimerTask().cancel();
+        }
+
+        if (Globals.getInstance().getmActivityTransitionTimer() != null) {
+            Globals.getInstance().getmActivityTransitionTimer().cancel();
+        }
+    }
+    /* ################################################ */
+
+    /**
+     *
+     */
     protected void initHelp()
     {
         switch(getDefaultValueType()){

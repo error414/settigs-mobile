@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 07.11.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 11.11.2014</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -388,6 +388,10 @@
     <string name="bank_choice_title">Vyberte banku</string>
     <string name="bank_comparison_changes">Před porovnáním bank musíte uložit profil</string>
     <string name="no_active_bank">Není aktivní žádná banka</string>
+
+    <string name="unsaved_changes">Neuložené změny</string>
+    <string name="unsaved_changes_description">Nezapomeňte uložit nastavení</string>
+    <string name="unsaved_changes_before_disconnect">Před odpojením nebyly uloženy změny!!!</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
