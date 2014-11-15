@@ -2,7 +2,15 @@ package com.lib;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.media.MediaPlayer;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +28,7 @@ import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
+import com.helpers.Globals;
 import com.spirit.R;
 
 import java.io.File;
@@ -28,6 +37,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.TreeMap;
 
 /**
@@ -223,12 +234,75 @@ public class FileDialog extends ListActivity{
 	@Override
 	public void onResume(){
 		super.onResume();
+
+         /* ################ PROTECT UNSAVE CHANGE ################ */
+        if(Globals.getInstance().getUnsaveNotify() != null){
+            Globals.getInstance().getUnsaveNotify().cancelAll();
+        }
+        this.stopActivityTransitionTimer();
+        /* ################################################ */
+
         ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.none);
         ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.none);
         ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(R.drawable.none);
         ((TextView)findViewById(R.id.title_banks)).setText("");
         ((ImageView)findViewById(R.id.option_bar)).setImageResource(R.drawable.none);
 	}
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        if(Globals.getInstance().isChanged()) {
+            this.startActivityTransitionTimer();
+        }
+    }
+
+     /* ################ PROTECT UNSAVE CHANGE ################ */
+    /**
+     *
+     */
+    public void startActivityTransitionTimer() {
+        Globals.getInstance().setmActivityTransitionTimer(new Timer());
+        Globals.getInstance().setmActivityTransitionTimerTask(new TimerTask() {
+            public void run() {
+                if(Globals.getInstance().getUnsaveNotify() == null){
+                    Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                }
+
+                Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                Notification notify     = new Notification(R.drawable.notify_ico, getString(R.string.unsaved_changes), System.currentTimeMillis());
+                PendingIntent pending   = PendingIntent.getActivity(getApplicationContext(), 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notify.setLatestEventInfo(getApplicationContext(), getString(R.string.unsaved_changes), getString(R.string.unsaved_changes_description), pending);
+
+                try {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alert);
+                    mediaPlayer.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Globals.getInstance().getUnsaveNotify().notify(0, notify);
+            }
+        });
+
+        Globals.getInstance().getmActivityTransitionTimer().schedule( Globals.getInstance().getmActivityTransitionTimerTask(),
+                Globals.MAX_ACTIVITY_TRANSITION_TIME_MS);
+    }
+
+    /**
+     *
+     */
+    public void stopActivityTransitionTimer() {
+        if (Globals.getInstance().getmActivityTransitionTimerTask() != null) {
+            Globals.getInstance().getmActivityTransitionTimerTask().cancel();
+        }
+
+        if (Globals.getInstance().getmActivityTransitionTimer() != null) {
+            Globals.getInstance().getmActivityTransitionTimer().cancel();
+        }
+    }
+    /* ################################################ */
 
 	private void getDir(String dirPath) {
 

@@ -303,6 +303,9 @@ public class ConnectionActivity extends BaseActivity
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
             if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) { // 7 = neprirazeno
+                if(Globals.getInstance().isChanged()) {
+                    Toast.makeText(this, R.string.unsaved_changes_before_disconnect, Toast.LENGTH_LONG).show();
+                }
                 stabiProvider.disconnect();
             }else{
                 disconect = true;
@@ -573,6 +576,9 @@ public class ConnectionActivity extends BaseActivity
 				}
 				break;
 			case UNLOCKBANK_CALL_BACK_CODE:
+                if(Globals.getInstance().isChanged()) {
+                    Toast.makeText(this, R.string.unsaved_changes_before_disconnect, Toast.LENGTH_LONG).show();
+                }
 				stabiProvider.disconnect();
 				break;
 
