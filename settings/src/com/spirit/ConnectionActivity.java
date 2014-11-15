@@ -605,7 +605,9 @@ public class ConnectionActivity extends BaseActivity
 			case COPY_BANK_SWITCH_DESTINATION_BANK_CALL_BACK_CODE:
 				Log.d(TAG, "kopirovani banky - prepnuto na cilovou banku");
 				if (copyBankTask != null) {
-					insertProfileToUnit(new DstabiProfile(copyBankTask.getSourceProfile()));
+					DstabiProfile profile = new DstabiProfile(copyBankTask.getSourceProfile());
+					profile.getProfileItemByName("BANKS").setValueFromSpinner(copyBankTask.getDestinationBank());
+					insertProfileToUnit(profile, true);
 					copyBankTask = null;
 					sendInSuccessInfo();
 				}
@@ -632,13 +634,13 @@ public class ConnectionActivity extends BaseActivity
 		byte[] lenght = new byte[1];
 		lenght[0] = ByteOperation.intToByte(profile.length - 1);
 
-		insertProfileToUnit(new DstabiProfile(ByteOperation.combineByteArray(lenght, profile)));
+		insertProfileToUnit(new DstabiProfile(ByteOperation.combineByteArray(lenght, profile)), false);
 	}
 
 	/**
 	 * nahrani profilu do jednotky
 	 */
-	private void insertProfileToUnit(DstabiProfile profile)
+	private void insertProfileToUnit(DstabiProfile profile, boolean forceBasicModeCopy )
 	{
 		isPosibleSendData = true;
 
@@ -649,7 +651,7 @@ public class ConnectionActivity extends BaseActivity
 			for (ProfileItem item : items.values()) {
 				if (item.getCommand() != null && isPosibleSendData && !item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
 					// pro banky 1 a 2 nahravame jen povolene hodnoty
-					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 || !item.isDeactiveInBasicMode()){
+					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 && !forceBasicModeCopy || !item.isDeactiveInBasicMode()){
 						showDialogRead();
 						stabiProvider.sendDataNoWaitForResponce(item);
 					}else{
