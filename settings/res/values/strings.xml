@@ -143,7 +143,7 @@
     <string name="hz">[Hz]</string>
     <string name="profile_diff">Profile diff</string>
     <string name="profile_bank_diff">Comparison</string>
-    <string name="profile_bank_copy">Copying</string>
+    <string name="profile_bank_copy">Copying from bank</string>
     <string name="log_button_text">Flight log</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>

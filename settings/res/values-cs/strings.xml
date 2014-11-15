@@ -157,7 +157,7 @@
 
 	<string name="profile_diff">Provedené změny</string>
     <string name="profile_bank_diff">Porovnání</string>
-    <string name="profile_bank_copy">Kopírování</string>
+    <string name="profile_bank_copy">Kopírování z banky</string>
 
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>

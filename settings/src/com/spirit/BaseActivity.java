@@ -52,6 +52,7 @@ import android.widget.Toast;
 
 import com.customWidget.picker.ProgresEx;
 import com.exception.IndexOutOfException;
+import com.exception.ProfileNotValidException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
@@ -500,10 +501,15 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         }
     }
 
+
+    public void checkChange(DstabiProfile profile){
+        checkChange(profile, CheckMode.CHECK_SUM);
+    }
+
 	/**
 	 * check if profile was changed and save to GLobal storage
 	 */
-	public void checkChange(DstabiProfile profile){
+	public void checkChange(DstabiProfile profile, CheckMode checkMode) {
 		if(profile == null){
 			Globals.getInstance().setChanged(false);
 			((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
@@ -512,8 +518,26 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
 
-		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
+        boolean changed;
+
+        switch (checkMode) {
+            case CHECK_SUM:
+                changed =  originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem();
+                break;
+            case ITEMS_DIFF:
+                try {
+                    changed = !ChangeInProfile.getDiff(originalProfile, profile).isEmpty();
+                } catch (ProfileNotValidException e) {
+                    Log.e(TAG, "profile is not valid", e);
+                    changed = true;
+                }
+                break;
+            default:
+                throw new IllegalStateException("unsupported checkMode " + checkMode);
+        }
+        Globals.getInstance().setChanged(changed);
+
+        ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
 
 	/**
@@ -1029,4 +1053,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         return true;
     }
 
+    protected static enum CheckMode {
+        CHECK_SUM, ITEMS_DIFF
+    }
 }

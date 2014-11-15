@@ -599,7 +599,7 @@ public class ConnectionActivity extends BaseActivity
 			case COPY_BANK_SWITCH_DESTINATION_BANK_CALL_BACK_CODE:
 				Log.d(TAG, "kopirovani banky - prepnuto na cilovou banku");
 				if (copyBankTask != null) {
-					insertProfileToUnit(new DstabiProfile(copyBankTask.getSourceProfile()));
+					insertProfileToUnit(new DstabiProfile(copyBankTask.getSourceProfile()), CheckMode.ITEMS_DIFF);
 					copyBankTask = null;
 					sendInSuccessInfo();
 				}
@@ -626,13 +626,13 @@ public class ConnectionActivity extends BaseActivity
 		byte[] lenght = new byte[1];
 		lenght[0] = ByteOperation.intToByte(profile.length - 1);
 
-		insertProfileToUnit(new DstabiProfile(ByteOperation.combineByteArray(lenght, profile)));
+		insertProfileToUnit(new DstabiProfile(ByteOperation.combineByteArray(lenght, profile)), CheckMode.CHECK_SUM);
 	}
 
 	/**
 	 * nahrani profilu do jednotky
 	 */
-	private void insertProfileToUnit(DstabiProfile profile)
+	private void insertProfileToUnit(DstabiProfile profile, CheckMode checkMode)
 	{
 		isPosibleSendData = true;
 
@@ -656,7 +656,7 @@ public class ConnectionActivity extends BaseActivity
 					continue;
 				}
 			}
-			checkChange(profile);
+			checkChange(profile, checkMode);
 		} else {
 			Toast.makeText(getApplicationContext(), R.string.damage_profile, Toast.LENGTH_SHORT).show();
 		}
