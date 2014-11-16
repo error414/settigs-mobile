@@ -327,8 +327,24 @@
     <string name="pdf_time_run">Doba behu</string>
     <string name="pdf_time_create">Vygenerovano</string>
     <string name="saving_log">Ukládám záznam letu</string>
+
+
+    <string name="tap_to_action">Akce</string>
     <string name="tap_to_screenshot_on">Zapnout uložení obrázku dotykem</string>
     <string name="tap_to_screenshot_off">Vypnout uložení obrázku dotykem</string>
+    <string name="tap_to_screenshot_on_state">Uložení obrázku dotykem zapnuto</string>
+    <string name="tap_to_screenshot_off_state">Uložení obrázku dotykem vypnuto</string>
+    <string name="force_save_graph">Uložit graf</string>
+
+    <string name="tap_to_freeze_on">Zapnout zmrazení grafu dotykem</string>
+    <string name="tap_to_freeze_off">Vypnout zmrazení grafu dotykem</string>
+    <string name="tap_to_freeze_on_state">Zmrazení grafu dotykem zapnuto</string>
+    <string name="tap_to_freeze_off_state">Zmrazení grafu dotykem vypnuto</string>
+
+    <string name="tap_to_freeze_is_on">Zmrazeno</string>
+    <string name="tap_to_freeze_is_off">Zmrazení vypnuto</string>
+
+
     <string name="not_save">Uložení selhalo</string>
     <string name="save_done">Uloženo</string>
     <string name="graph_change_axis">Osa změněna na </string>

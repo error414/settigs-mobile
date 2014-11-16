@@ -31,6 +31,7 @@ import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -73,8 +74,10 @@ public class GraphActivity extends BaseActivity
 	final private int AXIS_Z = 2224;
 
 
-	final private int GROUP_SCREENSHOT = 333;
+	final private int GROUP_ACTION = 333;
 	final private int CHOOSE_SCREENSHOT = 444;
+    final private int CHOOSE_FREEZE = 555;
+    final private int CHOOSE_FORCE_SAVEGRAPH= 666;
 
 
 	@SuppressWarnings("unused")
@@ -86,16 +89,21 @@ public class GraphActivity extends BaseActivity
 	private SimpleXYSeries aprLevelsSeries = null;
 	///////////////////////////////////////////////////
 
-	//jestli pri kliku na graf se ulozi screenshot
-	private Boolean tapToScreenShot = false;
+    //jestli pri kliku na graf se ulozi screenshot
+    final private int TAP_TO_NONE       = 0;
+    final private int TAP_TO_SCREENSHOT = 1;
+    final private int TAP_TO_FREEZE     = 2;
+    private int tapToAction = TAP_TO_NONE;
+    private boolean stateGraphFreeze = false;
 
-	////
+
+    ////
 	private byte[] dataBuffer;
 	private int dataBuffer_len = 0;
 	final private int DATABUFFER_SIZE = 3000;
 
 	Number[] seriesX = null;
-	Number[] seriesY = null;
+	//Number[] seriesY = null;
 
 	// FFT stuff
 	final private int FFT_N = 1024;
@@ -133,7 +141,7 @@ public class GraphActivity extends BaseActivity
 	
 	/**
 	 * handle for change banks
-	 * 
+	 *
 	 * @param v
 	 */
 	public void changeBankOpenDialog(View v){
@@ -189,7 +197,7 @@ public class GraphActivity extends BaseActivity
 		aprLevelsPlot.setDomainBoundaries(0, 500, BoundaryMode.FIXED);
 		aprLevelsPlot.setDomainLabel(String.valueOf(TextUtils.concat(getString(R.string.frequency), " ", getString(R.string.hz), " / ", getString(R.string.axis_X))));
 		aprLevelsPlot.setRangeStepValue(10);
-		aprLevelsPlot.setOnClickListener(saveScreenShotListener);
+		aprLevelsPlot.setOnClickListener(clickActionistener);
 		aprLevelsPlot.getLayoutManager().remove(aprLevelsPlot.getLegendWidget());
 	}
 
@@ -200,6 +208,10 @@ public class GraphActivity extends BaseActivity
 	 */
 	private void updateGraph(Number[] seriesX)
 	{
+        if(stateGraphFreeze){
+            return;
+        }
+
 		topThree = this.topThree(seriesX);
 		aprLevelsSeries.setModel(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY);
 		aprLevelsPlot.redraw();
@@ -232,6 +244,7 @@ public class GraphActivity extends BaseActivity
 		};
 
 		//startTime = System.nanoTime();//START
+        stateGraphFreeze = false;
 		thread.run();
 	}
 
@@ -242,6 +255,7 @@ public class GraphActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
+
         baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
         ((TextView) findViewById(R.id.title)).setText(baseTitle);
         ((TextView) findViewById(R.id.vibration_level_text)).setText(R.string.vibration_level);
@@ -284,6 +298,10 @@ public class GraphActivity extends BaseActivity
 	 */
 	protected void updateVibratonLevel(Number[] seriesX)
 	{
+        if(stateGraphFreeze){
+            return;
+        }
+
 		int vib = 0;
 		for (int i = 0; i < seriesX.length; i++) {
 			vib += seriesX[i].intValue();
@@ -370,33 +388,46 @@ public class GraphActivity extends BaseActivity
 		return true;
 	}
 
-	View.OnClickListener saveScreenShotListener = new View.OnClickListener()
+    protected void saveGraphToImage()
+    {
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
+
+        try {
+            aprLevelsPlot.setDrawingCacheEnabled(true);
+            int width = aprLevelsPlot.getWidth();
+            int height = aprLevelsPlot.getHeight();
+            aprLevelsPlot.measure(width, height);
+            Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
+            aprLevelsPlot.setDrawingCacheEnabled(false);
+            FileOutputStream fos;
+
+            fos = new FileOutputStream(filename, true);
+            bmp.compress(CompressFormat.PNG, 100, fos);
+
+            Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+        } catch (FileNotFoundException e) {
+            Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+	View.OnClickListener clickActionistener = new View.OnClickListener()
 	{
 		public void onClick(View v)
 		{
-			if (tapToScreenShot) {
-                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-				String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
+			if (tapToAction == TAP_TO_SCREENSHOT) {
+                saveGraphToImage();
+			}else if(tapToAction == TAP_TO_FREEZE){
+                if(stateGraphFreeze){
+                    Toast.makeText(getApplicationContext(), R.string.tap_to_freeze_is_off, Toast.LENGTH_SHORT).show();
+                    stateGraphFreeze = false;
+                }else{
+                    Toast.makeText(getApplicationContext(), R.string.tap_to_freeze_is_on, Toast.LENGTH_SHORT).show();
+                    stateGraphFreeze = true;
+                }
 
-				try {
-					aprLevelsPlot.setDrawingCacheEnabled(true);
-					int width = aprLevelsPlot.getWidth();
-					int height = aprLevelsPlot.getHeight();
-					aprLevelsPlot.measure(width, height);
-					Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
-					aprLevelsPlot.setDrawingCacheEnabled(false);
-					FileOutputStream fos;
-
-					fos = new FileOutputStream(filename, true);
-					bmp.compress(CompressFormat.PNG, 100, fos);
-
-					Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
-				} catch (FileNotFoundException e) {
-					Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
-					e.printStackTrace();
-				}
-
-			}
+            }
 		}
 	};
 
@@ -412,11 +443,28 @@ public class GraphActivity extends BaseActivity
 		menu.add(GROUP_AXIS, AXIS_X, Menu.NONE, R.string.axis_X);
 		menu.add(GROUP_AXIS, AXIS_Y, Menu.NONE, R.string.axis_Y);
 		menu.add(GROUP_AXIS, AXIS_Z, Menu.NONE, R.string.axis_Z);
-		if (tapToScreenShot) {
-			menu.add(GROUP_SCREENSHOT, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_off);
-		} else {
-			menu.add(GROUP_SCREENSHOT, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_on);
-		}
+
+        SubMenu taptoActionSubMen = menu.addSubMenu(R.string.tap_to_action);
+
+        switch(tapToAction){
+            case TAP_TO_NONE:
+                taptoActionSubMen.add(GROUP_ACTION, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_on);
+                taptoActionSubMen.add(GROUP_ACTION, CHOOSE_FREEZE, Menu.NONE, R.string.tap_to_freeze_on);
+                break;
+            case TAP_TO_SCREENSHOT:
+                taptoActionSubMen.add(GROUP_ACTION, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_off);
+                taptoActionSubMen.add(GROUP_ACTION, CHOOSE_FREEZE, Menu.NONE, R.string.tap_to_freeze_on);
+                break;
+            case TAP_TO_FREEZE:
+                taptoActionSubMen.add(GROUP_ACTION, CHOOSE_SCREENSHOT, Menu.NONE, R.string.tap_to_screenshot_on);
+                taptoActionSubMen.add(GROUP_ACTION, CHOOSE_FREEZE, Menu.NONE, R.string.tap_to_freeze_off);
+
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+                if(sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR) && stateGraphFreeze) {
+                    taptoActionSubMen.add(GROUP_ACTION, CHOOSE_FORCE_SAVEGRAPH, Menu.NONE, R.string.force_save_graph);
+                }
+                break;
+        }
 
 		return super.onPrepareOptionsMenu(menu);
 	}
@@ -453,23 +501,50 @@ public class GraphActivity extends BaseActivity
 		}
 
 		//ulozeni obrazku grafu
-		if (item.getGroupId() == GROUP_SCREENSHOT && item.getItemId() == CHOOSE_SCREENSHOT) {
-			if (tapToScreenShot) {
-				tapToScreenShot = false;
-				Toast.makeText(getApplicationContext(), R.string.tap_to_screenshot_off, Toast.LENGTH_SHORT).show();
-			} else {
-				
-				//zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
-                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-				if(!sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
-					Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
-					Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
-					startActivity(i);
-					return false;
-				}
-				Toast.makeText(getApplicationContext(), R.string.tap_to_screenshot_on, Toast.LENGTH_SHORT).show();
-				tapToScreenShot = true;
-			}
+		if (item.getGroupId() == GROUP_ACTION) {
+            if(item.getItemId() == CHOOSE_SCREENSHOT){
+                switch(tapToAction){
+                    case TAP_TO_FREEZE:
+                        stateGraphFreeze = false;
+                    case TAP_TO_NONE:
+                        //zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
+                        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+                        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
+                            Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
+                            Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
+                            startActivity(i);
+                            return false;
+                        }
+                        Toast.makeText(getApplicationContext(), R.string.tap_to_screenshot_on_state, Toast.LENGTH_SHORT).show();
+                        tapToAction = TAP_TO_SCREENSHOT;
+                        break;
+                    case TAP_TO_SCREENSHOT:
+                        tapToAction = TAP_TO_NONE;
+                        Toast.makeText(getApplicationContext(), R.string.tap_to_screenshot_off_state, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }else if(item.getItemId() == CHOOSE_FREEZE){
+                switch(tapToAction){
+                    case TAP_TO_SCREENSHOT:
+                    case TAP_TO_NONE:
+                        tapToAction = TAP_TO_FREEZE;
+                        Toast.makeText(getApplicationContext(), R.string.tap_to_freeze_on_state, Toast.LENGTH_SHORT).show();
+                        break;
+                    case TAP_TO_FREEZE:
+                        tapToAction = TAP_TO_NONE;
+                        stateGraphFreeze = false;
+                        Toast.makeText(getApplicationContext(), R.string.tap_to_freeze_off_state, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }else if(item.getItemId() == CHOOSE_FORCE_SAVEGRAPH)
+            {
+                if(tapToAction == TAP_TO_FREEZE){
+                    saveGraphToImage();
+                }
+            }
+
+
+
 		}
 		return false;
 	}
