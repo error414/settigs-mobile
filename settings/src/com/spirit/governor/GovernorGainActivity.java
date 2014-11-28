@@ -1,5 +1,6 @@
 /*
 Copyright (C) Petr Cada and Tomas Jedrzejek
+Copyright (C) Petr Cada and Tomas Jedrzejek
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -14,63 +15,54 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
+package com.spirit.governor;
 
-package com.spirit;
-
-
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
+import android.util.Log;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.exception.IndexOutOfException;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.spirit.general.ChannelsActivity;
-import com.spirit.governor.GovernorActivity;
+import com.lib.translate.StabiPichProgressExTranslate;
+import com.spirit.BaseActivity;
+import com.spirit.R;
 
-/**
- * aktivita na zobrazeni general moznosti nastaveni
- *
- * @author error414
- */
-public class GeneralActivity extends BaseActivity
+public class GovernorGainActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "GeneralActivity";
+	final private String TAG = "GovernorGainActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-    protected String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
+	private final String protocolCode[] = {"GOVERNOR_GAIN",};
 
-	// gui prvky ktere sou v teto aktivite aktivni
-	protected int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
+	private int formItems[] = {R.id.governor_gain,};
 
-	private int lock = formItems.length;
+	private int formItemsTitle[] = {R.string.governor_gain,};
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity settings
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		//setContentView(R.layout.general);
-        initSlideMenu(R.layout.general);
+		initSlideMenu(R.layout.governor_gain);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_gain)));
+
+		initGui();
+		initConfiguration();
 		delegateListener();
 	}
 
@@ -94,64 +86,43 @@ public class GeneralActivity extends BaseActivity
      *
      */
     protected int getDefaultValueType(){
-        return DEFAULT_VALUE_TYPE_SPINNER;
-    }
-	
-	/**
-	 * stiknuti tlacitka channels
-	 * 
-	 * @param v
-	 */
-	public void openChannelsActivity(View v)
-	{
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, ChannelsActivity.class);
-            startActivity(i);
-        }
-	}
-
-    /**
-     *
-     * @param v
-     */
-    public void openGovernorActivity(View v)
-    {
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
-            startActivity(i);
-        }
+        return DEFAULT_VALUE_TYPE_SEEK;
     }
 
 	/**
-	 * prvotni konfigurace view
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initConfiguration();
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
             initDefaultValue();
-
-            ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-            ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
-
-		} else {
-			finish();
-		}
+        }else{
+            finish();
+        }
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
 		for (int i = 0; i < formItems.length; i++) {
-			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			
-			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
+	}
+
+	private void initGui()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+            tempPicker.setRange(1, 64); // nastavuji rozmezi prvku z profilu
 		}
 	}
 
@@ -162,12 +133,12 @@ public class GeneralActivity extends BaseActivity
 	{
 		//nastaveni posluchacu pro formularove prvky
 		for (int i = 0; i < formItems.length; i++) {
-			((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
+			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		}
 	}
 
 	/**
-	 * ziskani profilu z jednotky
+	 * prvotni konfigurace view
 	 */
 	private void initConfiguration()
 	{
@@ -184,7 +155,7 @@ public class GeneralActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-		
+
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
 			return;
@@ -192,80 +163,59 @@ public class GeneralActivity extends BaseActivity
 		
 		checkBankNumber(profileCreator);
 		initBasicMode();
-		
-		try {
-			for (int i = 0; i < formItems.length; i++) {
-				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
-				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if (pos != tempSpinner.getSelectedItemPosition()){
-					lock = lock + 1;
-				}
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
-				tempSpinner.setSelection(pos);
+			if(profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() == 0){
+				tempPicker.setEnabled(false);
 			}
-		} catch (IndexOutOfException e) {
-			errorInActivity(R.string.damage_profile);
-			return;
 		}
+
 	}
 
-	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
+	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+		public void onChanged(ProgresEx parent, int newVal)
 		{
-			
-			if (lock != 0) {
-				lock -= 1;
-				return;
-			}
-			lock = Math.max(lock - 1, 0);
-
+			// TODO Auto-generated method stub
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValueFromSpinner(pos);
-					stabiProvider.sendDataNoWaitForResponce(item);
-					
 					showInfoBarWrite();
+					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
+					parent.setCurrentNoNotify(newVal);
+
+					item.setValue(newVal);
+
+					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
-
             initDefaultValue();
 		}
 
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0)
-		{
-			// TODO Auto-generated method stub
-
-		}
 	};
 
-	/**
-	 * obsluha callbacku
-	 *
-	 * @param msg
-	 * @return
-	 */
+
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
-                    initDefaultValue();
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
-                ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-                ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
 				break;
 			default:
 				super.handleMessage(msg);
@@ -273,3 +223,6 @@ public class GeneralActivity extends BaseActivity
 		return true;
 	}
 }
+
+
+

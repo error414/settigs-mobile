@@ -754,6 +754,27 @@ public class DiffActivity extends BaseActivity
         }
         // #############################################################################################
 
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_MODE")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_mode)).toString());
+
+            String[] values = getResources().getStringArray(R.array.governor_mode_values);
+
+            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_GAIN")){
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_gain)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
 
         diffItem.setFrom(from);
 		diffItem.setTo(to);

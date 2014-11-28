@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="56"
+    android:versionCode="57"
 
-    android:versionName="1.0.25-4"
+    android:versionName="1.0.26"
 >
 
     <uses-sdk
@@ -311,8 +311,32 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme"
        />
-        <activity
+       <activity
             android:name=".advanced.SignalProcessingActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+        <activity
+            android:name=".governor.GovernorActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+        <activity
+            android:name=".governor.GovernorModeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+        <activity
+            android:name=".governor.GovernorGainActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

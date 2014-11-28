@@ -167,6 +167,9 @@ public class DstabiProfile {
 		
 		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	true));
 
+        profileMap.put("GOVERNOR_MODE",	new ProfileItem(61, 0, 2, "2",	true));
+        profileMap.put("GOVERNOR_GAIN",	new ProfileItem(62, 1, 64, "j",	true));
+
 		this.mProfile = mProfile;
 
 

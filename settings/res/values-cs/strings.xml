@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 12.11.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 25.11.2014</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -284,7 +284,13 @@
         <item>Čeština</item>
         <item>English</item>
     </string-array>
-    
+
+    <string-array name="governor_mode_values">
+        <item>Disabled</item>
+        <item>Electric</item>
+        <item>Nitro</item>
+    </string-array>
+
     <string-array name="language_pref_values">
         <item>none</item>
         <item>cs</item>
@@ -408,6 +414,10 @@
     <string name="unsaved_changes">Neuložené změny</string>
     <string name="unsaved_changes_description">Změny nejsou uloženy</string>
     <string name="unsaved_changes_before_disconnect">Před odpojením nebyly uloženy změny!!!</string>
+
+    <string name="governor">Governor</string>
+    <string name="governor_mode">Režim governoru</string>
+    <string name="governor_gain">Zisk governoru</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>

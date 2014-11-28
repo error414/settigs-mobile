@@ -83,7 +83,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	/*#############################################*/
     final protected String APLICATION_MAJOR_VERSION = "1";
     final protected String APLICATION_MINOR1_VERSION = "0";
-    final protected String APLICATION_MINOR2_VERSION = "25";
+    final protected String APLICATION_MINOR2_VERSION = "26";
 
 	//for debug
 	private final String TAG = "BaseActivity";

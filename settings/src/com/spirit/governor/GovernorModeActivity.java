@@ -15,11 +15,8 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit;
+package com.spirit.governor;
 
-
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -27,7 +24,6 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -36,41 +32,36 @@ import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.spirit.general.ChannelsActivity;
-import com.spirit.governor.GovernorActivity;
+import com.spirit.BaseActivity;
+import com.spirit.R;
 
-/**
- * aktivita na zobrazeni general moznosti nastaveni
- *
- * @author error414
- */
-public class GeneralActivity extends BaseActivity
+public class GovernorModeActivity extends BaseActivity
 {
 
-	@SuppressWarnings("unused")
-	final private String TAG = "GeneralActivity";
+	final private String TAG = "StabiFunctionActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-    protected String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
+	private final String protocolCode[] = {"GOVERNOR_MODE",};
 
-	// gui prvky ktere sou v teto aktivite aktivni
-	protected int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
+	private int formItems[] = {R.id.governor_mode_select_id};
 
 	private int lock = formItems.length;
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity settings
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		//setContentView(R.layout.general);
-        initSlideMenu(R.layout.general);
+		initSlideMenu(R.layout.governor_mode);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_mode)));
+
+		initConfiguration();
 		delegateListener();
 	}
 
@@ -96,31 +87,6 @@ public class GeneralActivity extends BaseActivity
     protected int getDefaultValueType(){
         return DEFAULT_VALUE_TYPE_SPINNER;
     }
-	
-	/**
-	 * stiknuti tlacitka channels
-	 * 
-	 * @param v
-	 */
-	public void openChannelsActivity(View v)
-	{
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, ChannelsActivity.class);
-            startActivity(i);
-        }
-	}
-
-    /**
-     *
-     * @param v
-     */
-    public void openGovernorActivity(View v)
-    {
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
-            startActivity(i);
-        }
-    }
 
 	/**
 	 * prvotni konfigurace view
@@ -131,17 +97,12 @@ public class GeneralActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initConfiguration();
             initDefaultValue();
-
-            ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-            ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
-
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -184,7 +145,7 @@ public class GeneralActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-		
+
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
 			return;
@@ -198,10 +159,8 @@ public class GeneralActivity extends BaseActivity
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if (pos != tempSpinner.getSelectedItemPosition()){
-					lock = lock + 1;
-				}
 
+				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 			}
 		} catch (IndexOutOfException e) {
@@ -215,7 +174,8 @@ public class GeneralActivity extends BaseActivity
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-			
+
+
 			if (lock != 0) {
 				lock -= 1;
 				return;
@@ -229,11 +189,9 @@ public class GeneralActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-					
 					showInfoBarWrite();
 				}
 			}
-
             initDefaultValue();
 		}
 
@@ -245,27 +203,20 @@ public class GeneralActivity extends BaseActivity
 		}
 	};
 
-	/**
-	 * obsluha callbacku
-	 *
-	 * @param msg
-	 * @return
-	 */
+
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
-                    initDefaultValue();
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
-                ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-                ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
 				break;
 			default:
 				super.handleMessage(msg);
@@ -273,3 +224,4 @@ public class GeneralActivity extends BaseActivity
 		return true;
 	}
 }
+
