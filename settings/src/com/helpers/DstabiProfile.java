@@ -81,7 +81,7 @@ public class DstabiProfile {
 	{
 		/* MTODO nazvy udelat v konstantach */
 		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null,	true)); // 'major', INT,
-		profileMap.put("MINOR", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
+		profileMap.put("MINOR2", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
 
 		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P",	true)); // position_text, ENUM, position_values
 		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
@@ -169,6 +169,7 @@ public class DstabiProfile {
 
         profileMap.put("GOVERNOR_MODE",	new ProfileItem(61, 0, 2, "2",	true));
         profileMap.put("GOVERNOR_GAIN",	new ProfileItem(62, 1, 64, "j",	true));
+        profileMap.put("MINOR1", 	    new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
 
 		this.mProfile = mProfile;
 

@@ -182,14 +182,19 @@ public class ConnectionActivity extends BaseActivity
 	{
 		profileCreator = new DstabiProfile(profile);
 
-        if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR").getValueString().equals(APLICATION_MINOR2_VERSION))) {
+        if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR1").getValueString().equals(APLICATION_MINOR1_VERSION))) {
             stabiProvider.disconnect();
             showConfirmDialog(R.string.version_not_match);
         }
 
 
 		if (profileCreator.isValid()) {
-			version.setText(profileCreator.getProfileItemByName("MAJOR").getValueString() + "." + APLICATION_MINOR1_VERSION + "." + profileCreator.getProfileItemByName("MINOR").getValueString());
+			version.setText(this.formatVersion(
+                    profileCreator.getProfileItemByName("MAJOR"),
+                    profileCreator.getProfileItemByName("MINOR1"),
+                    profileCreator.getProfileItemByName("MINOR2")
+                )
+            );
 
 			//prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
             if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
@@ -211,6 +216,30 @@ public class ConnectionActivity extends BaseActivity
 			//showConfirmDialog(R.string.spirit_not_found);
 		}
 	}
+
+    /**
+     *
+     * @param major
+     * @param minor1
+     * @param minor2
+     * @return
+     */
+    private String formatVersion(ProfileItem major, ProfileItem minor1, ProfileItem minor2)
+    {
+        String buffer = major.getValueString() + "." + minor1.getValueString();
+
+        int minor2Int = minor2.getValueInteger();
+
+        if(minor2Int < 128){
+            buffer = buffer + "." + String.valueOf(minor2Int);
+        }else if(minor2Int < 220){
+            buffer = buffer + "-beta" + String.valueOf(minor2Int - 128);
+        }else {
+            buffer = buffer + "-rc" + String.valueOf(minor2Int - 220);
+        }
+
+        return buffer;
+    }
 
 	/**
 	 * prisla informace o seriovem cisle

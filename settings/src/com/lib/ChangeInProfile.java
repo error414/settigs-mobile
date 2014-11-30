@@ -32,7 +32,7 @@ public class ChangeInProfile
 
 	private ChangeInProfile(){}
 
-	private static String[] exceptProfileItems = {"MAJOR", "MINOR", "CHECKSUM_LO", "CHECKSUM_HI", "BANKS"};
+	private static String[] exceptProfileItems = {"MAJOR", "MINOR1", "MINOR2", "CHECKSUM_LO", "CHECKSUM_HI", "BANKS"};
 
 	/**
 	 * pristupovat jen pres singleton
