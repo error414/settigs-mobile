@@ -165,7 +165,7 @@ public class DstabiProfile {
 		profileMap.put("CHANNELS_PITH",	new ProfileItem(58, 0, 7, "Ep",	true));
 		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb",	true));
 		
-		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	true));
+		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	false));
 
         profileMap.put("GOVERNOR_MODE",	new ProfileItem(61, 0, 2, "2",	true));
         profileMap.put("GOVERNOR_GAIN",	new ProfileItem(62, 1, 64, "j",	true));
