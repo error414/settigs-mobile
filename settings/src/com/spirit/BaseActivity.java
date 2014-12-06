@@ -837,8 +837,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		manual.add(GROUP_HELP, OPEN_MANUAL_GOOGLE_DOCS, Menu.NONE, R.string.open_manual_google_docs);
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
-        menu.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
-        menu.add(GROUP_GENERAL, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
+
+        SubMenu banks = menu.addSubMenu(R.string.banks);
+        banks.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
+        banks.add(GROUP_GENERAL, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
 
 		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
