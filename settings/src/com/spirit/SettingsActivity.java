@@ -34,6 +34,7 @@ import android.widget.Toast;
 
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
 
@@ -99,10 +100,10 @@ public class SettingsActivity extends BaseActivity
 		});
 
 		//change log
-		/*ChangeLog cl = new ChangeLog(this);
+		ChangeLog cl = new ChangeLog(this);
 	    if (cl.firstRun()){
 	        cl.getLogDialog().show();
-	    }*/
+	    }
 
 	}
 
