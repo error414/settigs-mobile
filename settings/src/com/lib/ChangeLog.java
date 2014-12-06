@@ -147,8 +147,8 @@ public class ChangeLog {
                         this.context, android.R.style.Theme_Dialog));
         builder.setTitle(
                 context.getResources().getString(
-                        full ? R.string.changelog_full_title
-                                : R.string.changelog_title))
+                        R.string.donate
+                                ))
                 .setView(wv)
                 .setCancelable(false)
                 // OK button
@@ -161,16 +161,6 @@ public class ChangeLog {
                                 updateVersionInPreferences();
                             }
                         });
-
-        if (!full) {
-            // "more ..." button
-            builder.setNegativeButton(R.string.changelog_show_full,
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            getFullLogDialog().show();
-                        }
-                    });
-        }
 
         return builder.create();
     }
