@@ -8,6 +8,10 @@
             	color:#0AFF00;
             	font-size:0.8em
             }
+
+      .donate{
+        color: #fff;
+      }
     </style>
   </head>
  <body>
@@ -16,7 +20,7 @@
     !&nbsp;
  	!tato aplikace je vyvíjena jako můj soukromý projekt nezávisle na <a href="http://spirit-system.com/">spirit-system.com</a>.
  	!&nbsp;
- 	!Pokud přispějete, podpoříte tím další vývoj. <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">DONATE (paypal)</a>
+ 	!Pokud přispějete, podpoříte tím další vývoj. <a class="donate" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">DONATE (paypal)</a>
     !&nbsp;
  	!Děkuji.
     !&nbsp;
