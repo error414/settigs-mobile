@@ -666,6 +666,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	{
 		progressInfoCount = 0;
 		if (infoBar != null) {
+            Log.d(TAG, "Close info bar");
 			infoBar.hide();
 		}
 	}
@@ -678,6 +679,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	protected void showDialog(String text)
 	{
 		progressCount++;
+        Log.d(TAG, "count +" + String.valueOf(progressCount));
 		if (generalDialog == null || !generalDialog.isShowing()) {
 			generalDialog = ProgressDialog.show(BaseActivity.this, "", text, true);
 		}
@@ -727,7 +729,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showInfoBarWrite()
 	{
-		Log.i(TAG, "zapisuji");
 		showInfoBar(getString(R.string.write_data));
 	}
 

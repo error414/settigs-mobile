@@ -167,9 +167,10 @@ public class DstabiProfile {
 		
 		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	false));
 
-        profileMap.put("GOVERNOR_MODE",	new ProfileItem(61, 0, 2, "2",	true));
-        profileMap.put("GOVERNOR_GAIN",	new ProfileItem(62, 1, 64, "j",	true));
-        profileMap.put("MINOR1", 	    new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
+        profileMap.put("GOVERNOR_MODE",	    new ProfileItem(61, 0, 2, "2",	true));
+        profileMap.put("GOVERNOR_PGAIN",	new ProfileItem(62, 20, 64, "j",	true)); // P-Gain
+        profileMap.put("MINOR1", 	        new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
+        profileMap.put("GOVERNOR_IGAIN",	new ProfileItem(64, 20, 64, "k",	true)); // I-Gain
 
 		this.mProfile = mProfile;
 

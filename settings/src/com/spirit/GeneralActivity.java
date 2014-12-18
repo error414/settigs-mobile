@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -31,11 +32,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
 import com.spirit.general.ChannelsActivity;
 import com.spirit.governor.GovernorActivity;
 
@@ -59,7 +62,17 @@ public class GeneralActivity extends BaseActivity
 
 	private int lock = formItems.length;
 
-	/**
+    /**
+     * je mozne odesilat data do zarizeni
+     */
+    private Boolean isPosibleSendData = true;
+
+    /**
+     * je potreba prenacist kanaly
+     */
+    private Boolean needRestoreChannels = false;
+
+    /**
 	 * zavolani pri vytvoreni instance aktivity settings
 	 */
 	public void onCreate(Bundle savedInstanceState)
@@ -135,7 +148,7 @@ public class GeneralActivity extends BaseActivity
             initDefaultValue();
 
             ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-            ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
+            this.checkGovernorButton();
 
 		} else {
 			finish();
@@ -176,6 +189,22 @@ public class GeneralActivity extends BaseActivity
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
 
+    /**
+     *
+     */
+    private void checkGovernorButton()
+    {
+        if(profileCreator != null){
+            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 /*A*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
+                ((Button) findViewById(R.id.governor)).setEnabled(false);
+            }else {
+                ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
+            }
+        }else{
+            ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
+        }
+    }
+
 	/**
 	 * naplneni formulare
 	 *
@@ -184,6 +213,7 @@ public class GeneralActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
+
 		
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
@@ -192,7 +222,7 @@ public class GeneralActivity extends BaseActivity
 		
 		checkBankNumber(profileCreator);
 		initBasicMode();
-		
+
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
@@ -204,11 +234,69 @@ public class GeneralActivity extends BaseActivity
 
 				tempSpinner.setSelection(pos);
 			}
+
+            //governor jen pro NEpwm a musi byt prirazen kanal plynu
+            this.checkGovernorButton();
 		} catch (IndexOutOfException e) {
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
 	}
+
+    protected void restoreChannels(int receiverPosition){
+        isPosibleSendData = true;
+        // musime byt pripojeni
+        if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+            Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if(profileCreator == null){
+            return;
+        }
+
+        final String[] map = {"CHANNELS_THT", "CHANNELS_AIL", "CHANNELS_ELE", "CHANNELS_RUD", "CHANNELS_GAIN", "CHANNELS_PITH", "CHANNELS_BANK"};
+        switch (receiverPosition) {
+            case 2:
+                //spectrum
+                Log.d(TAG, "spectrum");
+                profileCreator.getProfileItemByName("CHANNELS_THT").setValue(0);
+                profileCreator.getProfileItemByName("CHANNELS_AIL").setValue(1);
+                profileCreator.getProfileItemByName("CHANNELS_ELE").setValue(2);
+                profileCreator.getProfileItemByName("CHANNELS_RUD").setValue(3);
+                profileCreator.getProfileItemByName("CHANNELS_GAIN").setValue(4);
+                profileCreator.getProfileItemByName("CHANNELS_PITH").setValue(5);
+                profileCreator.getProfileItemByName("CHANNELS_BANK").setValue(7);
+
+                break;
+            default:
+                //other receiver
+                Log.d(TAG, "other");
+                profileCreator.getProfileItemByName("CHANNELS_THT").setValue(7);
+                profileCreator.getProfileItemByName("CHANNELS_AIL").setValue(1);
+                profileCreator.getProfileItemByName("CHANNELS_ELE").setValue(2);
+                profileCreator.getProfileItemByName("CHANNELS_RUD").setValue(3);
+                profileCreator.getProfileItemByName("CHANNELS_GAIN").setValue(4);
+                profileCreator.getProfileItemByName("CHANNELS_PITH").setValue(5);
+                profileCreator.getProfileItemByName("CHANNELS_BANK").setValue(7);
+                break;
+        }
+
+        for(String item : map){
+            if (isPosibleSendData) {
+                showInfoBarWrite();
+                stabiProvider.sendDataNoWaitForResponce(profileCreator.getProfileItemByName(item));
+            }else if (!isPosibleSendData) {
+                isPosibleSendData = true;
+                break;
+            }else{
+                break;
+            }
+        }
+        checkGovernorButton();
+        checkChange(profileCreator);
+
+    }
 
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
@@ -222,6 +310,7 @@ public class GeneralActivity extends BaseActivity
 			}
 			lock = Math.max(lock - 1, 0);
 
+
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
@@ -231,9 +320,16 @@ public class GeneralActivity extends BaseActivity
 					stabiProvider.sendDataNoWaitForResponce(item);
 					
 					showInfoBarWrite();
+
+                    if(i == 2){
+                        needRestoreChannels = true;
+                    }
+
 				}
 			}
 
+            //governor jen pro NEpwm a musi byt prirazen kanal plynu
+            checkGovernorButton();
             initDefaultValue();
 		}
 
@@ -267,7 +363,28 @@ public class GeneralActivity extends BaseActivity
                 ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
                 ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
 				break;
-			default:
+            case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+                isPosibleSendData = false;
+                stabiProvider.abortAll();
+                super.handleMessage(msg);
+                break;
+            case DstabiProvider.MESSAGE_SEND_COMPLETE:
+                Log.d(TAG, "response");
+                super.handleMessage(msg);
+                if(needRestoreChannels){
+                    needRestoreChannels = false;
+                    if(profileCreator != null){
+                        try {
+                            restoreChannels(profileCreator.getProfileItemByName("RECEIVER").getValueForSpinner(profileCreator.getProfileItemByName("RECEIVER").getMaximum()));
+                        } catch (IndexOutOfException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                break;
+
+            default:
 				super.handleMessage(msg);
 		}
 		return true;

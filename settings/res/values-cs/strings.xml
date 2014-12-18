@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 07.12.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 18.12.2014</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -418,6 +418,8 @@
     <string name="governor">Governor</string>
     <string name="governor_mode">Režim governoru</string>
     <string name="governor_gain">Zisk governoru</string>
+    <string name="governor_igain">I-gain</string>
+    <string name="governor_pgain">P-gain</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
@@ -453,6 +455,6 @@
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n- Je nezbytné zvolit správně kladný nebo záporný směr!\n\n<i>Rozsah: -100 - +100%</i></string>
     <string name="st_701a785854a820040b882b1496fc7955">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 10</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
-    <!--  END AUTO GENERATE STUB --> 
+    <!--  END AUTO GENERATE STUB -->
 
 </resources>

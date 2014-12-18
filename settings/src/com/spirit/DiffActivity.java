@@ -766,9 +766,19 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_GAIN")){
+        if(diffItem.getLabel().equals("GOVERNOR_IGAIN")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_gain)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_pgain)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_IGAIN")){
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_igain)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());

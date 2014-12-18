@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 07.12.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 18.12.2014</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -378,8 +378,10 @@
     <string name="unsaved_changes_before_disconnect">Before disconnecting the changes were not saved</string>
 
     <string name="governor">Governor</string>
-    <string name="governor_mode">Governor gain</string>
-    <string name="governor_gain">Governor mode</string>
+    <string name="governor_mode">Governor mode</string>
+    <string name="governor_gain">Governor gain</string>
+    <string name="governor_pgain">P-gain</string>
+    <string name="governor_igain">I-gain</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Range around stick center where movement is zero.\n\n<i>Range: 4 - 30</i></string>
