@@ -40,6 +40,7 @@
     <string name="unknow_serial">Unknown serial</string>
     <string name="first_paired_device">Pair your BT device first, please</string>
     <string name="connection_error">Connection error</string>
+    <string name="copy_bank_error">Bank copying failed</string>
     <string name="BT_connection_progress">Bluetooth connection in progress</string>
     <string name="axis_X">X</string>
     <string name="axis_Y">Y</string>
@@ -141,7 +142,8 @@
     <string name="amplitude">Amplitude</string>
     <string name="hz">[Hz]</string>
     <string name="profile_diff">Profile diff</string>
-    <string name="profile_bank_diff">Bank comparison</string>
+    <string name="profile_bank_diff">Comparison</string>
+    <string name="profile_bank_copy">Copying from bank</string>
     <string name="log_button_text">Flight log</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
@@ -370,6 +372,8 @@
     <string name="stabi_piruete_warning">Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</string>
 
     <string name="bank_choice_title">Choose bank</string>
+    <string name="source_bank_choice_title">Choose source bank</string>
+
     <string name="bank_comparison_changes">Profile must be saved before bank comparison</string>
     <string name="no_active_bank">No bank is active</string>
 

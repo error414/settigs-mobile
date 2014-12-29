@@ -274,12 +274,16 @@ public class DiagnosticActivity extends BaseActivity
         super.onCreateOptionsMenu(menu);
 
         menu.removeItem(OPEN_DIFF);
-        menu.removeItem(OPEN_BANK_DIFF);
 
         return true;
     }
 
-    public boolean handleMessage(Message msg)
+	@Override
+	protected void createBanksSubMenu(Menu menu) {
+		//v diagonstike nejsou banky povoleny
+	}
+
+	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:

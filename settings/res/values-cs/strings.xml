@@ -42,6 +42,7 @@
     <string name="first_paired_device">First paired devices</string>
     <string name="log_button_text">Letový záznam</string>
     <string name="connection_error">Chyba spojení</string>
+    <string name="copy_bank_error">Kopírovaní nastavení banky se nepovedlo</string>
     
     
     <string name="BT_connection_progress">Probíhá připojování přes Bluetooth</string>
@@ -156,7 +157,9 @@
     <string name="stabi_ctrldir">Míra změny směru</string>
 
 	<string name="profile_diff">Provedené změny</string>
-    <string name="profile_bank_diff">Porovnání bank</string>
+    <string name="profile_bank_diff">Porovnání</string>
+    <string name="profile_bank_copy">Kopírování z banky</string>
+
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>
 	<string name="gyro_gain">Zisk vrtulky</string>
@@ -408,6 +411,7 @@
     <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně, jinak tyto režimy nebudou fungovat korektně!</string>
 
     <string name="bank_choice_title">Vyberte banku</string>
+    <string name="source_bank_choice_title">Vyberte zdrojovou banku</string>
     <string name="bank_comparison_changes">Před porovnáním bank musíte uložit profil</string>
     <string name="no_active_bank">Není aktivní žádná banka</string>
 

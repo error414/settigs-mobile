@@ -82,7 +82,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 {
 
     /*#############################################*/
-	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE         */
+	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
 	/*#############################################*/
     final protected String APLICATION_MAJOR_VERSION = "1";
     final protected String APLICATION_MINOR1_VERSION = "1";
@@ -109,11 +109,13 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_GENERAL = 5;
 	final protected int OPEN_AUTHOR = 5;
     final protected int OPEN_DIFF = 55;
-    final protected int OPEN_BANK_DIFF = 56;
 
 	final protected int GROUP_HELP = 2;
 	final protected int OPEN_MANUAL = 2;
 	final protected int OPEN_MANUAL_GOOGLE_DOCS = 3;
+
+    final protected int GROUP_BANKS = 6;
+    final protected int OPEN_BANK_DIFF = 61;
 
 	final protected int GROUP_SAVE = 3;
 	final protected int SAVE_PROFILE_MENU = 4;
@@ -205,6 +207,25 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             }
         }
 	}
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        savedInstanceState.putInt("bankForChange", bankForChange);
+    }
+
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        bankForChange = savedInstanceState.getInt("bankForChange", 0);
+    }
 
     /**
      *
@@ -596,13 +617,13 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         if (mDrawer != null) {
             mDrawer.closeMenu();
         }
-
     }
+
 
 	/**
 	 * check if profile was changed and save to GLobal storage
 	 */
-	public void checkChange(DstabiProfile profile){
+	public void checkChange(DstabiProfile profile) {
 		if(profile == null){
 			Globals.getInstance().setChanged(false);
 			((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
@@ -611,8 +632,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
 
-		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
+        Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+
+        ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
 
 	/**
@@ -711,7 +733,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	{
 		progressInfoCount = 0;
 		if (infoBar != null) {
-            Log.d(TAG, "Close info bar");
 			infoBar.hide();
 		}
 	}
@@ -724,7 +745,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	protected void showDialog(String text)
 	{
 		progressCount++;
-        Log.d(TAG, "count +" + String.valueOf(progressCount));
 		if (generalDialog == null || !generalDialog.isShowing()) {
 			generalDialog = ProgressDialog.show(BaseActivity.this, "", text, true);
 		}
@@ -884,13 +904,20 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
 
-        SubMenu banks = menu.addSubMenu(R.string.banks);
-        banks.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
-        banks.add(GROUP_GENERAL, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
+        createBanksSubMenu(menu);
 
 		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
 	}
+
+    protected void createBanksSubMenu(Menu menu) {
+        populateBankSubMenu(menu.addSubMenu(R.string.banks));
+    }
+
+    protected void populateBankSubMenu(SubMenu banksSubMenu) {
+        banksSubMenu.add(GROUP_BANKS, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
+        banksSubMenu.add(GROUP_BANKS, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
+    }
 
 	/**
 	 * reakce na kliknuti polozky v kontextovem menu
@@ -920,7 +947,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
 
         //otevreni diffu profilu
-        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_DIFF) {
+        if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_DIFF) {
             if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                 Intent i = new Intent(this, DiffActivity.class);
                 startActivity(i);
@@ -930,7 +957,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         }
 
         //otevreni rozdilu bank
-        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_BANK_DIFF) {
+        if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_BANK_DIFF) {
             if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                 showBankDiff();
             }else{
@@ -978,29 +1005,12 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             return;
         }
 
-
-        CharSequence[] banksToCompare = new CharSequence[2];
-        final int[] banksToCompareValue = new int[banksToCompare.length];
-        String[] banks = getResources().getStringArray(R.array.bank_values);
-        int pos = -1;
-        for (int i = 0; i < banks.length; i++) {
-            if (activeBank != i) {
-                banksToCompareValue[++pos] = i;
-                banksToCompare[pos] = banks[i];
+        DialogHelper.showBankChoiceDialog(this, R.string.bank_choice_title, new DialogHelper.BankChosenListener() {
+            @Override
+            public void onBankChosen(int bank) {
+                startActivity(DiffActivity.createBankCompareIntent(BaseActivity.this, bank));
             }
-
-        }
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.bank_choice_title))
-                .setSingleChoiceItems(banksToCompare, -1, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        startActivity(DiffActivity.createBankCompareIntent(BaseActivity.this, banksToCompareValue[which]));
-                    }
-                })
-                .show()
-        ;
+        });
     }
 
     /**
@@ -1085,59 +1095,57 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		alert.show();
 	}
 
-	/**
-	 * obsluha callbacku
-	 *
-	 * @param msg
-	 * @return
-	 */
-	public boolean handleMessage(Message msg)
-	{
-		switch (msg.what) {
-			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-				sendInError();
-				break;
-			case DstabiProvider.MESSAGE_SEND_COMPLETE:
-				if(profileCreator != null){
-					checkChange(profileCreator);
-				}
-				sendInSuccessInfo();
+    /**
+     * obsluha callbacku
+     *
+     * @param msg
+     * @return
+     */
+    public boolean handleMessage(Message msg) {
+        switch (msg.what) {
+            case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+                sendInError();
+                break;
+            case DstabiProvider.MESSAGE_SEND_COMPLETE:
+                if (profileCreator != null) {
+                    checkChange(profileCreator);
+                }
+                sendInSuccessInfo();
 
-				break;
-			case DstabiProvider.MESSAGE_STATE_CHANGE:
-				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-					sendInError();
-				} else {
-					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-				}
-				break;
+                break;
+            case DstabiProvider.MESSAGE_STATE_CHANGE:
+                if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+                    sendInError();
+                } else {
+                    ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+                }
+                break;
             case PROFILE_SAVE_CALL_BACK_CODE_CHANGE_BANK:
                 changeBank(bankForChange, BANK_CHANGE_CALL_BACK_CODE);
                 // this no break
-			case PROFILE_SAVE_CALL_BACK_CODE:
-				sendInSuccessDialog();
-				showProfileSavedDialog();
-				//po ulozeni profilu nacteme novy original profile
-				reloadOriginalProfile();
-				break;
+            case PROFILE_SAVE_CALL_BACK_CODE:
+                sendInSuccessDialog();
+                showProfileSavedDialog();
+                //po ulozeni profilu nacteme novy original profile
+                reloadOriginalProfile();
+                break;
 
-			case PROFILE_FOR_UPDATE_ORIGINAL:
-				sendInSuccessInfo();
+            case PROFILE_FOR_UPDATE_ORIGINAL:
+                sendInSuccessInfo();
 
-				DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
+                DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
 
-				setOriginalProfileProfile(profile);
-				checkChange(profile);
+                setOriginalProfileProfile(profile);
+                checkChange(profile);
                 initDefaultValue();
 
-				break;
+                break;
 
-			case BANK_CHANGE_CALL_BACK_CODE:
-				sendInSuccessInfo();
-				reloadOriginalProfile();
-				break;
-		}
-		return true;
-	}
-
+            case BANK_CHANGE_CALL_BACK_CODE:
+                sendInSuccessInfo();
+                reloadOriginalProfile();
+                break;
+        }
+        return true;
+    }
 }

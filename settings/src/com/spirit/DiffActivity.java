@@ -149,9 +149,9 @@ public class DiffActivity extends BaseActivity
 		}
 	}
 
-    private void updateGui(DstabiProfile profileToCompare, DstabiProfile activeProfile) {
+    private void updateGui(DstabiProfile profileToCompare, DstabiProfile activeProfile, boolean compareOnlyBasicItems) {
         try {
-            updateGui(ChangeInProfile.getDiff(profileToCompare, activeProfile));
+            updateGui(ChangeInProfile.getDiff(profileToCompare, activeProfile, compareOnlyBasicItems));
         } catch (ProfileNotValidException e) {
             e.printStackTrace();
         }
@@ -838,7 +838,7 @@ public class DiffActivity extends BaseActivity
                 sendInSuccessDialog();
                 if (msg.getData().containsKey("data")) {
                     DstabiProfile activeProfile = new DstabiProfile(msg.getData().getByteArray("data"));
-                    updateGui(profileToCompare, activeProfile);
+                    updateGui(profileToCompare, activeProfile, true);
                     profileToCompare = null;
                 }
                 break;
