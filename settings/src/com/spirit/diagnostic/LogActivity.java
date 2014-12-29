@@ -96,7 +96,17 @@ public class LogActivity extends BaseActivity
 		logList = (ListView) findViewById(R.id.logList);
 		LogListAdapter adapter = new LogListAdapter(this, new ArrayList<HashMap<Integer, Integer>>());
 		logList.setAdapter(adapter);
-		initConfiguration();
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
+        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+            Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(LogActivity.this, PrefsActivity.class);
+            startActivity(i);
+            finish();
+            return;
+        }
+
+        initConfiguration();
 	}
 	
 	/**
@@ -247,6 +257,7 @@ public class LogActivity extends BaseActivity
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
 					updateGuiByLog(msg.getData().getByteArray("data"));
+                    saveLogToFile();
 				}
 				break;
 			default:
@@ -263,10 +274,39 @@ public class LogActivity extends BaseActivity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		super.onCreateOptionsMenu(menu);
-		menu.add(GROUP_LOG, LOG_SAVE, Menu.NONE, R.string.save_log);
 		menu.add(GROUP_LOG, LOG_REFRESH, Menu.NONE, R.string.refresh_log);
 		return true;
 	}
+
+    /**
+     *
+     * @return
+     */
+    private boolean saveLogToFile()
+    {
+        // musime byt pripojeni k zarizeni
+        if (logListData == null) {
+            Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
+        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+            return false;
+        }
+
+        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
+
+        LogPdf log = new LogPdf(this, logListData);
+        if(log.create(filename)){
+            Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+        }
+
+
+        return true;
+    }
 
 	/**
 	 * reakce na kliknuti polozky v kontextovem menu
@@ -276,30 +316,7 @@ public class LogActivity extends BaseActivity
 	{
 		super.onOptionsItemSelected(item);
 		//nahrani / ulozeni profilu
-		if (item.getGroupId() == GROUP_LOG && item.getItemId() == LOG_SAVE) {
-			// musime byt pripojeni k zarizeni
-			if (logListData == null) {
-				Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
-				return false;
-			}
-
-            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
-			if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
-				Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
-				Intent i = new Intent(LogActivity.this, PrefsActivity.class);
-				startActivity(i);
-				return false;
-			}
-			
-			String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
-
-			LogPdf log = new LogPdf(this, logListData);
-			log.create(filename);
-			
-			Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
-			
-			
-		}else if(item.getGroupId() == GROUP_LOG && item.getItemId() == LOG_REFRESH){
+		if(item.getGroupId() == GROUP_LOG && item.getItemId() == LOG_REFRESH){
 			initConfiguration();
 		}
 		return false;

@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 18.12.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 29.12.2014</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -410,6 +410,8 @@
     <string name="bank_choice_title">Vyberte banku</string>
     <string name="bank_comparison_changes">Před porovnáním bank musíte uložit profil</string>
     <string name="no_active_bank">Není aktivní žádná banka</string>
+
+    <string name="save_profile_changes">Před uložením nastavení do souboru musíte uložit nastavení do jednotky</string>
 
     <string name="unsaved_changes">Neuložené změny</string>
     <string name="unsaved_changes_description">Změny nejsou uloženy</string>
