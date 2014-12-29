@@ -950,6 +950,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_DIFF) {
             if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                 Intent i = new Intent(this, DiffActivity.class);
+                if (BaseActivity.this instanceof DiffActivity) {
+                    finish();
+                }
                 startActivity(i);
             }else{
                 Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
@@ -1008,6 +1011,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         DialogHelper.showBankChoiceDialog(this, R.string.bank_choice_title, new DialogHelper.BankChosenListener() {
             @Override
             public void onBankChosen(int bank) {
+                if (BaseActivity.this instanceof DiffActivity) {
+                    finish();
+                }
                 startActivity(DiffActivity.createBankCompareIntent(BaseActivity.this, bank));
             }
         });
