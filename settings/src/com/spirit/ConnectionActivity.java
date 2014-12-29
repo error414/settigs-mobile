@@ -478,7 +478,10 @@ public class ConnectionActivity extends BaseActivity
 
 					if (requestCode == REQUEST_SAVE) {
 						//SAVE
-
+                        if(Globals.getInstance().isChanged()){
+                            Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
 						if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 							showDialogWrite();
 							fileForSave = filePath;
