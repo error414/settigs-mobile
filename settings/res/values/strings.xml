@@ -22,6 +22,7 @@
     <string name="save_profile">Save profile</string>
     <string name="save_profile_to_unit">Save profile to unit</string>
     <string name="profile_saved_file">Settings have been saved to a file</string>
+    <string name="save_to_file_fail">Saving to file failed</string>
     <string name="profile_saved">Settings have been saved</string>
     <string name="profile_load">Settings have been loaded</string>
     <string name="file_manager">File manager</string>

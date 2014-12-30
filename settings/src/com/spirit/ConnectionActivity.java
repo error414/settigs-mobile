@@ -68,10 +68,12 @@ public class ConnectionActivity extends BaseActivity
 
 	final protected int REQUEST_SAVE = 1;
 	final protected int REQUEST_OPEN = 2;
+    final protected int REQUEST_SAVE_ALL_BANKS = 3;
 
 	final protected int GROUP_PROFILE = 3;
 	final protected int PROFILE_LOAD = 1;
 	final protected int PROFILE_SAVE = 2;
+    final protected int PROFILE_SAVE_ALL_BANK = 44;
 
 	final protected int APP_BASIC_MODE = 3;
 
@@ -101,7 +103,16 @@ public class ConnectionActivity extends BaseActivity
 	final protected int COPY_BANK_SOURCE_PROFILE_CALL_BACK_CODE = 121;
 	final protected int COPY_BANK_SWITCH_DESTINATION_BANK_CALL_BACK_CODE = 122;
 
+    //uklani vsech bank do souboru
+    final protected int CHANGE_BANK_0_CALL_BACK_CODE = 123;
+    final protected int CHANGE_BANK_1_CALL_BACK_CODE = 124;
+    final protected int CHANGE_BANK_2_CALL_BACK_CODE = 125;
 
+    final protected int GET_PROFILE_BANK_0_CALL_BACK_CODE = 126;
+    final protected int GET_PROFILE_BANK_1_CALL_BACK_CODE = 127;
+    final protected int GET_PROFILE_BANK_2_CALL_BACK_CODE = 128;
+
+    final protected int CHANGE_BANK_SOURCE_CALL_BACK_CODE = 129;
 	/**
      * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
      */
@@ -114,13 +125,14 @@ public class ConnectionActivity extends BaseActivity
 
 	final static String FILE_EXT = "4ds";
 
-	private String fileForSave;
 	/**
 	 * je mozne odesilat data do zarizeni
 	 */
 	private Boolean isPosibleSendData = true;
 
 	private CopyBankTask copyBankTask;
+
+    private SavePrifileAllBanksTask savePrifileAllBanksTask;
 
 
 	/**
@@ -157,6 +169,10 @@ public class ConnectionActivity extends BaseActivity
 			savedInstanceState.putSerializable("copyBankTask", copyBankTask);
 		}
 
+        if (savePrifileAllBanksTask != null) {
+            savedInstanceState.putSerializable("savedInstanceState", savePrifileAllBanksTask);
+        }
+
 	}
 
 
@@ -168,6 +184,7 @@ public class ConnectionActivity extends BaseActivity
     {
         disconect = savedInstanceState.getBoolean("disconect", false);
 		copyBankTask = savedInstanceState.containsKey("copyBankTask") ? (CopyBankTask) savedInstanceState.getSerializable("copyBankTask") : null;
+        savePrifileAllBanksTask = savedInstanceState.containsKey("savePrifileAllBanksTask") ? (SavePrifileAllBanksTask) savedInstanceState.getSerializable("savePrifileAllBanksTask") : null;
     }
 
 	/**
@@ -442,7 +459,13 @@ public class ConnectionActivity extends BaseActivity
 
 		SubMenu profile = menu.addSubMenu(R.string.profile);
 		profile.add(GROUP_PROFILE, PROFILE_LOAD, Menu.NONE, R.string.load_profile);
-		profile.add(GROUP_PROFILE, PROFILE_SAVE, Menu.NONE, R.string.save_profile);
+
+        if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() != 7){ // banky aktivni
+            profile.add(GROUP_PROFILE, PROFILE_SAVE_ALL_BANK, Menu.NONE, R.string.save_profile);
+        }else{
+            profile.add(GROUP_PROFILE, PROFILE_SAVE, Menu.NONE, R.string.save_profile);
+        }
+
 
 		return true;
 	}
@@ -509,9 +532,23 @@ public class ConnectionActivity extends BaseActivity
 				intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_OPEN);
 				startActivityForResult(intent, REQUEST_OPEN);
 			} else if (item.getItemId() == PROFILE_SAVE) {
+                if (Globals.getInstance().isChanged()) {
+                    Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+
 				intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_CREATE);
 				startActivityForResult(intent, REQUEST_SAVE);
-			}
+			}else if (item.getItemId() == PROFILE_SAVE_ALL_BANK) {
+                if (Globals.getInstance().isChanged()) {
+                    Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+
+                intent.putExtra(FileDialog.SELECTION_MODE, SelectionMode.MODE_CREATE);
+                startActivityForResult(intent, REQUEST_SAVE_ALL_BANKS);
+            }
 		}
 		return false;
 	}
@@ -524,21 +561,35 @@ public class ConnectionActivity extends BaseActivity
 		switch (requestCode) {
 			case REQUEST_SAVE:
 			case REQUEST_OPEN:
+            case REQUEST_SAVE_ALL_BANKS:
 				if (resultCode == Activity.RESULT_OK) {
 					String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
 
 					if (requestCode == REQUEST_SAVE) {
-						//SAVE
-                        if(Globals.getInstance().isChanged()){
+                        //SAVE
+                        if (Globals.getInstance().isChanged()) {
                             Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
                             return;
                         }
-						if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-							showDialogWrite();
-							fileForSave = filePath;
-							stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
-						}
+                        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                            showDialogWrite();
+                            savePrifileAllBanksTask = new SavePrifileAllBanksTask();
+                            savePrifileAllBanksTask.setFileForSave(filePath);
+                            stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                        }
 
+                    } else if (requestCode == REQUEST_SAVE_ALL_BANKS){
+                        if (Globals.getInstance().isChanged()) {
+                            Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                            showDialogWrite();
+                            savePrifileAllBanksTask = new SavePrifileAllBanksTask();
+                            savePrifileAllBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
+                            savePrifileAllBanksTask.setFileForSave(filePath);
+                            changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                        }
 					} else if (requestCode == REQUEST_OPEN) {
 						//OPEN
 						File file = new File(filePath);
@@ -587,7 +638,6 @@ public class ConnectionActivity extends BaseActivity
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessDialog();
-				Log.d(TAG, "prisly data count je " + String.valueOf(progressCount));
 				break;
 			case PROFILE_CALL_BACK_CODE:
 				sendInSuccessDialog();
@@ -598,8 +648,14 @@ public class ConnectionActivity extends BaseActivity
 			case PROFILE_CALL_BACK_CODE_FOR_SAVE:
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
-					saveProfileTofile(msg.getData().getByteArray("data"));
+					if(saveProfileTofile(msg.getData().getByteArray("data"))){
+                        showConfirmDialog(R.string.profile_saved_file);
+                    }else{
+                        showConfirmDialog(R.string.save_to_file_fail);
+                    }
 				}
+                copyBankTask = null;
+                sendInSuccessInfo();
 				break;
 			case GET_SERIAL_NUMBER:
 				sendInSuccessDialog();
@@ -616,7 +672,6 @@ public class ConnectionActivity extends BaseActivity
 
 			case COPY_BANK_SWITCH_SOURCE_BANK_CALL_BACK_CODE:
 				if (stabiProvider != null) {
-					Log.d(TAG, "kopirovani banky - prepnuti na zdrojovou banku");
 					stabiProvider.getProfile(COPY_BANK_SOURCE_PROFILE_CALL_BACK_CODE);
 				} else {
 					Log.e(TAG, "kopirovani banky - prepnuti na zdrojovou banku - stabiProvider neni nastaven");
@@ -649,14 +704,52 @@ public class ConnectionActivity extends BaseActivity
 				}
 				break;
 
+            case CHANGE_BANK_0_CALL_BACK_CODE:
+                stabiProvider.getProfile(GET_PROFILE_BANK_0_CALL_BACK_CODE);
+                break;
+
+            case GET_PROFILE_BANK_0_CALL_BACK_CODE:
+                if (msg.getData().containsKey("data")) {
+                    saveProfileTofile(msg.getData().getByteArray("data"), 0);
+                }
+                changeBank(1, CHANGE_BANK_1_CALL_BACK_CODE);
+                break;
+
+            case CHANGE_BANK_1_CALL_BACK_CODE:
+                stabiProvider.getProfile(GET_PROFILE_BANK_1_CALL_BACK_CODE);
+                break;
+
+            case GET_PROFILE_BANK_1_CALL_BACK_CODE:
+                if (msg.getData().containsKey("data")) {
+                    saveProfileTofile(msg.getData().getByteArray("data"), 1);
+                }
+                changeBank(2, CHANGE_BANK_2_CALL_BACK_CODE);
+                break;
+
+            case CHANGE_BANK_2_CALL_BACK_CODE:
+                stabiProvider.getProfile(GET_PROFILE_BANK_2_CALL_BACK_CODE);
+                break;
+
+            case GET_PROFILE_BANK_2_CALL_BACK_CODE:
+                if (msg.getData().containsKey("data")) {
+                    saveProfileTofile(msg.getData().getByteArray("data"), 2);
+                }
+                changeBank(savePrifileAllBanksTask.getSourceBank(), CHANGE_BANK_SOURCE_CALL_BACK_CODE);
+                break;
+
+            case CHANGE_BANK_SOURCE_CALL_BACK_CODE:
+                closeDialog();
+                showConfirmDialog(R.string.profile_saved_file);
+                savePrifileAllBanksTask = null;
+                break;
+
 			default:
 				super.handleMessage(msg);
 		}
 		return true;
 	}
 
-	private void insertProfileToUnit(byte[] profile) {
-		Log.d(TAG, "delka profilu na odeslani " + String.valueOf(profile.length));
+    private void insertProfileToUnit(byte[] profile) {
 		// musime byt pripojeni
 		if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
 			Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
@@ -707,36 +800,51 @@ public class ConnectionActivity extends BaseActivity
 	 *
 	 * @param profile
 	 */
-	private void saveProfileTofile(byte[] profile)
+	private boolean saveProfileTofile(byte[] profile, int bankNumber)
 	{
 		// musime byt pripojeni
 		if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
 			Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
-			return;
+			return false;
 		}
 
-		if (fileForSave == null) {
+		if (savePrifileAllBanksTask == null && savePrifileAllBanksTask.getFileForSave() == null) {
+            saveProfileError(false);
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
-			return;
+			return false;
 		}
-		showDialogWrite();
+
+        String filePath = savePrifileAllBanksTask.getFileForSave();
+        if(filePath.endsWith(FILE_EXT)){
+            filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() + 1);
+        }
+
+
 		try {
 			byte[] clearProfile = new byte[profile.length - 1];
 			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
-			if (fileForSave.endsWith(FILE_EXT)) { // konci nazev souboru na string .4ds, pokud ano nepridavame priponu
-				DstabiProfile.saveProfileToFile(new File(fileForSave), clearProfile);
-			} else {
-				DstabiProfile.saveProfileToFile(new File(fileForSave + "." + FILE_EXT), clearProfile);
-			}
+            DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
 
-			fileForSave = null;
-            showConfirmDialog(R.string.profile_saved_file);
+            return true;
+
 		} catch (IOException e) {
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
+            return false;
 		}
-		sendInSuccessDialog();
 	}
 
+    /**
+     *
+     * @param profile
+     */
+    private boolean saveProfileTofile(byte[] profile)
+    {
+        return saveProfileTofile(profile, -1);
+    }
+
+    /**
+     *
+     */
 	private void copyBank() {
 		final int activeBank = Globals.getInstance().getActiveBank();
 		if (activeBank == Globals.BANK_NULL) {
@@ -749,13 +857,13 @@ public class ConnectionActivity extends BaseActivity
 		}
 
 		DialogHelper.showBankChoiceDialog(this, R.string.source_bank_choice_title, new DialogHelper.BankChosenListener() {
-			@Override
-			public void onBankChosen(int bank) {
-				copyBankTask = new CopyBankTask(activeBank);
-				showInfoBarRead();
-				changeBank(bank, COPY_BANK_SWITCH_SOURCE_BANK_CALL_BACK_CODE);
-			}
-		});
+            @Override
+            public void onBankChosen(int bank) {
+                copyBankTask = new CopyBankTask(activeBank);
+                showInfoBarRead();
+                changeBank(bank, COPY_BANK_SWITCH_SOURCE_BANK_CALL_BACK_CODE);
+            }
+        });
 	}
 
 	private void copyBankError(Boolean finishActivity)
@@ -767,6 +875,18 @@ public class ConnectionActivity extends BaseActivity
 		}
 	}
 
+    private void saveProfileError(Boolean finishActivity)
+    {
+        Toast.makeText(getApplicationContext(), R.string.save_to_file_fail, Toast.LENGTH_SHORT).show();
+        closeAllBar();
+        if (finishActivity) {
+            finish();
+        }
+    }
+
+    /**
+     *
+     */
 	private static class CopyBankTask implements Serializable {
 		private static final long serialVersionUID = 7257425888788596806L;
 		private int destinationBank;
@@ -791,4 +911,32 @@ public class ConnectionActivity extends BaseActivity
 			this.sourceProfile = sourceProfile;
 		}
 	}
+
+    /**
+     *
+     */
+    private static class SavePrifileAllBanksTask implements Serializable {
+        private static final long serialVersionUID = 7257425888788596806L;
+        private String fileForSave;
+        private int sourceBank;
+
+        public SavePrifileAllBanksTask() {
+        }
+
+        public void setFileForSave(String fileForSave) {
+            this.fileForSave = fileForSave;
+        }
+
+        public String getFileForSave() {
+            return fileForSave;
+        }
+
+        public int getSourceBank() {
+            return sourceBank;
+        }
+
+        public void setSourceBank(int sourceBank) {
+            this.sourceBank = sourceBank;
+        }
+    }
 }

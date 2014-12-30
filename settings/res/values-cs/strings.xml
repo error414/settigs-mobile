@@ -23,6 +23,7 @@
     <string name="save_profile">Uložit profil</string>
     <string name="save_profile_to_unit">Uložit profil do jednotky</string>
     <string name="profile_saved_file">Nastavení uloženo do souboru</string>
+    <string name="save_to_file_fail">Uloženo do souboru selhalo</string>
     <string name="profile_saved">Nastavení uloženo</string>
     <string name="profile_load">Nastavení bylo nahráno</string>
     <string name="file_manager">Správce souborů</string>
