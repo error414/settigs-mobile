@@ -473,7 +473,7 @@ public class ConnectionActivity extends BaseActivity
 	@Override
 	protected void populateBankSubMenu(SubMenu banksSubMenu) {
 		super.populateBankSubMenu(banksSubMenu);
-		banksSubMenu.add(GROUP_BANKS, COPY_BANK, Menu.NONE, R.string.profile_bank_copy);
+		//banksSubMenu.add(GROUP_BANKS, COPY_BANK, Menu.NONE, R.string.profile_bank_copy); kopirovani bank zatim zakazano
 	}
 
 	/**
@@ -816,14 +816,18 @@ public class ConnectionActivity extends BaseActivity
 
         String filePath = savePrifileAllBanksTask.getFileForSave();
         if(filePath.endsWith(FILE_EXT)){
-            filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() + 1);
+            filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() - 1);
         }
 
 
 		try {
 			byte[] clearProfile = new byte[profile.length - 1];
 			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
-            DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
+            if(bankNumber >= 0) {
+                DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
+            }else{
+                DstabiProfile.saveProfileToFile(new File(filePath + "." + FILE_EXT), clearProfile);
+            }
 
             return true;
 
