@@ -132,7 +132,7 @@ public class ConnectionActivity extends BaseActivity
 
 	private CopyBankTask copyBankTask;
 
-    private SavePrifileAllBanksTask savePrifileAllBanksTask;
+    private SaveProfileAllBanksTask saveProfileBanksTask;
 
 
 	/**
@@ -169,8 +169,8 @@ public class ConnectionActivity extends BaseActivity
 			savedInstanceState.putSerializable("copyBankTask", copyBankTask);
 		}
 
-        if (savePrifileAllBanksTask != null) {
-            savedInstanceState.putSerializable("savedInstanceState", savePrifileAllBanksTask);
+        if (saveProfileBanksTask != null) {
+            savedInstanceState.putSerializable("savedInstanceState", saveProfileBanksTask);
         }
 
 	}
@@ -184,7 +184,7 @@ public class ConnectionActivity extends BaseActivity
     {
         disconect = savedInstanceState.getBoolean("disconect", false);
 		copyBankTask = savedInstanceState.containsKey("copyBankTask") ? (CopyBankTask) savedInstanceState.getSerializable("copyBankTask") : null;
-        savePrifileAllBanksTask = savedInstanceState.containsKey("savePrifileAllBanksTask") ? (SavePrifileAllBanksTask) savedInstanceState.getSerializable("savePrifileAllBanksTask") : null;
+        saveProfileBanksTask = savedInstanceState.containsKey("saveProfileBanksTask") ? (SaveProfileAllBanksTask) savedInstanceState.getSerializable("saveProfileBanksTask") : null;
     }
 
 	/**
@@ -573,8 +573,9 @@ public class ConnectionActivity extends BaseActivity
                         }
                         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                             showDialogWrite();
-                            savePrifileAllBanksTask = new SavePrifileAllBanksTask();
-                            savePrifileAllBanksTask.setFileForSave(filePath);
+                            saveProfileBanksTask = new SaveProfileAllBanksTask();
+                            saveProfileBanksTask.setFileForSave(filePath);
+                            saveProfileBanksTask.setSourceBank(-1);
                             stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
                         }
 
@@ -585,9 +586,9 @@ public class ConnectionActivity extends BaseActivity
                         }
                         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                             showDialogWrite();
-                            savePrifileAllBanksTask = new SavePrifileAllBanksTask();
-                            savePrifileAllBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
-                            savePrifileAllBanksTask.setFileForSave(filePath);
+                            saveProfileBanksTask = new SaveProfileAllBanksTask();
+                            saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
+                            saveProfileBanksTask.setFileForSave(filePath);
                             changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
                         }
 					} else if (requestCode == REQUEST_OPEN) {
@@ -648,7 +649,7 @@ public class ConnectionActivity extends BaseActivity
 			case PROFILE_CALL_BACK_CODE_FOR_SAVE:
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
-					if(saveProfileTofile(msg.getData().getByteArray("data"))){
+					if(saveProfileTofile(msg.getData().getByteArray("data"), saveProfileBanksTask.getSourceBank())){
                         showConfirmDialog(R.string.profile_saved_file);
                     }else{
                         showConfirmDialog(R.string.save_to_file_fail);
@@ -710,9 +711,13 @@ public class ConnectionActivity extends BaseActivity
 
             case GET_PROFILE_BANK_0_CALL_BACK_CODE:
                 if (msg.getData().containsKey("data")) {
-                    saveProfileTofile(msg.getData().getByteArray("data"), 0);
+                    if(!saveProfileTofile(msg.getData().getByteArray("data"), 0)){
+                        saveProfileError(false);
+                    }else{
+                        changeBank(1, CHANGE_BANK_1_CALL_BACK_CODE);
+                    }
                 }
-                changeBank(1, CHANGE_BANK_1_CALL_BACK_CODE);
+
                 break;
 
             case CHANGE_BANK_1_CALL_BACK_CODE:
@@ -721,9 +726,13 @@ public class ConnectionActivity extends BaseActivity
 
             case GET_PROFILE_BANK_1_CALL_BACK_CODE:
                 if (msg.getData().containsKey("data")) {
-                    saveProfileTofile(msg.getData().getByteArray("data"), 1);
+                    if(!saveProfileTofile(msg.getData().getByteArray("data"), 1)){
+                        saveProfileError(false);
+                    }else{
+                        changeBank(2, CHANGE_BANK_2_CALL_BACK_CODE);
+                    }
                 }
-                changeBank(2, CHANGE_BANK_2_CALL_BACK_CODE);
+
                 break;
 
             case CHANGE_BANK_2_CALL_BACK_CODE:
@@ -732,15 +741,18 @@ public class ConnectionActivity extends BaseActivity
 
             case GET_PROFILE_BANK_2_CALL_BACK_CODE:
                 if (msg.getData().containsKey("data")) {
-                    saveProfileTofile(msg.getData().getByteArray("data"), 2);
+                    if(!saveProfileTofile(msg.getData().getByteArray("data"), 2)){
+                        saveProfileError(false);
+                    }else{
+                        changeBank(saveProfileBanksTask.getSourceBank(), CHANGE_BANK_SOURCE_CALL_BACK_CODE);
+                    }
                 }
-                changeBank(savePrifileAllBanksTask.getSourceBank(), CHANGE_BANK_SOURCE_CALL_BACK_CODE);
                 break;
 
             case CHANGE_BANK_SOURCE_CALL_BACK_CODE:
                 closeDialog();
                 showConfirmDialog(R.string.profile_saved_file);
-                savePrifileAllBanksTask = null;
+                saveProfileBanksTask = null;
                 break;
 
 			default:
@@ -808,20 +820,20 @@ public class ConnectionActivity extends BaseActivity
 			return false;
 		}
 
-		if (savePrifileAllBanksTask == null && savePrifileAllBanksTask.getFileForSave() == null) {
+		if (saveProfileBanksTask == null && saveProfileBanksTask.getFileForSave() == null) {
             saveProfileError(false);
 			Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
 			return false;
 		}
 
-        String filePath = savePrifileAllBanksTask.getFileForSave();
+        String filePath = saveProfileBanksTask.getFileForSave();
         if(filePath.endsWith(FILE_EXT)){
             filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() - 1);
         }
 
 
 		try {
-			byte[] clearProfile = new byte[profile.length - 1];
+			byte[] clearProfile = new byte[255];
 			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
             if(bankNumber >= 0) {
                 DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
@@ -836,15 +848,6 @@ public class ConnectionActivity extends BaseActivity
             return false;
 		}
 	}
-
-    /**
-     *
-     * @param profile
-     */
-    private boolean saveProfileTofile(byte[] profile)
-    {
-        return saveProfileTofile(profile, -1);
-    }
 
     /**
      *
@@ -870,6 +873,10 @@ public class ConnectionActivity extends BaseActivity
         });
 	}
 
+    /**
+     *
+     * @param finishActivity
+     */
 	private void copyBankError(Boolean finishActivity)
 	{
 		Toast.makeText(getApplicationContext(), R.string.copy_bank_error, Toast.LENGTH_SHORT).show();
@@ -879,9 +886,19 @@ public class ConnectionActivity extends BaseActivity
 		}
 	}
 
+    /**
+     *
+     * @param finishActivity
+     */
     private void saveProfileError(Boolean finishActivity)
     {
         Toast.makeText(getApplicationContext(), R.string.save_to_file_fail, Toast.LENGTH_SHORT).show();
+
+        if(saveProfileBanksTask != null && saveProfileBanksTask.getSourceBank() != -1){
+            changeBank(saveProfileBanksTask.getSourceBank(), BANK_CHANGE_CALL_BACK_CODE);
+        }
+        saveProfileBanksTask = null;
+
         closeAllBar();
         if (finishActivity) {
             finish();
@@ -893,7 +910,7 @@ public class ConnectionActivity extends BaseActivity
      */
 	private static class CopyBankTask implements Serializable {
 		private static final long serialVersionUID = 7257425888788596806L;
-		private int destinationBank;
+		private int destinationBank = -1;
 		private byte[] sourceProfile;
 
 		public CopyBankTask() {
@@ -919,12 +936,12 @@ public class ConnectionActivity extends BaseActivity
     /**
      *
      */
-    private static class SavePrifileAllBanksTask implements Serializable {
+    private static class SaveProfileAllBanksTask implements Serializable {
         private static final long serialVersionUID = 7257425888788596806L;
         private String fileForSave;
         private int sourceBank;
 
-        public SavePrifileAllBanksTask() {
+        public SaveProfileAllBanksTask() {
         }
 
         public void setFileForSave(String fileForSave) {
