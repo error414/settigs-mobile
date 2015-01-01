@@ -766,7 +766,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_IGAIN")){
+        if(diffItem.getLabel().equals("GOVERNOR_PGAIN")){
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_pgain)).toString());
 
