@@ -378,7 +378,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
             mDecrement = true;
             mHandler.post(mRunnable);
         }else if(R.id.progres_main == v.getId()){
-            mListenerLongClick.onLongClick(this);
+            if(mListenerLongClick != null) {
+                mListenerLongClick.onLongClick(this);
+            }
         }
         return true;
     }

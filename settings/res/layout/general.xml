@@ -36,7 +36,7 @@
 	            android:layout_below="@+id/textView2"
 	            android:src="@drawable/black_line"
 	             />
-	
+
 	        <TextView
 	            android:id="@+id/textView2"
 	            android:layout_width="wrap_content"

@@ -42,6 +42,7 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -49,11 +50,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -390,19 +393,25 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     Spinner spinner = (Spinner) findViewById(getFormItems()[i]);
-                    spinner.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            try {
-                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
-                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+
+                    if(HelpMap.HELPMAP.containsKey(spinner.getId())) {
+                        spinner.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                return true;
                             }
-                            return true;
-                        }
-                    });
+                        });
+                        //////////////////////////////////
+                        RelativeLayout root = (RelativeLayout)spinner.getParent();
+                        RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ABOVE, getFormItems()[i]);
+                        params.addRule(RelativeLayout.ALIGN_RIGHT, getFormItems()[i]);
+                        child.setLayoutParams(params);
+                        root.addView(child);
+                    }
                 }
                 break;
 
@@ -410,19 +419,25 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     CheckBox checkBox = (CheckBox) findViewById(getFormItems()[i]);
-                    checkBox.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            try {
-                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
-                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+
+                    if(HelpMap.HELPMAP.containsKey(checkBox.getId())) {
+                        checkBox.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                return true;
                             }
-                            return true;
-                        }
-                    });
+                        });
+                        //////////////////////////////////
+                        RelativeLayout root = (RelativeLayout)checkBox.getParent();
+                        RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_TOP, getFormItems()[i]);
+                        params.addRule(RelativeLayout.RIGHT_OF, getFormItems()[i]);
+                        child.setLayoutParams(params);
+                        root.addView(child);
+                    }
                 }
                 break;
 
@@ -431,19 +446,26 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     ProgresEx seekBar = (ProgresEx) findViewById(getFormItems()[i]);
-                    seekBar.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            try {
-                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
-                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                    if(HelpMap.HELPMAP.containsKey(seekBar.getId())) {
+                        seekBar.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                return true;
                             }
-                            return true;
-                        }
-                    });
+                        });
+                        //////////////////////////////////
+                        RelativeLayout root = (RelativeLayout)seekBar.getParent();
+                        RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_RIGHT, getFormItems()[i]);
+                        params.addRule(RelativeLayout.ALIGN_TOP, getFormItems()[i]);
+                        params.setMargins(0, -10, 15, 0);
+                        child.setLayoutParams(params);
+                        root.addView(child);
+                    }
                 }
                 break;
 
