@@ -87,6 +87,7 @@ public class GraphActivity extends BaseActivity
 	//pro graf ////////////////////////////////////////
 	private XYPlot aprLevelsPlot = null;
 	private SimpleXYSeries aprLevelsSeries = null;
+    private SimpleXYSeries aprLevelsSeriesFreeze  = null;
 	///////////////////////////////////////////////////
 
     //jestli pri kliku na graf se ulozi screenshot
@@ -95,14 +96,15 @@ public class GraphActivity extends BaseActivity
     final private int TAP_TO_FREEZE     = 2;
     private int tapToAction = TAP_TO_NONE;
     private boolean stateGraphFreeze = false;
-
+    private boolean stateGraphFreezeSet = false;
 
     ////
 	private byte[] dataBuffer;
 	private int dataBuffer_len = 0;
 	final private int DATABUFFER_SIZE = 3000;
 
-	Number[] seriesX = null;
+	Number[] seriesX        = null;
+    Number[] seriesXFreeze  = null;
 	//Number[] seriesY = null;
 
 	// FFT stuff
@@ -122,9 +124,10 @@ public class GraphActivity extends BaseActivity
 	protected SimpleDateFormat sdf = new SimpleDateFormat("yy_MM_dd_HHmmss");
 	
 	protected int[] topThree = {0,0,0};
-	
+
 	private LineAndPointFormatter formater;
 
+    private LineAndPointFormatter formaterFreeze;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -165,10 +168,12 @@ public class GraphActivity extends BaseActivity
 	 */
 	private void inicializeGraph()
 	{
-		seriesX = new Number[FFT_NYQUIST];
+		seriesX         = new Number[FFT_NYQUIST];
+        seriesXFreeze   = new Number[FFT_NYQUIST];
 
-		aprLevelsSeries = new SimpleXYSeries(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "");
-		
+		aprLevelsSeries         = new SimpleXYSeries(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "");
+        aprLevelsSeriesFreeze   = new SimpleXYSeries(Arrays.asList(seriesXFreeze), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "");
+
 		PointLabelFormatter plf = new PointLabelFormatter(Color.WHITE);
 		plf.getTextPaint().setTextSize(13);
 		
@@ -184,9 +189,13 @@ public class GraphActivity extends BaseActivity
 		        }
 		        	
 			});
+
+        formaterFreeze      = new LineAndPointFormatter(Color.rgb(200, 0, 0), null, null, null);
+
 		// setup the APR Levels plot:
 		aprLevelsPlot = (XYPlot) findViewById(R.id.vibration);
 		aprLevelsPlot.addSeries(aprLevelsSeries, formater);
+
 		//aprLevelsPlot.disableAllMarkup();
 		aprLevelsPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
 
@@ -209,8 +218,17 @@ public class GraphActivity extends BaseActivity
 	private void updateGraph(Number[] seriesX)
 	{
         if(stateGraphFreeze){
-            return;
+            if(!stateGraphFreezeSet) {
+                aprLevelsPlot.addSeries(aprLevelsSeriesFreeze, formaterFreeze);
+                stateGraphFreezeSet = true;
+            }
+        }else{
+            aprLevelsPlot.removeSeries(aprLevelsSeriesFreeze);
+            aprLevelsSeriesFreeze.setModel(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY);
+            stateGraphFreezeSet = false;
         }
+
+
 
 		topThree = this.topThree(seriesX);
 		aprLevelsSeries.setModel(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY);
@@ -244,7 +262,7 @@ public class GraphActivity extends BaseActivity
 		};
 
 		//startTime = System.nanoTime();//START
-        stateGraphFreeze = false;
+        stateGraphFreeze    = false;
 		thread.run();
 	}
 
@@ -298,10 +316,6 @@ public class GraphActivity extends BaseActivity
 	 */
 	protected void updateVibratonLevel(Number[] seriesX)
 	{
-        if(stateGraphFreeze){
-            return;
-        }
-
 		int vib = 0;
 		for (int i = 0; i < seriesX.length; i++) {
 			vib += seriesX[i].intValue();
@@ -421,10 +435,10 @@ public class GraphActivity extends BaseActivity
 			}else if(tapToAction == TAP_TO_FREEZE){
                 if(stateGraphFreeze){
                     Toast.makeText(getApplicationContext(), R.string.tap_to_freeze_is_off, Toast.LENGTH_SHORT).show();
-                    stateGraphFreeze = false;
+                    stateGraphFreeze    = false;
                 }else{
                     Toast.makeText(getApplicationContext(), R.string.tap_to_freeze_is_on, Toast.LENGTH_SHORT).show();
-                    stateGraphFreeze = true;
+                    stateGraphFreeze    = true;
                 }
 
             }
