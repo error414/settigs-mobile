@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 01.01.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 25.01.2015</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -43,9 +43,9 @@
     <string name="connection_error">Connection error</string>
     <string name="copy_bank_error">Bank copying failed</string>
     <string name="BT_connection_progress">Bluetooth connection in progress</string>
-    <string name="axis_X">X</string>
-    <string name="axis_Y">Y</string>
-    <string name="axis_Z">Z</string>
+    <string name="axis_X">X - Aileron</string>
+    <string name="axis_Y">Y - Elevator</string>
+    <string name="axis_Z">Z - Rudder</string>
     <string name="connection_button_text">Connection</string>
     <string name="general_button_text">General</string>
     <string name="servos_button_text">Servos</string>

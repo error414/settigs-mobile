@@ -176,19 +176,20 @@ public class GraphActivity extends BaseActivity
 
 		PointLabelFormatter plf = new PointLabelFormatter(Color.WHITE);
 		plf.getTextPaint().setTextSize(13);
-		
-		formater = new LineAndPointFormatter(Color.rgb(0, 0, 200), null, null, plf);
-		formater.setPointLabeler(
-			new PointLabeler() {
-		        @Override
-		        public String getLabel(XYSeries series, int index) {
-		        	if((index > 5 && (topThree[0] == index || topThree[1] == index || topThree[2] == index)) && series.getY(index).intValue() > 5){
-		        		return String.valueOf(Math.round(index * 60)) + " RPM";
-		        	}
-		        	return "";
-		        }
-		        	
-			});
+
+        PointLabeler pointLabel = new PointLabeler() {
+            @Override
+            public String getLabel(XYSeries series, int index) {
+                if((index > 5 && (topThree[0] == index || topThree[1] == index || topThree[2] == index)) && series.getY(index).intValue() > 5){
+                    return String.valueOf(Math.round(index * 60)) + " RPM";
+                }
+                return "";
+            }
+
+        };
+
+		formater = new LineAndPointFormatter(Color.rgb(0, 0, 200), null, Color.rgb(238, 255, 182), plf);
+		formater.setPointLabeler(pointLabel);
 
         formaterFreeze      = new LineAndPointFormatter(Color.rgb(200, 0, 0), null, null, null);
 
@@ -496,6 +497,7 @@ public class GraphActivity extends BaseActivity
 			stabiProvider.sendDataImmediately("4DA\1".getBytes());            // HACK, chtelo by to vylepsit :)
 			aprLevelsPlot.setDomainLabel(String.valueOf(TextUtils.concat(getString(R.string.frequency), " ", getString(R.string.hz), " / ", getString(R.string.axis_X))));
 			((TextView) findViewById(R.id.title)).setText(TextUtils.concat(baseTitle, " ", getString(R.string.axis_X)));
+            formater.getFillPaint().setColor(Color.rgb(238, 255, 182));
 		}
 
 		//zobrazeni osy Y
@@ -504,6 +506,7 @@ public class GraphActivity extends BaseActivity
 			stabiProvider.sendDataImmediately("4DA\2".getBytes());            // HACK, chtelo by to vylepsit :)
 			aprLevelsPlot.setDomainLabel(String.valueOf(TextUtils.concat(getString(R.string.frequency), " ", getString(R.string.hz), " / ", getString(R.string.axis_Y))));
 			((TextView) findViewById(R.id.title)).setText(TextUtils.concat(baseTitle, " ", getString(R.string.axis_Y)));
+            formater.getFillPaint().setColor(Color.rgb(197, 236, 255));
 		}
 
 		//zobrazeni osy Z
@@ -512,6 +515,7 @@ public class GraphActivity extends BaseActivity
 			stabiProvider.sendDataImmediately("4DA\3".getBytes());            // HACK, chtelo by to vylepsit :)
 			aprLevelsPlot.setDomainLabel(String.valueOf(TextUtils.concat(getString(R.string.frequency), " ", getString(R.string.hz), " / ", getString(R.string.axis_Z))));
 			((TextView) findViewById(R.id.title)).setText(TextUtils.concat(baseTitle, " ", getString(R.string.axis_Z)));
+            formater.getFillPaint().setColor(Color.rgb(246, 183, 240));
 		}
 
 		//ulozeni obrazku grafu
