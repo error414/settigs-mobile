@@ -19,10 +19,8 @@ package com.spirit.governor;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -37,7 +35,6 @@ import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
 import com.spirit.BaseActivity;
-import com.spirit.PrefsActivity;
 import com.spirit.R;
 
 import java.util.ArrayList;

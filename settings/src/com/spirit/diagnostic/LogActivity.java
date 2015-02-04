@@ -69,7 +69,6 @@ public class LogActivity extends BaseActivity
 	////////////////////////////////////////////////////
 
 	final protected int GROUP_LOG = 4;
-	final protected int LOG_SAVE = 1;
 	final protected int LOG_REFRESH = 2;
 
 	final static String FILE_LOG_EXT = "pdf";
@@ -98,7 +97,7 @@ public class LogActivity extends BaseActivity
 		logList.setAdapter(adapter);
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
-        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
             Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
             Intent i = new Intent(LogActivity.this, PrefsActivity.class);
             startActivity(i);
@@ -291,11 +290,11 @@ public class LogActivity extends BaseActivity
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
-        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
+        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
             return false;
         }
 
-        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_LOG_DIR, "") + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
+        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_LOG_DIR + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
 
         LogPdf log = new LogPdf(this, logListData);
         if(log.create(filename)){
@@ -303,7 +302,6 @@ public class LogActivity extends BaseActivity
         }else{
             Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
         }
-
 
         return true;
     }

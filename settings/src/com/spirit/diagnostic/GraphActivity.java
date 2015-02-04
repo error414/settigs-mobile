@@ -406,7 +406,7 @@ public class GraphActivity extends BaseActivity
     protected void saveGraphToImage()
     {
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_GRAPH_DIR, "") + "/" + sdf.format(new Date()) + "-log.png";
+        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_GRAPH_DIR + "/" + sdf.format(new Date()) + "-log.png";
 
         try {
             aprLevelsPlot.setDrawingCacheEnabled(true);
@@ -454,7 +454,6 @@ public class GraphActivity extends BaseActivity
 	{
 		menu.clear();
 
-
 		menu.add(GROUP_AXIS, AXIS_X, Menu.NONE, R.string.axis_X);
 		menu.add(GROUP_AXIS, AXIS_Y, Menu.NONE, R.string.axis_Y);
 		menu.add(GROUP_AXIS, AXIS_Z, Menu.NONE, R.string.axis_Z);
@@ -475,7 +474,7 @@ public class GraphActivity extends BaseActivity
                 taptoActionSubMen.add(GROUP_ACTION, CHOOSE_FREEZE, Menu.NONE, R.string.tap_to_freeze_off);
 
                 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-                if(sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR) && stateGraphFreeze) {
+                if(sharedPrefs.contains(PrefsActivity.PREF_APP_DIR) && stateGraphFreeze) {
                     taptoActionSubMen.add(GROUP_ACTION, CHOOSE_FORCE_SAVEGRAPH, Menu.NONE, R.string.force_save_graph);
                 }
                 break;
@@ -527,7 +526,7 @@ public class GraphActivity extends BaseActivity
                     case TAP_TO_NONE:
                         //zjistime jestli je nastaven adresar pro ulozeni obrazku z grafu
                         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-                        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
+                        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
                             Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(GraphActivity.this, PrefsActivity.class);
                             startActivity(i);

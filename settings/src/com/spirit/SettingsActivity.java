@@ -34,7 +34,6 @@ import android.widget.Toast;
 
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
-import com.lib.ChangeLog;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
 

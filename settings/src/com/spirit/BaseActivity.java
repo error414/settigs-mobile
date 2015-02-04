@@ -27,22 +27,17 @@ import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -75,7 +70,6 @@ import com.lib.DstabiProvider;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
-import java.io.File;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -188,27 +182,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onCreate(savedInstanceState);
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
-        //check default directory for LOG
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_LOG_DIR)){
-            File dirLog = getStorageDir("log");
-            if(dirLog != null) {
-                SharedPreferences.Editor editorlog = sharedPrefs.edit();
-                editorlog.putString(PrefsActivity.PREF_APP_LOG_DIR, dirLog.getPath());
-                editorlog.commit();
-            }
-        }
-
-        //check default directory for GRAPH
-        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_GRAPH_DIR)){
-            File dirGraph = getStorageDir("graph");
-            if(dirGraph != null) {
-                SharedPreferences.Editor editorGraph = sharedPrefs.edit();
-                editorGraph.putString(PrefsActivity.PREF_APP_GRAPH_DIR, dirGraph.getPath());
-                editorGraph.commit();
-            }
-        }
 	}
 
     /**
@@ -228,27 +201,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
     public void onRestoreInstanceState(Bundle savedInstanceState)
     {
         bankForChange = savedInstanceState.getInt("bankForChange", 0);
-    }
-
-    /**
-     *
-     *
-     * @param dirName
-     * @return
-     */
-    private File getStorageDir(String dirName) {
-        String state = Environment.getExternalStorageState();
-
-        File file = null;
-        if (Environment.MEDIA_MOUNTED.equals(state) && !Environment.MEDIA_MOUNTED_READ_ONLY.equals(state)) {
-            file = new File(Environment.getExternalStorageDirectory(), "spirit/" + dirName);
-        }
-
-
-        if (file == null || !file.mkdirs()) {
-            Log.e(TAG, "Directory not created " + file.getPath());
-        }
-        return file;
     }
 
 	@Override

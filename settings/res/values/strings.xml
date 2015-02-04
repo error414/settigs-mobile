@@ -358,10 +358,10 @@
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">more...</string>
     
-    <string name="graph_direcotory">Graph Directory</string>
-    <string name="log_direcotory">Log Directory</string>
-    <string name="graph_direcotory_sumarry">Pick to choose directory for save graph image</string>
-    <string name="log_direcotory_sumarry">Pick to choose directory for save log PDF file</string>
+    <string name="main_direcotory">Storage Directory</string>
+    <string name="main_direcotory_sumarry">Pick to choose directory for save graph and log</string>
+    <string name="select_dir_failed">Create dir failed!</string>
+    <string name="created_dir_success">Vytvořeny adresáře:</string>
     <string name="graph_warn">Warning! Servos will be locked during measurement!</string>
     
     <string name="first_choose_directory">First select a directory</string>

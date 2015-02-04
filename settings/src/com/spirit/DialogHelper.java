@@ -3,6 +3,7 @@ package com.spirit;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+
 import com.helpers.Globals;
 
 public class DialogHelper {
