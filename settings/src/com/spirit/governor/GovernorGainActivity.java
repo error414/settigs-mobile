@@ -40,11 +40,11 @@ public class GovernorGainActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"GOVERNOR_PGAIN","GOVERNOR_IGAIN",};
+	private final String protocolCode[] = {"GOVERNOR_GAIN",};
 
-	private int formItems[] = {R.id.governor_pgain,R.id.governor_igain,};
+	private int formItems[] = {R.id.governor_gain,};
 
-	private int formItemsTitle[] = {R.string.governor_pgain,R.string.governor_igain,};
+	private int formItemsTitle[] = {R.string.governor_gain,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity stabi

@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.governor;
+package com.spirit.diagnostic;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -46,11 +46,12 @@ import java.util.HashMap;
  *
  * @author error414
  */
-public class GovernorActivity extends BaseActivity
+public class DiagnosticListActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "SettingsActivity";
+	final private String TAG = "DiagnosticListActivity";
+
 
 	/**
 	 * seznam polozek pro menu
@@ -70,10 +71,10 @@ public class GovernorActivity extends BaseActivity
 		//setContentView(R.layout.main);
         initSlideMenu(R.layout.main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.diagnostic_button_text)));
 
 		//naplnime seznam polozek pro menu
-		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_GOVERNOR);
+		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_DIAGNOSTIC);
 
 
 		ListView menuList = (ListView) findViewById(R.id.listMenu);
@@ -91,7 +92,7 @@ public class GovernorActivity extends BaseActivity
 					}
 				}
 
-				Intent i = new Intent(GovernorActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+				Intent i = new Intent(DiagnosticListActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
 				startActivity(i);
 			}
 		});

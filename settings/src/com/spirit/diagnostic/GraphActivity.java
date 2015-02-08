@@ -275,7 +275,7 @@ public class GraphActivity extends BaseActivity
 	{
 		super.onResume();
 
-        baseTitle = TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.graph_button_text));
+        baseTitle = TextUtils.concat("... \u2192 ", getString(R.string.diagnostic_button_text), " \u2192 ", getString(R.string.graph_button_text));
         ((TextView) findViewById(R.id.title)).setText(baseTitle);
         ((TextView) findViewById(R.id.vibration_level_text)).setText(R.string.vibration_level);
 

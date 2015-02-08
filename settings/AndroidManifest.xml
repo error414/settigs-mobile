@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="71"
+    android:versionCode="72"
 
-    android:versionName="1.1.10"
+    android:versionName="1.1.11"
 >
 
     <uses-sdk
@@ -338,6 +338,33 @@
             />
         <activity
             android:name=".governor.GovernorGainActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".diagnostic.BecTesterActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".advanced.PitchpumpActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".diagnostic.DiagnosticListActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

@@ -11,16 +11,18 @@ import com.spirit.advanced.EFilterActivity;
 import com.spirit.advanced.GeometryAngleActivity;
 import com.spirit.advanced.PiroOptimalizationActivity;
 import com.spirit.advanced.PirouetteConsistencyActivity;
+import com.spirit.advanced.PitchpumpActivity;
 import com.spirit.advanced.PitchupActivity;
 import com.spirit.advanced.RudderDelayActivity;
 import com.spirit.advanced.RudderDynamicActivity;
 import com.spirit.advanced.RudderRevomixActivity;
 import com.spirit.advanced.SignalProcessingActivity;
 import com.spirit.advanced.StickDeadBandActivity;
+import com.spirit.diagnostic.BecTesterActivity;
 import com.spirit.diagnostic.DiagnosticActivity;
+import com.spirit.diagnostic.DiagnosticListActivity;
 import com.spirit.diagnostic.GraphActivity;
 import com.spirit.diagnostic.LogActivity;
-import com.spirit.governor.GovernorActivity;
 import com.spirit.governor.GovernorGainActivity;
 import com.spirit.governor.GovernorModeActivity;
 import com.spirit.senzor.SenzorActivity;
@@ -65,6 +67,7 @@ public class Menu {
     public static Integer MENU_INDEX_STABI          = 5;
     public static Integer MENU_INDEX_SERVOLIMIT     = 6;
     public static Integer MENU_INDEX_GOVERNOR       = 7;
+    public static Integer MENU_INDEX_DIAGNOSTIC     = 8;
     public HashMap<Integer,Integer[]> menuGroups = new HashMap<Integer,Integer[]>();
 
     /**
@@ -80,7 +83,7 @@ public class Menu {
     public static Integer MENU_GRAPH            = 8;
     public static Integer MENU_LOG              = 9;
     public static Integer MENU_FAVOURITES       = 35;
-    //public static Integer MENU_GOVERNOR         = 40;
+    public static Integer MENU_BEC              = 40;
 
     public static Integer MENU_DEADBAND             = 10;
     public static Integer MENU_6DEG                 = 11;
@@ -94,6 +97,7 @@ public class Menu {
     public static Integer MENU_CYCLICPHASE          = 19;
     public static Integer MENU_CYCLICFF             = 20;
     public static Integer MENU_SIGNALPROCESSING     = 21;
+    public static Integer MENU_PITCHPUMP            = 41;
 
     public static Integer MENU_SENZIVITY            = 22;
     public static Integer MENU_REVERSE              = 23;
@@ -115,7 +119,7 @@ public class Menu {
 
     public static Integer MENU_GOV_MODE            = 38;
     public static Integer MENU_GOV_GAIN            = 39;
-
+    public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
     protected static Menu instance;
 
@@ -167,12 +171,24 @@ public class Menu {
         //senzor
         menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
 
+        //diagnostic
+        menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticListActivity.class));
+
         //stabi
         menuList.put(MENU_STABI,        new MenuItem(R.drawable.na,     R.string.stabi_button_text, StabiActivity.class));
 
         //advanced
         menuList.put(MENU_ADVANCED,     new MenuItem(R.drawable.i20,     R.string.advanced_button_text, AdvancedActivity.class));
 
+        //BEC Tester
+	    menuList.put(MENU_BEC,     new MenuItem(R.drawable.na,     R.string.bec_tester, BecTesterActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC_LIST});
+
+
+
+        //DIAGNOSTIC ACTIVITY
         //diagnostic
         menuList.put(MENU_DIAGNOSTIC,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
 
@@ -182,11 +198,8 @@ public class Menu {
         //log
         menuList.put(MENU_LOG,          new MenuItem(R.drawable.na,     R.string.log_button_text, LogActivity.class));
 
-        //governor
-	    //menuList.put(MENU_GOVERNOR,     new MenuItem(R.drawable.na,     R.string.governor, GovernorActivity.class));
-
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG/*, MENU_GOVERNOR*/});
+        menuGroups.put(MENU_INDEX_DIAGNOSTIC, new Integer[]{MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG, MENU_BEC});
 
 
 
@@ -228,13 +241,16 @@ public class Menu {
         //signal procesing
         menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.na,     R.string.signal_processing, SignalProcessingActivity.class));
 
+        //pitch pump
+        menuList.put(MENU_PITCHPUMP,   new MenuItem(R.drawable.na,     R.string.pitch_pump, PitchpumpActivity.class));
+
         //add to groups
         menuGroups.put(
              MENU_INDEX_ADVANCED,
                  new Integer[]{
                          MENU_DEADBAND, MENU_6DEG, MENU_PIROOPT, MENU_RUDDERDELAY,
                          MENU_PIROUETTECONSISTENCY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX, MENU_EFILTER, MENU_PITCHUP,
-                         MENU_CYCLICPHASE, MENU_CYCLICFF , MENU_SIGNALPROCESSING
+                         MENU_CYCLICPHASE, MENU_CYCLICFF , MENU_SIGNALPROCESSING, MENU_PITCHPUMP
                  }
         );
 

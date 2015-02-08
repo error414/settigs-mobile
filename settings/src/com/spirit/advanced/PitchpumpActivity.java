@@ -32,18 +32,18 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class PitchupActivity extends BaseActivity
+public class PitchpumpActivity extends BaseActivity
 {
 
-	final private String TAG = "PitchupActivity";
+	final private String TAG = "PitchpumpActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"PITCHUP",};
+	private final String protocolCode[] = {"PITCH_PUMP",};
 
-	private int formItems[] = {R.id.pitchup,};
+	private int formItems[] = {R.id.pitch_pump,};
 
-	private int formItemsTitle[] = {R.string.pitchup,};
+	private int formItemsTitle[] = {R.string.pitch_pump,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -53,10 +53,10 @@ public class PitchupActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.advanced_pitchup);
+		initSlideMenu(R.layout.advanced_pitchpump);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pitchup)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pitch_pump)));
 
 		initGui();
 		initConfiguration();

@@ -766,9 +766,9 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_PGAIN")){
+        if(diffItem.getLabel().equals("GOVERNOR_GAIN")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_pgain)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_gain)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -776,9 +776,9 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_IGAIN")){
+        if(diffItem.getLabel().equals("PITCH_PUMP")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_igain)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advance), textSeparator , getResources().getString(R.string.pitch_pump)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());

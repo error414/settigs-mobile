@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 25.01.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 08.02.2015</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -57,6 +57,24 @@
     <string name="servos_button_text">Serva</string>
     <string name="diagnostic_button_text">Diagnostika</string>
     <string name="graph_button_text">Vibrace</string>
+    <string name="bec_tester">BEC Tester</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="bec_tester_note">
+        &lt;p>
+            &lt;b&gt;BEC Tester&lt;/b&gt; is usefull utility for checking whether your BEC is able to stand current load.
+            This utlility will move fast with all the servos for 20 soconds
+        &lt;/p&gt;
+        &lt;p&gt;
+            In case, that BEC is not sufficient, you can observe servo weakness and even the unit can reset itself if Voltage will drop under 1.9V
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;b&gt;We highly recommend to unplug the motor or to dismount the blades. if may cause unpredictable behavior!
+            Make sure that any servo is not too hot during this test. If so you must turn the test off as soon as possible.&lt;/b&gt;
+        &lt;/p&gt;
+    </string>
+    <string name="pitch_pump">Pitch Pump Booster</string>
+
     <string name="senzor_button_text">Senzor</string>
     <string name="senzor_senzivity_button_text">Citlivost</string>
     <string name="advanced_button_text">Pokročilé</string>

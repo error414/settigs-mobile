@@ -30,13 +30,13 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/governor_gain"
+	            android:text="@string/pitch_pump"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/governor_gain"
+	            android:id="@+id/pitch_pump"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
@@ -45,8 +45,6 @@
 	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
-
-
 
 	    </RelativeLayout>
 

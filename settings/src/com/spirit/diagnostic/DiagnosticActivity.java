@@ -70,7 +70,7 @@ public class DiagnosticActivity extends BaseActivity
 		setContentView(R.layout.diagnostic);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.diagnostic_button_text)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.diagnostic_button_text), " \u2192 ", getString(R.string.diagnostic_button_text)));
 
 		initConfiguration();
 	}
