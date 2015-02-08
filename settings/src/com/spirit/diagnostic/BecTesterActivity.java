@@ -72,10 +72,18 @@ public class BecTesterActivity extends BaseActivity
             }
         };
 
-
         initGui();
         delegateListener();
 	}
+
+    public void onStop()
+    {
+        super.onStop();
+        if(countDownTimer != null){
+            countDownTimer.cancel();
+        }
+        stabiProvider.sendDataNoWaitForResponce("0", ByteOperation.intToByteArray(0xff));
+    }
 
 	/**
 	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
