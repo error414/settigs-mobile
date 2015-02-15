@@ -56,6 +56,7 @@
     <string name="general_button_text">Obecné</string>
     <string name="servos_button_text">Serva</string>
     <string name="diagnostic_button_text">Diagnostika</string>
+    <string name="input_channels">Vstupní kanály</string>
     <string name="graph_button_text">Vibrace</string>
     <string name="bec_tester">BEC Tester</string>
     <string name="start">Start</string>

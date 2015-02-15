@@ -20,7 +20,7 @@ import com.spirit.advanced.SignalProcessingActivity;
 import com.spirit.advanced.StickDeadBandActivity;
 import com.spirit.diagnostic.BecTesterActivity;
 import com.spirit.diagnostic.DiagnosticActivity;
-import com.spirit.diagnostic.DiagnosticListActivity;
+import com.spirit.diagnostic.InputChannelsActivity;
 import com.spirit.diagnostic.GraphActivity;
 import com.spirit.diagnostic.LogActivity;
 import com.spirit.governor.GovernorGainActivity;
@@ -172,7 +172,7 @@ public class Menu {
         menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
 
         //diagnostic
-        menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticListActivity.class));
+        menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
 
         //stabi
         menuList.put(MENU_STABI,        new MenuItem(R.drawable.na,     R.string.stabi_button_text, StabiActivity.class));
@@ -190,7 +190,7 @@ public class Menu {
 
         //DIAGNOSTIC ACTIVITY
         //diagnostic
-        menuList.put(MENU_DIAGNOSTIC,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
+        menuList.put(MENU_DIAGNOSTIC,   new MenuItem(R.drawable.i37,     R.string.input_channels, InputChannelsActivity.class));
 
         //graph
         menuList.put(MENU_GRAPH,        new MenuItem(R.drawable.i38,     R.string.graph_button_text, GraphActivity.class));

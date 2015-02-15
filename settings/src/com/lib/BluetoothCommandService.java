@@ -296,7 +296,7 @@ public class BluetoothCommandService {
                     Log.e(TAG, "unable to close() socket during connection failure", e2);
                 }
                 // Start the service over to restart listening mode
-                BluetoothCommandService.this.start();
+                //BluetoothCommandService.this.start();
                 return;
             }
 
@@ -363,8 +363,6 @@ public class BluetoothCommandService {
                     		message[i] = buffer[i];
 						}
                     	
-                    	Log.d(TAG + " in", "" + message.length);
-                    	
 	                    Bundle b = new Bundle();
 	                    b.putByteArray("msg", message);
 	                    
@@ -391,10 +389,6 @@ public class BluetoothCommandService {
         public void write(byte[] buffer) {
             try {
                 mmOutStream.write(buffer);
-                Log.d(TAG + " out", ByteOperation.getIntegerStringByByteArray(buffer));
-                // Share the sent message back to the UI Activity
-//                mHandler.obtainMessage(BluetoothChat.MESSAGE_WRITE, -1, -1, buffer)
-//                        .sendToTarget();
             } catch (IOException e) {
                 Log.e(TAG, "Exception during write", e);
             }

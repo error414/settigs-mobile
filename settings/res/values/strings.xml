@@ -50,6 +50,7 @@
     <string name="general_button_text">General</string>
     <string name="servos_button_text">Servos</string>
     <string name="diagnostic_button_text">Diagnostic</string>
+    <string name="input_channels">Input channels</string>
     <string name="graph_button_text">Vibration</string>
     <string name="bec_tester">BEC Tester</string>
     <string name="start">Start</string>
