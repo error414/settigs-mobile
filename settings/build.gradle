@@ -63,6 +63,12 @@ android {
         args "-c", "php -f ./gradle-exec/updateRevision.php"
     }
 
+    task convertPngImage(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "./gradle-exec/convertImage.sh"
+    }
+
     productFlavors {
     }
 }
