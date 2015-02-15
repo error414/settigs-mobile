@@ -100,7 +100,7 @@
 	            android:entries="@array/receiver_values"
 	            android:minWidth="230dp" />
 
-            <Button
+           <!-- <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/governor"
@@ -112,15 +112,15 @@
                 android:clickable="true"
                 android:enabled="true"
                 android:onClick="openGovernorActivity"
-                />
+                />-->
 
 
 	        <TextView
 	            android:id="@+id/textView6"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/governor"
-	            android:layout_below="@+id/governor"
+	            android:layout_alignLeft="@+id/receiver_select_id"
+	            android:layout_below="@+id/receiver_select_id"
 	            android:layout_marginTop="32dp"
 	            android:text="@string/cyclic_servo_reverse_text"
 	            android:textColor="@color/text_color" />
@@ -130,7 +130,7 @@
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView6"
-	            android:layout_alignRight="@+id/governor"
+	            android:layout_alignRight="@+id/receiver_select_id"
 	            android:layout_below="@+id/textView6"
 	            android:entries="@array/cyclic_servo_reverse_values"
 	            android:minWidth="230dp" />

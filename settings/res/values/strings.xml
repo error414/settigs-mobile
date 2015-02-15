@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 08.02.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 15.02.2015</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -55,21 +55,19 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="bec_tester_note">
-        &lt;p>
-            &lt;b&gt;BEC Tester&lt;/b&gt; is usefull utility for checking whether your BEC is able to stand current load.
-            This utlility will move fast with all the servos for 20 soconds
+        &lt;p&gt;
+            &lt;b&gt;BEC Tester&lt;/b&gt; ﻿is usefull utility for checking whether
+            your BEC is able to stand high current load. This utility will move fast with all the servos for 20 seconds.
         &lt;/p&gt;
         &lt;p&gt;
-            In case, that BEC is not sufficient, you can observe servo weakness and even the unit can reset itself if Voltage will drop under 1.9V
+           In case, that BEC is not sufficient, you can observe servo weakness and even the unit can reset itself if Voltage will drop under 1.9V.
         &lt;/p&gt;
         &lt;p&gt;
-            &lt;b&gt;We highly recommend to unplug the motor or to dismount the blades. if may cause unpredictable behavior!
+            &lt;b&gt;We highly recommend to unplug the motor or to dismount the blades. It may cause unpredictable behavior!&lt;br/&gt;
             Make sure that any servo is not too hot during this test. If so you must turn the test off as soon as possible.&lt;/b&gt;
         &lt;/p&gt;
     </string>
     <string name="pitch_pump">Pitch Pump Booster</string>
-
-
 
     <string name="senzor_button_text">Sensor</string>
     <string name="senzor_senzivity_button_text">Sensitivity</string>
@@ -131,7 +129,7 @@
     <string name="x_cyclic">Cyclic</string>
     <string name="y_rool">Y-Roll</string>
     <string name="z_yaw">Z-Yaw</string>
-    <string name="z_rudder">Rudder</string>
+    <string name="z_rudder">Rudder Common Gain</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
     <string name="rotation_speed">Agility</string>
@@ -168,7 +166,7 @@
     <string name="log_button_text">Flight log</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
-    <string name="gyro_gain">Gyro gain</string>
+    <string name="gyro_gain">﻿Rudder Commonn</string>
     <string name="banks">Banks</string>
     <string name="bank_short_code">B</string>
     <string name="choose_bank">Select bank</string>
@@ -181,7 +179,7 @@
         <item>Bank 1</item>
         <item>Bank 2</item>
     </string-array>
-    
+
     <string-array name="channels_values">
         <item>1. channel</item>
         <item>2. channel</item>
@@ -192,7 +190,7 @@
         <item>7. channel</item>
         <item>Unassigned</item>
     </string-array>
-    
+
     <string-array name="channels_restrict_values">
         <item>1. channel</item>
         <item>2. channel</item>
@@ -202,7 +200,7 @@
         <item>6. channel</item>
         <item>7. channel</item>
     </string-array>
-    
+
     <string-array name="position_values">
         <item>Horizontal</item>
         <item>Vertical</item>
@@ -277,8 +275,8 @@
         <item>Rescue (Acro)</item>
         <item>Stabilisation</item>
     </string-array>
-	
-     <string-array name="language_values">
+
+    <string-array name="language_values">
         <item>Automatically</item>
         <item>Čeština</item>
         <item>English</item>
@@ -289,13 +287,13 @@
         <item>Electric</item>
         <item>Nitro</item>
     </string-array>
-    
-     <string-array name="language_pref_values">
+
+    <string-array name="language_pref_values">
         <item>none</item>
         <item>cs</item>
         <item>en</item>
     </string-array>
-    
+
     <string name="location">Location</string>
     <string name="language">Language</string>
     <string name="language_sumary">Need restart application</string>
@@ -372,18 +370,18 @@
     <string name="no">No</string>
     <string name="no_diff">no difference</string>
     <string name="donate">Donate</string>
-    
+
     <string name="changelog_full_title">Change Log</string>
     <string name="changelog_title">What\'s New</string>
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">more...</string>
-    
+
     <string name="main_direcotory">Storage Directory</string>
     <string name="main_direcotory_sumarry">Pick to choose directory for save graph and log</string>
     <string name="select_dir_failed">Create dir failed!</string>
     <string name="created_dir_success">Vytvořeny adresáře:</string>
     <string name="graph_warn">Warning! Servos will be locked during measurement!</string>
-    
+
     <string name="first_choose_directory">First select a directory</string>
     <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticaly cleared.</string>
 
@@ -408,7 +406,9 @@
     <string name="governor_mode">Governor mode</string>
     <string name="governor_gain">Governor gain</string>
 
-    <!-- HELP AUTO GENERATE STUB --> 
+    <string name="in_transmitter">﻿In transmitter</string>
+
+    <!-- HELP AUTO GENERATE STUB -->
     <string name="st_02282a0a0af7a569d19732b906395ed5">Range around stick center where movement is zero.\n\n<i>Range: 4 - 30</i></string>
     <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Aggressiveness of rudder response</b>\n\n- Increase for harder rudder stop behavior.\n- Decrease if rudder bounce-back occurs.\n\n<i>Range: 3 - 10</i></string>
     <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Enables extended signal processing\n\n- Normally should be disabled.\n- Used for operation with extreme vibrations.</string>
@@ -442,5 +442,5 @@
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n- Very important is to select positive or negative value correctly!\n\n<i>Range: -100 - +100%</i></string>
     <string name="st_701a785854a820040b882b1496fc7955">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 10</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
-    <!--  END AUTO GENERATE STUB -->     
+    <!--  END AUTO GENERATE STUB -->
 </resources>

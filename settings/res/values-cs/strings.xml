@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 08.02.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 15.02.2015</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -61,19 +61,19 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="bec_tester_note">
-        &lt;p>
-            &lt;b&gt;BEC Tester&lt;/b&gt; is usefull utility for checking whether your BEC is able to stand current load.
-            This utlility will move fast with all the servos for 20 soconds
+        &lt;p&gt;
+            &lt;b&gt;BEC Tester&lt;/b&gt; ﻿je užitečný nástroj pro ověření, zda je palubní napájení modelu schopno dodat potřebný proud.
+            Nástroj pohybuje všemi servy po dobu 20 sekund.
         &lt;/p&gt;
         &lt;p&gt;
-            In case, that BEC is not sufficient, you can observe servo weakness and even the unit can reset itself if Voltage will drop under 1.9V
+            V případě, že napájení není vhodné, je možné pozorovat zpomalení serv. Klesne-li napětí pod 1.9V, může dojít až k restartu jednotky.
         &lt;/p&gt;
         &lt;p&gt;
-            &lt;b&gt;We highly recommend to unplug the motor or to dismount the blades. if may cause unpredictable behavior!
-            Make sure that any servo is not too hot during this test. If so you must turn the test off as soon as possible.&lt;/b&gt;
+            &lt;b&gt;Výrazně doporučujeme odpojit motor či rotorové listy, neboť může dojít k nepředvídatelnému chování!&lt;br/&gt;
+            Ujistěte se, že během testu není žádné servo horké. Pokud ano, je nutné ihned zastavit testování.&lt;/b&gt;
         &lt;/p&gt;
     </string>
-    <string name="pitch_pump">Pitch Pump Booster</string>
+    <string name="pitch_pump">Akcelerace kolektivu (Pitch Pump Booster)</string>
 
     <string name="senzor_button_text">Senzor</string>
     <string name="senzor_senzivity_button_text">Citlivost</string>
@@ -144,7 +144,7 @@
     <string name="x_cyclic">Cyklika</string>
     <string name="y_rool">Y-Křidélka</string>
     <string name="z_yaw">Z-Směrovka</string>
-    <string name="z_rudder">Vrtulka</string>
+    <string name="z_rudder">﻿Vrtulkový zisk (znásobení)</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
     <string name="rotation_speed">Rychlost rotace</string>
@@ -181,7 +181,7 @@
 
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>
-	<string name="gyro_gain">Zisk vrtulky</string>
+	<string name="gyro_gain">﻿Vrtulkový zisk</string>
 	<string name="banks">Banky</string>
 	<string name="choose_bank">Vyberte banku</string>
 	<string name="bank_short_code">B</string>
@@ -443,6 +443,8 @@
     <string name="governor">Governor</string>
     <string name="governor_mode">Režim governoru</string>
     <string name="governor_gain">Zisk governoru</string>
+
+    <string name="in_transmitter">﻿Ve vysílači</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>

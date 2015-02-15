@@ -194,15 +194,16 @@ public class GeneralActivity extends BaseActivity
      */
     private void checkGovernorButton()
     {
-        if(profileCreator != null){
-            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 /*A*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
+        return;
+        /*if(profileCreator != null){
+            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 *//*A*//* || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
                 ((Button) findViewById(R.id.governor)).setEnabled(false);
             }else {
                 ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
             }
         }else{
             ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
-        }
+        }*/
     }
 
 	/**
@@ -361,7 +362,7 @@ public class GeneralActivity extends BaseActivity
 				initConfiguration();
 				super.handleMessage(msg);
                 ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-                ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
+                checkGovernorButton();
 				break;
             case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
                 isPosibleSendData = false;
