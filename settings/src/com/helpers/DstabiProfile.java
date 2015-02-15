@@ -128,7 +128,7 @@ public class DstabiProfile {
 		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0",	false));  // Mira zmeny smeru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1",	false)); 		// kolektiv zachranneho rezimu
 		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
-		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3",	false)); // priorita knyplu
+		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 16, "3",	false)); // priorita knyplu
 
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 130, 250, "H",	false)); // konzistence piruet
 
