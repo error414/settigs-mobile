@@ -48,7 +48,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView2"
 	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="32dp"
+	            android:layout_marginTop="50dp"
 	            android:text="@string/status"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
@@ -130,7 +130,8 @@
 	            android:layout_alignBaseline="@+id/textView5"
 	            android:layout_alignBottom="@+id/textView5"
 	            android:layout_alignLeft="@+id/status_text"
-	            android:textColor="@color/text_color" />
+	            android:textColor="@color/text_color"
+                android:textStyle="bold" />
 
 	        <TextView
 	            android:id="@+id/textView6"
@@ -149,9 +150,30 @@
 	            android:layout_alignBottom="@+id/textView6"
 	            android:layout_toRightOf="@+id/textView2"
 	            android:text=""
-	            android:textColor="@color/text_color" />
+	            android:textColor="@color/text_color"
+                android:textStyle="bold" />
 
-	    </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/connected"
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_above="@+id/status_text"
+                android:layout_below="@+id/imageView1"
+                android:layout_alignRight="@+id/bt_device_spinner"
+                android:layout_alignEnd="@+id/bt_device_spinner"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"></LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/connected"
+                android:src="@drawable/black_line_small" />
+
+        </RelativeLayout>
 
 	</ScrollView>
 

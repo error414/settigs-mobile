@@ -25,6 +25,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -37,6 +38,7 @@ import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -156,6 +158,9 @@ public class ConnectionActivity extends BaseActivity
 		curentDeviceText = (TextView) findViewById(R.id.curent_device_text);
 		serial = (TextView) findViewById(R.id.serial_number);
 		version = (TextView) findViewById(R.id.version);
+
+        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
+        progressConnection.setBackgroundResource(R.drawable.connection_bt_animation);
 	}
 
     /**
@@ -223,8 +228,65 @@ public class ConnectionActivity extends BaseActivity
         btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position));
         ////////////////////////////////////////////////////////////////
 
+        setDisconectedProgress();
+
 		updateState();
 	}
+
+    /**
+     *
+     */
+    private void setDisconectedProgress()
+    {
+        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
+        progressConnection.setBackgroundResource(R.drawable.disconnected);
+    }
+
+    /**
+     *
+     */
+    private void setBTConnectionProgress()
+    {
+        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
+        progressConnection.setBackgroundResource(R.drawable.connection_bt_animation);
+
+        AnimationDrawable frameAnimation = (AnimationDrawable) progressConnection
+                .getBackground();
+
+        frameAnimation.start();
+    }
+
+    /**
+     *
+     */
+    private void setBTConnectedProgress()
+    {
+        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
+        progressConnection.setBackgroundResource(R.drawable.connected_bt);
+    }
+
+    /**
+     *
+     */
+    private void setSpiritConnectionProgress()
+    {
+        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
+        progressConnection.setBackgroundResource(R.drawable.connection_spirit_animation);
+
+        AnimationDrawable frameAnimation = (AnimationDrawable) progressConnection
+                .getBackground();
+
+        frameAnimation.start();
+    }
+
+    /**
+     *
+     */
+    private void setSpiritConnectedProgress()
+    {
+        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
+        progressConnection.setBackgroundResource(R.drawable.connected);
+    }
 
 	/**
 	 * naplneni formulare
@@ -262,8 +324,10 @@ public class ConnectionActivity extends BaseActivity
                 initAfterConnection();
             }
 
+            setSpiritConnectedProgress();
 
 		} else {
+            setBTConnectedProgress();
 			version.setText(R.string.unknow_version);
 			serial.setText(R.string.unknow_serial);
 			//showConfirmDialog(R.string.spirit_not_found);
@@ -331,7 +395,7 @@ public class ConnectionActivity extends BaseActivity
             //pripripojovani vymazeme profil pro diff
             ChangeInProfile.getInstance().setOriginalProfile(null);
             checkChange(null);
-            
+
 			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
 
 			//ulozeni vybraneho selectu / zarizeni
@@ -373,11 +437,12 @@ public class ConnectionActivity extends BaseActivity
 				serial.setText(null);
 				version.setText(null);
 				sendInSuccessDialog();
+                setBTConnectionProgress();
 				break;
 			case BluetoothCommandService.STATE_CONNECTED:
 				textStatusView.setText(R.string.connected);
-				textStatusView.setTextColor(Color.GREEN);
-
+				textStatusView.setTextColor(Color.parseColor("#0D850B"));
+                setSpiritConnectionProgress();
 				connectButton.setText(R.string.disconnect);
 
 				BluetoothDevice device = stabiProvider.getBluetoothDevice();
@@ -407,6 +472,7 @@ public class ConnectionActivity extends BaseActivity
 				ChangeInProfile.getInstance().setOriginalProfile(null);
 	            checkChange(null);
                 Globals.getInstance().setCallInitAfterConnect(true);
+                setDisconectedProgress();
 
 				((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
                 ((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
@@ -631,6 +697,7 @@ public class ConnectionActivity extends BaseActivity
 				isPosibleSendData = false;
 				stabiProvider.abortAll();
 				sendInError(false); // ukazat error ale neukoncovat activitu
+                setBTConnectedProgress();
 				if(disconect){
 					disconect = false;
 					stabiProvider.disconnect();
@@ -644,7 +711,9 @@ public class ConnectionActivity extends BaseActivity
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
-				}
+				}else{
+                    setBTConnectedProgress();
+                }
 				break;
 			case PROFILE_CALL_BACK_CODE_FOR_SAVE:
 				sendInSuccessDialog();
