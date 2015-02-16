@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 15.02.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 16.02.2015</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -69,6 +69,8 @@
         &lt;/p&gt;
     </string>
     <string name="pitch_pump">Pitch Pump Booster</string>
+    <string name="stabi_col_warning_header">Warning</string>
+    <string name="stabi_col_warning">Value between -30% to 30% may be too low!</string>
 
     <string name="senzor_button_text">Sensor</string>
     <string name="senzor_senzivity_button_text">Sensitivity</string>
@@ -122,7 +124,6 @@
 
     <string name="rudder_end_points">Rudder \n end-points</string>
     <string name="rudder_end_points_no_break">Rudder end-points</string>
-    <string name="min_max">Min/Max</string>
     <string name="blank"></string>
     <string name="cyc_rate">Cyclic</string>
     <string name="rud_rate">Rudder</string>
@@ -409,7 +410,7 @@
 
     <string name="in_transmitter">﻿In transmitter</string>
 
-    <!-- HELP AUTO GENERATE STUB -->
+    <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Range around stick center where movement is zero.\n\n<i>Range: 4 - 30</i></string>
     <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Aggressiveness of rudder response</b>\n\n- Increase for harder rudder stop behavior.\n- Decrease if rudder bounce-back occurs.\n\n<i>Range: 3 - 10</i></string>
     <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Enables extended signal processing\n\n- Normally should be disabled.\n- Used for operation with extreme vibrations.</string>
@@ -421,21 +422,23 @@
     <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminates pitchup effect</b>\n\n- Mostly configured to 0.\n- Increase when pitchup is visible.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Specifies degree of which cyclic has to be rotated</b>\n\n- Used in some multi-rotor heads.\n- Mostly configured to 0.\n\n<i>Range: -90 - +90</i></string>
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Aggressiveness of aileron/elevator stick response</b>\n\n- Increase for more direct feel.\n- Decrease for smooth behavior.\n\n<i>Range: 1 - 12</i></string>
+    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Booster of the collective pitch movements</b>\n\n- Fast movement will cause fast change.\n- Usually configured to 0.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverse when cyclic is not behaving like a compass during rotation.\n\n- Double check this when sensor Z axis is reversed.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Mounting position of the unit.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Specifies behavior of flight characteristics.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle stick behavior.</string>
     <string name="st_b85e1174f4196a0bc9953209b0fdd6e0">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120.</string>
+    <string name="st_bef7e9faa6f15e367c6095280b3d5161"><b>Specifies range of cyclic servo travel for aileron and elevator</b>\n\n- Increase this parameter as much as possible.\n- Carefully check for any binding!</string>
     <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Specifies range of collective pitch for both positive and negative.</string>
     <string name="st_3042744980d10a21a6e46a5834af02b1">Specifies minimum travel limit for rudder servo.</string>
     <string name="st_399fe255b29e9f87fd15daede396fdd7">Specifies maximum travel limit for rudder servo.</string>
     <string name="st_57d3739e1771229afb2a5cf08f4de57f"><b>Specifies cyclic gain</b>\n\n- Mostly 60 - 70% for the optimal results.\n\n<i>Range: 20 - 100%</i></string>
-    <string name="st_db27f93942fe39c3180a2dce7ae1ade7"><b>Specifies gyro gain</b>\n\n- Mostly 60 - 70% for the optimal results.\n\n<i>Range: -100 - +100%</i></string>
     <string name="st_a0a5325d05a2fcf5406274dd8e8d4bbb"><b>Specifies multiplier of gyro gain from transmitter</b>\n\n- 1x for no multiplication\n- 1.50x for 1.5x multiplication of TX gyro gain.\n\n<i>Range: 1.00 - 1.50</i></string>
+    <string name="st_e1ef2f3a7b6fa63d68cb2b9b2e72a571"><b>Specifies Gyro Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n- Is inactive if Gyro Gain is configured in the transmitter.\n\n<i>Range: -100 - +100%</i></string>
     <string name="st_95e83a5f5c4f175cfefe9b06620fc385">Specifies direction of elevator gyro compensation.</string>
     <string name="st_972307e460ecd3df8303f72849faaf36">Specifies direction of aileron gyro compensation.</string>
     <string name="st_6008eeff8fc4acff6e4ac6c6236c392e">Specifies direction of rudder gyro compensation.</string>
-    <string name="st_4e53a94a4c21b522bce145863f4a5172">Specifies how fast model can rotate\nwith full aileron/elevator stick deflection.\n\n- Mostly in 8-12 range.\n\n<i>Range: 5 - 16</i></string>
+    <string name="st_89aa34aff73db8d200536bf76779270b">Specifies how fast model can rotate\nwith full aileron/elevator stick deflection.\n\n- Mostly in 8-12 range.\n- Values 13 and more are not recommended.\n\n<i>Range: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Specifies pirouette speed\nwith full rudder stick deflection.\n\n- Mostly in 8-11 range.\n\n<i>Range: 5 - 20</i></string>
     <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Reverses cyclic servo travel for specified channel.\nCH3 - aileron / pitch servo\nCH2 - elevator servo</string>
     <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode\nRescue - rescue mode with HH gyro\nStabilisation - stabilisation mode with HH gyro</string>

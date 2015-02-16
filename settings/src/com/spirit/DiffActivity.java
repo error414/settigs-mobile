@@ -333,7 +333,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MIN")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min_max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -342,7 +342,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MAX")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min_max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());

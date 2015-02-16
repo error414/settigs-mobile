@@ -55,10 +55,10 @@ public class GeneralActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-    protected String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "CYCLIC_REVERSE", "FLIGHT_STYLE",};
+    protected String protocolCode[] = {"POSITION", "MIX", "RECEIVER", "FLIGHT_STYLE",};
 
 	// gui prvky ktere sou v teto aktivite aktivni
-	protected int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.cyclic_servo_reverse_select_id, R.id.flight_style_select_id};
+	protected int formItems[] = {R.id.position_select_id, R.id.mix_select_id, R.id.receiver_select_id, R.id.flight_style_select_id};
 
 	private int lock = formItems.length;
 

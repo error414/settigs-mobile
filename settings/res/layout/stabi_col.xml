@@ -3,12 +3,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" 
-    android:background="@color/background_color">
+    android:background="@color/background_color"
+    android:weightSum="1">
 	 <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="@color/background_color">
+            android:background="@color/background_color"
+         android:layout_weight="1.10">
 
 	    <RelativeLayout
 	        android:layout_width="fill_parent"
@@ -46,7 +48,33 @@
 
 	        </com.customWidget.picker.ProgresEx>
 
-	    </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stabi_col_warning_header"
+                android:id="@+id/warning_header"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_below="@+id/stabi_pitch"
+                android:layout_marginTop="16dp"
+                android:textColor="@color/text_color"
+                android:textStyle="bold"
+                android:visibility="invisible" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/stabi_col_warning"
+                android:id="@+id/warning"
+                android:layout_alignLeft="@+id/warning_header"
+                android:layout_below="@+id/warning_header"
+                android:textColor="@color/text_color"
+                android:visibility="visible"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="8dp" />
+
+        </RelativeLayout>
 
 	</ScrollView>
+
 </LinearLayout>

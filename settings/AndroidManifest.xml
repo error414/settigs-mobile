@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="76"
+    android:versionCode="77"
 
-    android:versionName="1.1.15"
+    android:versionName="1.1.16"
 >
 
     <uses-sdk
@@ -364,7 +364,16 @@
             />
 
         <activity
-            android:name=".diagnostic.DiagnosticListActivity"
+            android:name=".diagnostic.InputChannelsActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".servo.ServosReverzActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

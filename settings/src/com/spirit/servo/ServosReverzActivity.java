@@ -20,46 +20,49 @@ package com.spirit.servo;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.customWidget.picker.ProgresEx;
-import com.customWidget.picker.ProgresEx.OnChangedListener;
+import com.exception.IndexOutOfException;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class ServosRudderEndPointsActivity extends BaseActivity
+public class ServosReverzActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "ServosRudderEndPointsActivity";
+	final private String TAG = "ServosReverzActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RUDDER_MIN", "RUDDER_MAX",};
+	private final String protocolCode[] = {"CYCLIC_REVERSE"};
 
-	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
+	private int formItems[] = {R.id.cyclic_servo_reverse_select_id};
 
-	private int formItemsTitle[] = {R.string.min, R.string.max,};
+	private int lock = formItems.length;
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.servos_rudder_end_points);
+		initSlideMenu(R.layout.servos_reverse);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limit), getString(R.string.rudder_end_points_no_break)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.cyclic_servo_reverse_text)));
 
-		initGui();
 		initConfiguration();
 		delegateListener();
 	}
@@ -84,7 +87,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
      *
      */
     protected int getDefaultValueType(){
-        return DEFAULT_VALUE_TYPE_SEEK;
+        return DEFAULT_VALUE_TYPE_SPINNER;
     }
 
 	/**
@@ -101,26 +104,17 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 			finish();
 		}
 	}
-	
+
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
 		for (int i = 0; i < formItems.length; i++) {
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			Spinner spinner = (Spinner) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			
-			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
-		}
-	}
-
-	private void initGui()
-	{
-		for (int i = 0; i < formItems.length; i++) {
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setRange(32, 255); // tohle rozmezi asi brat ze stabi profilu
-			tempPicker.setTitle(formItemsTitle[i]); // tohle rozmezi asi brat ze stabi profilu
+			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
 
@@ -131,7 +125,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 	{
 		//nastaveni posluchacu pro formularove prvky
 		for (int i = 0; i < formItems.length; i++) {
-			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+			((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
 		}
 	}
 
@@ -144,7 +138,6 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		// ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
-
 
 	/**
 	 * naplneni formulare
@@ -163,39 +156,56 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		checkBankNumber(profileCreator);
 		initBasicMode();
 
-		for (int i = 0; i < formItems.length; i++) {
-			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-			tempPicker.setCurrentNoNotify(size);
-		}
+		try {
+			for (int i = 0; i < formItems.length; i++) {
+				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
+				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+
+				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
+				tempSpinner.setSelection(pos);
+			}
+		} catch (IndexOutOfException e) {
+			errorInActivity(R.string.damage_profile);
+			return;
+		}
 	}
 
-	protected OnChangedListener numberPicekrListener = new OnChangedListener()
+	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
-
-
 		@Override
-		public void onChanged(ProgresEx parent, int newVal)
+		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-			// TODO Auto-generated method stub
+
+
+			if (lock != 0) {
+				lock -= 1;
+				return;
+			}
+			lock = Math.max(lock - 1, 0);
+
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
+					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
+
+					showInfoBarWrite();
 				}
 			}
-
             initDefaultValue();
 		}
 
+		@Override
+		public void onNothingSelected(AdapterView<?> arg0)
+		{
+			// TODO Auto-generated method stub
+
+		}
 	};
+
 
 	public boolean handleMessage(Message msg)
 	{
@@ -203,8 +213,8 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
-					sendInSuccessDialog();
                     initDefaultValue();
+					sendInSuccessDialog();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:

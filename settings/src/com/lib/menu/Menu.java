@@ -32,6 +32,7 @@ import com.spirit.senzor.SenzorSenzivityActivity;
 import com.spirit.servo.ServosActivity;
 import com.spirit.servo.ServosCyclickRingRangeActivity;
 import com.spirit.servo.ServosLimitActivity;
+import com.spirit.servo.ServosReverzActivity;
 import com.spirit.servo.ServosRudderEndPointsActivity;
 import com.spirit.servo.ServosSubtrimActivity;
 import com.spirit.servo.ServosTypeActivity;
@@ -107,6 +108,7 @@ public class Menu {
     public static Integer MENU_SERVOSUBTRIM             = 26;
     public static Integer MENU_SERVOLIMIT               = 27;
     public static Integer MENU_SERVOTRAVELCORRECTION    = 28;
+    public static Integer MENU_REVERZ                   = 43;
 
     public static Integer MENU_STABIFUNCTION        = 29;
     public static Integer MENU_STABICOL             = 30;
@@ -281,8 +283,11 @@ public class Menu {
         //korekce drahy serv
         menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.na,     R.string.servo_travel_correction, TravelCorrectionActivity.class));
 
+        //reverz
+        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.na,     R.string.cyclic_servo_reverse_text, ServosReverzActivity.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_SERVOSUBTRIM, MENU_SERVOLIMIT, MENU_SERVOTRAVELCORRECTION});
+        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_REVERZ, MENU_SERVOSUBTRIM, MENU_SERVOLIMIT, MENU_SERVOTRAVELCORRECTION});
 
 
         //STABI ACTIVITY

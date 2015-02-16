@@ -45,13 +45,13 @@ public class HelpMap {
 
         result.put(R.id.x_cyclic,                           R.string.st_57d3739e1771229afb2a5cf08f4de57f);
         result.put(R.id.z_rudder,                           R.string.st_a0a5325d05a2fcf5406274dd8e8d4bbb);
-        result.put(R.id.gyro_gain,                          R.string.st_db27f93942fe39c3180a2dce7ae1ade7);
+        result.put(R.id.gyro_gain,                          R.string.st_e1ef2f3a7b6fa63d68cb2b9b2e72a571);
 
         result.put(R.id.x_pitch_reverse,                    R.string.st_95e83a5f5c4f175cfefe9b06620fc385);
         result.put(R.id.y_roll_reverse,                     R.string.st_972307e460ecd3df8303f72849faaf36);
         result.put(R.id.z_yaw_reverse,                      R.string.st_6008eeff8fc4acff6e4ac6c6236c392e);
 
-        result.put(R.id.x_pitch_rates,                      R.string.st_4e53a94a4c21b522bce145863f4a5172);
+        result.put(R.id.x_pitch_rates,                      R.string.st_89aa34aff73db8d200536bf76779270b);
         result.put(R.id.z_yaw_rates,                        R.string.st_85767e852871648bc2db9dd4b052cf63);
 
         result.put(R.id.cyclicff,                           R.string.st_6c27918077d556edb488f0516b5965b6);
@@ -70,8 +70,10 @@ public class HelpMap {
         result.put(R.id.rudder_limit_min,                   R.string.st_3042744980d10a21a6e46a5834af02b1);
         result.put(R.id.rudder_limit_max,                   R.string.st_399fe255b29e9f87fd15daede396fdd7);
 
-        result.put(R.id.cyclic_ring_ail_ele,                R.string.st_399fe255b29e9f87fd15daede396fdd7);
+        result.put(R.id.cyclic_ring_ail_ele,                R.string.st_bef7e9faa6f15e367c6095280b3d5161);
         result.put(R.id.cyclic_ring_pitch,                  R.string.st_228ef0c717ed4671ff6c7d148917aeb2);
+
+        result.put(R.id.pitch_pump,                         R.string.st_6bf8cb04f7fdb6f926ad978ad55e7980);
 
 
         return Collections.unmodifiableMap(result);

@@ -170,7 +170,7 @@ public class DstabiProfile {
         profileMap.put("GOVERNOR_MODE",	        new ProfileItem(61, 0, 2, "2",	true));
         profileMap.put("GOVERNOR_GAIN",	        new ProfileItem(62, 1, 64, "j",	true)); // Gain
         profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
-        profileMap.put("PITCH_PUMP",	        new ProfileItem(64, 0, 4, "n",	true)); // pitch pump
+        profileMap.put("PITCH_PUMP",	        new ProfileItem(64, 0, 4, "n",	false)); // pitch pump
 
 		this.mProfile = mProfile;
 
