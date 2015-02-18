@@ -32,7 +32,7 @@ public class HelpMap {
         Map<Integer, Integer> result = new HashMap<Integer, Integer>();
 
         result.put(R.id.position_select_id,                 R.string.st_26a7059fe05e155afb53ea22bc6a80d3);
-        result.put(R.id.mix_select_id,                      R.string.st_b85e1174f4196a0bc9953209b0fdd6e0);
+        result.put(R.id.mix_select_id,                      R.string.st_a030379814acf4a9efd5735573f71718);
         result.put(R.id.receiver_select_id,                 R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
         result.put(R.id.cyclic_servo_reverse_select_id,     R.string.st_916898ebed3d1dbcb55c93994fec7ee1);
         result.put(R.id.flight_style_select_id,             R.string.st_9227b10a9b8a8dedbd04953e79838429);
@@ -41,10 +41,10 @@ public class HelpMap {
         result.put(R.id.stabi_ctrldir,                      R.string.st_9b25a70239fd85bc298f57a20029fbd1);
         result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
         result.put(R.id.function_select_id,                 R.string.st_e0b37eca21ca760ec03fd9ac52a6593e);
-        result.put(R.id.stabi_stick,                        R.string.st_701a785854a820040b882b1496fc7955);
+        result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
-        result.put(R.id.x_cyclic,                           R.string.st_57d3739e1771229afb2a5cf08f4de57f);
-        result.put(R.id.z_rudder,                           R.string.st_a0a5325d05a2fcf5406274dd8e8d4bbb);
+        result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);
+        result.put(R.id.z_rudder,                           R.string.st_466a542ef886802f5bbc2c23bc91fd06);
         result.put(R.id.gyro_gain,                          R.string.st_e1ef2f3a7b6fa63d68cb2b9b2e72a571);
 
         result.put(R.id.x_pitch_reverse,                    R.string.st_95e83a5f5c4f175cfefe9b06620fc385);

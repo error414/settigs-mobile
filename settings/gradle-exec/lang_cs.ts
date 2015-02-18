@@ -1357,6 +1357,8 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
     </message>
     <message>
         <location filename="general.cpp" line="296"/>
+        <location filename="general.cpp" line="361"/>
+        <location filename="general.cpp" line="406"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
@@ -1378,42 +1380,48 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="vanished">Governor I-zisk: </translation>
     </message>
     <message>
-        <location filename="general.cpp" line="374"/>
+        <location filename="general.cpp" line="361"/>
+        <location filename="general.cpp" line="406"/>
+        <source>For PWM connection type only 5th channel can be used.</source>
+        <translation>Pro typ přijímače PWM lze přiřadit pouze 5. kanál.</translation>
+    </message>
+    <message>
+        <location filename="general.cpp" line="381"/>
         <source>In transmitter</source>
         <translation>Ve vysílači</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="435"/>
+        <location filename="general.cpp" line="444"/>
         <source>Governor Gain: </source>
         <translation>Zisk governoru: </translation>
     </message>
     <message>
-        <location filename="general.cpp" line="464"/>
+        <location filename="general.cpp" line="473"/>
         <source>Position</source>
         <translation>Pozice</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="467"/>
+        <location filename="general.cpp" line="476"/>
         <source>Horizontal</source>
         <translation>Horizontální</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="468"/>
+        <location filename="general.cpp" line="477"/>
         <source>Vertical</source>
         <translation>Vertikální</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="469"/>
+        <location filename="general.cpp" line="478"/>
         <source>Vertical (top)</source>
         <translation>Vertikální (stojící)</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="470"/>
+        <location filename="general.cpp" line="479"/>
         <source>Mounting position of the unit.</source>
         <translation>Pozice umístění jednotky na modelu.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="497"/>
+        <location filename="general.cpp" line="506"/>
         <source>Cyclic mixing function used on the model.
 
 - In the most cases it is CCPM 120%1.</source>
@@ -1422,7 +1430,7 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
 - Nejčastěji se jedná o CCPM 120%1.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="515"/>
+        <location filename="general.cpp" line="524"/>
         <source>Receiver type equipped on the model.
 
 - PWM for classical receiver.</source>
@@ -1434,12 +1442,12 @@ PWM for classical receiver.</oldsource>
 - PWM pro klasický typ přijímače.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="521"/>
+        <location filename="general.cpp" line="530"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="536"/>
+        <location filename="general.cpp" line="545"/>
         <source>Specifies behavior of flight characteristics.
 
 - Decrease for more constant and linear behavior.
@@ -1450,42 +1458,42 @@ PWM for classical receiver.</oldsource>
 - Přidejte pro dosažení chování pádlové mechaniky.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="550"/>
+        <location filename="general.cpp" line="559"/>
         <source>Governor</source>
         <translation>Governor</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="552"/>
+        <location filename="general.cpp" line="561"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="585"/>
+        <location filename="general.cpp" line="595"/>
         <source>channel</source>
         <translation>kanál</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="588"/>
+        <location filename="general.cpp" line="598"/>
         <source>unassigned</source>
         <translation>nepřiřazen</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="609"/>
+        <location filename="general.cpp" line="619"/>
         <source>Disabled</source>
         <translation>Vypnutý</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="610"/>
+        <location filename="general.cpp" line="620"/>
         <source>Enabled</source>
         <translation>Zapnutý</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="611"/>
+        <location filename="general.cpp" line="621"/>
         <source>Enabled w/ assist</source>
         <translation>Zapnutý + rozběh</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="627"/>
+        <location filename="general.cpp" line="637"/>
         <source>Specifies Governor Gain.
 
 - Increase for better RPM holding performance.
@@ -1504,7 +1512,7 @@ PWM for classical receiver.</oldsource>
         <translation type="vanished">Spalovací</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="612"/>
+        <location filename="general.cpp" line="622"/>
         <source>Governor mode .</source>
         <translation>Režim governoru.</translation>
     </message>
@@ -1525,7 +1533,7 @@ PWM for classical receiver.</oldsource>
         <translation type="obsolete">Letadlo</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="490"/>
+        <location filename="general.cpp" line="499"/>
         <source>Mix</source>
         <translation>Mixování</translation>
     </message>
@@ -1541,7 +1549,7 @@ In most cases it is CCPM 120.</oldsource>
 - Nejčastěji se jedná o CCPM 120.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="506"/>
+        <location filename="general.cpp" line="515"/>
         <source>Receiver</source>
         <translation>Přijímač</translation>
     </message>
@@ -1555,7 +1563,7 @@ In most cases it is CCPM 120.</oldsource>
     </message>
     <message>
         <location filename="general.cpp" line="265"/>
-        <location filename="general.cpp" line="529"/>
+        <location filename="general.cpp" line="538"/>
         <source>Flight style</source>
         <translation>Letový projev</translation>
     </message>
@@ -1918,7 +1926,7 @@ Mostly 60 - 70% for the optimal results.</oldsource>
         <location filename="sensor.cpp" line="125"/>
         <source>&lt;b&gt;Specifies multiplier of Gyro Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x for no multiplication.&lt;br/&gt;- 1.50x for 1.5x multiplication of TX gyro gain.&lt;br&gt;- For 500-size and smaller helicopter 1.0x is enough.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1.00 - 1.50&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Specifies multiplier of Gyro Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x for no multiplication&lt;br/&gt;- 1.50x for 1.5x multiplication of TX gyro gain.&lt;br&gt;- For 500-size and smaller helicopter 1.0x is enough.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1.00 - 1.50&lt;/i&gt;</oldsource>
-        <translation>&lt;b&gt;Násobič zisku gyra z vysílače&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x znamená bez násobení.&lt;br/&gt;- 1,50x znamená 1,5x násobení zisku gyra.&lt;br&gt;- Pro třídu 500 a menší postačuje znásobení 1.0x.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1,00 - 1,50&lt;/i&gt;</translation>
+        <translation>&lt;b&gt;Násobič zisku gyra z vysílače&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x znamená bez násobení.&lt;br/&gt;- 1,50x znamená 1,5x násobení zisku gyra.&lt;br&gt;- Pro třídu 500 a menší postačuje znásobení 1,0x.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1,00 - 1,50&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="sensor.cpp" line="172"/>
@@ -2595,7 +2603,7 @@ Přejete si vstoupit do demonstračního módu?</translation>
     <message>
         <location filename="tester.cpp" line="60"/>
         <source>&lt;b&gt;BEC Tester&lt;/b&gt; is usefull utility for checking whether&lt;br&gt;your BEC is able to stand high current load.&lt;br&gt;This utility will move fast with all the servos for 20 seconds.&lt;br&gt;&lt;br&gt;In case, that BEC is not sufficient, you can observe servo&lt;br&gt;weakness and even the unit can reset itself if Voltage will&lt;br&gt;drop under 1.9V.&lt;br&gt;&lt;br&gt;&lt;b&gt;We highly recommend to unplug the motor or to dismount&lt;br&gt;the blades. It may cause unpredictable behavior!&lt;/b&gt;&lt;br&gt;&lt;b&gt;Make sure that any servo is not too hot during this test.&lt;br&gt;If so you must turn the test off as soon as possible.&lt;/b&gt;</source>
-        <translation>&lt;b&gt;BEC tester&lt;/b&gt; je užitečný nástroj pro ověření, zda je palubní napájení modelu schopno dodat potřebný proud.&lt;br&gt;Nástroj pohybuje všemi servy po dobu 20 sekund.&lt;br&gt;&lt;br&gt;V případě, že napájení není vhodné, je možné pozorovat zpomalení serv.&lt;br&gt;Klesne-li napětí pod 1.9V, může dojít až k restartu jednotky.&lt;br&gt;&lt;br&gt;&lt;b&gt;Výrazně doporučujeme odpojit motor či rotorové listy,&lt;br&gt; neboť může dojít k nepředvídatelnému chování!&lt;/b&gt;&lt;br&gt;&lt;b&gt;Ujistěte se, že během testu není žádné servo horké.&lt;br&gt;Pokud ano, je nutné ihned zastavit testování.&lt;/b&gt;</translation>
+        <translation>&lt;b&gt;BEC tester&lt;/b&gt; je užitečný nástroj pro ověření, zda je palubní&lt;br&gt;napájení modelu schopno dodat potřebný proud.&lt;br&gt;Nástroj pohybuje všemi servy po dobu 20 sekund.&lt;br&gt;&lt;br&gt;V případě, že napájení není vhodné, je možné pozorovat&lt;br&gt;zpomalení serv. Klesne-li napětí pod 1.9V, může dojít&lt;br&gt;až k restartu jednotky.&lt;br&gt;&lt;br&gt;&lt;b&gt;Výrazně doporučujeme odpojit motor či rotorové listy,&lt;br&gt; neboť může nastat nepředvídatelné chování!&lt;/b&gt;&lt;br&gt;&lt;b&gt;Ujistěte se, že během testu není žádné servo horké.&lt;br&gt;Pokud ano, je nutné ihned zastavit testování.&lt;/b&gt;</translation>
     </message>
     <message>
         <location filename="tester.cpp" line="62"/>
@@ -2878,7 +2886,7 @@ You can repeat this process as you need, after successfull bind
 disconnect Bind connector and battery.</oldsource>
         <translation>Pokud váš satelit nebyl ještě spárován, udělejte to následovně.
 Zapojte bindovací konektor dle uvedeného schématu.
-Poté připojte baterii do regulátoru/BECu, status LED by měla začít blikat.
+Poté připojte baterii do regulátoru či BECu. Status LED by měla začít blikat.
 Zapněte vysílač a spusťte bindovací proces.
 Čekejte několik sekund, dokud LED u satelitu zůstane svítit.
 LED na jednotce by měla v této chvíli zhasnout. Proces párování je
@@ -2951,12 +2959,120 @@ Je nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.
 Po inicializaci jednotky klikněte znovu na tlačítko Připojit.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="614"/>
-        <source>Congratulations!&lt;br/&gt;&lt;br/&gt;You have passed wizard settings and your helicopter should be ready to fly.&lt;br/&gt;For more settings use the configration software.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Before flight check the compensation of gyro, verify all channels&lt;br/&gt;in your transmitter and reverse it for correct operation!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Click Finish button to complete and save your settings&lt;br/&gt;into flash memory of the unit.</source>
-        <translation>Gratulujeme!&lt;br/&gt;&lt;br/&gt;Prošli jste průvodcem nastavení a Vaše helikoptéra by tak měla být připravena k letu.&lt;br/&gt;Další nastavení naleznete v konfiguračním software.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Před letem zkontrolujte kompenzaci gyra, reakci na páčky vysílače&lt;br/&gt;a příp. nastavte správný smysl, jinak bude řízení nekontrolovatelné!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Klikněte na tlačítko Dokončit pro uložení nastavení do paměti jednotky.</translation>
+        <location filename="wizard.cpp" line="310"/>
+        <source>Connect a battery to ESC/BEC (max. input voltage is 15V). This should turn the unit on and initialization
+process as well. This mean Status LED will be pulsing until the unit is initialized and prepared to work.
+
+You shouldn&apos;t move with the unit or anything connected to it anytime you waiting for the initialization.
+
+Initialization process takes around 3 to 6 seconds depending on conditions.</source>
+        <translation>Připojte baterii k regulátoru/BECu (max. vstupní napětí je 15V). V tu chvíli by se měla jednotka
+začít inicializovat. To znamená, že stavová LED začne pulzovat, dokud není tento proces hotov.
+
+Nikdy nepohybujte s jednotkou ani čímkoli co je s ní spojeno, dokud není inicializace dokončena.
+
+Inicializační proces trvá přibližně 3 až 6 sekund v závislosti na podmínkách.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="647"/>
+        <location filename="wizard.cpp" line="496"/>
+        <source>Select correct servo type and frequency.
+
+If you are unsure, please check technical details in servo manufacturer else servo damage is possible!
+Analog servos are mostly for max. frequency 65Hz while Digital are usually 200Hz.
+
+After you finish this page, you can connect your servos.</source>
+        <translation>Zvolte správný typ serv a jejich frekvenci.
+
+Pokud si nejste jistí, zkontrolujte technické parametry u výrobce, jinak může dojít ke zničení serv!
+Analogová serva jsou většinou určena do max. frekvence 65Hz, zatímco digitální běžně do 200Hz.
+
+Poté, co provedete nastavení, můžete připojit serva.</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="520"/>
+        <source>Please check if your cyclic and rudder servos are responding correctly to helicopter movement.
+If not, reverse it as needed.
+
+Be sure your servos are connected into correct channel in the unit else it could be impossible to get
+it work as supposed. Your cyclic should compensate movements in opposite direction,
+it means cyclic should stay approximately level with horizont.
+
+Tail blades should move in opposite direction of the movement as well.</source>
+        <translation>Prověřte, zda serva cykliky a vrtulky reagují korektně na pohyb modelu.
+Pokud ne, je nutné nastavit správný smysl kompenzace.
+
+Ujistěte se, že jsou serva připojena ve správné pozici v jednotce, jinak by bylo nemožné
+docílit správného výsledku. Deska cykliky by měla kompenzovat pohyb tak,
+že se bude naklánět v opačném směru, tj. cyklika se snaží držet přibližně spolu s horizontem.
+
+Stejně tak i vrtulkové listy musí jít proti směru pohybu.</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="547"/>
+        <source>Insert cyclic leveler to main shaft and set your servos as precise as possible
+to achieve the best results during flight. Cyclic should be perfectly level with cyclic leveler.
+Your servo arms should be in same time perpendicular to push rods and/or servo cases as well for tail servo.
+
+After this step, you can assembly rotor head.</source>
+        <translation>Vložte leveler cykliky na hlavní hřídel a nastavte serva jak nejpřesněji to jde,
+aby byl letový projev co nejlepší. Cyklika by měla být perfektně rovnoběžně s levelerem.
+Páky serv by přitom měly zůstat kolmo k táhlům a/nebo servům. Stejně tak vrtulkové servo.
+
+Po tomto kroku namontujte prosím rotorovou hlavu.</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="571"/>
+        <source>Firstly setup your maximum collective pitch range you want to fly. Use stick to check your max. and min. angle
+with pitch gauge. Set throttle/collective stick to the highest position and check blade&apos;s pitch.
+Increase or decrease Pitch parameter as you need. We recommend pitch around 10%1 to begin with.
+
+Secondly setup maximum possible range for aileron/elevator. Try to move your cyclic in all positions with stick
+and increase Aileron / Elevator range. If your servos starts to bind anywhere, decrease this parameter.
+
+Also setup your rudder limits to maximum possible range. Move your rudder to one side with rudder stick,
+increase it until you reach mechanical limit. Do the same setup for opposite side with rudder stick and limit.</source>
+        <translation>Nejprve nastavte maximální rozsah kolektivu, se kterým budete létat.
+Páčku plynu/kolektivu na vysílači nastavte na např. nejvyšší pozici a pomocí měrky
+zkontrolujte náběh listů. Podle potřeby přidejte či uberte rozsah kolektivu v níže uvedeném parametru.
+Doporučujeme pro začátek úhly v rozmezí 10 stupňů.
+
+Poté nastavte maximální možný rozsah křidélek/výškovky. Pomocí kniplu opatrně prověřte všechny pozice,
+zda nedochází k narážení. Jakmile narazíte na mechanický limit, uberte limit pro parametr Křidélka/Výškovka.
+
+Stejně tak nastavte max. možné limity serva vrtulky. Kniplem vrtulky zajeďte opatrně na jednu stranu
+a pozvolna přidávejte, dokud nedojde smykátko na konec hřídele.
+To stejné proveďte na opačnou stranu pomocí kniplu a limitu.</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="619"/>
+        <source>Pirouette optimization settings (Step 10/11)</source>
+        <translation>Nastavení optimalizace piruet (Krok 10/11)</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="621"/>
+        <source>Setup correct orientation of the pirouette optimization.
+If you need, disconnect cable from the unit and grab your model.
+Make sure the cable is plugged back before touching any settings here!
+
+Start to yaw with the helicopter in any direction and look at the cyclic.
+It should stay in the same direction respectively to ground similarly to a compass.
+
+If your cyclic rotate in the opposite direction then reverse orientation here.</source>
+        <translation>Nastavte korektní smysl kompenzace piruet. Pokud potřebujete, odpojte datový kabel z jednotky.
+Ujistěte se ale, že před jakýmkoliv nastavením ho zpět zapojíte!
+
+Uchopte model za hl. rotor a otáčejte s ním dokola. Kontrolujte cykliku - správný směr poznáte podle toho,
+že při otáčení cyklika zůstává vzhledem k zemi pořád stejně nakloněná, podobně jako kompas.
+
+Pokud cyklika rotuje v opačném směru, změňte smysl otáčení.</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="646"/>
+        <source>Congratulations!&lt;br/&gt;&lt;br/&gt;You have passed wizard settings and your helicopter should be ready to fly.&lt;br/&gt;For more settings use the configration software.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Before flight check the compensation of gyro, verify all channels&lt;br/&gt;in your transmitter and reverse it for correct operation!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Click Finish button to complete and save your settings&lt;br/&gt;into flash memory of the unit.</source>
+        <translation>Gratulujeme!&lt;br/&gt;&lt;br/&gt;Prošli jste průvodcem nastavení a vaše helikoptéra by tak měla být připravena k letu.&lt;br/&gt;Další nastavení naleznete v konfiguračním software.&lt;br/&gt;&lt;br/&gt;&lt;b&gt;Před letem zkontrolujte kompenzaci gyra, reakci na páčky vysílače&lt;br/&gt;a příp. nastavte správný smysl, jinak bude řízení nekontrolovatelné!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Klikněte na tlačítko Dokončit pro uložení nastavení do paměti jednotky.</translation>
+    </message>
+    <message>
+        <location filename="wizard.cpp" line="683"/>
         <source>Your unit connection wasn&apos;t created at all.
 Something is broken</source>
         <translation>Spojení vaší jednotky nebylo vůbec navázáno.
@@ -2983,13 +3099,12 @@ Po inicializaci jednotky klikněte znovu na tlačítko Připojit.</translation>
         <translation>Nutno znovu připojit</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="310"/>
+        <location filename="wizard.cpp" line="308"/>
         <source>Connection test (Step 2/11)</source>
         <oldsource>Connection test (Step 2/10)</oldsource>
         <translation>Test spojení (Krok 2/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="312"/>
         <source>Connect a battery to ESC/BEC (max. input voltage is 15V).
 This should turn the unit on and initialization process as well.
 This mean Status LED will be pulsing until unit is initialized and prepared to work.
@@ -3005,7 +3120,7 @@ You should&apos;nt move unit or anything connected to
 it everytime you waiting for initialization.
 
 Initialization process takes around 3 to 6 seconds depending on conditions.</oldsource>
-        <translation>Připojte baterii k regulátoru/BECu (max. vstupní napětí je 15V).
+        <translation type="vanished">Připojte baterii k regulátoru/BECu (max. vstupní napětí je 15V).
 V tu chvíli by se měla jednotka začít inicializovat.
 To znamená, že stavová LED začne pulzovat, dokud není tento proces hotov.
 
@@ -3015,39 +3130,39 @@ dokud není inicializace dokončena.
 Inicializační proces trvá přibližně 3 až 6 sekund v závislosti na podmínkách.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="318"/>
+        <location filename="wizard.cpp" line="315"/>
         <source>If your unit is Ready, click following button to make connection.
 Be sure your Interface cable is plugged in and your drivers are installed properly.</source>
         <translation>Pokud je jednotka připravena, klikněte na následující tlačítko.
 Ujistěte se, že je datový kabel správně připojen a máte nainstalovány ovladače v OS.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="321"/>
+        <location filename="wizard.cpp" line="318"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="323"/>
+        <location filename="wizard.cpp" line="320"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="325"/>
+        <location filename="wizard.cpp" line="322"/>
         <source>Not connected</source>
         <translation>Není připojena</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="327"/>
+        <location filename="wizard.cpp" line="324"/>
         <source>Version:</source>
         <translation>Verze:</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="329"/>
+        <location filename="wizard.cpp" line="326"/>
         <source>N/A</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="331"/>
+        <location filename="wizard.cpp" line="328"/>
         <source>Connect</source>
         <translation>Připojit</translation>
     </message>
@@ -3056,19 +3171,19 @@ Ujistěte se, že je datový kabel správně připojen a máte nainstalovány ov
         <translation type="obsolete">Obecné nastavení (Krok 3/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="450"/>
+        <location filename="wizard.cpp" line="456"/>
         <source>Select position of the unit with respect to R/C model.
 Also select model type/size and servo mixing function.</source>
         <translation>Nastavte pozici jednotky vzhledem k R/C modelu.
 Také zvolte typ modelu/velikost a funkci pro mixování serv.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="454"/>
+        <location filename="wizard.cpp" line="460"/>
         <source>Model preset</source>
         <translation>Přednastavený model</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="462"/>
+        <location filename="wizard.cpp" line="468"/>
         <source>Default</source>
         <translation>Výchozí</translation>
     </message>
@@ -3077,7 +3192,6 @@ Také zvolte typ modelu/velikost a funkci pro mixování serv.</translation>
         <translation type="obsolete">Základní nastavení serv (Krok 4/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="486"/>
         <source>Select correct servo type and frequency.
 
 If you are unsure, please check technical details in servo manufacturer
@@ -3094,7 +3208,7 @@ while Digital are usually 200Hz.
 
 After you finish this page,
 you can connect your servos.</oldsource>
-        <translation>Zvolte správný typ serv a jejich frekvenci.
+        <translation type="vanished">Zvolte správný typ serv a jejich frekvenci.
 
 Pokud si nejste jistí, zkontrolujte technické parametry u výrobce, jinak
 může dojít ke zničení serv! Analogová serva jsou většinou určena do
@@ -3107,7 +3221,6 @@ Poté, co provedete nastavení, můžete připojit serva.</translation>
         <translation type="obsolete">Nastavení smyslu serv (Krok 5/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="506"/>
         <source>Please check if your cyclic and rudder servos are responding correctly to
 helicopter movement. If not, reverse it as needed.
 
@@ -3128,7 +3241,7 @@ Your cyclic should compensate movements in opposite direction, it means
 cyclic should stay approximately level with horizont.
 
 Tail blades should go to opposite direction as your movement so.</oldsource>
-        <translation>Prověřte, zda serva cykliky a vrtulky reagují korektně na pohyb modelu.
+        <translation type="vanished">Prověřte, zda serva cykliky a vrtulky reagují korektně na pohyb modelu.
 Pokud ne, je nutné nastavit správný smysl kompenzace.
 
 Ujistěte se, že jsou serva připojena ve správné pozici v jednotce,
@@ -3144,14 +3257,13 @@ Stejně tak i vrtulkové listy musí jít na druhou stranu směru pohybu.</trans
         <translation type="obsolete">Dotrimování serv (Krok 6/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="529"/>
         <source>Insert cyclic leveler to main shaft and set your servos as precise as possible
 to achieve the best results during flight. Cyclic should be perfectly level with
 cyclic leveler. Your servo arms should be in same time perpendicular to push rods
 and/or servo cases as well for tail servo.
 
 After this step, you can assembly rotor head.</source>
-        <translation>Vložte leveler cykliky na hlavní hřídel a nastavte serva jak nejpřesněji to jde,
+        <translation type="vanished">Vložte leveler cykliky na hlavní hřídel a nastavte serva jak nejpřesněji to jde,
 aby byl letový projev co nejlepší. Cyklika by měla být perfektně rovnoběžně s
 levelerem. Páky serv by přitom měly zůstat kolmo k táhlům a/nebo servům.
 Stejně tak vrtulkové servo.
@@ -3207,7 +3319,6 @@ Přidávejte hodnotu parametru dokud úhel nebude přesně 6st.</translation>
         <translation type="obsolete">Nastavení kompenzace piruet (Krok 9/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="592"/>
         <source>Setup correct orientation of the pirouette compensation.
 If you need, disconnect cable from the unit and grab your model.
 But be sure you plug cable in before you touch any settings here!
@@ -3218,7 +3329,7 @@ similar to a compass.
 
 If your cyclic rotate in opposite direction then reverse
 orientation here.</source>
-        <translation>Nastavte korektní smysl kompenzace piruet.
+        <translation type="vanished">Nastavte korektní smysl kompenzace piruet.
 Pokud potřebujete, odpojte datový kabel z jednotky.
 Ujistěte se ale, že před jakýmkoli nastavením ho zpět zapojíte!
 
@@ -3233,7 +3344,7 @@ Pokud cyklika rotuje v opačném směru, změňte smysl otáčení.</translation
         <translation type="obsolete">Uložení nastavení (Krok 10/10)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="427"/>
+        <location filename="wizard.cpp" line="429"/>
         <source>Diagnostic panel (Step 3/11)</source>
         <translation>Diagnostika (Krok 3/11)</translation>
     </message>
@@ -3254,7 +3365,7 @@ kdy je páka kolektivu uprostřed a křivka kolektivu lineární.
 Na směru pohybu kanálů v této chvíli nezáleží.  </translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="429"/>
+        <location filename="wizard.cpp" line="431"/>
         <source>Check center of listed channels. Do the necessary changes in your transmitter.
 Try to adjust end-points to be +/-100% exactly for aileron, elevator, rudder and collective channels.
 Adjust center of collective pitch channel with subtrim to be as close as possible to 0%
@@ -3277,32 +3388,31 @@ Střed ostatních kanálů není tak důležitý, neboť je nastaven automaticky
 Na směru pohybu kanálů v této chvíli nezáleží.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="448"/>
+        <location filename="wizard.cpp" line="454"/>
         <source>General settings (Step 4/11)</source>
         <translation>Obecné nastavení (Krok 4/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="483"/>
+        <location filename="wizard.cpp" line="494"/>
         <source>Basic Servo settings (Step 5/11)</source>
         <translation>Základní nastavení serv (Krok 5/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="503"/>
+        <location filename="wizard.cpp" line="517"/>
         <source>Servo Operation settings (Step 6/11)</source>
         <translation>Nastavení smyslu serv (Krok 6/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="526"/>
+        <location filename="wizard.cpp" line="544"/>
         <source>Servo Subtrim settings (Step 7/11)</source>
         <translation>Dotrimování serv (Krok 7/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="546"/>
+        <location filename="wizard.cpp" line="568"/>
         <source>Servo limits settings (Step 8/11)</source>
         <translation>Limity serv (Krok 8/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="549"/>
         <source>Firstly setup your maximum collective pitch range you want to fly. Use stick to
 check your max. and min. angle with pitch gauge. Set throttle/collective stick to
 the highest position and check blade&apos;s pitch. Increase or decrease Pitch parameter
@@ -3327,7 +3437,7 @@ bind anywhere, decrease this parameter.
 Also setup your rudder limits to maximum possible range. Move your rudder to
 one side with rudder stick, increase it until you reach mechanical limit.
 Do the same setup for opposite side with rudder stick and limit.</oldsource>
-        <translation>Nejprve nastavte maximální rozsah kolektivu, se kterým budete létat.
+        <translation type="vanished">Nejprve nastavte maximální rozsah kolektivu, se kterým budete létat.
 Páčku plynu/kolektivu na vysílači nastavte na např. nejvyšší pozici a pomocí měrky
 zkontrolujte náběh listů. Podle potřeby přidejte či uberte rozsah kolektivu v níže
 uvedeném parametru. Doporučujeme pro začátek úhly v rozmezí 10%1.
@@ -3341,12 +3451,12 @@ opatrně na jednu stranu a pozvolna přidávejte, dokud nedojde smykátko
 na konec hřídele. To stejné proveďte na opačnou stranu pomocí kniplu a limitu.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="573"/>
+        <location filename="wizard.cpp" line="597"/>
         <source>Head Geometry settings (Step 9/11)</source>
         <translation>Geometrie rotorové hlavy (Krok 9/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="575"/>
+        <location filename="wizard.cpp" line="599"/>
         <source>Set your rotor head and blades parallelly with helicopter body.
 Set your pitch gauge to 6%1 and check blade angle.
 
@@ -3355,18 +3465,17 @@ Increase following parameter until you get exactly 6%1 pitch.</source>
 Set your pitch gauge to 6deg and check blade angle.
 
 Increase following parameter until you get exactly 6deg pitch.</oldsource>
-        <translation>Nastavte rotorovou hlavu souběžně s podélnou osou modelu.
+        <translation>Nastavte rotorovou hlavu (listy) souběžně s podélnou osou modelu.
 Snažte se dosáhnout 6%1 náběhu.
 
 Přidávejte hodnotu parametru, dokud úhel nebude přesně 6%1.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="590"/>
         <source>Pirouette compensation settings (Step 10/11)</source>
-        <translation>Nastavení kompenzace piruet (Krok 10/11)</translation>
+        <translation type="vanished">Nastavení kompenzace piruet (Krok 10/11)</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="612"/>
+        <location filename="wizard.cpp" line="644"/>
         <source>Settings save (Step 11/11)</source>
         <translation>Uložení nastavení (Krok 11/11)</translation>
     </message>
@@ -3401,7 +3510,7 @@ správný smysl, jinak bude řízení nekontrolovatelné!
 Klikněte na tlačítko Dokončit pro uložení nastavení do paměti jednotky.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="647"/>
+        <location filename="wizard.cpp" line="683"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
@@ -3412,66 +3521,66 @@ Something is broken</source>
 Něco se pokazilo...</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="652"/>
+        <location filename="wizard.cpp" line="688"/>
         <source>Settings save</source>
         <translation>Uložení nastavení</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="653"/>
+        <location filename="wizard.cpp" line="689"/>
         <source>Do you want to save current settings to the unit?</source>
         <oldsource>Do you want to save current settings to the unit?
 Otherwise all settings will be lost.</oldsource>
         <translation>Přejete si uložit současné nastavení do jednotky?</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="656"/>
+        <location filename="wizard.cpp" line="692"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="657"/>
+        <location filename="wizard.cpp" line="693"/>
         <source>Discard</source>
         <translation>Zapomenout</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="661"/>
+        <location filename="wizard.cpp" line="697"/>
         <source>Saved</source>
         <translation>Uloženo</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="661"/>
+        <location filename="wizard.cpp" line="697"/>
         <source>Settings saved succesfully.</source>
         <translation>Nastavení bylo úspěšně uloženo.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="664"/>
+        <location filename="wizard.cpp" line="700"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="664"/>
+        <location filename="wizard.cpp" line="700"/>
         <source>Error during saving. Check your interface connection.</source>
         <translation>Chyba běhěm ukládání. Zkontrolujte datový kabel.</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="763"/>
+        <location filename="wizard.cpp" line="799"/>
         <source>Setup Wizard</source>
         <translation>Průvodce nastavením</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="771"/>
+        <location filename="wizard.cpp" line="807"/>
         <source>Next</source>
         <oldsource>Next &gt;</oldsource>
         <translation>Další</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="772"/>
+        <location filename="wizard.cpp" line="808"/>
         <source>Back</source>
         <oldsource>&lt; Back</oldsource>
         <translation>Zpět</translation>
     </message>
     <message>
-        <location filename="wizard.cpp" line="773"/>
+        <location filename="wizard.cpp" line="809"/>
         <source>Finish</source>
         <translation>Dokončit</translation>
     </message>

@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 16.02.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 18.02.2015</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -134,7 +134,7 @@
     <string name="z_rudder">Rudder Common Gain</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
-    <string name="rotation_speed">Agility</string>
+    <string name="rotation_speed">Rotation speed</string>
     <string name="rates">Rates</string>
     <string name="stick_deadband">Stick deadband</string>
     <string name="geom_6deg">Geometry 6°</string>
@@ -156,7 +156,7 @@
     <string name="stabi_roll_short">Roll compensation</string>
     <string name="stabi_pitch">Pitch compensation</string>
     <string name="stabi_pitch_short">Pitch compensation</string>
-    <string name="stabi_stick">Stick priority</string>
+    <string name="stabi_stick">Sticks priority</string>
     <string name="stabi_fbmode">Flybar mechanic</string>
     <string name="stabi_fbmode_en">Enable</string>
     <string name="stabi_ctrldir">Direction control rate</string>
@@ -168,7 +168,7 @@
     <string name="log_button_text">Flight log</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
-    <string name="gyro_gain">﻿Rudder Commonn</string>
+    <string name="gyro_gain">Gyro Gain</string>
     <string name="banks">Banks</string>
     <string name="bank_short_code">B</string>
     <string name="choose_bank">Select bank</string>
@@ -425,16 +425,16 @@
     <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Booster of the collective pitch movements</b>\n\n- Fast movement will cause fast change.\n- Usually configured to 0.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverse when cyclic is not behaving like a compass during rotation.\n\n- Double check this when sensor Z axis is reversed.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Mounting position of the unit.</string>
+    <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120%1.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Specifies behavior of flight characteristics.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle stick behavior.</string>
-    <string name="st_b85e1174f4196a0bc9953209b0fdd6e0">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120.</string>
     <string name="st_bef7e9faa6f15e367c6095280b3d5161"><b>Specifies range of cyclic servo travel for aileron and elevator</b>\n\n- Increase this parameter as much as possible.\n- Carefully check for any binding!</string>
     <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Specifies range of collective pitch for both positive and negative.</string>
     <string name="st_3042744980d10a21a6e46a5834af02b1">Specifies minimum travel limit for rudder servo.</string>
     <string name="st_399fe255b29e9f87fd15daede396fdd7">Specifies maximum travel limit for rudder servo.</string>
-    <string name="st_57d3739e1771229afb2a5cf08f4de57f"><b>Specifies cyclic gain</b>\n\n- Mostly 60 - 70% for the optimal results.\n\n<i>Range: 20 - 100%</i></string>
-    <string name="st_a0a5325d05a2fcf5406274dd8e8d4bbb"><b>Specifies multiplier of gyro gain from transmitter</b>\n\n- 1x for no multiplication\n- 1.50x for 1.5x multiplication of TX gyro gain.\n\n<i>Range: 1.00 - 1.50</i></string>
+    <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Specifies Cyclic Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n\n<i>Range: 20 - 100%</i></string>
     <string name="st_e1ef2f3a7b6fa63d68cb2b9b2e72a571"><b>Specifies Gyro Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n- Is inactive if Gyro Gain is configured in the transmitter.\n\n<i>Range: -100 - +100%</i></string>
+    <string name="st_466a542ef886802f5bbc2c23bc91fd06"><b>Specifies multiplier of Gyro Gain</b>\n\n- 1x for no multiplication.\n- 1.50x for 1.5x multiplication of TX gyro gain.\n- For 500-size and smaller helicopter 1.0x is enough.\n\n<i>Range: 1.00 - 1.50</i></string>
     <string name="st_95e83a5f5c4f175cfefe9b06620fc385">Specifies direction of elevator gyro compensation.</string>
     <string name="st_972307e460ecd3df8303f72849faaf36">Specifies direction of aileron gyro compensation.</string>
     <string name="st_6008eeff8fc4acff6e4ac6c6236c392e">Specifies direction of rudder gyro compensation.</string>
@@ -444,7 +444,7 @@
     <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode\nRescue - rescue mode with HH gyro\nStabilisation - stabilisation mode with HH gyro</string>
     <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 1 - 5</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n- Very important is to select positive or negative value correctly!\n\n<i>Range: -100 - +100%</i></string>
-    <string name="st_701a785854a820040b882b1496fc7955">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 10</i></string>
+    <string name="st_bd22e71854e51838095b67f8c1d8441d">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
     <!--  END AUTO GENERATE STUB -->
 </resources>
