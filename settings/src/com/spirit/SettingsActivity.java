@@ -100,10 +100,10 @@ public class SettingsActivity extends BaseActivity
 		});
 
 		//change log
-		ChangeLog cl = new ChangeLog(this);
+		/*ChangeLog cl = new ChangeLog(this);
 	    if (cl.firstRun()){
 	        cl.getLogDialog().show();
-	    }
+	    }*/
 
 	}
 
