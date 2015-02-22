@@ -81,7 +81,7 @@ public class DstabiProfile {
 	{
 		/* MTODO nazvy udelat v konstantach */
 		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null,	true)); // 'major', INT,
-		profileMap.put("MINOR", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
+		profileMap.put("MINOR2", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
 
 		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P",	true)); // position_text, ENUM, position_values
 		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
@@ -128,7 +128,7 @@ public class DstabiProfile {
 		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0",	false));  // Mira zmeny smeru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1",	false)); 		// kolektiv zachranneho rezimu
 		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
-		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 10, "3",	false)); // priorita knyplu
+		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 16, "3",	false)); // priorita knyplu
 
 		profileMap.put("PIROUETTE_CONST",	new ProfileItem(38, 130, 250, "H",	false)); // konzistence piruet
 
@@ -166,6 +166,11 @@ public class DstabiProfile {
 		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb",	true));
 		
 		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	false));
+
+        profileMap.put("GOVERNOR_MODE",	        new ProfileItem(61, 0, 2, "2",	true));
+        profileMap.put("GOVERNOR_GAIN",	        new ProfileItem(62, 1, 64, "j",	true)); // Gain
+        profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
+        profileMap.put("PITCH_PUMP",	        new ProfileItem(64, 0, 4, "n",	false)); // pitch pump
 
 		this.mProfile = mProfile;
 

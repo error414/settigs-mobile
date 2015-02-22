@@ -20,6 +20,8 @@ package com.spirit.stabi;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -172,12 +174,28 @@ public class StabiColActivity extends BaseActivity
 
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
+            if(item.getValueInteger() < 127 + 4 && item.getValueInteger() > 127 - 4){
+                showWarning(View.VISIBLE);
+            }else{
+                showWarning(View.INVISIBLE);
+            }
+
 			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65 || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68){ // 65 is "A" in profile, 68 is D
 				tempPicker.setEnabled(false);
 			}
 		}
 
 	}
+
+    /**
+     *
+     * @param show
+     */
+    private void showWarning(int show)
+    {
+        findViewById(R.id.warning_header).setVisibility(show);
+        findViewById(R.id.warning).setVisibility(show);
+    }
 
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
@@ -192,12 +210,17 @@ public class StabiColActivity extends BaseActivity
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-					if (newVal > 127 && newVal < 127 + 4) newVal = 127 - 4;
-					if (newVal < 127 && newVal > 127 - 4) newVal = 127 + 4;
+					//if (newVal > 127 && newVal < 127 + 4) newVal = 127 - 4;
+					//if (newVal < 127 && newVal > 127 - 4) newVal = 127 + 4;
 
 					parent.setCurrentNoNotify(newVal);
 
 					item.setValue(newVal);
+                    if(newVal < 127 + 4 && newVal > 127 - 4){
+                        showWarning(View.VISIBLE);
+                    }else{
+                        showWarning(View.INVISIBLE);
+                    }
 
 					stabiProvider.sendDataNoWaitForResponce(item);
 				}

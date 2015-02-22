@@ -21,6 +21,9 @@ package com.spirit;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.content.Context;
@@ -29,6 +32,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,11 +45,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,6 +71,8 @@ import com.lib.DstabiProvider;
 import net.simonvt.menudrawer.MenuDrawer;
 
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @SuppressLint("InflateParams")
 abstract public class BaseActivity extends Activity implements Handler.Callback
@@ -98,17 +106,19 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_GENERAL = 5;
 	final protected int OPEN_AUTHOR = 5;
     final protected int OPEN_DIFF = 55;
-    final protected int OPEN_BANK_DIFF = 56;
 
 	final protected int GROUP_HELP = 2;
 	final protected int OPEN_MANUAL = 2;
 	final protected int OPEN_MANUAL_GOOGLE_DOCS = 3;
 
+    final protected int GROUP_BANKS = 6;
+    final protected int OPEN_BANK_DIFF = 61;
+
 	final protected int GROUP_SAVE = 3;
 	final protected int SAVE_PROFILE_MENU = 4;
 
-	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION + "." + APLICATION_MINOR2_VERSION +"_en.pdf";
-	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION + "." + APLICATION_MINOR2_VERSION +"_en.pdf";
+	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +  "_en.pdf";
+	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +"_en.pdf";
 	final protected String DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
 
 	final protected BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -217,6 +227,15 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		super.onStop();
 	}
 
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        if(Globals.getInstance().isChanged()) {
+            this.startActivityTransitionTimer();
+        }
+    }
+
 	/**
 	 *
 	 */
@@ -224,6 +243,14 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	{
 		super.onResume();
 
+         /* ################ PROTECT UNSAVE CHANGE ################ */
+        if(Globals.getInstance().getUnsaveNotify() != null){
+            Globals.getInstance().getUnsaveNotify().cancelAll();
+        }
+        this.stopActivityTransitionTimer();
+        /* ################################################ */
+
+        /* #### CHANGE LANGUAGE ################  */
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
         String language = sharedPrefs.getString(PrefsActivity.PREF_APP_LANGUAGE, "none");
         if(!language.equals("none")){
@@ -234,6 +261,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             conf.locale = new Locale(language);
             res.updateConfiguration(conf, dm);
         }
+        /* ####################################  */
 
 		stabiProvider = DstabiProvider.getInstance(connectionHandler);
 		((ImageView) findViewById(R.id.image_app_basic_mode)).setImageResource(getAppBasicMode() ? R.drawable.app_basic_mode_on : R.drawable.none);
@@ -255,10 +283,58 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 slideMenuListAdapter.notifyDataSetChanged();
             }
 		}
-
         initHelp();
 	}
 
+    /* ################ PROTECT UNSAVE CHANGE ################ */
+    /**
+     *
+     */
+    public void startActivityTransitionTimer() {
+        Globals.getInstance().setmActivityTransitionTimer(new Timer());
+        Globals.getInstance().setmActivityTransitionTimerTask(new TimerTask() {
+            public void run() {
+                if(Globals.getInstance().getUnsaveNotify() == null){
+                    Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                }
+
+                Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                Notification notify     = new Notification(R.drawable.notify_ico, getString(R.string.unsaved_changes), System.currentTimeMillis());
+                PendingIntent pending   = PendingIntent.getActivity(getApplicationContext(), 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notify.setLatestEventInfo(getApplicationContext(), getString(R.string.unsaved_changes), getString(R.string.unsaved_changes_description), pending);
+
+                try {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alert);
+                    mediaPlayer.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                Globals.getInstance().getUnsaveNotify().notify(0, notify);
+            }
+        });
+
+        Globals.getInstance().getmActivityTransitionTimer().schedule( Globals.getInstance().getmActivityTransitionTimerTask(),
+                Globals.MAX_ACTIVITY_TRANSITION_TIME_MS);
+    }
+
+    /**
+     *
+     */
+    public void stopActivityTransitionTimer() {
+        if (Globals.getInstance().getmActivityTransitionTimerTask() != null) {
+            Globals.getInstance().getmActivityTransitionTimerTask().cancel();
+        }
+
+        if (Globals.getInstance().getmActivityTransitionTimer() != null) {
+            Globals.getInstance().getmActivityTransitionTimer().cancel();
+        }
+    }
+    /* ################################################ */
+
+    /**
+     *
+     */
     protected void initHelp()
     {
         switch(getDefaultValueType()){
@@ -269,19 +345,25 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     Spinner spinner = (Spinner) findViewById(getFormItems()[i]);
-                    spinner.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            try {
-                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
-                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+
+                    if(HelpMap.HELPMAP.containsKey(spinner.getId())) {
+                        spinner.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                return true;
                             }
-                            return true;
-                        }
-                    });
+                        });
+                        //////////////////////////////////
+                        RelativeLayout root = (RelativeLayout)spinner.getParent();
+                        RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ABOVE, getFormItems()[i]);
+                        params.addRule(RelativeLayout.ALIGN_RIGHT, getFormItems()[i]);
+                        child.setLayoutParams(params);
+                        root.addView(child);
+                    }
                 }
                 break;
 
@@ -289,19 +371,25 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     CheckBox checkBox = (CheckBox) findViewById(getFormItems()[i]);
-                    checkBox.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            try {
-                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
-                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+
+                    if(HelpMap.HELPMAP.containsKey(checkBox.getId())) {
+                        checkBox.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                return true;
                             }
-                            return true;
-                        }
-                    });
+                        });
+                        //////////////////////////////////
+                        RelativeLayout root = (RelativeLayout)checkBox.getParent();
+                        RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_TOP, getFormItems()[i]);
+                        params.addRule(RelativeLayout.RIGHT_OF, getFormItems()[i]);
+                        child.setLayoutParams(params);
+                        root.addView(child);
+                    }
                 }
                 break;
 
@@ -310,19 +398,26 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     ProgresEx seekBar = (ProgresEx) findViewById(getFormItems()[i]);
-                    seekBar.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View view) {
-                            try {
-                                if(HelpMap.HELPMAP.containsKey(view.getId())) {
-                                    showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
-                                }
-                            } catch (Exception e) {
-                                e.printStackTrace();
+                    if(HelpMap.HELPMAP.containsKey(seekBar.getId())) {
+                        seekBar.setOnLongClickListener(new View.OnLongClickListener() {
+                            @Override
+                            public boolean onLongClick(View view) {
+                                showConfirmDialog(HelpMap.HELPMAP.get(view.getId()));
+                                return true;
                             }
-                            return true;
-                        }
-                    });
+                        });
+                        //////////////////////////////////
+                        RelativeLayout root = (RelativeLayout)seekBar.getParent();
+                        RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+
+                        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                                ViewGroup.LayoutParams.WRAP_CONTENT);
+                        params.addRule(RelativeLayout.ALIGN_RIGHT, getFormItems()[i]);
+                        params.addRule(RelativeLayout.ALIGN_TOP, getFormItems()[i]);
+                        params.setMargins(0, -10, 15, 0);
+                        child.setLayoutParams(params);
+                        root.addView(child);
+                    }
                 }
                 break;
 
@@ -501,7 +596,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	/**
 	 * check if profile was changed and save to GLobal storage
 	 */
-	public void checkChange(DstabiProfile profile){
+	public void checkChange(DstabiProfile profile) {
 		if(profile == null){
 			Globals.getInstance().setChanged(false);
 			((ImageView) findViewById(R.id.image_title_saved)).setImageResource(R.drawable.equals);
@@ -510,8 +605,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
 
-		Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
-		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
+        Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+
+        ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
 
 	/**
@@ -671,7 +767,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showInfoBarWrite()
 	{
-		Log.i(TAG, "zapisuji");
 		showInfoBar(getString(R.string.write_data));
 	}
 
@@ -782,13 +877,20 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		menu.add(GROUP_GENERAL, OPEN_AUTHOR, Menu.NONE, R.string.credits);
 
-        SubMenu banks = menu.addSubMenu(R.string.banks);
-        banks.add(GROUP_GENERAL, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
-        banks.add(GROUP_GENERAL, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
+        createBanksSubMenu(menu);
 
 		menu.add(GROUP_SAVE, SAVE_PROFILE_MENU, Menu.NONE, R.string.save_profile_to_unit);
 		return true;
 	}
+
+    protected void createBanksSubMenu(Menu menu) {
+        populateBankSubMenu(menu.addSubMenu(R.string.banks));
+    }
+
+    protected void populateBankSubMenu(SubMenu banksSubMenu) {
+        banksSubMenu.add(GROUP_BANKS, OPEN_DIFF, Menu.NONE, R.string.profile_diff);
+        banksSubMenu.add(GROUP_BANKS, OPEN_BANK_DIFF, Menu.NONE, R.string.profile_bank_diff);
+    }
 
 	/**
 	 * reakce na kliknuti polozky v kontextovem menu
@@ -818,7 +920,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
 
         //otevreni diffu profilu
-        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_DIFF) {
+        if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_DIFF) {
             if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                 Intent i = new Intent(this, DiffActivity.class);
                 startActivity(i);
@@ -828,7 +930,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         }
 
         //otevreni rozdilu bank
-        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == OPEN_BANK_DIFF) {
+        if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_BANK_DIFF) {
             if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
                 showBankDiff();
             }else{
@@ -876,29 +978,12 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             return;
         }
 
-
-        CharSequence[] banksToCompare = new CharSequence[2];
-        final int[] banksToCompareValue = new int[banksToCompare.length];
-        String[] banks = getResources().getStringArray(R.array.bank_values);
-        int pos = -1;
-        for (int i = 0; i < banks.length; i++) {
-            if (activeBank != i) {
-                banksToCompareValue[++pos] = i;
-                banksToCompare[pos] = banks[i];
+        DialogHelper.showBankChoiceDialog(this, R.string.bank_choice_title, new DialogHelper.BankChosenListener() {
+            @Override
+            public void onBankChosen(int bank) {
+                startActivity(DiffActivity.createBankCompareIntent(BaseActivity.this, bank));
             }
-
-        }
-        new AlertDialog.Builder(this)
-                .setTitle(getString(R.string.bank_choice_title))
-                .setSingleChoiceItems(banksToCompare, -1, new OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                        startActivity(DiffActivity.createBankCompareIntent(BaseActivity.this, banksToCompareValue[which]));
-                    }
-                })
-                .show()
-        ;
+        });
     }
 
     /**
@@ -983,59 +1068,57 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		alert.show();
 	}
 
-	/**
-	 * obsluha callbacku
-	 *
-	 * @param msg
-	 * @return
-	 */
-	public boolean handleMessage(Message msg)
-	{
-		switch (msg.what) {
-			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-				sendInError();
-				break;
-			case DstabiProvider.MESSAGE_SEND_COMPLETE:
-				if(profileCreator != null){
-					checkChange(profileCreator);
-				}
-				sendInSuccessInfo();
+    /**
+     * obsluha callbacku
+     *
+     * @param msg
+     * @return
+     */
+    public boolean handleMessage(Message msg) {
+        switch (msg.what) {
+            case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+                sendInError();
+                break;
+            case DstabiProvider.MESSAGE_SEND_COMPLETE:
+                if (profileCreator != null) {
+                    checkChange(profileCreator);
+                }
+                sendInSuccessInfo();
 
-				break;
-			case DstabiProvider.MESSAGE_STATE_CHANGE:
-				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-					sendInError();
-				} else {
-					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-				}
-				break;
+                break;
+            case DstabiProvider.MESSAGE_STATE_CHANGE:
+                if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+                    sendInError();
+                } else {
+                    ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+                }
+                break;
             case PROFILE_SAVE_CALL_BACK_CODE_CHANGE_BANK:
                 changeBank(bankForChange, BANK_CHANGE_CALL_BACK_CODE);
                 // this no break
-			case PROFILE_SAVE_CALL_BACK_CODE:
-				sendInSuccessDialog();
-				showProfileSavedDialog();
-				//po ulozeni profilu nacteme novy original profile
-				reloadOriginalProfile();
-				break;
+            case PROFILE_SAVE_CALL_BACK_CODE:
+                sendInSuccessDialog();
+                showProfileSavedDialog();
+                //po ulozeni profilu nacteme novy original profile
+                reloadOriginalProfile();
+                break;
 
-			case PROFILE_FOR_UPDATE_ORIGINAL:
-				sendInSuccessInfo();
+            case PROFILE_FOR_UPDATE_ORIGINAL:
+                sendInSuccessInfo();
 
-				DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
+                DstabiProfile profile = new DstabiProfile(msg.getData().getByteArray("data"));
 
-				setOriginalProfileProfile(profile);
-				checkChange(profile);
+                setOriginalProfileProfile(profile);
+                checkChange(profile);
                 initDefaultValue();
 
-				break;
+                break;
 
-			case BANK_CHANGE_CALL_BACK_CODE:
-				sendInSuccessInfo();
-				reloadOriginalProfile();
-				break;
-		}
-		return true;
-	}
-
+            case BANK_CHANGE_CALL_BACK_CODE:
+                sendInSuccessInfo();
+                reloadOriginalProfile();
+                break;
+        }
+        return true;
+    }
 }

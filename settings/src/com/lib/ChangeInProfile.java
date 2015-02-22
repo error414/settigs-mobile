@@ -32,7 +32,7 @@ public class ChangeInProfile
 
 	private ChangeInProfile(){}
 
-	private static String[] exceptProfileItems = {"MAJOR", "MINOR", "CHECKSUM_LO", "CHECKSUM_HI", "BANKS"};
+	private static String[] exceptProfileItems = {"MAJOR", "MINOR1", "MINOR2", "CHECKSUM_LO", "CHECKSUM_HI", "BANKS"};
 
 	/**
 	 * pristupovat jen pres singleton
@@ -66,19 +66,23 @@ public class ChangeInProfile
 	 * @throws ProfileNotValidException
 	 */
 	public ArrayList<DiffItem> getDiff(DstabiProfile changedProfile) throws ProfileNotValidException {
-		return getDiff(originalProfile, changedProfile);
+		return getDiff(originalProfile, changedProfile, false);
 	}
 
-	public static ArrayList<DiffItem> getDiff(DstabiProfile originalProfile, DstabiProfile changedProfile) throws ProfileNotValidException
+	public static ArrayList<DiffItem> getDiff(DstabiProfile originalProfile, DstabiProfile changedProfile, boolean compareOnlyBasicItems) throws ProfileNotValidException
 	{
 		ArrayList<DiffItem> resultDiff = new ArrayList<DiffItem>();
 		if(changedProfile.isValid() && originalProfile.isValid()){
 			for(String itemName : changedProfile.getProfileItems().keySet()){
-				if (changedProfile.getProfileItemByName(itemName).getValueByte().byteValue() != originalProfile.getProfileItemByName(itemName).getValueByte()
+				DstabiProfile.ProfileItem changedProfileItem = changedProfile.getProfileItemByName(itemName);
+				if (changedProfileItem.isDeactiveInBasicMode() && compareOnlyBasicItems) {
+					continue;
+				}
+				if (changedProfileItem.getValueByte().byteValue() != originalProfile.getProfileItemByName(itemName).getValueByte()
 								&&
 								!Arrays.asList(exceptProfileItems).contains(itemName)
 				) {
-					resultDiff.add(new DiffItem(originalProfile.getProfileItemByName(itemName), changedProfile.getProfileItemByName(itemName), itemName));
+					resultDiff.add(new DiffItem(originalProfile.getProfileItemByName(itemName), changedProfileItem, itemName));
 				}
 
 			}

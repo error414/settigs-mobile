@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 07.12.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 18.02.2015</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -23,6 +23,7 @@
     <string name="save_profile">Uložit profil</string>
     <string name="save_profile_to_unit">Uložit profil do jednotky</string>
     <string name="profile_saved_file">Nastavení uloženo do souboru</string>
+    <string name="save_to_file_fail">Uloženo do souboru selhalo</string>
     <string name="profile_saved">Nastavení uloženo</string>
     <string name="profile_load">Nastavení bylo nahráno</string>
     <string name="file_manager">Správce souborů</string>
@@ -42,19 +43,41 @@
     <string name="first_paired_device">First paired devices</string>
     <string name="log_button_text">Letový záznam</string>
     <string name="connection_error">Chyba spojení</string>
+    <string name="copy_bank_error">Kopírovaní nastavení banky se nepovedlo</string>
     
     
     <string name="BT_connection_progress">Probíhá připojování přes Bluetooth</string>
     
-    <string name="axis_X">X</string>
-    <string name="axis_Y">Y</string>
-    <string name="axis_Z">Z</string>
+    <string name="axis_X">X - Výškovka</string>
+    <string name="axis_Y">Y - Křidélka</string>
+    <string name="axis_Z">Z - Směrovka</string>
 
     <string name="connection_button_text">Spojení</string>
     <string name="general_button_text">Obecné</string>
     <string name="servos_button_text">Serva</string>
     <string name="diagnostic_button_text">Diagnostika</string>
+    <string name="input_channels">Vstupní kanály</string>
     <string name="graph_button_text">Vibrace</string>
+    <string name="bec_tester">BEC Tester</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="bec_tester_note">
+        &lt;p&gt;
+            &lt;b&gt;BEC Tester&lt;/b&gt; ﻿je užitečný nástroj pro ověření, zda je palubní napájení modelu schopno dodat potřebný proud.
+            Nástroj pohybuje všemi servy po dobu 20 sekund.
+        &lt;/p&gt;
+        &lt;p&gt;
+            V případě, že napájení není vhodné, je možné pozorovat zpomalení serv. Klesne-li napětí pod 1.9V, může dojít až k restartu jednotky.
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;b&gt;Výrazně doporučujeme odpojit motor či rotorové listy, neboť může dojít k nepředvídatelnému chování!&lt;br/&gt;
+            Ujistěte se, že během testu není žádné servo horké. Pokud ano, je nutné ihned zastavit testování.&lt;/b&gt;
+        &lt;/p&gt;
+    </string>
+    <string name="pitch_pump">Akcelerace kolektivu (Pitch Pump Booster)</string>
+    <string name="stabi_col_warning_header">Pozor</string>
+    <string name="stabi_col_warning">Hodnota mezi -30% až 30% může být příliš nízká!</string>
+
     <string name="senzor_button_text">Senzor</string>
     <string name="senzor_senzivity_button_text">Citlivost</string>
     <string name="advanced_button_text">Pokročilé</string>
@@ -103,7 +126,7 @@
     <string name="filter">Sensor filtr</string>
     <string name="gyro">Gyro</string>
     
-    <string name="diag_rudder">Vrtulka</string>
+    <string name="diag_rudder">Směrovka</string>
     <string name="diag_aileron">Křidélka</string>
     <string name="diag_elevator">Výškovka</string>
     <string name="diag_pitch">Kolektiv</string>
@@ -115,7 +138,6 @@
     
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
     <string name="rudder_end_points_no_break">Koncové body vrtulky</string>
-    <string name="min_max">Min/Max</string>
     <string name="blank"></string>
     
 	<string name="cyc_rate">Cyklika</string>
@@ -124,19 +146,19 @@
     <string name="x_cyclic">Cyklika</string>
     <string name="y_rool">Y-Křidélka</string>
     <string name="z_yaw">Z-Směrovka</string>
-    <string name="z_rudder">Vrtulka</string>
+    <string name="z_rudder">﻿Vrtulkový zisk (znásobení)</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
     <string name="rotation_speed">Rychlost rotace</string>
     <string name="rates">Rychlost</string>
 
     <string name="stick_deadband">Pásmo necitlivosti kniplů</string>
-    <string name="geom_6deg">Geometrie 6°</string>
+    <string name="geom_6deg">Geometrie hlavy 6°</string>
     <string name="geom_6deg_tune">Ladění</string>
     <string name="geom_corr">Korekce geometrie</string>
     <string name="geom_corr_auto">Automatická</string>
     <string name="rudder_dynamic">Dynamika vrtulky</string>
-    <string name="rudder_revomix">Revomix vrtulky</string>
+    <string name="rudder_revomix">Vrtulka - Revomix</string>
     <string name="rudder_delay">Zpoždění vrtulky</string>
     <string name="piro_opt">Optimalizace piruet</string>
     <string name="e_filter">Výškovkový filtr</string>
@@ -156,10 +178,12 @@
     <string name="stabi_ctrldir">Míra změny směru</string>
 
 	<string name="profile_diff">Provedené změny</string>
-    <string name="profile_bank_diff">Porovnání bank</string>
+    <string name="profile_bank_diff">Porovnání</string>
+    <string name="profile_bank_copy">Kopírování z banky</string>
+
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>
-	<string name="gyro_gain">Zisk vrtulky</string>
+	<string name="gyro_gain">Zisk gyra</string>
 	<string name="banks">Banky</string>
 	<string name="choose_bank">Vyberte banku</string>
 	<string name="bank_short_code">B</string>
@@ -284,7 +308,13 @@
         <item>Čeština</item>
         <item>English</item>
     </string-array>
-    
+
+    <string-array name="governor_mode_values">
+        <item>Disabled</item>
+        <item>Electric</item>
+        <item>Nitro</item>
+    </string-array>
+
     <string-array name="language_pref_values">
         <item>none</item>
         <item>cs</item>
@@ -327,8 +357,24 @@
     <string name="pdf_time_run">Doba behu</string>
     <string name="pdf_time_create">Vygenerovano</string>
     <string name="saving_log">Ukládám záznam letu</string>
+
+
+    <string name="tap_to_action">Akce</string>
     <string name="tap_to_screenshot_on">Zapnout uložení obrázku dotykem</string>
     <string name="tap_to_screenshot_off">Vypnout uložení obrázku dotykem</string>
+    <string name="tap_to_screenshot_on_state">Uložení obrázku dotykem zapnuto</string>
+    <string name="tap_to_screenshot_off_state">Uložení obrázku dotykem vypnuto</string>
+    <string name="force_save_graph">Uložit graf</string>
+
+    <string name="tap_to_freeze_on">Zapnout zmrazení grafu dotykem</string>
+    <string name="tap_to_freeze_off">Vypnout zmrazení grafu dotykem</string>
+    <string name="tap_to_freeze_on_state">Zmrazení grafu dotykem zapnuto</string>
+    <string name="tap_to_freeze_off_state">Zmrazení grafu dotykem vypnuto</string>
+
+    <string name="tap_to_freeze_is_on">Zmrazeno</string>
+    <string name="tap_to_freeze_is_off">Zmrazení vypnuto</string>
+
+
     <string name="not_save">Uložení selhalo</string>
     <string name="save_done">Uloženo</string>
     <string name="graph_change_axis">Osa změněna na </string>
@@ -372,10 +418,10 @@
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">více...</string>
     
-     <string name="graph_direcotory">Adresář pro graf</string>
-     <string name="log_direcotory">Adresář pro log</string>
-     <string name="graph_direcotory_sumarry">Kliknutím vyberte adresář pro uložení obrazku z grafu</string>
-     <string name="log_direcotory_sumarry">Kliknutím vyberte adresář pro uložení PDF logu</string>
+     <string name="main_direcotory">Storage adresář</string>
+     <string name="main_direcotory_sumarry">Kliknutím vyberte adresář pro uložení grafu nebo logu</string>
+     <string name="select_dir_failed">Nepodařilo se vytvořit adresář!</string>
+     <string name="created_dir_success">Creating a directory:</string>
      <string name="graph_warn">Pozor! Během zobrazení grafu jsou serva uzamčena!</string>
      
      <string name="first_choose_directory">Prvně vyberte adresář</string>
@@ -386,8 +432,21 @@
     <string name="stabi_piruete_warning">Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně, jinak tyto režimy nebudou fungovat korektně!</string>
 
     <string name="bank_choice_title">Vyberte banku</string>
+    <string name="source_bank_choice_title">Vyberte zdrojovou banku</string>
     <string name="bank_comparison_changes">Před porovnáním bank musíte uložit profil</string>
     <string name="no_active_bank">Není aktivní žádná banka</string>
+
+    <string name="save_profile_changes">Před uložením nastavení do souboru musíte uložit nastavení do jednotky</string>
+
+    <string name="unsaved_changes">Neuložené změny</string>
+    <string name="unsaved_changes_description">Změny nejsou uloženy</string>
+    <string name="unsaved_changes_before_disconnect">Před odpojením nebyly uloženy změny!!!</string>
+
+    <string name="governor">Governor</string>
+    <string name="governor_mode">Režim governoru</string>
+    <string name="governor_gain">Zisk governoru</string>
+
+    <string name="in_transmitter">﻿Ve vysílači</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
@@ -401,28 +460,30 @@
     <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminuje vzpínání modelu</b>\n\n- Nejčastěji nastaveno na 0.\n- Přidejte je-li viditelné vzpínání.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Udává počet stupňů pootočení cykliky</b>\n\n- Používá se u vícelistých rotorových hlav.\n- Nejčastěji nastaveno na 0.\n\n<i>Rozsah: -90 - +90</i></string>
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy</b>\n\n- Přidejte pro přímější pocit propojení.\n- Uberte pro plynulejší chování modelu.\n\n<i>Rozsah: 1 - 12</i></string>
+    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Zesiluje pohyby kolektivu</b>\n\n- Rychlý pohyb způsobí větší změnu.\n- Běžně je 0.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverzujte v případě, že se deska cykliky nechová jako kompas během otáčení modelu.\n\n- Zkontrolujte, pokud byl upraven reverz senzoru v ose Z.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Pozice umístění jednotky na modelu.</string>
+    <string name="st_a030379814acf4a9efd5735573f71718">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120%1.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Udává chování modelu, letové charakteristiky.\n\n- Uberte pro konstantnější a lineárnější řízení.\n- Přidejte pro dosažení chování pádlové mechaniky.</string>
-    <string name="st_b85e1174f4196a0bc9953209b0fdd6e0">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120.</string>
+    <string name="st_bef7e9faa6f15e367c6095280b3d5161"><b>Udává rozsah dráhy serv cykliky - křidélka a výškovka</b>\n\n- Přidejte tento parametr, jak nejvíce je to možné.\n- Opatrně kontrolujte, zda nedochází k nárazu serv v žádné poloze!</string>
     <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Udává rozsah kolektivu pro kladný a záporný směr.</string>
     <string name="st_3042744980d10a21a6e46a5834af02b1">Udává spodní limit dráhy vrtulkového serva.</string>
     <string name="st_399fe255b29e9f87fd15daede396fdd7">Udává horní limit dráhy vrtulkového serva.</string>
-    <string name="st_57d3739e1771229afb2a5cf08f4de57f"><b>Udává zisk cykliky</b>\n\n- Nejčastěji 60 - 70% pro optimální funkci.\n\n<i>Rozsah: 20 - 100%</i></string>
-    <string name="st_db27f93942fe39c3180a2dce7ae1ade7"><b>Udává zisk gyra vrtulky</b>\n\n- Pro optimální chod je většinou v rozmezí 60 - 70%.\n\n<i>Rozsah: -100 - +100%</i></string>
-    <string name="st_a0a5325d05a2fcf5406274dd8e8d4bbb"><b>Násobič zisku gyra z vysílače</b>\n\n- 1x znamená bez násobení.\n- 1,50x znamená 1,5x násobení zisku gyra.\n\n<i>Rozsah: 1,00 - 1,50</i></string>
+    <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Udává zisk cykliky</b>\n\n- Nejčastěji 60 - 70% pro optimální funkci.\n\n<i>Rozsah: 20 - 100%</i></string>
+    <string name="st_e1ef2f3a7b6fa63d68cb2b9b2e72a571"><b>Udává zisk gyra vrtulky</b>\n\n- Pro optimální chod je většinou v rozmezí 60 - 70%.\n- Je neaktivní pokud je zisk gyra nastaven ve vysílači.\n\n<i>Rozsah: -100 - +100%</i></string>
+    <string name="st_466a542ef886802f5bbc2c23bc91fd06"><b>Násobič zisku gyra z vysílače</b>\n\n- 1x znamená bez násobení.\n- 1,50x znamená 1,5x násobení zisku gyra.\n- Pro třídu 500 a menší postačuje znásobení 1,0x.\n\n<i>Rozsah: 1,00 - 1,50</i></string>
     <string name="st_95e83a5f5c4f175cfefe9b06620fc385">Udává směr kompenzace gyra pro osu výškovky.</string>
     <string name="st_972307e460ecd3df8303f72849faaf36">Udává směr kompenzace gyra pro osu křidélek.</string>
     <string name="st_6008eeff8fc4acff6e4ac6c6236c392e">Udává směr kompenzace gyra pro osu vrtulky.</string>
-    <string name="st_4e53a94a4c21b522bce145863f4a5172">Udává nejvyšší rychlost rotace\nběhem plné výchylky páky křidélek/výškovky.\n\n- Nejčastěji v rozsahu 8-12.\n\n<i>Rozsah: 5 - 16</i></string>
+    <string name="st_89aa34aff73db8d200536bf76779270b">Udává nejvyšší rychlost rotace\nběhem plné výchylky páky křidélek/výškovky.\n\n- Nejčastěji v rozsahu 8-12.\n- Hodnota 13 a vyšší není doporučena.\n\n<i>Rozsah: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Udává nejvyšší rychlost piruet\nběhem plné výchylky páky vrtulky.\n\n- Nejčastěji v rozsahu 8-11.\n\n<i>Rozsah: 5 - 20</i></string>
     <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Obrací smysl dráhy serv cykliky pro zadaný kanál.\n\nCH3 - křidélkové servo\nCH2 - výškovkové servo</string>
     <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Funkce aktivována, pokud je zisk gyra záporný</b>\n\nVypnuto - Rate režim gyra\nZáchrana - záchranný režim a HH gyro\nStabilizace - stabilizace a HH gyro</string>
     <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 1 - 5</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n- Je nezbytné zvolit správně kladný nebo záporný směr!\n\n<i>Rozsah: -100 - +100%</i></string>
-    <string name="st_701a785854a820040b882b1496fc7955">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 10</i></string>
+    <string name="st_bd22e71854e51838095b67f8c1d8441d">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
-    <!--  END AUTO GENERATE STUB --> 
+    <!--  END AUTO GENERATE STUB -->
 
 </resources>

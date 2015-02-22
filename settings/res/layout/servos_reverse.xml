@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:orientation="vertical" >
+
+	 <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@color/background_color">
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:background="@color/background_color"
+            >
+
+            <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:src="@drawable/black_line"
+	             />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="@string/cyclic_servo_reverse_text"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="@color/text_color"
+	            android:textStyle="bold" />
+
+	        <TextView
+	            android:id="@+id/textView6"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="@string/cyclic_servo_reverse_text"
+	            android:textColor="@color/text_color"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="60dp"
+                />
+
+	        <Spinner
+	            android:id="@+id/cyclic_servo_reverse_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView6"
+                android:layout_below="@+id/textView6"
+	            android:entries="@array/cyclic_servo_reverse_values"
+	            android:minWidth="230dp"
+                 />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/cyclic_servo_reverse_select_id_default"
+                android:textColor="@color/dashed_dark"
+                android:layout_below="@+id/cyclic_servo_reverse_select_id"
+                android:layout_alignLeft="@+id/textView6"
+                />
+
+        </RelativeLayout>
+	</ScrollView>
+</LinearLayout>

@@ -52,17 +52,18 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	private final RelativeLayout mainLayout;
 	
 	private final ProgressBar  mObjProgres;
-	
-	private int mCurrent = DEFAULT_MIN;
-	private int mMin = DEFAULT_MIN;
-	private int mMax = DEFAULT_MAX;
+
+    private int mCurrent = DEFAULT_MIN;
+    private String mCurrentString = null;
+    private int mMin = DEFAULT_MIN;
+    private int mMax = DEFAULT_MAX;
 	private boolean mFloor = false;
 
 	private int mRangeMin = DEFAULT_MIN;
 	private int mRangeMax = DEFAULT_MAX;
 	private String mTitle = "";
 	private boolean mShowAsPercent = false;
-	
+
 	private int mOffset = 0;
 
     private int originalValue = DEFAULT_MIN;
@@ -166,7 +167,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
             mainLayout.setBackgroundResource(R.drawable.list_selector);
         }
     }
-	
+
 	/**
 	 * zobrazit progres jako procenta, min a max ukazuji 0 a 100, k cislu ve vypisu se pridaji procenta
 	 * 
@@ -186,6 +187,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 			return;
 		}
 		this.mCurrent = mCurrent;
+        this.mCurrentString = null;
 		notifyChange();		
 		updateView();
 	}
@@ -197,8 +199,19 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	 */
 	public void setCurrentNoNotify(int mCurrent) {
 		this.mCurrent = mCurrent;
+        this.mCurrentString = null;
 		updateView();
 	}
+
+    /**
+     * nastaveni aktialni hodnoty bez zavolani onchange
+     *
+     * @param mCurrent
+     */
+    public void setCurrentNoNotify(String mCurrent) {
+        this.mCurrentString = mCurrent;
+        updateView();
+    }
 	
 	/**
 	 * nastaveni posluchace na zmenu hodnoty
@@ -329,6 +342,10 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 			mObjCurrent.setText(this.translate.translateCurrent(mCurrent + mOffset));
             mObjOriginal.setText(mCurrent != originalValue ? this.translate.translateCurrent(originalValue + mOffset) : "");
 		}
+
+        if(mCurrentString != null) {
+            mObjCurrent.setText(mCurrentString);
+        }
 		
     }
 	
@@ -378,7 +395,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
             mDecrement = true;
             mHandler.post(mRunnable);
         }else if(R.id.progres_main == v.getId()){
-            mListenerLongClick.onLongClick(this);
+            if(mListenerLongClick != null) {
+                mListenerLongClick.onLongClick(this);
+            }
         }
         return true;
     }

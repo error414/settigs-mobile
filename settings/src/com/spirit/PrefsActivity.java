@@ -2,10 +2,14 @@ package com.spirit;
 
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.preference.ListPreference;
 import android.preference.Preference;
@@ -17,24 +21,37 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.helpers.Globals;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
 
+import java.io.File;
 import java.util.Locale;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class PrefsActivity extends PreferenceActivity {
 
 	private final String TAG = "PrefsActivity";
 
-	public final static int REQUEST_APP_GRAPH_DIR = 1;
-	public final static int REQUEST_APP_LOG_DIR = 2;
+	public final static int REQUEST_APP_DIR = 1;
 
-	public final static String PREF_APP_GRAPH_DIR = "graf_dir";
-	public final static String PREF_APP_LOG_DIR = "log_dir";
+	public final static String PREF_APP_DIR = "main_dir";
+    public final static String PREF_APP_PREFIX = "/spirit/";
+    public final static String PREF_APP_GRAPH_DIR = "graph/";
+    public final static String PREF_APP_LOG_DIR = "log/";
+
 	public final static String PREF_APP_LANGUAGE = "prefs_language";
-	public final static String PREF_APP_CLOUD = "active_cloud";
-	/*public final static String PREF_APP_CLOUD_EMAIL = "cloud_login_email";
+
+    private final static int DIR_CREATED_FAILED = 0;
+    private final static int DIR_CREATED        = 1;
+    private final static int DIR_EXISTS         = 2;
+
+
+	/*public final static String PREF_APP_CLOUD = "active_cloud";
+	public final static String PREF_APP_CLOUD_EMAIL = "cloud_login_email";
 	public final static String PREF_APP_CLOUD_PASS = "cloud_login_password";*/
 
 
@@ -61,29 +78,18 @@ public class PrefsActivity extends PreferenceActivity {
 		addPreferencesFromResource(R.xml.prefs);
 
 
-		//CHOOSE DIR FOR GRAPH
-		final Preference grafDir = (Preference) findPreference(PREF_APP_GRAPH_DIR);
-		grafDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+		//CHOOSE MAIN DIR
+		final Preference mainDir = (Preference) findPreference(PREF_APP_DIR);
+        mainDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				String prefsDir = sharedPrefs.getString(PREF_APP_GRAPH_DIR, "/");
-				openFileDialogIndent(prefsDir, REQUEST_APP_GRAPH_DIR);
+				String prefsDir = sharedPrefs.getString(PREF_APP_DIR, "/");
+				openFileDialogIndent(prefsDir, REQUEST_APP_DIR);
 				return true;
 			}
 		});
 		////////////////////////////
 
-		//CHOOSE DIR FOR LOG
-		final Preference logDir = (Preference) findPreference(PREF_APP_LOG_DIR);
-		logDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-			@Override
-			public boolean onPreferenceClick(Preference preference) {
-				String prefsDir = sharedPrefs.getString(PREF_APP_LOG_DIR, "/");
-				openFileDialogIndent(prefsDir, REQUEST_APP_LOG_DIR);
-				return true;
-			}
-		});
-		////////////////////////////
 
 		//// LANGUAGE 
 		ListPreference language = (ListPreference) findPreference(PREF_APP_LANGUAGE);
@@ -146,7 +152,7 @@ public class PrefsActivity extends PreferenceActivity {
      * @param password
      * @return
      */
-    private void checkCloudLogin(String email, String password){
+   /* private void checkCloudLogin(String email, String password){
         AlertDialog.Builder alert = new AlertDialog.Builder(PrefsActivity.this);
         alert.setPositiveButton("OK", null);
 
@@ -156,19 +162,79 @@ public class PrefsActivity extends PreferenceActivity {
             alert.show();
         }
 
-    }
+    }*/
 
 	/**
 	 *
 	 */
 	public void onResume() {
 		super.onResume();
+
+        if(Globals.getInstance().getUnsaveNotify() != null){
+            Globals.getInstance().getUnsaveNotify().cancelAll();
+        }
+        this.stopActivityTransitionTimer();
+
         ((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.none);
         ((ImageView)findViewById(R.id.image_title_saved)).setImageResource(R.drawable.none);
         ((ImageView)findViewById(R.id.image_app_basic_mode)).setImageResource(R.drawable.none);
         ((TextView)findViewById(R.id.title_banks)).setText("");
         ((ImageView)findViewById(R.id.option_bar)).setImageResource(R.drawable.none);
 	}
+
+    @Override
+    public void onPause()
+    {
+        super.onPause();
+        if(Globals.getInstance().isChanged()) {
+            this.startActivityTransitionTimer();
+        }
+    }
+
+    /* ################ PROTECT UNSAVE CHANGE ################ */
+    /**
+     *
+     */
+    public void startActivityTransitionTimer() {
+        Globals.getInstance().setmActivityTransitionTimer(new Timer());
+        Globals.getInstance().setmActivityTransitionTimerTask(new TimerTask() {
+            public void run() {
+                if(Globals.getInstance().getUnsaveNotify() == null){
+                    Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                }
+
+                Globals.getInstance().setUnsaveNotify((NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE));
+                Notification notify     = new Notification(R.drawable.notify_ico, getString(R.string.unsaved_changes), System.currentTimeMillis());
+                PendingIntent pending   = PendingIntent.getActivity(getApplicationContext(), 0, getIntent(), PendingIntent.FLAG_UPDATE_CURRENT);
+                notify.setLatestEventInfo(getApplicationContext(), getString(R.string.unsaved_changes), getString(R.string.unsaved_changes_description), pending);
+
+                try {
+                    MediaPlayer mediaPlayer = MediaPlayer.create(getApplicationContext(), R.raw.alert);
+                    mediaPlayer.start();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                Globals.getInstance().getUnsaveNotify().notify(0, notify);
+            }
+        });
+
+        Globals.getInstance().getmActivityTransitionTimer().schedule( Globals.getInstance().getmActivityTransitionTimerTask(),
+                Globals.MAX_ACTIVITY_TRANSITION_TIME_MS);
+    }
+
+    /**
+     *
+     */
+    public void stopActivityTransitionTimer() {
+        if (Globals.getInstance().getmActivityTransitionTimerTask() != null) {
+            Globals.getInstance().getmActivityTransitionTimerTask().cancel();
+        }
+
+        if (Globals.getInstance().getmActivityTransitionTimer() != null) {
+            Globals.getInstance().getmActivityTransitionTimer().cancel();
+        }
+    }
+    /* ################################################ */
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -178,20 +244,58 @@ public class PrefsActivity extends PreferenceActivity {
 
 		SharedPreferences.Editor editor = sharedPrefs.edit();
 		switch (requestCode) {
-			case REQUEST_APP_GRAPH_DIR:
+			case REQUEST_APP_DIR:
 				if (resultCode == Activity.RESULT_OK) {
-					editor.putString(PREF_APP_GRAPH_DIR, newValue);
-					editor.commit();
-				}
-				break;
-			case REQUEST_APP_LOG_DIR:
-				if (resultCode == Activity.RESULT_OK) {
-					editor.putString(PREF_APP_LOG_DIR, newValue);
-					editor.commit();
+
+                    File fileGraph = new File(newValue, PREF_APP_PREFIX + PREF_APP_GRAPH_DIR);
+                    File fileLog = new File(newValue, PREF_APP_PREFIX + PREF_APP_LOG_DIR);
+
+                    int fileGrapResult = createStorageDir(fileGraph);
+                    int fileLogResult = createStorageDir(fileLog);
+
+                    if(fileGrapResult == DIR_CREATED_FAILED || fileLogResult == DIR_CREATED_FAILED){
+                        Toast.makeText(getApplicationContext(), R.string.select_dir_failed, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    String successText = "";
+                    if(fileGrapResult == DIR_CREATED){
+                        successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_GRAPH_DIR;
+                    }
+
+
+
+                    if(fileLogResult == DIR_CREATED){
+                        successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_LOG_DIR;
+                    }
+
+                    if( fileGrapResult == DIR_CREATED || fileLogResult == DIR_CREATED){
+                        Toast.makeText(getApplicationContext(), getText(R.string.created_dir_success) + successText, Toast.LENGTH_LONG).show();
+                    }
+
+                    editor.putString(PREF_APP_DIR, newValue);
+                    editor.commit();
 				}
 				break;
 		}
 	}
+
+    /**
+     *
+     * @param file
+     * @return
+     */
+    private int createStorageDir(File file) {
+        if(file.canWrite()){
+            return DIR_EXISTS;
+        }
+
+        if (file == null || !file.mkdirs()) {
+            return DIR_CREATED_FAILED;
+        }
+
+        return DIR_CREATED;
+    }
 
 	/**
 	 * @param defaultDir

@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 07.12.2014</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 18.02.2015</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -22,6 +22,7 @@
     <string name="save_profile">Save profile</string>
     <string name="save_profile_to_unit">Save profile to unit</string>
     <string name="profile_saved_file">Settings have been saved to a file</string>
+    <string name="save_to_file_fail">Saving to file failed</string>
     <string name="profile_saved">Settings have been saved</string>
     <string name="profile_load">Settings have been loaded</string>
     <string name="file_manager">File manager</string>
@@ -40,15 +41,37 @@
     <string name="unknow_serial">Unknown serial</string>
     <string name="first_paired_device">Pair your BT device first, please</string>
     <string name="connection_error">Connection error</string>
+    <string name="copy_bank_error">Bank copying failed</string>
     <string name="BT_connection_progress">Bluetooth connection in progress</string>
-    <string name="axis_X">X</string>
-    <string name="axis_Y">Y</string>
-    <string name="axis_Z">Z</string>
+    <string name="axis_X">X - Aileron</string>
+    <string name="axis_Y">Y - Elevator</string>
+    <string name="axis_Z">Z - Rudder</string>
     <string name="connection_button_text">Connection</string>
     <string name="general_button_text">General</string>
     <string name="servos_button_text">Servos</string>
     <string name="diagnostic_button_text">Diagnostic</string>
+    <string name="input_channels">Input channels</string>
     <string name="graph_button_text">Vibration</string>
+    <string name="bec_tester">BEC Tester</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="bec_tester_note">
+        &lt;p&gt;
+            &lt;b&gt;BEC Tester&lt;/b&gt; ﻿is usefull utility for checking whether
+            your BEC is able to stand high current load. This utility will move fast with all the servos for 20 seconds.
+        &lt;/p&gt;
+        &lt;p&gt;
+           In case, that BEC is not sufficient, you can observe servo weakness and even the unit can reset itself if Voltage will drop under 1.9V.
+        &lt;/p&gt;
+        &lt;p&gt;
+            &lt;b&gt;We highly recommend to unplug the motor or to dismount the blades. It may cause unpredictable behavior!&lt;br/&gt;
+            Make sure that any servo is not too hot during this test. If so you must turn the test off as soon as possible.&lt;/b&gt;
+        &lt;/p&gt;
+    </string>
+    <string name="pitch_pump">Pitch Pump Booster</string>
+    <string name="stabi_col_warning_header">Warning</string>
+    <string name="stabi_col_warning">Value between -30% to 30% may be too low!</string>
+
     <string name="senzor_button_text">Sensor</string>
     <string name="senzor_senzivity_button_text">Sensitivity</string>
     <string name="advanced_button_text">Advanced</string>
@@ -101,7 +124,6 @@
 
     <string name="rudder_end_points">Rudder \n end-points</string>
     <string name="rudder_end_points_no_break">Rudder end-points</string>
-    <string name="min_max">Min/Max</string>
     <string name="blank"></string>
     <string name="cyc_rate">Cyclic</string>
     <string name="rud_rate">Rudder</string>
@@ -109,10 +131,10 @@
     <string name="x_cyclic">Cyclic</string>
     <string name="y_rool">Y-Roll</string>
     <string name="z_yaw">Z-Yaw</string>
-    <string name="z_rudder">Rudder</string>
+    <string name="z_rudder">Rudder Common Gain</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
-    <string name="rotation_speed">Agility</string>
+    <string name="rotation_speed">Rotation speed</string>
     <string name="rates">Rates</string>
     <string name="stick_deadband">Stick deadband</string>
     <string name="geom_6deg">Geometry 6°</string>
@@ -134,18 +156,19 @@
     <string name="stabi_roll_short">Roll compensation</string>
     <string name="stabi_pitch">Pitch compensation</string>
     <string name="stabi_pitch_short">Pitch compensation</string>
-    <string name="stabi_stick">Stick priority</string>
+    <string name="stabi_stick">Sticks priority</string>
     <string name="stabi_fbmode">Flybar mechanic</string>
     <string name="stabi_fbmode_en">Enable</string>
     <string name="stabi_ctrldir">Direction control rate</string>
     <string name="amplitude">Amplitude</string>
     <string name="hz">[Hz]</string>
     <string name="profile_diff">Profile diff</string>
-    <string name="profile_bank_diff">Bank comparison</string>
+    <string name="profile_bank_diff">Comparison</string>
+    <string name="profile_bank_copy">Copying from bank</string>
     <string name="log_button_text">Flight log</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
-    <string name="gyro_gain">Gyro gain</string>
+    <string name="gyro_gain">Gyro Gain</string>
     <string name="banks">Banks</string>
     <string name="bank_short_code">B</string>
     <string name="choose_bank">Select bank</string>
@@ -158,7 +181,7 @@
         <item>Bank 1</item>
         <item>Bank 2</item>
     </string-array>
-    
+
     <string-array name="channels_values">
         <item>1. channel</item>
         <item>2. channel</item>
@@ -169,7 +192,7 @@
         <item>7. channel</item>
         <item>Unassigned</item>
     </string-array>
-    
+
     <string-array name="channels_restrict_values">
         <item>1. channel</item>
         <item>2. channel</item>
@@ -179,7 +202,7 @@
         <item>6. channel</item>
         <item>7. channel</item>
     </string-array>
-    
+
     <string-array name="position_values">
         <item>Horizontal</item>
         <item>Vertical</item>
@@ -254,20 +277,25 @@
         <item>Rescue (Acro)</item>
         <item>Stabilisation</item>
     </string-array>
-	
-     <string-array name="language_values">
+
+    <string-array name="language_values">
         <item>Automatically</item>
         <item>Čeština</item>
         <item>English</item>
-       
     </string-array>
-    
-     <string-array name="language_pref_values">
+
+    <string-array name="governor_mode_values">
+        <item>Disabled</item>
+        <item>Electric</item>
+        <item>Nitro</item>
+    </string-array>
+
+    <string-array name="language_pref_values">
         <item>none</item>
         <item>cs</item>
         <item>en</item>
     </string-array>
-    
+
     <string name="location">Location</string>
     <string name="language">Language</string>
     <string name="language_sumary">Need restart application</string>
@@ -301,8 +329,24 @@
     <string name="pdf_time_run">Run time</string>
     <string name="pdf_time_create">Create time</string>
     <string name="saving_log">Saving log</string>
+
+
+    <string name="tap_to_action">Action</string>
     <string name="tap_to_screenshot_on">Tap screenshot On</string>
     <string name="tap_to_screenshot_off">Tap screenshot Off</string>
+    <string name="tap_to_screenshot_on_state">Tap screenshot is On</string>
+    <string name="tap_to_screenshot_off_state">Tap screenshot is Off</string>
+    <string name="force_save_graph">Save graph</string>
+
+    <string name="tap_to_freeze_on">Tap freeze On</string>
+    <string name="tap_to_freeze_off">Tap freeze Off</string>
+    <string name="tap_to_freeze_on_state">Tap freeze is On</string>
+    <string name="tap_to_freeze_off_state">Tap freeze Off</string>
+
+    <string name="tap_to_freeze_is_on">Freeze On</string>
+    <string name="tap_to_freeze_is_off">Freeze Off</string>
+
+
     <string name="not_save">Save failed</string>
     <string name="save_done">Save Done</string>
     <string name="graph_change_axis">Axis changed to </string>
@@ -328,30 +372,43 @@
     <string name="no">No</string>
     <string name="no_diff">no difference</string>
     <string name="donate">Donate</string>
-    
+
     <string name="changelog_full_title">Change Log</string>
     <string name="changelog_title">What\'s New</string>
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">more...</string>
-    
-    <string name="graph_direcotory">Graph Directory</string>
-    <string name="log_direcotory">Log Directory</string>
-    <string name="graph_direcotory_sumarry">Pick to choose directory for save graph image</string>
-    <string name="log_direcotory_sumarry">Pick to choose directory for save log PDF file</string>
+
+    <string name="main_direcotory">Storage Directory</string>
+    <string name="main_direcotory_sumarry">Pick to choose directory for save graph and log</string>
+    <string name="select_dir_failed">Create dir failed!</string>
+    <string name="created_dir_success">Vytvořeny adresáře:</string>
     <string name="graph_warn">Warning! Servos will be locked during measurement!</string>
-    
+
     <string name="first_choose_directory">First select a directory</string>
     <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticaly cleared.</string>
-    
+
     <string name="want_save_item">Do you want to save your settings?</string>
     <string name="bank_change_after_connect">Current bank was switched to <b>Bank 0</b>.\nBank switching via transmitter is disabled while the software is connected.</string>
 
     <string name="stabi_piruete_warning">Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</string>
 
     <string name="bank_choice_title">Choose bank</string>
+    <string name="source_bank_choice_title">Choose source bank</string>
+
     <string name="bank_comparison_changes">Profile must be saved before bank comparison</string>
     <string name="no_active_bank">No bank is active</string>
 
+    <string name="save_profile_changes">Profile must be saved to spirit before save to file</string>
+
+    <string name="unsaved_changes">Unsaved changes</string>
+    <string name="unsaved_changes_description">Settings were not saved</string>
+    <string name="unsaved_changes_before_disconnect">Before disconnecting the changes were not saved</string>
+
+    <string name="governor">Governor</string>
+    <string name="governor_mode">Governor mode</string>
+    <string name="governor_gain">Governor gain</string>
+
+    <string name="in_transmitter">﻿In transmitter</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Range around stick center where movement is zero.\n\n<i>Range: 4 - 30</i></string>
@@ -365,27 +422,29 @@
     <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminates pitchup effect</b>\n\n- Mostly configured to 0.\n- Increase when pitchup is visible.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Specifies degree of which cyclic has to be rotated</b>\n\n- Used in some multi-rotor heads.\n- Mostly configured to 0.\n\n<i>Range: -90 - +90</i></string>
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Aggressiveness of aileron/elevator stick response</b>\n\n- Increase for more direct feel.\n- Decrease for smooth behavior.\n\n<i>Range: 1 - 12</i></string>
+    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Booster of the collective pitch movements</b>\n\n- Fast movement will cause fast change.\n- Usually configured to 0.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverse when cyclic is not behaving like a compass during rotation.\n\n- Double check this when sensor Z axis is reversed.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Mounting position of the unit.</string>
+    <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120%1.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Specifies behavior of flight characteristics.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle stick behavior.</string>
-    <string name="st_b85e1174f4196a0bc9953209b0fdd6e0">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120.</string>
+    <string name="st_bef7e9faa6f15e367c6095280b3d5161"><b>Specifies range of cyclic servo travel for aileron and elevator</b>\n\n- Increase this parameter as much as possible.\n- Carefully check for any binding!</string>
     <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Specifies range of collective pitch for both positive and negative.</string>
     <string name="st_3042744980d10a21a6e46a5834af02b1">Specifies minimum travel limit for rudder servo.</string>
     <string name="st_399fe255b29e9f87fd15daede396fdd7">Specifies maximum travel limit for rudder servo.</string>
-    <string name="st_57d3739e1771229afb2a5cf08f4de57f"><b>Specifies cyclic gain</b>\n\n- Mostly 60 - 70% for the optimal results.\n\n<i>Range: 20 - 100%</i></string>
-    <string name="st_db27f93942fe39c3180a2dce7ae1ade7"><b>Specifies gyro gain</b>\n\n- Mostly 60 - 70% for the optimal results.\n\n<i>Range: -100 - +100%</i></string>
-    <string name="st_a0a5325d05a2fcf5406274dd8e8d4bbb"><b>Specifies multiplier of gyro gain from transmitter</b>\n\n- 1x for no multiplication\n- 1.50x for 1.5x multiplication of TX gyro gain.\n\n<i>Range: 1.00 - 1.50</i></string>
+    <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Specifies Cyclic Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n\n<i>Range: 20 - 100%</i></string>
+    <string name="st_e1ef2f3a7b6fa63d68cb2b9b2e72a571"><b>Specifies Gyro Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n- Is inactive if Gyro Gain is configured in the transmitter.\n\n<i>Range: -100 - +100%</i></string>
+    <string name="st_466a542ef886802f5bbc2c23bc91fd06"><b>Specifies multiplier of Gyro Gain</b>\n\n- 1x for no multiplication.\n- 1.50x for 1.5x multiplication of TX gyro gain.\n- For 500-size and smaller helicopter 1.0x is enough.\n\n<i>Range: 1.00 - 1.50</i></string>
     <string name="st_95e83a5f5c4f175cfefe9b06620fc385">Specifies direction of elevator gyro compensation.</string>
     <string name="st_972307e460ecd3df8303f72849faaf36">Specifies direction of aileron gyro compensation.</string>
     <string name="st_6008eeff8fc4acff6e4ac6c6236c392e">Specifies direction of rudder gyro compensation.</string>
-    <string name="st_4e53a94a4c21b522bce145863f4a5172">Specifies how fast model can rotate\nwith full aileron/elevator stick deflection.\n\n- Mostly in 8-12 range.\n\n<i>Range: 5 - 16</i></string>
+    <string name="st_89aa34aff73db8d200536bf76779270b">Specifies how fast model can rotate\nwith full aileron/elevator stick deflection.\n\n- Mostly in 8-12 range.\n- Values 13 and more are not recommended.\n\n<i>Range: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Specifies pirouette speed\nwith full rudder stick deflection.\n\n- Mostly in 8-11 range.\n\n<i>Range: 5 - 20</i></string>
     <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Reverses cyclic servo travel for specified channel.\nCH3 - aileron / pitch servo\nCH2 - elevator servo</string>
     <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode\nRescue - rescue mode with HH gyro\nStabilisation - stabilisation mode with HH gyro</string>
     <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 1 - 5</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n- Very important is to select positive or negative value correctly!\n\n<i>Range: -100 - +100%</i></string>
-    <string name="st_701a785854a820040b882b1496fc7955">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 10</i></string>
+    <string name="st_bd22e71854e51838095b67f8c1d8441d">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
-    <!--  END AUTO GENERATE STUB -->     
+    <!--  END AUTO GENERATE STUB -->
 </resources>

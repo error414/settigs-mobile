@@ -86,7 +86,7 @@ public class SlideMenuListAdapter extends BaseAdapter {
             item.setBackgroundColor(activity.getResources().getColor(R.color.dashed_dark));
             title.setTextColor(activity.getResources().getColor(R.color.text_color_white));
         }else if(!disabledAll){
-            item.setBackgroundDrawable(activity.getResources().getDrawable(R.drawable.slide_menu_list_selector));
+            item.setBackgroundResource(R.drawable.slide_menu_list_selector);
             title.setTextColor(activity.getResources().getColor(R.color.text_color));
         }else{
             title.setTextColor(activity.getResources().getColor(R.color.dashed_dark));

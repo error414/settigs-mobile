@@ -17,296 +17,189 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.diagnostic;
 
-import android.graphics.Typeface;
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.exception.IndexOutOfException;
-import com.helpers.ByteOperation;
-import com.helpers.DstabiProfile;
+import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
+import com.lib.menu.Menu;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * aktivita pro hlavni obrazku
+ *
+ * @author error414
+ */
 public class DiagnosticActivity extends BaseActivity
 {
 
-	final private String TAG = "DiagnosticActivity";
+	@SuppressWarnings("unused")
+	final private String TAG = "DiagnosticListActivity";
 
-	final private int PROFILE_CALL_BACK_CODE = 16;
-	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
-	final static public int PROFILE_LENGTH = 16;
-	
+
 	/**
-	 * mrtva zona kterou ziskame z profilu
+	 * seznam polozek pro menu
 	 */
-	private int stickDB;
+	protected Integer[] menuListIndex;
 
 	/**
-	 * v jakem stavu je stabilizace, pokud je zapnuta tak se pro gyro vypisuji jine hodnoty
-	 */
-	private int stabiMode;
-
-	final private Handler delayHandle = new Handler();
-
-	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity settings
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
+
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.diagnostic);
 
+		//setContentView(R.layout.main);
+        initSlideMenu(R.layout.main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.diagnostic_button_text)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.diagnostic_button_text)));
 
-		initConfiguration();
+		//naplnime seznam polozek pro menu
+		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_DIAGNOSTIC);
+
+
+		ListView menuList = (ListView) findViewById(R.id.listMenu);
+		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
+		menuList.setAdapter(adapter);
+		menuList.setOnItemClickListener(new OnItemClickListener()
+		{
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+			{
+				if (position != 0 && position != 1) { // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene a u favourites
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+						return;
+					}
+				}
+
+				Intent i = new Intent(DiagnosticActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+				startActivity(i);
+			}
+		});
+
+        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
+            {
+
+                final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = prefs.edit();
+
+                new AlertDialog.Builder(DiagnosticActivity.this).setTitle(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove_from_favourites : R.string.add_to_favourites).setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle()).setPositiveButton(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove : R.string.add, new DialogInterface.OnClickListener()
+                {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
+                            editor.remove(String.valueOf(menuListIndex[position]));
+                            Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
+                        } else {
+                            editor.putInt(String.valueOf(menuListIndex[position]), menuListIndex[position]);
+                            Toast.makeText(getApplicationContext(), R.string.add_to_favourites_done, Toast.LENGTH_SHORT).show();
+                        }
+                        editor.commit();
+                    }
+
+                }).setNegativeButton(R.string.cancel, null).show();
+
+                return true;
+            }
+        });
+
+		//change log
+		/*ChangeLog cl = new ChangeLog(this);
+	    if (cl.firstRun()){
+	        cl.getLogDialog().show();
+	    }*/
+
 	}
-	
-	/**
-	 * handle for change banks
-	 * 
-	 * @param v
-	 */
-	public void changeBankOpenDialog(View v){
-		//disabled change bank in this activity
-	}
 
-	/**
-	 * prvotni konfigurace view
-	 */
-	private void initConfiguration()
-	{
-		showDialogRead();
-		// ziskani konfigurace z jednotky
-		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
-	}
-
-	/**
-	 * zjistime ulozime si hodnotu mrtve zony
-	 *
-	 * @param profile
-	 */
-	private void initByProfileString(byte[] profile)
-	{
-		profileCreator = new DstabiProfile(profile);
-
-		if (!profileCreator.isValid()) {
-			errorInActivity(R.string.damage_profile);
-			return;
-		}
-	    /* MTODO nazvy udelat v konstantach */
-		this.stickDB = profileCreator.getProfileItemByName("STICK_DB").getValueInteger();
-		this.stabiMode = profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger();
-
-		//mame profil muzeme zazadat o data o pohybu kniplu
-		getPositionFromUnit();
-	}
-
-	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
-	 */
-	@Override
 	public void onResume()
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
-			finish();
+			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
+	}
+	
+	/**
+	 * vytvoreni pole pro adapter menu listu
+	 * <p/>
+	 * tohle se bude vytvaret dynamicky z pole
+	 *
+	 * @return
+	 */
+	@SuppressLint("UseSparseArrays")
+	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList()
+	{
+		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
+
+		// vytvorime pole pro adapter
+		for (Integer key : menuListIndex) {
+			HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+			item.put(Menu.TITLE_FOR_MENU, Menu.getInstance().getItem(key).getTitle());
+			item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+			menuListData.add(item);
+		}
+
+		return menuListData;
 	}
 
 	/**
-	 * ziskani informace o poloze kniplu z jednotky
+	 * obsluha callbacku
+	 *
+	 * @param msg
+	 * @return
 	 */
-	protected void getPositionFromUnit()
-	{
-		delayHandle.postDelayed(new Runnable()
-		{
-			@Override
-			public void run()
-			{
-				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
-			}
-		}, 250); // 250ms
-
-	}
-	
-	protected void updateGui(byte[] b)
-	{
-
-		//AILERON
-		int aileron = ByteOperation.twoByteToSigInt(b[0], b[1]);
-		int aileronPercent = Math.round((100 * aileron) / 340);
-		((ProgressBar) findViewById(R.id.aileron_progress_diagnostic)).setProgress(Math.round(aileronPercent + 100));
-		((TextView) findViewById(R.id.aileron_value_diagnostic)).setText(String.valueOf(aileronPercent));
-
-		if (Math.abs(aileron) > this.stickDB) {
-			((TextView) findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.BOLD);
-		} else {
-			((TextView) findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		//ELEVATOR
-		int elevator = ByteOperation.twoByteToSigInt(b[2], b[3]);
-		int elevatorPercent = Math.round((100 * elevator) / 340);
-		((ProgressBar) findViewById(R.id.elevator_progress_diagnostic)).setProgress(Math.round(elevatorPercent + 100));
-		((TextView) findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent));
-
-		if (Math.abs(elevator) > this.stickDB) {
-			((TextView) findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.BOLD);
-		} else {
-			((TextView) findViewById(R.id.elevator_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		//PITCH
-		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
-		int pitchPercent = Math.round((100 * pitch) / 340);
-		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
-		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		//RUDDER
-		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
-		int rudderPercent = Math.round((100 * rudder) / 340);
-		((ProgressBar) findViewById(R.id.rudder_progress_diagnostic)).setProgress(Math.round(rudderPercent + 100));
-		((TextView) findViewById(R.id.rudder_value_diagnostic)).setText(String.valueOf(rudderPercent));
-
-		if (Math.abs(rudder) > this.stickDB) {
-			((TextView) findViewById(R.id.rudder_value_diagnostic)).setTypeface(null, Typeface.BOLD);
-		} else {
-			((TextView) findViewById(R.id.rudder_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
-		}
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		//GYRO 
-		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
-		int gyroPercent = Math.round((100 * gyro) / 388);
-
-		String mode = "";
-		if (this.stabiMode == 65 /* A z profilu */ && gyro < 0) {
-			mode = " N";
-		} else {
-			mode = " HL";
-		}
-		
-		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
-		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-		
-		//AUX2  / banks 
-		int banks = ByteOperation.twoByteToSigInt(b[10], b[11]);
-		int banksPercent = Math.round((100 * banks) / 340); 
-		
-		int bank = 1;
-		if (banks < (1400-1520)){
-			bank = 0;
-		}else if (banks > (1640-1520)){
-			bank = 2;
-		}
-		
-		// pokud neni v bankach prirazen zadny kanal
-		TextView bankProgressDiagnostic = (TextView) findViewById(R.id.bank_value_diagnostic);
-		try {
-			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max - 1) == 7){ // 7  = unbind
-				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.grey));
-			}else{
-				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
-			}
-		} catch (IndexOutOfException e) {
-			e.printStackTrace();
-		}
-		
-		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
-		bankProgressDiagnostic.setText(String.valueOf(getString(R.string.banks) + " " + String.valueOf(bank)));
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		//AUX1  / throttle
-		int throttle = ByteOperation.twoByteToSigInt(b[12], b[13]);
-		int throttlePercent = Math.round((50 * throttle) / 340); 
-		
-		// pokud neni throttle prirazen zadny kanal
-		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
-		try {
-			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max - 1) == 7){ // 7 = unbind
-				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
-			}else{
-				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
-			}
-		} catch (IndexOutOfException e) {
-			e.printStackTrace();
-		}
-		
-		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
-		throttleValueDiagnostic.setText(String.valueOf(Math.max(-1, throttlePercent + 50)));
-		////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-		//SENZOR X Y Z
-		((TextView) findViewById(R.id.diagnostic_x)).setText(String.valueOf((int)b[14]));
-		((TextView) findViewById(R.id.diagnostic_y)).setText(String.valueOf((int)b[15]));
-		((TextView) findViewById(R.id.diagnostic_z)).setText(String.valueOf((int)b[16]));
-
-	}
-
-    /**
-     * vytvoreni kontextoveho menu
-     */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        super.onCreateOptionsMenu(menu);
-
-        menu.removeItem(OPEN_DIFF);
-        menu.removeItem(OPEN_BANK_DIFF);
-
-        return true;
-    }
-
-    public boolean handleMessage(Message msg)
+	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-				Log.d(TAG, "Prisla chyba");
-				getPositionFromUnit();
+				sendInError(false);
 				break;
-			case PROFILE_CALL_BACK_CODE:
-				if (msg.getData().containsKey("data")) {
-					initByProfileString(msg.getData().getByteArray("data"));
-					sendInSuccessDialog();
-				}
-			case DIAGNOSTIC_CALL_BACK_CODE:
-				if (msg.getData().containsKey("data")) {
-
-					if (msg.getData().getByteArray("data").length > 17) {
-						Log.d(TAG, "Odpoved delsi nez 17");
-					}
-
-					updateGui(msg.getData().getByteArray("data"));
-
-					getPositionFromUnit();
+			case DstabiProvider.MESSAGE_SEND_COMPLETE:
+				sendInSuccessInfo();
+				break;
+			case DstabiProvider.MESSAGE_STATE_CHANGE:
+				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					sendInError(false);
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
+				} else {
+					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 				}
 				break;
 			default:
 				super.handleMessage(msg);
-		}
 
+		}
 		return true;
 	}
 }

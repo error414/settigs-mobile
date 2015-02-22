@@ -13,14 +13,8 @@
 
 
     <Preference
-      android:title="@string/graph_direcotory"
-      android:summary="@string/graph_direcotory_sumarry"
-      android:key="graf_dir"
-    />
-
-    <Preference
-      android:title="@string/log_direcotory"
-      android:summary="@string/log_direcotory_sumarry"
-      android:key="log_dir"
+      android:title="@string/main_direcotory"
+      android:summary="@string/main_direcotory_sumarry"
+      android:key="main_dir"
     />
 </PreferenceScreen>

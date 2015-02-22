@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="64"
+    android:versionCode="78"
 
-    android:versionName="1.0.25-6"
+    android:versionName="1.1.17"
 >
 
     <uses-sdk
@@ -17,7 +17,8 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/logo_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        >
         <activity
             android:name=".SettingsActivity"
             android:configChanges="orientation"
@@ -36,22 +37,26 @@
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".AuthorActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".ConnectionActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name="com.lib.FileDialog"
             android:label="@string/short_title"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".servo.ServosActivity"
@@ -70,198 +75,231 @@
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".servo.ServosLimitActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".servo.ServosCyclickRingRangeActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".servo.ServosRudderEndPointsActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".senzor.SenzorSenzivityActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".senzor.SenzorActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".senzor.SenzorReverseActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".senzor.SenzorRotationSpeedActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.AdvancedActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.StickDeadBandActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.GeometryAngleActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.PiroOptimalizationActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.RudderDelayActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.PirouetteConsistencyActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.RudderDynamicActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.RudderRevomixActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.PitchupActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.EFilterActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.CyclicPhaseActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".advanced.CyclicFFActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".diagnostic.DiagnosticActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".diagnostic.GraphActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="landscape"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".stabi.StabiActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".stabi.StabiFunctionActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".stabi.StabiColActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".stabi.StabiStickActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".stabi.StabiFbModeActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".diagnostic.LogActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".servo.TravelCorrectionActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".FavouritesActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".stabi.StabiCtrlDirActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
             android:name=".DiffActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
        	<activity
             android:name=".PrefsActivity"
             android:configChanges="orientation"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme"
              />
        	<activity
@@ -269,13 +307,75 @@
              android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme"
        />
-        <activity
+       <activity
             android:name=".advanced.SignalProcessingActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+        <activity
+            android:name=".governor.GovernorActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+        <activity
+            android:name=".governor.GovernorModeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+        <activity
+            android:name=".governor.GovernorGainActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".diagnostic.BecTesterActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".advanced.PitchpumpActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".diagnostic.InputChannelsActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".servo.ServosReverzActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
             android:theme="@style/CustomTheme"
             />
     </application>

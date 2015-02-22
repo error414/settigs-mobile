@@ -149,9 +149,9 @@ public class DiffActivity extends BaseActivity
 		}
 	}
 
-    private void updateGui(DstabiProfile profileToCompare, DstabiProfile activeProfile) {
+    private void updateGui(DstabiProfile profileToCompare, DstabiProfile activeProfile, boolean compareOnlyBasicItems) {
         try {
-            updateGui(ChangeInProfile.getDiff(profileToCompare, activeProfile));
+            updateGui(ChangeInProfile.getDiff(profileToCompare, activeProfile, compareOnlyBasicItems));
         } catch (ProfileNotValidException e) {
             e.printStackTrace();
         }
@@ -333,7 +333,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MIN")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min_max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -342,7 +342,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MAX")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min_max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -754,6 +754,37 @@ public class DiffActivity extends BaseActivity
         }
         // #############################################################################################
 
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_MODE")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_mode)).toString());
+
+            String[] values = getResources().getStringArray(R.array.governor_mode_values);
+
+            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_GAIN")){
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_gain)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("PITCH_PUMP")){
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advance), textSeparator , getResources().getString(R.string.pitch_pump)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
 
         diffItem.setFrom(from);
 		diffItem.setTo(to);
@@ -807,7 +838,7 @@ public class DiffActivity extends BaseActivity
                 sendInSuccessDialog();
                 if (msg.getData().containsKey("data")) {
                     DstabiProfile activeProfile = new DstabiProfile(msg.getData().getByteArray("data"));
-                    updateGui(profileToCompare, activeProfile);
+                    updateGui(profileToCompare, activeProfile, true);
                     profileToCompare = null;
                 }
                 break;

@@ -44,7 +44,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 
 	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
 
-	private int formItemsTitle[] = {R.string.min_max, R.string.blank,};
+	private int formItemsTitle[] = {R.string.min, R.string.max,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos

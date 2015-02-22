@@ -25,7 +25,7 @@ import android.util.Log;
 
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.spirit.diagnostic.DiagnosticActivity;
+import com.spirit.diagnostic.InputChannelsActivity;
 
 import org.apache.http.util.EncodingUtils;
 
@@ -72,7 +72,7 @@ public class DstabiProvider {
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
     final public String REACTIVATION_BANK = "e";
-	
+
 	private int protocolState = 0;
 	
 	private String sendCode;
@@ -548,7 +548,7 @@ public class DstabiProvider {
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC;
-	    								dataBuilder = new DataBuilder(DiagnosticActivity.PROFILE_LENGTH + 1); // diagnostika je dlouhe 16 bytu
+	    								dataBuilder = new DataBuilder(InputChannelsActivity.PROFILE_LENGTH + 1); // diagnostika je dlouhe 16 bytu
 	    								dataBuilder.add(byteMessage); // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to

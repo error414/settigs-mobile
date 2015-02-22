@@ -145,8 +145,6 @@ public class SenzorSenzivityActivity extends BaseActivity
 			}
 
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-			//tempPicker.showAsPercent(true);
-
 		}
 	}
 
@@ -195,9 +193,10 @@ public class SenzorSenzivityActivity extends BaseActivity
 				
 				if(profileCreator.getProfileItemByName("CHANNELS_GAIN").getValueInteger() != 7 && i == 2){ // 7 = neprirazeno / i = 2 = SENSOR_GYROGAIN
 					tempPicker.setEnabled(false);
-				}
-				
-				tempPicker.setCurrentNoNotify(item.getValueInteger());
+                    tempPicker.setCurrentNoNotify(getText(R.string.in_transmitter).toString());
+				}else {
+                    tempPicker.setCurrentNoNotify(item.getValueInteger());
+                }
 			}
 		}
 		 

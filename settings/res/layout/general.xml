@@ -3,7 +3,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@color/background_color"
-    android:onClick="openChannlesActivity"
     android:orientation="vertical" >
 
 	 <ScrollView
@@ -16,7 +15,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:background="@color/background_color"
-	        >
+            >
 	
 	        <TextView
 	            android:id="@+id/textView1"
@@ -37,7 +36,7 @@
 	            android:layout_below="@+id/textView2"
 	            android:src="@drawable/black_line"
 	             />
-	
+
 	        <TextView
 	            android:id="@+id/textView2"
 	            android:layout_width="wrap_content"
@@ -101,43 +100,37 @@
 	            android:entries="@array/receiver_values"
 	            android:minWidth="230dp" />
 
-	        <TextView
-	            android:id="@+id/textView6"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/receiver_select_id"
-	            android:layout_below="@+id/receiver_select_id"
-	            android:layout_marginTop="32dp"
-	            android:text="@string/cyclic_servo_reverse_text"
-	            android:textColor="@color/text_color" />
+           <!-- <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/governor"
+                android:id="@+id/governor"
+                android:layout_marginTop="32dp"
+                android:layout_alignLeft="@+id/receiver_select_id"
+                android:layout_below="@+id/receiver_select_id"
+                android:layout_alignRight="@+id/receiver_select_id"
+                android:clickable="true"
+                android:enabled="true"
+                android:onClick="openGovernorActivity"
+                />-->
 
-	        <Spinner
-	            android:id="@+id/cyclic_servo_reverse_select_id"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView6"
-	            android:layout_alignRight="@+id/receiver_select_id"
-	            android:layout_below="@+id/textView6"
-	            android:entries="@array/cyclic_servo_reverse_values"
-	            android:minWidth="230dp" />
-	        
 	        <TextView
 	            android:id="@+id/textView7"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/cyclic_servo_reverse_select_id"
-	            android:layout_below="@+id/cyclic_servo_reverse_select_id"
-	            android:layout_marginTop="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/receiver_select_id"
+                android:layout_below="@+id/receiver_select_id"
+                android:layout_marginTop="32dp"
 	            android:text="@string/flight_style_text"
 	            android:textColor="@color/text_color" />
 
 	        <Spinner
 	            android:id="@+id/flight_style_select_id"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignLeft="@+id/textView7"
-	            android:layout_alignRight="@+id/cyclic_servo_reverse_select_id"
-	            android:layout_below="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView7"
+                android:layout_alignRight="@+id/receiver_select_id"
+                android:layout_below="@+id/textView7"
 	            android:entries="@array/flight_style_values"
 	            android:minWidth="230dp" />
 
@@ -201,6 +194,7 @@
                 android:textColor="@color/dashed_dark"
                 android:layout_below="@+id/flight_style_select_id"
                 android:layout_alignLeft="@+id/flight_style_select_id" />
+
 
         </RelativeLayout>
 	</ScrollView>

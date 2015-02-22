@@ -79,6 +79,17 @@
             android:textColor="@color/text_color" />
 
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="\?"
+            android:id="@+id/helpText"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/progres_max"
+            android:visibility="invisible" />
+
+
         <RelativeLayout
             android:id="@+id/progres_child"
             android:layout_width="wrap_content"

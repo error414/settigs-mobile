@@ -46,7 +46,7 @@ public class LogPdf {
 		 this.data 		= data;
 	 }
 	 
-	 public void create(String filePath) {
+	 public boolean create(String filePath) {
 	     try {
 		      Document document = new Document();
 		      PdfWriter.getInstance(document, new FileOutputStream(filePath));
@@ -56,8 +56,10 @@ public class LogPdf {
 		      addLogPage(document);
 		      
 		      document.close();
+              return true;
 	     } catch (Exception e) {
 	    	 e.printStackTrace();
+             return false;
 	     }
 	 }
 	 
