@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 22.02.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 26.02.2015</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -325,6 +325,7 @@
     <string name="not_log_for_save">None log to save</string>
     <string name="save_log">Save log</string>
     <string name="pdf_title">Flight log</string>
+    <string name="pdf_title_prew_flight">Flight Log - previous flight</string>
     <string name="pdf_unit_version">Unit version</string>
     <string name="pdf_time_run">Run time</string>
     <string name="pdf_time_create">Create time</string>
@@ -385,7 +386,7 @@
     <string name="graph_warn">Warning! Servos will be locked during measurement!</string>
 
     <string name="first_choose_directory">First select a directory</string>
-    <string name="log_from_previous_flight">Log from previous flight is available! \n Log from the unit is then automaticaly cleared.</string>
+    <string name="log_from_previous_flight">Log from previous flight is available! \nClick OK button to open the log from flight where a problem occured. \nLog from the unit is then automaticly cleared.</string>
 
     <string name="want_save_item">Do you want to save your settings?</string>
     <string name="bank_change_after_connect">Current bank was switched to <b>Bank 0</b>.\nBank switching via transmitter is disabled while the software is connected.</string>

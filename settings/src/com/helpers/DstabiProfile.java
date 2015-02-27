@@ -235,7 +235,7 @@ public class DstabiProfile {
 		}
 		return null;
 	}
-	
+
 	public HashMap<String, ProfileItem> getProfileItems()
 	{
 		return profileMap;
@@ -278,6 +278,27 @@ public class DstabiProfile {
 		
        return true;
 	}
+
+    /**
+     *
+     * @return
+     */
+    public String getFormatedVersion()
+    {
+        String buffer = getProfileItemByName("MAJOR").getValueString() + "." + getProfileItemByName("MINOR1").getValueString();
+
+        int minor2Int = getProfileItemByName("MINOR2").getValueInteger();
+
+        if(minor2Int < 128){
+            buffer = buffer + "." + String.valueOf(minor2Int);
+        }else if(minor2Int < 220){
+            buffer = buffer + "-beta" + String.valueOf(minor2Int - 128);
+        }else {
+            buffer = buffer + "-rc" + String.valueOf(minor2Int - 220);
+        }
+
+        return buffer;
+    }
 	
 	/**
 	 * spocita a vrati checksum ze zakladniho profilu, pri chybe vraci -1
