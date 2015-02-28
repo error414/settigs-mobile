@@ -46,6 +46,7 @@ import com.androidplot.xy.PointLabeler;
 import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.lib.BluetoothCommandService;
 import com.lib.FFT;
 import com.spirit.BaseActivity;
@@ -245,6 +246,7 @@ public class GraphActivity extends BaseActivity
 		super.onStop();
 		stabiProvider.stopGraph();
 		vibDelay = 0;
+        EasyTracker.getInstance(this).activityStop(this);
 	}
 
 
@@ -626,4 +628,9 @@ public class GraphActivity extends BaseActivity
         return ret;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
 }

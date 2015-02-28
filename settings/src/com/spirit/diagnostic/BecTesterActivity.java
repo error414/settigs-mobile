@@ -27,6 +27,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
@@ -83,6 +84,7 @@ public class BecTesterActivity extends BaseActivity
             countDownTimer.cancel();
         }
         stabiProvider.sendDataNoWaitForResponce("0", ByteOperation.intToByteArray(0xff));
+        EasyTracker.getInstance(this).activityStop(this);
     }
 
 	/**
@@ -170,5 +172,11 @@ public class BecTesterActivity extends BaseActivity
                 countDownTimer.cancel();
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
     }
 }

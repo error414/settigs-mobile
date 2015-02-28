@@ -23,6 +23,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.Globals;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
@@ -310,6 +311,18 @@ public class PrefsActivity extends PreferenceActivity {
 
 		startActivityForResult(intent, callBackId);
 	}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
+    }
 
 
 }

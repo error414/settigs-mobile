@@ -32,6 +32,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.Globals;
 import com.helpers.LogListAdapter;
@@ -252,15 +253,6 @@ public class LogActivity extends BaseActivity
 	}
 
 	/**
-	 * stopnuti aktovity, posle pozadavek na ukonceni streamu
-	 */
-	@Override
-	public void onStop()
-	{
-		super.onStop();
-	}
-
-	/**
 	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
@@ -350,5 +342,18 @@ public class LogActivity extends BaseActivity
 		}
 		return false;
 	}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
+    }
 }
 	

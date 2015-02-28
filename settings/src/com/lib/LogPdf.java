@@ -52,8 +52,9 @@ public class LogPdf {
         this.prewLog = prewLog;
         this.profileCreator = profileCreator;
 
+
         try {
-            BaseFont fonty = BaseFont.createFont("/system/fonts/DroidSans.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            BaseFont fonty = BaseFont.createFont(BaseFont.DROIDSANS, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
             catFont = new Font(fonty, 18, Font.NORMAL);
             smallFont = new Font(fonty, 10, Font.NORMAL);
         } catch (DocumentException e) {
@@ -107,7 +108,7 @@ public class LogPdf {
         Paragraph preface = new Paragraph();
         preface.add(new Paragraph("\n"));
         preface.add(new Paragraph("\n"));
-        preface.add(new Paragraph(activity.getString(R.string.pdf_unit_version) + ":" + profileCreator.getFormatedVersion(), smallFont));
+        preface.add(new Paragraph(activity.getString(R.string.pdf_unit_version) + ": " + profileCreator.getFormatedVersion(), smallFont));
 
         preface.add(new Paragraph("\n"));
         preface.add(new Paragraph(activity.getString(R.string.pdf_time_run) + ": " + getTimeByPosition(data.size()), smallFont));

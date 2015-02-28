@@ -25,6 +25,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.analytics.tracking.android.EasyTracker;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 
@@ -92,5 +93,17 @@ public class AuthorActivity extends BaseActivity
     public boolean onOptionsItemSelected(MenuItem item)
     {
         return false;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
     }
 }

@@ -25,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -138,12 +139,6 @@ public class TravelCorrectionActivity extends BaseActivity
 		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani ladeni
 	}
 
-	@Override
-	public void onStop()
-	{
-		super.onStop();
-	}
-
 	private void initGui()
 	{
 		for (int i = 0; i < formItems.length; i++) {
@@ -231,5 +226,17 @@ public class TravelCorrectionActivity extends BaseActivity
 		}
 		return true;
 	}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
+    }
 
 }

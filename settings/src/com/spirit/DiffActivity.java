@@ -29,6 +29,7 @@ import android.widget.TextView;
 
 import com.exception.IndexOutOfException;
 import com.exception.ProfileNotValidException;
+import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DiffListAdapter;
 import com.helpers.DstabiProfile;
 import com.helpers.Globals;
@@ -853,5 +854,17 @@ public class DiffActivity extends BaseActivity
         intent.putExtra(ARG_BANK, bank);
         intent.putExtra(ARG_ACTIVE_BANK, Globals.getInstance().getActiveBank());
         return intent;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
     }
 }
