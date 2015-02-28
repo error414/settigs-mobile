@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 22.02.2015</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 28.02.2015-relase</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
     
@@ -343,7 +343,7 @@
     
     <string name="log_event_ok">Vše vypadá v pořádku</string>
     <string name="log_event_cal">Kalibrace byla dokončena</string>
-    <string name="log_event_cycring">Cyclic Ring Activated</string>
+    <string name="log_event_cycring">Cyclic Ring byl aktivován</string>
     <string name="log_event_rudlim">Překročen limit vrtulky</string>
     <string name="log_event_vibes">Úroveň vibrací je příliš vysoká</string>
     <string name="log_event_hang">Hlavní smyčka programu uvázla</string>
@@ -352,10 +352,11 @@
     <string name="not_log_for_save">Žádný záznam letu k uložení</string>
     <string name="save_log">Uložit záznam letu</string>
     
-    <string name="pdf_title">Letovy zaznam</string>
+    <string name="pdf_title">Letový záznam</string>
+    <string name="pdf_title_prew_flight">Letový záznam - předchozí let</string>
     <string name="pdf_unit_version">Verze jednotky</string>
-    <string name="pdf_time_run">Doba behu</string>
-    <string name="pdf_time_create">Vygenerovano</string>
+    <string name="pdf_time_run">Doba běhu</string>
+    <string name="pdf_time_create">Vygenerováno</string>
     <string name="saving_log">Ukládám záznam letu</string>
 
 
@@ -425,7 +426,7 @@
      <string name="graph_warn">Pozor! Během zobrazení grafu jsou serva uzamčena!</string>
      
      <string name="first_choose_directory">Prvně vyberte adresář</string>
-     <string name="log_from_previous_flight">Zobrazen i log z předchozího letu! \n Log bude automaticky vymazán.</string>
+     <string name="log_from_previous_flight">Je dostupný záznam z předchozího letu! \nPo kliknutí na tlačítko OK bude otevřen záznam z letu, kde nastala chyba. \nZáznam bude poté z jednotky automaticky vymazán.</string>
      <string name="want_save_item">Přejete si uložit nastavení?</string>
 
     <string name="bank_change_after_connect">Aktuální banka byla přepnuta na <b>Bank 0</b>.\nZměna banky přes vysílač je vypnuta dokud je software připojen.</string>

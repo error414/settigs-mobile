@@ -16,6 +16,7 @@ repositories {
 dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile 'net.simonvt.menudrawer:menudrawer:3.0.+@aar'
+    compile files('libs/itextpdf-5.5.4-custom.jar')
 }
 
 android {
@@ -57,10 +58,16 @@ android {
 
     }
 
-    task buildInfo(type: Exec) {
+    task buildInfoRelase(type: Exec) {
         //update build info
         executable "sh"
-        args "-c", "php -f ./gradle-exec/updateRevision.php"
+        args "-c", "php -f ./gradle-exec/updateRevision.php relase"
+    }
+
+    task buildInfoDevel(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/updateRevision.php devel"
     }
 
     task convertPngImage(type: Exec) {

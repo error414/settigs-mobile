@@ -32,8 +32,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.helpers.LogListAdapter;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeInProfile;
 import com.lib.LogPdf;
 import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
@@ -79,6 +83,8 @@ public class LogActivity extends BaseActivity
 
 	private ArrayList<HashMap<Integer, Integer>> logListData;
 
+    private boolean prewLog = false;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -107,6 +113,25 @@ public class LogActivity extends BaseActivity
 
         initConfiguration();
 	}
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onSaveInstanceState(Bundle savedInstanceState)
+    {
+        savedInstanceState.putBoolean("prewLog", prewLog);
+    }
+
+
+    /**
+     *
+     * @param savedInstanceState
+     */
+    public void onRestoreInstanceState(Bundle savedInstanceState)
+    {
+        prewLog = savedInstanceState.getBoolean("prewLog", false);
+    }
 	
 	/**
 	 * handle for change banks
@@ -148,6 +173,8 @@ public class LogActivity extends BaseActivity
 	        }
 	
 	        len = i+1;
+
+            prewLog = true;
 	        showConfirmDialog(R.string.log_from_previous_flight);
 	    }
 		//////////
@@ -226,15 +253,6 @@ public class LogActivity extends BaseActivity
 	}
 
 	/**
-	 * stopnuti aktovity, posle pozadavek na ukonceni streamu
-	 */
-	@Override
-	public void onStop()
-	{
-		super.onStop();
-	}
-
-	/**
 	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
@@ -256,7 +274,12 @@ public class LogActivity extends BaseActivity
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
 					updateGuiByLog(msg.getData().getByteArray("data"));
-                    saveLogToFile();
+
+                    this.runOnUiThread(new Runnable() {
+                        public void run() {
+                            saveLogToFile();
+                        }
+                    });
 				}
 				break;
 			default:
@@ -296,7 +319,7 @@ public class LogActivity extends BaseActivity
 
         String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_LOG_DIR + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
 
-        LogPdf log = new LogPdf(this, logListData);
+        LogPdf log = new LogPdf(this, logListData, prewLog, ChangeInProfile.getInstance().getOriginalProfile());
         if(log.create(filename)){
             Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
         }else{
@@ -319,5 +342,18 @@ public class LogActivity extends BaseActivity
 		}
 		return false;
 	}
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        EasyTracker.getInstance(this).activityStart(this);
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        EasyTracker.getInstance(this).activityStop(this);
+    }
 }
 	

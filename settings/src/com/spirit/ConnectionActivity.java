@@ -44,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.helpers.ByteOperation;
+import com.helpers.DialogHelper;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
@@ -304,12 +305,7 @@ public class ConnectionActivity extends BaseActivity
 
 
 		if (profileCreator.isValid()) {
-			version.setText(this.formatVersion(
-                    profileCreator.getProfileItemByName("MAJOR"),
-                    profileCreator.getProfileItemByName("MINOR1"),
-                    profileCreator.getProfileItemByName("MINOR2")
-                )
-            );
+			version.setText(profileCreator.getFormatedVersion());
 
 			//prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
             if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
@@ -333,30 +329,6 @@ public class ConnectionActivity extends BaseActivity
 			//showConfirmDialog(R.string.spirit_not_found);
 		}
 	}
-
-    /**
-     *
-     * @param major
-     * @param minor1
-     * @param minor2
-     * @return
-     */
-    private String formatVersion(ProfileItem major, ProfileItem minor1, ProfileItem minor2)
-    {
-        String buffer = major.getValueString() + "." + minor1.getValueString();
-
-        int minor2Int = minor2.getValueInteger();
-
-        if(minor2Int < 128){
-            buffer = buffer + "." + String.valueOf(minor2Int);
-        }else if(minor2Int < 220){
-            buffer = buffer + "-beta" + String.valueOf(minor2Int - 128);
-        }else {
-            buffer = buffer + "-rc" + String.valueOf(minor2Int - 220);
-        }
-
-        return buffer;
-    }
 
 	/**
 	 * prisla informace o seriovem cisle
