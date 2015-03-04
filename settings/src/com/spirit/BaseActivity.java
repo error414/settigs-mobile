@@ -118,8 +118,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_SAVE = 3;
 	final protected int SAVE_PROFILE_MENU = 4;
 
-	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +  "_en.pdf";
-	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +"_en.pdf";
+	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +  ".0_en.pdf";
+	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +".0_en.pdf";
 	final protected String DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
 
 	final protected BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
