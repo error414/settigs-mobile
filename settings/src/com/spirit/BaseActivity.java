@@ -605,8 +605,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
 
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
-
-        Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+        if(originalProfile != null) {
+            Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+        }
 
         ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}
