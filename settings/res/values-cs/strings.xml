@@ -90,6 +90,7 @@
     <string name="serial">Sériové č.</string>
     <string name="unit">Jednotka</string>
     <string name="link">Spojení</string>
+    <string name="rpm_senzor">RPM senzor</string>
     
     <string name="position_text">Pozice</string>
     <string name="model_text">Model</string>

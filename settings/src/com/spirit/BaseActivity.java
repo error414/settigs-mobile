@@ -83,7 +83,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
 	/*#############################################*/
     final protected String APLICATION_MAJOR_VERSION = "1";
-    final protected String APLICATION_MINOR1_VERSION = "1";
+    final protected String APLICATION_MINOR1_VERSION = "2";
     //final protected String APLICATION_MINOR2_VERSION = "4";
 
 	//for debug
@@ -606,8 +606,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
 
 		DstabiProfile originalProfile = ChangeInProfile.getInstance().getOriginalProfile();
-
-        Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+        if(originalProfile != null) {
+            Globals.getInstance().setChanged(originalProfile.getCheckSumFromKnowItem() != profile.getCheckSumFromKnowItem());
+        }
 
         ((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 	}

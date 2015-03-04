@@ -116,6 +116,7 @@
     <string name="diag_aileron">Aileron</string>
     <string name="diag_elevator">Elevator</string>
     <string name="diag_pitch">Pitch</string>
+    <string name="rpm_senzor">RPM senzor</string>
 
     <string name="cyclic_ring_range">Cyclic end-points</string>
     <string name="cyclic_ring_range_no_break">Cyclic end-points</string>

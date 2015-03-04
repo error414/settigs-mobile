@@ -58,6 +58,9 @@ public class InputChannelsActivity extends BaseActivity
 	 */
 	private int stabiMode;
 
+    /**
+     *
+     */
 	final private Handler delayHandle = new Handler();
 
 	/**
@@ -142,10 +145,14 @@ public class InputChannelsActivity extends BaseActivity
 			{
 				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
 			}
-		}, 250); // 250ms
+		}, 125); // ms
 
 	}
-	
+
+    /**
+     *
+     * @param b
+     */
 	protected void updateGui(byte[] b)
 	{
 
@@ -267,35 +274,34 @@ public class InputChannelsActivity extends BaseActivity
 	}
 
     /**
-     * vytvoreni kontextoveho menu
+     *
+     * @param menu
      */
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu)
-    {
-        super.onCreateOptionsMenu(menu);
-
-        menu.removeItem(OPEN_DIFF);
-
-        return true;
-    }
-
 	@Override
 	protected void createBanksSubMenu(Menu menu) {
 		//v diagonstike nejsou banky povoleny
 	}
 
+    /**
+     *
+     * @param msg
+     * @return
+     */
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 				Log.d(TAG, "Prisla chyba");
-				getPositionFromUnit();
+                if(profileCreator != null && profileCreator.isValid()) {
+                    getPositionFromUnit();
+                }
 				break;
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
 				}
+                break;
 			case DIAGNOSTIC_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 
@@ -315,12 +321,18 @@ public class InputChannelsActivity extends BaseActivity
 		return true;
 	}
 
+    /**
+     *
+     */
     @Override
     public void onStart() {
         super.onStart();
         EasyTracker.getInstance(this).activityStart(this);
     }
 
+    /**
+     *
+     */
     @Override
     public void onStop()
     {

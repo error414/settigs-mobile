@@ -26,6 +26,7 @@ import android.util.Log;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.spirit.diagnostic.InputChannelsActivity;
+import com.spirit.governor.GovernorRpmSenzor;
 
 import org.apache.http.util.EncodingUtils;
 
@@ -64,9 +65,11 @@ public class DstabiProvider {
 	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA = 4;
 	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC = 5;
 	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GRAPH = 6;
+    final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GOV_RPM = 7;
 	
 	final protected String GET_PROFILE = "G";
 	final protected String GET_STICKED_AND_SENZORS_VALUE = "D";
+    final protected String GET_GOV_RPM_VALUE = "q";
 	final public String SAVE_PROFILE = "g";
 	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
@@ -87,6 +90,7 @@ public class DstabiProvider {
 	final private int DIAGNOSTIC 	= 4;
 	final private int GRAPH 		= 5;
 	final private int LOG 			= 6;
+    final private int GOV_RPM 	    = 7;
 	private int mode = NORMAL;
 	
 	private DataBuilder dataBuilder;
@@ -201,6 +205,20 @@ public class DstabiProvider {
 			queue.add(GET_STICKED_AND_SENZORS_VALUE, null, DIAGNOSTIC, callBackCode);
 		}
 	}
+
+    /**
+     * ziskani dat diagnostiky
+     *
+     * @param callBackCode
+     */
+    public void getGovRmp(int callBackCode){
+        if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+            mode = GOV_RPM;
+            sendDataForResponce(GET_GOV_RPM_VALUE, callBackCode);
+        }else{
+            queue.add(GET_GOV_RPM_VALUE, null, GOV_RPM, callBackCode);
+        }
+    }
 	
 	/**
 	 * ziskani profilu z jednotky
@@ -417,11 +435,11 @@ public class DstabiProvider {
 
     /**
      *
-     * @param kdo
+     * @param who
      */
-	private void clearState(String kdo){
+	private void clearState(String who){
 		
-		Log.d(TAG, "mazu stav:" + kdo);
+		Log.d(TAG, "mazu stav:" + who);
 		
 		sendCode 		= null;
 		sendValue 		= null;
@@ -463,6 +481,7 @@ public class DstabiProvider {
         			connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_STATE_CHANGE);
         			clearState("handler 1");
         			//zmena stavu BT modulu
+                    break;
         		case DstabiProvider.MESSAGE_READ:
         			
         			Bundle b = msg.getData();
@@ -498,7 +517,7 @@ public class DstabiProvider {
         					case DstabiProvider.PROTOCOL_STATE_SENDED_VALUES:
         						Log.d(TAG, "prijmana data byla odpoved na prikaz");
 	    						//byl odeslan init kod, cekame O nebo K
-	    						if(message.equals(DstabiProvider.OK) || mode == DIAGNOSTIC){ // OK nebo sme v diagnostice 
+	    						if(message.equals(DstabiProvider.OK) || mode == DIAGNOSTIC || mode == GOV_RPM){ // OK nebo sme v diagnostice
 	    							
 	    							Log.d(TAG, "prijmana data byla odpoved na prikaz OK");
 	    							Log.d(TAG, "jsme v modu :" + mode);
@@ -556,6 +575,18 @@ public class DstabiProvider {
 	    								if(dataBuilder.itsAll()){
 	    									sendHandle(callBackCode, dataBuilder.getData());
 	    								}
+                                    }else if(mode == GOV_RPM){
+
+                                        Log.d(TAG, "Prislo GOV RPM :" + ByteOperation.getIntegerStringByByteArray(data));
+
+                                        protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GOV_RPM;
+                                        dataBuilder = new DataBuilder(GovernorRpmSenzor.RPMSENZOR_LENGTH + 1);
+                                        dataBuilder.add(byteMessage);
+
+                                        if(dataBuilder.itsAll()){
+                                            sendHandle(callBackCode, dataBuilder.getData());
+                                        }
+
 	    							}else if(mode == GRAPH){
 	    								
 	    								stopCecurityTimer();
@@ -576,27 +607,16 @@ public class DstabiProvider {
         						
         					//cekameme na dalsi data z profilu nebo ze serioveho cisla
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA:
-        						Log.d(TAG, "Prislo x :" + ByteOperation.getIntegerStringByByteArray(data));
-        						dataBuilder.add(data);
-        						if(dataBuilder.itsAll()){
-        							Log.d(TAG, "x  cele odesilam handle");
-        							sendHandle(callBackCode, dataBuilder.getData());
-								}else{
-									Log.d(TAG, "x neni cele :" + dataBuilder.length);
-								}
-        						break;
-        						
+
         					// prijmame dalsi casti z diagnostiky, musime pouzit vlastni switch protoze diagnistika nepouziva promenou data ale byteMessage
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC:
-        						Log.d(TAG, "Prislo diag :" + ByteOperation.getIntegerStringByByteArray(data));
-        						dataBuilder.add(byteMessage);  // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
-        						if(dataBuilder.itsAll()){
-        							Log.d(TAG, "diag  cele odesilam handle");
-        							sendHandle(callBackCode, dataBuilder.getData());
-								}else{
-									Log.d(TAG, "diag neni cele :" + dataBuilder.length);
-								}
-        						break;
+
+                            case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GOV_RPM:
+                                dataBuilder.add(byteMessage);  // pouzijeme celou zpravu co nam prisla
+                                if(dataBuilder.itsAll()) {
+                                    sendHandle(callBackCode, dataBuilder.getData());
+                                }
+                                break;
         						
         					// prijmame dalsi streamu pro graf
         					case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GRAPH:

@@ -25,6 +25,7 @@ import com.spirit.diagnostic.InputChannelsActivity;
 import com.spirit.diagnostic.LogActivity;
 import com.spirit.governor.GovernorGainActivity;
 import com.spirit.governor.GovernorModeActivity;
+import com.spirit.governor.GovernorRpmSenzor;
 import com.spirit.senzor.SenzorActivity;
 import com.spirit.senzor.SenzorReverseActivity;
 import com.spirit.senzor.SenzorRotationSpeedActivity;
@@ -121,6 +122,8 @@ public class Menu {
 
     public static Integer MENU_GOV_MODE            = 38;
     public static Integer MENU_GOV_GAIN            = 39;
+    public static Integer MENU_GOV_RPM_SENZOR      = 44;
+
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
     protected static Menu instance;
@@ -325,8 +328,10 @@ public class Menu {
 
         menuList.put(MENU_GOV_GAIN,   new MenuItem(R.drawable.na,     R.string.governor_gain, GovernorGainActivity.class));
 
+        menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.na,     R.string.rpm_senzor, GovernorRpmSenzor.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_MODE, MENU_GOV_GAIN});
+        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_MODE, MENU_GOV_GAIN, MENU_GOV_RPM_SENZOR});
 
     }
 
