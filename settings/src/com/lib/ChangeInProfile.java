@@ -78,7 +78,7 @@ public class ChangeInProfile
 				if (changedProfileItem.isDeactiveInBasicMode() && compareOnlyBasicItems) {
 					continue;
 				}
-				if (changedProfileItem.getValueByte().byteValue() != originalProfile.getProfileItemByName(itemName).getValueByte()
+				if (!Arrays.equals(changedProfileItem.getValueBytesArray(), originalProfile.getProfileItemByName(itemName).getValueBytesArray())
 								&&
 								!Arrays.asList(exceptProfileItems).contains(itemName)
 				) {

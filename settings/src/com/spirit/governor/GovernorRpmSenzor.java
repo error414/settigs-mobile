@@ -44,7 +44,7 @@ public class GovernorRpmSenzor extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
     final private int RPMSENZOR_CALL_BACK_CODE = 21;
-    final static public int RPMSENZOR_LENGTH = 2;
+    final static public int RPM_SENZOR_LENGTH = 4;
 
     final private Handler delayHandle = new Handler();
 
@@ -59,7 +59,7 @@ public class GovernorRpmSenzor extends BaseActivity
 		initSlideMenu(R.layout.bec_rpm_senzor);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.rpm_senzor)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_rpm_senzor)));
 
         initConfiguration();
 	}
@@ -138,10 +138,9 @@ public class GovernorRpmSenzor extends BaseActivity
         int govMode = profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger();
 
         if(govMode == 0){
-            Log.d(TAG, "disabled");
-            findViewById(R.id.rpm_senzor).setEnabled(false);
+            findViewById(R.id.governor_request_rpm).setEnabled(false);
+            findViewById(R.id.governor_current_rpm).setEnabled(false);
         }else{
-            Log.d(TAG, "enabled");
             getRmpValue();
         }
 
@@ -154,11 +153,20 @@ public class GovernorRpmSenzor extends BaseActivity
     protected void updateGui(byte[] b)
     {
         short value = ByteOperation.byteArrayToShort(b);
+
+        byte[] request = {b[0], b[1]};
+        byte[] current = {b[2], b[3]};
+
+
         Log.d(TAG, "---");
         Log.d(TAG, String.valueOf(value));
         Log.d(TAG, String.valueOf(b.length));
         Log.d(TAG, "---");
-        ((ProgressBar)findViewById(R.id.rpm_senzor)).setProgress(value);
+        ((ProgressBar)findViewById(R.id.governor_request_rpm)).setProgress(ByteOperation.byteArrayToShort(request));
+        ((ProgressBar)findViewById(R.id.governor_current_rpm)).setProgress(ByteOperation.byteArrayToShort(current));
+
+        ((TextView)findViewById(R.id.governor_value_request_rpm)).setText(String.valueOf(ByteOperation.byteArrayToShort(request)) + " RMP");
+        ((TextView)findViewById(R.id.governor_value_current_rpm)).setText(String.valueOf(ByteOperation.byteArrayToShort(current)) + " RMP");
     }
 
     /**
@@ -184,8 +192,8 @@ public class GovernorRpmSenzor extends BaseActivity
             case RPMSENZOR_CALL_BACK_CODE:
                 if (msg.getData().containsKey("data")) {
 
-                    if (msg.getData().getByteArray("data").length > 2) {
-                        Log.d(TAG, "Odpoved delsi nez 2");
+                    if (msg.getData().getByteArray("data").length > 4) {
+                        Log.d(TAG, "Odpoved delsi nez 4");
                     }
 
                     updateGui(msg.getData().getByteArray("data"));

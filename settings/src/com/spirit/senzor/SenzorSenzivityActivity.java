@@ -131,7 +131,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 			switch(i){
 				case 0:
 					tempPicker.setOffset(20);
-					tempPicker.setRange(0, 80, 20, 100); // nastavuji rozmezi prvku z profilu
+					tempPicker.setRange(0, 100, 20, 120); // nastavuji rozmezi prvku z profilu
 					break;
 				case 1:
 					tempPicker.setTranslate(new StabiSenzivityProgressExTranslate());
@@ -223,10 +223,10 @@ public class SenzorSenzivityActivity extends BaseActivity
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-					item.setValue(newVal);
-
-					Log.d(TAG, String.valueOf(newVal));
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();

@@ -46,7 +46,7 @@ public class InputChannelsActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
-	final static public int PROFILE_LENGTH = 16;
+	final static public int PROFILE_LENGTH = 17;
 	
 	/**
 	 * mrtva zona kterou ziskame z profilu

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/background_color">
+	 <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color">
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@color/background_color" >
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:src="@drawable/black_line" />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="@string/governor_thr_range"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="@color/text_color"
+	            android:textStyle="bold" />
+
+	        <com.customWidget.picker.ProgresEx
+	            android:id="@+id/governor_thr_min"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignRight="@+id/imageView1"
+	            android:layout_below="@+id/imageView1"
+	            android:layout_marginTop="32dp" >
+
+	        </com.customWidget.picker.ProgresEx>
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/governor_thr_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/governor_thr_min"
+                android:layout_marginTop="32dp" >
+
+            </com.customWidget.picker.ProgresEx>
+
+
+
+	    </RelativeLayout>
+
+	</ScrollView>
+</LinearLayout>

@@ -209,20 +209,17 @@ public class StabiColActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        if(newVal < 127 + 4 && newVal > 127 - 4){
+                            showWarning(View.VISIBLE);
+                        }else{
+                            showWarning(View.INVISIBLE);
+                        }
 
-					//if (newVal > 127 && newVal < 127 + 4) newVal = 127 - 4;
-					//if (newVal < 127 && newVal > 127 - 4) newVal = 127 + 4;
-
-					parent.setCurrentNoNotify(newVal);
-
-					item.setValue(newVal);
-                    if(newVal < 127 + 4 && newVal > 127 - 4){
-                        showWarning(View.VISIBLE);
-                    }else{
-                        showWarning(View.INVISIBLE);
+                        stabiProvider.sendDataNoWaitForResponce(item);
                     }
 
-					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
             initDefaultValue();

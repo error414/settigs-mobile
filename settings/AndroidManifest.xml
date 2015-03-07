@@ -391,6 +391,33 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme"
             />
+
+        <activity
+            android:name=".governor.GovernorThrRangeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".governor.GovernorRpmMaxActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".governor.GovernorGearSettingsActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
     </application>
 
 </manifest>

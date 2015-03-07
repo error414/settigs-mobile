@@ -189,11 +189,10 @@ public class GovernorGainActivity extends BaseActivity
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-					parent.setCurrentNoNotify(newVal);
-
-					item.setValue(newVal);
-
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();

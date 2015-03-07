@@ -90,7 +90,7 @@
     <string name="serial">Sériové č.</string>
     <string name="unit">Jednotka</string>
     <string name="link">Spojení</string>
-    <string name="rpm_senzor">RPM senzor</string>
+    <string name="governor_rpm_senzor">RPM senzor</string>
     
     <string name="position_text">Pozice</string>
     <string name="model_text">Model</string>
@@ -448,9 +448,7 @@
     <string name="governor_mode">Režim governoru</string>
     <string name="governor_gain">Zisk governoru</string>
 
-    <string name="in_transmitter">﻿Ve vysílači</string>
-
-    <!-- HELP AUTO GENERATE STUB --> 
+    <!-- HELP AUTO GENERATE STUB -->
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
     <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Agresivita odezvy vrtulky</b>\n\n- Přidejte pro tvrdší zastavení.\n- Uberte pokud vrtulka po zastavení překmitne.\n\n<i>Rozsah: 3 - 10</i></string>
     <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Zapne rozšířené zpracování signálu\n\n- Ve většině případech by mělo být vypnuté.\n- Pro chod v prostředí extrémních vibrací.</string>
@@ -487,5 +485,9 @@
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
     <!--  END AUTO GENERATE STUB -->
+
+    <string name="in_transmitter">﻿Ve vysílači</string>
+    <string name="ga_trackingId">UA-60203884-1</string>
+    <string name="cant_send_data">Data nebyla odeslána</string>
 
 </resources>

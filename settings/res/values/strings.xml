@@ -116,7 +116,7 @@
     <string name="diag_aileron">Aileron</string>
     <string name="diag_elevator">Elevator</string>
     <string name="diag_pitch">Pitch</string>
-    <string name="rpm_senzor">RPM senzor</string>
+    <string name="governor_rpm_senzor">RPM senzor</string>
 
     <string name="cyclic_ring_range">Cyclic end-points</string>
     <string name="cyclic_ring_range_no_break">Cyclic end-points</string>
@@ -410,9 +410,7 @@
     <string name="governor_mode">Governor mode</string>
     <string name="governor_gain">Governor gain</string>
 
-    <string name="in_transmitter">﻿In transmitter</string>
-
-    <!-- HELP AUTO GENERATE STUB --> 
+    <!-- HELP AUTO GENERATE STUB -->
     <string name="st_02282a0a0af7a569d19732b906395ed5">Range around stick center where movement is zero.\n\n<i>Range: 4 - 30</i></string>
     <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Aggressiveness of rudder response</b>\n\n- Increase for harder rudder stop behavior.\n- Decrease if rudder bounce-back occurs.\n\n<i>Range: 3 - 10</i></string>
     <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Enables extended signal processing\n\n- Normally should be disabled.\n- Used for operation with extreme vibrations.</string>
@@ -449,4 +447,16 @@
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
     <!--  END AUTO GENERATE STUB -->
+
+    <string name="in_transmitter">﻿In transmitter</string>
+    <string name="governor_thr_range" translatable="false">Throttle Range</string>
+    <string name="governor_thr_min" translatable="false">Min</string>
+    <string name="governor_thr_max" translatable="false">Max</string>
+    <string name="governor_gear_settings" translatable="false">Gear Settings</string>
+    <string name="governor_ratio" translatable="false">Gear Ratio</string>
+    <string name="governor_divider" translatable="false">Sensing Divider</string>
+    <string name="governor_rpm_max" translatable="false">Max. Head Speed</string>
+    <string name="governor_request_rpm" translatable="false">Request RPM</string>
+    <string name="governor_current_rpm" translatable="false">Current RPM</string>
+    <string name="cant_send_data">Data was not sent</string>
 </resources>

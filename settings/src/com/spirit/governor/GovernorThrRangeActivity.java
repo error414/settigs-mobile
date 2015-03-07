@@ -1,5 +1,6 @@
 /*
 Copyright (C) Petr Cada and Tomas Jedrzejek
+Copyright (C) Petr Cada and Tomas Jedrzejek
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -14,13 +15,11 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-
-package com.spirit.advanced;
+package com.spirit.governor;
 
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,34 +30,36 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class RudderRevomixActivity extends BaseActivity
+public class GovernorThrRangeActivity extends BaseActivity
 {
 
-	final private String TAG = "RudderRevomixActivity";
+	@SuppressWarnings("unused")
+	final private String TAG = "GovernorThrRangeActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RUDDER_REVOMIX",};
+	private final String protocolCode[] = {"GOVERNOR_THR_MIN", "GOVERNOR_THR_MAX",};
 
-	private int formItems[] = {R.id.rudder_revomix,};
+	private int formItems[] = {R.id.governor_thr_min, R.id.governor_thr_max};
 
-	private int formItemsTitle[] = {R.string.rudder_revomix,};
+	private int formItemsTitle[] = {R.string.governor_thr_min, R.string.governor_thr_max};
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity servo type
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.advanced_rudder_revomix);
+		initSlideMenu(R.layout.governor_thr_range);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.rudder_revomix)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_thr_range)));
 
 		initGui();
 		initConfiguration();
@@ -89,18 +90,18 @@ public class RudderRevomixActivity extends BaseActivity
     }
 
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
             initDefaultValue();
-		} else {
-			finish();
-		}
+        }else{
+            finish();
+        }
 	}
 	
 	/**
@@ -120,10 +121,14 @@ public class RudderRevomixActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-
-			tempPicker.setOffset(-128);             // zobrazujeme od stredu, 128 => 0
-			tempPicker.setRange(118, 138, -10, 10); // hack, ble
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+
+            if(protocolCode[i].equals("GOVERNOR_THR_MIN")){
+                tempPicker.setRange(-50, -150); // nastavuji rozmezi prvku z profilu
+                tempPicker.setTranslate(new GovernorThrRangeMinProgressExTranslate());
+            }else {
+                tempPicker.setRange(50, 150); // nastavuji rozmezi prvku z profilu
+            }
 		}
 	}
 
@@ -168,16 +173,18 @@ public class RudderRevomixActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-
+            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
+
+			if(profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() == 0){
+				tempPicker.setEnabled(false);
+			}
 		}
 
 	}
 
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
-
-
 		@Override
 		public void onChanged(ProgresEx parent, int newVal)
 		{
@@ -188,6 +195,7 @@ public class RudderRevomixActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
                     if(item != null) {
                         item.setValue(newVal);
                         stabiProvider.sendDataNoWaitForResponce(item);
@@ -198,6 +206,7 @@ public class RudderRevomixActivity extends BaseActivity
 		}
 
 	};
+
 
 	public boolean handleMessage(Message msg)
 	{
@@ -216,7 +225,6 @@ public class RudderRevomixActivity extends BaseActivity
 			default:
 				super.handleMessage(msg);
 		}
-
 		return true;
 	}
 
@@ -233,3 +241,6 @@ public class RudderRevomixActivity extends BaseActivity
         EasyTracker.getInstance(this).activityStop(this);
     }
 }
+
+
+

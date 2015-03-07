@@ -567,7 +567,7 @@ public class DstabiProvider {
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC;
-	    								dataBuilder = new DataBuilder(InputChannelsActivity.PROFILE_LENGTH + 1); // diagnostika je dlouhe 16 bytu
+	    								dataBuilder = new DataBuilder(InputChannelsActivity.PROFILE_LENGTH); // diagnostika je dlouhe 16 bytu
 	    								dataBuilder.add(byteMessage); // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
@@ -580,7 +580,7 @@ public class DstabiProvider {
                                         Log.d(TAG, "Prislo GOV RPM :" + ByteOperation.getIntegerStringByByteArray(data));
 
                                         protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GOV_RPM;
-                                        dataBuilder = new DataBuilder(GovernorRpmSenzor.RPMSENZOR_LENGTH + 1);
+                                        dataBuilder = new DataBuilder(GovernorRpmSenzor.RPM_SENZOR_LENGTH);
                                         dataBuilder.add(byteMessage);
 
                                         if(dataBuilder.itsAll()){

@@ -189,9 +189,10 @@ public class StabiCtrlDirActivity extends BaseActivity
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-					item.setValue(newVal);
-
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
