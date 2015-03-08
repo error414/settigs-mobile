@@ -3,7 +3,7 @@ package com.lib.translate;
 import com.customWidget.picker.ProgresExViewTranslateInterface;
 
 
-public class GovernorGearRatioProgressExTranslate implements ProgresExViewTranslateInterface
+public class GovernorgearRatioProgressExTranslate implements ProgresExViewTranslateInterface
 {
 
     @Override

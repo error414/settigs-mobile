@@ -668,7 +668,9 @@ public class ConnectionActivity extends BaseActivity
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 				isPosibleSendData = false;
-				stabiProvider.abortAll();
+                if(stabiProvider != null) {
+                    stabiProvider.abortAll();
+                }
 				sendInError(false); // ukazat error ale neukoncovat activitu
                 setBTConnectedProgress();
 				if(disconect){

@@ -30,8 +30,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.translate.GovernorGearRatioProgressExTranslate;
-import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
+import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -127,7 +126,7 @@ public class GovernorGearSettingsActivity extends BaseActivity
                 tempPicker.setRange(1, 5); // nastavuji rozmezi prvku z profilu
             }else {
                 tempPicker.setRange(1, 254); // nastavuji rozmezi prvku z profilu
-                tempPicker.setTranslate(new GovernorGearRatioProgressExTranslate());
+                tempPicker.setTranslate(new GovernorgearRatioProgressExTranslate());
             }
 		}
 	}

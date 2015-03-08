@@ -1,5 +1,5 @@
 <?php
-echo "Start BUILD help TEXT \n";
+echo "BUILD help TEXT start\n";
 
 $stringEnFile =  './res/values/strings.xml';
 $stringCsFile =  './res/values-cs/strings.xml';
@@ -20,12 +20,15 @@ $xml = simplexml_load_file($tsFile);
 $stringEn = "<!-- HELP AUTO GENERATE STUB --> \n";
 $stringCs = "<!-- HELP AUTO GENERATE STUB --> \n";
 
+$i = 0;
+
 foreach($xml as $items){
     foreach($items->message as $message){
         $attr = $message->location;
         if(in_array(md5($message->source), $res) && (string)$attr['filename'] != '') {
             $stringEn .= "    " . '<string name="st_' . md5($message->source) . '">' . str_replace(array("\n", '<br/>', '<br>'), array('\n', '\n', '\n'), $message->source) . '</string>' . "\n";
             $stringCs .= "    " . '<string name="st_' . md5($message->source) . '">' . str_replace(array("\n", '<br/>', '<br>'), array('\n', '\n', '\n'), $message->translation) . '</string>' . "\n";
+            $i++;
         }
     }
 }
@@ -43,9 +46,8 @@ $fileCs = file_get_contents($stringCsFile);
 $stringCs .= "    <!--  END AUTO GENERATE STUB -->";
 
 file_put_contents($stringCsFile, preg_replace('/\<\!\-\-.*\-\-\>/s', $stringCs, $fileCs));
-
-echo "Stop BUILD help TEXT";
-
+echo "count: $i \n";
+echo "BUILD help TEXT stop\n\n";
 /* ---------------------------------------------------------------------------------------- */
 /*
 $tsFile = 		 'lang_cs.ts';

@@ -62,6 +62,7 @@ import com.helpers.DialogHelper;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
+import com.helpers.HelpLinks;
 import com.helpers.HelpMap;
 import com.helpers.SlideMenuListAdapter;
 import com.helpers.StatusNotificationBuilder;
@@ -118,8 +119,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_SAVE = 3;
 	final protected int SAVE_PROFILE_MENU = 4;
 
-	final protected String MANUAL_URL = "http://spirit-system.com/dl/manual/spirit-manual-"+ APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +  "_en.pdf";
-	final protected String MANUAL_URL_GOOGLE_DOCS = "http://docs.google.com/viewer?url=http%3A%2F%2Fspirit-system.com%2Fdl%2Fmanual%2Fspirit-manual-" + APLICATION_MAJOR_VERSION + "." + APLICATION_MINOR1_VERSION +"_en.pdf";
 	final protected String DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
 
 	final protected BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -594,7 +593,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         }
     }
 
-
 	/**
 	 * check if profile was changed and save to GLobal storage
 	 */
@@ -905,15 +903,16 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		if (item.getGroupId() == GROUP_HELP && (item.getItemId() == OPEN_MANUAL || item.getItemId() == OPEN_MANUAL_GOOGLE_DOCS)) {
 
 			String url = "";
-			if (item.getItemId() == OPEN_MANUAL_GOOGLE_DOCS) {
-				url = this.MANUAL_URL_GOOGLE_DOCS;
-			} else {
-				url = this.MANUAL_URL;
-			}
 
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
+            if (item.getItemId() == OPEN_MANUAL_GOOGLE_DOCS) {
+				url = HelpLinks.getDocsPdfUrl(Locale.getDefault().getLanguage());
+                Intent i = new Intent(Intent.ACTION_VIEW);
+                i.setData(Uri.parse(url));
+                startActivity(i);
+			} else {
+                Intent i = new Intent(this, PdfActivity.class);
+                startActivity(i);
+			}
 		}
 
 		//otevreni informace o autorovi

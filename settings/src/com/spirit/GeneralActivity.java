@@ -130,10 +130,12 @@ public class GeneralActivity extends BaseActivity
      */
     public void openGovernorActivity(View v)
     {
-        if(!getAppBasicMode()) {
+        Toast.makeText(getApplicationContext(), "Gov. je ve vývoji", Toast.LENGTH_LONG).show();
+        return ;
+        /*if(!getAppBasicMode()) {
             Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
             startActivity(i);
-        }
+        }*/
     }
 
 	/**

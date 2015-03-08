@@ -2,11 +2,11 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 04.03.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 08.03.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
-    
-    
+
+
     <string name="app_name">Spirit System</string>
     <string name="ok">Ok</string>
     <string name="short_title">Spirit</string>
@@ -44,10 +44,10 @@
     <string name="log_button_text">Letový záznam</string>
     <string name="connection_error">Chyba spojení</string>
     <string name="copy_bank_error">Kopírovaní nastavení banky se nepovedlo</string>
-    
-    
+
+
     <string name="BT_connection_progress">Probíhá připojování přes Bluetooth</string>
-    
+
     <string name="axis_X">X - Výškovka</string>
     <string name="axis_Y">Y - Křidélka</string>
     <string name="axis_Z">Z - Směrovka</string>
@@ -98,10 +98,10 @@
     <string name="receiver_text">Přijímač</string>
     <string name="cyclic_servo_reverse_text">Reverz serv cykliky</string>
     <string name="flight_style_text">Letový projev</string>
-   
+
     <string name="must_first_connect_to_device">Nejdříve se připojte k BT modulu</string>
     <string name="connection_successfull">Spojení navázáno</string>
-    
+
     <string name="type">Typ</string>
     <string name="subtrim">Subtrim</string>
     <string name="limit">Limity</string>
@@ -126,21 +126,21 @@
     <string name="pirouette_consistency">Držení piruet</string>
     <string name="filter">Sensor filtr</string>
     <string name="gyro">Gyro</string>
-    
+
     <string name="diag_rudder">Směrovka</string>
     <string name="diag_aileron">Křidélka</string>
     <string name="diag_elevator">Výškovka</string>
     <string name="diag_pitch">Kolektiv</string>
-    
+
     <string name="cyclic_ring_range">Koncové body cykliky</string>
     <string name="cyclic_ring_range_no_break">Koncové body cykliky</string>
     <string name="ail_ele">Cyclic Ring \n(rozsah Křidélka / Výškovka)</string>
     <string name="limit_pitch">Kolektiv (rozsah náběhu)</string>
-    
+
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
     <string name="rudder_end_points_no_break">Koncové body vrtulky</string>
     <string name="blank"></string>
-    
+
 	<string name="cyc_rate">Cyklika</string>
 	<string name="rud_rate">Vrtulka</string>
     <string name="x_picth">X-Výškovka</string>
@@ -197,7 +197,7 @@
         <item>Bank 1</item>
         <item>Bank 2</item>
     </string-array>
-	
+
 	<string-array name="channels_values">
         <item>1. kanál</item>
         <item>2. kanál</item>
@@ -208,7 +208,7 @@
         <item>7. kanál</item>
         <item>Nepřiřazeno</item>
     </string-array>
-    
+
 	<string-array name="channels_restrict_values">
         <item>1. kanál</item>
         <item>2. kanál</item>
@@ -218,20 +218,20 @@
         <item>6. kanál</item>
         <item>7. kanál</item>
     </string-array>
-	
+
     <string-array name="position_values">
         <item>Horizontální</item>
         <item>Vertikální</item>
         <item>Vertikální (Top)</item>
     </string-array>
-    
+
     <string-array name="mix_values">
         <item>CCPM 120º</item>
         <item>CCPM 135º</item>
         <item>CCPM 140º</item>
         <item>CCPM 90º</item>
     </string-array>
-    
+
     <string-array name="flight_style_values">
         <item>1</item>
         <item>2</item>
@@ -242,7 +242,7 @@
         <item>7</item>
         <item>8</item>
     </string-array>
-       
+
      <string-array name="receiver_values">
         <item>PWM</item>
         <item>PPM</item>
@@ -251,18 +251,18 @@
         <item>Jeti EX-BUS</item>
         <item>SRXL/SUMD</item>
     </string-array>
-    
+
      <string-array name="cyclic_servo_reverse_values">
         <item>Bez reverzu</item>
         <item>CH3</item>
         <item>CH2</item>
         <item>CH2 &amp; CH3</item>
     </string-array>
-    
+
     <string-array name="cyclic_pulse_value">
         <item>1520µs</item>
     </string-array>
-    
+
     <string-array name="cyclic_frequency_value">
         <item>50Hz</item>
         <item>60Hz</item>
@@ -271,13 +271,13 @@
         <item>200Hz</item>
         <item>333Hz</item>
     </string-array>
-    
+
     <string-array name="rudder_pulse_value">
         <item>1520µs</item>
         <item>960µs</item>
         <item>760µs</item>
     </string-array>
-    
+
      <string-array name="rudder_frequency_value">
         <item>50Hz</item>
         <item>60Hz</item>
@@ -286,7 +286,7 @@
         <item>200Hz</item>
         <item>333Hz</item>
     </string-array>
-    
+
      <string-array name="rudder_frequency_value_extend">
         <item>50Hz</item>
         <item>60Hz</item>
@@ -296,14 +296,14 @@
         <item>333Hz</item>
         <item>560Hz</item>
     </string-array>
-    
+
     <string-array name="function_values">
         <item>Vypnuto</item>
         <item>Záchrana (Normal)</item>
         <item>Záchrana (Akro)</item>
         <item>Stabilizace</item>
     </string-array>
-    
+
     <string-array name="language_values">
         <item>Automaticky</item>
         <item>Čeština</item>
@@ -321,7 +321,7 @@
         <item>cs</item>
         <item>en</item>
     </string-array>
-    
+
     <string name="location">Umístění</string>
     <string name="language">Jazyk</string>
     <string name="language_sumary">Pro aplikování změny je potřeba restart aplikace</string>
@@ -332,7 +332,7 @@
     <string name="create">Uložit</string>
     <string name="no_data">Chybí data</string>
     <string name="err">Chyba</string>
-    
+
     <string name="no_help">Bez nápovědy</string>
     <string name="help">Nápověda</string>
     <string name="no_help_text"></string>
@@ -340,8 +340,8 @@
     <string name="version_not_match">!!! Verze FW nesouhlasí s verzí mobilní aplikace !!!</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
-    
-    
+
+
     <string name="log_event_ok">Vše vypadá v pořádku</string>
     <string name="log_event_cal">Kalibrace byla dokončena</string>
     <string name="log_event_cycring">Cyclic Ring byl aktivován</string>
@@ -352,7 +352,7 @@
     <string name="log_event_lowvolt">Nízké napětí</string>
     <string name="not_log_for_save">Žádný záznam letu k uložení</string>
     <string name="save_log">Uložit záznam letu</string>
-    
+
     <string name="pdf_title">Letový záznam</string>
     <string name="pdf_title_prew_flight">Letový záznam - předchozí let</string>
     <string name="pdf_unit_version">Verze jednotky</string>
@@ -414,18 +414,18 @@
 
     <string name="no_diff">Profily jsou totožné</string>
     <string name="donate">Donate</string>
-    
+
     <string name="changelog_full_title">Change Log</string>
     <string name="changelog_title">Co je nové</string>
     <string name="changelog_ok_button">OK</string>
     <string name="changelog_show_full">více...</string>
-    
+
      <string name="main_direcotory">Storage adresář</string>
      <string name="main_direcotory_sumarry">Kliknutím vyberte adresář pro uložení grafu nebo logu</string>
      <string name="select_dir_failed">Nepodařilo se vytvořit adresář!</string>
      <string name="created_dir_success">Creating a directory:</string>
      <string name="graph_warn">Pozor! Během zobrazení grafu jsou serva uzamčena!</string>
-     
+
      <string name="first_choose_directory">Prvně vyberte adresář</string>
      <string name="log_from_previous_flight">Je dostupný záznam z předchozího letu! \nPo kliknutí na tlačítko OK bude otevřen záznam z letu, kde nastala chyba. \nZáznam bude poté z jednotky automaticky vymazán.</string>
      <string name="want_save_item">Přejete si uložit nastavení?</string>
@@ -448,7 +448,7 @@
     <string name="governor_mode">Režim governoru</string>
     <string name="governor_gain">Zisk governoru</string>
 
-    <!-- HELP AUTO GENERATE STUB -->
+    <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
     <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Agresivita odezvy vrtulky</b>\n\n- Přidejte pro tvrdší zastavení.\n- Uberte pokud vrtulka po zastavení překmitne.\n\n<i>Rozsah: 3 - 10</i></string>
     <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Zapne rozšířené zpracování signálu\n\n- Ve většině případech by mělo být vypnuté.\n- Pro chod v prostředí extrémních vibrací.</string>
@@ -490,4 +490,8 @@
     <string name="ga_trackingId">UA-60203884-1</string>
     <string name="cant_send_data">Data nebyla odeslána</string>
 
+    <string name="downloading">Stahuji</string>
+    <string name="file_downloaded">Soubor byl stažen</string>
+    <string name="no_internet_connection">Bez připojení k internetu</string>
+    <string name="download_error">Chyba stahování</string>
 </resources>

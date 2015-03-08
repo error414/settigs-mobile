@@ -36,7 +36,7 @@ import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
-import com.lib.translate.GovernorGearRatioProgressExTranslate;
+import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.GovernorRpmMaxProgressExTranslate;
 import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
@@ -824,7 +824,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_RATIO")){
-            GovernorGearRatioProgressExTranslate translate = new GovernorGearRatioProgressExTranslate();
+            GovernorgearRatioProgressExTranslate translate = new GovernorgearRatioProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_ratio)).toString());
 
