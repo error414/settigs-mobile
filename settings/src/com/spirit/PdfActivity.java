@@ -100,7 +100,13 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
         if(localFile.exists()){
             displayPdf(localFile);
         }else{
-            downloadFile(url, baseName);
+
+            //must be enable internet connection
+            if(!isOnline()){
+                Toast.makeText(getBaseContext(), R.string.no_internet_connection, Toast.LENGTH_LONG).show();
+            }else {
+                downloadFile(url, baseName);
+            }
         }
 	}
 
@@ -198,6 +204,17 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
 	}
 
     /**
+     *
+     * @return
+     */
+    private boolean isOnline() {
+        ConnectivityManager cm =
+                (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        return netInfo != null && netInfo.isConnectedOrConnecting();
+    }
+
+    /**
      * vytvoreni kontextoveho menu
      */
     @Override
@@ -284,26 +301,9 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
             return null;
         }
 
-        /**
-         *
-         * @return
-         */
-        private boolean isOnline() {
-            ConnectivityManager cm =
-                    (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-            NetworkInfo netInfo = cm.getActiveNetworkInfo();
-            return netInfo != null && netInfo.isConnectedOrConnecting();
-        }
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            //must be enable internet connection
-            if(!isOnline()){
-                Toast.makeText(context, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
-            }
-
-
             // take CPU lock to prevent CPU from going off if the user
             // presses the power button during download
             PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
