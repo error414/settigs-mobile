@@ -38,12 +38,23 @@ public class HelpLinks {
         }
     };
 
+    final public static HashMap<String, String> languageTranslate = new HashMap<String, String>() {
+        {
+            put("cs", "cz");
+        }
+    };
+
     /**
      *
      * @param lang
      * @return
      */
     public static String getPdfUrl(String lang){
+        if(languageTranslate.containsKey(lang)){
+            lang = languageTranslate.get(lang);
+        }
+
+
         if(helpPdflinks.containsKey(lang)){
             return baseUrl + helpPdflinks.get(lang);
         }
