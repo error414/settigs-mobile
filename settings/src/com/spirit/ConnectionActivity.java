@@ -117,6 +117,11 @@ public class ConnectionActivity extends BaseActivity
     final protected int GET_PROFILE_BANK_2_CALL_BACK_CODE = 128;
 
     final protected int CHANGE_BANK_SOURCE_CALL_BACK_CODE = 129;
+
+    //z aktivity prisel pozadavek na ulozeni, nejprve nacteme profil a serial a pak muzem zacit ukladat
+    private boolean requestSaveBank = false;
+    private boolean requestInsertToUnit = false;
+    private byte[] profileToSaveunit;
 	/**
      * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
      */
@@ -172,6 +177,9 @@ public class ConnectionActivity extends BaseActivity
     public void onSaveInstanceState(Bundle savedInstanceState)
     {
         savedInstanceState.putBoolean("disconect", disconect);
+        savedInstanceState.putBoolean("requestInsertToUnit", requestInsertToUnit);
+        savedInstanceState.putBoolean("isPosibleSendData", isPosibleSendData);
+        savedInstanceState.putBoolean("requestSaveBank", requestSaveBank);
 		if (copyBankTask != null) {
 			savedInstanceState.putSerializable("copyBankTask", copyBankTask);
 		}
@@ -189,6 +197,9 @@ public class ConnectionActivity extends BaseActivity
      */
     public void onRestoreInstanceState(Bundle savedInstanceState)
     {
+        requestSaveBank = savedInstanceState.getBoolean("requestSaveBank", false);
+        requestInsertToUnit = savedInstanceState.getBoolean("requestInsertToUnit", false);
+        isPosibleSendData = savedInstanceState.getBoolean("isPosibleSendData", false);
         disconect = savedInstanceState.getBoolean("disconect", false);
 		copyBankTask = savedInstanceState.containsKey("copyBankTask") ? (CopyBankTask) savedInstanceState.getSerializable("copyBankTask") : null;
         saveProfileBanksTask = savedInstanceState.containsKey("saveProfileBanksTask") ? (SaveProfileAllBanksTask) savedInstanceState.getSerializable("saveProfileBanksTask") : null;
@@ -312,8 +323,8 @@ public class ConnectionActivity extends BaseActivity
             if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
                 ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
             }
-            
-            //nacteni banky 
+
+            //nacteni banky
             checkBankNumber(profileCreator);
 
             //kontrola jestli po prvnim pripojeni banka 0
@@ -628,15 +639,18 @@ public class ConnectionActivity extends BaseActivity
                             saveProfileBanksTask = new SaveProfileAllBanksTask();
                             saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
                             saveProfileBanksTask.setFileForSave(filePath);
-                            changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+
+                            //nastavime priznak ze chceme zacit ukladat do souboru, to udelam tak ze pozadame o prepnuti
+                            // banku na 0 s callback s CHANGE_BANK_0_CALL_BACK_CODE, ale az po nacteni profilu a serial
+                            requestSaveBank = true;
                         }
 					} else if (requestCode == REQUEST_OPEN) {
 						//OPEN
 						File file = new File(filePath);
 						try {
-							byte[] profile = DstabiProfile.loadProfileFromFile(file);
+                            profileToSaveunit = DstabiProfile.loadProfileFromFile(file);
+                            requestInsertToUnit = true;
 							//////////////////////////////////////////////////////////////////////////////
-							insertProfileToUnit(profile);
 
 						} catch (FileNotFoundException e) {
 							Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
@@ -675,7 +689,7 @@ public class ConnectionActivity extends BaseActivity
 					disconect = false;
 					stabiProvider.disconnect();
 				}
-				
+
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessDialog();
@@ -705,6 +719,16 @@ public class ConnectionActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiBySerialNumber(msg.getData().getByteArray("data"));
 				}
+
+                if(requestSaveBank){
+                    changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                    requestSaveBank = false;
+                }
+
+                if(requestInsertToUnit){
+                    requestInsertToUnit = false;
+                    insertProfileToUnit(profileToSaveunit);
+                }
 				break;
 			case UNLOCKBANK_CALL_BACK_CODE:
                 if(Globals.getInstance().isChanged()) {

@@ -92,7 +92,9 @@ public class DstabiProvider {
 	private DataBuilder dataBuilder;
 	
 	private final Queue queue = new Queue();
-	
+
+    private long protocolTime = 0;
+
 	private void startCecurityTimer(){
 		Log.d(TAG, "zapinam timer");
 		securityTimer = new Timer();
@@ -384,12 +386,17 @@ public class DstabiProvider {
 				startCecurityTimer(); // zapneme casovac
 				protocolState = DstabiProvider.PROTOCOL_STATE_SENDED_INIT_CODE;
 				BTservice.write("4D".getBytes());
-				
+                protocolTime = System.currentTimeMillis();
 				Log.d(TAG, "odesilam inicializacni string 4D");
 				
 				break;
 			case DstabiProvider.PROTOCOL_STATE_RETRIEVE_INIT_CODE:
-				
+
+                Long delta = System.currentTimeMillis() - protocolTime;
+                if(delta > 80) {
+                    Log.d("WARNING", "WARNING hight delay: " + String.valueOf(delta));
+                }
+
 				Log.d(TAG, "odesilam prikaz: " + sendCode + " a hodnoty: " + ByteOperation.getHexStringByByteArray(sendValue));
 				
 				protocolState = DstabiProvider.PROTOCOL_STATE_SENDED_VALUES;
@@ -422,7 +429,8 @@ public class DstabiProvider {
 	private void clearState(String kdo){
 		
 		Log.d(TAG, "mazu stav:" + kdo);
-		
+
+
 		sendCode 		= null;
 		sendValue 		= null;
 		callBackCode	= 0;
