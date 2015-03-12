@@ -50,9 +50,10 @@ public class DstabiProvider {
 	private Handler connectionHandler;
 	private BluetoothCommandService BTservice;
 	
-	final static public String OK 		= "K";
-	final static public String ERROR 	= "E";
-	
+	final static public String OK 		= "KK";
+
+    private String retrieveCode = "";
+
 	final static public int MESSAGE_STATE_CHANGE = 1;
 	final static public int MESSAGE_READ = 2;
 	final static public int MESSAGE_SEND_COMAND_ERROR = 3;
@@ -396,26 +397,16 @@ public class DstabiProvider {
 	private void sendData(){
 		
 		Log.d(TAG, "odesilam data do zarizeni");
-		
-		switch(protocolState){
-			case DstabiProvider.PROTOCOL_STATE_NONE:
-				startCecurityTimer(); // zapneme casovac
-				protocolState = DstabiProvider.PROTOCOL_STATE_SENDED_INIT_CODE;
-				BTservice.write("4D".getBytes());
-				
-				Log.d(TAG, "odesilam inicializacni string 4D");
-				
-				break;
-			case DstabiProvider.PROTOCOL_STATE_RETRIEVE_INIT_CODE:
-				
-				Log.d(TAG, "odesilam prikaz: " + sendCode + " a hodnoty: " + ByteOperation.getHexStringByByteArray(sendValue));
-				
-				protocolState = DstabiProvider.PROTOCOL_STATE_SENDED_VALUES;
-				if(sendCode != null){
-					BTservice.write(ByteOperation.combineByteArray(sendCode.getBytes(),  sendValue));
-				}
-		}
-		
+
+        retrieveCode = "";
+        dataBuilder = null;
+
+        startCecurityTimer(); // zapneme casovac
+        protocolState = DstabiProvider.PROTOCOL_STATE_SENDED_VALUES;
+        BTservice.write("4D".getBytes());
+        if(sendCode != null){
+            BTservice.write(ByteOperation.combineByteArray(sendCode.getBytes(),  sendValue));
+        }
 	}
 	
 	/**
@@ -440,32 +431,29 @@ public class DstabiProvider {
 	private void clearState(String who){
 		
 		Log.d(TAG, "mazu stav:" + who);
-		
-		sendCode 		= null;
-		sendValue 		= null;
-		callBackCode	= 0;
-		protocolState 	= DstabiProvider.PROTOCOL_STATE_NONE;
-		mode = NORMAL;
-		
-		Log.d(TAG, "vypinam timer");
-		stopCecurityTimer(); // vypneme casovac
-		dataBuilder = null;
-		
-		
-		if(queue.hasNextQueue()){
-			
-			Log.d(TAG, "ve fronte je dalsi pozadavek odbavuji");
-			
-			if(getState() == BluetoothCommandService.STATE_CONNECTED){
-				com.lib.DstabiProvider.Queue.QueueRow tempQueue = queue.getNextQueue();
-				mode = tempQueue.getMode();
-				callBackCode = tempQueue.getCallback();
-				sendData(tempQueue.getCommand(), tempQueue.getData());
-			}else{
-				queue.clear();
-				connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-			}
-		}
+        sendCode 		= null;
+        sendValue 		= null;
+        callBackCode	= 0;
+        protocolState 	= DstabiProvider.PROTOCOL_STATE_NONE;
+        mode = NORMAL;
+        retrieveCode = "";
+        Log.d(TAG, "vypinam timer");
+        stopCecurityTimer(); // vypneme casovac
+        dataBuilder = null;
+
+
+        if (queue.hasNextQueue()) {
+            Log.d(TAG, "ve fronte je dalsi pozadavek odbavuji");
+            if (getState() == BluetoothCommandService.STATE_CONNECTED) {
+                com.lib.DstabiProvider.Queue.QueueRow tempQueue = queue.getNextQueue();
+                mode = tempQueue.getMode();
+                callBackCode = tempQueue.getCallback();
+                sendData(tempQueue.getCommand(), tempQueue.getData());
+            } else {
+                queue.clear();
+                connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+            }
+        }
 	}
 	
 	/**
@@ -491,29 +479,21 @@ public class DstabiProvider {
         				
         				Log.d(TAG, "prijmam data");
         				
-        				String message 			= parseMessagegetCode(byteMessage);
-        				byte[] data 			= parseMessagegetData(byteMessage);
-        				
+                        int kCount = mode == DIAGNOSTIC ? 1 : 2; //jestli prichazi jedno nebo 2 K
+
+        				byte[] data 			= parseMessagegetData(byteMessage, kCount);
+                        String message 			= retrieveCode;
+
+                        // neprisli jeste oba potvrzovaci kody
+                        if(message.length() < kCount){
+                            return true;
+                        }
+
         				switch(protocolState){
         					case DstabiProvider.PROTOCOL_STATE_NONE:
         						//prisla sprava ale nic necekame, tak ignorujem
         						break;
         					
-        					case DstabiProvider.PROTOCOL_STATE_SENDED_INIT_CODE:
-        						Log.d(TAG, "prijmana data byla odpoved na inicializacni kod");
-        						//byl odeslan init kod, cekame O nebo K
-        						if(message.equals(DstabiProvider.OK)){ // OK
-        							Log.d(TAG, "prijmana data byla odpoved na inicializacni kod, OK");
-        							protocolState = DstabiProvider.PROTOCOL_STATE_RETRIEVE_INIT_CODE;
-        							sendData();
-        						}else{ // ERROR
-        							Log.d(TAG, "prijmana data byla odpoved na inicializacni kod, ERROR");
-        							connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-        							abortAll(); // zrusime celou frontu
-        							clearState("handler 2");
-        						}
-        						break;
-        						
         					case DstabiProvider.PROTOCOL_STATE_SENDED_VALUES:
         						Log.d(TAG, "prijmana data byla odpoved na prikaz");
 	    						//byl odeslan init kod, cekame O nebo K
@@ -567,8 +547,8 @@ public class DstabiProvider {
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC;
-	    								dataBuilder = new DataBuilder(InputChannelsActivity.PROFILE_LENGTH); // diagnostika je dlouhe 16 bytu
-	    								dataBuilder.add(byteMessage); // pouzijeme celou zpravu co nam prisla,protoze diagnostika nema zadne K na zacatku
+	    								dataBuilder = new DataBuilder(InputChannelsActivity.PROFILE_LENGTH); // diagnostika je dlouhe 17 bytu
+	    								dataBuilder.add(data);
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
 	    								// case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA: kde se dal ceka na dalsi data
@@ -613,6 +593,7 @@ public class DstabiProvider {
 
                             case DstabiProvider.PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GOV_RPM:
                                 dataBuilder.add(byteMessage);  // pouzijeme celou zpravu co nam prisla
+
                                 if(dataBuilder.itsAll()) {
                                     sendHandle(callBackCode, dataBuilder.getData());
                                 }
@@ -658,49 +639,26 @@ public class DstabiProvider {
 	/**
 	 * ziskani stavoveho kodu ze zpravy
 	 * 
-	 * @param msg
-	 * @return
 	 */
-    private String parseMessagegetCode(byte[] msg){
-    	if(msg.length == 1){// prisel jednoduchy vystup K nebo E
-    		return EncodingUtils.getAsciiString(msg, 0, 1);
-    	}else if(msg.length > 1){
-    		
-        	String code= EncodingUtils.getAsciiString(msg, 0, 1);
+    private byte[] parseMessagegetData(byte[] msg, int kCouunt){
+        if(retrieveCode.length() == kCouunt){
+            return msg;
+        }
 
-    		if(code.equals(OK) || code.equals(ERROR)){ // prisel zacatek profilu odstranime K na zacatku profilu
-    			return code;
-    		}
-    	}
+        for(int i = 0; i < msg.length; i++)
+        {
+            if(retrieveCode.length() < kCouunt) {
+                retrieveCode = retrieveCode + EncodingUtils.getAsciiString(msg, i, 1);
+            }else{
+                byte[] result = new byte[msg.length - i];
+                System.arraycopy(msg, i, result, 0, msg.length - i);
+                return result;
+            }
+        }
 
-    	return new String();
+
+        return new byte[0];
     }
-    
-    /**
-     * ziskani dat ze zpravy
-     * 
-     * @param msg
-     * @return
-     */
-    private byte[] parseMessagegetData(byte[] msg){
-    	//zprava je 
-    	if(msg.length == 1 && protocolState != PROTOCOL_STATE_WAIT_FOR_ALL_DATA){// prisel jednoduchy vystup K nebo E
-    		return null;
-    	}else if(msg.length > 1){
-    		
-    		String code= EncodingUtils.getAsciiString(msg, 0, 1);
-    		Log.d(TAG, code);
-    		if((code.equals(OK) || code.equals(ERROR)) && protocolState != PROTOCOL_STATE_WAIT_FOR_ALL_DATA){ // prisel zacatek profilu odstranime K na zacatku profilu a nasmime byt v modu cekani na data
-    			
-    			byte[] result = new byte[msg.length-1];
-    			System.arraycopy(msg, 1, result, 0, msg.length-1);
-    			return result;
-    		}
-    	}
-    	
-    	return msg;
-    }
-    
     
     /**
      * PROFILE BUILDER
@@ -732,7 +690,7 @@ public class DstabiProvider {
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
     				if(length == 0){
-    					length = ByteOperation.byteToUnsignedInt(part[0]) + 1;
+    					length = ByteOperation.byteToUnsignedInt(part[0]);
     				}
     				profile = part;
     			}

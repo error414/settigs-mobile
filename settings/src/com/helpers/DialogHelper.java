@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.helpers.Globals;
 import com.spirit.R;
 
 public class DialogHelper {

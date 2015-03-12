@@ -145,7 +145,7 @@ public class InputChannelsActivity extends BaseActivity
 			{
 				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
 			}
-		}, 125); // ms
+		}, 50); // ms
 
 	}
 

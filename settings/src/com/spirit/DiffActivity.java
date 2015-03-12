@@ -36,9 +36,8 @@ import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
-import com.lib.translate.GovernorgearRatioProgressExTranslate;
-import com.lib.translate.GovernorRpmMaxProgressExTranslate;
 import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
+import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
@@ -801,18 +800,6 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_RPM_MAX")){
-            GovernorRpmMaxProgressExTranslate translate = new GovernorRpmMaxProgressExTranslate();
-
-
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_rpm_max)).toString());
-
-            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
-            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
-        }
-        // #############################################################################################
-
-        // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_DIVIDER")){
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_divider)).toString());
@@ -843,6 +830,14 @@ public class DiffActivity extends BaseActivity
         }
         // #############################################################################################
 
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_THR_REVERSE")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor),  textSeparator , getResources().getString(R.string.governor_thr_reverse)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
 
         diffItem.setFrom(from);
 		diffItem.setTo(to);

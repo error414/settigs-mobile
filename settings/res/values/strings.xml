@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 08.03.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 12.03.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit System</string>
@@ -458,10 +458,10 @@
     <string name="governor_gear_settings" translatable="false">Gear Settings</string>
     <string name="governor_ratio" translatable="false">Gear Ratio</string>
     <string name="governor_divider" translatable="false">Sensing Divider</string>
-    <string name="governor_rpm_max" translatable="false">Max. Head Speed</string>
     <string name="governor_request_rpm" translatable="false">Request RPM</string>
     <string name="governor_current_rpm" translatable="false">Current RPM</string>
     <string name="cant_send_data">Data was not sent</string>
     <string name="no_internet_connection">No internet connection</string>
     <string name="download_error">Download error</string>
+    <string name="governor_thr_reverse" translatable="false">Throttle Reverse</string>
 </resources>

@@ -33,8 +33,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.helpers.DstabiProfile;
-import com.helpers.Globals;
 import com.helpers.LogListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;

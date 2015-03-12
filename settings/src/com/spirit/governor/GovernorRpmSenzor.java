@@ -117,7 +117,7 @@ public class GovernorRpmSenzor extends BaseActivity
                 public void run() {
                     stabiProvider.getGovRmp(RPMSENZOR_CALL_BACK_CODE);
                 }
-            }, 125); // 125ms
+            }, 50); // 125ms
         }
     }
 

@@ -298,9 +298,11 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-
+        Log.d(TAG, "Prislo init :" + ByteOperation.getIntegerStringByByteArray(profile));
         if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR1").getValueString().equals(APLICATION_MINOR1_VERSION))) {
             stabiProvider.disconnect();
+            Log.d(TAG, profileCreator.getProfileItemByName("MAJOR").getValueString());
+            Log.d(TAG, profileCreator.getProfileItemByName("MINOR1").getValueString());
             showConfirmDialog(R.string.version_not_match);
         }
 

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -41,7 +40,6 @@ import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.spirit.general.ChannelsActivity;
-import com.spirit.governor.GovernorActivity;
 
 /**
  * aktivita na zobrazeni general moznosti nastaveni

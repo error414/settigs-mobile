@@ -30,7 +30,6 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.helpers.NumberOperation;
 import com.spirit.R;
 
 public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongClickListener {

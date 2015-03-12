@@ -174,7 +174,7 @@ public class DstabiProfile {
 
         profileMap.put("GOVERNOR_DIVIDER",	    new ProfileItem(65, 1, 5, "u",	false));
         profileMap.put("GOVERNOR_RATIO",	    new ProfileItem(66, 20, 254, "t",	false));
-        profileMap.put("GOVERNOR_RPM_MAX",	    new ProfileItem(67, 0, 250, "w",	false));
+        profileMap.put("GOVERNOR_THR_REVERSE",	new ProfileItem(67, "0", "1", "w",	true));
         profileMap.put("GOVERNOR_THR_MAX",	    new ProfileItem(68, 50, 150, "k",	false));
         profileMap.put("GOVERNOR_THR_MIN",	    new ProfileItem(69, 50, 150, "K",	false));
 

@@ -26,9 +26,9 @@ import com.spirit.diagnostic.LogActivity;
 import com.spirit.governor.GovernorGainActivity;
 import com.spirit.governor.GovernorGearSettingsActivity;
 import com.spirit.governor.GovernorModeActivity;
-import com.spirit.governor.GovernorRpmMaxActivity;
 import com.spirit.governor.GovernorRpmSenzor;
 import com.spirit.governor.GovernorThrRangeActivity;
+import com.spirit.governor.GovernorThrReverseActivity;
 import com.spirit.senzor.SenzorActivity;
 import com.spirit.senzor.SenzorReverseActivity;
 import com.spirit.senzor.SenzorRotationSpeedActivity;
@@ -127,8 +127,8 @@ public class Menu {
     public static Integer MENU_GOV_GAIN            = 39;
     public static Integer MENU_GOV_RPM_SENZOR      = 44;
     public static Integer MENU_GOV_THR_RANGE       = 45;
-    public static Integer MENU_GOV_RPM_MAX         = 46;
     public static Integer MENU_GOV_GEAR_SETTINGS   = 47;
+    public static Integer MENU_GOV_THR_REVERSE     = 48;
 
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
@@ -336,14 +336,15 @@ public class Menu {
 
         menuList.put(MENU_GOV_THR_RANGE,   new MenuItem(R.drawable.na,     R.string.governor_thr_range, GovernorThrRangeActivity.class));
 
-        menuList.put(MENU_GOV_RPM_MAX,   new MenuItem(R.drawable.na,     R.string.governor_rpm_max, GovernorRpmMaxActivity.class));
 
         menuList.put(MENU_GOV_GEAR_SETTINGS,   new MenuItem(R.drawable.na,     R.string.governor_gear_settings, GovernorGearSettingsActivity.class));
 
         menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.na,     R.string.governor_rpm_senzor, GovernorRpmSenzor.class));
 
+        menuList.put(MENU_GOV_THR_REVERSE,   new MenuItem(R.drawable.na,     R.string.governor_thr_reverse, GovernorThrReverseActivity.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_MODE, MENU_GOV_THR_RANGE, MENU_GOV_RPM_MAX, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_SENZOR});
+        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_MODE, MENU_GOV_THR_RANGE, MENU_GOV_THR_REVERSE, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_SENZOR});
 
     }
 

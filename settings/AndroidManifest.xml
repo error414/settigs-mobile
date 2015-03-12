@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="91"
+    android:versionCode="93"
 
-    android:versionName="1.2.4"
+    android:versionName="1.2.5"
 >
 
     <uses-sdk
@@ -404,7 +404,7 @@
             />
 
         <activity
-            android:name=".governor.GovernorRpmMaxActivity"
+            android:name=".governor.GovernorGearSettingsActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -413,7 +413,7 @@
             />
 
         <activity
-            android:name=".governor.GovernorGearSettingsActivity"
+            android:name=".governor.GovernorThrReverseActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
