@@ -225,7 +225,7 @@ public class InputChannelsActivity extends BaseActivity
 		TextView bankProgressDiagnostic = (TextView) findViewById(R.id.bank_value_diagnostic);
 		try {
 			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max - 1) == 7){ // 7  = unbind
+			if(profileCreator != null && profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max - 1) == 7){ // 7  = unbind
 				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.grey));
 			}else{
 				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
