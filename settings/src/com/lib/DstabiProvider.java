@@ -441,21 +441,20 @@ public class DstabiProvider {
 		stopCecurityTimer(); // vypneme casovac
 		dataBuilder = null;
 		
-		
-		if(queue.hasNextQueue()){
-			
-			Log.d(TAG, "ve fronte je dalsi pozadavek odbavuji");
-			
-			if(getState() == BluetoothCommandService.STATE_CONNECTED){
-				com.lib.DstabiProvider.Queue.QueueRow tempQueue = queue.getNextQueue();
-				mode = tempQueue.getMode();
-				callBackCode = tempQueue.getCallback();
-				sendData(tempQueue.getCommand(), tempQueue.getData());
-			}else{
-				queue.clear();
-				connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-			}
-		}
+		synchronized (this) {
+            if (queue.hasNextQueue()) {
+                Log.d(TAG, "ve fronte je dalsi pozadavek odbavuji");
+                if (getState() == BluetoothCommandService.STATE_CONNECTED) {
+                    com.lib.DstabiProvider.Queue.QueueRow tempQueue = queue.getNextQueue();
+                    mode = tempQueue.getMode();
+                    callBackCode = tempQueue.getCallback();
+                    sendData(tempQueue.getCommand(), tempQueue.getData());
+                } else {
+                    queue.clear();
+                    connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+                }
+            }
+        }
 	}
 	
 	/**
