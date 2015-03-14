@@ -298,12 +298,9 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-        Log.d(TAG, "Prislo init :" + ByteOperation.getIntegerStringByByteArray(profile));
         if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR1").getValueString().equals(APLICATION_MINOR1_VERSION))) {
             stabiProvider.disconnect();
-            Log.d(TAG, profileCreator.getProfileItemByName("MAJOR").getValueString());
-            Log.d(TAG, profileCreator.getProfileItemByName("MINOR1").getValueString());
-            showConfirmDialog(R.string.version_not_match);
+            showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(APLICATION_MAJOR_VERSION) + '.' + String.valueOf(APLICATION_MINOR1_VERSION) + ".X" ));
         }
 
 
@@ -675,6 +672,7 @@ public class ConnectionActivity extends BaseActivity
                 }
 				sendInError(false); // ukazat error ale neukoncovat activitu
                 setBTConnectedProgress();
+                showConfirmDialog(R.string.sys_disconected);
 				if(disconect){
 					disconect = false;
 					stabiProvider.disconnect();
@@ -873,17 +871,20 @@ public class ConnectionActivity extends BaseActivity
 		}
 
         String filePath = saveProfileBanksTask.getFileForSave();
-        if(filePath.endsWith(FILE_EXT)){
-            filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() - 1);
-        }
-
 
 		try {
 			byte[] clearProfile = new byte[255];
 			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
             if(bankNumber >= 0) {
+                if(filePath.endsWith("-b0.4ds") || filePath.endsWith("-b1.4ds") || filePath.endsWith("-b2.4ds")){
+                    filePath = filePath.substring(0, filePath.length() - "-b0.4ds".length());
+                }
+
                 DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
             }else{
+                if(filePath.endsWith(FILE_EXT)){
+                    filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() - 1);
+                }
                 DstabiProfile.saveProfileToFile(new File(filePath + "." + FILE_EXT), clearProfile);
             }
 

@@ -78,6 +78,7 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
     private int stepLongPress = 1;
     private int stepPress = 1;
 
+    private boolean enabledDefaultValue = true;
 
     private ProgresExViewTranslateInterface translate;
     
@@ -317,13 +318,13 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
             mObjMax.setText(String.valueOf(mRangeMax));
             mObjProgresValue.setText(String.valueOf(mCurrent + mOffset));
             mObjCurrent.setText(String.valueOf(mCurrent + mOffset));
-            mObjOriginal.setText(mCurrent != originalValue ? String.valueOf(originalValue + mOffset) : "");
+            mObjOriginal.setText(mCurrent != originalValue && enabledDefaultValue ? String.valueOf(originalValue + mOffset) : "");
 		}else{
 			mObjMin.setText(this.translate.translateMin(mRangeMin));
 			mObjMax.setText(this.translate.translateMax(mRangeMax));
 			mObjProgresValue.setText(this.translate.translateCurrent(mCurrent + mOffset));
 			mObjCurrent.setText(this.translate.translateCurrent(mCurrent + mOffset));
-            mObjOriginal.setText(mCurrent != originalValue ? this.translate.translateCurrent(originalValue + mOffset) : "");
+            mObjOriginal.setText(mCurrent != originalValue && enabledDefaultValue ? this.translate.translateCurrent(originalValue + mOffset) : "");
 		}
 
         if(mCurrentString != null) {
@@ -437,5 +438,13 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
     public void setOriginalValue(int originalValue) {
         this.originalValue = originalValue;
         updateView();
+    }
+
+    public boolean isEnabledDefaultValue() {
+        return enabledDefaultValue;
+    }
+
+    public void setEnabledDefaultValue(boolean enabledDefaultValue) {
+        this.enabledDefaultValue = enabledDefaultValue;
     }
 }

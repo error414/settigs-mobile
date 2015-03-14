@@ -41,7 +41,7 @@ import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
-import com.lib.translate.StabiSenzivityProgressExTranslate;
+import com.lib.translate.StabiSenzivityZProgressExTranslate;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -373,7 +373,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("SENSOR_SENZ")){
 
-            StabiSenzivityProgressExTranslate translate = new StabiSenzivityProgressExTranslate();
+            StabiSenzivityZProgressExTranslate translate = new StabiSenzivityZProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.z_rudder)).toString());
 

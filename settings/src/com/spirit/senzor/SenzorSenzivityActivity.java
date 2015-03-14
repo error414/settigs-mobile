@@ -30,7 +30,9 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.translate.StabiSenzivityProgressExTranslate;
+import com.lib.translate.StabiSenzivityXProgressExTranslate;
+import com.lib.translate.StabiSenzivityYProgressExTranslate;
+import com.lib.translate.StabiSenzivityZProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -129,17 +131,16 @@ public class SenzorSenzivityActivity extends BaseActivity
 			
 			switch(i){
 				case 0:
-					tempPicker.setOffset(20);
-					tempPicker.setRange(0, 100, 20, 120); // nastavuji rozmezi prvku z profilu
+                    tempPicker.setTranslate(new StabiSenzivityXProgressExTranslate());
+					tempPicker.setRange(0, 80); // nastavuji rozmezi prvku z profilu
 					break;
 				case 1:
-					tempPicker.setTranslate(new StabiSenzivityProgressExTranslate());
-					tempPicker.setOffset(50);
-					tempPicker.setRange(50, 100, 100, 150); // nastavuji rozmezi prvku z profilu
+					tempPicker.setTranslate(new StabiSenzivityZProgressExTranslate());
+					tempPicker.setRange(50, 100); // nastavuji rozmezi prvku z profilu
 					break;
 				case 2:
-					tempPicker.setOffset(-100);
-					tempPicker.setRange(0, 200, -100, 100); // nastavuji rozmezi prvku z profilu
+                    tempPicker.setTranslate(new StabiSenzivityYProgressExTranslate());
+					tempPicker.setRange(0, 200); // nastavuji rozmezi prvku z profilu
 					break;
 			
 			}
@@ -193,6 +194,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 				
 				if(profileCreator.getProfileItemByName("CHANNELS_GAIN").getValueInteger() != 7 && i == 2){ // 7 = neprirazeno / i = 2 = SENSOR_GYROGAIN
 					tempPicker.setEnabled(false);
+                    tempPicker.setEnabledDefaultValue(false);
                     tempPicker.setCurrentNoNotify(getText(R.string.in_transmitter).toString());
 				}else {
                     tempPicker.setCurrentNoNotify(item.getValueInteger());
