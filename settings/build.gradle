@@ -58,10 +58,16 @@ android {
         args "-c", "php -f ./gradle-exec/buildhelpText.php"
     }
 
-    task createHelpPDFLinks(type: Exec) {
+    task createHelpPDFLinksDevel(type: Exec) {
         //update build info
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php devel"
+    }
+
+    task createHelpPDFLinksProduction(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php release"
     }
 
     task buildInfoRelase(type: Exec) {
@@ -90,20 +96,21 @@ android {
 
 
 
-    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinks', 'info', 'assembleRelease'], type:Exec) {
+    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksProduction', 'info', 'assembleRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
     assembleRelease.mustRunAfter buildInfoRelase;
 
-    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinks', 'info', 'assembleRelease'], type:Exec) {
+    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksDevel', 'info', 'assembleRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
     assembleRelease.mustRunAfter buildInfoDevel;
 
     assembleRelease.mustRunAfter buildHelpText;
-    assembleRelease.mustRunAfter createHelpPDFLinks;
+    assembleRelease.mustRunAfter createHelpPDFLinksDevel;
+    assembleRelease.mustRunAfter createHelpPDFLinksProduction;
     info.mustRunAfter assembleRelease;
 }
 

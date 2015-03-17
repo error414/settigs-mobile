@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 14.03.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 17.03.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -495,4 +495,5 @@
     <string name="no_internet_connection">Bez připojení k internetu</string>
     <string name="download_error">Chyba stahování</string>
     <string name="sys_disconected">Zkontrolujte prosím připojení Bluetooth modulu.</string>
+    <string name="rewrite_file">Soubor již existuje. Chcete jej přepsat?</string>
 </resources>

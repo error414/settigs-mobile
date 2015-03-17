@@ -1,5 +1,7 @@
 <?php
 
+$revision = isset($argv[1]) ? $argv[1] : '';
+
 echo "PDF LINK CLASS start \n";
 
 $serialFile = './src/com/spirit/BaseActivity.java';
@@ -24,7 +26,12 @@ foreach($links[0] as $res){
   preg_match('/\-([0-9]+)\.([0-9]+).*?([a-z]+)\.pdf/',$res ,$version);
 
   $majorWeb = $version[1];
-  $minorWeb = $version[2] + 1;
+  if($revision == 'devel'){
+    $minorWeb = $version[2] + 1;
+  }else{
+    $minorWeb = $version[2];
+  }
+
   $langWeb = $version[3];
   if($major[1] == $majorWeb && $minor[1] == $minorWeb){
     $result .= '            put("'.$langWeb.'", "'.$res.'");' . "\n";

@@ -20,8 +20,10 @@ package com.spirit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -53,6 +55,7 @@ import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
+import com.lib.FileNameCreator;
 import com.lib.SelectionMode;
 
 import java.io.File;
@@ -601,7 +604,7 @@ public class ConnectionActivity extends BaseActivity
 			case REQUEST_OPEN:
             case REQUEST_SAVE_ALL_BANKS:
 				if (resultCode == Activity.RESULT_OK) {
-					String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
+					final String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
 
 					if (requestCode == REQUEST_SAVE) {
                         //SAVE
@@ -610,11 +613,34 @@ public class ConnectionActivity extends BaseActivity
                             return;
                         }
                         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-                            showDialogWrite();
-                            saveProfileBanksTask = new SaveProfileAllBanksTask();
-                            saveProfileBanksTask.setFileForSave(filePath);
-                            saveProfileBanksTask.setSourceBank(-1);
-                            stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                            File fTest = FileNameCreator.createFilePathNoBank(filePath);
+                            if(fTest.exists()){
+                                new AlertDialog.Builder(this)
+                                        .setMessage(getString(R.string.rewrite_file) + "\n\n" + fTest.getName())
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                showDialogWrite();
+                                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                                saveProfileBanksTask.setFileForSave(filePath);
+                                                saveProfileBanksTask.setSourceBank(-1);
+                                                stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // do nothing
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                            }else{
+                                showDialogWrite();
+                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                saveProfileBanksTask.setFileForSave(filePath);
+                                saveProfileBanksTask.setSourceBank(-1);
+                                stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                            }
                         }
 
                     } else if (requestCode == REQUEST_SAVE_ALL_BANKS){
@@ -623,11 +649,44 @@ public class ConnectionActivity extends BaseActivity
                             return;
                         }
                         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-                            showDialogWrite();
-                            saveProfileBanksTask = new SaveProfileAllBanksTask();
-                            saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
-                            saveProfileBanksTask.setFileForSave(filePath);
-                            changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                            File[] filesPath = FileNameCreator.createFilePathActiveBank(filePath);
+
+                            String filesExistsS = "";
+                            boolean filesExists = false;
+                            for(File filePathLoop : filesPath){
+                                if(filePathLoop.exists()){
+                                    filesExistsS = filesExistsS + filePathLoop.getName() + "\n";
+                                    filesExists = true;
+                                }
+                            }
+
+                            if(filesExists){
+                                new AlertDialog.Builder(this)
+                                        .setMessage(getString(R.string.rewrite_file) + "\n\n" + filesExistsS)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                showDialogWrite();
+                                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                                saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
+                                                saveProfileBanksTask.setFileForSave(filePath);
+                                                changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // do nothing
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                            }else{
+                                showDialogWrite();
+                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
+                                saveProfileBanksTask.setFileForSave(filePath);
+                                changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                            }
                         }
 					} else if (requestCode == REQUEST_OPEN) {
 						//OPEN
@@ -876,16 +935,9 @@ public class ConnectionActivity extends BaseActivity
 			byte[] clearProfile = new byte[255];
 			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
             if(bankNumber >= 0) {
-                if(filePath.endsWith("-b0.4ds") || filePath.endsWith("-b1.4ds") || filePath.endsWith("-b2.4ds")){
-                    filePath = filePath.substring(0, filePath.length() - "-b0.4ds".length());
-                }
-
-                DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
+                DstabiProfile.saveProfileToFile(FileNameCreator.createFilePathForBank(filePath, bankNumber), clearProfile);
             }else{
-                if(filePath.endsWith(FILE_EXT)){
-                    filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() - 1);
-                }
-                DstabiProfile.saveProfileToFile(new File(filePath + "." + FILE_EXT), clearProfile);
+                DstabiProfile.saveProfileToFile(FileNameCreator.createFilePathNoBank(filePath), clearProfile);
             }
 
             return true;
