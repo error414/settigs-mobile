@@ -42,6 +42,7 @@ public class PrefsActivity extends PreferenceActivity {
 	public final static String PREF_APP_DIR = "main_dir";
     public final static String PREF_APP_PREFIX = "/spirit/";
     public final static String PREF_APP_GRAPH_DIR = "graph/";
+    public final static String PREF_APP_PROFILE_DIR = "profile/";
     public final static String PREF_APP_LOG_DIR = "log/";
 
 	public final static String PREF_APP_LANGUAGE = "prefs_language";
@@ -248,11 +249,13 @@ public class PrefsActivity extends PreferenceActivity {
 			case REQUEST_APP_DIR:
 				if (resultCode == Activity.RESULT_OK) {
 
-                    File fileGraph = new File(newValue, PREF_APP_PREFIX + PREF_APP_GRAPH_DIR);
-                    File fileLog = new File(newValue, PREF_APP_PREFIX + PREF_APP_LOG_DIR);
+                    File fileGraph      = new File(newValue, PREF_APP_PREFIX + PREF_APP_GRAPH_DIR);
+                    File fileLog        = new File(newValue, PREF_APP_PREFIX + PREF_APP_LOG_DIR);
+                    File fileProfile    = new File(newValue, PREF_APP_PREFIX + PREF_APP_PROFILE_DIR);
 
                     int fileGrapResult = createStorageDir(fileGraph);
                     int fileLogResult = createStorageDir(fileLog);
+                    int fileProfileResult = createStorageDir(fileProfile);
 
                     if(fileGrapResult == DIR_CREATED_FAILED || fileLogResult == DIR_CREATED_FAILED){
                         Toast.makeText(getApplicationContext(), R.string.select_dir_failed, Toast.LENGTH_LONG).show();
@@ -264,6 +267,14 @@ public class PrefsActivity extends PreferenceActivity {
                         successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_GRAPH_DIR;
                     }
 
+                    if(fileProfileResult == DIR_CREATED_FAILED || fileProfileResult == DIR_CREATED_FAILED){
+                        Toast.makeText(getApplicationContext(), R.string.select_dir_failed, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if(fileProfileResult == DIR_CREATED){
+                        successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_PROFILE_DIR;
+                    }
 
 
                     if(fileLogResult == DIR_CREATED){

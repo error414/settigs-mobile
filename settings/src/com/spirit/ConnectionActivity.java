@@ -28,8 +28,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -62,6 +64,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -563,8 +566,16 @@ public class ConnectionActivity extends BaseActivity
 			}
 
 
+            String dir = DEFAULT_PROFILE_PATH;
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ConnectionActivity.this);
+            if(sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
+                dir = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_PROFILE_DIR;
+            }
+
+
+
 			Intent intent = new Intent(getBaseContext(), FileDialog.class);
-			intent.putExtra(FileDialog.START_PATH, DEFAULT_PROFILE_PATH);
+			intent.putExtra(FileDialog.START_PATH, dir);
 			intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
 			intent.putExtra(FileDialog.FORMAT_FILTER, new String[]{FILE_EXT});
 
