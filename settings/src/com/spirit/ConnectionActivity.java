@@ -31,6 +31,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -569,10 +570,17 @@ public class ConnectionActivity extends BaseActivity
             String dir = DEFAULT_PROFILE_PATH;
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ConnectionActivity.this);
             if(sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
-                dir = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_PROFILE_DIR;
+
+                File dirTemp = new File(sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_PROFILE_DIR);
+                if(!dirTemp.exists()) {
+                    if(createStorageDir(dirTemp) == PrefsActivity.DIR_CREATED){
+                        dir = dirTemp.getAbsolutePath();
+                    }
+                }else{
+                    dir = dirTemp.getAbsolutePath();
+                }
+
             }
-
-
 
 			Intent intent = new Intent(getBaseContext(), FileDialog.class);
 			intent.putExtra(FileDialog.START_PATH, dir);
@@ -1069,6 +1077,19 @@ public class ConnectionActivity extends BaseActivity
         public void setSourceBank(int sourceBank) {
             this.sourceBank = sourceBank;
         }
+    }
+
+    /**
+     *
+     * @param file
+     * @return
+     */
+    private int createStorageDir(File file) {
+        if (file == null || !file.mkdirs()) {
+            return PrefsActivity.DIR_CREATED_FAILED;
+        }
+
+        return PrefsActivity.DIR_CREATED;
     }
 
     @Override

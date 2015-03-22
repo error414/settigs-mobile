@@ -47,9 +47,9 @@ public class PrefsActivity extends PreferenceActivity {
 
 	public final static String PREF_APP_LANGUAGE = "prefs_language";
 
-    private final static int DIR_CREATED_FAILED = 0;
-    private final static int DIR_CREATED        = 1;
-    private final static int DIR_EXISTS         = 2;
+    public final static int DIR_CREATED_FAILED = 0;
+    public final static int DIR_CREATED        = 1;
+    public final static int DIR_EXISTS         = 2;
 
 
 	/*public final static String PREF_APP_CLOUD = "active_cloud";
