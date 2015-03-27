@@ -36,7 +36,7 @@
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/governor_gain"
+	            android:id="@+id/governor_pgain"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
@@ -45,6 +45,17 @@
 	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/governor_igain"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/governor_pgain"
+                android:layout_below="@+id/governor_pgain"
+                android:layout_marginTop="32dp" >
+
+            </com.customWidget.picker.ProgresEx>
 
 
 

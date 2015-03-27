@@ -60,8 +60,6 @@ public class DstabiProvider {
 	final static public int MESSAGE_SEND_COMPLETE = 4;
 	
 	final static private int PROTOCOL_STATE_NONE = 0;
-	final static private int PROTOCOL_STATE_SENDED_INIT_CODE = 1;
-	final static private int PROTOCOL_STATE_RETRIEVE_INIT_CODE = 2;
 	final static private int PROTOCOL_STATE_SENDED_VALUES = 3;
 	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA = 4;
 	final static private int PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC = 5;
@@ -480,7 +478,7 @@ public class DstabiProvider {
         				
         				Log.d(TAG, "prijmam data");
         				
-                        int kCount = mode == DIAGNOSTIC ? 1 : 2; //jestli prichazi jedno nebo 2 K
+                        int kCount = mode == DIAGNOSTIC || mode == GOV_RPM ? 1 : 2; //jestli prichazi jedno nebo 2 K
 
         				byte[] data 			= parseMessagegetData(byteMessage, kCount);
                         String message 			= retrieveCode;
@@ -562,7 +560,7 @@ public class DstabiProvider {
 
                                         protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GOV_RPM;
                                         dataBuilder = new DataBuilder(GovernorRpmSenzor.RPM_SENZOR_LENGTH);
-                                        dataBuilder.add(byteMessage);
+                                        dataBuilder.add(data);
 
                                         if(dataBuilder.itsAll()){
                                             sendHandle(callBackCode, dataBuilder.getData());

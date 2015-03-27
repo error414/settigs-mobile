@@ -168,15 +168,17 @@ public class DstabiProfile {
 		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	false));
 
         profileMap.put("GOVERNOR_MODE",	        new ProfileItem(61, 0, 2, "2",	true));
-        profileMap.put("GOVERNOR_GAIN",	        new ProfileItem(62, 1, 64, "j",	false)); // Gain
+        profileMap.put("GOVERNOR_PGAIN",	    new ProfileItem(62, 1, 10, "j",	true)); // P Gain
         profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
         profileMap.put("PITCH_PUMP",	        new ProfileItem(64, 0, 4, "n",	false)); // pitch pump
 
-        profileMap.put("GOVERNOR_DIVIDER",	    new ProfileItem(65, 1, 5, "u",	false));
-        profileMap.put("GOVERNOR_RATIO",	    new ProfileItem(66, 20, 254, "t",	false));
+        profileMap.put("GOVERNOR_DIVIDER",	    new ProfileItem(65, 1, 8, "u",	true));
+        profileMap.put("GOVERNOR_RATIO",	    new ProfileItem(66, 20, 254, "t",	true));
         profileMap.put("GOVERNOR_THR_REVERSE",	new ProfileItem(67, "0", "1", "w",	true));
-        profileMap.put("GOVERNOR_THR_MAX",	    new ProfileItem(68, 50, 150, "k",	false));
-        profileMap.put("GOVERNOR_THR_MIN",	    new ProfileItem(69, 50, 150, "K",	false));
+        profileMap.put("GOVERNOR_THR_MIN",	    new ProfileItem(68, 50, 150, "k",	true));
+        profileMap.put("GOVERNOR_THR_MAX",	    new ProfileItem(69, 50, 150, "K",	true));
+        profileMap.put("GOVERNOR_RPM_MAX",	    new ProfileItem(70, 0, 250, "W",	true));
+        profileMap.put("GOVERNOR_IGAIN",	    new ProfileItem(71, 1, 10, "y",	true)); // I Gain
 
 		this.mProfile = mProfile;
 

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="97"
+    android:versionCode="98"
 
-    android:versionName="1.2.8"
+    android:versionName="1.2.9"
 >
 
     <uses-sdk
@@ -405,6 +405,15 @@
 
         <activity
             android:name=".governor.GovernorGearSettingsActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".governor.GovernorRpmMaxActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 22.03.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 27.03.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -409,7 +409,9 @@
 
     <string name="governor">Governor</string>
     <string name="governor_mode">Governor mode</string>
-    <string name="governor_gain">Governor gain</string>
+    <string name="governor_gain">Fine-Tuning</string>
+    <string name="governor_pgain">Governor Response</string>
+    <string name="governor_igain">Holding Performance</string>
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_02282a0a0af7a569d19732b906395ed5">Range around stick center where movement is zero.\n\n<i>Range: 4 - 30</i></string>
@@ -453,18 +455,20 @@
     <string name="file_downloaded">File downloaded</string>
 
     <string name="in_transmitter">﻿In transmitter</string>
-    <string name="governor_thr_range" translatable="false">Throttle Range</string>
-    <string name="governor_thr_min" translatable="false">Min</string>
-    <string name="governor_thr_max" translatable="false">Max</string>
-    <string name="governor_gear_settings" translatable="false">Gear Settings</string>
-    <string name="governor_ratio" translatable="false">Gear Ratio</string>
-    <string name="governor_divider" translatable="false">Sensing Divider</string>
-    <string name="governor_request_rpm" translatable="false">Request RPM</string>
-    <string name="governor_current_rpm" translatable="false">Current RPM</string>
-    <string name="cant_send_data">Data was not sent</string>
+    <string name="governor_thr_range">Throttle Range</string>
+    <string name="governor_thr_min">Min</string>
+    <string name="governor_thr_max">Max</string>
+    <string name="governor_gear_settings">Gear Settings</string>
+    <string name="governor_ratio">Gear Ratio</string>
+    <string name="governor_divider">Sensing Divider</string>
+    <string name="governor_rpm_max">Max. Head Speed</string>
+    <string name="governor_request_rpm">Requested RPM</string>
+    <string name="governor_current_rpm">Current RPM</string>
     <string name="no_internet_connection">No internet connection</string>
+    <string name="governor_thr_reverse">Throttle Reverse</string>
+
+    <string name="cant_send_data">Data was not sent</string>
     <string name="download_error">Download error</string>
-    <string name="governor_thr_reverse" translatable="false">Throttle Reverse</string>
     <string name="sys_disconected">Check the connection of Bluetooth module, please.</string>
     <string name="rewrite_file">The file/files already exists. Do you want to overwrite it?</string>
     <string name="pdf_reader_not_found">PDF Reader not found \nPlease install PDF reader \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>

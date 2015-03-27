@@ -18,7 +18,11 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit.governor;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -97,12 +101,36 @@ public class GovernorActivity extends BaseActivity
 			}
 		});
 
-		//change log
-		/*ChangeLog cl = new ChangeLog(this);
-	    if (cl.firstRun()){
-	        cl.getLogDialog().show();
-	    }*/
+        menuList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
+            {
 
+                final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+                final SharedPreferences.Editor editor = prefs.edit();
+
+                new AlertDialog.Builder(GovernorActivity.this).setTitle(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove_from_favourites : R.string.add_to_favourites).setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle()).setPositiveButton(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove : R.string.add, new DialogInterface.OnClickListener()
+                {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which)
+                    {
+                        if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
+                            editor.remove(String.valueOf(menuListIndex[position]));
+                            Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
+                        } else {
+                            editor.putInt(String.valueOf(menuListIndex[position]), menuListIndex[position]);
+                            Toast.makeText(getApplicationContext(), R.string.add_to_favourites_done, Toast.LENGTH_SHORT).show();
+                        }
+                        editor.commit();
+                    }
+
+                }).setNegativeButton(R.string.cancel, null).show();
+
+                return true;
+            }
+        });
 	}
 
 	public void onResume()

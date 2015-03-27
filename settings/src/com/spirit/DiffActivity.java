@@ -36,6 +36,7 @@ import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
+import com.lib.translate.GovernorRpmMaxProgressExTranslate;
 import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
 import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
@@ -769,9 +770,19 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_GAIN")){
+        if(diffItem.getLabel().equals("GOVERNOR_PGAIN")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_gain)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_pgain)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_IGAIN")){
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_igain)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -814,6 +825,17 @@ public class DiffActivity extends BaseActivity
             GovernorgearRatioProgressExTranslate translate = new GovernorgearRatioProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_ratio)).toString());
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_RPM_MAX")){
+            GovernorRpmMaxProgressExTranslate translate = new GovernorRpmMaxProgressExTranslate();
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_rpm_max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));

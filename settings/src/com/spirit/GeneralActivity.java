@@ -40,6 +40,7 @@ import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 import com.spirit.general.ChannelsActivity;
+import com.spirit.governor.GovernorActivity;
 
 /**
  * aktivita na zobrazeni general moznosti nastaveni
@@ -128,12 +129,10 @@ public class GeneralActivity extends BaseActivity
      */
     public void openGovernorActivity(View v)
     {
-        Toast.makeText(getApplicationContext(), "Gov. je ve vývoji", Toast.LENGTH_LONG).show();
-        return ;
-        /*if(!getAppBasicMode()) {
+        if(!getAppBasicMode()) {
             Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
             startActivity(i);
-        }*/
+        }
     }
 
 	/**

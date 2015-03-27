@@ -41,11 +41,11 @@ public class GovernorGainActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"GOVERNOR_GAIN",};
+	private final String protocolCode[] = {"GOVERNOR_PGAIN", "GOVERNOR_IGAIN"};
 
-	private int formItems[] = {R.id.governor_gain,};
+	private int formItems[] = {R.id.governor_pgain, R.id.governor_igain};
 
-	private int formItemsTitle[] = {R.string.governor_gain,};
+	private int formItemsTitle[] = {R.string.governor_pgain, R.string.governor_igain};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity stabi
@@ -121,7 +121,7 @@ public class GovernorGainActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-            tempPicker.setRange(1, 64); // nastavuji rozmezi prvku z profilu
+            tempPicker.setRange(1, 10); // nastavuji rozmezi prvku z profilu
 		}
 	}
 
