@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -53,11 +54,13 @@ import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
 import com.spirit.R;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.Date;
+import android.os.Handler;
+
 
 public class GraphActivity extends BaseActivity
 {
@@ -130,6 +133,12 @@ public class GraphActivity extends BaseActivity
 
     private LineAndPointFormatter formaterFreeze;
 
+    private int saveThreadCount = 0;
+
+    private int saveThreadCountMax = 3;
+
+    private Toast saveToast;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -141,6 +150,8 @@ public class GraphActivity extends BaseActivity
 		setContentView(R.layout.graph);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+
+        saveToast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
 	}
 	
 	/**
@@ -405,28 +416,89 @@ public class GraphActivity extends BaseActivity
 		return true;
 	}
 
-    protected void saveGraphToImage()
+    /**
+     *
+     */
+    protected synchronized void saveGraphToImage()
     {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_GRAPH_DIR + "/" + sdf.format(new Date()) + "-log.png";
-
-        try {
-            aprLevelsPlot.setDrawingCacheEnabled(true);
-            int width = aprLevelsPlot.getWidth();
-            int height = aprLevelsPlot.getHeight();
-            aprLevelsPlot.measure(width, height);
-            Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
-            aprLevelsPlot.setDrawingCacheEnabled(false);
-            FileOutputStream fos;
-
-            fos = new FileOutputStream(filename, true);
-            bmp.compress(CompressFormat.PNG, 100, fos);
-
-            Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
-        } catch (FileNotFoundException e) {
-            Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        if(saveThreadCount >= saveThreadCountMax){
+            return;
         }
+        saveThreadCount++;
+
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+        final String fileBase = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_GRAPH_DIR + "/";
+        final String filename = sdf.format(new Date()) + "-log";
+        final String fileExt  = ".png";
+
+        aprLevelsPlot.setDrawingCacheEnabled(true);
+        int width = aprLevelsPlot.getWidth();
+        int height = aprLevelsPlot.getHeight();
+        aprLevelsPlot.measure(width, height);
+        final Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
+        aprLevelsPlot.setDrawingCacheEnabled(false);
+
+        if(saveToast != null && saveToast.getView().getWindowVisibility() != View.VISIBLE){
+            saveToast.setText(R.string.save_proccess);
+            saveToast.show();
+        }
+
+        final Handler handler = new Handler(new Handler.Callback(){
+            @Override
+            public boolean handleMessage(Message msg) {
+                switch (msg.what){
+                    case 1:
+                        if(saveToast != null){
+                            saveToast.setText( getString(R.string.save_done) + ": " + msg.getData().get("fileName"));
+                            saveToast.show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_done) + ": " + msg.getData().get("fileName"), Toast.LENGTH_SHORT).show();
+                        }
+
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                synchronized (this) {
+                    try {
+                        FileOutputStream fos;
+                        File fullFile = new File(fileBase + filename + fileExt);
+                        if(fullFile.exists()){
+                            for(int i = 0; i < 10; i++){
+                                fullFile = new File(fileBase + filename + "(" + String.valueOf(i) + ")" + fileExt);
+                                if(!fullFile.exists()){
+                                    break;
+                                }
+                            }
+                        }
+
+                        fos = new FileOutputStream(fullFile, true);
+                        bmp.compress(CompressFormat.PNG, 100, fos);
+
+                        Message m = handler.obtainMessage(1);
+                        Bundle budleForMsg = new Bundle();
+                        budleForMsg.putString("fileName", fullFile.getName());
+                        m.setData(budleForMsg);
+                        handler.sendMessage(m);
+
+                    } catch(Exception e) {
+                        handler.sendEmptyMessage(2);
+                        Log.d(TAG, e.toString());
+                    }
+                    saveThreadCount--;
+                }
+            }
+        };
+
+        new Thread(r).start();
     }
 
 	View.OnClickListener clickActionistener = new View.OnClickListener()

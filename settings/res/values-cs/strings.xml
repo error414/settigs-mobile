@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 17.03.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 22.03.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -91,7 +91,7 @@
     <string name="unit">Jednotka</string>
     <string name="link">Spojení</string>
     <string name="governor_rpm_senzor">RPM senzor</string>
-    
+
     <string name="position_text">Pozice</string>
     <string name="model_text">Model</string>
     <string name="mix_text">Mixování</string>
@@ -378,6 +378,7 @@
 
 
     <string name="not_save">Uložení selhalo</string>
+    <string name="save_proccess">Ukládám</string>
     <string name="save_done">Uloženo</string>
     <string name="graph_change_axis">Osa změněna na </string>
     <string name="spirit_not_found">Spirit nebyl nalezen</string>
