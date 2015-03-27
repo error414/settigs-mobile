@@ -497,4 +497,5 @@
     <string name="download_error">Chyba stahování</string>
     <string name="sys_disconected">Zkontrolujte prosím připojení Bluetooth modulu.</string>
     <string name="rewrite_file">Soubor již existuje. Chcete jej přepsat?</string>
+    <string name="pdf_reader_not_found">Nebyla nalezena čtečka PDF \nProsím nainstalujte čtečku PDF, například: \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>
 </resources>

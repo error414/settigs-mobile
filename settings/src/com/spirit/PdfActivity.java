@@ -18,11 +18,10 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -40,8 +39,6 @@ import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.HelpLinks;
-import com.joanzapata.pdfview.PDFView;
-import com.joanzapata.pdfview.listener.OnPageChangeListener;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
 
@@ -52,22 +49,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.List;
 import java.util.Locale;
 
-import static java.lang.String.format;
-
-public class PdfActivity extends BaseActivity implements OnPageChangeListener
+public class PdfActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
 	final private String TAG = "AuthorActivity";
 
     /////PDF VIEW //////
-
-    PDFView pdfView;
-
-    Integer pageNumber = 1;
 
     File localFile;
     ////////////////////
@@ -97,7 +87,7 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
 
         localFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/" + baseName);
         if(localFile.exists()){
-            displayPdf(localFile);
+            openURLWithType(localFile, "application/pdf");
         }else{
 
             //must be enable internet connection
@@ -109,29 +99,18 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
         }
 	}
 
-    /**
-     * render PDF
-     *
-     * @param file
-     */
-    private void displayPdf(File file){
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.fromFile(file));
-        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
-
-        if (activities.size() > 0) { // inbuild viewvew
+    public boolean openURLWithType(File url, String type) {
+        try {
+            Uri uri = Uri.fromFile(url);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+            intent.setDataAndType(uri, type);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(intent);
             finish();
-        } else {
-            pdfView = (PDFView)findViewById(R.id.pdfview);
-            pdfView.fromFile(file)
-                    .defaultPage(pageNumber)
-                    .onPageChange(PdfActivity.this)
-                    .showMinimap(true)
-                    .enableSwipe(true)
-                    .load();
+        }catch(ActivityNotFoundException e){
+
         }
+        return true;
     }
 
     /**
@@ -169,16 +148,6 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
 	}
-
-    /**
-     *
-     * @param page
-     * @param pageCount
-     */
-    public void onPageChanged(int page, int pageCount) {
-        pageNumber = page;
-        ((TextView) findViewById(R.id.title)).setText(getTitle() + " \u2192 " + format("%s / %s", page, pageCount));
-    }
 
     /**
      *
@@ -328,8 +297,7 @@ public class PdfActivity extends BaseActivity implements OnPageChangeListener
             if (result != null) {
                 Toast.makeText(context, getString(R.string.download_error) + ": " + result, Toast.LENGTH_LONG).show();
             }else {
-
-                displayPdf(localFile);
+                openURLWithType(localFile, "application/pdf");
                 Toast.makeText(context, R.string.file_downloaded, Toast.LENGTH_SHORT).show();
             }
         }

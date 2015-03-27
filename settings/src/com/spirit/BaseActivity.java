@@ -31,6 +31,8 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -72,6 +74,7 @@ import com.lib.DstabiProvider;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
+import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -910,8 +913,17 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 i.setData(Uri.parse(url));
                 startActivity(i);
 			} else {
-                Intent i = new Intent(this, PdfActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(""));
+                intent.setDataAndType(Uri.parse(""), "application/pdf");
+                PackageManager pm = getPackageManager();
+                List<ResolveInfo> activities = pm.queryIntentActivities(intent, 0);
+
+                if (activities.size() < 1) {
+                    showConfirmDialog(R.string.pdf_reader_not_found);
+                }else{
+                    Intent i = new Intent(this, PdfActivity.class);
+                    startActivity(i);
+                }
 			}
 		}
 

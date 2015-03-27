@@ -467,4 +467,5 @@
     <string name="governor_thr_reverse" translatable="false">Throttle Reverse</string>
     <string name="sys_disconected">Check the connection of Bluetooth module, please.</string>
     <string name="rewrite_file">The file/files already exists. Do you want to overwrite it?</string>
+    <string name="pdf_reader_not_found">PDF Reader not found \nPlease install PDF reader \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>
 </resources>

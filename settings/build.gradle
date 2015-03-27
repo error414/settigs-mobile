@@ -17,7 +17,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: '*.jar')
     compile 'net.simonvt.menudrawer:menudrawer:3.0.+@aar'
     compile files('libs/itextpdf-5.5.4-custom.jar')
-    compile 'com.joanzapata.pdfview:android-pdfview:1.0.+@aar'
 }
 
 android {

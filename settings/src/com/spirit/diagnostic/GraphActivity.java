@@ -663,7 +663,7 @@ public class GraphActivity extends BaseActivity
 		
         for (Number number : seriesX2) {
         	
-        	if(number.floatValue() > prewValueValue.floatValue() || number.floatValue() < (/*prewValueValue.floatValue() +*/ 5f) ){
+        	if(number.floatValue() > prewValueValue.floatValue() || number.floatValue() < (/*prewValueValue.floatValue() +*/ 20f) ){
         		lock = false;
         	}
         	
