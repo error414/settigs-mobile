@@ -109,13 +109,13 @@ public class GovernorRpmSenzor extends BaseActivity
     /**
      * ziskani informace o poloze kniplu z jednotky
      */
-    protected void getRmpValue()
+    protected void getRpmValue()
     {
         if(profileCreator != null && profileCreator.isValid() && profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() > 0) {
             delayHandle.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    stabiProvider.getGovRmp(RPMSENZOR_CALL_BACK_CODE);
+                    stabiProvider.getGovRpm(RPMSENZOR_CALL_BACK_CODE);
                 }
             }, 50); // 125ms
         }
@@ -141,7 +141,7 @@ public class GovernorRpmSenzor extends BaseActivity
             findViewById(R.id.governor_request_rpm).setEnabled(false);
             findViewById(R.id.governor_current_rpm).setEnabled(false);
         }else{
-            getRmpValue();
+            getRpmValue();
         }
 
     }
@@ -165,8 +165,8 @@ public class GovernorRpmSenzor extends BaseActivity
         ((ProgressBar)findViewById(R.id.governor_request_rpm)).setProgress(ByteOperation.byteArrayToShort(request));
         ((ProgressBar)findViewById(R.id.governor_current_rpm)).setProgress(ByteOperation.byteArrayToShort(current));
 
-        ((TextView)findViewById(R.id.governor_value_request_rpm)).setText(String.valueOf(ByteOperation.byteArrayToShort(request)) + " RMP");
-        ((TextView)findViewById(R.id.governor_value_current_rpm)).setText(String.valueOf(ByteOperation.byteArrayToShort(current)) + " RMP");
+        ((TextView)findViewById(R.id.governor_value_request_rpm)).setText(String.valueOf(ByteOperation.byteArrayToShort(request)) + " RPM");
+        ((TextView)findViewById(R.id.governor_value_current_rpm)).setText(String.valueOf(ByteOperation.byteArrayToShort(current)) + " RPM");
     }
 
     /**
@@ -180,7 +180,7 @@ public class GovernorRpmSenzor extends BaseActivity
             case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
                 Log.d(TAG, "Prisla chyba");
                 if(profileCreator != null && profileCreator.isValid()) {
-                    getRmpValue();
+                    getRpmValue();
                 }
                 break;
             case PROFILE_CALL_BACK_CODE:
@@ -198,7 +198,7 @@ public class GovernorRpmSenzor extends BaseActivity
 
                     updateGui(msg.getData().getByteArray("data"));
 
-                    getRmpValue();
+                    getRpmValue();
                 }
                 break;
             default:

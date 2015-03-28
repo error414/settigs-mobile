@@ -210,7 +210,7 @@ public class DstabiProvider {
      *
      * @param callBackCode
      */
-    public void getGovRmp(int callBackCode){
+    public void getGovRpm(int callBackCode){
         if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
             mode = GOV_RPM;
             sendDataForResponce(GET_GOV_RPM_VALUE, callBackCode);
