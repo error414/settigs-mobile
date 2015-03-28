@@ -209,9 +209,11 @@ public class InputChannelsActivity extends BaseActivity
 		String mode = "";
 		if (this.stabiMode == 65 /* A z profilu */ && gyro < 0) {
 			mode = " N";
-		} else {
-			mode = " HL";
-		}
+		} else if(this.stabiMode > 65 && gyro < 0) {
+			mode = " HF";
+		}else{
+            mode = " HL";
+        }
 		
 		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
 		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
