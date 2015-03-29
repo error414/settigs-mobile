@@ -57,8 +57,20 @@ import com.spirit.R;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
 import android.os.Handler;
 
 
@@ -187,7 +199,7 @@ public class GraphActivity extends BaseActivity
         aprLevelsSeriesFreeze   = new SimpleXYSeries(Arrays.asList(seriesXFreeze), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "");
 
 		PointLabelFormatter plf = new PointLabelFormatter(Color.WHITE);
-		plf.getTextPaint().setTextSize(13);
+		plf.getTextPaint().setTextSize(10);
 
         PointLabeler pointLabel = new PointLabeler() {
             @Override
@@ -647,57 +659,79 @@ public class GraphActivity extends BaseActivity
 	 * @return
 	 */
 	public int[] topThree(Number[] seriesX2) {
-		int max1 = Integer.MIN_VALUE;
-		int max2 = Integer.MIN_VALUE;
-		int max3 = Integer.MIN_VALUE;
-		
-		Number max1Value = 0;
-		Number max2Value = 0;
-		Number max3Value = 0;
-		
-		Number prewValueValue = 0;
-		
-		boolean lock = false;
-		
-		int i = 0;
-		
-        for (Number number : seriesX2) {
-        	
-        	if(number.floatValue() > prewValueValue.floatValue() || number.floatValue() < (/*prewValueValue.floatValue() +*/ 20f) ){
-        		lock = false;
-        	}
-        	
-            if (number.floatValue() > max1Value.floatValue() && !lock) {
-                max3 = max2;
-                max2 = max1;
-                max1 = i;
-                
-                max3Value = max2Value;
-                max2Value = max1Value;
-                max1Value = number;
-                lock = true;
-                
-            } else if (number.floatValue() > max2Value.floatValue() && !lock) {
-            	max3 = max2;
-                max2 = i;
-                
-                max3Value = max2Value;
-                max2Value = number;
-                
-                lock = true;
-            }else if (number.floatValue() > max3Value.floatValue() && !lock) {
-                max3 = i;
-                
-                max3Value = number;
-                lock = true;
+        Integer max1 = -1;
+        Integer max2 = -1;
+        Integer max3 = -1;
+
+        float sum       = 0;
+        float average   = 0;
+
+        // prvne pole prevedeme na asociativni pole pozice/hodnota
+        HashMap<Integer, Number> seriesSet = new HashMap<Integer, Number>();
+        int i = 0;
+        for(Number series : seriesX2){
+            seriesSet.put(i++, series);
+            sum += series.floatValue();
+        }
+
+        average = (sum / seriesSet.size()) * 3;
+
+        //pak pole seradime
+        Map<Integer, Number> seriesSetSortabled =  sortDesc(seriesSet);
+
+        int spacing = 10;
+        for (Map.Entry<Integer, Number> entry : seriesSetSortabled.entrySet()) {
+            if(max1 > 0 && max2 > 0 && max3 > 0){
+                break;
             }
-            
-            prewValueValue = number;
-            i++;
+
+            if(entry.getValue().floatValue() < average && entry.getKey() > 10 && entry.getKey() < 400){
+                continue;
+            }
+
+            if(max1 < 0) {
+                max1 = entry.getKey();
+                continue;
+            }
+
+            if(max1 > 0 && Math.abs(entry.getKey() - max1) > spacing && max2 < 0) {
+                max2 = entry.getKey();
+                continue;
+            }
+
+            if(max2 > 0 && Math.abs(entry.getKey() - max2) > spacing && Math.abs(entry.getKey() - max1) > spacing && max3 < 3) {
+                max3 = entry.getKey();
+                continue;
+            }
+        }
+
+        int[] ret = { (int)max1, (int)max2, (int)max3};
+        return ret;
+    }
+
+    /**
+     *
+     * @param unsortMap
+     * @return
+     */
+    private static Map<Integer, Number> sortDesc(Map<Integer, Number> unsortMap) {
+
+        List<Map.Entry<Integer, Number>> list =
+                new LinkedList<Map.Entry<Integer, Number>>(unsortMap.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<Integer,Number>>() {
+            public int compare(Map.Entry<Integer, Number> o1, Map.Entry<Integer, Number> o2) {
+                return -1 * ((Float)(o1.getValue().floatValue())).compareTo(o2.getValue().floatValue());
+            }
+        });
+
+        Map<Integer, Number> sortedMap = new LinkedHashMap<Integer, Number>();
+        for (Iterator<Map.Entry<Integer, Number>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<Integer, Number> entry = it.next();
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
         
-        int[] ret = { max1, max2, max3};
-        return ret;
+        return sortedMap;
     }
 
     @Override
