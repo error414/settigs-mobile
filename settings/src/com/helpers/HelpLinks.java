@@ -20,10 +20,11 @@ package com.helpers;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.HashMap;
+import java.util.Locale;
 
 public class HelpLinks {
 
-    final public static String defaultLang = "en";
+    final public static String defaultLang = Locale.getDefault().getLanguage();
 
     final public static String baseUrl = "http://spirit-system.com/";
 
@@ -54,16 +55,20 @@ public class HelpLinks {
             lang = languageTranslate.get(lang);
         }
 
+        String defaultLangT = defaultLang;
+        if(languageTranslate.containsKey(defaultLangT)){
+            defaultLangT = languageTranslate.get(defaultLangT);
+        }
 
         if(helpPdflinks.containsKey(lang)){
             return baseUrl + helpPdflinks.get(lang);
         }
 
         if(helpPdflinks.containsKey(defaultLang)){
-            return baseUrl + helpPdflinks.get(defaultLang);
+            return baseUrl + helpPdflinks.get(defaultLangT);
         }
 
-        return "";
+        return baseUrl + helpPdflinks.get("en");
     }
 
     /**

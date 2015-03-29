@@ -22,6 +22,8 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -30,6 +32,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
+import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -81,7 +85,10 @@ public class PdfActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.manual));
 
-        url = HelpLinks.getPdfUrl(Locale.getDefault().getLanguage());
+        Resources res = getResources();
+        android.content.res.Configuration conf = res.getConfiguration();
+        url = HelpLinks.getPdfUrl(conf.locale.getLanguage());
+
         File remoteFile = new File(url);
         String baseName = remoteFile.getName();
 
