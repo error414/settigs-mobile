@@ -33,12 +33,24 @@ if(isset($helpLink[1]) && count($helpLink[1]) > 0){
 preg_match("/android\:versionCode=\"([0-9]+)\"/", $manifest, $manifestVersion);
 preg_match("/android\:versionName=\"(.*)\"/", $manifest, $manifestVersionName);
 
+
+$settingsActivity = './src/com/spirit/SettingsActivity.java';
+$settingsActivityContent = file_get_contents($settingsActivity);
+
+if(strpos($settingsActivityContent, "/*com.lib.ChangeLog cl = new com.lib.ChangeLog(this);")){
+    $donate = "DEACTIVATED";
+}else{
+    $donate = "ACTIVATED";
+}
+
+
 echo "\n\n\n----------------------------------------\n";
 echo "                   RESULT               \n";
 echo "----------------------------------------\n";
 echo "TYPE      : $version\n";
 echo "VERSION   : $major[1].$minor[1]\n";
 echo "BUILD     : $build[0]\n";
+echo "DONATE    : $donate\n";
 echo "HELP LINK : [" . $languages . "]\n";
 echo "VER. CODE : $manifestVersion[1]\n";
 echo "VER. NAME : $manifestVersionName[1]\n";

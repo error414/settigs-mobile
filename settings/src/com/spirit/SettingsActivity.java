@@ -99,12 +99,12 @@ public class SettingsActivity extends BaseActivity
 			}
 		});
 
-		//change log
-		/*ChangeLog cl = new ChangeLog(this);
-	    if (cl.firstRun()){
-	        cl.getLogDialog().show();
-	    }*/
-
+        //AUTO GENERATE DONATE START
+        /*com.lib.ChangeLog cl = new com.lib.ChangeLog(this);
+        	    if (cl.firstRun()){
+        	        cl.getLogDialog().show();
+        	    }*/
+        //AUTO GENERATE DONATE END
 	}
 
 	public void onResume()

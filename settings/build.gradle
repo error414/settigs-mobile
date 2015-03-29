@@ -87,6 +87,18 @@ android {
         args "-c", "./gradle-exec/convertImage.sh"
     }
 
+    task deactivateDonate(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f./gradle-exec/toogleDonate.php devel"
+    }
+
+    task activateDonate(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f./gradle-exec/toogleDonate.php release"
+    }
+
     task info(type: Exec) {
         //update build info
         executable "sh"
@@ -95,13 +107,13 @@ android {
 
 
 
-    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksProduction', 'info', 'assembleRelease'], type:Exec) {
+    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksProduction', 'activateDonate', 'info', 'assembleRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
     assembleRelease.mustRunAfter buildInfoRelase;
 
-    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksDevel', 'info', 'assembleRelease'], type:Exec) {
+    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksDevel', 'deactivateDonate', 'info', 'assembleRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
@@ -110,6 +122,8 @@ android {
     assembleRelease.mustRunAfter buildHelpText;
     assembleRelease.mustRunAfter createHelpPDFLinksDevel;
     assembleRelease.mustRunAfter createHelpPDFLinksProduction;
+    assembleRelease.mustRunAfter activateDonate;
+    assembleRelease.mustRunAfter deactivateDonate;
     info.mustRunAfter assembleRelease;
 }
 
