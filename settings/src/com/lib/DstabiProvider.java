@@ -96,7 +96,7 @@ public class DstabiProvider {
 	
 	private final Queue queue = new Queue();
 	
-	private void startCecurityTimer(){
+	private synchronized void  startCecurityTimer(){
 		Log.d(TAG, "zapinam timer");
 		securityTimer = new Timer();
 		securityTimer.schedule(new TimerTask() {
@@ -108,7 +108,7 @@ public class DstabiProvider {
 		}, 7000, 7000);
 	}
 	
-	private void stopCecurityTimer(){
+	private synchronized void stopCecurityTimer(){
 		if(securityTimer != null){
 			securityTimer.cancel();
 			securityTimer.purge();
@@ -116,7 +116,7 @@ public class DstabiProvider {
 		}
 	}
 	
-	private void TimerMethod()
+	private synchronized void TimerMethod()
 	{
 		connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
 		clearState("TimerMethod");
@@ -126,7 +126,9 @@ public class DstabiProvider {
 	 * privatni konstruktor na singleton
 	 */
 	private DstabiProvider() {
-		this.BTservice = new BluetoothCommandService(serviceBThandler);
+		synchronized (this) {
+            this.BTservice = new BluetoothCommandService(serviceBThandler);
+        }
 	}
 	
 	/**
@@ -135,7 +137,7 @@ public class DstabiProvider {
 	 * @param connectionHandler
 	 * @return
 	 */
-	public static DstabiProvider getInstance(Handler connectionHandler){
+	public synchronized static DstabiProvider getInstance(Handler connectionHandler){
 		if(instance == null){
 			instance = new DstabiProvider();
 		}
@@ -149,7 +151,7 @@ public class DstabiProvider {
 	 * 
 	 * @param device
 	 */
-	public void connect(BluetoothDevice device) {
+	public synchronized void connect(BluetoothDevice device) {
 		BTservice.connect(device);
 	}
 	
@@ -157,7 +159,7 @@ public class DstabiProvider {
 	 * zprava pro odpojeni device
 	 * 
 	 */
-	public void disconnect() {
+	public synchronized void disconnect() {
 		BTservice.stop();
         BTservice.cancel();
 	}
@@ -176,7 +178,7 @@ public class DstabiProvider {
 	 * 
 	 * @param callBackCode
 	 */
-	public void getSerial(int callBackCode){
+	public synchronized void getSerial(int callBackCode){
 		Log.d(TAG, "pozadavek na serial");
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
 			
@@ -196,7 +198,7 @@ public class DstabiProvider {
 	 * 
 	 * @param callBackCode
 	 */
-	public void getDiagnostic(int callBackCode){
+	public synchronized void getDiagnostic(int callBackCode){
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
 			mode = DIAGNOSTIC;
 			sendDataForResponce(GET_STICKED_AND_SENZORS_VALUE, callBackCode);
@@ -210,7 +212,7 @@ public class DstabiProvider {
      *
      * @param callBackCode
      */
-    public void getGovRpm(int callBackCode){
+    public synchronized void getGovRpm(int callBackCode){
         if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
             mode = GOV_RPM;
             sendDataForResponce(GET_GOV_RPM_VALUE, callBackCode);
@@ -224,7 +226,7 @@ public class DstabiProvider {
 	 * 
 	 * @param callBackCode
 	 */
-	public void getProfile(int callBackCode){
+	public synchronized void getProfile(int callBackCode){
 		Log.d(TAG, "pozadavek na profil");
 		
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
@@ -244,7 +246,7 @@ public class DstabiProvider {
 	 * 
 	 * @param callBackCode
 	 */
-	public void getLog(int callBackCode){
+	public synchronized void getLog(int callBackCode){
 		Log.d(TAG, "pozadavek na profil");
 		
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
@@ -264,7 +266,7 @@ public class DstabiProvider {
 	 * 
 	 * @param callBack
 	 */
-	public void getGraph(int callBack){
+	public synchronized void getGraph(int callBack){
 		Log.d(TAG, "pozadavek na stream");
 		
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
@@ -279,7 +281,7 @@ public class DstabiProvider {
 	 * ziska informace pro graf z jednotky
 	 * 
 	 */
-	public void stopGraph(){
+	public synchronized void stopGraph(){
 		if(mode == GRAPH){
 			BTservice.write("4DA\0".getBytes());
 			clearState("stop graph");
@@ -292,7 +294,7 @@ public class DstabiProvider {
 	 * @param command
 	 * @param data
 	 */
-	private void sendData(String command, byte[] data){
+	private synchronized void sendData(String command, byte[] data){
 		
 		Log.d(TAG, "pozadavek na odeslani pozadavku do zarizeni cmd+data");
 		
@@ -313,7 +315,7 @@ public class DstabiProvider {
 	 * 
 	 * @param command
 	 */
-	private void sendData(String command){
+	private synchronized void sendData(String command){
 		Log.d(TAG, "pozadavek na odeslani pozadavku do zarizeni cmd");
 		
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
@@ -333,7 +335,7 @@ public class DstabiProvider {
 	}
 	
 	//////////////////WAIT RESPONSE//////////////////
-	public void sendDataForResponce(String command, int callBackCode){
+	public synchronized void sendDataForResponce(String command, int callBackCode){
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
 			this.callBackCode = callBackCode;
 			sendData(command, null);
@@ -342,7 +344,7 @@ public class DstabiProvider {
 		}
 	}
 	
-	public void sendDataForResponce(ProfileItem item, int callBackCode){
+	public synchronized void sendDataForResponce(ProfileItem item, int callBackCode){
 		if(item.isValid() && item.getCommand() != null){
 			if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
 				this.callBackCode = callBackCode;
@@ -357,23 +359,23 @@ public class DstabiProvider {
 	/////////////////////////////////////////////////
 	
 	////////////////// NO RESPONSE//////////////////
-	public void sendDataNoWaitForResponce(String command, byte[] data){
+	public synchronized void sendDataNoWaitForResponce(String command, byte[] data){
 		sendData(command, data);
 	}
 	
-	public void sendDataNoWaitForResponce(String command, int data){
+	public synchronized void sendDataNoWaitForResponce(String command, int data){
 		sendData(command, ByteOperation.intToByteArray(data));
 	}
 	
-	public void sendDataNoWaitForResponce(String command, String data){
+	public synchronized void sendDataNoWaitForResponce(String command, String data){
 		sendData(command, data.getBytes());
 	}
 	
-	public void sendDataNoWaitForResponce(String command){
+	public synchronized void sendDataNoWaitForResponce(String command){
 		sendData(command);
 	}
 	
-	public void sendDataNoWaitForResponce(ProfileItem item){
+	public synchronized void sendDataNoWaitForResponce(ProfileItem item){
 		if(item.isValid() && item.getCommand() != null){
 			sendDataNoWaitForResponce(item.getCommand(), item.getValueBytesArray());
 		}else{
@@ -383,16 +385,16 @@ public class DstabiProvider {
 	/////////////////////////////////////////////////
 	
 	////////// NO RESPONSE / DIRECT WRITE ///////////
-	public void sendDataImmediately(byte[] data){
+	public synchronized void sendDataImmediately(byte[] data){
 		BTservice.write(data);
 	}
 	/////////////////////////////////////////////////
 	
-	public BluetoothDevice getBluetoothDevice(){
+	public synchronized BluetoothDevice getBluetoothDevice(){
 		return BTservice.getBluetoothDevice();
 	}
 	
-	private void sendData(){
+	private synchronized void sendData(){
 		
 		Log.d(TAG, "odesilam data do zarizeni");
 
@@ -410,14 +412,14 @@ public class DstabiProvider {
 	/**
 	 * zastaveni probohajiciho pozadavku
 	 */
-	public void abort(){
+	public synchronized void abort(){
 		clearState("abort");
 	}
 	
 	/**
 	 * zastaveni vsech pozadavku
 	 */
-	public void abortAll(){
+	public synchronized void abortAll(){
 		queue.clear();
 		clearState("abort all");
 	}
@@ -426,7 +428,7 @@ public class DstabiProvider {
      *
      * @param who
      */
-	private void clearState(String who){
+	private synchronized void clearState(String who){
 		
 		Log.d(TAG, "mazu stav:" + who);
         sendCode 		= null;
@@ -461,7 +463,7 @@ public class DstabiProvider {
 	// The Handler that gets information back from the 
     protected final Handler serviceBThandler = new Handler(new Handler.Callback() {
 	    @Override
-	    public boolean handleMessage(Message msg) {
+	    public synchronized boolean handleMessage(Message msg) {
         	switch(msg.what){
         	 	//zmena stavu BT modulu
         		case DstabiProvider.MESSAGE_STATE_CHANGE: 
@@ -616,7 +618,7 @@ public class DstabiProvider {
         }
     });
     
-    private void sendHandle(int callBackCode, byte[] data){
+    private synchronized void sendHandle(int callBackCode, byte[] data){
     	Bundle budleForMsg = new Bundle();
 		budleForMsg.putByteArray("data", data);
         Message m = connectionHandler.obtainMessage( callBackCode );
@@ -626,7 +628,7 @@ public class DstabiProvider {
         clearState("send handle");
     }
     
-    private void sendHandleNotStop(int callBackCode, byte[] data){
+    private synchronized void sendHandleNotStop(int callBackCode, byte[] data){
     	Bundle budleForMsg = new Bundle();
 		budleForMsg.putByteArray("data", data);
         Message m = connectionHandler.obtainMessage( callBackCode );
@@ -639,7 +641,7 @@ public class DstabiProvider {
 	 * ziskani stavoveho kodu ze zpravy
 	 * 
 	 */
-    private byte[] parseMessagegetData(byte[] msg, int kCouunt){
+    private synchronized byte[] parseMessagegetData(byte[] msg, int kCouunt){
         if(retrieveCode.length() == kCouunt){
             return msg;
         }
@@ -684,7 +686,7 @@ public class DstabiProvider {
     	 * 
     	 * @param part
     	 */
-    	public void add(byte[] part)
+    	public synchronized void add(byte[] part)
     	{
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
@@ -701,7 +703,7 @@ public class DstabiProvider {
     	/**
     	 * vycisteni zasobniku 
     	 */
-    	public void clear()
+    	public synchronized void clear()
     	{
     		length = 0;
     		profile = null;
@@ -727,7 +729,7 @@ public class DstabiProvider {
     	 * 
     	 * @return
     	 */
-    	public byte[] getData()
+    	public synchronized byte[] getData()
     	{
     		return profile;
     	}
@@ -750,21 +752,21 @@ public class DstabiProvider {
     	 * @param command
     	 * @param data
     	 */
-    	public void add(String command, byte[] data, int mode, int callback) {
+    	public synchronized void add(String command, byte[] data, int mode, int callback) {
     		queueRow.add(new QueueRow(command, data, mode, callback));
     	}
     	
-    	public int count()
+    	public synchronized int count()
     	{
     		return queueRow.size();
     	}
     	
-    	public Boolean hasNextQueue()
+    	public synchronized Boolean hasNextQueue()
     	{
     		return this.count() > 0;
     	}
     	
-    	public QueueRow getNextQueue()
+    	public synchronized QueueRow getNextQueue()
     	{
     		if(hasNextQueue()){
     			QueueRow temObjectQueueRow = queueRow.get(0);
@@ -774,7 +776,7 @@ public class DstabiProvider {
     		return null;
     	}
     	
-    	public void clear()
+    	public synchronized void clear()
     	{
     		queueRow = new ArrayList<QueueRow>();
     	}

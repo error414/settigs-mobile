@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="99"
+    android:versionCode="101"
 
-    android:versionName="1.2.10"
+    android:versionName="1.2.11"
 >
 
     <uses-sdk
