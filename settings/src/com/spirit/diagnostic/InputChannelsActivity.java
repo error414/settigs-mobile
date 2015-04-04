@@ -255,7 +255,7 @@ public class InputChannelsActivity extends BaseActivity
 		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
 		try {
 			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max - 1) == 7){ // 7 = unbind
+			if(profileCreator != null && profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max - 1) == 7){ // 7 = unbind
 				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
 			}else{
 				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
