@@ -158,8 +158,8 @@ public class InputChannelsActivity extends BaseActivity
 
 		//AILERON
 		int aileron = ByteOperation.twoByteToSigInt(b[0], b[1]);
-		int aileronPercent = Math.round((100 * aileron) / 340);
-		((ProgressBar) findViewById(R.id.aileron_progress_diagnostic)).setProgress(Math.round(aileronPercent + 100));
+		int aileronPercent = ((100 * aileron) / 340) * -1;
+		((ProgressBar) findViewById(R.id.aileron_progress_diagnostic)).setProgress(aileronPercent + 100);
 		((TextView) findViewById(R.id.aileron_value_diagnostic)).setText(String.valueOf(aileronPercent));
 
 		if (Math.abs(aileron) > this.stickDB) {
@@ -167,12 +167,13 @@ public class InputChannelsActivity extends BaseActivity
 		} else {
 			((TextView) findViewById(R.id.aileron_value_diagnostic)).setTypeface(null, Typeface.NORMAL);
 		}
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//ELEVATOR
 		int elevator = ByteOperation.twoByteToSigInt(b[2], b[3]);
-		int elevatorPercent = Math.round((100 * elevator) / 340);
-		((ProgressBar) findViewById(R.id.elevator_progress_diagnostic)).setProgress(Math.round(elevatorPercent + 100));
+		int elevatorPercent = ((100 * elevator) / 340) * -1;
+		((ProgressBar) findViewById(R.id.elevator_progress_diagnostic)).setProgress(elevatorPercent + 100);
 		((TextView) findViewById(R.id.elevator_value_diagnostic)).setText(String.valueOf(elevatorPercent));
 
 		if (Math.abs(elevator) > this.stickDB) {
@@ -184,15 +185,16 @@ public class InputChannelsActivity extends BaseActivity
 		
 		//PITCH
 		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
-		int pitchPercent = Math.round((100 * pitch) / 340);
-		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(Math.round(pitchPercent + 100));
+		int pitchPercent = ((100 * pitch) / 340);
+		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(pitchPercent + 100);
 		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
+
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//RUDDER
 		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
-		int rudderPercent = Math.round((100 * rudder) / 340);
-		((ProgressBar) findViewById(R.id.rudder_progress_diagnostic)).setProgress(Math.round(rudderPercent + 100));
+		int rudderPercent = ((100 * rudder) / 340);
+		((ProgressBar) findViewById(R.id.rudder_progress_diagnostic)).setProgress((rudderPercent + 100));
 		((TextView) findViewById(R.id.rudder_value_diagnostic)).setText(String.valueOf(rudderPercent));
 
 		if (Math.abs(rudder) > this.stickDB) {
@@ -204,7 +206,7 @@ public class InputChannelsActivity extends BaseActivity
 
 		//GYRO 
 		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
-		int gyroPercent = Math.round((100 * gyro) / 388);
+		int gyroPercent = ((100 * gyro) / 388);
 
 		String mode = "";
 		if (this.stabiMode == 65 /* A z profilu */ && gyro < 0) {
@@ -215,13 +217,13 @@ public class InputChannelsActivity extends BaseActivity
             mode = " HL";
         }
 		
-		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress(Math.round(gyroPercent + 100));
+		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress((gyroPercent + 100));
 		((TextView) findViewById(R.id.gyro_value_diagnostic)).setText(String.valueOf(Math.abs(gyroPercent)) + mode);
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//AUX2  / banks 
 		int banks = ByteOperation.twoByteToSigInt(b[10], b[11]);
-		int banksPercent = Math.round((100 * banks) / 340); 
+		int banksPercent = ((100 * banks) / 340);
 		
 		int bank = 1;
 		if (banks < (1400-1520)){
@@ -243,13 +245,13 @@ public class InputChannelsActivity extends BaseActivity
 			e.printStackTrace();
 		}
 		
-		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress(Math.round(banksPercent + 100));
+		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress((banksPercent + 100));
 		bankProgressDiagnostic.setText(String.valueOf(getString(R.string.banks) + " " + String.valueOf(bank)));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//AUX1  / throttle
 		int throttle = ByteOperation.twoByteToSigInt(b[12], b[13]);
-		int throttlePercent = Math.round((50 * throttle) / 340); 
+		int throttlePercent = ((50 * throttle) / 340);
 		
 		// pokud neni throttle prirazen zadny kanal
 		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
@@ -264,7 +266,7 @@ public class InputChannelsActivity extends BaseActivity
 			e.printStackTrace();
 		}
 		
-		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress(Math.round(throttlePercent + 50));
+		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress((throttlePercent + 50));
 		throttleValueDiagnostic.setText(String.valueOf(Math.max(-1, throttlePercent + 50)));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
