@@ -3,7 +3,7 @@
     package="com.spirit"
     android:versionCode="102"
 
-    android:versionName="1.2.27"
+    android:versionName="1.2.12"
 >
 
     <uses-sdk
