@@ -121,7 +121,7 @@ public class DstabiProfile {
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r",	false)); 	// kompenzace zpinani vyskovky
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p",	false)); 		// dynamika vrtulky
-		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f",	false)); 	// stabi mode
+		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "E", "f",	false)); 	// stabi mode
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v",	true));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m",	false)); //
 

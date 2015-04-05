@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 01.04.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 04.04.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -301,7 +301,8 @@
         <item>Vypnuto</item>
         <item>Záchrana (Normal)</item>
         <item>Záchrana (Akro)</item>
-        <item>Stabilizace</item>
+        <item>Stabilizace (Normal)</item>
+        <item>Stabilizace (Akro)</item>
     </string-array>
 
     <string-array name="language_values">

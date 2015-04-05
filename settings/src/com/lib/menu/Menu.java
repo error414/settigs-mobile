@@ -170,7 +170,7 @@ public class Menu {
         //SETTINGS ACTIVITY
 
         //connection
-        menuList.put(MENU_FAVOURITES,   new MenuItem(R.drawable.na,     R.string.favourites_button_text, FavouritesActivity.class));
+        menuList.put(MENU_FAVOURITES,   new MenuItem(R.drawable.i49,     R.string.favourites_button_text, FavouritesActivity.class));
 
         //connection
         menuList.put(MENU_CONNECTION,   new MenuItem(R.drawable.i4,     R.string.connection_button_text, ConnectionActivity.class));
@@ -188,7 +188,7 @@ public class Menu {
         menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
 
         //stabi
-        menuList.put(MENU_STABI,        new MenuItem(R.drawable.na,     R.string.stabi_button_text, StabiActivity.class));
+        menuList.put(MENU_STABI,        new MenuItem(R.drawable.i50,     R.string.stabi_button_text, StabiActivity.class));
 
         //advanced
         menuList.put(MENU_ADVANCED,     new MenuItem(R.drawable.i20,     R.string.advanced_button_text, AdvancedActivity.class));
@@ -209,7 +209,7 @@ public class Menu {
         menuList.put(MENU_GRAPH,        new MenuItem(R.drawable.i38,     R.string.graph_button_text, GraphActivity.class));
 
         //log
-        menuList.put(MENU_LOG,          new MenuItem(R.drawable.na,     R.string.log_button_text, LogActivity.class));
+        menuList.put(MENU_LOG,          new MenuItem(R.drawable.i40,     R.string.log_button_text, LogActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_DIAGNOSTIC, new Integer[]{MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG, MENU_BEC});
@@ -222,7 +222,7 @@ public class Menu {
         menuList.put(MENU_DEADBAND,   new MenuItem(R.drawable.i22,     R.string.stick_deadband, StickDeadBandActivity.class));
 
         //geometry 6deg
-        menuList.put(MENU_6DEG,   new MenuItem(R.drawable.na,     R.string.geom_6deg, GeometryAngleActivity.class));
+        menuList.put(MENU_6DEG,   new MenuItem(R.drawable.i48,     R.string.geom_6deg, GeometryAngleActivity.class));
 
         //piruette opt
         menuList.put(MENU_PIROOPT,   new MenuItem(R.drawable.i26,     R.string.piro_opt, PiroOptimalizationActivity.class));
@@ -243,19 +243,19 @@ public class Menu {
         menuList.put(MENU_EFILTER,   new MenuItem(R.drawable.i33,     R.string.e_filter, EFilterActivity.class));
 
         //elevator pitchup
-        menuList.put(MENU_PITCHUP,   new MenuItem(R.drawable.na,     R.string.pitchup, PitchupActivity.class));
+        menuList.put(MENU_PITCHUP,   new MenuItem(R.drawable.i54,     R.string.pitchup, PitchupActivity.class));
 
         //cyclic phase
-        menuList.put(MENU_CYCLICPHASE,   new MenuItem(R.drawable.na,     R.string.cyclic_phase, CyclicPhaseActivity.class));
+        menuList.put(MENU_CYCLICPHASE,   new MenuItem(R.drawable.i56,     R.string.cyclic_phase, CyclicPhaseActivity.class));
 
         //cyclic ff
         menuList.put(MENU_CYCLICFF,   new MenuItem(R.drawable.na,     R.string.cyclic_ff, CyclicFFActivity.class));
 
         //signal procesing
-        menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.na,     R.string.signal_processing, SignalProcessingActivity.class));
+        menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.i58,     R.string.signal_processing, SignalProcessingActivity.class));
 
         //pitch pump
-        menuList.put(MENU_PITCHPUMP,   new MenuItem(R.drawable.na,     R.string.pitch_pump, PitchpumpActivity.class));
+        menuList.put(MENU_PITCHPUMP,   new MenuItem(R.drawable.i54,     R.string.pitch_pump, PitchpumpActivity.class));
 
         //add to groups
         menuGroups.put(
@@ -292,10 +292,10 @@ public class Menu {
         menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limit, ServosLimitActivity.class));
 
         //korekce drahy serv
-        menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.na,     R.string.servo_travel_correction, TravelCorrectionActivity.class));
+        menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.i41,     R.string.servo_travel_correction, TravelCorrectionActivity.class));
 
         //reverz
-        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.na,     R.string.cyclic_servo_reverse_text, ServosReverzActivity.class));
+        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.i46,     R.string.cyclic_servo_reverse_text, ServosReverzActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_REVERZ, MENU_SERVOSUBTRIM, MENU_SERVOLIMIT, MENU_SERVOTRAVELCORRECTION});
@@ -303,19 +303,19 @@ public class Menu {
 
         //STABI ACTIVITY
         //function
-        menuList.put(MENU_STABIFUNCTION,   new MenuItem(R.drawable.na,     R.string.stabi_function, StabiFunctionActivity.class));
+        menuList.put(MENU_STABIFUNCTION,   new MenuItem(R.drawable.i50,     R.string.stabi_function, StabiFunctionActivity.class));
 
         //kolektiv zachraneho rezimu
-        menuList.put(MENU_STABICOL,   new MenuItem(R.drawable.na,     R.string.stabi_col, StabiColActivity.class));
+        menuList.put(MENU_STABICOL,   new MenuItem(R.drawable.i42,     R.string.stabi_col, StabiColActivity.class));
 
         //priorita knyplu
-        menuList.put(MENU_STABISTICK,   new MenuItem(R.drawable.na,     R.string.stabi_stick, StabiStickActivity.class));
+        menuList.put(MENU_STABISTICK,   new MenuItem(R.drawable.i47,     R.string.stabi_stick, StabiStickActivity.class));
 
         //flybar mechanic
-        menuList.put(MENU_STABIFBMODE,   new MenuItem(R.drawable.na,     R.string.stabi_fbmode, StabiFbModeActivity.class));
+        menuList.put(MENU_STABIFBMODE,   new MenuItem(R.drawable.i3,     R.string.stabi_fbmode, StabiFbModeActivity.class));
 
 	    //STABI_CTRLDIR
-	    menuList.put(STABI_CTRLDIR,   new MenuItem(R.drawable.na,     R.string.stabi_ctrldir, StabiCtrlDirActivity.class));
+	    menuList.put(STABI_CTRLDIR,   new MenuItem(R.drawable.i45,     R.string.stabi_ctrldir, StabiCtrlDirActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION, MENU_STABICOL, MENU_STABISTICK, MENU_STABIFBMODE, STABI_CTRLDIR});
@@ -332,19 +332,19 @@ public class Menu {
 
 
         //GOVERNOR
-        menuList.put(MENU_GOV_MODE,   new MenuItem(R.drawable.na,     R.string.governor_mode, GovernorModeActivity.class));
+        menuList.put(MENU_GOV_MODE,   new MenuItem(R.drawable.i43,     R.string.governor_mode, GovernorModeActivity.class));
 
-        menuList.put(MENU_GOV_GAIN,   new MenuItem(R.drawable.na,     R.string.governor_gain, GovernorGainActivity.class));
+        menuList.put(MENU_GOV_GAIN,   new MenuItem(R.drawable.i44,     R.string.governor_gain, GovernorGainActivity.class));
 
-        menuList.put(MENU_GOV_THR_RANGE,   new MenuItem(R.drawable.na,     R.string.governor_thr_range, GovernorThrRangeActivity.class));
+        menuList.put(MENU_GOV_THR_RANGE,   new MenuItem(R.drawable.i39,     R.string.governor_thr_range, GovernorThrRangeActivity.class));
 
-        menuList.put(MENU_GOV_RPM_MAX,   new MenuItem(R.drawable.na,     R.string.governor_rpm_max, GovernorRpmMaxActivity.class));
+        menuList.put(MENU_GOV_RPM_MAX,   new MenuItem(R.drawable.i55,     R.string.governor_rpm_max, GovernorRpmMaxActivity.class));
 
-        menuList.put(MENU_GOV_GEAR_SETTINGS,   new MenuItem(R.drawable.na,     R.string.governor_gear_settings, GovernorGearSettingsActivity.class));
+        menuList.put(MENU_GOV_GEAR_SETTINGS,   new MenuItem(R.drawable.i60,     R.string.governor_gear_settings, GovernorGearSettingsActivity.class));
 
-        menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.na,     R.string.governor_rpm_senzor, GovernorRpmSenzor.class));
+        menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.i51,     R.string.governor_rpm_senzor, GovernorRpmSenzor.class));
 
-        menuList.put(MENU_GOV_THR_REVERSE,   new MenuItem(R.drawable.na,     R.string.governor_thr_reverse, GovernorThrReverseActivity.class));
+        menuList.put(MENU_GOV_THR_REVERSE,   new MenuItem(R.drawable.i53,     R.string.governor_thr_reverse, GovernorThrReverseActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_MODE, MENU_GOV_THR_RANGE, MENU_GOV_THR_REVERSE, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_GAIN, MENU_GOV_RPM_SENZOR});

@@ -195,7 +195,7 @@ public class GeneralActivity extends BaseActivity
     private void checkGovernorButton()
     {
         if(profileCreator != null){
-            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 /*A*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
+            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
                 ((Button) findViewById(R.id.governor)).setEnabled(false);
             }else {
                 ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());

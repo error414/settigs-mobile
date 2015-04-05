@@ -180,7 +180,10 @@ public class StabiColActivity extends BaseActivity
                 showWarning(View.INVISIBLE);
             }
 
-			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65 || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68){ // 65 is "A" in profile, 68 is D
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65
+                    || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68
+                    || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 69
+            ){ // 65 is "A" in profile, 68 is D,  69 is E
 				tempPicker.setEnabled(false);
 			}
 		}

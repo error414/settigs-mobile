@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 01.04.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 04.04.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -276,7 +276,8 @@
         <item>Disabled</item>
         <item>Rescue (Normal)</item>
         <item>Rescue (Acro)</item>
-        <item>Stabilisation</item>
+        <item>Stabilisation (Normal)</item>
+        <item>Stabilisation (Acro)</item>
     </string-array>
 
     <string-array name="language_values">
