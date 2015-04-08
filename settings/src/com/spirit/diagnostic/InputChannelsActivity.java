@@ -46,8 +46,7 @@ public class InputChannelsActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
-	final static public int PROFILE_LENGTH = 17;
-	
+
 	/**
 	 * mrtva zona kterou ziskame z profilu
 	 */
@@ -308,11 +307,6 @@ public class InputChannelsActivity extends BaseActivity
                 break;
 			case DIAGNOSTIC_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
-
-					if (msg.getData().getByteArray("data").length > 17) {
-						Log.d(TAG, "Odpoved delsi nez 17");
-					}
-
 					updateGui(msg.getData().getByteArray("data"));
 
 					getPositionFromUnit();

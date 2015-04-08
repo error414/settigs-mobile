@@ -17,11 +17,16 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.servo;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
@@ -42,12 +47,19 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 	final private String TAG = "TravelCorrectionActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
+    final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
+
 
 	private final String protocolCode[] = {"TRAVEL_UAIL", "TRAVEL_UELE", "TRAVEL_UPIT", "TRAVEL_DAIL", "TRAVEL_DELE", "TRAVEL_DPIT",};
 
 	private int formItems[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
 
 	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
+
+    /**
+     *
+     */
+    final private Handler delayHandle = new Handler();
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -57,7 +69,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.servos_travel_correction);
+        setContentView(R.layout.servos_travel_correction);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction)));
@@ -145,6 +157,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			tempPicker.setTranslate(new ServoCorrectionProgressExTranslate());
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
+            tempPicker.setEnabled(false);
 		}
 	}
 
@@ -157,6 +170,51 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 		// ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
+
+    /**
+     * ziskani informace o poloze kniplu z jednotky
+     */
+    protected void getPositionFromUnit()
+    {
+        delayHandle.postDelayed(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+            }
+        }, 400); // ms
+
+    }
+
+    /**
+     *
+     * @param b
+     */
+    protected void updateControlItem(byte[] b)
+    {
+        //PITCH
+        int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
+        int pitchPercent = ((100 * pitch) / 340);
+        ((ProgressBar) findViewById(R.id.pitch_progress)).setProgress(pitchPercent + 100);
+
+        if(pitchPercent > 20){
+            for(int i = 0; i < formItems.length; i++){
+                ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+                tempPicker.setEnabled(i < 3);
+            }
+        }else if(pitchPercent < -20){
+            for(int i = 0; i < formItems.length; i++){
+                ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+                tempPicker.setEnabled(i >= 3);
+            }
+        }else{
+            for(int i = 0; i < formItems.length; i++){
+                ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+                tempPicker.setEnabled(false);
+            }
+        }
+    }
 
 	/**
 	 * naplneni formulare
@@ -171,7 +229,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
-		
+
 		checkBankNumber(profileCreator);
 		initBasicMode();
 
@@ -182,9 +240,28 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 			DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(size);
+            tempPicker.setEnabled(false);
 		}
 
 	}
+
+    /**
+     *
+     * @param menu
+     */
+    @Override
+    protected void createBanksSubMenu(Menu menu) {
+        //v subtrimu nejsou banky povoleny
+    }
+
+    /**
+     * handle for change banks
+     *
+     * @param v
+     */
+    public void changeBankOpenDialog(View v){
+        //disabled change bank in this activity
+    }
 
 	protected ProgresEx.OnChangedListener numberPicekrListener = new ProgresEx.OnChangedListener()
 	{
@@ -217,12 +294,22 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
                     initDefaultValue();
+
+                    if(!getAppBasicMode()) {
+                        getPositionFromUnit();
+                    }
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
 				break;
+            case DIAGNOSTIC_CALL_BACK_CODE:
+                if (msg.getData().containsKey("data")) {
+                    updateControlItem(msg.getData().getByteArray("data"));
+                    getPositionFromUnit();
+                }
+                break;
 			default:
 				super.handleMessage(msg);
 		}

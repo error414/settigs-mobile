@@ -34,6 +34,7 @@ import com.spirit.senzor.SenzorActivity;
 import com.spirit.senzor.SenzorReverseActivity;
 import com.spirit.senzor.SenzorRotationSpeedActivity;
 import com.spirit.senzor.SenzorSenzivityActivity;
+import com.spirit.servo.ServoTravelCorrectionActivity;
 import com.spirit.servo.ServosActivity;
 import com.spirit.servo.ServosCyclickRingRangeActivity;
 import com.spirit.servo.ServosLimitActivity;
@@ -41,7 +42,6 @@ import com.spirit.servo.ServosReverzActivity;
 import com.spirit.servo.ServosRudderEndPointsActivity;
 import com.spirit.servo.ServosSubtrimActivity;
 import com.spirit.servo.ServosTypeActivity;
-import com.spirit.servo.TravelCorrectionActivity;
 import com.spirit.stabi.StabiActivity;
 import com.spirit.stabi.StabiColActivity;
 import com.spirit.stabi.StabiCtrlDirActivity;
@@ -292,7 +292,7 @@ public class Menu {
         menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limit, ServosLimitActivity.class));
 
         //korekce drahy serv
-        menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.i41,     R.string.servo_travel_correction, TravelCorrectionActivity.class));
+        menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.i41,     R.string.servo_travel_correction, ServoTravelCorrectionActivity.class));
 
         //reverz
         menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.i46,     R.string.cyclic_servo_reverse_text, ServosReverzActivity.class));

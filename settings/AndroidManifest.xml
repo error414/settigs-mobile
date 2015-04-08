@@ -273,7 +273,7 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".servo.TravelCorrectionActivity"
+            android:name=".servo.ServoTravelCorrectionActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

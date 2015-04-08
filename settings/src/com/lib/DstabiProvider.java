@@ -73,10 +73,14 @@ public class DstabiProvider {
 	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
+    final public int DIAGNOSTIC_PROFILE_LENGTH = 17;
+
     final public String REACTIVATION_BANK = "e";
 
 	private int protocolState = 0;
-	
+
+    private int sendErrorCount = 0;
+
 	private String sendCode;
 	private byte[] sendValue;
 	
@@ -440,6 +444,7 @@ public class DstabiProvider {
         Log.d(TAG, "vypinam timer");
         stopCecurityTimer(); // vypneme casovac
         dataBuilder = null;
+        sendErrorCount = 0;
 
         synchronized (this) {
             if (queue.hasNextQueue()) {
@@ -456,7 +461,7 @@ public class DstabiProvider {
             }
         }
 	}
-	
+
 	/**
 	 * handler pro komunikaci s BT servisem
 	 */
@@ -548,7 +553,7 @@ public class DstabiProvider {
 	    								
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_DIAGNOSTIC;
-	    								dataBuilder = new DataBuilder(InputChannelsActivity.PROFILE_LENGTH); // diagnostika je dlouhe 17 bytu
+	    								dataBuilder = new DataBuilder(DIAGNOSTIC_PROFILE_LENGTH); // diagnostika je dlouhe 17 bytu
 	    								dataBuilder.add(data);
 	    								
 	    								// profil je cely odesilame zpravu s profilem, poud neni cely zachytava to
@@ -580,9 +585,18 @@ public class DstabiProvider {
 	    								dataBuilder.clear();
 	    							}
 	    						 }else{ // ERROR
-	    							connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-	    							abortAll(); 
-	    							clearState("handler 5");
+                                    //pokud selhalo odeslani pokusime se to odelsat znova
+                                    if(sendErrorCount == 0){
+                                        sendErrorCount++;
+                                        Log.w(TAG, "posilam pozadavek znovu");
+                                        stopCecurityTimer();
+                                        sendData(); // again send data
+                                    }else {
+                                        connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+                                        Log.w(TAG, "druhy pokus selhal");
+                                        abortAll();
+                                        clearState("handler 5");
+                                    }
 	    						 }
         						break;
         						
