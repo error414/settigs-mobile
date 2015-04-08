@@ -35,7 +35,7 @@ import com.spirit.BaseActivity;
 import com.spirit.R;
 
 
-public class TravelCorrectionActivity extends BaseActivity
+public class ServoTravelCorrectionActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
