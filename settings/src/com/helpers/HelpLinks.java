@@ -33,8 +33,8 @@ public class HelpLinks {
     final public static HashMap<String, String> helpPdflinks = new HashMap<String, String>() {
         {
             //link
-            put("cz", "dl/manual/spirit-manual-1.1.0_cz.pdf");
             put("en", "dl/manual/spirit-manual-1.1.0_en.pdf");
+            put("cz", "dl/manual/spirit-manual-1.1.0_cz.pdf");
             //endlink
         }
     };
