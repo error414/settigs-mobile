@@ -29,6 +29,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceActivity;
@@ -65,6 +66,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
@@ -222,8 +225,29 @@ public class ConnectionActivity extends BaseActivity
         int i = 0;
         // Loop through paired devices
         for (BluetoothDevice device : pairedDevices) {
+
+            String deviceName = device.getName().toString();
+
+            //method getAliasName only for api 14 and more
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                try {
+                    Method method = null;
+                    method = device.getClass().getMethod("getAliasName");
+                    if (method != null) {
+                        deviceName = (String) method.invoke(device);
+                    }
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
             // Add the name and address to an array adapter to show in a ListView
-            BTListSpinnerAdapter.add(device.getName().toString() + " [" + device.getAddress().toString() + "]");
+            BTListSpinnerAdapter.add(deviceName + " [" + device.getAddress().toString() + "]");
 
             //hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
             if (prefs_adress.equals(device.getAddress().toString())) {
