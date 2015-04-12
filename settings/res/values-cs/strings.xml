@@ -350,7 +350,7 @@
     <string name="log_event_vibes">Úroveň vibrací je příliš vysoká</string>
     <string name="log_event_hang">Hlavní smyčka programu uvázla</string>
     <string name="log_event_rxloss">Ztracen signál přijímače</string>
-    <string name="log_event_lowvolt">Nízké napětí</string>
+    <string name="log_event_lowvolt">Napájecí napětí je příliš nizké</string>
     <string name="not_log_for_save">Žádný záznam letu k uložení</string>
     <string name="save_log">Uložit záznam letu</string>
 

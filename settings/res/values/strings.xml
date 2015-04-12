@@ -323,7 +323,7 @@
     <string name="log_event_vibes">Vibration Level is very high</string>
     <string name="log_event_hang">Main Loop Hang Occurred</string>
     <string name="log_event_rxloss">Receiver Signal Lost</string>
-    <string name="log_event_lowvolt">Low volt</string>
+    <string name="log_event_lowvolt">Power Voltage is low</string>
     <string name="not_log_for_save">None log to save</string>
     <string name="save_log">Save log</string>
     <string name="pdf_title">Flight log</string>
