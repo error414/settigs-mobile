@@ -25,7 +25,6 @@ import android.util.Log;
 
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.spirit.diagnostic.InputChannelsActivity;
 import com.spirit.governor.GovernorRpmSenzor;
 
 import org.apache.http.util.EncodingUtils;
@@ -525,6 +524,7 @@ public class DstabiProvider {
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
 	    								dataBuilder = new DataBuilder();
+                                        dataBuilder.setLengthCorrection(mode == LOG ? 2 : 1);// log ma na zacatku delku a informaci jestli je zaznam z predchoziho letu, a profil ma na zacatku delku profilu
 	    								dataBuilder.add(data);
 	    								
 	    								// profil je cely odesilame zpravu s profilem, pokud neni cely zachytava to
@@ -684,6 +684,7 @@ public class DstabiProvider {
     	
     	private byte[] profile = null;
     	private int length = 0;
+        private int lengthCorrection = 0;
     	
     	
 		public DataBuilder(int length)
@@ -705,7 +706,7 @@ public class DstabiProvider {
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
     				if(length == 0){
-    					length = ByteOperation.byteToUnsignedInt(part[0]);
+    					length = ByteOperation.byteToUnsignedInt(part[0]) + lengthCorrection;
     				}
     				profile = part;
     			}
@@ -747,6 +748,14 @@ public class DstabiProvider {
     	{
     		return profile;
     	}
+
+        /**
+         *
+         * @param lengthCorrection
+         */
+        public void setLengthCorrection(int lengthCorrection) {
+            this.lengthCorrection = lengthCorrection;
+        }
     }
     
     /**

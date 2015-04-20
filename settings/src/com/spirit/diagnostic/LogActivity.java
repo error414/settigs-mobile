@@ -33,6 +33,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.ByteOperation;
 import com.helpers.LogListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
@@ -159,27 +160,19 @@ public class LogActivity extends BaseActivity
 	protected void updateGuiByLog(byte[] log)
 	{
 		int len = log[0] & 0xff;
-		// kontrola jestli je log z pameti
-		if (len == 120) {
-			len /= 2;
-	
-	        int i;
-	        for (i = len-1; i >= 0; i --) {
-	            if (((log[i+1] & 0xff) & LOG_EVENT_LOWVOLT) != 0 && (log[i+1] & 0xff) != 0xff){
-	                break;
-	            }
-	        }
-	
-	        len = i+1;
 
-            prewLog = true;
-	        showConfirmDialog(R.string.log_from_previous_flight);
-	    }
-		//////////
-		
+        if(len > 1){
+            prewLog = ByteOperation.byteToUnsignedInt(log[1]) == 1;
+            if(prewLog){
+                showConfirmDialog(R.string.log_from_previous_flight);
+            }
+        }
+
+		//////////////////////////////////////////////////////////////////////
+
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
 		
-		for (int i = 1; i <= len; i++) {
+		for (int i = 2; i <= len + 1; i++) {
 			if ((log[i] & 0xff) == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
@@ -273,11 +266,15 @@ public class LogActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					updateGuiByLog(msg.getData().getByteArray("data"));
 
-                    this.runOnUiThread(new Runnable() {
+
+                    Thread thread = new Thread() {
+                        @Override
                         public void run() {
                             saveLogToFile();
                         }
-                    });
+                    };
+
+                    thread.start();
 				}
 				break;
 			default:
@@ -306,7 +303,11 @@ public class LogActivity extends BaseActivity
     {
         // musime byt pripojeni k zarizeni
         if (logListData == null) {
-            Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+                }
+            });
             return false;
         }
 
@@ -319,9 +320,19 @@ public class LogActivity extends BaseActivity
 
         LogPdf log = new LogPdf(this, logListData, prewLog, ChangeInProfile.getInstance().getOriginalProfile());
         if(log.create(filename)){
-            Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+                }
+            });
+
         }else{
-            Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+
+            this.runOnUiThread(new Runnable() {
+                public void run() {
+                    Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
         return true;
