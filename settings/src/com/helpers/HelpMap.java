@@ -38,9 +38,9 @@ public class HelpMap {
         result.put(R.id.flight_style_select_id,             R.string.st_9227b10a9b8a8dedbd04953e79838429);
 
         result.put(R.id.stabi_pitch,                        R.string.st_e26228953ce397eb25e87bcff3607d0e);
-        result.put(R.id.stabi_ctrldir,                      R.string.st_9b25a70239fd85bc298f57a20029fbd1);
+        result.put(R.id.stabi_ctrldir,                      R.string.st_1bb89987a641483fa0a25daa7e52d27c);
         result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
-        result.put(R.id.function_select_id,                 R.string.st_e0b37eca21ca760ec03fd9ac52a6593e);
+        result.put(R.id.function_select_id,                 R.string.st_1f82ad83632091d590ffe4a715dc0753);
         result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
         result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);
@@ -73,7 +73,14 @@ public class HelpMap {
         result.put(R.id.cyclic_ring_ail_ele,                R.string.st_bef7e9faa6f15e367c6095280b3d5161);
         result.put(R.id.cyclic_ring_pitch,                  R.string.st_228ef0c717ed4671ff6c7d148917aeb2);
 
-        result.put(R.id.pitch_pump,                         R.string.st_6bf8cb04f7fdb6f926ad978ad55e7980);
+        result.put(R.id.governor_mode_select_id,            R.string.st_f91755e704b48300b6ed7744f871e754);
+        result.put(R.id.governor_thr_min,                   R.string.st_06685249c2d7cce3e12bc2c3b3372506);
+        result.put(R.id.governor_thr_max,                   R.string.st_599f538db3259fc1372f51277d9e17bc);
+        result.put(R.id.governor_divider,                   R.string.st_cce3d39e3431c2bd38291a913943e2d8);
+        result.put(R.id.governor_ratio,                     R.string.st_87bf01d68d2cab530a294799a9a02329);
+        result.put(R.id.governor_rpm_max,                   R.string.st_4dcc47e798bbebbefc73502c4bd92f6d);
+        result.put(R.id.governor_pgain,                     R.string.st_bc7ae3d3a122bdc0a016e266aafaa9cd);
+        result.put(R.id.governor_igain,                     R.string.st_c2bdfc419aa48d9b2ce4e42ee0308247);
 
 
         return Collections.unmodifiableMap(result);

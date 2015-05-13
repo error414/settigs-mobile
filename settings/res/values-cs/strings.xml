@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 20.04.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 13.05.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -312,9 +312,11 @@
     </string-array>
 
     <string-array name="governor_mode_values">
-        <item>Disabled</item>
-        <item>Electric</item>
-        <item>Nitro</item>
+        <item>Vypnutý</item>
+        <item>Elektrický</item>
+        <item>Elektrický (Rychlý rozběh)</item>
+        <item>Spalovací</item>
+        <item>Spalovací (Rychlý rozběh)</item>
     </string-array>
 
     <string-array name="language_pref_values">
@@ -464,12 +466,19 @@
     <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminuje vzpínání modelu</b>\n\n- Nejčastěji nastaveno na 0.\n- Přidejte je-li viditelné vzpínání.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Udává počet stupňů pootočení cykliky</b>\n\n- Používá se u vícelistých rotorových hlav.\n- Nejčastěji nastaveno na 0.\n\n<i>Rozsah: -90 - +90</i></string>
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy</b>\n\n- Přidejte pro přímější pocit propojení.\n- Uberte pro plynulejší chování modelu.\n\n<i>Rozsah: 1 - 12</i></string>
-    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Zesiluje pohyby kolektivu</b>\n\n- Rychlý pohyb způsobí větší změnu.\n- Běžně je 0.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverzujte v případě, že se deska cykliky nechová jako kompas během otáčení modelu.\n\n- Zkontrolujte, pokud byl upraven reverz senzoru v ose Z.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Pozice umístění jednotky na modelu.</string>
     <string name="st_a030379814acf4a9efd5735573f71718">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120%1.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Udává chování modelu, letové charakteristiky.\n\n- Uberte pro konstantnější a lineárnější řízení.\n- Přidejte pro dosažení chování pádlové mechaniky.</string>
+    <string name="st_f91755e704b48300b6ed7744f871e754">Udává režim Governoru.\n\n- Pro rychlý rozběh zvolte možnost (Rychlý rozběh).</string>
+    <string name="st_bc7ae3d3a122bdc0a016e266aafaa9cd">Udává odezvu governoru.\n\n- Přidejte pro rychlejší odezvu governoru během rychlé změny zátěže.\n- Snižte pokud otáčky kolísají nebo dochází k oscilaci vrtulky.</string>
+    <string name="st_c2bdfc419aa48d9b2ce4e42ee0308247">Udává míru udržení otáček.\n\n- Přidejte pro lepší dlouhodobé držení otáček.\n- Snižte pokud otáčky během visu pomalu pulzují.</string>
+    <string name="st_4dcc47e798bbebbefc73502c4bd92f6d">Udává maximální otáčky hlavního rotoru.\n\n- Nastavte otáčky, které mají být dosaženy při 100% křivce plynu.</string>
+    <string name="st_cce3d39e3431c2bd38291a913943e2d8">Udává velikost dělitele snímače otáček.\n\n- Pro helikoptéry s elektrickým pohonem je tato hodnota rovna počtu pólů motoru / 2 (Tzn. pro 10 pólový motor je hodnota rovna 5).\n- Pro spalovací helikoptéry je hodnota rovna počtu magnetů.</string>
+    <string name="st_87bf01d68d2cab530a294799a9a02329">Udává převodový poměr.\n\n- Počet zubů hlavního kola / počet zubů pastorku motoru.</string>
+    <string name="st_06685249c2d7cce3e12bc2c3b3372506">Udává spodní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejnižší možnou hodnotu serva plynu\n- Funguje jako subtrim ve vysílači.</string>
+    <string name="st_599f538db3259fc1372f51277d9e17bc">Udává horní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejvyšší možnou hodnotu serva plynu</string>
     <string name="st_bef7e9faa6f15e367c6095280b3d5161"><b>Udává rozsah dráhy serv cykliky - křidélka a výškovka</b>\n\n- Přidejte tento parametr, jak nejvíce je to možné.\n- Opatrně kontrolujte, zda nedochází k nárazu serv v žádné poloze!</string>
     <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Udává rozsah kolektivu pro kladný a záporný směr.</string>
     <string name="st_3042744980d10a21a6e46a5834af02b1">Udává spodní limit dráhy vrtulkového serva.</string>
@@ -483,8 +492,8 @@
     <string name="st_89aa34aff73db8d200536bf76779270b">Udává nejvyšší rychlost rotace\nběhem plné výchylky páky křidélek/výškovky.\n\n- Nejčastěji v rozsahu 8-12.\n- Hodnota 13 a vyšší není doporučena.\n\n<i>Rozsah: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Udává nejvyšší rychlost piruet\nběhem plné výchylky páky vrtulky.\n\n- Nejčastěji v rozsahu 8-11.\n\n<i>Rozsah: 5 - 20</i></string>
     <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Obrací smysl dráhy serv cykliky pro zadaný kanál.\n\nCH3 - křidélkové servo\nCH2 - výškovkové servo</string>
-    <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Funkce aktivována, pokud je zisk gyra záporný</b>\n\nVypnuto - Rate režim gyra\nZáchrana - záchranný režim a HH gyro\nStabilizace - stabilizace a HH gyro</string>
-    <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 1 - 5</i></string>
+    <string name="st_1f82ad83632091d590ffe4a715dc0753"><b>Funkce aktivována, pokud je zisk gyra záporný</b>\n\nVypnuto - Rate režim gyra.\nZáchrana - záchranný režim a HH gyro.\nStabilizace - stabilizace a HH gyro.</string>
+    <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 0 - 5</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n- Je nezbytné zvolit správně kladný nebo záporný směr!\n\n<i>Rozsah: -100 - +100%</i></string>
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>

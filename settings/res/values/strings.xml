@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 20.04.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 13.05.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -289,7 +289,9 @@
     <string-array name="governor_mode_values">
         <item>Disabled</item>
         <item>Electric</item>
-        <item>Nitro</item>
+        <item>Electric (Fast spoolup)</item>
+        <item>Nitro / Gasser</item>
+        <item>Nitro / Gasser (Fast spoolup)</item>
     </string-array>
 
     <string-array name="language_pref_values">
@@ -426,12 +428,19 @@
     <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminates pitchup effect</b>\n\n- Mostly configured to 0.\n- Increase when pitchup is visible.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Specifies degree of which cyclic has to be rotated</b>\n\n- Used in some multi-rotor heads.\n- Mostly configured to 0.\n\n<i>Range: -90 - +90</i></string>
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Aggressiveness of aileron/elevator stick response</b>\n\n- Increase for more direct feel.\n- Decrease for smooth behavior.\n\n<i>Range: 1 - 12</i></string>
-    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Booster of the collective pitch movements</b>\n\n- Fast movement will cause fast change.\n- Usually configured to 0.\n\n<i>Range: 0 - 4</i></string>
     <string name="st_91bffbd63276730c22ff5dc509529fa7">Reverse when cyclic is not behaving like a compass during rotation.\n\n- Double check this when sensor Z axis is reversed.</string>
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Mounting position of the unit.</string>
     <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120%1.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_9227b10a9b8a8dedbd04953e79838429">Specifies behavior of flight characteristics.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle stick behavior.</string>
+    <string name="st_f91755e704b48300b6ed7744f871e754">Specifies Governor mode.\n\n- For fast spoolup rate select (Fast) choice.</string>
+    <string name="st_bc7ae3d3a122bdc0a016e266aafaa9cd">Specifies Governor Reponse.\n\n- Increase for faster governor response during fast load change.\n- Decrease if RPM is jittering or tail wag is occuring.</string>
+    <string name="st_c2bdfc419aa48d9b2ce4e42ee0308247">Specifies Governor holding performance.\n\n- Increase for to better long-term RPM holding.\n- Decrease if RPM is pulsating slowly during hovering.</string>
+    <string name="st_4dcc47e798bbebbefc73502c4bd92f6d">Specifies maximal rotor head speed.\n\n- Configure RPM that will be achieved with 100% throttle curve.</string>
+    <string name="st_cce3d39e3431c2bd38291a913943e2d8">Specifies Sensing Divider of the sensor.\n\n- For electric helicopters it is always Motor Poles / 2 (For a 10 pole motor configure value of 5).\n- For nitro and gasser helicopters the value is magnet count.</string>
+    <string name="st_87bf01d68d2cab530a294799a9a02329">Specifies helicopter Gear Ratio.\n\n- Main Gear teeth / Pinion teeth.</string>
+    <string name="st_06685249c2d7cce3e12bc2c3b3372506">Specifies bottom limit of the throttle range.\n\n- Can be used to match preconfigured throttle range of the ESC.\n- For nitro and gasser set the limit for the lowest position of the throttle servo horn.\n- Behaves similarly as a subtrim function.</string>
+    <string name="st_599f538db3259fc1372f51277d9e17bc">Specifies upper limit of the throttle range.\n\n- Can be used to match preconfigured throttle range of the ESC.\n- For nitro and gasser set the limit for the highest position of the throttle servo horn.</string>
     <string name="st_bef7e9faa6f15e367c6095280b3d5161"><b>Specifies range of cyclic servo travel for aileron and elevator</b>\n\n- Increase this parameter as much as possible.\n- Carefully check for any binding!</string>
     <string name="st_228ef0c717ed4671ff6c7d148917aeb2">Specifies range of collective pitch for both positive and negative.</string>
     <string name="st_3042744980d10a21a6e46a5834af02b1">Specifies minimum travel limit for rudder servo.</string>
@@ -445,8 +454,8 @@
     <string name="st_89aa34aff73db8d200536bf76779270b">Specifies how fast model can rotate\nwith full aileron/elevator stick deflection.\n\n- Mostly in 8-12 range.\n- Values 13 and more are not recommended.\n\n<i>Range: 5 - 16</i></string>
     <string name="st_85767e852871648bc2db9dd4b052cf63">Specifies pirouette speed\nwith full rudder stick deflection.\n\n- Mostly in 8-11 range.\n\n<i>Range: 5 - 20</i></string>
     <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Reverses cyclic servo travel for specified channel.\nCH3 - aileron / pitch servo\nCH2 - elevator servo</string>
-    <string name="st_e0b37eca21ca760ec03fd9ac52a6593e"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode\nRescue - rescue mode with HH gyro\nStabilisation - stabilisation mode with HH gyro</string>
-    <string name="st_9b25a70239fd85bc298f57a20029fbd1"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 1 - 5</i></string>
+    <string name="st_1f82ad83632091d590ffe4a715dc0753"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode.\nRescue - rescue mode with HH gyro.\nStabilisation - stabilisation mode with HH gyro.</string>
+    <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 0 - 5</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n- Very important is to select positive or negative value correctly!\n\n<i>Range: -100 - +100%</i></string>
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 16</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
