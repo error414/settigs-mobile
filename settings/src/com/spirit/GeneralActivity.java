@@ -129,10 +129,8 @@ public class GeneralActivity extends BaseActivity
      */
     public void openGovernorActivity(View v)
     {
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
-            startActivity(i);
-        }
+        Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
+        startActivity(i);
     }
 
 	/**
@@ -198,7 +196,7 @@ public class GeneralActivity extends BaseActivity
             if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
                 ((Button) findViewById(R.id.governor)).setEnabled(false);
             }else {
-                ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
+                ((Button)findViewById(R.id.governor)).setEnabled(true);
             }
         }else{
             ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
