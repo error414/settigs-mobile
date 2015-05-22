@@ -299,8 +299,8 @@ public class DstabiProvider {
 	 */
 	private synchronized void sendData(String command, byte[] data){
 		
-		Log.d(TAG, "pozadavek na odeslani pozadavku do zarizeni cmd+data");
-		
+		Log.d(TAG, "pozadavek na odeslani pozadavku do zarizeni cmd+data: " + command + ":" + ByteOperation.getHexStringByByteArray(data));
+
 		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
 			Log.d(TAG, "pozadavek na odeslani pozadavku do zarizeni je ihned odbaven cmd+data");
 			sendCode = command;
@@ -399,7 +399,7 @@ public class DstabiProvider {
 	
 	private synchronized void sendData(){
 		
-		Log.d(TAG, "odesilam data do zarizeni");
+		Log.d(TAG, "odesilam data do zarizeni:" + sendCode );
 
         retrieveCode = "";
         dataBuilder = null;
@@ -500,7 +500,7 @@ public class DstabiProvider {
         						break;
         					
         					case DstabiProvider.PROTOCOL_STATE_SENDED_VALUES:
-        						Log.d(TAG, "prijmana data byla odpoved na prikaz");
+        						Log.d(TAG, "prijmana data byla odpoved na prikaz: " + message);
 	    						//byl odeslan init kod, cekame O nebo K
 	    						if(message.equals(DstabiProvider.OK) || mode == DIAGNOSTIC || mode == GOV_RPM){ // OK nebo sme v diagnostice
 	    							

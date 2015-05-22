@@ -489,7 +489,8 @@ public class DstabiProfile {
 		 */
 		public void setValue(byte value)
 		{
-			this.value[1] = value;
+			this.value = new byte[1];
+			this.value[0] = value;
 		}
 
         /**
@@ -522,7 +523,7 @@ public class DstabiProfile {
 		{
 			this.value = ByteOperation.intToByteArray(value + this.min);
 		}
-		
+
 		/**
 		 * hodnota pro checkBox, 
 		 * 
@@ -579,7 +580,13 @@ public class DstabiProfile {
 			if(this.value == null){
 				return 0;
 			}
-			return ByteOperation.byteArrayToUnsignedInt(this.value);
+
+            if(min >= 0){
+                return ByteOperation.byteArrayToUnsignedInt(this.value);
+            }else{
+                return ByteOperation.byte2ArrayToSigInt(this.value);
+            }
+
 		}
 		
 		/**
@@ -606,6 +613,7 @@ public class DstabiProfile {
 					return (ByteOperation.byte2ArrayToSigInt(value) >= min) && (ByteOperation.byte2ArrayToSigInt(value) <= max);
 				}
 			}
+
 			return true;
 		}
 		

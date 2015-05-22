@@ -6,18 +6,19 @@ import com.spirit.GeneralActivity;
 import com.spirit.R;
 import com.spirit.advanced.AdvancedActivity;
 import com.spirit.advanced.CyclicFFActivity;
-import com.spirit.advanced.CyclicPhaseActivity;
 import com.spirit.advanced.EFilterActivity;
 import com.spirit.advanced.GeometryAngleActivity;
 import com.spirit.advanced.PiroOptimalizationActivity;
 import com.spirit.advanced.PirouetteConsistencyActivity;
-import com.spirit.advanced.PitchpumpActivity;
-import com.spirit.advanced.PitchupActivity;
 import com.spirit.advanced.RudderDelayActivity;
 import com.spirit.advanced.RudderDynamicActivity;
 import com.spirit.advanced.RudderRevomixActivity;
-import com.spirit.advanced.SignalProcessingActivity;
-import com.spirit.advanced.StickDeadBandActivity;
+import com.spirit.advanced.expert.CyclicPhaseActivity;
+import com.spirit.advanced.expert.ExpertActivity;
+import com.spirit.advanced.expert.PitchpumpActivity;
+import com.spirit.advanced.expert.PitchupActivity;
+import com.spirit.advanced.expert.SignalProcessingActivity;
+import com.spirit.advanced.expert.StickDeadBandActivity;
 import com.spirit.diagnostic.BecTesterActivity;
 import com.spirit.diagnostic.DiagnosticActivity;
 import com.spirit.diagnostic.GraphActivity;
@@ -68,6 +69,7 @@ public class Menu {
      */
     public static Integer MENU_INDEX_SETTINGS       = 1;
     public static Integer MENU_INDEX_ADVANCED       = 2;
+    public static Integer MENU_INDEX_ADVANCED_EXPERT = 9;
     public static Integer MENU_INDEX_SENZOR         = 3;
     public static Integer MENU_INDEX_SERVO          = 4;
     public static Integer MENU_INDEX_STABI          = 5;
@@ -91,6 +93,7 @@ public class Menu {
     public static Integer MENU_FAVOURITES       = 35;
     public static Integer MENU_BEC              = 40;
 
+    public static Integer MENU_EXPERT               = 49;
     public static Integer MENU_DEADBAND             = 10;
     public static Integer MENU_6DEG                 = 11;
     public static Integer MENU_PIROOPT              = 12;
@@ -181,6 +184,9 @@ public class Menu {
         //servo
         menuList.put(MENU_SERVO,        new MenuItem(R.drawable.i8,     R.string.servos_button_text, ServosActivity.class));
 
+        //servo
+        menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limit, ServosLimitActivity.class));
+
         //senzor
         menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
 
@@ -197,7 +203,7 @@ public class Menu {
 	    menuList.put(MENU_BEC,     new MenuItem(R.drawable.na,     R.string.bec_tester, BecTesterActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC_LIST});
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC_LIST});
 
 
 
@@ -217,9 +223,6 @@ public class Menu {
 
 
         //ADVANCED ACTIVITY
-
-        //stick deadband
-        menuList.put(MENU_DEADBAND,   new MenuItem(R.drawable.i22,     R.string.stick_deadband, StickDeadBandActivity.class));
 
         //geometry 6deg
         menuList.put(MENU_6DEG,   new MenuItem(R.drawable.i48,     R.string.geom_6deg, GeometryAngleActivity.class));
@@ -242,30 +245,48 @@ public class Menu {
         //elevator filter
         menuList.put(MENU_EFILTER,   new MenuItem(R.drawable.i33,     R.string.e_filter, EFilterActivity.class));
 
-        //elevator pitchup
-        menuList.put(MENU_PITCHUP,   new MenuItem(R.drawable.i54,     R.string.pitchup, PitchupActivity.class));
-
-        //cyclic phase
-        menuList.put(MENU_CYCLICPHASE,   new MenuItem(R.drawable.i56,     R.string.cyclic_phase, CyclicPhaseActivity.class));
-
         //cyclic ff
         menuList.put(MENU_CYCLICFF,   new MenuItem(R.drawable.na,     R.string.cyclic_ff, CyclicFFActivity.class));
 
-        //signal procesing
-        menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.i58,     R.string.signal_processing, SignalProcessingActivity.class));
-
-        //pitch pump
-        menuList.put(MENU_PITCHPUMP,   new MenuItem(R.drawable.i54,     R.string.pitch_pump, PitchpumpActivity.class));
+        //cyclic ff
+        menuList.put(MENU_EXPERT,   new MenuItem(R.drawable.na,     R.string.advanced_expert, ExpertActivity.class));
 
         //add to groups
         menuGroups.put(
              MENU_INDEX_ADVANCED,
                  new Integer[]{
-                         MENU_DEADBAND, MENU_6DEG, MENU_PIROOPT, MENU_RUDDERDELAY,
-                         MENU_PIROUETTECONSISTENCY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX, MENU_EFILTER, MENU_PITCHUP,
-                         MENU_CYCLICPHASE, MENU_CYCLICFF , MENU_SIGNALPROCESSING, MENU_PITCHPUMP
+                         MENU_6DEG, MENU_PIROOPT, MENU_RUDDERDELAY,
+                         MENU_PIROUETTECONSISTENCY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX, MENU_EFILTER,
+                         MENU_CYCLICFF, MENU_EXPERT
                  }
         );
+
+        //ADVANCED EXPERT ACTIVITY
+
+        //cyclic phase
+        menuList.put(MENU_CYCLICPHASE,   new MenuItem(R.drawable.i56,     R.string.cyclic_phase, CyclicPhaseActivity.class));
+
+        //elevator pitchup
+        menuList.put(MENU_PITCHUP,   new MenuItem(R.drawable.i54,     R.string.pitchup, PitchupActivity.class));
+
+        //pitch pump
+        menuList.put(MENU_PITCHPUMP,   new MenuItem(R.drawable.i54,     R.string.pitch_pump, PitchpumpActivity.class));
+
+        //signal procesing
+        menuList.put(MENU_SIGNALPROCESSING,   new MenuItem(R.drawable.i58,     R.string.signal_processing, SignalProcessingActivity.class));
+
+        //stick deadband
+        menuList.put(MENU_DEADBAND,   new MenuItem(R.drawable.i22,     R.string.stick_deadband, StickDeadBandActivity.class));
+
+
+        //add to groups
+        menuGroups.put(
+            MENU_INDEX_ADVANCED_EXPERT,
+                new Integer[]{
+                        MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING,
+                }
+        );
+
 
         //SENZOR ACTIVITY
         //senzivity
@@ -288,9 +309,6 @@ public class Menu {
         //subtrim
         menuList.put(MENU_SERVOSUBTRIM,   new MenuItem(R.drawable.i10,     R.string.subtrim,  ServosSubtrimActivity.class));
 
-        //limit
-        menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limit, ServosLimitActivity.class));
-
         //korekce drahy serv
         menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.i41,     R.string.servo_travel_correction, ServoTravelCorrectionActivity.class));
 
@@ -298,7 +316,7 @@ public class Menu {
         menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.i46,     R.string.cyclic_servo_reverse_text, ServosReverzActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_REVERZ, MENU_SERVOSUBTRIM, MENU_SERVOLIMIT, MENU_SERVOTRAVELCORRECTION});
+        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_REVERZ, MENU_SERVOSUBTRIM, MENU_SERVOTRAVELCORRECTION});
 
 
         //STABI ACTIVITY

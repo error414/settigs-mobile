@@ -140,7 +140,7 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".advanced.StickDeadBandActivity"
+            android:name=".advanced.expert.StickDeadBandActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -189,7 +189,7 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".advanced.PitchupActivity"
+            android:name=".advanced.expert.PitchupActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -203,7 +203,7 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".advanced.CyclicPhaseActivity"
+            android:name=".advanced.expert.CyclicPhaseActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -317,7 +317,7 @@
             android:theme="@style/CustomTheme"
        />
        <activity
-            android:name=".advanced.SignalProcessingActivity"
+            android:name=".advanced.expert.SignalProcessingActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -359,7 +359,7 @@
             />
 
         <activity
-            android:name=".advanced.PitchpumpActivity"
+            android:name=".advanced.expert.PitchpumpActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -433,6 +433,15 @@
 
         <activity
             android:name=".PdfActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".advanced.expert.ExpertActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

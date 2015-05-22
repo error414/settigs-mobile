@@ -126,7 +126,7 @@ public class GovernorGearSettingsActivity extends BaseActivity
                 tempPicker.setRange(1, 8); // nastavuji rozmezi prvku z profilu
             }else {
                 tempPicker.setRange(20, 254); // nastavuji rozmezi prvku z profilu
-                tempPicker.setStepPress(2);
+                tempPicker.setStepPress(1);
                 tempPicker.setStepLongPress(2);
                 tempPicker.setTranslate(new GovernorgearRatioProgressExTranslate());
             }

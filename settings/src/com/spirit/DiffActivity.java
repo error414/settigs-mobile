@@ -231,7 +231,7 @@ public class DiffActivity extends BaseActivity
 
 		// #############################################################################################
 		if(diffItem.getLabel().equals("CYCLIC_TYPE")){
-			diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.cyclic), textSeparator, getResources().getString(R.string.pulse)).toString());
+			diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text), textSeparator, getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.cyclic), textSeparator, getResources().getString(R.string.pulse)).toString());
 
 			String[] values = getResources().getStringArray(R.array.cyclic_pulse_value);
 
@@ -242,7 +242,7 @@ public class DiffActivity extends BaseActivity
 
 		// #############################################################################################
 		if(diffItem.getLabel().equals("CYCLIC_FREQ")){
-			diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.cyclic), textSeparator, getResources().getString(R.string.frequency)).toString());
+			diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text), textSeparator, getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.cyclic), textSeparator, getResources().getString(R.string.frequency)).toString());
 
 			String[] values = getResources().getStringArray(R.array.cyclic_frequency_value);
 
@@ -337,7 +337,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MIN")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min_limit)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -346,7 +346,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MAX")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.max_limit)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -447,24 +447,6 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("PITCHUP")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.pitchup)).toString());
-
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
-        }
-        // #############################################################################################
-
-        // #############################################################################################
-        if(diffItem.getLabel().equals("STICK_DB")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.stick_deadband)).toString());
-
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
-        }
-        // #############################################################################################
-
-        // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_STOP")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.rudder_dynamic)).toString());
 
@@ -533,7 +515,7 @@ public class DiffActivity extends BaseActivity
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
         }
-        // #############################################################################################
+        // ###################################PITCH_PUMP##########################################################
 
         // #############################################################################################
         if(diffItem.getLabel().equals("PIROUETTE_CONST")){
@@ -541,24 +523,6 @@ public class DiffActivity extends BaseActivity
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
-        }
-        // #############################################################################################
-
-        // #############################################################################################
-        if(diffItem.getLabel().equals("CYCLIC_PHASE")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getResources().getString(R.string.cyclic_phase)).toString());
-
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
-            to = String.valueOf(diffItem.getChangedValue().getValueInteger() > diffItem.getOriginalValue().getMaximum() ? diffItem.getOriginalValue().getValueInteger() - 256 : diffItem.getOriginalValue().getValueInteger());
-        }
-        // #############################################################################################
-
-        // #############################################################################################
-        if(diffItem.getLabel().equals("SIGNAL_PROCESSING")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.signal_processing)).toString());
-
-            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
-            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -843,9 +807,19 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_THR_REVERSE")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor),  textSeparator , getResources().getString(R.string.governor_thr_reverse)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
+
+
+        // #############################################################################################
         if(diffItem.getLabel().equals("PITCH_PUMP")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advance), textSeparator , getResources().getString(R.string.pitch_pump)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getString(R.string.advanced_expert), textSeparator , getResources().getString(R.string.pitch_pump)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -853,11 +827,38 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_THR_REVERSE")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor),  textSeparator , getResources().getString(R.string.governor_thr_reverse)).toString());
+        if(diffItem.getLabel().equals("CYCLIC_PHASE")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getString(R.string.advanced_expert), textSeparator, getResources().getString(R.string.cyclic_phase)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SIGNAL_PROCESSING")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator ,  getString(R.string.advanced_expert), textSeparator, getResources().getString(R.string.signal_processing)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("PITCHUP")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getString(R.string.advanced_expert), textSeparator, getResources().getString(R.string.pitchup)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("STICK_DB")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getString(R.string.advanced_expert), textSeparator, getResources().getString(R.string.stick_deadband)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
         }
         // #############################################################################################
 

@@ -316,7 +316,7 @@ public class GeneralActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-					
+                    Log.d(TAG, "odesilam spinner");
 					showInfoBarWrite();
 
                     if(i == 2){

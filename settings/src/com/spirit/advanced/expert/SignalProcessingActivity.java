@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.advanced;
+package com.spirit.advanced.expert;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -59,7 +59,7 @@ public class SignalProcessingActivity extends BaseActivity{
         initSlideMenu(R.layout.advanced_signal_processing);
 
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.signal_processing)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_expert), " \u2192 ", getString(R.string.signal_processing)));
 
         initConfiguration();
         delegateListener();

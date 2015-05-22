@@ -317,7 +317,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             }
         });
 
-        Globals.getInstance().getmActivityTransitionTimer().schedule( Globals.getInstance().getmActivityTransitionTimerTask(),
+        Globals.getInstance().getmActivityTransitionTimer().schedule(Globals.getInstance().getmActivityTransitionTimerTask(),
                 Globals.MAX_ACTIVITY_TRANSITION_TIME_MS);
     }
 
@@ -479,8 +479,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 for (int i = 0; i < getFormItems().length; i++) {
                     ProgresEx tempPicker = (ProgresEx) findViewById(getFormItems()[i]);
                     ProfileItem item = originalProfile.getProfileItemByName(getProtocolCode()[i]);
-
-                    tempPicker.setOriginalValue(item.getValueInteger());
+                    if(item != null) {
+                        tempPicker.setOriginalValue(item.getValueInteger());
+                    }
                 }
 
                 break;

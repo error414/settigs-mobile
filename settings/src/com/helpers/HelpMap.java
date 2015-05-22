@@ -35,7 +35,7 @@ public class HelpMap {
         result.put(R.id.mix_select_id,                      R.string.st_a030379814acf4a9efd5735573f71718);
         result.put(R.id.receiver_select_id,                 R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
         result.put(R.id.cyclic_servo_reverse_select_id,     R.string.st_916898ebed3d1dbcb55c93994fec7ee1);
-        result.put(R.id.flight_style_select_id,             R.string.st_9227b10a9b8a8dedbd04953e79838429);
+        result.put(R.id.flight_style_select_id,             R.string.st_4e74822308285a5d25761bc2c9387dc2);
 
         result.put(R.id.stabi_pitch,                        R.string.st_e26228953ce397eb25e87bcff3607d0e);
         result.put(R.id.stabi_ctrldir,                      R.string.st_1bb89987a641483fa0a25daa7e52d27c);
@@ -67,20 +67,20 @@ public class HelpMap {
         result.put(R.id.signal_processing,                  R.string.st_9a77db935bc1b64ee6402e6c8d019d44);
         result.put(R.id.stick_db,                           R.string.st_02282a0a0af7a569d19732b906395ed5);
 
-        result.put(R.id.rudder_limit_min,                   R.string.st_3042744980d10a21a6e46a5834af02b1);
-        result.put(R.id.rudder_limit_max,                   R.string.st_399fe255b29e9f87fd15daede396fdd7);
+        result.put(R.id.rudder_limit_min,                   R.string.st_e11bdb4cd957e81f87afdc4b2c3134fe);
+        result.put(R.id.rudder_limit_max,                   R.string.st_08a5a1e5848935703bcc7d12cf34f318);
 
-        result.put(R.id.cyclic_ring_ail_ele,                R.string.st_bef7e9faa6f15e367c6095280b3d5161);
-        result.put(R.id.cyclic_ring_pitch,                  R.string.st_228ef0c717ed4671ff6c7d148917aeb2);
+        result.put(R.id.cyclic_ring_ail_ele,                R.string.st_b7528539f90bd0ef74ab982a09574de4);
+        result.put(R.id.cyclic_ring_pitch,                  R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
-        result.put(R.id.governor_mode_select_id,            R.string.st_f91755e704b48300b6ed7744f871e754);
-        result.put(R.id.governor_thr_min,                   R.string.st_06685249c2d7cce3e12bc2c3b3372506);
-        result.put(R.id.governor_thr_max,                   R.string.st_599f538db3259fc1372f51277d9e17bc);
-        result.put(R.id.governor_divider,                   R.string.st_cce3d39e3431c2bd38291a913943e2d8);
-        result.put(R.id.governor_ratio,                     R.string.st_87bf01d68d2cab530a294799a9a02329);
-        result.put(R.id.governor_rpm_max,                   R.string.st_4dcc47e798bbebbefc73502c4bd92f6d);
-        result.put(R.id.governor_pgain,                     R.string.st_bc7ae3d3a122bdc0a016e266aafaa9cd);
-        result.put(R.id.governor_igain,                     R.string.st_c2bdfc419aa48d9b2ce4e42ee0308247);
+        result.put(R.id.governor_mode_select_id,            R.string.st_7e9b6e6e69bdf3a03eb5e74a27a286c5);
+        result.put(R.id.governor_thr_min,                   R.string.st_65abb627338d2deeaeacca880ecac232);
+        result.put(R.id.governor_thr_max,                   R.string.st_46c2d7f70c71e5957d323fe570e16dfd);
+        result.put(R.id.governor_divider,                   R.string.st_cffee8820dbdc898c99db0f0350440f4);
+        result.put(R.id.governor_ratio,                     R.string.st_794fca310ce523ae9cda3e4a0f9c5b1d);
+        result.put(R.id.governor_rpm_max,                   R.string.st_3f768495d1b414cb1277d3b1f3ae2691);
+        result.put(R.id.governor_pgain,                     R.string.st_b1f1153100c33f0ce17c0264026d5bec);
+        result.put(R.id.governor_igain,                     R.string.st_d12c351a24a5319dcbcbc77d25195675);
 
 
         return Collections.unmodifiableMap(result);

@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.advanced;
+package com.spirit.advanced.expert;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -57,7 +57,7 @@ public class CyclicPhaseActivity extends BaseActivity
 		initSlideMenu(R.layout.advanced_cyclic_phase);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.cyclic_phase)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_expert), " \u2192 ",  getString(R.string.cyclic_phase)));
 
 		initGui();
 		initConfiguration();
@@ -166,7 +166,7 @@ public class CyclicPhaseActivity extends BaseActivity
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
 			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-			tempPicker.setCurrentNoNotify(item.getValueInteger() > item.getMaximum() ? item.getValueInteger() - 256 : item.getValueInteger());
+			tempPicker.setCurrentNoNotify(item.getValueInteger());
 		}
 
 	}

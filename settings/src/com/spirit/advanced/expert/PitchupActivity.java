@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.advanced;
+package com.spirit.advanced.expert;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -33,18 +33,18 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class PitchpumpActivity extends BaseActivity
+public class PitchupActivity extends BaseActivity
 {
 
-	final private String TAG = "PitchpumpActivity";
+	final private String TAG = "PitchupActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"PITCH_PUMP",};
+	private final String protocolCode[] = {"PITCHUP",};
 
-	private int formItems[] = {R.id.pitch_pump,};
+	private int formItems[] = {R.id.pitchup,};
 
-	private int formItemsTitle[] = {R.string.pitch_pump,};
+	private int formItemsTitle[] = {R.string.pitchup,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -54,10 +54,10 @@ public class PitchpumpActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.advanced_pitchpump);
+		initSlideMenu(R.layout.advanced_pitchup);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pitch_pump)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_expert), " \u2192 ", getString(R.string.pitchup)));
 
 		initGui();
 		initConfiguration();

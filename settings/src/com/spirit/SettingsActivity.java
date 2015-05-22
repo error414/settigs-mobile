@@ -18,10 +18,14 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -99,7 +103,48 @@ public class SettingsActivity extends BaseActivity
 			}
 		});
 
-        //AUTO GENERATE DONATE START
+
+		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+		boolean previouslyStarted = prefs.getBoolean("showSwipeHelp", false);
+
+		if(!previouslyStarted) {
+			SharedPreferences.Editor edit = prefs.edit();
+			edit.putBoolean("showSwipeHelp", Boolean.TRUE);
+			edit.commit();
+			onCoachMark();
+		}else {
+			tryShowDonateDialog();
+		}
+	}
+
+	/**
+	 *
+	 */
+	public void onCoachMark(){
+
+		final Dialog dialog = new Dialog(this);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+		dialog.setContentView(R.layout.help_swipe_to_left);
+		dialog.setCanceledOnTouchOutside(true);
+		//for dismissing anywhere you touch
+		View masterView = dialog.findViewById(R.id.help_swipe_to_left_image);
+		masterView.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				dialog.dismiss();
+				tryShowDonateDialog();
+
+			}
+		});
+		dialog.show();
+	}
+
+	/**
+	 *
+	 */
+	public void tryShowDonateDialog(){
+		//AUTO GENERATE DONATE START
         /*com.lib.ChangeLog cl = new com.lib.ChangeLog(this);
         	    if (cl.firstRun()){
         	        cl.getLogDialog().show();
