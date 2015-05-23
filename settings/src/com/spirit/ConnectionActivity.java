@@ -20,14 +20,20 @@ package com.spirit;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.net.ConnectivityManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
+import android.preference.PreferenceActivity;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
@@ -53,12 +59,16 @@ import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
+import com.lib.FileNameCreator;
 import com.lib.SelectionMode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -117,11 +127,6 @@ public class ConnectionActivity extends BaseActivity
     final protected int GET_PROFILE_BANK_2_CALL_BACK_CODE = 128;
 
     final protected int CHANGE_BANK_SOURCE_CALL_BACK_CODE = 129;
-
-    //z aktivity prisel pozadavek na ulozeni, nejprve nacteme profil a serial a pak muzem zacit ukladat
-    private boolean requestSaveBank = false;
-    private boolean requestInsertToUnit = false;
-    private byte[] profileToSaveunit;
 	/**
      * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
      */
@@ -177,9 +182,6 @@ public class ConnectionActivity extends BaseActivity
     public void onSaveInstanceState(Bundle savedInstanceState)
     {
         savedInstanceState.putBoolean("disconect", disconect);
-        savedInstanceState.putBoolean("requestInsertToUnit", requestInsertToUnit);
-        savedInstanceState.putBoolean("isPosibleSendData", isPosibleSendData);
-        savedInstanceState.putBoolean("requestSaveBank", requestSaveBank);
 		if (copyBankTask != null) {
 			savedInstanceState.putSerializable("copyBankTask", copyBankTask);
 		}
@@ -197,9 +199,6 @@ public class ConnectionActivity extends BaseActivity
      */
     public void onRestoreInstanceState(Bundle savedInstanceState)
     {
-        requestSaveBank = savedInstanceState.getBoolean("requestSaveBank", false);
-        requestInsertToUnit = savedInstanceState.getBoolean("requestInsertToUnit", false);
-        isPosibleSendData = savedInstanceState.getBoolean("isPosibleSendData", false);
         disconect = savedInstanceState.getBoolean("disconect", false);
 		copyBankTask = savedInstanceState.containsKey("copyBankTask") ? (CopyBankTask) savedInstanceState.getSerializable("copyBankTask") : null;
         saveProfileBanksTask = savedInstanceState.containsKey("saveProfileBanksTask") ? (SaveProfileAllBanksTask) savedInstanceState.getSerializable("saveProfileBanksTask") : null;
@@ -226,8 +225,29 @@ public class ConnectionActivity extends BaseActivity
         int i = 0;
         // Loop through paired devices
         for (BluetoothDevice device : pairedDevices) {
+
+            String deviceName = device.getName().toString();
+
+            //method getAliasName only for api 14 and more
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+                try {
+                    Method method = null;
+                    method = device.getClass().getMethod("getAliasName");
+                    if (method != null) {
+                        deviceName = (String) method.invoke(device);
+                    }
+                } catch (NoSuchMethodException e) {
+                    e.printStackTrace();
+                } catch (InvocationTargetException e) {
+                    e.printStackTrace();
+                } catch (IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+            }
+
+
             // Add the name and address to an array adapter to show in a ListView
-            BTListSpinnerAdapter.add(device.getName().toString() + " [" + device.getAddress().toString() + "]");
+            BTListSpinnerAdapter.add(deviceName + " [" + device.getAddress().toString() + "]");
 
             //hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
             if (prefs_adress.equals(device.getAddress().toString())) {
@@ -309,10 +329,9 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-
         if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR1").getValueString().equals(APLICATION_MINOR1_VERSION))) {
             stabiProvider.disconnect();
-            showConfirmDialog(R.string.version_not_match);
+            showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(APLICATION_MAJOR_VERSION) + '.' + String.valueOf(APLICATION_MINOR1_VERSION) + ".X" ));
         }
 
 
@@ -323,8 +342,8 @@ public class ConnectionActivity extends BaseActivity
             if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
                 ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
             }
-
-            //nacteni banky
+            
+            //nacteni banky 
             checkBankNumber(profileCreator);
 
             //kontrola jestli po prvnim pripojeni banka 0
@@ -572,8 +591,23 @@ public class ConnectionActivity extends BaseActivity
 			}
 
 
+            String dir = DEFAULT_PROFILE_PATH;
+            SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(ConnectionActivity.this);
+            if(sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
+
+                File dirTemp = new File(sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_PROFILE_DIR);
+                if(!dirTemp.exists()) {
+                    if(createStorageDir(dirTemp) == PrefsActivity.DIR_CREATED){
+                        dir = dirTemp.getAbsolutePath();
+                    }
+                }else{
+                    dir = dirTemp.getAbsolutePath();
+                }
+
+            }
+
 			Intent intent = new Intent(getBaseContext(), FileDialog.class);
-			intent.putExtra(FileDialog.START_PATH, DEFAULT_PROFILE_PATH);
+			intent.putExtra(FileDialog.START_PATH, dir);
 			intent.putExtra(FileDialog.CAN_SELECT_DIR, false);
 			intent.putExtra(FileDialog.FORMAT_FILTER, new String[]{FILE_EXT});
 
@@ -613,7 +647,7 @@ public class ConnectionActivity extends BaseActivity
 			case REQUEST_OPEN:
             case REQUEST_SAVE_ALL_BANKS:
 				if (resultCode == Activity.RESULT_OK) {
-					String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
+					final String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
 
 					if (requestCode == REQUEST_SAVE) {
                         //SAVE
@@ -622,11 +656,34 @@ public class ConnectionActivity extends BaseActivity
                             return;
                         }
                         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-                            showDialogWrite();
-                            saveProfileBanksTask = new SaveProfileAllBanksTask();
-                            saveProfileBanksTask.setFileForSave(filePath);
-                            saveProfileBanksTask.setSourceBank(-1);
-                            stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                            File fTest = FileNameCreator.createFilePathNoBank(filePath);
+                            if(fTest.exists()){
+                                new AlertDialog.Builder(this)
+                                        .setMessage(getString(R.string.rewrite_file) + "\n\n" + fTest.getName())
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                showDialogWrite();
+                                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                                saveProfileBanksTask.setFileForSave(filePath);
+                                                saveProfileBanksTask.setSourceBank(-1);
+                                                stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // do nothing
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                            }else{
+                                showDialogWrite();
+                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                saveProfileBanksTask.setFileForSave(filePath);
+                                saveProfileBanksTask.setSourceBank(-1);
+                                stabiProvider.getProfile(PROFILE_CALL_BACK_CODE_FOR_SAVE);
+                            }
                         }
 
                     } else if (requestCode == REQUEST_SAVE_ALL_BANKS){
@@ -635,22 +692,52 @@ public class ConnectionActivity extends BaseActivity
                             return;
                         }
                         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-                            showDialogWrite();
-                            saveProfileBanksTask = new SaveProfileAllBanksTask();
-                            saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
-                            saveProfileBanksTask.setFileForSave(filePath);
+                            File[] filesPath = FileNameCreator.createFilePathActiveBank(filePath);
 
-                            //nastavime priznak ze chceme zacit ukladat do souboru, to udelam tak ze pozadame o prepnuti
-                            // banku na 0 s callback s CHANGE_BANK_0_CALL_BACK_CODE, ale az po nacteni profilu a serial
-                            requestSaveBank = true;
+                            String filesExistsS = "";
+                            boolean filesExists = false;
+                            for(File filePathLoop : filesPath){
+                                if(filePathLoop.exists()){
+                                    filesExistsS = filesExistsS + filePathLoop.getName() + "\n";
+                                    filesExists = true;
+                                }
+                            }
+
+                            if(filesExists){
+                                new AlertDialog.Builder(this)
+                                        .setMessage(getString(R.string.rewrite_file) + "\n\n" + filesExistsS)
+                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+
+                                                showDialogWrite();
+                                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                                saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
+                                                saveProfileBanksTask.setFileForSave(filePath);
+                                                changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                                            }
+                                        })
+                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // do nothing
+                                            }
+                                        })
+                                        .setIcon(android.R.drawable.ic_dialog_alert)
+                                        .show();
+                            }else{
+                                showDialogWrite();
+                                saveProfileBanksTask = new SaveProfileAllBanksTask();
+                                saveProfileBanksTask.setSourceBank(Globals.getInstance().getActiveBank());
+                                saveProfileBanksTask.setFileForSave(filePath);
+                                changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
+                            }
                         }
 					} else if (requestCode == REQUEST_OPEN) {
 						//OPEN
 						File file = new File(filePath);
 						try {
-                            profileToSaveunit = DstabiProfile.loadProfileFromFile(file);
-                            requestInsertToUnit = true;
+							byte[] profile = DstabiProfile.loadProfileFromFile(file);
 							//////////////////////////////////////////////////////////////////////////////
+							insertProfileToUnit(profile);
 
 						} catch (FileNotFoundException e) {
 							Toast.makeText(getApplicationContext(), R.string.file_not_found, Toast.LENGTH_SHORT).show();
@@ -682,14 +769,17 @@ public class ConnectionActivity extends BaseActivity
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
 				isPosibleSendData = false;
-				stabiProvider.abortAll();
+                if(stabiProvider != null) {
+                    stabiProvider.abortAll();
+                }
 				sendInError(false); // ukazat error ale neukoncovat activitu
                 setBTConnectedProgress();
+                showConfirmDialog(R.string.sys_disconected);
 				if(disconect){
 					disconect = false;
 					stabiProvider.disconnect();
 				}
-
+				
 				break;
 			case DstabiProvider.MESSAGE_SEND_COMPLETE:
 				sendInSuccessDialog();
@@ -719,16 +809,6 @@ public class ConnectionActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiBySerialNumber(msg.getData().getByteArray("data"));
 				}
-
-                if(requestSaveBank){
-                    changeBank(0, CHANGE_BANK_0_CALL_BACK_CODE);
-                    requestSaveBank = false;
-                }
-
-                if(requestInsertToUnit){
-                    requestInsertToUnit = false;
-                    insertProfileToUnit(profileToSaveunit);
-                }
 				break;
 			case UNLOCKBANK_CALL_BACK_CODE:
                 if(Globals.getInstance().isChanged()) {
@@ -893,18 +973,14 @@ public class ConnectionActivity extends BaseActivity
 		}
 
         String filePath = saveProfileBanksTask.getFileForSave();
-        if(filePath.endsWith(FILE_EXT)){
-            filePath = filePath.substring(0, filePath.length() - FILE_EXT.length() - 1);
-        }
-
 
 		try {
 			byte[] clearProfile = new byte[255];
 			System.arraycopy(profile, 1, clearProfile, 0, profile.length - 1);
             if(bankNumber >= 0) {
-                DstabiProfile.saveProfileToFile(new File(filePath + "-b" + String.valueOf(bankNumber) + "." + FILE_EXT), clearProfile);
+                DstabiProfile.saveProfileToFile(FileNameCreator.createFilePathForBank(filePath, bankNumber), clearProfile);
             }else{
-                DstabiProfile.saveProfileToFile(new File(filePath + "." + FILE_EXT), clearProfile);
+                DstabiProfile.saveProfileToFile(FileNameCreator.createFilePathNoBank(filePath), clearProfile);
             }
 
             return true;
@@ -1025,6 +1101,19 @@ public class ConnectionActivity extends BaseActivity
         public void setSourceBank(int sourceBank) {
             this.sourceBank = sourceBank;
         }
+    }
+
+    /**
+     *
+     * @param file
+     * @return
+     */
+    private int createStorageDir(File file) {
+        if (file == null || !file.mkdirs()) {
+            return PrefsActivity.DIR_CREATED_FAILED;
+        }
+
+        return PrefsActivity.DIR_CREATED;
     }
 
     @Override

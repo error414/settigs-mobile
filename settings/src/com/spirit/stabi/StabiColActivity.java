@@ -180,7 +180,10 @@ public class StabiColActivity extends BaseActivity
                 showWarning(View.INVISIBLE);
             }
 
-			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65 || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68){ // 65 is "A" in profile, 68 is D
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65
+                    || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68
+                    || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 69
+            ){ // 65 is "A" in profile, 68 is D,  69 is E
 				tempPicker.setEnabled(false);
 			}
 		}
@@ -209,20 +212,17 @@ public class StabiColActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        if(newVal < 127 + 4 && newVal > 127 - 4){
+                            showWarning(View.VISIBLE);
+                        }else{
+                            showWarning(View.INVISIBLE);
+                        }
 
-					//if (newVal > 127 && newVal < 127 + 4) newVal = 127 - 4;
-					//if (newVal < 127 && newVal > 127 - 4) newVal = 127 + 4;
-
-					parent.setCurrentNoNotify(newVal);
-
-					item.setValue(newVal);
-                    if(newVal < 127 + 4 && newVal > 127 - 4){
-                        showWarning(View.VISIBLE);
-                    }else{
-                        showWarning(View.INVISIBLE);
+                        stabiProvider.sendDataNoWaitForResponce(item);
                     }
 
-					stabiProvider.sendDataNoWaitForResponce(item);
 				}
 			}
             initDefaultValue();

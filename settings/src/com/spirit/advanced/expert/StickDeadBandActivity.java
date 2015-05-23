@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.advanced;
+package com.spirit.advanced.expert;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -33,18 +33,19 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class PitchupActivity extends BaseActivity
+public class StickDeadBandActivity extends BaseActivity
 {
 
-	final private String TAG = "PitchupActivity";
+	@SuppressWarnings("unused")
+	final private String TAG = "StickDeadBandActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"PITCHUP",};
+	private final String protocolCode[] = {"STICK_DB",};
 
-	private int formItems[] = {R.id.pitchup,};
+	private int formItems[] = {R.id.stick_db,};
 
-	private int formItemsTitle[] = {R.string.pitchup,};
+	private int formItemsTitle[] = {R.string.stick_deadband,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -54,15 +55,16 @@ public class PitchupActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.advanced_pitchup);
+		initSlideMenu(R.layout.advanced_stick_deathband);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pitchup)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.advanced_expert), " \u2192 ", getString(R.string.stick_deadband)));
 
 		initGui();
 		initConfiguration();
 		delegateListener();
 	}
+
     /**
      *
      * @return
@@ -87,7 +89,7 @@ public class PitchupActivity extends BaseActivity
     }
 
 	/**
-	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
@@ -118,7 +120,7 @@ public class PitchupActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
 		}
 	}
 
@@ -184,8 +186,10 @@ public class PitchupActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
@@ -201,6 +205,7 @@ public class PitchupActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
                     initDefaultValue();
+
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:

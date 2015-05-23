@@ -20,7 +20,6 @@ package com.spirit.advanced;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -186,9 +185,10 @@ public class PirouetteConsistencyActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
-					Log.d(TAG, String.valueOf(newVal));
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();

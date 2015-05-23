@@ -20,6 +20,7 @@ package com.spirit.servo;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -159,6 +160,10 @@ public class ServosTypeActivity extends BaseActivity
 
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		rudderFrequency.setAdapter(adapter);
+
+		if (Math.min(freqPos, adapter.getCount() - 1) != rudderFrequency.getSelectedItemPosition()) {
+			lock = lock + 1;
+		}
 		rudderFrequency.setSelection(Math.min(freqPos, adapter.getCount() - 1));
 	}
 
@@ -190,7 +195,9 @@ public class ServosTypeActivity extends BaseActivity
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
 
-				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
+				if (pos != tempSpinner.getSelectedItemPosition()) {
+					lock = lock + 1;
+				}
 				tempSpinner.setSelection(pos);
 			}
 		} catch (IndexOutOfException e) {
@@ -218,6 +225,8 @@ public class ServosTypeActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
+
+					Log.d(TAG, "odesilam spinner");
 					stabiProvider.sendDataNoWaitForResponce(item);
 
 					showInfoBarWrite();

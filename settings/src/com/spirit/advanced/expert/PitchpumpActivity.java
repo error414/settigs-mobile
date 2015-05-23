@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.advanced;
+package com.spirit.advanced.expert;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -33,19 +33,18 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class StickDeadBandActivity extends BaseActivity
+public class PitchpumpActivity extends BaseActivity
 {
 
-	@SuppressWarnings("unused")
-	final private String TAG = "StickDeadBandActivity";
+	final private String TAG = "PitchpumpActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"STICK_DB",};
+	private final String protocolCode[] = {"PITCH_PUMP",};
 
-	private int formItems[] = {R.id.stick_db,};
+	private int formItems[] = {R.id.pitch_pump,};
 
-	private int formItemsTitle[] = {R.string.stick_deadband,};
+	private int formItemsTitle[] = {R.string.pitch_pump,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -55,16 +54,15 @@ public class StickDeadBandActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.advanced_stick_deathband);
+		initSlideMenu(R.layout.advanced_pitchpump);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.stick_deadband)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_expert), " \u2192 ",getString(R.string.pitch_pump)));
 
 		initGui();
 		initConfiguration();
 		delegateListener();
 	}
-
     /**
      *
      * @return
@@ -89,7 +87,7 @@ public class StickDeadBandActivity extends BaseActivity
     }
 
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
@@ -120,7 +118,7 @@ public class StickDeadBandActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setTitle(formItemsTitle[i]); // nastavime krok
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		}
 	}
 
@@ -186,8 +184,10 @@ public class StickDeadBandActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
@@ -203,7 +203,6 @@ public class StickDeadBandActivity extends BaseActivity
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
                     initDefaultValue();
-
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:

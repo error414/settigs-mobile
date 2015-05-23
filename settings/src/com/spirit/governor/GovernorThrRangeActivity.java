@@ -1,5 +1,6 @@
 /*
 Copyright (C) Petr Cada and Tomas Jedrzejek
+Copyright (C) Petr Cada and Tomas Jedrzejek
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -14,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-
-package com.spirit.servo;
+package com.spirit.governor;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -25,42 +25,41 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.google.analytics.tracking.android.EasyTracker;
-import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.translate.ServoCorrectionProgressExTranslate;
+import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-
-public class TravelCorrectionActivity extends BaseActivity
+public class GovernorThrRangeActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "TravelCorrectionActivity";
+	final private String TAG = "GovernorThrRangeActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"TRAVEL_UAIL", "TRAVEL_UELE", "TRAVEL_UPIT", "TRAVEL_DAIL", "TRAVEL_DELE", "TRAVEL_DPIT",};
+	private final String protocolCode[] = {"GOVERNOR_THR_MIN", "GOVERNOR_THR_MAX",};
 
-	private int formItems[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
+	private int formItems[] = {R.id.governor_thr_min, R.id.governor_thr_max};
 
-	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
+	private int formItemsTitle[] = {R.string.governor_thr_min, R.string.governor_thr_max};
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.servos_travel_correction);
+		initSlideMenu(R.layout.governor_thr_range);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_thr_range)));
 
 		initGui();
 		initConfiguration();
@@ -91,32 +90,18 @@ public class TravelCorrectionActivity extends BaseActivity
     }
 
 	/**
-	 * prirazeni udalosti k prvkum
-	 */
-	private void delegateListener()
-	{
-		//nastaveni posluchacu pro formularove prvky
-		for (int i = 0; i < formItems.length; i++) {
-			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
-		}
-	}
-
-	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			if (!getAppBasicMode()) {
-				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
-			}
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
             initDefaultValue();
-		} else {
-			finish();
-		}
+        }else{
+            finish();
+        }
 	}
 	
 	/**
@@ -132,19 +117,29 @@ public class TravelCorrectionActivity extends BaseActivity
 		}
 	}
 
-	@Override
-	public void onPause()
-	{
-		super.onPause();
-		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani ladeni
-	}
-
 	private void initGui()
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setTranslate(new ServoCorrectionProgressExTranslate());
-			tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+
+            if(protocolCode[i].equals("GOVERNOR_THR_MIN")){
+                tempPicker.setRange(-50, -150); // nastavuji rozmezi prvku z profilu
+                tempPicker.setTranslate(new GovernorThrRangeMinProgressExTranslate());
+            }else {
+                tempPicker.setRange(50, 150); // nastavuji rozmezi prvku z profilu
+            }
+		}
+	}
+
+	/**
+	 * prirazeni udalosti k prvkum
+	 */
+	private void delegateListener()
+	{
+		//nastaveni posluchacu pro formularove prvky
+		for (int i = 0; i < formItems.length; i++) {
+			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		}
 	}
 
@@ -177,28 +172,34 @@ public class TravelCorrectionActivity extends BaseActivity
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
-			DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-			tempPicker.setCurrentNoNotify(size);
+			if(profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() == 0){
+				tempPicker.setEnabled(false);
+			}
 		}
 
 	}
 
-	protected ProgresEx.OnChangedListener numberPicekrListener = new ProgresEx.OnChangedListener()
+	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
 		@Override
 		public void onChanged(ProgresEx parent, int newVal)
 		{
+			// TODO Auto-generated method stub
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
-					DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
-					stabiProvider.sendDataNoWaitForResponce(item);
+					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
@@ -234,9 +235,12 @@ public class TravelCorrectionActivity extends BaseActivity
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
     }
-
 }
+
+
+

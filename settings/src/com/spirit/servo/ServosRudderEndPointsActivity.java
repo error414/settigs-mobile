@@ -45,7 +45,7 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 
 	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
 
-	private int formItemsTitle[] = {R.string.min, R.string.max,};
+	private int formItemsTitle[] = {R.string.min_limit, R.string.max_limit,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -188,8 +188,10 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
 

@@ -18,7 +18,6 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
@@ -130,10 +129,8 @@ public class GeneralActivity extends BaseActivity
      */
     public void openGovernorActivity(View v)
     {
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
-            startActivity(i);
-        }
+        Intent i = new Intent(GeneralActivity.this, GovernorActivity.class);
+        startActivity(i);
     }
 
 	/**
@@ -195,16 +192,15 @@ public class GeneralActivity extends BaseActivity
      */
     private void checkGovernorButton()
     {
-        return;
-        /*if(profileCreator != null){
-            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 *//*A*//* || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
+        if(profileCreator != null){
+            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
                 ((Button) findViewById(R.id.governor)).setEnabled(false);
             }else {
-                ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
+                ((Button)findViewById(R.id.governor)).setEnabled(true);
             }
         }else{
             ((Button)findViewById(R.id.governor)).setEnabled(!getAppBasicMode());
-        }*/
+        }
     }
 
 	/**
@@ -320,7 +316,7 @@ public class GeneralActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-					
+                    Log.d(TAG, "odesilam spinner");
 					showInfoBarWrite();
 
                     if(i == 2){

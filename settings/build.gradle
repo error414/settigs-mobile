@@ -23,7 +23,7 @@ android {
     compileSdkVersion 17
     buildToolsVersion '21.1.2'
     defaultConfig {
-        minSdkVersion 7
+        minSdkVersion 8
         targetSdkVersion 17
     }
     signingConfigs {
@@ -50,18 +50,29 @@ android {
         release.setRoot('build-types/release')
     }
 
+    // U T I L I T Y   T A S K S  =================================================================
     task buildHelpText(type: Exec) {
         //update build info
         executable "sh"
         args "-c", "php -f ./gradle-exec/buildhelpText.php"
+    }
 
+    task createHelpPDFLinksDevel(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php devel"
+    }
 
+    task createHelpPDFLinksProduction(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php release"
     }
 
     task buildInfoRelase(type: Exec) {
         //update build info
         executable "sh"
-        args "-c", "php -f ./gradle-exec/updateRevision.php relase"
+        args "-c", "php -f ./gradle-exec/updateRevision.php release"
     }
 
     task buildInfoDevel(type: Exec) {
@@ -76,8 +87,44 @@ android {
         args "-c", "./gradle-exec/convertImage.sh"
     }
 
-    productFlavors {
+    task deactivateDonate(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f./gradle-exec/toogleDonate.php devel"
     }
+
+    task activateDonate(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f./gradle-exec/toogleDonate.php release"
+    }
+
+    task info(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/info.php"
+    }
+
+
+
+    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksProduction', 'activateDonate', 'info', 'assembleRelease'], type:Exec) {
+        executable "sh"
+        args "-c", "echo 'DONE'"
+    }
+    assembleRelease.mustRunAfter buildInfoRelase;
+
+    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksDevel', 'deactivateDonate', 'info', 'assembleRelease'], type:Exec) {
+        executable "sh"
+        args "-c", "echo 'DONE'"
+    }
+    assembleRelease.mustRunAfter buildInfoDevel;
+
+    assembleRelease.mustRunAfter buildHelpText;
+    assembleRelease.mustRunAfter createHelpPDFLinksDevel;
+    assembleRelease.mustRunAfter createHelpPDFLinksProduction;
+    assembleRelease.mustRunAfter activateDonate;
+    assembleRelease.mustRunAfter deactivateDonate;
+    info.mustRunAfter assembleRelease;
 }
 
 def props = new Properties()
@@ -86,3 +133,9 @@ android.signingConfigs.release.storeFile rootProject.file(props.keyStore)
 android.signingConfigs.release.storePassword props.keyStorePassword
 android.signingConfigs.release.keyAlias props.keyAlias
 android.signingConfigs.release.keyPassword props.keyAliasPassword
+
+
+
+
+
+

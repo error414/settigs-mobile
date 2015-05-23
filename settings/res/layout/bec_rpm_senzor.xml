@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@color/background_color">
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_color" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color" >
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_below="@+id/textView2"
+                android:src="@drawable/black_line" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="10dp"
+                android:text="@string/governor_request_rpm"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/text_color"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/black_line_small" />
+
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_below="@+id/imageView1"
+                android:layout_marginTop="10dp"
+                android:text="@string/governor_request_rpm"
+                android:textColor="@color/text_color" />
+
+            <ProgressBar
+                android:id="@+id/governor_request_rpm"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView10"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView10"
+                android:layout_marginRight="10dp"
+                android:max="40000"
+                android:progressDrawable="@drawable/my_custom_pb" />
+
+            <TextView
+                android:id="@+id/governor_value_request_rpm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView10"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:text="0"
+                android:textColor="@color/text_color" />
+
+            <TextView
+                android:id="@+id/textView100"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/governor_request_rpm"
+                android:layout_below="@+id/governor_request_rpm"
+                android:layout_marginTop="10dp"
+                android:text="@string/governor_current_rpm"
+                android:textColor="@color/text_color" />
+
+            <ProgressBar
+                android:id="@+id/governor_current_rpm"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/textView100"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/textView100"
+                android:layout_marginRight="10dp"
+                android:max="40000"
+                android:progressDrawable="@drawable/my_custom_pb" />
+
+            <TextView
+                android:id="@+id/governor_value_current_rpm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView100"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="2dp"
+                android:text="0"
+                android:textColor="@color/text_color" />
+
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</LinearLayout>

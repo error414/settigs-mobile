@@ -25,7 +25,7 @@ package com.helpers;
 public class ByteOperation {
 
 	/**
-	 * gyte to int
+	 * one byte to unsigned int 0 - 255
 	 * 
 	 * @param b
 	 * @return
@@ -33,8 +33,84 @@ public class ByteOperation {
 	final public static int byteToUnsignedInt(byte b) {
 		return 0x00 << 8 | (b & 0xff);
 	}
-	
-	/**
+    /**
+     * Convert a byte array integer (4 bytes) to its int value nebo 1 byte
+     * @param b byte[]
+     * @return int
+     */
+    public static int byteArrayToUnsignedInt(byte[] b) {
+        if(b == null){
+            return 0;
+        }
+
+        if(b.length == 4)
+            return b[0] << 24 | (b[1] & 0xff) << 16 | (b[2] & 0xff) << 8 | (b[3] & 0xff);
+        else if(b.length == 2)
+            return (b[0] & 0xff) << 8 | (b[1] & 0xff);
+
+        else if(b.length == 1)
+            return (b[0] & 0xff);
+
+        return 0;
+    }
+
+    public static int byte2ArrayToSigInt(byte[] b){
+        if(b.length == 2) {
+            return ((b[0] & 0xff) | (b[1] << 8)) << 16 >> 16;
+        }else if(b.length == 1){
+            return (int)b[0];
+        }
+
+        return 0;
+    }
+
+    public static int twoByteToSigInt(byte b1, byte b2){
+        byte[] b = {b1, b2};
+        return byte2ArrayToSigInt(b);
+
+    }
+
+    /**
+     *
+     * @param data
+     * @return
+     */
+    public static Short byteArrayToShort(byte[] data)
+    {
+        return (short)((data[0] & 0xFF) | data[1]<<8);
+    }
+
+    /**
+     *
+     * @param value
+     * @return
+     */
+    final public static byte[] intToByteArray(int value)
+    {
+        if(value < 256){
+            byte[] ret = new byte[1];
+            ret[0] = (byte) (value & 0xFF);
+            return ret;
+        }
+
+        byte[] ret = new byte[2];
+        ret[0] = (byte) (value & 0xFF);
+        ret[1] = (byte) ((value >> 8) & 0xFF);
+        return ret;
+    }
+
+    /**
+     * integer do jednho bytu
+     *
+     * @param value
+     * @return
+     */
+    final public static byte intToByte(int value)
+    {
+        return (byte) (value & 0xFF);
+    }
+
+    /**
 	 * slouceni dvou byte poli
 	 * 
 	 * @param one
@@ -90,63 +166,7 @@ public class ByteOperation {
 		
 		return buffer;
 	}
-	
-	/**
-     * Convert a byte array integer (4 bytes) to its int value nebo 1 byte
-     * @param b byte[]
-     * @return int
-     */
-    public static int byteArrayToInt(byte[] b) {
-        if(b.length == 4)
-            return b[0] << 24 | (b[1] & 0xff) << 16 | (b[2] & 0xff) << 8 | (b[3] & 0xff);
-        else if(b.length == 2)
-            return 0x00 << 24 | 0x00 << 16 | (b[0] & 0xff) << 8 | (b[1] & 0xff);
-        
-        else if(b.length == 1)
-            return 0x00 << 24 | 0x00 << 16 |  0x00 << 8 | (b[0] & 0xff);
 
-        return 0;
-    }
-    
-    public static int byteArrayToSigInt(byte[] b){
-    	return twoByteToSigInt(b[0], b[1]);
-    }
-    
-    public static int twoByteToSigInt(byte b1, byte b2){
-    	return ((b1 & 0xff) | (b2 << 8)) << 16 >> 16;
-    	
-    }
-    
-    public static Short byteArrayToShort(byte[] data) 
-    {       
-            return (short)((data[0] & 0xFF) | data[1]<<8);
-    }
-	
-    /**
-     * integer rozparsuje do byte array, podporuje 4,2 a 1 prvkove pole byte
-     * 
-     * @param value
-     * @return
-     */
-	final public static byte[] intToByteArray(int value)
-	{
-		byte[] ret = new byte[1];
-	    ret[0] = (byte) (value & 0xFF); 
-
-		return ret;
-	}
-	
-	/**
-	 * integer do jednho bytu
-	 * 
-	 * @param value
-	 * @return
-	 */
-	final public static byte intToByte(int value)
-	{
-		return (byte) (value & 0xFF); 
-	}
-	
 	/**
 	 * byte to hex string
 	 * 

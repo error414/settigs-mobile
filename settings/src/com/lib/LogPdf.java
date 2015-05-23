@@ -110,8 +110,10 @@ public class LogPdf {
         preface.add(new Paragraph("\n"));
         preface.add(new Paragraph(activity.getString(R.string.pdf_unit_version) + ": " + profileCreator.getFormatedVersion(), smallFont));
 
+
+        int lastIndex = data.size() > 0 ? data.get(data.size() - 1).get(LogActivity.POSITION) : 2;
         preface.add(new Paragraph("\n"));
-        preface.add(new Paragraph(activity.getString(R.string.pdf_time_run) + ": " + getTimeByPosition(data.size()), smallFont));
+        preface.add(new Paragraph(activity.getString(R.string.pdf_time_run) + ": " + getTimeByPosition(lastIndex), smallFont));
 
 
         Date currentTime = new Date();
@@ -208,7 +210,7 @@ public class LogPdf {
 
     @SuppressLint("DefaultLocale")
     protected String getTimeByPosition(int pos) {
-        int sec = (pos - 1) * 10;
+        int sec = (pos - 2) * 10;
         return String.format("%02d:%02d", sec / 60, sec % 60);
     }
 }

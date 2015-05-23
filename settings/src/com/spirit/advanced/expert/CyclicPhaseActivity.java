@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.advanced;
+package com.spirit.advanced.expert;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -33,18 +33,18 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class PitchpumpActivity extends BaseActivity
+public class CyclicPhaseActivity extends BaseActivity
 {
 
-	final private String TAG = "PitchpumpActivity";
+	final private String TAG = "CyclicPhaseActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"PITCH_PUMP",};
+	private final String protocolCode[] = {"CYCLIC_PHASE",};
 
-	private int formItems[] = {R.id.pitch_pump,};
+	private int formItems[] = {R.id.cyclic_phase,};
 
-	private int formItemsTitle[] = {R.string.pitch_pump,};
+	private int formItemsTitle[] = {R.string.cyclic_phase_deg,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -54,15 +54,16 @@ public class PitchpumpActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.advanced_pitchpump);
+		initSlideMenu(R.layout.advanced_cyclic_phase);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pitch_pump)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_expert), " \u2192 ",  getString(R.string.cyclic_phase)));
 
 		initGui();
 		initConfiguration();
 		delegateListener();
 	}
+
     /**
      *
      * @return
@@ -170,6 +171,7 @@ public class PitchpumpActivity extends BaseActivity
 
 	}
 
+
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
 
@@ -184,8 +186,10 @@ public class PitchpumpActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValue(newVal);
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
@@ -210,7 +214,6 @@ public class PitchpumpActivity extends BaseActivity
 			default:
 				super.handleMessage(msg);
 		}
-
 		return true;
 	}
 

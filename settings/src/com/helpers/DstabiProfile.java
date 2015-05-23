@@ -121,7 +121,7 @@ public class DstabiProfile {
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r",	false)); 	// kompenzace zpinani vyskovky
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p",	false)); 		// dynamika vrtulky
-		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "D", "f",	false)); 	// stabi mode
+		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "E", "f",	false)); 	// stabi mode
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v",	true));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m",	false)); //
 
@@ -167,10 +167,18 @@ public class DstabiProfile {
 		
 		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	false));
 
-        profileMap.put("GOVERNOR_MODE",	        new ProfileItem(61, 0, 2, "2",	true));
-        profileMap.put("GOVERNOR_GAIN",	        new ProfileItem(62, 1, 64, "j",	true)); // Gain
+        profileMap.put("GOVERNOR_MODE",	        new ProfileItem(61, 0, 4, "2",	true));
+        profileMap.put("GOVERNOR_PGAIN",	    new ProfileItem(62, 1, 10, "j",	false)); // P Gain
         profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
         profileMap.put("PITCH_PUMP",	        new ProfileItem(64, 0, 4, "n",	false)); // pitch pump
+
+        profileMap.put("GOVERNOR_DIVIDER",	    new ProfileItem(65, 1, 8, "u",	true));
+        profileMap.put("GOVERNOR_RATIO",	    new ProfileItem(66, 20, 254, "t",	true));
+        profileMap.put("GOVERNOR_THR_REVERSE",	new ProfileItem(67, "0", "1", "w",	true));
+        profileMap.put("GOVERNOR_THR_MIN",	    new ProfileItem(68, 50, 150, "k",	true));
+        profileMap.put("GOVERNOR_THR_MAX",	    new ProfileItem(69, 50, 150, "K",	true));
+        profileMap.put("GOVERNOR_RPM_MAX",	    new ProfileItem(70, 0, 250, "W",	true));
+        profileMap.put("GOVERNOR_IGAIN",	    new ProfileItem(71, 1, 6, "y",	false)); // mira drzeni otacek
 
 		this.mProfile = mProfile;
 
@@ -410,7 +418,7 @@ public class DstabiProfile {
 	 */
 	public class ProfileItem{
 		private Integer positionInConfig;
-		private Byte value;
+		private byte[] value = new byte[2];
 		private Integer min;
 		private Integer max;
 		private String sendCode;
@@ -431,8 +439,8 @@ public class DstabiProfile {
 		{
 			this.positionInConfig = positionInConfig;
 			this.sendCode = sendCode;
-			this.min = ByteOperation.byteArrayToInt(min.getBytes());
-			this.max = ByteOperation.byteArrayToInt(max.getBytes());
+			this.min = ByteOperation.byte2ArrayToSigInt(min.getBytes());
+			this.max = ByteOperation.byte2ArrayToSigInt(max.getBytes());
 			this.deactiveInBasicMode = deactiveInBasicMode;
 		}
 		
@@ -479,10 +487,21 @@ public class DstabiProfile {
 		 * 
 		 * @param value
 		 */
-		public void setValue(Byte value)
+		public void setValue(byte value)
 		{
-			this.value = value;
+			this.value = new byte[1];
+			this.value[0] = value;
 		}
+
+        /**
+         * nastavime hodnotu
+         *
+         * @param value
+         */
+        public void setValue(byte[] value)
+        {
+            this.value = value;
+        }
 		
 		/**
 		 * nastavime hodnotu
@@ -491,7 +510,7 @@ public class DstabiProfile {
 		 */
 		public void setValue(Integer value)
 		{
-			this.value = ByteOperation.intToByte(value);
+			this.value = ByteOperation.intToByteArray(value);
 		}
 		
 		
@@ -502,9 +521,9 @@ public class DstabiProfile {
 		 */
 		public void setValueFromSpinner(Integer value)
 		{
-			this.value = ByteOperation.intToByte(value+ this.min);
+			this.value = ByteOperation.intToByteArray(value + this.min);
 		}
-		
+
 		/**
 		 * hodnota pro checkBox, 
 		 * 
@@ -513,19 +532,10 @@ public class DstabiProfile {
 		 */
 		public void setValueFromCheckBox(Boolean checked){
 			if(checked == true){
-				value = ByteOperation.intToByte(this.getMaximum()); // "1"
+				value = ByteOperation.intToByteArray(this.getMaximum()); // "1"
 			}else{
-				value = ByteOperation.intToByte(this.getMinimum()); // "0"
+				value = ByteOperation.intToByteArray(this.getMinimum()); // "0"
 			}
-		}
-		
-		/**
-		 * vratime hodnotu
-		 * 
-		 */
-		public Byte getValueByte()
-		{
-			return this.value;
 		}
 		
 		/**
@@ -558,9 +568,7 @@ public class DstabiProfile {
 		 */
 		public byte[] getValueBytesArray()
 		{
-			byte[] ret = new byte[1];	
-			ret[0] = value;
-			return ret;
+			return value;
 		}
 		
 		/**
@@ -572,7 +580,13 @@ public class DstabiProfile {
 			if(this.value == null){
 				return 0;
 			}
-			return ByteOperation.byteToUnsignedInt(this.value);
+
+            if(min >= 0){
+                return ByteOperation.byteArrayToUnsignedInt(this.value);
+            }else{
+                return ByteOperation.byte2ArrayToSigInt(this.value);
+            }
+
 		}
 		
 		/**
@@ -596,9 +610,10 @@ public class DstabiProfile {
 				if(min >= 0){
 					return (getValueInteger() >= min) && (getValueInteger() <= max); 
 				}else{
-					return (value >= min) && (value <= max);
+					return (ByteOperation.byte2ArrayToSigInt(value) >= min) && (ByteOperation.byte2ArrayToSigInt(value) <= max);
 				}
 			}
+
 			return true;
 		}
 		

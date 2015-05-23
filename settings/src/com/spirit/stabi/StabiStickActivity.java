@@ -170,7 +170,7 @@ public class StabiStickActivity extends BaseActivity
 			tempPicker.setRange(item.getMinimum(), item.getMaximum());
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
-			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65){ // 65 is "A" in profile
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65 || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() > 67){ // 65 is "A" in profile
 				tempPicker.setEnabled(false);
 
 			}
@@ -190,17 +190,16 @@ public class StabiStickActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					parent.setCurrentNoNotify(newVal);
-					item.setValue(newVal);
-
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
 		}
 
 	};
-
 
 	public boolean handleMessage(Message msg)
 	{

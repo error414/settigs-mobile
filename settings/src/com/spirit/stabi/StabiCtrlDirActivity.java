@@ -170,7 +170,7 @@ public class StabiCtrlDirActivity extends BaseActivity
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
-			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() != 68){
+			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() < 68){
 				tempPicker.setEnabled(false);
 			}
 		}
@@ -189,9 +189,10 @@ public class StabiCtrlDirActivity extends BaseActivity
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-					item.setValue(newVal);
-
-					stabiProvider.sendDataNoWaitForResponce(item);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();

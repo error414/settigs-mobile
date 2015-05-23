@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -53,11 +54,25 @@ import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
 import com.spirit.R;
 
-import java.io.FileNotFoundException;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import android.os.Handler;
+
 
 public class GraphActivity extends BaseActivity
 {
@@ -130,6 +145,12 @@ public class GraphActivity extends BaseActivity
 
     private LineAndPointFormatter formaterFreeze;
 
+    private int saveThreadCount = 0;
+
+    private int saveThreadCountMax = 3;
+
+    private Toast saveToast;
+
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
 	 */
@@ -141,6 +162,8 @@ public class GraphActivity extends BaseActivity
 		setContentView(R.layout.graph);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
+
+        saveToast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
 	}
 	
 	/**
@@ -176,7 +199,7 @@ public class GraphActivity extends BaseActivity
         aprLevelsSeriesFreeze   = new SimpleXYSeries(Arrays.asList(seriesXFreeze), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "");
 
 		PointLabelFormatter plf = new PointLabelFormatter(Color.WHITE);
-		plf.getTextPaint().setTextSize(13);
+		plf.getTextPaint().setTextSize(10);
 
         PointLabeler pointLabel = new PointLabeler() {
             @Override
@@ -405,28 +428,89 @@ public class GraphActivity extends BaseActivity
 		return true;
 	}
 
-    protected void saveGraphToImage()
+    /**
+     *
+     */
+    protected synchronized void saveGraphToImage()
     {
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
-        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_GRAPH_DIR + "/" + sdf.format(new Date()) + "-log.png";
-
-        try {
-            aprLevelsPlot.setDrawingCacheEnabled(true);
-            int width = aprLevelsPlot.getWidth();
-            int height = aprLevelsPlot.getHeight();
-            aprLevelsPlot.measure(width, height);
-            Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
-            aprLevelsPlot.setDrawingCacheEnabled(false);
-            FileOutputStream fos;
-
-            fos = new FileOutputStream(filename, true);
-            bmp.compress(CompressFormat.PNG, 100, fos);
-
-            Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
-        } catch (FileNotFoundException e) {
-            Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
+        if(saveThreadCount >= saveThreadCountMax){
+            return;
         }
+        saveThreadCount++;
+
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(GraphActivity.this);
+        final String fileBase = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_GRAPH_DIR + "/";
+        final String filename = sdf.format(new Date()) + "-log";
+        final String fileExt  = ".png";
+
+        aprLevelsPlot.setDrawingCacheEnabled(true);
+        int width = aprLevelsPlot.getWidth();
+        int height = aprLevelsPlot.getHeight();
+        aprLevelsPlot.measure(width, height);
+        final Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
+        aprLevelsPlot.setDrawingCacheEnabled(false);
+
+        if(saveToast != null && saveToast.getView().getWindowVisibility() != View.VISIBLE){
+            saveToast.setText(R.string.save_proccess);
+            saveToast.show();
+        }
+
+        final Handler handler = new Handler(new Handler.Callback(){
+            @Override
+            public boolean handleMessage(Message msg) {
+                switch (msg.what){
+                    case 1:
+                        if(saveToast != null){
+                            saveToast.setText( getString(R.string.save_done) + ": " + msg.getData().get("fileName"));
+                            saveToast.show();
+                        }else{
+                            Toast.makeText(getApplicationContext(), getString(R.string.save_done) + ": " + msg.getData().get("fileName"), Toast.LENGTH_SHORT).show();
+                        }
+
+                        break;
+                    case 2:
+                        Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+                        break;
+                }
+                return true;
+            }
+        });
+
+        final Runnable r = new Runnable() {
+            public void run() {
+                synchronized (this) {
+                    try {
+                        FileOutputStream fos;
+                        File fullFile = new File(fileBase + filename + fileExt);
+                        if(fullFile.exists()){
+                            for(int i = 0; i < 10; i++){
+                                fullFile = new File(fileBase + filename + "(" + String.valueOf(i) + ")" + fileExt);
+                                if(!fullFile.exists()){
+                                    break;
+                                }
+                            }
+                        }
+
+                        fos = new FileOutputStream(fullFile, true);
+                        bmp.compress(CompressFormat.PNG, 100, fos);
+
+                        Message m = handler.obtainMessage(1);
+                        Bundle budleForMsg = new Bundle();
+                        budleForMsg.putString("fileName", fullFile.getName());
+                        m.setData(budleForMsg);
+                        handler.sendMessage(m);
+
+                    } catch(Exception e) {
+                        handler.sendEmptyMessage(2);
+                        Log.d(TAG, e.toString());
+                    }
+                    saveThreadCount--;
+                }
+            }
+        };
+
+        new Thread(r).start();
     }
 
 	View.OnClickListener clickActionistener = new View.OnClickListener()
@@ -575,57 +659,79 @@ public class GraphActivity extends BaseActivity
 	 * @return
 	 */
 	public int[] topThree(Number[] seriesX2) {
-		int max1 = Integer.MIN_VALUE;
-		int max2 = Integer.MIN_VALUE;
-		int max3 = Integer.MIN_VALUE;
-		
-		Number max1Value = 0;
-		Number max2Value = 0;
-		Number max3Value = 0;
-		
-		Number prewValueValue = 0;
-		
-		boolean lock = false;
-		
-		int i = 0;
-		
-        for (Number number : seriesX2) {
-        	
-        	if(number.floatValue() > prewValueValue.floatValue() || number.floatValue() < (/*prewValueValue.floatValue() +*/ 5f) ){
-        		lock = false;
-        	}
-        	
-            if (number.floatValue() > max1Value.floatValue() && !lock) {
-                max3 = max2;
-                max2 = max1;
-                max1 = i;
-                
-                max3Value = max2Value;
-                max2Value = max1Value;
-                max1Value = number;
-                lock = true;
-                
-            } else if (number.floatValue() > max2Value.floatValue() && !lock) {
-            	max3 = max2;
-                max2 = i;
-                
-                max3Value = max2Value;
-                max2Value = number;
-                
-                lock = true;
-            }else if (number.floatValue() > max3Value.floatValue() && !lock) {
-                max3 = i;
-                
-                max3Value = number;
-                lock = true;
+        Integer max1 = -1;
+        Integer max2 = -1;
+        Integer max3 = -1;
+
+        float sum       = 0;
+        float average   = 0;
+
+        // prvne pole prevedeme na asociativni pole pozice/hodnota
+        HashMap<Integer, Number> seriesSet = new HashMap<Integer, Number>();
+        int i = 0;
+        for(Number series : seriesX2){
+            seriesSet.put(i++, series);
+            sum += series.floatValue();
+        }
+
+        average = (sum / seriesSet.size()) * 3;
+
+        //pak pole seradime
+        Map<Integer, Number> seriesSetSortabled =  sortDesc(seriesSet);
+
+        int spacing = 10;
+        for (Map.Entry<Integer, Number> entry : seriesSetSortabled.entrySet()) {
+            if(max1 > 0 && max2 > 0 && max3 > 0){
+                break;
             }
-            
-            prewValueValue = number;
-            i++;
+
+            if(entry.getValue().floatValue() < average && entry.getKey() > 10 && entry.getKey() < 400){
+                continue;
+            }
+
+            if(max1 < 0) {
+                max1 = entry.getKey();
+                continue;
+            }
+
+            if(max1 > 0 && Math.abs(entry.getKey() - max1) > spacing && max2 < 0) {
+                max2 = entry.getKey();
+                continue;
+            }
+
+            if(max2 > 0 && Math.abs(entry.getKey() - max2) > spacing && Math.abs(entry.getKey() - max1) > spacing && max3 < 3) {
+                max3 = entry.getKey();
+                continue;
+            }
+        }
+
+        int[] ret = { (int)max1, (int)max2, (int)max3};
+        return ret;
+    }
+
+    /**
+     *
+     * @param unsortMap
+     * @return
+     */
+    private static Map<Integer, Number> sortDesc(Map<Integer, Number> unsortMap) {
+
+        List<Map.Entry<Integer, Number>> list =
+                new LinkedList<Map.Entry<Integer, Number>>(unsortMap.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<Integer,Number>>() {
+            public int compare(Map.Entry<Integer, Number> o1, Map.Entry<Integer, Number> o2) {
+                return -1 * ((Float)(o1.getValue().floatValue())).compareTo(o2.getValue().floatValue());
+            }
+        });
+
+        Map<Integer, Number> sortedMap = new LinkedHashMap<Integer, Number>();
+        for (Iterator<Map.Entry<Integer, Number>> it = list.iterator(); it.hasNext();) {
+            Map.Entry<Integer, Number> entry = it.next();
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
         
-        int[] ret = { max1, max2, max3};
-        return ret;
+        return sortedMap;
     }
 
     @Override

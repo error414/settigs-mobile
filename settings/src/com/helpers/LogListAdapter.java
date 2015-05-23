@@ -67,7 +67,7 @@ public class LogListAdapter extends BaseStandartListAdapter {
 	
 	@SuppressLint("DefaultLocale")
 	protected String getTimeByPosition(int pos) {
-		int sec = (pos - 1) * 10;
+		int sec = (pos - 2) * 10;
 		return String.format("%02d:%02d", sec / 60, sec % 60);
 	}
 }
