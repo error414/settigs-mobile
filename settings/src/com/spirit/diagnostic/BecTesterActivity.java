@@ -19,13 +19,16 @@ package com.spirit.diagnostic;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Message;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
@@ -40,6 +43,8 @@ public class BecTesterActivity extends BaseActivity
 
     private CountDownTimer countDownTimer;
     private Integer countDownSecond = 20;
+
+    private boolean protectStop = false;
 
 
 	/**
@@ -68,7 +73,8 @@ public class BecTesterActivity extends BaseActivity
             }
 
             public void onFinish() {
-                stabiProvider.sendDataNoWaitForResponce("0", ByteOperation.intToByteArray(0xff));
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+                showConfirmDialog(R.string.bec_test_stop);
                 initButton();
             }
         };
@@ -79,12 +85,20 @@ public class BecTesterActivity extends BaseActivity
 
     public void onStop()
     {
-        super.onStop();
-        if(countDownTimer != null){
-            countDownTimer.cancel();
-        }
-        stabiProvider.sendDataNoWaitForResponce("0", ByteOperation.intToByteArray(0xff));
         EasyTracker.getInstance(this).activityStop(this);
+        super.onStop();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+            if(protectStop){
+                Toast.makeText(getApplicationContext(), R.string.cant_stop_activity_when_test_running, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
 
 	/**
@@ -93,7 +107,7 @@ public class BecTesterActivity extends BaseActivity
 	@Override
 	public void onResume()
 	{
-		super.onResume();
+        super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
@@ -127,6 +141,7 @@ public class BecTesterActivity extends BaseActivity
      */
     public void initButton()
     {
+        protectStop = false;
         Button start = (Button)findViewById(R.id.start);
         start.setEnabled(true);
 
@@ -139,6 +154,7 @@ public class BecTesterActivity extends BaseActivity
      */
     public void initButtonProgress()
     {
+        protectStop = true;
         Button start = (Button)findViewById(R.id.start);
         start.setEnabled(false);
 

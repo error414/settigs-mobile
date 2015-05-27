@@ -346,6 +346,15 @@ public class DstabiProvider {
 			queue.add(command, null, NORMAL, callBackCode);
 		}
 	}
+
+	public synchronized void sendDataForResponce(String command, byte[] data, int callBackCode){
+		if(DstabiProvider.PROTOCOL_STATE_NONE == protocolState){
+			this.callBackCode = callBackCode;
+			sendData(command, data);
+		}else{
+			queue.add(command, data, NORMAL, callBackCode);
+		}
+	}
 	
 	public synchronized void sendDataForResponce(ProfileItem item, int callBackCode){
 		if(item.isValid() && item.getCommand() != null){

@@ -48,13 +48,17 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.ByteOperation;
 import com.lib.BluetoothCommandService;
 import com.lib.FFT;
+import com.lib.pngj.InsertChunk;
 import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
 import com.spirit.R;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -449,6 +453,8 @@ public class GraphActivity extends BaseActivity
         int height = aprLevelsPlot.getHeight();
         aprLevelsPlot.measure(width, height);
         final Bitmap bmp = Bitmap.createBitmap(aprLevelsPlot.getDrawingCache());
+        final Set<XYSeries> series = aprLevelsPlot.getSeriesSet();
+
         aprLevelsPlot.setDrawingCacheEnabled(false);
 
         if(saveToast != null && saveToast.getView().getWindowVisibility() != View.VISIBLE){
@@ -494,6 +500,33 @@ public class GraphActivity extends BaseActivity
 
                         fos = new FileOutputStream(fullFile, true);
                         bmp.compress(CompressFormat.PNG, 100, fos);
+
+                        try {
+                            FileInputStream is = new FileInputStream(fullFile);
+
+                            File chunkFile = new File(fullFile + "+.chunk.png");
+                            FileOutputStream os = new FileOutputStream(new File(fullFile + "+.chunk.png"));
+
+                            // test insert chunk
+                            InsertChunk insertChunk = new InsertChunk(is, os);
+
+                            String data = "";
+                            for (XYSeries serie : series) {
+                                data += ":" + serie.getTitle() + ":";
+                                for(int i = 0; i < serie.size(); i++){
+                                    data += "[" + serie.getX(i) + "," + serie.getY(i) + "]";
+                                }
+                            }
+
+                            insertChunk.addChunk("graph_data", data);
+                            insertChunk.save();
+
+                            chunkFile.renameTo(fullFile);
+
+                        } catch (FileNotFoundException e) {
+                            e.printStackTrace();
+                        }
+
 
                         Message m = handler.obtainMessage(1);
                         Bundle budleForMsg = new Bundle();

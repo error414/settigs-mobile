@@ -35,6 +35,7 @@ public class HelpLinks {
             //link
             put("en", "dl/manual/spirit-manual-1.1.0_en.pdf");
             put("cz", "dl/manual/spirit-manual-1.1.0_cz.pdf");
+            put("de", "dl/manual/spirit-manual-1.1.0_de.pdf");
             //endlink
         }
     };

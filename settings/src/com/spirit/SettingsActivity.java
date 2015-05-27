@@ -107,14 +107,14 @@ public class SettingsActivity extends BaseActivity
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		boolean previouslyStarted = prefs.getBoolean("showSwipeHelp", false);
 
-		if(!previouslyStarted) {
+		/*if(!previouslyStarted) {
 			SharedPreferences.Editor edit = prefs.edit();
 			edit.putBoolean("showSwipeHelp", Boolean.TRUE);
 			edit.commit();
 			onCoachMark();
-		}else {
-			tryShowDonateDialog();
-		}
+		}else {*/
+		tryShowDonateDialog();
+		/*}*/
 	}
 
 	/**

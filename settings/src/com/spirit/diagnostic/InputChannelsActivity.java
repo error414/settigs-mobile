@@ -245,7 +245,7 @@ public class InputChannelsActivity extends BaseActivity
 		}
 		
 		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress((banksPercent + 100));
-		bankProgressDiagnostic.setText(String.valueOf(getString(R.string.banks) + " " + String.valueOf(bank)));
+		bankProgressDiagnostic.setText(String.valueOf(getString(R.string.bank) + " " + String.valueOf(bank)));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//AUX1  / throttle

@@ -57,7 +57,7 @@ public class PitchpumpActivity extends BaseActivity
 		initSlideMenu(R.layout.advanced_pitchpump);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_expert), " \u2192 ",getString(R.string.pitch_pump)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.pitch_pump)));
 
 		initGui();
 		initConfiguration();

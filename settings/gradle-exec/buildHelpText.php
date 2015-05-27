@@ -57,8 +57,8 @@ $i = 0;
 
 foreach($res as $key => $oneRes){
     if($newTextInfo = getTextInfoFormNewFile($oneRes, $newTsXml)){
-         $stringEn .= "    " . '<string name="st_' . md5($newTextInfo[0]) . '">' . str_replace(array("\n", '<br/>', '<br>'), array('\n', '\n', '\n'), $newTextInfo[0]) . '</string>' . "\n";
-         $stringCs .= "    " . '<string name="st_' . md5($newTextInfo[0]) . '">' . str_replace(array("\n", '<br/>', '<br>'), array('\n', '\n', '\n'), $newTextInfo[1]) . '</string>' . "\n";
+         $stringEn .= "    " . '<string name="st_' . md5($newTextInfo[0]) . '">' . str_replace(array("\n", '<br/>', '<br>', '%1'), array('\n', '\n', '\n', '°'), $newTextInfo[0]) . '</string>' . "\n";
+         $stringCs .= "    " . '<string name="st_' . md5($newTextInfo[0]) . '">' . str_replace(array("\n", '<br/>', '<br>', '%1'), array('\n', '\n', '\n', '°'), $newTextInfo[1]) . '</string>' . "\n";
          if($newTextInfo[2]){
             $needRewrite .= $newTextInfo[3] . "\n";
          }

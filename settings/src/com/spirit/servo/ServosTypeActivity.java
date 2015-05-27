@@ -158,6 +158,7 @@ public class ServosTypeActivity extends BaseActivity
 			adapter = ArrayAdapter.createFromResource(this, R.array.rudder_frequency_value, android.R.layout.simple_spinner_item);
 		}
 
+		lock = lock + 1;
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		rudderFrequency.setAdapter(adapter);
 
@@ -180,7 +181,7 @@ public class ServosTypeActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
-		
+
 		checkBankNumber(profileCreator);
 		initBasicMode();
 

@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 23.05.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 26.05.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -51,7 +51,7 @@
     <string name="servos_button_text">Servos</string>
     <string name="diagnostic_button_text">Diagnostic</string>
     <string name="input_channels">Input channels</string>
-    <string name="graph_button_text">Vibration</string>
+    <string name="graph_button_text">Spectrum Analyzer</string>
     <string name="bec_tester">BEC Tester</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
@@ -152,7 +152,7 @@
     <string name="cyclic_phase_deg">Rotation angle [°]</string>
     <string name="cyclic_ff">Cyclic feed forward</string>
     <string name="stabi_function">Function</string>
-    <string name="stabi_col">Collective</string>
+    <string name="stabi_col">Rescue collective pitch</string>
     <string name="stabi_roll">Roll compensation</string>
     <string name="stabi_roll_short">Roll compensation</string>
     <string name="stabi_pitch">Pitch compensation</string>
@@ -166,11 +166,12 @@
     <string name="profile_diff">Profile diff</string>
     <string name="profile_bank_diff">Comparison</string>
     <string name="profile_bank_copy">Copying from bank</string>
-    <string name="log_button_text">Flight log</string>
+    <string name="log_button_text">Log Viewer</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
-    <string name="gyro_gain">Gyro Gain</string>
+    <string name="gyro_gain">Rudder Gain</string>
     <string name="banks">Banks</string>
+    <string name="bank">Bank</string>
     <string name="bank_short_code">B</string>
     <string name="choose_bank">Select bank</string>
     <string name="channelColision">Collision in <b>%1$s</b> occured! Please select a different channel.</string>
@@ -363,8 +364,8 @@
     <string name="min_limit">Minimum limit</string>
     <string name="max_limit">Maximum limit</string>
     <string name="favourites_button_text">Favourites</string>
-    <string name="add_to_favourites">Add to favourites</string>
-    <string name="remove_from_favourites">Remove from favourites</string>
+    <string name="add_to_favourites">add to favourites</string>
+    <string name="remove_from_favourites">remove from favourites</string>
     <string name="add_to_favourites_done">item has been added</string>
     <string name="remove_from_favourites_done">item was removed</string>
     <string name="add">add</string>
@@ -398,7 +399,7 @@
     <string name="want_save_item">Do you want to save your settings?</string>
     <string name="bank_change_after_connect">Current bank was switched to <b>Bank 0</b>.\nBank switching via transmitter is disabled while the software is connected.</string>
 
-    <string name="stabi_piruete_warning">Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</string>
+    <string name="stabi_piruete_warning">Pirouette optimization\n\nBefore you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</string>
 
     <string name="bank_choice_title">Choose bank</string>
     <string name="source_bank_choice_title">Choose source bank</string>
@@ -420,14 +421,14 @@
 
     <!-- HELP AUTO GENERATE STUB --> 
     <string name="st_26a7059fe05e155afb53ea22bc6a80d3">Mounting position of the unit.</string>
-    <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120%1.</string>
+    <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120°.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_916898ebed3d1dbcb55c93994fec7ee1">Reverses cyclic servo travel for specified channel.\nCH3 - aileron / pitch servo\nCH2 - elevator servo</string>
     <string name="st_4e74822308285a5d25761bc2c9387dc2">Specifies flight characteristics and stick response behavior.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle-like steering.\n\n<i>Range: 1 - 8</i></string>
     <string name="st_e26228953ce397eb25e87bcff3607d0e"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n- Very important is to select positive or negative value correctly!\n\n<i>Range: -100 - +100%</i></string>
     <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 0 - 5</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
-    <string name="st_1f82ad83632091d590ffe4a715dc0753"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode.\nRescue - rescue mode with HH gyro.\nStabilisation - stabilisation mode with HH gyro.</string>
+    <string name="st_1a61908b99a26de75f1d1bf61ab8c3db"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode.\nRescue - rescue mode with HL gyro.\nStabilisation - stabilisation mode with HL gyro.</string>
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 16</i></string>
     <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Specifies Cyclic Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n\n<i>Range: 20 - 100%</i></string>
     <string name="st_466a542ef886802f5bbc2c23bc91fd06"><b>Specifies multiplier of Gyro Gain</b>\n\n- 1x for no multiplication.\n- 1.50x for 1.5x multiplication of TX gyro gain.\n- For 500-size and smaller helicopter 1.0x is enough.\n\n<i>Range: 1.00 - 1.50</i></string>
@@ -457,10 +458,16 @@
     <string name="st_65abb627338d2deeaeacca880ecac232">Specifies bottom limit of the throttle range.\n\n- Can be used to match preconfigured throttle range of the ESC.\n- For nitro and gasser set the limit for the lowest position of the throttle servo horn.\n- Behaves similarly as a subtrim function.\n\n<i>Range: -150 - -50</i></string>
     <string name="st_46c2d7f70c71e5957d323fe570e16dfd">Specifies upper limit of the throttle range.\n\n- Can be used to match preconfigured throttle range of the ESC.\n- For nitro and gasser set the limit for the highest position of the throttle servo horn.\n\n<i>Range: 50 - 150</i></string>
     <string name="st_cffee8820dbdc898c99db0f0350440f4">Specifies Sensing Divider of the sensor.\n\n- For electric helicopters it is always Motor Poles / 2 (For a 10 pole motor configure value of 5).\n- For nitro and gasser helicopters the value is magnet count.\n\n<i>Range: 1 - 8</i></string>
+    <string name="st_e4df1e47f3a179a3867c07d758619a1c">Specifies direction of the throttle.\n\n- Mostly used only for Nitro/Gasser helicopters.\n- Reverse for the correct throttle servo movement.</string>
     <string name="st_794fca310ce523ae9cda3e4a0f9c5b1d">Specifies helicopter Gear Ratio.\n\n- Main Gear teeth / Pinion teeth.\n\n<i>Range: 1.0 - 12.7</i></string>
     <string name="st_3f768495d1b414cb1277d3b1f3ae2691">Specifies maximal rotor head speed.\n\n- Configure RPM that will be achieved with 100% throttle curve.\n\n<i>Range: 1500 - 4000</i></string>
     <string name="st_b1f1153100c33f0ce17c0264026d5bec">Specifies Governor Reponse.\n\n- Increase for faster governor response during fast load change.\n- Decrease if RPM is jittering or tail wag is occuring.\n\n<i>Range: 1 - 10</i></string>
     <string name="st_d12c351a24a5319dcbcbc77d25195675">Specifies Governor holding performance.\n\n- Increase for to better long-term RPM holding.\n- Decrease if RPM is pulsating slowly during hovering.\n\n<i>Range: 1 - 6</i></string>
+    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Booster of the collective pitch movements</b>\n\n- Fast movement will cause fast change.\n- Usually configured to 0.\n\n<i>Range: 0 - 4</i></string>
+    <string name="st_be5bf619800ccb76a8ac96ef6c5b70c2">Specifies subtrim value of the CH1 servo.\n\n<i>Range: -127 - 127</i></string>
+    <string name="st_6b9d810c0062eba5db4c223ae3d94fab">Specifies subtrim value of the CH2 servo.\n\n<i>Range: -127 - 127</i></string>
+    <string name="st_92b0fe0b01b51063f423a7cc8b02cc1e">Specifies subtrim value of the CH3 servo.\n\n<i>Range: -127 - 127</i></string>
+    <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Specifies subtrim value of the CH4 servo.\n\n<i>Range: -127 - 127</i></string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>
@@ -484,6 +491,9 @@
     <string name="sys_disconected">Check the connection of Bluetooth module, please.</string>
     <string name="rewrite_file">The file/files already exists. Do you want to overwrite it?</string>
     <string name="pdf_reader_not_found">PDF Reader not found \nPlease install PDF reader \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>
-    <string name="colective">Col.</string>
+    <string name="colective">Pit.</string>
     <string name="advanced_expert">Expert settings</string>
+    <string name="senzor">Senzor</string>
+    <string name="cant_stop_activity_when_test_running">Before leaving please stop test</string>
+    <string name="bec_test_stop">BEC test was finished! In case that the unit is still running and any unusual behavior does not happened then your power supply is suitable.</string>
 </resources>

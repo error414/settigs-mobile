@@ -241,7 +241,7 @@
 	             android:layout_alignLeft="@+id/gyro_progress_diagnostic"
 	             android:layout_below="@+id/gyro_progress_diagnostic"
 	             android:layout_marginTop="20dp"
-	             android:text="@string/banks"
+	             android:text="@string/bank"
 	             android:textColor="@color/text_color" />
 
 	         <ProgressBar
@@ -318,7 +318,17 @@
 
 	         </RelativeLayout>
 
-	     </RelativeLayout>
+			 <TextView
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:textAppearance="?android:attr/textAppearanceSmall"
+				 android:text="@string/senzor"
+				 android:id="@+id/textView8"
+				 android:layout_above="@+id/relativeLayout2"
+				 android:layout_alignLeft="@+id/relativeLayout1"
+				 android:layout_alignStart="@+id/relativeLayout1" />
+
+		 </RelativeLayout>
 
 	 </ScrollView>
 
