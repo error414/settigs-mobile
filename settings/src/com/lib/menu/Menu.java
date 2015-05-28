@@ -185,7 +185,7 @@ public class Menu {
         menuList.put(MENU_SERVO,        new MenuItem(R.drawable.i8,     R.string.servos_button_text, ServosActivity.class));
 
         //servo
-        menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limit, ServosLimitActivity.class));
+        menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limits, ServosLimitActivity.class));
 
         //senzor
         menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
@@ -203,7 +203,7 @@ public class Menu {
 	    menuList.put(MENU_BEC,     new MenuItem(R.drawable.na,     R.string.bec_tester, BecTesterActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_STABI, MENU_ADVANCED, MENU_DIAGNOSTIC_LIST});
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_DIAGNOSTIC_LIST, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_STABI, MENU_ADVANCED});
 
 
 

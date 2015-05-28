@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 26.05.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 28.05.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -94,6 +94,7 @@
     <string name="type">Type</string>
     <string name="subtrim">Subtrim</string>
     <string name="limit">Limit</string>
+    <string name="limits">Limits</string>
     <string name="cyclic">Cyclic</string>
     <string name="frequency">Frequency</string>
     <string name="pulse">Pulse</string>
@@ -364,9 +365,9 @@
     <string name="min_limit">Minimum limit</string>
     <string name="max_limit">Maximum limit</string>
     <string name="favourites_button_text">Favourites</string>
-    <string name="add_to_favourites">add to favourites</string>
-    <string name="remove_from_favourites">remove from favourites</string>
-    <string name="add_to_favourites_done">item has been added</string>
+    <string name="add_to_favourites">Add to favourites</string>
+    <string name="remove_from_favourites">Remove from favourites</string>
+    <string name="add_to_favourites_done">Item has been added</string>
     <string name="remove_from_favourites_done">item was removed</string>
     <string name="add">add</string>
     <string name="remove">remove</string>

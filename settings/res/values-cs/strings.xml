@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 26.05.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 28.05.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -41,7 +41,7 @@
     <string name="unknow_version">Neznámá verze</string>
     <string name="unknow_serial">Neznámé s.n.</string>
     <string name="first_paired_device">First paired devices</string>
-    <string name="log_button_text">Letový záznam</string>
+    <string name="log_button_text">Prohlížeč letového záznamu</string>
     <string name="connection_error">Chyba spojení</string>
     <string name="copy_bank_error">Kopírovaní nastavení banky se nepovedlo</string>
 
@@ -105,6 +105,7 @@
     <string name="type">Typ</string>
     <string name="subtrim">Subtrim</string>
     <string name="limit">Limity</string>
+    <string name="limits">Limity</string>
     <string name="cyclic">Cyklika</string>
     <string name="frequency">Frekvence</string>
     <string name="pulse">Střed</string>
@@ -138,7 +139,7 @@
     <string name="limit_pitch">Kolektiv (rozsah náběhu)</string>
 
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
-    <string name="rudder_end_points_no_break">Koncové body vrtulky</string>
+    <string name="rudder_end_points_no_break">Limity směrovky</string>
     <string name="blank"></string>
 
 	<string name="cyc_rate">Cyklika</string>
@@ -397,8 +398,8 @@
     <string name="max_limit">Maximum</string>
 
     <string name="favourites_button_text">Oblíbené</string>
-    <string name="add_to_favourites">přidat do oblíbených</string>
-    <string name="remove_from_favourites">odebrat z oblíbených</string>
+    <string name="add_to_favourites">Přidat do oblíbených</string>
+    <string name="remove_from_favourites">Odebrat z oblíbených</string>
 
     <string name="add_to_favourites_done">Přidáno do oblíbených</string>
     <string name="remove_from_favourites_done">Odebráno z oblíbených</string>

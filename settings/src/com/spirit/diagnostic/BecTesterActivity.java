@@ -19,9 +19,9 @@ package com.spirit.diagnostic;
 
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -99,6 +99,26 @@ public class BecTesterActivity extends BaseActivity
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    /**
+     *
+     * @param menu
+     */
+    @Override
+    protected void createBanksSubMenu(Menu menu) {
+        //v bec testeru nejsou banky povoleny
+    }
+
+    /**
+     * vytvoreni kontextoveho menu
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+       // super.onCreateOptionsMenu(menu);
+       // menu.add(GROUP_LOG, LOG_REFRESH, Menu.NONE, R.string.refresh_log);
+        return true;
     }
 
 	/**
