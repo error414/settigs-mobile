@@ -87,7 +87,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
 	/*#############################################*/
     final protected String APLICATION_MAJOR_VERSION = "1";
-    final protected String APLICATION_MINOR1_VERSION = "2";
+    final protected String APLICATION_MINOR1_VERSION = "3";
     //final protected String APLICATION_MINOR2_VERSION = "4";
 
 	//for debug
