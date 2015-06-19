@@ -113,11 +113,7 @@ public class SettingsActivity extends BaseActivity
 			edit.commit();
 			onCoachMark();
 		}else {*/
-<<<<<<< HEAD
-		tryShowDonateDialog();
-=======
 			tryShowDonateDialog();
->>>>>>> 954c833... prvni verze 1.0.3
 		/*}*/
 	}
 
