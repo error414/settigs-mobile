@@ -92,7 +92,7 @@ public class LogActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.log);
+		initSlideMenu(R.layout.log);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
         ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.diagnostic_button_text), " \u2192 ", getString(R.string.log_button_text)));
@@ -111,6 +111,15 @@ public class LogActivity extends BaseActivity
         }
 
         initConfiguration();
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public boolean isEnableChangeBank()
+	{
+		return false;
 	}
 
     /**

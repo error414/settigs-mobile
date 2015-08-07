@@ -89,6 +89,15 @@ public class BecTesterActivity extends BaseActivity
         super.onStop();
     }
 
+    /**
+     *
+     * @return
+     */
+    public boolean isEnableChangeBank()
+    {
+        return false;
+    }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if ((keyCode == KeyEvent.KEYCODE_BACK)) {

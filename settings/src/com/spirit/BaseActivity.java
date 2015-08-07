@@ -67,6 +67,7 @@ import com.helpers.Globals;
 import com.helpers.HelpLinks;
 import com.helpers.HelpMap;
 import com.helpers.SlideMenuListAdapter;
+import com.helpers.SlideOptionMenuListAdapter;
 import com.helpers.StatusNotificationBuilder;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
@@ -122,8 +123,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected int GROUP_SAVE = 3;
 	final protected int SAVE_PROFILE_MENU = 4;
 
-	final protected String DONATE_URL = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=error414%40error414%2ecom&lc=CZ&item_name=spirit%20settings&item_number=spirit%2dsettings&currency_code=CZK&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted";
-
 	final protected BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
 
 	ProgressDialog generalDialog;
@@ -175,6 +174,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
     protected String protocolCode[] = {};
 
     protected SlideMenuListAdapter slideMenuListAdapter;
+
+    protected SlideOptionMenuListAdapter slideOptionMenuListAdapter;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -271,7 +272,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 
 		// check BANKS
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ){
+		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL && isEnableChangeBank()){
 			((TextView) findViewById(R.id.title_banks)).setText(TextUtils.concat(getString(R.string.bank_short_code), String.valueOf(Globals.getInstance().getActiveBank())));
             if(slideMenuListAdapter != null){
                 slideMenuListAdapter.setActivePosition(Globals.getInstance().getActiveBank());
@@ -288,6 +289,15 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		}
         initHelp();
 	}
+
+    /**
+     *
+     * @return
+     */
+    public boolean isEnableChangeBank()
+    {
+        return true;
+    }
 
     /* ################ PROTECT UNSAVE CHANGE ################ */
     /**
@@ -571,8 +581,21 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 }
             }
         });
-
         leftMenuList.setAdapter(slideMenuListAdapter);
+
+        slideOptionMenuListAdapter = new SlideOptionMenuListAdapter(this, getResources().getStringArray(R.array.option_menu_values));
+        ListView leftMenuOptionMenu = (ListView) findViewById(R.id.leftMenuOptionMenu);
+        leftMenuOptionMenu.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                mDrawer.closeMenu();
+                openOptionsMenu();
+            }
+        });
+
+        leftMenuOptionMenu.setAdapter(slideOptionMenuListAdapter);
     }
 
     protected void changeBank(int bankNumber, int callbackCode){
@@ -632,7 +655,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			return;
 		}
 
-		if(profile.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7){ // 7 = unbind bank
+		if(profile.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7 || !isEnableChangeBank()){ // 7 = unbind bank
 			((TextView) findViewById(R.id.title_banks)).setText("");
             Globals.getInstance().setActiveBank(Globals.BANK_NULL);
             if(slideMenuListAdapter != null){

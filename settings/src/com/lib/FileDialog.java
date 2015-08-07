@@ -211,7 +211,9 @@ public class FileDialog extends ListActivity{
 		if (canSelectDir) {
 			File file = new File(startPath);
 			selectedFile = file;
-			selectButton.setEnabled(true);
+			if(selectedFile.canWrite()) {
+				selectButton.setEnabled(true);
+			}
 		}
 		getDir(startPath);
 
@@ -445,6 +447,11 @@ public class FileDialog extends ListActivity{
 					v.setSelected(true);
 					selectButton.setEnabled(true);
 				}
+
+				if(!file.canWrite()) {
+					selectButton.setEnabled(false);
+				}
+
 			} else {
 				new AlertDialog.Builder(this).setIcon(R.drawable.file_icon_4dstabi)
 						.setTitle("[" + file.getName() + "] " + getText(R.string.cant_read_folder))

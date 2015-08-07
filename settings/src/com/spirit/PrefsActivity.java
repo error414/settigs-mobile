@@ -11,6 +11,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -85,7 +86,7 @@ public class PrefsActivity extends PreferenceActivity {
         mainDir.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
 			@Override
 			public boolean onPreferenceClick(Preference preference) {
-				String prefsDir = sharedPrefs.getString(PREF_APP_DIR, "/");
+				String prefsDir = sharedPrefs.getString(PREF_APP_DIR, Environment.getExternalStorageDirectory().getAbsolutePath());
 				openFileDialogIndent(prefsDir, REQUEST_APP_DIR);
 				return true;
 			}
@@ -249,20 +250,21 @@ public class PrefsActivity extends PreferenceActivity {
 			case REQUEST_APP_DIR:
 				if (resultCode == Activity.RESULT_OK) {
 
-                    File fileGraph      = new File(newValue, PREF_APP_PREFIX + PREF_APP_GRAPH_DIR);
-                    File fileLog        = new File(newValue, PREF_APP_PREFIX + PREF_APP_LOG_DIR);
-                    File fileProfile    = new File(newValue, PREF_APP_PREFIX + PREF_APP_PROFILE_DIR);
+                    File fileGraph      = new File(newValue + PREF_APP_PREFIX, PREF_APP_GRAPH_DIR);
+                    File fileLog        = new File(newValue + PREF_APP_PREFIX, PREF_APP_LOG_DIR);
+                    File fileProfile    = new File(newValue + PREF_APP_PREFIX, PREF_APP_PROFILE_DIR);
 
                     int fileGrapResult = createStorageDir(fileGraph);
                     int fileLogResult = createStorageDir(fileLog);
                     int fileProfileResult = createStorageDir(fileProfile);
+
+                    String successText = "";
 
                     if(fileGrapResult == DIR_CREATED_FAILED || fileLogResult == DIR_CREATED_FAILED){
                         Toast.makeText(getApplicationContext(), R.string.select_dir_failed, Toast.LENGTH_LONG).show();
                         return;
                     }
 
-                    String successText = "";
                     if(fileGrapResult == DIR_CREATED){
                         successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_GRAPH_DIR;
                     }
@@ -276,12 +278,16 @@ public class PrefsActivity extends PreferenceActivity {
                         successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_PROFILE_DIR;
                     }
 
-
                     if(fileLogResult == DIR_CREATED){
                         successText += "\n" + newValue + PREF_APP_PREFIX + PREF_APP_LOG_DIR;
                     }
 
-                    if( fileGrapResult == DIR_CREATED || fileLogResult == DIR_CREATED){
+                    if(fileLogResult == DIR_CREATED_FAILED || fileLogResult == DIR_CREATED_FAILED){
+                        Toast.makeText(getApplicationContext(), R.string.select_dir_failed, Toast.LENGTH_LONG).show();
+                        return;
+                    }
+
+                    if( fileGrapResult == DIR_CREATED || fileProfileResult == DIR_CREATED || fileLogResult == DIR_CREATED){
                         Toast.makeText(getApplicationContext(), getText(R.string.created_dir_success) + successText, Toast.LENGTH_LONG).show();
                     }
 

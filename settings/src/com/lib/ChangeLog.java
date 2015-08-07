@@ -147,7 +147,7 @@ public class ChangeLog {
                         this.context, android.R.style.Theme_Dialog));
         builder.setTitle(
                 context.getResources().getString(
-                        R.string.donate
+                        R.string.changelog_title
                                 ))
                 .setView(wv)
                 .setCancelable(false)

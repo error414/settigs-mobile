@@ -3,11 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-<<<<<<< HEAD
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 28.05.2015-devel</string>
-=======
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 19.06.2015-devel</string>
->>>>>>> 954c833... prvni verze 1.0.3
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 01.08.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -189,6 +185,10 @@
         <item>Bank 2</item>
     </string-array>
 
+    <string-array name="option_menu_values">
+        <item>Menu</item>
+    </string-array>
+
     <string-array name="channels_values">
         <item>1. channel</item>
         <item>2. channel</item>
@@ -332,6 +332,7 @@
     <string name="log_event_hang">Main Loop Hang Occurred</string>
     <string name="log_event_rxloss">Receiver Signal Lost</string>
     <string name="log_event_lowvolt">Power Voltage is low</string>
+    <string name="log_governor">Governor was Engaged</string>
     <string name="not_log_for_save">None log to save</string>
     <string name="save_log">Save log</string>
     <string name="pdf_title">Flight log</string>
@@ -372,9 +373,9 @@
     <string name="add_to_favourites">Add to favourites</string>
     <string name="remove_from_favourites">Remove from favourites</string>
     <string name="add_to_favourites_done">Item has been added</string>
-    <string name="remove_from_favourites_done">item was removed</string>
-    <string name="add">add</string>
-    <string name="remove">remove</string>
+    <string name="remove_from_favourites_done">Item was removed</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
     <string name="show_errors">Show profile errors</string>
     <string name="no_error">No errors</string>
     <string name="basic_mode">Basic mode</string>
@@ -385,7 +386,6 @@
     <string name="yes">Yes</string>
     <string name="no">No</string>
     <string name="no_diff">no difference</string>
-    <string name="donate">Donate</string>
 
     <string name="changelog_full_title">Change Log</string>
     <string name="changelog_title">What\'s New</string>

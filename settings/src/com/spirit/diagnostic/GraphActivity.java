@@ -163,20 +163,20 @@ public class GraphActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.graph);
+		initSlideMenu(R.layout.graph);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 
         saveToast = Toast.makeText(getApplicationContext(), "", Toast.LENGTH_SHORT);
 	}
-	
+
 	/**
-	 * handle for change banks
 	 *
-	 * @param v
+	 * @return
 	 */
-	public void changeBankOpenDialog(View v){
-		//disabled change bank in this activity
+	public boolean isEnableChangeBank()
+	{
+		return false;
 	}
 
 	/**

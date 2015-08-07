@@ -70,12 +70,21 @@ public class InputChannelsActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		setContentView(R.layout.input_channels);
+		initSlideMenu(R.layout.input_channels);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
         ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.diagnostic_button_text), " \u2192 ", getString(R.string.input_channels)));
 
 		initConfiguration();
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public boolean isEnableChangeBank()
+	{
+		return false;
 	}
 	
 	/**

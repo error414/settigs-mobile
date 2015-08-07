@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical"
-   >
-
-    <RelativeLayout
-        android:id="@+id/img1"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/background_color" >
-
-
-    </RelativeLayout>
+    android:layout_height="fill_parent">
 
 
     <ListView
         android:id="@+id/leftMenu"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:entries="@array/bank_values"
+        android:layout_height="wrap_content"
 
         android:choiceMode="none">
     </ListView>
 
+    <RelativeLayout
+        android:id="@+id/InnerRelativeLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" >
+        <ListView
+            android:id="@+id/leftMenuOptionMenu"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+
+            android:choiceMode="none">
+        </ListView>
+    </RelativeLayout>
 
 
-</LinearLayout>
+</RelativeLayout>

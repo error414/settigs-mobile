@@ -33,6 +33,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -113,7 +114,6 @@ public class SettingsActivity extends BaseActivity
 			edit.commit();
 			onCoachMark();
 		}else {*/
-			tryShowDonateDialog();
 		/*}*/
 	}
 
@@ -133,23 +133,10 @@ public class SettingsActivity extends BaseActivity
 			@Override
 			public void onClick(View view) {
 				dialog.dismiss();
-				tryShowDonateDialog();
 
 			}
 		});
 		dialog.show();
-	}
-
-	/**
-	 *
-	 */
-	public void tryShowDonateDialog(){
-		//AUTO GENERATE DONATE START
-        /*com.lib.ChangeLog cl = new com.lib.ChangeLog(this);
-        	    if (cl.firstRun()){
-        	        cl.getLogDialog().show();
-        	    }*/
-        //AUTO GENERATE DONATE END
 	}
 
 	public void onResume()
@@ -223,7 +210,6 @@ public class SettingsActivity extends BaseActivity
     {
         super.onCreateOptionsMenu(menu);
 
-        menu.add(GROUP_GENERAL, DONATE, android.view.Menu.NONE, R.string.donate);
         menu.add(GROUP_GENERAL, SETTINGS, android.view.Menu.NONE, R.string.settings);
         return true;
     }
@@ -236,11 +222,6 @@ public class SettingsActivity extends BaseActivity
     {
         super.onOptionsItemSelected(item);
 
-        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == DONATE) {
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(DONATE_URL));
-            startActivity(browserIntent);
-        }
-        
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == SETTINGS) {
 			Intent i = new Intent(SettingsActivity.this, PrefsActivity.class);
 			startActivity(i);
