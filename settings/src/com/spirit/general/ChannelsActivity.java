@@ -1,6 +1,8 @@
 package com.spirit.general;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
@@ -10,11 +12,13 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.exception.IndexOutOfException;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -29,6 +33,7 @@ public class ChannelsActivity extends BaseActivity{
 	final private String TAG = "ChannelsActivity";
 	
 	final private int PROFILE_CALL_BACK_CODE = 16;
+	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
 	
 	private final String protocolCode[] = {"CHANNELS_THT", "CHANNELS_AIL", "CHANNELS_ELE", "CHANNELS_RUD", "CHANNELS_GAIN", "CHANNELS_PITH", "CHANNELS_BANK"};
 
@@ -51,6 +56,11 @@ public class ChannelsActivity extends BaseActivity{
 		initConfiguration();
 		delegateListener();
 	}
+
+	/**
+	 *
+	 */
+	final private Handler delayHandle = new Handler();
 
 	/**
 	 *
@@ -183,6 +193,56 @@ public class ChannelsActivity extends BaseActivity{
 		// ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
+
+	/**
+	 *
+	 * @param b
+	 */
+	protected void updateGui(byte[] b)
+	{
+
+		//AILERON
+		int aileron = ByteOperation.twoByteToSigInt(b[0], b[1]);
+		int aileronPercent = ((100 * aileron) / 340) * -1;
+		((ProgressBar) findViewById(R.id.aileron_progress_diagnostic)).setProgress(aileronPercent + 100);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//ELEVATOR
+		int elevator = ByteOperation.twoByteToSigInt(b[2], b[3]);
+		int elevatorPercent = ((100 * elevator) / 340) * -1;
+		((ProgressBar) findViewById(R.id.elevator_progress_diagnostic)).setProgress(elevatorPercent + 100);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//PITCH
+		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
+		int pitchPercent = ((100 * pitch) / 340);
+		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(pitchPercent + 100);
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//RUDDER
+		int rudder = ByteOperation.twoByteToSigInt(b[6], b[7]);
+		int rudderPercent = ((100 * rudder) / 340);
+		((ProgressBar) findViewById(R.id.rudder_progress_diagnostic)).setProgress((rudderPercent + 100));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//GYRO
+		int gyro = ByteOperation.twoByteToSigInt(b[8], b[9]);
+		int gyroPercent = ((100 * gyro) / 388);
+		((ProgressBar) findViewById(R.id.gyro_progress_diagnostic)).setProgress((gyroPercent + 100));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//AUX2  / banks
+		int banks = ByteOperation.twoByteToSigInt(b[10], b[11]);
+		int banksPercent = ((100 * banks) / 340);
+		((ProgressBar) findViewById(R.id.bank_progress_diagnostic)).setProgress((banksPercent + 100));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+		//AUX1  / throttle
+		int throttle = ByteOperation.twoByteToSigInt(b[12], b[13]);
+		int throttlePercent = ((50 * throttle) / 340);
+		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress((throttlePercent + 50));
+		////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	}
 	
 	/**
 	 * naplneni formulare
@@ -225,6 +285,22 @@ public class ChannelsActivity extends BaseActivity{
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
+
+		getPositionFromUnit();
+	}
+
+	/**
+	 * ziskani informace o poloze kniplu z jednotky
+	 */
+	protected void getPositionFromUnit()
+	{
+		delayHandle.postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+			}
+		}, 50); // ms
+
 	}
 	
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
@@ -324,6 +400,13 @@ public class ChannelsActivity extends BaseActivity{
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
+				break;
+			case DIAGNOSTIC_CALL_BACK_CODE:
+				if (msg.getData().containsKey("data")) {
+					updateGui(msg.getData().getByteArray("data"));
+
+					getPositionFromUnit();
+				}
 				break;
 			default:
 				super.handleMessage(msg);

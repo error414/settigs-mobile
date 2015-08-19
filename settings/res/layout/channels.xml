@@ -236,8 +236,100 @@
                 android:layout_below="@+id/bank_select_id"
                 android:layout_alignLeft="@+id/bank_select_id" />
 
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/throttle_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="100"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_alignTop="@+id/tht_select_id_default"
+				android:layout_alignLeft="@+id/textView6"
+				android:layout_alignStart="@+id/textView6"
+				android:layout_alignRight="@+id/tht_select_id"
+				android:layout_alignEnd="@+id/tht_select_id" />
 
-        </RelativeLayout>
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/aileron_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/aile_select_id"
+				android:layout_alignLeft="@+id/aile_select_id"
+				android:layout_alignStart="@+id/aile_select_id"
+				android:layout_alignRight="@+id/aile_select_id"
+				android:layout_alignEnd="@+id/aile_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/elevator_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/ele_select_id"
+				android:layout_alignLeft="@+id/ele_select_id"
+				android:layout_alignStart="@+id/ele_select_id"
+				android:layout_alignRight="@+id/ele_select_id"
+				android:layout_alignEnd="@+id/ele_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/rudder_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/run_select_id"
+				android:layout_alignLeft="@+id/run_select_id"
+				android:layout_alignStart="@+id/run_select_id"
+				android:layout_alignRight="@+id/run_select_id"
+				android:layout_alignEnd="@+id/run_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/gyro_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/gain_select_id"
+				android:layout_alignLeft="@+id/gain_select_id"
+				android:layout_alignStart="@+id/gain_select_id"
+				android:layout_alignRight="@+id/gain_select_id"
+				android:layout_alignEnd="@+id/gain_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/pitch_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/pitch_select_id"
+				android:layout_alignLeft="@+id/pitch_select_id"
+				android:layout_alignStart="@+id/pitch_select_id"
+				android:layout_alignRight="@+id/pitch_select_id"
+				android:layout_alignEnd="@+id/pitch_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/bank_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/bank_select_id"
+				android:layout_alignLeft="@+id/bank_select_id"
+				android:layout_alignStart="@+id/bank_select_id"
+				android:layout_alignRight="@+id/bank_select_id"
+				android:layout_alignEnd="@+id/bank_select_id"
+				android:paddingBottom="10dp" />
+
+
+		</RelativeLayout>
 
 	</ScrollView>
 </LinearLayout>
