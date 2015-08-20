@@ -36,7 +36,7 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class GovernorModeActivity extends BaseActivity
+public class GovernorFreqActivity extends BaseActivity
 {
 
 	final private String TAG = "StabiFunctionActivity";

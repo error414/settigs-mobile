@@ -62,7 +62,7 @@ public class LogActivity extends BaseActivity
 
 	////////////////////////////////////////////////////
 	final static Integer LOG_EVENT_OK = 0x0;
-	final static Integer LOG_EVENT_CAL = 0x1;
+	final static Integer LOG_EVENT_GOV_OUT_OF_RANGE = 0x1;
 	final static Integer LOG_EVENT_CYCRING = 0x2;
 	final static Integer LOG_EVENT_RUDLIM = 0x4;
 	final static Integer LOG_EVENT_VIBES = 0x8;
@@ -82,7 +82,7 @@ public class LogActivity extends BaseActivity
 
 	private ArrayList<HashMap<Integer, Integer>> logListData;
 
-    private boolean prewLog = false;
+	private boolean prewLog = false;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -95,22 +95,22 @@ public class LogActivity extends BaseActivity
 		initSlideMenu(R.layout.log);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.diagnostic_button_text), " \u2192 ", getString(R.string.log_button_text)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.diagnostic_button_text), " \u2192 ", getString(R.string.log_button_text)));
 
 		logList = (ListView) findViewById(R.id.logList);
 		LogListAdapter adapter = new LogListAdapter(this, new ArrayList<HashMap<Integer, Integer>>());
 		logList.setAdapter(adapter);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
-        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
-            Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
-            Intent i = new Intent(LogActivity.this, PrefsActivity.class);
-            startActivity(i);
-            finish();
-            return;
-        }
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
+		if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
+			Toast.makeText(getApplicationContext(), R.string.first_choose_directory, Toast.LENGTH_SHORT).show();
+			Intent i = new Intent(LogActivity.this, PrefsActivity.class);
+			startActivity(i);
+			finish();
+			return;
+		}
 
-        initConfiguration();
+		initConfiguration();
 	}
 
 	/**
@@ -122,28 +122,28 @@ public class LogActivity extends BaseActivity
 		return false;
 	}
 
-    /**
-     *
-     * @param savedInstanceState
-     */
-    public void onSaveInstanceState(Bundle savedInstanceState)
-    {
-        savedInstanceState.putBoolean("prewLog", prewLog);
-    }
+	/**
+	 *
+	 * @param savedInstanceState
+	 */
+	public void onSaveInstanceState(Bundle savedInstanceState)
+	{
+		savedInstanceState.putBoolean("prewLog", prewLog);
+	}
 
 
-    /**
-     *
-     * @param savedInstanceState
-     */
-    public void onRestoreInstanceState(Bundle savedInstanceState)
-    {
-        prewLog = savedInstanceState.getBoolean("prewLog", false);
-    }
-	
+	/**
+	 *
+	 * @param savedInstanceState
+	 */
+	public void onRestoreInstanceState(Bundle savedInstanceState)
+	{
+		prewLog = savedInstanceState.getBoolean("prewLog", false);
+	}
+
 	/**
 	 * handle for change banks
-	 * 
+	 *
 	 * @param v
 	 */
 	public void changeBankOpenDialog(View v){
@@ -170,18 +170,27 @@ public class LogActivity extends BaseActivity
 	{
 		int len = log[0] & 0xff;
 
-        if(len > 1){
-            prewLog = ByteOperation.byteToUnsignedInt(log[1]) == 1;
-            if(prewLog){
-                showConfirmDialog(R.string.log_from_previous_flight);
-            }
-        }
+		if(len > 1){
+			prewLog = ByteOperation.byteToUnsignedInt(log[1]) == 1;
+			if(prewLog){
+				showConfirmDialog(R.string.log_from_previous_flight);
+			}
+		}
 
 		//////////////////////////////////////////////////////////////////////
 
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
-		
+
 		for (int i = 2; i <= len + 1; i++) {
+
+			if (i == 2) {
+				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
+				row.put(TITLE_FOR_LOG, R.string.log_event_cal);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(POSITION, i);
+				logListData.add(row);
+			}
+
 			if ((log[i] & 0xff) == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
@@ -190,10 +199,10 @@ public class LogActivity extends BaseActivity
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_CAL) != 0) {
+			if (((log[i] & 0xff) & LOG_EVENT_GOV_OUT_OF_RANGE) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-				row.put(TITLE_FOR_LOG, R.string.log_event_cal);
-				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
+				row.put(TITLE_FOR_LOG, R.string.log_event_gov_out_of_range);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 				row.put(POSITION, i);
 				logListData.add(row);
 			}
@@ -237,7 +246,7 @@ public class LogActivity extends BaseActivity
 				row.put(POSITION, i);
 				logListData.add(row);
 			}
-			
+
 			if (((log[i] & 0xff) & LOG_EVENT_LOWVOLT) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_lowvolt);
@@ -276,14 +285,14 @@ public class LogActivity extends BaseActivity
 					updateGuiByLog(msg.getData().getByteArray("data"));
 
 
-                    Thread thread = new Thread() {
-                        @Override
-                        public void run() {
-                            saveLogToFile();
-                        }
-                    };
+					Thread thread = new Thread() {
+						@Override
+						public void run() {
+							saveLogToFile();
+						}
+					};
 
-                    thread.start();
+					thread.start();
 				}
 				break;
 			default:
@@ -304,48 +313,48 @@ public class LogActivity extends BaseActivity
 		return true;
 	}
 
-    /**
-     *
-     * @return
-     */
-    private boolean saveLogToFile()
-    {
-        // musime byt pripojeni k zarizeni
-        if (logListData == null) {
-            this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
-                }
-            });
-            return false;
-        }
+	/**
+	 *
+	 * @return
+	 */
+	private boolean saveLogToFile()
+	{
+		// musime byt pripojeni k zarizeni
+		if (logListData == null) {
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(getApplicationContext(), R.string.not_log_for_save, Toast.LENGTH_SHORT).show();
+				}
+			});
+			return false;
+		}
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
-        if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
-            return false;
-        }
+		SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(LogActivity.this);
+		if(!sharedPrefs.contains(PrefsActivity.PREF_APP_DIR)){
+			return false;
+		}
 
-        String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_LOG_DIR + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
+		String filename = sharedPrefs.getString(PrefsActivity.PREF_APP_DIR, "") + PrefsActivity.PREF_APP_PREFIX + PrefsActivity.PREF_APP_LOG_DIR + "/" + sdf.format(new Date()) + "-log." + FILE_LOG_EXT;
 
-        LogPdf log = new LogPdf(this, logListData, prewLog, ChangeInProfile.getInstance().getOriginalProfile());
-        if(log.create(filename)){
-            this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
-                }
-            });
+		LogPdf log = new LogPdf(this, logListData, prewLog, ChangeInProfile.getInstance().getOriginalProfile());
+		if(log.create(filename)){
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(getApplicationContext(), R.string.save_done, Toast.LENGTH_SHORT).show();
+				}
+			});
 
-        }else{
+		}else{
 
-            this.runOnUiThread(new Runnable() {
-                public void run() {
-                    Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+			this.runOnUiThread(new Runnable() {
+				public void run() {
+					Toast.makeText(getApplicationContext(), R.string.not_save, Toast.LENGTH_SHORT).show();
+				}
+			});
+		}
 
-        return true;
-    }
+		return true;
+	}
 
 	/**
 	 * reakce na kliknuti polozky v kontextovem menu
@@ -361,17 +370,17 @@ public class LogActivity extends BaseActivity
 		return false;
 	}
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance(this).activityStart(this);
-    }
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
 
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);
-    }
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 }
 	
