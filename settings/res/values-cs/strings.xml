@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 07.08.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 23.08.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -317,12 +317,18 @@
         <item>English</item>
     </string-array>
 
-    <string-array name="governor_mode_values">
-        <item>Vypnutý</item>
-        <item>Elektrický</item>
-        <item>Elektrický (Rychlý rozběh)</item>
-        <item>Spalovací</item>
-        <item>Spalovací (Rychlý rozběh)</item>
+    <string-array name="governor_freq_values">
+        <item>60Hz</item>
+        <item>120Hz</item>
+        <item>200Hz</item>
+        <item>333Hz</item>
+    </string-array>
+
+    <string-array name="governor_spoolup_values">
+        <item>Velmi pomalý</item>
+        <item>Pomalý</item>
+        <item>Rychlý</item>
+        <item>Velmi rychlý</item>
     </string-array>
 
     <string-array name="language_pref_values">
@@ -456,8 +462,9 @@
     <string name="unsaved_changes_description">Změny nejsou uloženy</string>
     <string name="unsaved_changes_before_disconnect">Před odpojením nebyly uloženy změny!!!</string>
 
+    <string name="governor_thr">Governor / Plyn</string>
     <string name="governor">Governor</string>
-    <string name="governor_mode">Režim governoru</string>
+    <string name="governor_freq">Frekvence plynu</string>
     <string name="governor_gain">Ladění</string>
     <string name="governor_pgain">Odezva governoru</string>
     <string name="governor_igain">Míra držení otáček</string>
@@ -497,7 +504,6 @@
     <string name="st_08a5a1e5848935703bcc7d12cf34f318">Udává horní limit dráhy vrtulkového serva.\n\n<i>Rozsah: 32 - 255</i></string>
     <string name="st_b7528539f90bd0ef74ab982a09574de4"><b>Udává rozsah dráhy serv cykliky - křidélka a výškovka</b>\n\n- Přidejte tento parametr, jak nejvíce je to možné.\n- Opatrně kontrolujte, zda nedochází k nárazu serv v žádné poloze!\n\n<i>Rozsah: 32 - 255</i></string>
     <string name="st_b81fcebbff4a29a95ef70e6621eb8f71">Udává rozsah kolektivu pro kladný a záporný směr.\n\n<i>Rozsah: 32 - 255</i></string>
-    <string name="st_7e9b6e6e69bdf3a03eb5e74a27a286c5">Udává režim Governoru.\n\n- Pro rychlý rozběh zvolte možnost (Rychlý rozběh).</string>
     <string name="st_65abb627338d2deeaeacca880ecac232">Udává spodní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejnižší možnou hodnotu serva plynu.\n- Funguje jako subtrim ve vysílači.\n\n<i>Rozsah: -150 - -50</i></string>
     <string name="st_46c2d7f70c71e5957d323fe570e16dfd">Udává horní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejvyšší možnou hodnotu serva plynu.\n\n<i>Rozsah: 50 - 150</i></string>
     <string name="st_cffee8820dbdc898c99db0f0350440f4">Udává velikost dělitele snímače otáček.\n\n- Pro helikoptéry s elektrickým pohonem je tato hodnota rovna počtu pólů motoru / 2 (Tzn. pro 10 pólový motor je hodnota 5).\n- Pro spalovací helikoptéry je hodnota rovna počtu magnetů.\n\n<i>Rozsah: 1 - 8</i></string>
@@ -541,4 +547,7 @@
     <string name="senzor">Senzor</string>
     <string name="cant_stop_activity_when_test_running">Před opuštěním zastavte test</string>
     <string name="bec_test_stop">BEC test byl dokončen! V případě, že jednotka stále běží a nenastalo žádné zvláštní chování, pak je napájení dostatečné.</string>
+    <string name="log_event_gov_out_of_range">Governor RPM mimo rozsah</string>
+    <string name="governor_on">Governor</string>
+    <string name="governor_spoolup">Rozběh</string>
 </resources>

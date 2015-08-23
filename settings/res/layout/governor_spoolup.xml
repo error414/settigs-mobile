@@ -26,7 +26,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="16dp"
             android:layout_marginTop="60dp"
-            android:text="@string/governor_mode"
+            android:text="@string/governor_spoolup"
             android:textColor="@color/text_color" />
 
         <ImageView
@@ -45,18 +45,18 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="10dp"
-            android:text="@string/governor_mode"
+            android:text="@string/governor_spoolup"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/text_color"
             android:textStyle="bold" />
 
         <Spinner
-            android:id="@+id/governor_mode_select_id"
+            android:id="@+id/governor_spoolup_select_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView1"
             android:layout_below="@+id/textView1"
-            android:entries="@array/governor_mode_values"
+            android:entries="@array/governor_spoolup_values"
             android:minWidth="230dp" />
 
         <TextView
@@ -64,9 +64,9 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text=""
-            android:id="@+id/governor_mode_select_id_default"
-            android:layout_below="@+id/governor_mode_select_id"
-            android:layout_alignLeft="@+id/governor_mode_select_id"
+            android:id="@+id/governor_spoolup_select_id_default"
+            android:layout_below="@+id/governor_spoolup_select_id"
+            android:layout_alignLeft="@+id/governor_spoolup_select_id"
             android:textColor="@color/dashed_dark" />
 
         </RelativeLayout>

@@ -1,6 +1,5 @@
 /*
 Copyright (C) Petr Cada and Tomas Jedrzejek
-Copyright (C) Petr Cada and Tomas Jedrzejek
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -15,56 +14,52 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-package com.spirit.governor;
+
+package com.spirit.governorthr;
 
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Window;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.customWidget.picker.ProgresEx;
-import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.translate.GovernorRpmMaxProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-import java.nio.ByteBuffer;
-
-public class GovernorRpmMaxActivity extends BaseActivity
+public class GovernorThrReverseActivity extends BaseActivity
 {
 
     @SuppressWarnings("unused")
-    final private String TAG = "GovernorRpmMaxActivity";
+    final private String TAG = "GovernorThrReverseActivity";
 
     final private int PROFILE_CALL_BACK_CODE = 16;
 
-    private final String protocolCode[] = {"GOVERNOR_RPM_MAX",};
+    private final String protocolCode[] = {"GOVERNOR_THR_REVERSE",};
 
-    private int formItems[] = {R.id.governor_rpm_max,};
+    private int formItems[] = {R.id.thr_reverse,};
 
-    private int formItemsTitle[] = {R.string.governor_rpm_max,};
+    private int lock = 0;
 
     /**
-     * zavolani pri vytvoreni instance aktivity stabi
+     * zavolani pri vytvoreni instance aktivity servo type
      */
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-        initSlideMenu(R.layout.governor_rpm_max);
+        initSlideMenu(R.layout.governor_thr_reverse);
 
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_rpm_max)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor_thr_reverse)));
 
-        initGui();
         initConfiguration();
         delegateListener();
     }
@@ -89,57 +84,7 @@ public class GovernorRpmMaxActivity extends BaseActivity
      *
      */
     protected int getDefaultValueType(){
-        return DEFAULT_VALUE_TYPE_SEEK;
-    }
-
-    /**
-     * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
-     */
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-            initDefaultValue();
-        }else{
-            finish();
-        }
-    }
-
-    /**
-     * disablovani prvku v bezpecnem rezimu
-     */
-    protected void initBasicMode()
-    {
-        for (int i = 0; i < formItems.length; i++) {
-            ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-
-            tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
-        }
-    }
-
-    private void initGui()
-    {
-        for (int i = 0; i < formItems.length; i++) {
-            ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-            tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-            tempPicker.setTranslate(new GovernorRpmMaxProgressExTranslate());
-            tempPicker.setStepLongPress(5);
-            tempPicker.setRange(0, 250); // nastavuji rozmezi prvku z profilu
-        }
-    }
-
-    /**
-     * prirazeni udalosti k prvkum
-     */
-    private void delegateListener()
-    {
-        //nastaveni posluchacu pro formularove prvky
-        for (int i = 0; i < formItems.length; i++) {
-            ((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
-        }
+        return DEFAULT_VALUE_TYPE_CHECKBOX;
     }
 
     /**
@@ -150,6 +95,45 @@ public class GovernorRpmMaxActivity extends BaseActivity
         showDialogRead();
         // ziskani konfigurace z jednotky
         stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
+    }
+
+    /**
+     * prirazeni udalosti k prvkum
+     */
+    private void delegateListener()
+    {
+        //nastaveni posluchacu pro formularove prvky
+        for (int i = 0; i < formItems.length; i++) {
+            ((CheckBox) findViewById(formItems[i])).setOnCheckedChangeListener(checkboxListener);
+        }
+    }
+
+    /**
+     * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+     */
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            initDefaultValue();
+        } else {
+            finish();
+        }
+    }
+
+    /**
+     * disablovani prvku v bezpecnem rezimu
+     */
+    protected void initBasicMode()
+    {
+        for (int i = 0; i < formItems.length; i++) {
+            CheckBox check = (CheckBox) findViewById(formItems[i]);
+            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
+            check.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+        }
     }
 
     /**
@@ -170,43 +154,45 @@ public class GovernorRpmMaxActivity extends BaseActivity
         initBasicMode();
 
         for (int i = 0; i < formItems.length; i++) {
-            ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-            tempPicker.setCurrentNoNotify(item.getValueInteger());
+            CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
 
-            if(profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() == 0){
-                tempPicker.setEnabled(false);
-            }
+            Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
+            if (checked) lock = lock + 1;
+            tempCheckbox.setChecked(checked);
         }
-
     }
 
-    protected OnChangedListener numberPicekrListener = new OnChangedListener()
+
+    private CompoundButton.OnCheckedChangeListener checkboxListener = new CompoundButton.OnCheckedChangeListener()
     {
+
         @Override
-        public void onChanged(ProgresEx parent, int newVal)
+        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
+
+            if (lock != 0) {
+                lock -= 1;
+                return;
+            }
+            lock = Math.max(lock - 1, 0);
+
             // TODO Auto-generated method stub
             // prohledani jestli udalost vyvolal znamy prvek
             // pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
             for (int i = 0; i < formItems.length; i++) {
-                if (parent.getId() == formItems[i]) {
+                if (buttonView.getId() == formItems[i]) {
+                    ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+                    item.setValueFromCheckBox(isChecked);
+                    stabiProvider.sendDataNoWaitForResponce(item);
 
                     showInfoBarWrite();
-                    ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-                    if(item != null) {
-                        item.setValue(newVal);
-                        stabiProvider.sendDataNoWaitForResponce(item);
-                    }
-
                 }
             }
             initDefaultValue();
+
         }
 
     };
-
 
     public boolean handleMessage(Message msg)
     {
@@ -241,6 +227,3 @@ public class GovernorRpmMaxActivity extends BaseActivity
         EasyTracker.getInstance(this).activityStop(this);
     }
 }
-
-
-

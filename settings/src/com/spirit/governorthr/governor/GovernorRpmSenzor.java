@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-package com.spirit.governor;
+package com.spirit.governorthr.governor;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -59,7 +59,7 @@ public class GovernorRpmSenzor extends BaseActivity
 		initSlideMenu(R.layout.bec_rpm_senzor);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_rpm_senzor)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_rpm_senzor)));
 
         initConfiguration();
 	}
@@ -111,7 +111,7 @@ public class GovernorRpmSenzor extends BaseActivity
      */
     protected void getRpmValue()
     {
-        if(profileCreator != null && profileCreator.isValid() && profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() > 0) {
+        if(profileCreator != null && profileCreator.isValid() && profileCreator.getProfileItemByName("GOVERNOR_FREQ").getValueInteger() > 0) {
             delayHandle.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -135,7 +135,7 @@ public class GovernorRpmSenzor extends BaseActivity
             return;
         }
 
-        int govMode = profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger();
+        int govMode = profileCreator.getProfileItemByName("GOVERNOR_FREQ").getValueInteger();
 
         if(govMode == 0){
             findViewById(R.id.governor_request_rpm).setEnabled(false);

@@ -103,7 +103,7 @@
            <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/governor"
+                android:text="@string/governor_thr"
                 android:id="@+id/governor"
                 android:layout_marginTop="32dp"
                 android:layout_alignLeft="@+id/receiver_select_id"

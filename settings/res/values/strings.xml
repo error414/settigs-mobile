@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 07.08.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 23.08.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -292,12 +292,18 @@
         <item>English</item>
     </string-array>
 
-    <string-array name="governor_mode_values">
-        <item>Disabled</item>
-        <item>Electric</item>
-        <item>Electric (Fast spoolup)</item>
-        <item>Nitro / Gasser</item>
-        <item>Nitro / Gasser (Fast spoolup)</item>
+    <string-array name="governor_freq_values">
+        <item>60Hz</item>
+        <item>120Hz</item>
+        <item>200Hz</item>
+        <item>333Hz</item>
+    </string-array>
+
+    <string-array name="governor_spoolup_values">
+        <item>Very slow</item>
+        <item>Slow</item>
+        <item>Fast</item>
+        <item>Very fast</item>
     </string-array>
 
     <string-array name="language_pref_values">
@@ -418,8 +424,9 @@
     <string name="unsaved_changes_description">Settings were not saved</string>
     <string name="unsaved_changes_before_disconnect">Before disconnecting the changes were not saved</string>
 
+    <string name="governor_thr">Governor / Throttle</string>
     <string name="governor">Governor</string>
-    <string name="governor_mode">Governor mode</string>
+    <string name="governor_freq">Throttle Frequency</string>
     <string name="governor_gain">Fine-Tuning</string>
     <string name="governor_pgain">Governor Response</string>
     <string name="governor_igain">Holding Performance</string>
@@ -459,7 +466,6 @@
     <string name="st_08a5a1e5848935703bcc7d12cf34f318">Specifies maximum travel limit for the rudder servo.\n\n<i>Range: 32 - 255</i></string>
     <string name="st_b7528539f90bd0ef74ab982a09574de4"><b>Specifies range of the cyclic servo travel for aileron and elevator</b>\n\n- Increase this parameter as much as possible.\n- Carefully check for any binding!\n\n<i>Range: 32 - 255</i></string>
     <string name="st_b81fcebbff4a29a95ef70e6621eb8f71">Specifies range of the collective pitch for both positive and negative positions.\n\n<i>Range: 32 - 255</i></string>
-    <string name="st_7e9b6e6e69bdf3a03eb5e74a27a286c5">Specifies Governor mode.\n\n- For fast spoolup rate select (Fast) choice.</string>
     <string name="st_65abb627338d2deeaeacca880ecac232">Specifies bottom limit of the throttle range.\n\n- Can be used to match preconfigured throttle range of the ESC.\n- For nitro and gasser set the limit for the lowest position of the throttle servo horn.\n- Behaves similarly as a subtrim function.\n\n<i>Range: -150 - -50</i></string>
     <string name="st_46c2d7f70c71e5957d323fe570e16dfd">Specifies upper limit of the throttle range.\n\n- Can be used to match preconfigured throttle range of the ESC.\n- For nitro and gasser set the limit for the highest position of the throttle servo horn.\n\n<i>Range: 50 - 150</i></string>
     <string name="st_cffee8820dbdc898c99db0f0350440f4">Specifies Sensing Divider of the sensor.\n\n- For electric helicopters it is always Motor Poles / 2 (For a 10 pole motor configure value of 5).\n- For nitro and gasser helicopters the value is magnet count.\n\n<i>Range: 1 - 8</i></string>
@@ -501,4 +507,7 @@
     <string name="senzor">Senzor</string>
     <string name="cant_stop_activity_when_test_running">Before leaving please stop test</string>
     <string name="bec_test_stop">BEC test was finished! In case that the unit is still running and any unusual behavior does not happened then your power supply is suitable.</string>
+    <string name="log_event_gov_out_of_range">Governor RPM out of range</string>
+    <string name="governor_on">Governor</string>
+    <string name="governor_spoolup">Spoolup Rate</string>
 </resources>

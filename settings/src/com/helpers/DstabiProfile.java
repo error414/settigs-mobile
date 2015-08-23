@@ -166,8 +166,7 @@ public class DstabiProfile {
 		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb",	true));
 		
 		profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(60, 0, 200, "7",	false));
-
-        profileMap.put("GOVERNOR_MODE",	        new ProfileItem(61, 0, 4, "2",	true));
+		profileMap.put("GOVERNOR_SPOOLUP",	    new ProfileItem(61, 0, 3, "2",	true)); // rychlost rozbehu
         profileMap.put("GOVERNOR_PGAIN",	    new ProfileItem(62, 1, 10, "j",	false)); // P Gain
         profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
         profileMap.put("PITCH_PUMP",	        new ProfileItem(64, 0, 4, "n",	false)); // pitch pump
@@ -179,6 +178,9 @@ public class DstabiProfile {
         profileMap.put("GOVERNOR_THR_MAX",	    new ProfileItem(69, 50, 150, "K",	true));
         profileMap.put("GOVERNOR_RPM_MAX",	    new ProfileItem(70, 0, 250, "W",	true));
         profileMap.put("GOVERNOR_IGAIN",	    new ProfileItem(71, 1, 6, "y",	false)); // mira drzeni otacek
+
+		profileMap.put("GOVERNOR_FREQ",	        new ProfileItem(72, "A", "D", "I",	true));
+		profileMap.put("GOVERNOR_ON",	        new ProfileItem(73, 0, 1, "J",	false));
 
 		this.mProfile = mProfile;
 

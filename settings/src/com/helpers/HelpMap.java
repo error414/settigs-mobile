@@ -73,7 +73,6 @@ public class HelpMap {
         result.put(R.id.cyclic_ring_ail_ele,                R.string.st_b7528539f90bd0ef74ab982a09574de4);
         result.put(R.id.cyclic_ring_pitch,                  R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
-        result.put(R.id.governor_mode_select_id,            R.string.st_7e9b6e6e69bdf3a03eb5e74a27a286c5);
         result.put(R.id.governor_thr_min,                   R.string.st_65abb627338d2deeaeacca880ecac232);
         result.put(R.id.governor_thr_max,                   R.string.st_46c2d7f70c71e5957d323fe570e16dfd);
         result.put(R.id.governor_divider,                   R.string.st_cffee8820dbdc898c99db0f0350440f4);

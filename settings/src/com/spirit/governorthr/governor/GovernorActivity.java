@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.governor;
+package com.spirit.governorthr.governor;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -47,7 +47,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * aktivita pro hlavni obrazku
  *
  * @author error414
  */
@@ -55,7 +54,7 @@ public class GovernorActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "SettingsActivity";
+	final private String TAG = "GovernorActivity";
 
 	/**
 	 * seznam polozek pro menu
@@ -75,7 +74,7 @@ public class GovernorActivity extends BaseActivity
 		//setContentView(R.layout.main);
         initSlideMenu(R.layout.main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor)));
 
 		//naplnime seznam polozek pro menu
 		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_GOVERNOR);

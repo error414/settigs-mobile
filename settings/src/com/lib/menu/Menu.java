@@ -24,13 +24,17 @@ import com.spirit.diagnostic.DiagnosticActivity;
 import com.spirit.diagnostic.GraphActivity;
 import com.spirit.diagnostic.InputChannelsActivity;
 import com.spirit.diagnostic.LogActivity;
-import com.spirit.governor.GovernorGainActivity;
-import com.spirit.governor.GovernorGearSettingsActivity;
-import com.spirit.governor.GovernorModeActivity;
-import com.spirit.governor.GovernorRpmMaxActivity;
-import com.spirit.governor.GovernorRpmSenzor;
-import com.spirit.governor.GovernorThrRangeActivity;
-import com.spirit.governor.GovernorThrReverseActivity;
+import com.spirit.governorthr.GovernorThrActivity;
+import com.spirit.governorthr.governor.GovernorActivity;
+import com.spirit.governorthr.governor.GovernorGainActivity;
+import com.spirit.governorthr.governor.GovernorOnActivity;
+import com.spirit.governorthr.governor.GovernorGearSettingsActivity;
+import com.spirit.governorthr.GovernorFreqActivity;
+import com.spirit.governorthr.governor.GovernorRpmMaxActivity;
+import com.spirit.governorthr.governor.GovernorRpmSenzor;
+import com.spirit.governorthr.governor.GovernorSpoolUpActivity;
+import com.spirit.governorthr.GovernorThrRangeActivity;
+import com.spirit.governorthr.GovernorThrReverseActivity;
 import com.spirit.senzor.SenzorActivity;
 import com.spirit.senzor.SenzorReverseActivity;
 import com.spirit.senzor.SenzorRotationSpeedActivity;
@@ -74,7 +78,8 @@ public class Menu {
     public static Integer MENU_INDEX_SERVO          = 4;
     public static Integer MENU_INDEX_STABI          = 5;
     public static Integer MENU_INDEX_SERVOLIMIT     = 6;
-    public static Integer MENU_INDEX_GOVERNOR       = 7;
+    public static Integer MENU_INDEX_GOVERNOR_THR   = 7;
+    public static Integer MENU_INDEX_GOVERNOR       = 9;
     public static Integer MENU_INDEX_DIAGNOSTIC     = 8;
     public HashMap<Integer,Integer[]> menuGroups = new HashMap<Integer,Integer[]>();
 
@@ -127,13 +132,16 @@ public class Menu {
     public static Integer MENU_CYCLICRING            = 33;
     public static Integer MENU_ENDPOINTS             = 34;
 
-    public static Integer MENU_GOV_MODE            = 38;
+    public static Integer MENU_GOV_ON              = 49;
+    public static Integer MENU_GOV_GOV             = 51;
+    public static Integer MENU_GOV_FREQ            = 38;
     public static Integer MENU_GOV_GAIN            = 39;
     public static Integer MENU_GOV_RPM_SENZOR      = 44;
     public static Integer MENU_GOV_THR_RANGE       = 45;
     public static Integer MENU_GOV_RPM_MAX         = 46;
     public static Integer MENU_GOV_GEAR_SETTINGS   = 47;
     public static Integer MENU_GOV_THR_REVERSE     = 48;
+    public static Integer MENU_GOV_SPOOLUP         = 50;
 
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
@@ -349,23 +357,34 @@ public class Menu {
         menuGroups.put(MENU_INDEX_SERVOLIMIT, new Integer[]{MENU_CYCLICRING, MENU_ENDPOINTS});
 
 
-        //GOVERNOR
-        menuList.put(MENU_GOV_MODE,   new MenuItem(R.drawable.i43,     R.string.governor_mode, GovernorModeActivity.class));
+        //GOVERNOR / THR
+        menuList.put(MENU_GOV_GOV,   new MenuItem(R.drawable.na,     R.string.governor, GovernorActivity.class));
 
-        menuList.put(MENU_GOV_GAIN,   new MenuItem(R.drawable.i44,     R.string.governor_gain, GovernorGainActivity.class));
+        menuList.put(MENU_GOV_FREQ,   new MenuItem(R.drawable.i43,     R.string.governor_freq, GovernorFreqActivity.class));
 
         menuList.put(MENU_GOV_THR_RANGE,   new MenuItem(R.drawable.i39,     R.string.governor_thr_range, GovernorThrRangeActivity.class));
+
+        menuList.put(MENU_GOV_THR_REVERSE,   new MenuItem(R.drawable.i53,     R.string.governor_thr_reverse, GovernorThrReverseActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_GOVERNOR_THR, new Integer[]{MENU_GOV_GOV, MENU_GOV_FREQ, MENU_GOV_THR_RANGE, MENU_GOV_THR_REVERSE});
+
+        //GOVERNOR
+        menuList.put(MENU_GOV_ON,   new MenuItem(R.drawable.na,     R.string.governor_on, GovernorOnActivity.class));
+
+        menuList.put(MENU_GOV_GAIN,   new MenuItem(R.drawable.i44,     R.string.governor_gain, GovernorGainActivity.class));
 
         menuList.put(MENU_GOV_RPM_MAX,   new MenuItem(R.drawable.i55,     R.string.governor_rpm_max, GovernorRpmMaxActivity.class));
 
         menuList.put(MENU_GOV_GEAR_SETTINGS,   new MenuItem(R.drawable.i60,     R.string.governor_gear_settings, GovernorGearSettingsActivity.class));
 
+        menuList.put(MENU_GOV_SPOOLUP,   new MenuItem(R.drawable.na,     R.string.governor_spoolup, GovernorSpoolUpActivity.class));
+
         menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.i51,     R.string.governor_rpm_senzor, GovernorRpmSenzor.class));
 
-        menuList.put(MENU_GOV_THR_REVERSE,   new MenuItem(R.drawable.i53,     R.string.governor_thr_reverse, GovernorThrReverseActivity.class));
-
         //add to groups
-        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_MODE, MENU_GOV_THR_RANGE, MENU_GOV_THR_REVERSE, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_GAIN, MENU_GOV_RPM_SENZOR});
+        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GAIN, MENU_GOV_RPM_MAX, MENU_GOV_GEAR_SETTINGS, MENU_GOV_SPOOLUP, MENU_GOV_RPM_SENZOR});
+
 
     }
 

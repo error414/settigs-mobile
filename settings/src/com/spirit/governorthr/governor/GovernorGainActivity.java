@@ -15,7 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-package com.spirit.governor;
+package com.spirit.governorthr.governor;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -30,23 +30,22 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class GovernorGearSettingsActivity extends BaseActivity
+public class GovernorGainActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "GovernorGearSettingsActivity";
+	final private String TAG = "GovernorGainActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"GOVERNOR_DIVIDER", "GOVERNOR_RATIO"};
+	private final String protocolCode[] = {"GOVERNOR_PGAIN", "GOVERNOR_IGAIN"};
 
-	private int formItems[] = {R.id.governor_divider, R.id.governor_ratio};
+	private int formItems[] = {R.id.governor_pgain, R.id.governor_igain};
 
-	private int formItemsTitle[] = {R.string.governor_divider, R.string.governor_ratio};
+	private int formItemsTitle[] = {R.string.governor_pgain, R.string.governor_igain};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity stabi
@@ -56,10 +55,10 @@ public class GovernorGearSettingsActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.governor_gear_settings);
+		initSlideMenu(R.layout.governor_gain);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_gear_settings)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_gain)));
 
 		initGui();
 		initConfiguration();
@@ -122,14 +121,7 @@ public class GovernorGearSettingsActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-            if(protocolCode[i].equals("GOVERNOR_DIVIDER")){
-                tempPicker.setRange(1, 8); // nastavuji rozmezi prvku z profilu
-            }else {
-                tempPicker.setRange(20, 254); // nastavuji rozmezi prvku z profilu
-                tempPicker.setStepPress(1);
-                tempPicker.setStepLongPress(2);
-                tempPicker.setTranslate(new GovernorgearRatioProgressExTranslate());
-            }
+            tempPicker.setRange(1, 10); // nastavuji rozmezi prvku z profilu
 		}
 	}
 
@@ -177,7 +169,7 @@ public class GovernorGearSettingsActivity extends BaseActivity
             tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
-			if(profileCreator.getProfileItemByName("GOVERNOR_MODE").getValueInteger() == 0){
+			if(profileCreator.getProfileItemByName("GOVERNOR_ON").getValueInteger() == 0){
 				tempPicker.setEnabled(false);
 			}
 		}

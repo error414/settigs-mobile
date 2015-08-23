@@ -723,10 +723,30 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("GOVERNOR_MODE")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_mode)).toString());
+        if(diffItem.getLabel().equals("GOVERNOR_ON")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator, getResources().getString(R.string.governor_on)).toString());
 
-            String[] values = getResources().getStringArray(R.array.governor_mode_values);
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_FREQ")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator , getResources().getString(R.string.governor_freq)).toString());
+
+            String[] values = getResources().getStringArray(R.array.governor_freq_values);
+
+            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("GOVERNOR_SPOOLUP")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_spoolup)).toString());
+
+            String[] values = getResources().getStringArray(R.array.governor_spoolup_values);
 
             from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
             to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
@@ -736,7 +756,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_PGAIN")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_pgain)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_pgain)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -746,7 +766,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_IGAIN")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_igain)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_igain)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -757,7 +777,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("GOVERNOR_THR_MIN")){
             GovernorThrRangeMinProgressExTranslate translate = new GovernorThrRangeMinProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_thr_min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator , getResources().getString(R.string.governor_thr_min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -767,7 +787,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_THR_MAX")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_thr_max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator , getResources().getString(R.string.governor_thr_max)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -777,7 +797,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_DIVIDER")){
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_divider)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_divider)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -788,7 +808,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("GOVERNOR_RATIO")){
             GovernorgearRatioProgressExTranslate translate = new GovernorgearRatioProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_ratio)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_ratio)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -799,7 +819,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("GOVERNOR_RPM_MAX")){
             GovernorRpmMaxProgressExTranslate translate = new GovernorRpmMaxProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_rpm_max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor), textSeparator , getResources().getString(R.string.governor_rpm_max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -808,7 +828,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_THR_REVERSE")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor),  textSeparator , getResources().getString(R.string.governor_thr_reverse)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr),  textSeparator , getResources().getString(R.string.governor_thr_reverse)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
