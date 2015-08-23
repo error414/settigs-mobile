@@ -79,7 +79,7 @@ public class Menu {
     public static Integer MENU_INDEX_STABI          = 5;
     public static Integer MENU_INDEX_SERVOLIMIT     = 6;
     public static Integer MENU_INDEX_GOVERNOR_THR   = 7;
-    public static Integer MENU_INDEX_GOVERNOR       = 9;
+    public static Integer MENU_INDEX_GOVERNOR       = 10;
     public static Integer MENU_INDEX_DIAGNOSTIC     = 8;
     public HashMap<Integer,Integer[]> menuGroups = new HashMap<Integer,Integer[]>();
 
@@ -132,7 +132,7 @@ public class Menu {
     public static Integer MENU_CYCLICRING            = 33;
     public static Integer MENU_ENDPOINTS             = 34;
 
-    public static Integer MENU_GOV_ON              = 49;
+    public static Integer MENU_GOV_ON              = 52;
     public static Integer MENU_GOV_GOV             = 51;
     public static Integer MENU_GOV_FREQ            = 38;
     public static Integer MENU_GOV_GAIN            = 39;
