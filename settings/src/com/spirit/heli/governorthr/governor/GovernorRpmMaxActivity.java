@@ -175,6 +175,11 @@ public class GovernorRpmMaxActivity extends BaseActivity
             if(profileCreator.getProfileItemByName("GOVERNOR_ON").getValueInteger() == 0){
                 tempPicker.setEnabled(false);
             }
+
+            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+            {
+                tempPicker.setEnabled(false);
+            }
         }
     }
 

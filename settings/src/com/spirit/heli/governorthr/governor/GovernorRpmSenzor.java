@@ -152,16 +152,9 @@ public class GovernorRpmSenzor extends BaseActivity
      */
     protected void updateGui(byte[] b)
     {
-        short value = ByteOperation.byteArrayToShort(b);
-
         byte[] request = {b[0], b[1]};
         byte[] current = {b[2], b[3]};
 
-
-        Log.d(TAG, "---");
-        Log.d(TAG, String.valueOf(value));
-        Log.d(TAG, String.valueOf(b.length));
-        Log.d(TAG, "---");
         ((ProgressBar)findViewById(R.id.governor_request_rpm)).setProgress(ByteOperation.byteArrayToShort(request));
         ((ProgressBar)findViewById(R.id.governor_current_rpm)).setProgress(ByteOperation.byteArrayToShort(current));
 

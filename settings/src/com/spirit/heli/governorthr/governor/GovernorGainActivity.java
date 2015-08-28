@@ -102,7 +102,7 @@ public class GovernorGainActivity extends BaseActivity
             finish();
         }
 	}
-	
+
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -170,6 +170,11 @@ public class GovernorGainActivity extends BaseActivity
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
 			if(profileCreator.getProfileItemByName("GOVERNOR_ON").getValueInteger() == 0){
+				tempPicker.setEnabled(false);
+			}
+
+			if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+			{
 				tempPicker.setEnabled(false);
 			}
 		}

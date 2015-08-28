@@ -168,6 +168,11 @@ public class GovernorSpoolUpActivity extends BaseActivity
 				if(profileCreator.getProfileItemByName("GOVERNOR_ON").getValueInteger() == 0){
 					tempSpinner.setEnabled(false);
 				}
+
+				if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+				{
+					tempSpinner.setEnabled(false);
+				}
 			}
 		} catch (IndexOutOfException e) {
 			errorInActivity(R.string.damage_profile);
