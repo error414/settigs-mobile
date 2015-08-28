@@ -41,6 +41,15 @@ import java.util.Iterator;
  */
 public class DstabiProfile {
 
+	/*#############################################*/
+	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
+	/*#############################################*/
+	final public static int APLICATION_HELI_MAJOR_VERSION = 1;
+	final public static int APLICATION_HELI_MINOR1_VERSION = 3;
+
+	final public static int APLICATION_AERO_MAJOR_VERSION = 1;
+	final public static int APLICATION_AERO_MINOR1_VERSION = 0;
+
 	final static String TAG = "DstabiProfile";
 	
 	private int profileLenght;
@@ -49,7 +58,12 @@ public class DstabiProfile {
 
 	final static public int CHECK_ALL = 0;
 	final static public int DONT_CHECK_CHECKSUM = 1;
-	
+
+	final static public int HELI = 0;
+	final static public int AERO = 1;
+
+	private int mode = HELI;
+
 	private HashMap<String, ProfileItem> profileMap = new HashMap<String, ProfileItem>();
 	
 	private ArrayList<String> profileErrors = new ArrayList<String>();
@@ -71,13 +85,74 @@ public class DstabiProfile {
 	public void updateProfile(byte[] mProfile){
 		this.buildProfile(mProfile);
 	}
-	
+
 	/**
 	 * vytvoreni profilu
 	 *
 	 * @param mProfile
 	 */
 	protected void buildProfile(byte[] mProfile)
+	{
+		if(mProfile == null || mProfile.length == 0)
+		{
+			return;
+		}
+
+		if(mProfile.length > 2 && ByteOperation.byteToUnsignedInt(mProfile[1]) < 127){
+			mode = HELI;
+			buildProfileHeli(mProfile);
+		}else{
+			mode = AERO;
+			buildProfileAero(mProfile);
+		}
+
+
+
+		this.mProfile = mProfile;
+
+
+		Iterator<String> iteration = profileMap.keySet().iterator();
+		while(iteration.hasNext()) {
+			String key=(String)iteration.next();
+			ProfileItem item = (ProfileItem)profileMap.get(key);
+
+			if(mProfile!= null && mProfile.length > item.getPosition()){
+				item.setValue(mProfile[item.getPosition()]);
+			}
+
+		}
+
+		if(mProfile!= null && mProfile.length > 1){
+			profileLenght = mProfile[0];
+		}else{
+			profileLenght = 0;
+		}
+
+		//////////////////////////////////////////////////////////////////
+		//oprava hodnot polozek ///
+		this.profileErrors.clear();
+		Iterator<String> iterationProfile = profileMap.keySet().iterator();
+
+		while(iterationProfile.hasNext()) {
+			String key=(String)iterationProfile.next();
+			ProfileItem item = (ProfileItem)profileMap.get(key);
+
+			if(!item.isValid()){
+				Log.d(TAG, "polozka " + key + " neni validni s hodnotou " + item.getValueString() + " byla opravena na " + String.valueOf(item.getMinimum()));
+				this.profileErrors.add("polozka " + key + " neni validni s hodnotou " + item.getValueString() + " byla opravena na " + String.valueOf(item.getMinimum()));
+				item.setValue(item.getMinimum());
+			}
+		}
+	}
+
+
+	//BUILD_HELI
+	/**
+	 * vytvoreni profilu
+	 *
+	 * @param mProfile
+	 */
+	protected void buildProfileHeli(byte[] mProfile)
 	{
 		/* MTODO nazvy udelat v konstantach */
 		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null,	true)); // 'major', INT,
@@ -181,45 +256,81 @@ public class DstabiProfile {
 
 		profileMap.put("GOVERNOR_FREQ",	        new ProfileItem(72, "A", "D", "I",	true));
 		profileMap.put("GOVERNOR_ON",	        new ProfileItem(73, 0, 1, "J",	false));
-
-		this.mProfile = mProfile;
-
-
-		Iterator<String> iteration = profileMap.keySet().iterator();
-		while(iteration.hasNext()) {
-			String key=(String)iteration.next();
-			ProfileItem item = (ProfileItem)profileMap.get(key);
-
-			if(mProfile!= null && mProfile.length > item.getPosition()){
-				item.setValue(mProfile[item.getPosition()]);
-			}
-
-		}
-
-		if(mProfile!= null && mProfile.length > 1){
-			profileLenght = mProfile[0];
-		}else{
-			profileLenght = 0;
-		}
-
-        //////////////////////////////////////////////////////////////////
-		//oprava hodnot polozek ///
-        this.profileErrors.clear();
-        Iterator<String> iterationProfile = profileMap.keySet().iterator();
-
-        while(iterationProfile.hasNext()) {
-            String key=(String)iterationProfile.next();
-            ProfileItem item = (ProfileItem)profileMap.get(key);
-
-            if(!item.isValid()){
-                Log.d(TAG, "polozka " + key + " neni validni s hodnotou " + item.getValueString() + " byla opravena na " + String.valueOf(item.getMinimum()));
-                this.profileErrors.add("polozka " + key + " neni validni s hodnotou " + item.getValueString() + " byla opravena na " + String.valueOf(item.getMinimum()));
-                item.setValue(item.getMinimum());
-            }
-        }
         ///////////////////////////////////////////////////////////////////
 
 	}
+	//BUILD_HELI_END
+
+	/**
+	 *
+	 * @return
+	 */
+	public int getMode(){
+		return  mode;
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public boolean checkVersion()
+	{
+		if(mProfile == null || !isValid()){
+			return false;
+		}
+
+		int major  = getProfileItemByName("MAJOR").getValueInteger();
+		int minor1 = getProfileItemByName("MINOR1").getValueInteger();
+
+		if(getMode() == HELI){
+			return major != APLICATION_HELI_MAJOR_VERSION || minor1 != APLICATION_HELI_MINOR1_VERSION;
+		}else{
+			major = major - 127;
+			return major != APLICATION_AERO_MAJOR_VERSION || minor1 != APLICATION_AERO_MINOR1_VERSION;
+		}
+
+	}
+
+	//BUILD_AERO
+	/**
+	 * vytvoreni profilu
+	 *
+	 * @param mProfile
+	 */
+	protected void buildProfileAero(byte[] mProfile)
+	{
+		/* MTODO nazvy udelat v konstantach */
+		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null,	true)); // 'major', INT,
+		profileMap.put("MINOR2", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
+
+		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P",	true)); // position_text, ENUM, position_values
+		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
+		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "F", 	"R",	true));
+
+		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST",	true));
+		profileMap.put("CYCLIC_FREQ",	new ProfileItem(8, "A", "F", 	"SF",	true));
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false)); 		// zisk cyklikt
+		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a",	false));		// rychlost rotace cykliky
+		profileMap.put("CHECKSUM_LO",	new ProfileItem(36, 0, 255, null,	true)); 	// checksum pro kontrolu dat
+		profileMap.put("CHECKSUM_HI",	new ProfileItem(39, 0, 255, null,	true)); 	// checksum pro kontrolu dat
+
+		profileMap.put("FLIGHT_STYLE",	new ProfileItem(45, 0, 7, "l",	false));		// letovy projev
+
+		//prirazeni kanalu
+		profileMap.put("CHANNELS_THT",	new ProfileItem(53, 0, 7, "Et",	true));
+		profileMap.put("CHANNELS_AIL",	new ProfileItem(54, 0, 7, "Ea",	true));
+		profileMap.put("CHANNELS_ELE",	new ProfileItem(55, 0, 7, "Ee",	true));
+		profileMap.put("CHANNELS_RUD",	new ProfileItem(56, 0, 7, "Er",	true));
+		profileMap.put("CHANNELS_GAIN",	new ProfileItem(57, 0, 7, "Eg",	true));
+		profileMap.put("CHANNELS_PITH",	new ProfileItem(58, 0, 7, "Ep",	true));
+		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb",	true));
+
+		profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
+		///////////////////////////////////////////////////////////////////
+
+	}
+
+	//BUILD_AERO_END
 	
 	///////////////// PUBLIC ////////////////////////
 	
@@ -295,7 +406,8 @@ public class DstabiProfile {
      */
     public String getFormatedVersion()
     {
-        String buffer = getProfileItemByName("MAJOR").getValueString() + "." + getProfileItemByName("MINOR1").getValueString();
+		String major = Globals.getInstance().getAppMode() == HELI ?  "Heli-" + getProfileItemByName("MAJOR").getValueString() : "Aero-" + String.valueOf(getProfileItemByName("MAJOR").getValueInteger() - 127);
+        String buffer = major + "." + getProfileItemByName("MINOR1").getValueString();
 
         int minor2Int = getProfileItemByName("MINOR2").getValueInteger();
 

@@ -1,58 +1,59 @@
 package com.lib.menu;
 
+import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.spirit.ConnectionActivity;
 import com.spirit.FavouritesActivity;
-import com.spirit.GeneralActivity;
 import com.spirit.R;
-import com.spirit.advanced.AdvancedActivity;
-import com.spirit.advanced.CyclicFFActivity;
-import com.spirit.advanced.EFilterActivity;
-import com.spirit.advanced.GeometryAngleActivity;
-import com.spirit.advanced.PiroOptimalizationActivity;
-import com.spirit.advanced.PirouetteConsistencyActivity;
-import com.spirit.advanced.RudderDelayActivity;
-import com.spirit.advanced.RudderDynamicActivity;
-import com.spirit.advanced.RudderRevomixActivity;
-import com.spirit.advanced.expert.CyclicPhaseActivity;
-import com.spirit.advanced.expert.ExpertActivity;
-import com.spirit.advanced.expert.PitchpumpActivity;
-import com.spirit.advanced.expert.PitchupActivity;
-import com.spirit.advanced.expert.SignalProcessingActivity;
-import com.spirit.advanced.expert.StickDeadBandActivity;
-import com.spirit.diagnostic.BecTesterActivity;
-import com.spirit.diagnostic.DiagnosticActivity;
-import com.spirit.diagnostic.GraphActivity;
-import com.spirit.diagnostic.InputChannelsActivity;
-import com.spirit.diagnostic.LogActivity;
-import com.spirit.governorthr.GovernorThrActivity;
-import com.spirit.governorthr.governor.GovernorActivity;
-import com.spirit.governorthr.governor.GovernorGainActivity;
-import com.spirit.governorthr.governor.GovernorOnActivity;
-import com.spirit.governorthr.governor.GovernorGearSettingsActivity;
-import com.spirit.governorthr.GovernorFreqActivity;
-import com.spirit.governorthr.governor.GovernorRpmMaxActivity;
-import com.spirit.governorthr.governor.GovernorRpmSenzor;
-import com.spirit.governorthr.governor.GovernorSpoolUpActivity;
-import com.spirit.governorthr.GovernorThrRangeActivity;
-import com.spirit.governorthr.GovernorThrReverseActivity;
-import com.spirit.senzor.SenzorActivity;
-import com.spirit.senzor.SenzorReverseActivity;
-import com.spirit.senzor.SenzorRotationSpeedActivity;
-import com.spirit.senzor.SenzorSenzivityActivity;
-import com.spirit.servo.ServoTravelCorrectionActivity;
-import com.spirit.servo.ServosActivity;
-import com.spirit.servo.ServosCyclickRingRangeActivity;
-import com.spirit.servo.ServosLimitActivity;
-import com.spirit.servo.ServosReverzActivity;
-import com.spirit.servo.ServosRudderEndPointsActivity;
-import com.spirit.servo.ServosSubtrimActivity;
-import com.spirit.servo.ServosTypeActivity;
-import com.spirit.stabi.StabiActivity;
-import com.spirit.stabi.StabiColActivity;
-import com.spirit.stabi.StabiCtrlDirActivity;
-import com.spirit.stabi.StabiFbModeActivity;
-import com.spirit.stabi.StabiFunctionActivity;
-import com.spirit.stabi.StabiStickActivity;
+import com.spirit.heli.GeneralActivity;
+import com.spirit.heli.advanced.AdvancedActivity;
+import com.spirit.heli.advanced.CyclicFFActivity;
+import com.spirit.heli.advanced.EFilterActivity;
+import com.spirit.heli.advanced.GeometryAngleActivity;
+import com.spirit.heli.advanced.PiroOptimalizationActivity;
+import com.spirit.heli.advanced.PirouetteConsistencyActivity;
+import com.spirit.heli.advanced.RudderDelayActivity;
+import com.spirit.heli.advanced.RudderDynamicActivity;
+import com.spirit.heli.advanced.RudderRevomixActivity;
+import com.spirit.heli.advanced.expert.CyclicPhaseActivity;
+import com.spirit.heli.advanced.expert.ExpertActivity;
+import com.spirit.heli.advanced.expert.PitchpumpActivity;
+import com.spirit.heli.advanced.expert.PitchupActivity;
+import com.spirit.heli.advanced.expert.SignalProcessingActivity;
+import com.spirit.heli.advanced.expert.StickDeadBandActivity;
+import com.spirit.heli.diagnostic.BecTesterActivity;
+import com.spirit.heli.diagnostic.DiagnosticActivity;
+import com.spirit.heli.diagnostic.GraphActivity;
+import com.spirit.heli.diagnostic.InputChannelsActivity;
+import com.spirit.heli.diagnostic.LogActivity;
+import com.spirit.heli.governorthr.GovernorFreqActivity;
+import com.spirit.heli.governorthr.GovernorThrRangeActivity;
+import com.spirit.heli.governorthr.GovernorThrReverseActivity;
+import com.spirit.heli.governorthr.governor.GovernorActivity;
+import com.spirit.heli.governorthr.governor.GovernorGainActivity;
+import com.spirit.heli.governorthr.governor.GovernorGearSettingsActivity;
+import com.spirit.heli.governorthr.governor.GovernorOnActivity;
+import com.spirit.heli.governorthr.governor.GovernorRpmMaxActivity;
+import com.spirit.heli.governorthr.governor.GovernorRpmSenzor;
+import com.spirit.heli.governorthr.governor.GovernorSpoolUpActivity;
+import com.spirit.heli.senzor.SenzorActivity;
+import com.spirit.heli.senzor.SenzorReverseActivity;
+import com.spirit.heli.senzor.SenzorRotationSpeedActivity;
+import com.spirit.heli.senzor.SenzorSenzivityActivity;
+import com.spirit.heli.servo.ServoTravelCorrectionActivity;
+import com.spirit.heli.servo.ServosActivity;
+import com.spirit.heli.servo.ServosCyclickRingRangeActivity;
+import com.spirit.heli.servo.ServosLimitActivity;
+import com.spirit.heli.servo.ServosReverzActivity;
+import com.spirit.heli.servo.ServosRudderEndPointsActivity;
+import com.spirit.heli.servo.ServosSubtrimActivity;
+import com.spirit.heli.servo.ServosTypeActivity;
+import com.spirit.heli.stabi.StabiActivity;
+import com.spirit.heli.stabi.StabiColActivity;
+import com.spirit.heli.stabi.StabiCtrlDirActivity;
+import com.spirit.heli.stabi.StabiFbModeActivity;
+import com.spirit.heli.stabi.StabiFunctionActivity;
+import com.spirit.heli.stabi.StabiStickActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -145,7 +146,7 @@ public class Menu {
 
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
-    protected static Menu instance;
+    protected static Map<Integer, Menu> instances = new HashMap<Integer, Menu>();
 
     protected Map<Integer, MenuItem> menuList = new HashMap<Integer, MenuItem>();
 
@@ -154,9 +155,7 @@ public class Menu {
      *
      * @return
      */
-    protected Menu()
-    {
-        createMenu();
+    protected Menu(){
     }
 
     /**
@@ -165,18 +164,32 @@ public class Menu {
      * @return
      */
     public static Menu getInstance(){
-        if(instance == null){
-            instance = new Menu();
+
+        if(!instances.containsKey(Globals.getInstance().getAppMode()))
+        {
+            Menu menu = new Menu();
+
+            switch(Globals.getInstance().getAppMode()) {
+                default:
+                case DstabiProfile.HELI:
+                    menu.createMenuHeli();
+                    break;
+                case DstabiProfile.AERO:
+                    menu.createMenuAero();
+                    break;
+            }
+
+            instances.put(Globals.getInstance().getAppMode(), menu);
         }
 
-        return instance;
+        return instances.get(Globals.getInstance().getAppMode());
     }
 
     /**
      * vytovreni seznamu menu
      *
      */
-    private void createMenu(){
+    private void createMenuHeli() {
 
         //SETTINGS ACTIVITY
 
@@ -207,9 +220,6 @@ public class Menu {
         //advanced
         menuList.put(MENU_ADVANCED,     new MenuItem(R.drawable.i20,     R.string.advanced_button_text, AdvancedActivity.class));
 
-        //BEC Tester
-	    menuList.put(MENU_BEC,     new MenuItem(R.drawable.na,     R.string.bec_tester, BecTesterActivity.class));
-
         //add to groups
         menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_DIAGNOSTIC_LIST, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_STABI, MENU_ADVANCED});
 
@@ -224,6 +234,9 @@ public class Menu {
 
         //log
         menuList.put(MENU_LOG,          new MenuItem(R.drawable.i40,     R.string.log_button_text, LogActivity.class));
+
+        //BEC Tester
+        menuList.put(MENU_BEC,     new MenuItem(R.drawable.na,     R.string.bec_tester, BecTesterActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_DIAGNOSTIC, new Integer[]{MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG, MENU_BEC});
@@ -384,6 +397,78 @@ public class Menu {
 
         //add to groups
         menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GAIN, MENU_GOV_RPM_MAX, MENU_GOV_GEAR_SETTINGS, MENU_GOV_SPOOLUP, MENU_GOV_RPM_SENZOR});
+    }
+
+    /**
+     * vytovreni seznamu menu
+     *
+     */
+    private void createMenuAero() {
+
+        //SETTINGS ACTIVITY
+
+        //connection
+        menuList.put(MENU_FAVOURITES,   new MenuItem(R.drawable.i49,     R.string.favourites_button_text, FavouritesActivity.class));
+
+        //connection
+        menuList.put(MENU_CONNECTION,   new MenuItem(R.drawable.i4,     R.string.connection_button_text, ConnectionActivity.class));
+
+        //general
+        menuList.put(MENU_GENERAL,      new MenuItem(R.drawable.i6,     R.string.general_button_text, com.spirit.aero.GeneralActivity.class));
+
+        //servo
+        menuList.put(MENU_SERVO,        new MenuItem(R.drawable.i8,     R.string.servos_button_text, ServosActivity.class));
+
+        //senzor
+        menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
+
+        //diagnostic
+        menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_DIAGNOSTIC_LIST});
+
+
+        //SERVO ACTIVITY
+        //type
+        menuList.put(MENU_SERVOTYPE,   new MenuItem(R.drawable.i9,     R.string.type, com.spirit.aero.servo.ServosTypeActivity.class));
+
+        //subtrim
+        menuList.put(MENU_SERVOSUBTRIM,   new MenuItem(R.drawable.i10,     R.string.subtrim,  ServosSubtrimActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_SERVOSUBTRIM, });
+
+
+        //SENZOR ACTIVITY
+        //senzivity
+        menuList.put(MENU_SENZIVITY,   new MenuItem(R.drawable.i16,     R.string.senzivity, com.spirit.aero.senzor.SenzorSenzivityActivity.class));
+
+        //rotation speed
+        menuList.put(MENU_ROTATIONSPEED,   new MenuItem(R.drawable.i18,     R.string.rotation_speed, com.spirit.aero.senzor.SenzorRotationSpeedActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_SENZOR, new Integer[]{MENU_SENZIVITY, MENU_ROTATIONSPEED});
+
+
+
+        //DIAGNOSTIC ACTIVITY
+        //diagnostic
+        menuList.put(MENU_DIAGNOSTIC,   new MenuItem(R.drawable.i37,     R.string.input_channels, InputChannelsActivity.class));
+
+        //graph
+        menuList.put(MENU_GRAPH,        new MenuItem(R.drawable.i38,     R.string.graph_button_text, GraphActivity.class));
+
+        //log
+        menuList.put(MENU_LOG,          new MenuItem(R.drawable.i40,     R.string.log_button_text, LogActivity.class));
+
+
+        //BEC Tester
+        menuList.put(MENU_BEC,     new MenuItem(R.drawable.na,     R.string.bec_tester, BecTesterActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_DIAGNOSTIC, new Integer[]{MENU_DIAGNOSTIC, MENU_GRAPH, MENU_LOG, MENU_BEC});
+
 
 
     }
@@ -416,5 +501,15 @@ public class Menu {
         }
 
         throw new IndexOutOfBoundsException();
+    }
+
+    /**
+     *
+     * @param itemId
+     * @return
+     */
+    public boolean hasItem(int itemId)
+    {
+        return menuList.containsKey(itemId);
     }
 }

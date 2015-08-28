@@ -30,6 +30,11 @@ public class Globals {
 	 */
 	private int activeBank;
 
+	/**
+	 * heli nebo aero
+	 */
+	private int appMode;
+
     /**
      * priznak jestli volat init ktery se ma volat jen po pripojeni
      */
@@ -118,7 +123,11 @@ public class Globals {
         this.unsaveNotify = unsaveNotify;
     }
 
+	public int getAppMode() {
+		return appMode;
+	}
 
-
-
+	public void setAppMode(int appMode) {
+		this.appMode = appMode;
+	}
 }

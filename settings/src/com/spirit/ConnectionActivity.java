@@ -28,11 +28,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
-import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Message;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
@@ -68,7 +66,6 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -329,36 +326,42 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-        if (profile != null && (!profileCreator.getProfileItemByName("MAJOR").getValueString().equals(APLICATION_MAJOR_VERSION) || !profileCreator.getProfileItemByName("MINOR1").getValueString().equals(APLICATION_MINOR1_VERSION))) {
+        if (profile != null && profileCreator.checkVersion()) {
             stabiProvider.disconnect();
-            showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(APLICATION_MAJOR_VERSION) + '.' + String.valueOf(APLICATION_MINOR1_VERSION) + ".X" ));
+            if(profileCreator.getMode() == DstabiProfile.HELI){
+                showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_HELI_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_HELI_MINOR1_VERSION) + ".X"));
+            }else{
+                showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_AERO_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_AERO_MINOR1_VERSION) + ".X" ));
+            }
+
+        }else {
+            if (profileCreator.isValid()) {
+
+                Globals.getInstance().setAppMode(profileCreator.getMode());
+
+                version.setText(profileCreator.getFormatedVersion());
+
+                //prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
+                if (ChangeInProfile.getInstance().getOriginalProfile() == null) {
+                    ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
+                }
+
+                //nacteni banky
+                checkBankNumber(profileCreator);
+
+                //kontrola jestli po prvnim pripojeni banka 0
+                if (Globals.getInstance().isCallInitAfterConnect()) {
+                    initAfterConnection();
+                }
+
+                setSpiritConnectedProgress();
+            } else {
+                setBTConnectedProgress();
+                version.setText(R.string.unknow_version);
+                serial.setText(R.string.unknow_serial);
+                //showConfirmDialog(R.string.spirit_not_found);
+            }
         }
-
-
-		if (profileCreator.isValid()) {
-			version.setText(profileCreator.getFormatedVersion());
-
-			//prvotni naplaneni profilu pro zobrzeni rozdilu, naplnit jen pokud je ChangeInProfile prazdny
-            if(ChangeInProfile.getInstance().getOriginalProfile() == null) {
-                ChangeInProfile.getInstance().setOriginalProfile(new DstabiProfile(profile));
-            }
-            
-            //nacteni banky 
-            checkBankNumber(profileCreator);
-
-            //kontrola jestli po prvnim pripojeni banka 0
-            if(Globals.getInstance().isCallInitAfterConnect()){
-                initAfterConnection();
-            }
-
-            setSpiritConnectedProgress();
-
-		} else {
-            setBTConnectedProgress();
-			version.setText(R.string.unknow_version);
-			serial.setText(R.string.unknow_serial);
-			//showConfirmDialog(R.string.spirit_not_found);
-		}
 	}
 
 	/**
@@ -415,7 +418,7 @@ public class ConnectionActivity extends BaseActivity
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTING) {
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
 		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-            if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) { // 7 = neprirazeno
+            if(profileCreator.isValid() && profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) { // 7 = neprirazeno
                 if(Globals.getInstance().isChanged()) {
                     Toast.makeText(this, R.string.unsaved_changes_before_disconnect, Toast.LENGTH_LONG).show();
                 }
@@ -463,6 +466,8 @@ public class ConnectionActivity extends BaseActivity
 			default:
 				textStatusView.setText(R.string.disconnected);
 				textStatusView.setTextColor(Color.RED);
+
+                Globals.getInstance().setAppMode(DstabiProfile.HELI);
 
 				connectButton.setText(R.string.connect);
 

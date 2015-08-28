@@ -25,7 +25,7 @@ import android.util.Log;
 
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.spirit.governorthr.governor.GovernorRpmSenzor;
+import com.spirit.heli.governorthr.governor.GovernorRpmSenzor;
 
 import org.apache.http.util.EncodingUtils;
 

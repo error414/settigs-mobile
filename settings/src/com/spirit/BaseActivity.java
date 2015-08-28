@@ -84,13 +84,6 @@ import java.util.TimerTask;
 abstract public class BaseActivity extends Activity implements Handler.Callback
 {
 
-    /*#############################################*/
-	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
-	/*#############################################*/
-    final protected String APLICATION_MAJOR_VERSION = "1";
-    final protected String APLICATION_MINOR1_VERSION = "3";
-    //final protected String APLICATION_MINOR2_VERSION = "4";
-
 	//for debug
 	private final String TAG = "BaseActivity";
 
@@ -932,7 +925,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 			String url = "";
 
             if (item.getItemId() == OPEN_MANUAL_GOOGLE_DOCS) {
-				url = HelpLinks.getDocsPdfUrl(Locale.getDefault().getLanguage());
+				url = HelpLinks.getDocsPdfUrl(Locale.getDefault().getLanguage(), Globals.getInstance().getAppMode());
                 Intent i = new Intent(Intent.ACTION_VIEW);
                 i.setData(Uri.parse(url));
                 startActivity(i);

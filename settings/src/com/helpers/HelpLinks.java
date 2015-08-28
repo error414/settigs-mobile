@@ -30,12 +30,20 @@ public class HelpLinks {
 
     final public static String docsUrl = "http://docs.google.com/viewer?url=";
 
-    final public static HashMap<String, String> helpPdflinks = new HashMap<String, String>() {
+    final public static HashMap<String, String> helpPdflinksHeli = new HashMap<String, String>() {
         {
-            //link
+            //linkHeli
             put("en", "dl/manual/spirit-manual-1.2.0_en.pdf");
             put("cz", "dl/manual/spirit-manual-1.2.0_cz.pdf");
-            //endlink
+            //endlinkHeli
+        }
+    };
+
+    final public static HashMap<String, String> helpPdflinksAero = new HashMap<String, String>() {
+        {
+            //linkAero
+            put("cz", "dl/manual/spirit-manual-1.2.0_cz.pdf");
+            //endlinkAero
         }
     };
 
@@ -48,9 +56,10 @@ public class HelpLinks {
     /**
      *
      * @param lang
+     * @param mode
      * @return
      */
-    public static String getPdfUrl(String lang){
+    public static String getPdfUrl(String lang, int mode){
         if(languageTranslate.containsKey(lang)){
             lang = languageTranslate.get(lang);
         }
@@ -60,25 +69,63 @@ public class HelpLinks {
             defaultLangT = languageTranslate.get(defaultLangT);
         }
 
-        if(helpPdflinks.containsKey(lang)){
-            return baseUrl + helpPdflinks.get(lang);
+        switch (mode)
+        {
+            default:
+            case DstabiProfile.HELI:
+                return getPdfUrlHeli(lang, defaultLangT);
+            case DstabiProfile.AERO:
+                return getPdfUrlAero(lang, defaultLangT);
         }
-
-        if(helpPdflinks.containsKey(defaultLang)){
-            return baseUrl + helpPdflinks.get(defaultLangT);
-        }
-
-        return baseUrl + helpPdflinks.get("en");
     }
 
     /**
      *
      * @param lang
+     * @param defaultLangT
      * @return
      */
-    public static String getDocsPdfUrl(String lang){
+    public static String getPdfUrlHeli(String lang, String defaultLangT){
+        if(helpPdflinksHeli.containsKey(lang)){
+            return baseUrl + helpPdflinksHeli.get(lang);
+        }
+
+        if(helpPdflinksHeli.containsKey(defaultLang)){
+            return baseUrl + helpPdflinksHeli.get(defaultLangT);
+        }
+
+        return baseUrl + helpPdflinksHeli.get("en");
+    }
+
+    /**
+     *
+     * @param lang
+     * @param defaultLangT
+     * @return
+     */
+    public static String getPdfUrlAero(String lang, String defaultLangT){
+
+
+        if(helpPdflinksAero.containsKey(lang)){
+            return baseUrl + helpPdflinksAero.get(lang);
+        }
+
+        if(helpPdflinksAero.containsKey(defaultLang)){
+            return baseUrl + helpPdflinksAero.get(defaultLangT);
+        }
+
+        return baseUrl + helpPdflinksAero.get("en");
+    }
+
+    /**
+     *
+     * @param lang
+     * @param mode
+     * @return
+     */
+    public static String getDocsPdfUrl(String lang, int mode){
         try {
-            return docsUrl +  URLEncoder.encode(getPdfUrl(lang), "ISO-8859-1");
+            return docsUrl +  URLEncoder.encode(getPdfUrl(lang, mode), "ISO-8859-1");
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }

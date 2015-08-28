@@ -22,7 +22,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,8 +31,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Message;
 import android.os.PowerManager;
-import android.preference.PreferenceManager;
-import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
@@ -42,6 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.Globals;
 import com.helpers.HelpLinks;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -53,7 +51,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Locale;
 
 public class PdfActivity extends BaseActivity
 {
@@ -87,7 +84,7 @@ public class PdfActivity extends BaseActivity
 
         Resources res = getResources();
         android.content.res.Configuration conf = res.getConfiguration();
-        url = HelpLinks.getPdfUrl(conf.locale.getLanguage());
+        url = HelpLinks.getPdfUrl(conf.locale.getLanguage(), Globals.getInstance().getAppMode());
 
         File remoteFile = new File(url);
         String baseName = remoteFile.getName();

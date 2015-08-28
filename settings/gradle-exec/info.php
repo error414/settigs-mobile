@@ -6,8 +6,8 @@ preg_match('/[0-9]{2}\.[0-9]{2}\.[0-9]{4}-[a-z]*/', $langEn, $build);
 $serialFile = './src/com/spirit/BaseActivity.java';
 $content = file_get_contents($serialFile);
 
-preg_match("/APLICATION_MAJOR_VERSION.*?(\\d+)/", $content, $major);
-preg_match("/APLICATION_MINOR1_VERSION.*?(\\d+)/", $content, $minor);
+preg_match("/APLICATION_HELI_MAJOR_VERSION.*?(\\d+)/", $content, $major);
+preg_match("/APLICATION_HELI_MINOR1_VERSION.*?(\\d+)/", $content, $minor);
 
 
 $helpinkFile = './src/com/helpers/HelpLinks.java';

@@ -18,7 +18,7 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.spirit.BaseActivity;
 import com.spirit.R;
-import com.spirit.diagnostic.LogActivity;
+import com.spirit.heli.diagnostic.LogActivity;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;

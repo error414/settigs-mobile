@@ -25,7 +25,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.spirit.R;
-import com.spirit.diagnostic.LogActivity;
+import com.spirit.heli.diagnostic.LogActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

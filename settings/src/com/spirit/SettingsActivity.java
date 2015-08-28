@@ -22,7 +22,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Message;
 import android.preference.PreferenceManager;
@@ -33,7 +32,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -80,31 +78,6 @@ public class SettingsActivity extends BaseActivity
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
 
-		//naplnime seznam polozek pro menu
-		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SETTINGS);
-
-
-		ListView menuList = (ListView) findViewById(R.id.listMenu);
-		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
-		menuList.setAdapter(adapter);
-		menuList.setOnItemClickListener(new OnItemClickListener()
-		{
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-			{
-				if (position != 0 && position != 1) { // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene a u favourites
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-						Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
-						return;
-					}
-				}
-
-				Intent i = new Intent(SettingsActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
-				startActivity(i);
-			}
-		});
-
-
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		boolean previouslyStarted = prefs.getBoolean("showSwipeHelp", false);
 
@@ -147,6 +120,28 @@ public class SettingsActivity extends BaseActivity
 		} else {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 		}
+
+		//naplnime seznam polozek pro menu
+		menuListIndex = Menu.getInstance().getItemForGroup(Menu.MENU_INDEX_SETTINGS);
+
+
+		ListView menuList = (ListView) findViewById(R.id.listMenu);
+		MenuListAdapter adapter = new MenuListAdapter(this, createArrayForMenuList());
+		menuList.setAdapter(adapter);
+		menuList.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				if (position != 0 && position != 1) { // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene a u favourites
+					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+						Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+						return;
+					}
+				}
+
+				Intent i = new Intent(SettingsActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+				startActivity(i);
+			}
+		});
 	}
 	
 	/**

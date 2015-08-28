@@ -57,9 +57,14 @@ public class FavouritesActivity extends BaseActivity
 	final private String TAG = "FavouritesActivity";
 
 	/**
-	 * seznam polozek pro menu
+	 * seznam polozek pro menu ulozenych
 	 */
-	protected Integer[] menuListIndex;
+	protected Integer[] menuListIndexSaved;
+
+	/**
+	 * seznam polozek pro menu realnych moznych
+	 */
+	protected Map<Integer, Integer> menuListIndex;
 
 	private MenuListAdapter adapter;
 
@@ -80,10 +85,10 @@ public class FavouritesActivity extends BaseActivity
 		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
 		Map<String, ?> keys = prefs.getAll();
 
-		menuListIndex = new Integer[keys.size()];
+		menuListIndexSaved = new Integer[keys.size()];
 		int i = 0;
 		for (Map.Entry<String, ?> entry : keys.entrySet()) {
-			menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
+			menuListIndexSaved[i++] = Integer.parseInt(entry.getValue().toString());
 		}
 
 		////////////////////////////////////////////////////////////////////////
@@ -102,7 +107,7 @@ public class FavouritesActivity extends BaseActivity
 					return;
 				}
 
-				Intent i = new Intent(FavouritesActivity.this, Menu.getInstance().getItem(menuListIndex[position]).getActivity());
+				Intent i = new Intent(FavouritesActivity.this, Menu.getInstance().getItem(menuListIndex.get(position)).getActivity());
 				startActivity(i);
 			}
 		});
@@ -116,14 +121,14 @@ public class FavouritesActivity extends BaseActivity
 				final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
 				final SharedPreferences.Editor editor = prefs.edit();
 
-				if (prefs.getAll().containsKey(String.valueOf(menuListIndex[position]))) {
-					new AlertDialog.Builder(FavouritesActivity.this).setTitle(R.string.remove_from_favourites).setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle()).setPositiveButton(R.string.remove, new DialogInterface.OnClickListener()
+				if (prefs.getAll().containsKey(String.valueOf(menuListIndexSaved[position]))) {
+					new AlertDialog.Builder(FavouritesActivity.this).setTitle(R.string.remove_from_favourites).setMessage(Menu.getInstance().getItem(menuListIndexSaved[position]).getTitle()).setPositiveButton(R.string.remove, new DialogInterface.OnClickListener()
 					{
 
 						@Override
 						public void onClick(DialogInterface dialog, int which)
 						{
-							editor.remove(String.valueOf(menuListIndex[position]));
+							editor.remove(String.valueOf(menuListIndexSaved[position]));
 							Toast.makeText(getApplicationContext(), R.string.remove_from_favourites_done, Toast.LENGTH_SHORT).show();
 							editor.commit();
 
@@ -154,10 +159,10 @@ public class FavouritesActivity extends BaseActivity
 		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
 		Map<String, ?> keys = prefs.getAll();
 
-		menuListIndex = new Integer[keys.size()];
+		menuListIndexSaved = new Integer[keys.size()];
 		int i = 0;
 		for (Map.Entry<String, ?> entry : keys.entrySet()) {
-			menuListIndex[i++] = Integer.parseInt(entry.getValue().toString());
+			menuListIndexSaved[i++] = Integer.parseInt(entry.getValue().toString());
 		}
 
 		adapter.setData(createArrayForMenuList());
@@ -175,13 +180,17 @@ public class FavouritesActivity extends BaseActivity
 	public ArrayList<HashMap<Integer, Integer>> createArrayForMenuList()
 	{
 		ArrayList<HashMap<Integer, Integer>> menuListData = new ArrayList<HashMap<Integer, Integer>>();
-
+		menuListIndex = new HashMap<Integer, Integer>();
 		// vytvorime pole pro adapter
-		for (Integer key : menuListIndex) {
-			HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
-			item.put(Menu.TITLE_FOR_MENU, Menu.getInstance().getItem(key).getTitle());
-			item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
-			menuListData.add(item);
+		int i = 0;
+		for (Integer key : menuListIndexSaved) {
+			if(Menu.getInstance().hasItem(key)) {
+				HashMap<Integer, Integer> item = new HashMap<Integer, Integer>();
+				item.put(Menu.TITLE_FOR_MENU, Menu.getInstance().getItem(key).getTitle());
+				item.put(Menu.ICO_RESOURCE_ID, Menu.getInstance().getItem(key).getIcon());
+				menuListData.add(item);
+				menuListIndex.put(i++, key);
+			}
 		}
 
 		return menuListData;
