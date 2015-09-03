@@ -45,6 +45,7 @@ echo "--------------- \n";
 echo str_replace(' ', '' ,$result) . "\n";
 echo "--------------- \n";
 
+
 file_put_contents($helpinkFile, preg_replace('/\/\/linkHeli.*\/\/endlinkHeli/s', $result, $helpinkFileContent));
 
 echo "PDF LINK CLASS stop \n\n";

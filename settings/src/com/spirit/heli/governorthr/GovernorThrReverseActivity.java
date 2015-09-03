@@ -17,6 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.heli.governorthr;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -172,7 +173,7 @@ public class GovernorThrReverseActivity extends BaseActivity
     {
 
         @Override
-        public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+        synchronized public void  onCheckedChanged(CompoundButton buttonView, boolean isChecked)
         {
 
             if (lock != 0) {
@@ -181,20 +182,35 @@ public class GovernorThrReverseActivity extends BaseActivity
             }
             lock = Math.max(lock - 1, 0);
 
+            final boolean isCheckedForInner = isChecked;
+            final CompoundButton buttonViewInner = buttonView;
+
             // TODO Auto-generated method stub
             // prohledani jestli udalost vyvolal znamy prvek
             // pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
             for (int i = 0; i < formItems.length; i++) {
                 if (buttonView.getId() == formItems[i]) {
-                    ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-                    item.setValueFromCheckBox(isChecked);
-                    stabiProvider.sendDataNoWaitForResponce(item);
-
-                    showInfoBarWrite();
+                    final int innerI = i;
+                    showConfirmDialogWithCancel(R.string.thr_reverse_warning, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[innerI]);
+                            item.setValueFromCheckBox(isCheckedForInner);
+                            stabiProvider.sendDataNoWaitForResponce(item);
+                            initDefaultValue();
+                            showInfoBarWrite();
+                        }
+                    }
+                    , new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            lock++;
+                            buttonViewInner.setChecked(!isCheckedForInner);
+                            initDefaultValue();
+                        }
+                    });
                 }
             }
-            initDefaultValue();
-
         }
 
     };

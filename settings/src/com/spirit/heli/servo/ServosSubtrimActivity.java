@@ -126,10 +126,28 @@ public class ServosSubtrimActivity extends BaseActivity
 	public void onPause()
 	{
 		super.onPause();
-		if (!getAppBasicMode()) {
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
-		}
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
 	}
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void beforeChangeBank(int bankNumber)
+    {
+        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+    }
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void afterChangeBank(int bankNumber)
+    {
+        if (!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00)); //povoleni ladeni cyclic ringu
+        }
+    }
 
 	private void initGui()
 	{

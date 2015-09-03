@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 23.08.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 30.08.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -215,6 +215,19 @@
         <item>Vertical</item>
         <item>Vertical (Top)</item>
     </string-array>
+
+    <string-array name="aero_position_values">
+        <item>Horizontal (0 deg)</item>
+        <item>Horizontal (180 deg)</item>
+        <item>Horizontal (0 deg + inverted)</item>
+        <item>Horizontal (180 deg + inverted)</item>
+        <item>Vertical (0 deg - left side)</item>
+        <item>Vertical (180 deg - left side)</item>
+        <item>Vertical (0 deg - right side)</item>
+        <item>Vertical (180 deg - right side)</item>
+    </string-array>
+
+
     <string-array name="mix_values">
         <item>CCPM 120º</item>
         <item>CCPM 135º</item>
@@ -510,4 +523,5 @@
     <string name="log_event_gov_out_of_range">Governor RPM out of range</string>
     <string name="governor_on">Governor</string>
     <string name="governor_spoolup">Spoolup Rate</string>
+    <string name="thr_reverse_warning">After clicking OK button Throttle output signal will be reversed. This may cause unexpected motor spoolup!</string>
 </resources>

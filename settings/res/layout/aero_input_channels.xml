@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="@color/background_color">
+
+	 <ScrollView
+	     android:id="@+id/scrollView1"
+	     android:layout_width="fill_parent"
+	     android:layout_height="wrap_content"
+	     android:background="@color/background_color" >
+
+	     <RelativeLayout
+	         android:layout_width="fill_parent"
+	         android:layout_height="wrap_content"
+	         android:background="@color/background_color" >
+
+	         <ImageView
+	             android:id="@+id/imageView1"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignParentLeft="true"
+	             android:layout_below="@+id/textView2"
+	             android:src="@drawable/black_line" />
+
+	         <TextView
+	             android:id="@+id/textView2"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignParentLeft="true"
+	             android:layout_alignParentTop="true"
+	             android:layout_marginLeft="10dp"
+	             android:text="@string/input_channels"
+	             android:textAppearance="?android:attr/textAppearanceLarge"
+	             android:textColor="@color/text_color"
+	             android:textStyle="bold" />
+
+	         <ImageView
+	             android:id="@+id/imageView3"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:src="@drawable/black_line_small" />
+
+
+			 <TextView
+	             android:id="@+id/textView1"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+				 android:layout_marginTop="20dp"
+	             android:text="@string/diag_aileron"
+	             android:textColor="@color/text_color"
+				 android:layout_alignLeft="@+id/textView2"
+				 android:layout_below="@+id/imageView1" />
+
+	         <ProgressBar
+	             android:id="@+id/aileron_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/textView1"
+	             android:layout_alignParentRight="true"
+	             android:layout_below="@+id/textView1"
+	             android:layout_marginRight="10dp"
+	             android:max="200"
+	             android:progressDrawable="@drawable/my_custom_pb" />
+
+	         <TextView
+	             android:id="@+id/aileron_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_above="@+id/TextView01"
+	             android:layout_below="@+id/textView1"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+
+	         <TextView
+	             android:id="@+id/TextView01"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/aileron_progress_diagnostic"
+	             android:layout_below="@+id/aileron_progress_diagnostic"
+	             android:layout_marginTop="20dp"
+	             android:text="@string/diag_elevator"
+	             android:textColor="@color/text_color" />
+
+	         <ProgressBar
+	             android:id="@+id/elevator_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/TextView01"
+	             android:layout_alignRight="@+id/aileron_progress_diagnostic"
+	             android:layout_below="@+id/TextView01"
+	             android:max="200"
+	             android:progressDrawable="@drawable/my_custom_pb" />
+
+	         <TextView
+	             android:id="@+id/elevator_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/elevator_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+
+			 <TextView
+	             android:id="@+id/textView4"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+				 android:layout_marginTop="20dp"
+	             android:text="@string/diag_rudder"
+	             android:textColor="@color/text_color"
+				 android:layout_alignLeft="@+id/elevator_progress_diagnostic"
+				 android:layout_below="@+id/elevator_progress_diagnostic" />
+
+	         <ProgressBar
+	             android:id="@+id/rudder_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/textView4"
+				 android:layout_below="@+id/textView4"
+	             android:max="200"
+	             android:progressDrawable="@drawable/my_custom_pb"
+				 android:layout_alignRight="@+id/elevator_progress_diagnostic" />
+
+	         <TextView
+	             android:id="@+id/rudder_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/rudder_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+
+	         <TextView
+	             android:id="@+id/TextView02"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/rudder_progress_diagnostic"
+	             android:layout_below="@+id/rudder_progress_diagnostic"
+	             android:layout_marginTop="20dp"
+	             android:text="@string/gyro"
+	             android:textColor="@color/text_color" />
+
+	         <ProgressBar
+	             android:id="@+id/gyro_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/TextView02"
+				 android:layout_below="@+id/TextView02"
+	             android:max="200"
+	             android:progressDrawable="@drawable/my_custom_pb"
+				 android:layout_alignRight="@+id/elevator_progress_diagnostic" />
+
+	         <TextView
+	             android:id="@+id/gyro_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/gyro_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="50%"
+	             android:textColor="@color/text_color" />
+	         
+	         <TextView
+	             android:id="@+id/TextView20"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/gyro_progress_diagnostic"
+	             android:layout_below="@+id/gyro_progress_diagnostic"
+	             android:layout_marginTop="20dp"
+	             android:text="@string/bank"
+	             android:textColor="@color/text_color" />
+
+	         <ProgressBar
+	             android:id="@+id/bank_progress_diagnostic"
+	             style="?android:attr/progressBarStyleHorizontal"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/TextView02"
+	             android:layout_alignRight="@+id/gyro_progress_diagnostic"
+	             android:layout_below="@+id/TextView20"
+	             android:max="200"
+	             android:progressDrawable="@drawable/my_custom_pb" />
+
+	         <TextView
+	             android:id="@+id/bank_value_diagnostic"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/bank_progress_diagnostic"
+	             android:layout_centerHorizontal="true"
+	             android:layout_marginTop="2dp"
+	             android:text="B 1"
+	             android:textColor="@color/text_color" />
+
+	         <RelativeLayout
+	             android:id="@+id/relativeLayout1"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignLeft="@+id/bank_progress_diagnostic"
+	             android:layout_below="@+id/bank_progress_diagnostic"
+	             android:layout_marginTop="20dp" >
+
+	             <TextView
+	                 android:id="@+id/diagnostic_x"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_alignParentLeft="true"
+	                 android:layout_alignParentTop="true"
+	                 android:text="50"
+	                 android:textSize="@dimen/largeText" />
+
+	         </RelativeLayout>
+
+	         <RelativeLayout
+	             android:id="@+id/relativeLayout2"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignTop="@+id/relativeLayout1"
+	             android:layout_centerHorizontal="true" >
+
+	             <TextView
+	                 android:id="@+id/diagnostic_y"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:layout_alignParentLeft="true"
+	                 android:layout_alignParentTop="true"
+	                 android:text="50"
+	                 android:textSize="@dimen/largeText" />
+
+	         </RelativeLayout>
+
+	         <RelativeLayout
+	             android:id="@+id/relativeLayout3"
+	             android:layout_width="wrap_content"
+	             android:layout_height="wrap_content"
+	             android:layout_alignRight="@+id/gyro_progress_diagnostic"
+	             android:layout_alignTop="@+id/relativeLayout2" >
+
+	             <TextView
+	                 android:id="@+id/diagnostic_z"
+	                 android:layout_width="wrap_content"
+	                 android:layout_height="wrap_content"
+	                 android:text="50"
+	                 android:textSize="@dimen/largeText" />
+
+	         </RelativeLayout>
+
+			 <TextView
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:textAppearance="?android:attr/textAppearanceSmall"
+				 android:text="@string/senzor"
+				 android:id="@+id/textView8"
+				 android:layout_above="@+id/relativeLayout2"
+				 android:layout_alignLeft="@+id/relativeLayout1"
+				 android:layout_alignStart="@+id/relativeLayout1" />
+
+		 </RelativeLayout>
+
+	 </ScrollView>
+
+</LinearLayout>

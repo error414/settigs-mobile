@@ -36,16 +36,17 @@ import com.spirit.heli.governorthr.governor.GovernorOnActivity;
 import com.spirit.heli.governorthr.governor.GovernorRpmMaxActivity;
 import com.spirit.heli.governorthr.governor.GovernorRpmSenzor;
 import com.spirit.heli.governorthr.governor.GovernorSpoolUpActivity;
+import com.spirit.heli.limit.ServosCyclickLimitRangeActivity;
+import com.spirit.heli.limit.ServosCyclickRingRangeActivity;
+import com.spirit.heli.limit.ServosLimitActivity;
+import com.spirit.heli.limit.ServosRudderEndPointsActivity;
 import com.spirit.heli.senzor.SenzorActivity;
 import com.spirit.heli.senzor.SenzorReverseActivity;
 import com.spirit.heli.senzor.SenzorRotationSpeedActivity;
 import com.spirit.heli.senzor.SenzorSenzivityActivity;
 import com.spirit.heli.servo.ServoTravelCorrectionActivity;
 import com.spirit.heli.servo.ServosActivity;
-import com.spirit.heli.servo.ServosCyclickRingRangeActivity;
-import com.spirit.heli.servo.ServosLimitActivity;
 import com.spirit.heli.servo.ServosReverzActivity;
-import com.spirit.heli.servo.ServosRudderEndPointsActivity;
 import com.spirit.heli.servo.ServosSubtrimActivity;
 import com.spirit.heli.servo.ServosTypeActivity;
 import com.spirit.heli.stabi.StabiActivity;
@@ -132,6 +133,8 @@ public class Menu {
 
     public static Integer MENU_CYCLICRING            = 33;
     public static Integer MENU_ENDPOINTS             = 34;
+    public static Integer MENU_PITCHRANGE            = 53;
+
 
     public static Integer MENU_GOV_ON              = 52;
     public static Integer MENU_GOV_GOV             = 51;
@@ -359,15 +362,19 @@ public class Menu {
         //add to groups
         menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION, MENU_STABICOL, MENU_STABISTICK, MENU_STABIFBMODE, STABI_CTRLDIR});
 
+
         //SERVO LIMIT ACTIVITY
         //cyclic ring
         menuList.put(MENU_CYCLICRING,   new MenuItem(R.drawable.i12,     R.string.cyclic_ring_range_no_break, ServosCyclickRingRangeActivity.class));
+
+        //pitch range
+        menuList.put(MENU_PITCHRANGE,   new MenuItem(R.drawable.na,     R.string.cyclic_ring_range_no_break, ServosCyclickLimitRangeActivity.class));
 
         //rudder endpoints
         menuList.put(MENU_ENDPOINTS,   new MenuItem(R.drawable.i13,     R.string.rudder_end_points_no_break, ServosRudderEndPointsActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SERVOLIMIT, new Integer[]{MENU_CYCLICRING, MENU_ENDPOINTS});
+        menuGroups.put(MENU_INDEX_SERVOLIMIT, new Integer[]{MENU_CYCLICRING, MENU_PITCHRANGE, MENU_ENDPOINTS});
 
 
         //GOVERNOR / THR
@@ -444,17 +451,14 @@ public class Menu {
         //senzivity
         menuList.put(MENU_SENZIVITY,   new MenuItem(R.drawable.i16,     R.string.senzivity, com.spirit.aero.senzor.SenzorSenzivityActivity.class));
 
-        //rotation speed
-        menuList.put(MENU_ROTATIONSPEED,   new MenuItem(R.drawable.i18,     R.string.rotation_speed, com.spirit.aero.senzor.SenzorRotationSpeedActivity.class));
-
         //add to groups
-        menuGroups.put(MENU_INDEX_SENZOR, new Integer[]{MENU_SENZIVITY, MENU_ROTATIONSPEED});
+        menuGroups.put(MENU_INDEX_SENZOR, new Integer[]{MENU_SENZIVITY,});
 
 
 
         //DIAGNOSTIC ACTIVITY
         //diagnostic
-        menuList.put(MENU_DIAGNOSTIC,   new MenuItem(R.drawable.i37,     R.string.input_channels, InputChannelsActivity.class));
+        menuList.put(MENU_DIAGNOSTIC,   new MenuItem(R.drawable.i37,     R.string.input_channels, com.spirit.aero.diagnostic.InputChannelsActivity.class));
 
         //graph
         menuList.put(MENU_GRAPH,        new MenuItem(R.drawable.i38,     R.string.graph_button_text, GraphActivity.class));

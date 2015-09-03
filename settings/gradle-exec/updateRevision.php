@@ -13,6 +13,5 @@ file_put_contents('./res/values/strings.xml',  preg_replace('/build: [0-9]{2}\.[
 file_put_contents('./res/values-cs/strings.xml',  preg_replace('/sestavení: [0-9]{2}\.[0-9]{2}\.[0-9]{4}-[a-z]*/', 'sestavení: ' .date('d.m.Y') . '-' . $revision, $langCS));
 
 echo 'build: ' .date('d.m.Y') . '-' . $revision . "\n";
-echo 'build: ' .date('d.m.Y') . '-' . $revision . "\n";
 
 echo "BUILD revision stop\n\n";

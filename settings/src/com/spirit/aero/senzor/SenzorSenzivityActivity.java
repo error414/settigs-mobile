@@ -41,13 +41,16 @@ public class SenzorSenzivityActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SENSOR_SENX"
+	private final String protocolCode[] = {"SENSOR_SENX", "SENSOR_SENZ", "SENSOR_GYROGAIN"
+			//"SENSOR_SENZ",
 	};
 
-	private int formItems[] = {R.id.x_cyclic
+	private int formItems[] = {R.id.x_cyclic, R.id.z_rudder,  R.id.gyro_gain,
+			//R.id.z_yaw,
 	};
 
-	private int formItemsTitle[] = {R.string.x_cyclic
+	private int formItemsTitle[] = {R.string.diag_aileron, R.string.diag_elevator,  R.string.diag_rudder,
+			//R.string.z_yaw,
 	};
 
 	/**
@@ -68,28 +71,28 @@ public class SenzorSenzivityActivity extends BaseActivity
 		delegateListener();
 	}
 
-    /**
-     *
-     * @return
-     */
-    public int[] getFormItems() {
-        return formItems;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public int[] getFormItems() {
+		return formItems;
+	}
 
-    /**
-     *
-     * @return
-     */
-    public String[] getProtocolCode() {
-        return protocolCode;
-    }
+	/**
+	 *
+	 * @return
+	 */
+	public String[] getProtocolCode() {
+		return protocolCode;
+	}
 
-    /**
-     *
-     */
-    protected int getDefaultValueType(){
-        return DEFAULT_VALUE_TYPE_SEEK;
-    }
+	/**
+	 *
+	 */
+	protected int getDefaultValueType(){
+		return DEFAULT_VALUE_TYPE_SEEK;
+	}
 
 	/**
 	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
@@ -100,12 +103,12 @@ public class SenzorSenzivityActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-            initDefaultValue();
+			initDefaultValue();
 		} else {
 			finish();
 		}
 	}
-	
+
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -114,7 +117,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-			
+
 			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
@@ -123,15 +126,9 @@ public class SenzorSenzivityActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			
-			switch(i){
-				case 0:
-                    tempPicker.setTranslate(new StabiSenzivityXProgressExTranslate());
-					tempPicker.setRange(0, 80); // nastavuji rozmezi prvku z profilu
-					break;
-			}
-
-			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+            tempPicker.setTranslate(new StabiSenzivityXProgressExTranslate());
+            tempPicker.setRange(0, 80); // nastavuji rozmezi prvku z profilu
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
 		}
 	}
 
@@ -169,7 +166,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
-		
+
 		checkBankNumber(profileCreator);
 		initBasicMode();
 
@@ -177,9 +174,16 @@ public class SenzorSenzivityActivity extends BaseActivity
 			if (profileCreator.exits(protocolCode[i])) {
 				ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 				ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+                tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 				tempPicker.setCurrentNoNotify(item.getValueInteger());
 			}
 		}
+
+		 /*if(profileCreator.getProfileItemByName("MODEL").getValueInteger() != 67){ // letadlo
+			 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[1]);
+			 tempPicker.setVisibility(View.GONE);
+		 }*/
+
 	}
 
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
@@ -194,16 +198,16 @@ public class SenzorSenzivityActivity extends BaseActivity
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
+					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-                    if(item != null) {
-						showInfoBarWrite();
-                        item.setValue(newVal);
-                        stabiProvider.sendDataNoWaitForResponce(item);
-                    }
+					if(item != null) {
+						item.setValue(newVal);
+						stabiProvider.sendDataNoWaitForResponce(item);
+					}
 				}
 			}
-            initDefaultValue();
+			initDefaultValue();
 		}
 
 	};
@@ -215,7 +219,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
 					sendInSuccessDialog();
-                    initDefaultValue();
+					initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
@@ -228,16 +232,16 @@ public class SenzorSenzivityActivity extends BaseActivity
 		return true;
 	}
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        EasyTracker.getInstance(this).activityStart(this);
-    }
+	@Override
+	public void onStart() {
+		super.onStart();
+		EasyTracker.getInstance(this).activityStart(this);
+	}
 
-    @Override
-    public void onStop()
-    {
-        super.onStop();
-        EasyTracker.getInstance(this).activityStop(this);
-    }
+	@Override
+	public void onStop()
+	{
+		super.onStop();
+		EasyTracker.getInstance(this).activityStop(this);
+	}
 }

@@ -152,10 +152,28 @@ public class GeometryAngleActivity extends BaseActivity
 	public void onPause()
 	{
 		super.onPause();
-		if (!getAppBasicMode()) {
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
-		}
+        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
 	}
+
+	/**
+	 *
+	 * @param bankNumber
+	 */
+	protected void beforeChangeBank(int bankNumber)
+	{
+        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+	}
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void afterChangeBank(int bankNumber)
+    {
+        if (!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x03));
+        }
+    }
 
 	/**
 	 * naplneni formulare

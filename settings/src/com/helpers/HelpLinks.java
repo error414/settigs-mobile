@@ -42,7 +42,6 @@ public class HelpLinks {
     final public static HashMap<String, String> helpPdflinksAero = new HashMap<String, String>() {
         {
             //linkAero
-            put("cz", "dl/manual/spirit-manual-1.2.0_cz.pdf");
             //endlinkAero
         }
     };

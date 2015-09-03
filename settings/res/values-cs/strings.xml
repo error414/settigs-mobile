@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 23.08.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 30.08.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -229,6 +229,17 @@
         <item>Horizontální</item>
         <item>Vertikální</item>
         <item>Vertikální (Top)</item>
+    </string-array>
+
+    <string-array name="aero_position_values">
+        <item>Horizontal (0 deg)</item>
+        <item>Horizontal (180 deg)</item>
+        <item>Horizontal (0 deg + inverted)</item>
+        <item>Horizontal (180 deg + inverted)</item>
+        <item>Vertical (0 deg - left side)</item>
+        <item>Vertical (180 deg - left side)</item>
+        <item>Vertical (0 deg - right side)</item>
+        <item>Vertical (180 deg - right side)</item>
     </string-array>
 
     <string-array name="mix_values">
@@ -550,4 +561,5 @@
     <string name="log_event_gov_out_of_range">Governor RPM mimo rozsah</string>
     <string name="governor_on">Governor</string>
     <string name="governor_spoolup">Rozběh</string>
+    <string name="thr_reverse_warning">Po stisku tlačítka OK bude výstup plynu reverzován. Může se roztočit motor!</string>
 </resources>

@@ -592,6 +592,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
     }
 
     protected void changeBank(int bankNumber, int callbackCode){
+        this.beforeChangeBank(bankNumber);
+
         ProfileItem profileItem;
         DstabiProfile localProfileCreator = profileCreator;
         if (profileCreator == null) {
@@ -611,6 +613,24 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         if (mDrawer != null) {
             mDrawer.closeMenu();
         }
+    }
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void beforeChangeBank(int bankNumber)
+    {
+
+    }
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void afterChangeBank(int bankNumber)
+    {
+
     }
 
 	/**
@@ -1148,6 +1168,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             case BANK_CHANGE_CALL_BACK_CODE:
                 sendInSuccessInfo();
                 reloadOriginalProfile();
+                afterChangeBank(Globals.getInstance().getActiveBank());
                 break;
         }
         return true;

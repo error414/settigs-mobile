@@ -95,16 +95,21 @@ public class DstabiProfile {
 	{
 		if(mProfile == null || mProfile.length == 0)
 		{
-			return;
-		}
-
-		if(mProfile.length > 2 && ByteOperation.byteToUnsignedInt(mProfile[1]) < 127){
+            mode = Globals.getInstance().getAppMode();
+		}else if(mProfile.length > 2 && ByteOperation.byteToUnsignedInt(mProfile[1]) < 127){
 			mode = HELI;
-			buildProfileHeli(mProfile);
 		}else{
 			mode = AERO;
-			buildProfileAero(mProfile);
 		}
+
+        switch (mode)
+        {
+            default:
+            case HELI: buildProfileHeli(mProfile);
+                break;
+            case AERO: buildProfileAero(mProfile);
+                break;
+        }
 
 
 
@@ -303,14 +308,30 @@ public class DstabiProfile {
 		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null,	true)); // 'major', INT,
 		profileMap.put("MINOR2", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
 
-		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P",	true)); // position_text, ENUM, position_values
+		profileMap.put("AERO_POSITION", 	new ProfileItem(3, "A", "H", 	"P",	true)); // position_text, ENUM, position_values
 		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "F", 	"R",	true));
 
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST",	true));
 		profileMap.put("CYCLIC_FREQ",	new ProfileItem(8, "A", "F", 	"SF",	true));
+
+        profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 254, 	"Se",	true));
+		profileMap.put("SUBTRIM_AIL",	new ProfileItem(16, 0, 254, 	"SA",	true));
+		profileMap.put("SUBTRIM_ELE",	new ProfileItem(17, 0, 254, 	"SE",	true));
+		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 254, 	"SP",	true));
+
+
 		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false)); 		// zisk cyklikt
+		profileMap.put("SENSOR_SENZ",	new ProfileItem(20, 0, 80, "z",	false)); 	// nasobic
+        profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(21, 0, 80, "z",	false));
+
+
 		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a",	false));		// rychlost rotace cykliky
+
+        profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
+
+        profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "E", "f",	false)); 	// stabi mode
+
 		profileMap.put("CHECKSUM_LO",	new ProfileItem(36, 0, 255, null,	true)); 	// checksum pro kontrolu dat
 		profileMap.put("CHECKSUM_HI",	new ProfileItem(39, 0, 255, null,	true)); 	// checksum pro kontrolu dat
 
@@ -324,6 +345,8 @@ public class DstabiProfile {
 		profileMap.put("CHANNELS_GAIN",	new ProfileItem(57, 0, 7, "Eg",	true));
 		profileMap.put("CHANNELS_PITH",	new ProfileItem(58, 0, 7, "Ep",	true));
 		profileMap.put("CHANNELS_BANK",	new ProfileItem(59, 0, 7, "Eb",	true));
+
+
 
 		profileMap.put("MINOR1", 	            new ProfileItem(63, 0, 255, null,	true)); // 'minor', INT
 		///////////////////////////////////////////////////////////////////

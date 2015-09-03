@@ -85,21 +85,21 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".heli.servo.ServosLimitActivity"
+            android:name=".heli.limit.ServosLimitActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".heli.servo.ServosCyclickRingRangeActivity"
+            android:name=".heli.limit.ServosCyclickRingRangeActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme" />
         <activity
-            android:name=".heli.servo.ServosRudderEndPointsActivity"
+            android:name=".heli.limit.ServosRudderEndPointsActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -506,7 +506,16 @@
             />
 
         <activity
-            android:name=".aero.senzor.SenzorRotationSpeedActivity"
+            android:name=".heli.limit.ServosCyclickLimitRangeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".aero.diagnostic.InputChannelsActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"

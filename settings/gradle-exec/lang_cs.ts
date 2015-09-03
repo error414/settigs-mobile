@@ -5,19 +5,16 @@
     <name>AdvancedTab</name>
     <message>
         <location filename="advanced.cpp" line="169"/>
-        <location filename="aero/aero_advanced.cpp" line="169"/>
         <source>Stick deadband</source>
         <translation>Pásmo necitlivosti kniplů</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="174"/>
-        <location filename="aero/aero_advanced.cpp" line="174"/>
         <source>Range around stick center where movement is zero.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 4 - 30&lt;/i&gt;</source>
         <translation>Rozsah polohy páček kolem středu, který je považován za nulový.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 4 - 30&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="180"/>
-        <location filename="aero/aero_advanced.cpp" line="180"/>
         <source>Rudder dynamic</source>
         <oldsource>Rudder dynamics</oldsource>
         <translation>Dynamika vrtulky</translation>
@@ -28,7 +25,6 @@
     </message>
     <message>
         <location filename="advanced.cpp" line="69"/>
-        <location filename="aero/aero_advanced.cpp" line="69"/>
         <source>&lt;b&gt;Revomix&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Revomix&lt;br/&gt;Value: </oldsource>
         <translation>&lt;b&gt;Revomix&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
@@ -59,81 +55,68 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="117"/>
-        <location filename="aero/aero_advanced.cpp" line="117"/>
         <source>Pirouette optimization setup enabled</source>
         <translation>Nastavení optimalizace piruet zapnuto</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="120"/>
-        <location filename="aero/aero_advanced.cpp" line="120"/>
         <source>Pirouette optimization setup disabled</source>
         <translation>Nastavení optimalizace piruet vypnuto</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="137"/>
-        <location filename="aero/aero_advanced.cpp" line="137"/>
         <source>Geometry setup enabled</source>
         <translation>Nastavení geometrie zapnuto</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="140"/>
-        <location filename="aero/aero_advanced.cpp" line="140"/>
         <source>Geometry setup disabled</source>
         <translation>Nastavení geometrie vypnuto</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="185"/>
-        <location filename="aero/aero_advanced.cpp" line="185"/>
         <source>&lt;b&gt;Aggressiveness of rudder response&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase for harder rudder stop behavior.&lt;br/&gt;- Decrease if rudder bounce-back occurs.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 3 - 10&lt;/i&gt;</source>
         <translation>&lt;b&gt;Agresivita odezvy vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte pro tvrdší zastavení.&lt;br/&gt;- Uberte pokud vrtulka po zastavení překmitne.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 3 - 10&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="195"/>
-        <location filename="aero/aero_advanced.cpp" line="195"/>
         <source>Enables extended signal processing&lt;br/&gt;&lt;br/&gt;- Normally should be disabled.&lt;br/&gt;- Used for operation with extreme vibrations.</source>
         <oldsource>Enables extended signal processing&lt;br/&gt;&lt;br/&gt;- Mostly disabled.&lt;br/&gt;- Enable for better vibration imunity and precision.</oldsource>
         <translation>Zapne rozšířené zpracování signálu&lt;br/&gt;&lt;br/&gt;- Ve většině případech by mělo být vypnuté.&lt;br/&gt;- Pro chod v prostředí extrémních vibrací.</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="224"/>
-        <location filename="aero/aero_advanced.cpp" line="224"/>
         <source>&lt;b&gt;Increase/decrease value until blades pitch is at 6 degress&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- In some cases it can be -6 degress.&lt;br/&gt;- Set this after Servo Subtrim is configured.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 64 - 250&lt;/i&gt;</source>
         <translation>&lt;b&gt;Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- V některých případech to může být -6 stupňů.&lt;br/&gt;- Nastavujte až po konfiguraci Subtrimů serv.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 64 - 250&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="236"/>
-        <location filename="aero/aero_advanced.cpp" line="236"/>
         <source>&lt;b&gt;Specifies heading hold performance&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly between 155 - 180.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 130 - 250&lt;/i&gt;</source>
         <translation>&lt;b&gt;Udává míru držení směru vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nejčastěji v rozsahu 155 - 180.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 130 - 250&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="250"/>
-        <location filename="aero/aero_advanced.cpp" line="250"/>
         <source>&lt;b&gt;Precompensation for collective pitch movement&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Correct direction has to be chosen.&lt;br/&gt;- Mostly in the middle (0).&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -10 - +10&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Precompensation for collective pitch movement&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Correct direction has to be chosen&lt;br/&gt;- Mostly in the middle (0)&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -10 - +10&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Prekompenzace pohybu kolektivu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nutné zvolit správný směr.&lt;br/&gt;- Nejčastěji nulová hodnota, uprostřed.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -10 - +10&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="265"/>
-        <location filename="aero/aero_advanced.cpp" line="265"/>
         <source>&lt;b&gt;Specifies delay of the rudder&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Very fast servo:	0 - 5&lt;br/&gt;- Fast servo:	5 - 15&lt;br/&gt;- Slow servo:	15 - 20&lt;br/&gt;- Analog servo:	20 - 25&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 30&lt;/i&gt;</source>
         <translation>&lt;b&gt;Udává rychlost odezvy vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Velmi rychlé servo:	0 - 5&lt;br/&gt;- Rychlé servo:	5 - 15&lt;br/&gt;- Pomalé servo:	15 - 20&lt;br/&gt;- Analogové servo:	20 - 25&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 30&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="284"/>
-        <location filename="aero/aero_advanced.cpp" line="284"/>
         <source>&lt;b&gt;Elevator debounce amount&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase when elevator bounce is visible during agressive elevator movement.&lt;br/&gt;- Mostly configured to 1.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 4&lt;/i&gt;</source>
         <translation>&lt;b&gt;Velikost kompenzace zhoupnutí výškovky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte, pokud je během agresivního pohybu páčky výškovky viditelné zhoupnutí.&lt;br/&gt;- Nejčastěji hodnota 1.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 4&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="297"/>
-        <location filename="aero/aero_advanced.cpp" line="297"/>
         <source>&lt;b&gt;Eliminates pitchup effect&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly configured to 0.&lt;br/&gt;- Increase when pitchup is visible.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 4&lt;/i&gt;</source>
         <translation>&lt;b&gt;Eliminuje vzpínání modelu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nejčastěji nastaveno na 0.&lt;br/&gt;- Přidejte je-li viditelné vzpínání.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 4&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="308"/>
-        <location filename="aero/aero_advanced.cpp" line="308"/>
         <source>&lt;b&gt;Specifies degree of which cyclic has to be rotated&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Used in some multi-rotor heads.&lt;br/&gt;- Mostly configured to 0.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -90 - +90&lt;/i&gt;</source>
         <translation>&lt;b&gt;Udává počet stupňů pootočení cykliky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Používá se u vícelistých rotorových hlav.&lt;br/&gt;- Nejčastěji nastaveno na 0.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -90 - +90&lt;/i&gt;</translation>
     </message>
@@ -145,25 +128,21 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="334"/>
-        <location filename="aero/aero_advanced.cpp" line="334"/>
         <source>Pitch Pump Booster</source>
         <translation>Akcelerace kolektivu (Pitch Pump Booster)</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="339"/>
-        <location filename="aero/aero_advanced.cpp" line="339"/>
         <source>&lt;b&gt;Booster of the collective pitch movements&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Fast movement will cause fast change.&lt;br/&gt;- Usually configured to 0.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 4&lt;/i&gt;</source>
         <translation>&lt;b&gt;Zesiluje pohyby kolektivu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Rychlý pohyb způsobí větší změnu.&lt;br/&gt;- Běžně je 0.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 4&lt;/i&gt;</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="345"/>
-        <location filename="aero/aero_advanced.cpp" line="345"/>
         <source>Expert settings</source>
         <translation>Expertní nastavení</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="350"/>
-        <location filename="aero/aero_advanced.cpp" line="350"/>
         <source>Click the button for Expert settings</source>
         <translation>Stisknutím tlačítka se otevře expertní nastavení</translation>
     </message>
@@ -177,13 +156,11 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="192"/>
-        <location filename="aero/aero_advanced.cpp" line="192"/>
         <source>Signal processing</source>
         <translation>Zpracování signálu</translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="194"/>
-        <location filename="aero/aero_advanced.cpp" line="194"/>
         <source>Extended</source>
         <translation>Rozšířené</translation>
     </message>
@@ -201,7 +178,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="279"/>
-        <location filename="aero/aero_advanced.cpp" line="279"/>
         <source>Elevator filter</source>
         <translation>Výškovkový filtr</translation>
     </message>
@@ -212,7 +188,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="292"/>
-        <location filename="aero/aero_advanced.cpp" line="292"/>
         <source>Elevator pitchup compensation</source>
         <translation>Kompenzace vzpínání výškovky</translation>
     </message>
@@ -253,7 +228,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="209"/>
-        <location filename="aero/aero_advanced.cpp" line="209"/>
         <source>Reverse</source>
         <translation>Reverz</translation>
     </message>
@@ -267,7 +241,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="217"/>
-        <location filename="aero/aero_advanced.cpp" line="217"/>
         <source>Geometry 6%1 (tuning)</source>
         <oldsource>Geometry 6deg (tuning)</oldsource>
         <translation>Geometrie hlavy 6%1 (ladění)</translation>
@@ -282,7 +255,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="231"/>
-        <location filename="aero/aero_advanced.cpp" line="231"/>
         <source>Pirouette consistency</source>
         <translation>Držení piruet</translation>
     </message>
@@ -294,8 +266,6 @@ Hodnota: </translation>
     <message>
         <location filename="advanced.cpp" line="72"/>
         <location filename="advanced.cpp" line="243"/>
-        <location filename="aero/aero_advanced.cpp" line="72"/>
-        <location filename="aero/aero_advanced.cpp" line="243"/>
         <source>Rudder - Revomix</source>
         <oldsource>Rudder - Pitch precompensation</oldsource>
         <translation>Vrtulka - Revomix</translation>
@@ -347,7 +317,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="303"/>
-        <location filename="aero/aero_advanced.cpp" line="303"/>
         <source>Cyclic phase</source>
         <translation>Virtuální pootočení cykliky</translation>
     </message>
@@ -373,7 +342,6 @@ Hodnota: </translation>
     </message>
     <message>
         <location filename="advanced.cpp" line="260"/>
-        <location filename="aero/aero_advanced.cpp" line="260"/>
         <source>Rudder delay</source>
         <translation>Zpoždění vrtulky</translation>
     </message>
@@ -382,120 +350,100 @@ Hodnota: </translation>
         <translation type="obsolete">Vrtulkový revomix</translation>
     </message>
     <message>
-        <location filename="aero/aero_advanced.cpp" line="204"/>
         <source>Roll optimization (tuning)</source>
-        <translation>Optimalizace výkrutů (ladění)</translation>
+        <translation type="vanished">Optimalizace výkrutů (ladění)</translation>
     </message>
     <message>
-        <location filename="aero/aero_advanced.cpp" line="210"/>
         <source>Reverse when rolling is not precise.&lt;br/&gt;&lt;br/&gt;- Double check this when sensor Z axis is reversed.</source>
-        <translation>Reverzujte pokud nejsou výkruty přesné.&lt;br/&gt;&lt;br/&gt;- Prověřte pokud je reverzována osa Z.</translation>
+        <translation type="vanished">Reverzujte pokud nejsou výkruty přesné.&lt;br/&gt;&lt;br/&gt;- Prověřte pokud je reverzována osa Z.</translation>
     </message>
     <message>
-        <location filename="aero/aero_advanced.cpp" line="323"/>
         <source>Feed forward</source>
-        <translation>Počáteční reakce</translation>
+        <translation type="vanished">Počáteční reakce</translation>
     </message>
     <message>
-        <location filename="aero/aero_advanced.cpp" line="328"/>
         <source>&lt;b&gt;Aggressiveness of aileron/elevator/rudder stick response&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase for more direct feel.&lt;br/&gt;- Decrease for smooth behavior.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 12&lt;/i&gt;</source>
-        <translation>&lt;b&gt;Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy/směrovky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte pro přímější pocit propojení.&lt;br/&gt;- Uberte pro plynulejší chování modelu.</translation>
+        <translation type="vanished">&lt;b&gt;Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy/směrovky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte pro přímější pocit propojení.&lt;br/&gt;- Uberte pro plynulejší chování modelu.</translation>
     </message>
 </context>
 <context>
     <name>AnalyzatorDialog</name>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="116"/>
         <location filename="diagnostic.cpp" line="116"/>
         <source>Raised vibrations</source>
         <translation>Zvýšené vibrace</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="118"/>
         <location filename="diagnostic.cpp" line="118"/>
         <source>Extreme vibrations</source>
         <translation>Extrémní vibrace</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="199"/>
         <location filename="diagnostic.cpp" line="199"/>
         <source>Save graph as image</source>
         <translation>Uložit graf jako obrázek</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="199"/>
         <location filename="diagnostic.cpp" line="199"/>
         <source>PNG Image (*.png)</source>
         <translation>Obrázek PNG (*.png)</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="291"/>
         <location filename="diagnostic.cpp" line="291"/>
         <source>Spectrum Analyzer</source>
         <translation>Frekvenční analyzátor</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="300"/>
         <location filename="diagnostic.cpp" line="300"/>
         <source>Frequencies [Hz]</source>
         <translation>Frekvence [Hz]</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="301"/>
         <location filename="diagnostic.cpp" line="301"/>
         <source>Magnitude</source>
         <translation>Velikost</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="321"/>
         <location filename="diagnostic.cpp" line="321"/>
         <source>Graph</source>
         <translation>Graf</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="327"/>
         <location filename="diagnostic.cpp" line="327"/>
         <source>Options</source>
         <translation>Možnosti</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="331"/>
         <location filename="diagnostic.cpp" line="331"/>
         <source>Sensor axis</source>
         <translation>Osa senzoru</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="334"/>
         <location filename="diagnostic.cpp" line="334"/>
         <source>X - Elevator</source>
         <translation>X - Výškovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="335"/>
         <location filename="diagnostic.cpp" line="335"/>
         <source>Y - Aileron</source>
         <translation>Y - Křidélka</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="336"/>
         <location filename="diagnostic.cpp" line="336"/>
         <source>Z - Yaw</source>
         <translation>Z - Směrovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="345"/>
         <location filename="diagnostic.cpp" line="345"/>
         <source>Freeze</source>
         <translation>Zmrazit</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="347"/>
         <location filename="diagnostic.cpp" line="347"/>
         <source>To image</source>
         <translation>Do obrázku</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="356"/>
         <location filename="diagnostic.cpp" line="356"/>
         <source>Vibrations</source>
         <translation>Vibrace</translation>
@@ -505,7 +453,6 @@ Hodnota: </translation>
         <translation type="obsolete">Rozsah</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="343"/>
         <location filename="diagnostic.cpp" line="343"/>
         <source>Data</source>
         <translation>Data</translation>
@@ -515,7 +462,6 @@ Hodnota: </translation>
         <translation type="obsolete">Uložit</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="346"/>
         <location filename="diagnostic.cpp" line="346"/>
         <source>Clear</source>
         <translation>Smazat</translation>
@@ -524,50 +470,50 @@ Hodnota: </translation>
 <context>
     <name>BackupTab</name>
     <message>
-        <location filename="backup.cpp" line="209"/>
+        <location filename="backup.cpp" line="211"/>
         <source>Profile version mismatch</source>
         <translation>Verze profilu se neshoduje</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="209"/>
+        <location filename="backup.cpp" line="211"/>
         <source>Selected profile was created with a different software version (%1)!  Double check all loaded values, please.</source>
         <translation>Zvolený profil byl vytvořen odlišnou verzí software (%1)! Prosím zkontrolujte hodnoty všech parametrů.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="300"/>
+        <location filename="backup.cpp" line="302"/>
         <source>Open profile settings</source>
         <translation>Otevřít nastavení profilu</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="300"/>
+        <location filename="backup.cpp" line="302"/>
         <source>4Dstabi Files (*.4ds)</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="308"/>
-        <location filename="backup.cpp" line="318"/>
+        <location filename="backup.cpp" line="310"/>
+        <location filename="backup.cpp" line="320"/>
         <source>Failed to load file, please check if file &apos;%1&apos; exists or copy it to other directory</source>
         <translation>Nepovedlo se načíst soubor. Zkontrolujte prosím, zda soubor &apos;%1&apos; existuje, příp. ho zkuste nakopírovat do jiného adresáře</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="308"/>
-        <location filename="backup.cpp" line="318"/>
-        <location filename="backup.cpp" line="362"/>
-        <location filename="backup.cpp" line="403"/>
-        <location filename="backup.cpp" line="469"/>
+        <location filename="backup.cpp" line="310"/>
+        <location filename="backup.cpp" line="320"/>
+        <location filename="backup.cpp" line="364"/>
+        <location filename="backup.cpp" line="405"/>
+        <location filename="backup.cpp" line="471"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="308"/>
-        <location filename="backup.cpp" line="318"/>
+        <location filename="backup.cpp" line="310"/>
+        <location filename="backup.cpp" line="320"/>
         <source>Abort</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="346"/>
-        <location filename="backup.cpp" line="387"/>
-        <location filename="backup.cpp" line="454"/>
+        <location filename="backup.cpp" line="348"/>
+        <location filename="backup.cpp" line="389"/>
+        <location filename="backup.cpp" line="456"/>
         <source>Unsaved settings</source>
         <translation>Neuložené nastavení</translation>
     </message>
@@ -578,40 +524,40 @@ Do you want to seve it right now?</source>
 Přejete si je nyní uložit?</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="351"/>
-        <location filename="backup.cpp" line="392"/>
-        <location filename="backup.cpp" line="459"/>
+        <location filename="backup.cpp" line="353"/>
+        <location filename="backup.cpp" line="394"/>
+        <location filename="backup.cpp" line="461"/>
         <source>Discard</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="362"/>
-        <location filename="backup.cpp" line="403"/>
-        <location filename="backup.cpp" line="469"/>
+        <location filename="backup.cpp" line="364"/>
+        <location filename="backup.cpp" line="405"/>
+        <location filename="backup.cpp" line="471"/>
         <source>Error during saving. Check your interface connection.</source>
         <translation>Chyba běhěm ukládání. Zkontrolujte datový kabel.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="369"/>
+        <location filename="backup.cpp" line="371"/>
         <source>Save profile settings</source>
         <translation>Uložit nastavení profilu</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="369"/>
-        <location filename="backup.cpp" line="417"/>
-        <location filename="backup.cpp" line="489"/>
+        <location filename="backup.cpp" line="371"/>
+        <location filename="backup.cpp" line="419"/>
+        <location filename="backup.cpp" line="491"/>
         <source>Spirit Settings Files (*.4ds)</source>
         <translation>Profil jednotky Spirit (*.4ds)</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="455"/>
+        <location filename="backup.cpp" line="457"/>
         <source>Settings of the bank are not saved in the unit.
 Banks can&apos;t be compared until settings are saved.
 Do you want to save it right now?</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="594"/>
+        <location filename="backup.cpp" line="596"/>
         <source>Profile settings are saved as data files and can be loaded as needed.
 You can save all the settings from the unit to your computer.
 You can also load these settings later or share it between the units.</source>
@@ -621,46 +567,51 @@ Z počítače pak můžete tyto soubory načíst do vašich jednotek,
 kdykoli to bude zapotřebí.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="597"/>
+        <location filename="backup.cpp" line="599"/>
         <source>Save Bank</source>
         <translation>Uložit Banku</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="598"/>
+        <location filename="backup.cpp" line="600"/>
         <source>Save All Banks</source>
         <translation>Uložit všechny Banky</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="599"/>
+        <location filename="backup.cpp" line="601"/>
         <source>Load to Bank</source>
         <translation>Načíst do Banky</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="601"/>
+        <location filename="backup.cpp" line="602"/>
+        <source>%0</source>
+        <translation>%0</translation>
+    </message>
+    <message>
+        <location filename="backup.cpp" line="603"/>
         <source>Bank Comparison</source>
         <translation>Porovnání Bank</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="360"/>
-        <location filename="backup.cpp" line="401"/>
-        <location filename="backup.cpp" line="443"/>
-        <location filename="backup.cpp" line="467"/>
+        <location filename="backup.cpp" line="362"/>
+        <location filename="backup.cpp" line="403"/>
+        <location filename="backup.cpp" line="445"/>
+        <location filename="backup.cpp" line="469"/>
         <source>Saved</source>
         <translation>Uloženo</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="347"/>
-        <location filename="backup.cpp" line="388"/>
+        <location filename="backup.cpp" line="349"/>
+        <location filename="backup.cpp" line="390"/>
         <source>Settings are not saved in the unit.
 Do you want to save it right now?</source>
         <translation>Byly provedeny změny v nastavení.
 Přejete si je nyní uložit?</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="360"/>
-        <location filename="backup.cpp" line="401"/>
-        <location filename="backup.cpp" line="443"/>
-        <location filename="backup.cpp" line="467"/>
+        <location filename="backup.cpp" line="362"/>
+        <location filename="backup.cpp" line="403"/>
+        <location filename="backup.cpp" line="445"/>
+        <location filename="backup.cpp" line="469"/>
         <source>Settings saved succesfully.</source>
         <translation>Nastavení bylo úspěšně uloženo.</translation>
     </message>
@@ -669,37 +620,37 @@ Přejete si je nyní uložit?</translation>
         <translation type="obsolete">Nastavení bylo úspěšně uloženo.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="508"/>
-        <location filename="backup.cpp" line="519"/>
+        <location filename="backup.cpp" line="510"/>
+        <location filename="backup.cpp" line="521"/>
         <source>Factory settings</source>
         <translation>Tovární nastavení</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="509"/>
+        <location filename="backup.cpp" line="511"/>
         <source>Do you want to reset the unit to factory settings?</source>
         <oldsource>Do you want to reset the unit to factory settings ?</oldsource>
         <translation>Přejete si resetovat jednotku do továrního nastavení?</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="512"/>
+        <location filename="backup.cpp" line="514"/>
         <source>Yes</source>
         <translation>Ano</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="513"/>
+        <location filename="backup.cpp" line="515"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="519"/>
+        <location filename="backup.cpp" line="521"/>
         <source>Resetting to factory settings succesfully finished.
 Start this program again, please.</source>
         <translation>Resetování do továrního nastavení je hotovo.
 Nyní spusťte program znovu.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="573"/>
-        <location filename="backup.cpp" line="592"/>
+        <location filename="backup.cpp" line="575"/>
+        <location filename="backup.cpp" line="594"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
@@ -710,22 +661,22 @@ and can be everytime loaded as needed.</source>
 datové soubory. Lze je kdykoliv načíst.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="350"/>
-        <location filename="backup.cpp" line="391"/>
-        <location filename="backup.cpp" line="458"/>
-        <location filename="backup.cpp" line="578"/>
-        <location filename="backup.cpp" line="645"/>
+        <location filename="backup.cpp" line="352"/>
+        <location filename="backup.cpp" line="393"/>
+        <location filename="backup.cpp" line="460"/>
+        <location filename="backup.cpp" line="580"/>
+        <location filename="backup.cpp" line="647"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="417"/>
-        <location filename="backup.cpp" line="489"/>
+        <location filename="backup.cpp" line="419"/>
+        <location filename="backup.cpp" line="491"/>
         <source>Save Bank %1 settings</source>
         <translation>Uložit nastavení Banky %1</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="575"/>
+        <location filename="backup.cpp" line="577"/>
         <source>Profile settings are saved as data files and can be loaded as needed.
 You can save all the settings from the unit to your computer.
 You can also load these settings later or share it between units.</source>
@@ -735,7 +686,7 @@ Z počítače pak můžete tyto soubory načíst do vašich jednotek,
 kdykoli to bude zapotřebí.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="579"/>
+        <location filename="backup.cpp" line="581"/>
         <source>Load</source>
         <translation>Načíst</translation>
     </message>
@@ -744,12 +695,12 @@ kdykoli to bude zapotřebí.</translation>
         <translation type="vanished">Cloud</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="636"/>
+        <location filename="backup.cpp" line="638"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="638"/>
+        <location filename="backup.cpp" line="640"/>
         <source>Unit stores settings in flash memory permanently,
 but settings you&apos;ve made are only temporarily until
 you save it by clicking following Save button.
@@ -764,7 +715,7 @@ Pro resetování do továrního nastavení
 stiskněte tlačítko Tovární nastavení.</translation>
     </message>
     <message>
-        <location filename="backup.cpp" line="646"/>
+        <location filename="backup.cpp" line="648"/>
         <source>Factory Settings</source>
         <translation>Tovární nastavení</translation>
     </message>
@@ -788,112 +739,112 @@ kdy kliknete na tlačítko uložit !</translation>
     <message>
         <location filename="backup.cpp" line="69"/>
         <source>General %0 Flight style</source>
-        <translation type="unfinished"></translation>
+        <translation>Obecne %0 Letový projev</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="71"/>
         <source>Limits %0 Collective pitch</source>
-        <translation type="unfinished"></translation>
+        <translation>Limity %0 Rozsah náběhu</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="73"/>
         <source>Sensor %0 Cyclic Gain</source>
-        <translation type="unfinished"></translation>
+        <translation>Senzor %0 Zisk cykliky</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="74"/>
         <source>Sensor %0 Rudder Gain</source>
-        <translation type="unfinished"></translation>
+        <translation>Senzor %0 Vrtulkový zisk</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="75"/>
         <source>Sensor %0 Rudder Common Gain</source>
-        <translation type="unfinished"></translation>
+        <translation>Senzor %0 Vrtulkový zisk (znásobení)</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="76"/>
         <source>Sensor %0 Rotation speed - Cyclic</source>
-        <translation type="unfinished"></translation>
+        <translation>Senzor %0 Rychlost rotace - Cyklika</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="77"/>
         <source>Sensor %0 Rotation speed - Rudder</source>
-        <translation type="unfinished"></translation>
+        <translation>Senzor %0 Rychlost rotace - Vrtulka</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="79"/>
         <source>Stabi %0 Function</source>
-        <translation type="unfinished"></translation>
+        <translation>Stabi %0 Funkce</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="80"/>
         <source>Stabi %0 Rescue collective pitch</source>
-        <translation type="unfinished"></translation>
+        <translation>Stabi %0 Kolektiv záchranného režimu</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="81"/>
         <source>Stabi %0 Sticks priority</source>
-        <translation type="unfinished"></translation>
+        <translation>Stabi %0 Priorita kniplů</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="82"/>
         <source>Stabi %0 Direction control rate</source>
-        <translation type="unfinished"></translation>
+        <translation>Stabi %0 Míra změny směru</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="84"/>
         <source>Advanced %0 Stick deadband</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Pásmo necitlivosti kniplů</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="85"/>
         <source>Advanced %0 Rudder dynamic</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Dynamika vrtulky</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="86"/>
         <source>Advanced %0 Rudder revomix</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Vrtulka - Revomix</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="87"/>
         <source>Advanced %0 Rudder delay</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Zpoždění vrtulky</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="88"/>
         <source>Advanced %0 Pirouette consistency</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Držení piruet</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="89"/>
         <source>Advanced %0 Elevator filter</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Výškovkový filtr</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="90"/>
         <source>Advanced %0 Elevator pitchup compensation</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Kompenzace vzpínání výškovky</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="91"/>
         <source>Advanced %0 Cyclic feed forward</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Počáteční reakce cykliky</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="92"/>
         <source>Advanced %0 Pitch Pump Booster</source>
-        <translation type="unfinished"></translation>
+        <translation>Pokročilé %0 Akcelerace kolektivu</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="94"/>
         <source>Governor %0 Governor Response</source>
-        <translation type="unfinished"></translation>
+        <translation>Governor %0 Odezva governoru</translation>
     </message>
     <message>
         <location filename="backup.cpp" line="95"/>
         <source>Governor %0 Holding Performance</source>
-        <translation type="unfinished"></translation>
+        <translation>Governor %0 Míra držení otáček</translation>
     </message>
 </context>
 <context>
@@ -1118,36 +1069,31 @@ kdy kliknete na tlačítko uložit !</translation>
 <context>
     <name>ConnectionTab</name>
     <message>
-        <location filename="aero/aero_connection.cpp" line="515"/>
         <location filename="connection.cpp" line="516"/>
         <source>Connected</source>
         <translation>Připojena</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="517"/>
         <location filename="connection.cpp" line="518"/>
         <source>Ready</source>
         <translation>Připravena</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="572"/>
-        <location filename="connection.cpp" line="573"/>
+        <location filename="connection.cpp" line="576"/>
         <source>Old version</source>
         <translation>Stará verze</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="572"/>
-        <location filename="connection.cpp" line="573"/>
+        <location filename="connection.cpp" line="576"/>
         <source>Your software version is not equal with firmware!
 Please update unit or your software to same one.</source>
         <translation>Verze vašeho software neodpovídá verzi firmware!
 Prosíme aktualizujte jednotku nebo software na stejnou verzi.</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="263"/>
-        <location filename="aero/aero_connection.cpp" line="572"/>
         <location filename="connection.cpp" line="264"/>
-        <location filename="connection.cpp" line="573"/>
+        <location filename="connection.cpp" line="574"/>
+        <location filename="connection.cpp" line="576"/>
         <source>OK</source>
         <translation>OK</translation>
     </message>
@@ -1168,20 +1114,17 @@ Zkontrolujte, zda máte nainstalovanou kompatibilní verzi SW/FW.</translation>
         <translation type="obsolete">Zrušit</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="655"/>
-        <location filename="connection.cpp" line="656"/>
+        <location filename="connection.cpp" line="659"/>
         <source>Disconnected</source>
         <translation>Odpojena</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="752"/>
-        <location filename="connection.cpp" line="753"/>
+        <location filename="connection.cpp" line="756"/>
         <source>Unit</source>
         <translation>Jednotka</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="754"/>
-        <location filename="connection.cpp" line="755"/>
+        <location filename="connection.cpp" line="758"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
@@ -1194,84 +1137,79 @@ Zkontrolujte, zda máte nainstalovanou kompatibilní verzi SW/FW.</translation>
         <translation type="vanished">ne</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="809"/>
-        <location filename="connection.cpp" line="810"/>
+        <location filename="connection.cpp" line="813"/>
         <source>Wizard</source>
         <translation>Průvodce</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="811"/>
-        <location filename="connection.cpp" line="812"/>
+        <location filename="connection.cpp" line="815"/>
         <source>Setup with wizard</source>
         <translation>Nastavit pomocí průvodce</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="653"/>
-        <location filename="aero/aero_connection.cpp" line="756"/>
-        <location filename="connection.cpp" line="654"/>
-        <location filename="connection.cpp" line="757"/>
+        <location filename="connection.cpp" line="657"/>
+        <location filename="connection.cpp" line="760"/>
         <source>Not connected</source>
         <translation>Není připojena</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="263"/>
         <location filename="connection.cpp" line="264"/>
         <source>Permissions</source>
         <translation>Oprávnění</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="263"/>
         <location filename="connection.cpp" line="264"/>
         <source>Software is not able to access hard drive. Try to start software as administrator.</source>
         <translation>Programu byl odepřen přístup na disk. Prosíme spusťte ho jako správce nebo nastavte oprávnění.</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="598"/>
-        <location filename="connection.cpp" line="599"/>
+        <location filename="connection.cpp" line="574"/>
+        <source>Wrong firmware version</source>
+        <translation>Odlišná verze firmware</translation>
+    </message>
+    <message>
+        <location filename="connection.cpp" line="574"/>
+        <source>Firmware in the unit is for airplane models.&lt;br/&gt;You have to flash &lt;b&gt;Spirit&lt;/b&gt; firmware for helicopters.</source>
+        <translation>Firmware ve vaši jednotce je určen pro modely letadel.&lt;br/&gt;Je nutné nahrát firmware určený pro helikoptéry.</translation>
+    </message>
+    <message>
+        <location filename="connection.cpp" line="602"/>
         <source>Bank switched</source>
         <translation>Přepnutá banka</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="598"/>
-        <location filename="connection.cpp" line="599"/>
+        <location filename="connection.cpp" line="602"/>
         <source>Current bank was switched to &lt;b&gt;Bank 0&lt;/b&gt;.&lt;br/&gt;Bank switching via transmitter is disabled while the software is connected.</source>
         <translation>Aktuální banka byla přepnuta na &lt;b&gt;Bank 0&lt;/b&gt;.&lt;br/&gt;Změna banky přes vysílač je vypnuta dokud je software připojen.</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="732"/>
-        <location filename="connection.cpp" line="733"/>
+        <location filename="connection.cpp" line="736"/>
         <source>ChangeLog</source>
         <translation>Seznam změn</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="732"/>
-        <location filename="connection.cpp" line="733"/>
+        <location filename="connection.cpp" line="736"/>
         <source>ChangeLog is not available at the moment.</source>
         <translation>Seznam změn je momentálně nedostupný.</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="758"/>
-        <location filename="connection.cpp" line="759"/>
+        <location filename="connection.cpp" line="762"/>
         <source>Version:</source>
         <translation>Verze:</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="761"/>
-        <location filename="connection.cpp" line="762"/>
+        <location filename="connection.cpp" line="765"/>
         <source>News</source>
         <translation>Novinky</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="763"/>
-        <location filename="connection.cpp" line="764"/>
+        <location filename="connection.cpp" line="767"/>
         <source>Displays changes in the software and firmware - ChangeLog</source>
         <translation>Zobrazuje změny v software a firmware - Seznam změn</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="651"/>
-        <location filename="aero/aero_connection.cpp" line="760"/>
-        <location filename="connection.cpp" line="652"/>
-        <location filename="connection.cpp" line="761"/>
+        <location filename="connection.cpp" line="655"/>
+        <location filename="connection.cpp" line="764"/>
         <source>N/A</source>
         <translation>Nedostupná</translation>
     </message>
@@ -1294,20 +1232,17 @@ Přejete si vstoupit do demonstračního módu?</translation>
         <translation type="obsolete">Ne</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="765"/>
-        <location filename="connection.cpp" line="766"/>
+        <location filename="connection.cpp" line="769"/>
         <source>Serial number:</source>
         <translation>Sériové číslo:</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="787"/>
-        <location filename="connection.cpp" line="788"/>
+        <location filename="connection.cpp" line="791"/>
         <source>Link</source>
         <translation>Spojení</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="789"/>
-        <location filename="connection.cpp" line="790"/>
+        <location filename="connection.cpp" line="793"/>
         <source>Device:</source>
         <translation>Zařízení:</translation>
     </message>
@@ -1322,43 +1257,36 @@ Přejete si vstoupit do demonstračního módu?</translation>
 <context>
     <name>DiagnosticTab</name>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="439"/>
         <location filename="diagnostic.cpp" line="439"/>
         <source>Good Health Message</source>
         <translation>Vše vypadá v pořádku</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="440"/>
         <location filename="diagnostic.cpp" line="448"/>
         <source>Calibration Finished</source>
         <translation>Kalibrace byla dokončena</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="441"/>
         <location filename="diagnostic.cpp" line="441"/>
         <source>Cyclic Ring Activated</source>
         <translation>Cyclic Ring byl aktivován</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="442"/>
         <location filename="diagnostic.cpp" line="442"/>
         <source>Rudder Limit Reached</source>
         <translation>Překročen limit vrtulky</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="443"/>
         <location filename="diagnostic.cpp" line="443"/>
         <source>Vibration Level is very high</source>
         <translation>Úroveň vibrací je příliš vysoká</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="444"/>
         <location filename="diagnostic.cpp" line="444"/>
         <source>Main Loop Hang Occured</source>
         <translation>Hlavní smyčka programu uvázla</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="445"/>
         <location filename="diagnostic.cpp" line="445"/>
         <source>Receiver Signal Lost</source>
         <translation>Ztracen signál přijímače</translation>
@@ -1370,51 +1298,42 @@ Click OK button to open the log from flight where a problem occured.</source>
 Po kliknutí na tlačítko OK se zobrazí záznam z letu, kde se vyskytl problém.</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="514"/>
         <location filename="diagnostic.cpp" line="516"/>
         <source>Flight Log</source>
         <translation>Letový záznam</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="518"/>
         <location filename="diagnostic.cpp" line="520"/>
         <source>Unit version: </source>
         <translation>Verze jednotky: </translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="519"/>
         <location filename="diagnostic.cpp" line="521"/>
         <source>Unit uptime: </source>
         <translation>Doba běhu: </translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="520"/>
         <location filename="diagnostic.cpp" line="522"/>
         <source>Log generated: </source>
         <translation>Vygenerováno: </translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="495"/>
-        <location filename="aero/aero_diagnostic.cpp" line="644"/>
         <location filename="diagnostic.cpp" line="497"/>
         <location filename="diagnostic.cpp" line="656"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="446"/>
         <location filename="diagnostic.cpp" line="446"/>
         <source>Power Voltage is low</source>
         <translation>Napájecí napětí je příliš nízké</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="447"/>
         <location filename="diagnostic.cpp" line="447"/>
         <source>Governor was Engaged</source>
         <translation>Governor byl aktivován</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="467"/>
         <location filename="diagnostic.cpp" line="469"/>
         <source>Warning</source>
         <translation>Varování</translation>
@@ -1425,7 +1344,6 @@ Click OK button to open the log from flight where a problem occured.</source>
         <translation type="obsolete">Je dostupný záznam z předchozího letu!</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="467"/>
         <location filename="diagnostic.cpp" line="469"/>
         <source>Log from previous flight is available!
 Click OK button to open the log from flight where a problem occured.
@@ -1435,43 +1353,36 @@ Po kliknutí na tlačítko OK bude otevřen záznam z letu, kde nastala chyba.
 Záznam bude poté z jednotky automaticky vymazán.</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="495"/>
         <location filename="diagnostic.cpp" line="497"/>
         <source>Unable to save file into Documents directory</source>
         <translation>Soubor nebylo možné uložit do adresáře Dokumenty</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="514"/>
         <location filename="diagnostic.cpp" line="516"/>
         <source>Flight Log - previous flight</source>
         <translation>Letový záznam - předchozí let</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="644"/>
         <location filename="diagnostic.cpp" line="656"/>
         <source>No valid PDF reader found in your system, please install any.</source>
         <translation>Ve vašem systému nebyla nalezena čtečka PDF. Prosím nainstalujte si nějakou.</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="811"/>
         <location filename="diagnostic.cpp" line="823"/>
         <source>Input channels</source>
         <translation>Vstupní kanály</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="813"/>
         <location filename="diagnostic.cpp" line="825"/>
         <source>Throttle</source>
         <translation>Plyn</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="814"/>
         <location filename="diagnostic.cpp" line="826"/>
         <source>Aileron</source>
         <translation>Křidélka</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="815"/>
         <location filename="diagnostic.cpp" line="827"/>
         <source>Elevator</source>
         <translation>Výškovka</translation>
@@ -1487,56 +1398,47 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation>Kolektiv</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="817"/>
         <location filename="diagnostic.cpp" line="829"/>
         <source>Rudder</source>
         <translation>Směrovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="818"/>
         <location filename="diagnostic.cpp" line="830"/>
         <source>Gyro</source>
         <translation>Gyro</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="819"/>
         <location filename="diagnostic.cpp" line="831"/>
         <source>Bank</source>
         <translation>Bank</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="910"/>
         <location filename="diagnostic.cpp" line="922"/>
         <source>Spectrum Analyzer</source>
         <translation>Frekvenční analyzátor</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="912"/>
         <location filename="diagnostic.cpp" line="924"/>
         <source>Analyze</source>
         <translation>Měřit</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="919"/>
         <location filename="diagnostic.cpp" line="931"/>
         <source>Log Viewer</source>
         <translation>Prohlížeč letového záznamu</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="921"/>
         <location filename="diagnostic.cpp" line="933"/>
         <source>Open log</source>
         <oldsource>Log viewer</oldsource>
         <translation>Otevřít záznam</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="928"/>
         <location filename="diagnostic.cpp" line="940"/>
         <source>BEC Tester</source>
         <translation>BEC tester</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="930"/>
         <location filename="diagnostic.cpp" line="942"/>
         <source>Test</source>
         <translation>Testovat</translation>
@@ -1562,7 +1464,6 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="obsolete">Gyro: %v</translation>
     </message>
     <message>
-        <location filename="aero/aero_diagnostic.cpp" line="897"/>
         <location filename="diagnostic.cpp" line="909"/>
         <source>Sensor</source>
         <translation>Senzor</translation>
@@ -1572,7 +1473,6 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
     <name>ExpertDialog</name>
     <message>
         <location filename="advanced.cpp" line="24"/>
-        <location filename="aero/aero_advanced.cpp" line="24"/>
         <source>Expert settings</source>
         <translation>Expertní nastavení</translation>
     </message>
@@ -1580,7 +1480,6 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
 <context>
     <name>GeneralTab</name>
     <message>
-        <location filename="aero/aero_general.cpp" line="365"/>
         <location filename="general.cpp" line="537"/>
         <source>Flight style (Agility): </source>
         <oldsource>Flight style
@@ -1632,17 +1531,14 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="obsolete">Tvrdé 3D</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="398"/>
-        <location filename="aero/aero_general.cpp" line="464"/>
-        <location filename="aero/aero_general.cpp" line="509"/>
         <location filename="general.cpp" line="570"/>
         <location filename="general.cpp" line="636"/>
         <location filename="general.cpp" line="681"/>
+        <location filename="general.cpp" line="777"/>
         <source>Warning</source>
         <translation>Varování</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="398"/>
         <location filename="general.cpp" line="570"/>
         <source>Collision in &lt;b&gt;%1&lt;/b&gt; occured! Please select a different channel.</source>
         <translation>Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
@@ -1660,15 +1556,12 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="vanished">Governor I-zisk: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="464"/>
-        <location filename="aero/aero_general.cpp" line="509"/>
         <location filename="general.cpp" line="636"/>
         <location filename="general.cpp" line="681"/>
         <source>For PWM connection type only 5th channel can be used.</source>
         <translation>Pro typ přijímače PWM lze přiřadit pouze 5. kanál.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="484"/>
         <location filename="general.cpp" line="656"/>
         <source>In transmitter</source>
         <translation>Ve vysílači</translation>
@@ -1682,13 +1575,11 @@ Záznam bude poté z jednotky automaticky vymazán.</translation>
         <translation type="vanished">Zisk governoru</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="354"/>
         <location filename="general.cpp" line="526"/>
         <source>Receiver was changed</source>
         <translation>Přijímač byl změněn</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="354"/>
         <location filename="general.cpp" line="526"/>
         <source>Your receiver type was changed.
 Please save the settings and restart your unit to apply new configuration.</source>
@@ -1696,37 +1587,39 @@ Please save the settings and restart your unit to apply new configuration.</sour
 Pro uplatnění změny, uložte nastavení a zapněte jednotku znovu.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="625"/>
-        <location filename="general.cpp" line="802"/>
+        <location filename="general.cpp" line="777"/>
+        <source>After clicking OK button Throttle output signal will be reversed.
+This may cause unexpected motor spoolup!</source>
+        <translation>Po stisku tlačítka OK bude výstup plynu reverzován.
+Může se roztočit motor!</translation>
+    </message>
+    <message>
+        <location filename="general.cpp" line="804"/>
         <source>Position</source>
         <translation>Pozice</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="628"/>
-        <location filename="general.cpp" line="805"/>
+        <location filename="general.cpp" line="807"/>
         <source>Horizontal</source>
         <translation>Horizontální</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="629"/>
-        <location filename="general.cpp" line="806"/>
+        <location filename="general.cpp" line="808"/>
         <source>Vertical</source>
         <translation>Vertikální</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="630"/>
-        <location filename="general.cpp" line="807"/>
+        <location filename="general.cpp" line="809"/>
         <source>Vertical (top)</source>
         <translation>Vertikální (stojící)</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="631"/>
-        <location filename="general.cpp" line="808"/>
+        <location filename="general.cpp" line="810"/>
         <source>Mounting position of the unit.</source>
         <translation>Pozice umístění jednotky na modelu.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="835"/>
+        <location filename="general.cpp" line="837"/>
         <source>Cyclic mixing function used on the model.
 
 - In the most cases it is CCPM 120%1.</source>
@@ -1735,13 +1628,12 @@ Pro uplatnění změny, uložte nastavení a zapněte jednotku znovu.</translati
 - Nejčastěji se jedná o CCPM 120%1.</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="888"/>
+        <location filename="general.cpp" line="890"/>
         <source>Governor / Throttle</source>
         <translation>Governor / Plyn</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="674"/>
-        <location filename="general.cpp" line="853"/>
+        <location filename="general.cpp" line="855"/>
         <source>Receiver type equipped on the model.
 
 - PWM for classical receiver.</source>
@@ -1753,46 +1645,39 @@ PWM for classical receiver.</oldsource>
 - PWM pro klasický typ přijímače.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="680"/>
-        <location filename="general.cpp" line="859"/>
+        <location filename="general.cpp" line="861"/>
         <source>Channels</source>
         <translation>Kanály</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="695"/>
-        <location filename="general.cpp" line="874"/>
+        <location filename="general.cpp" line="876"/>
         <source>Specifies flight characteristics and stick response behavior.&lt;br&gt;&lt;br&gt;- Decrease for more constant and linear behavior.&lt;br&gt;- Increase for paddle-like steering.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 8&lt;/i&gt;</source>
         <oldsource>Specifies behavior of the flight characteristics.&lt;br&gt;&lt;br&gt;- Decrease for more constant and linear behavior.&lt;br&gt;- Increase for paddle stick behavior.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 8&lt;/i&gt;</oldsource>
         <translation>Nastavuje chování modelu a jeho letové vlastnosti.&lt;br&gt;&lt;br&gt;- Uberte pro konstantnější a lineárnější řízení.&lt;br&gt;- Přidejte pro dosažení chování pádlové mechaniky.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1 - 8&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="709"/>
-        <location filename="general.cpp" line="948"/>
+        <location filename="general.cpp" line="950"/>
         <source>Governor</source>
         <translation>Governor</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="711"/>
-        <location filename="general.cpp" line="890"/>
+        <location filename="general.cpp" line="892"/>
         <source>Settings</source>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="745"/>
-        <location filename="general.cpp" line="924"/>
+        <location filename="general.cpp" line="926"/>
         <source>channel</source>
         <translation>kanál</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="748"/>
-        <location filename="general.cpp" line="927"/>
+        <location filename="general.cpp" line="929"/>
         <source>unassigned</source>
         <translation>nepřiřazen</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="769"/>
         <source>Disabled</source>
-        <translation>Vypnutý</translation>
+        <translation type="vanished">Vypnutý</translation>
     </message>
     <message>
         <source>Electric (Fast spoolup)</source>
@@ -1816,95 +1701,63 @@ PWM for classical receiver.</oldsource>
         <translation type="vanished">Udává režim Governoru.&lt;br&gt;&lt;br&gt;- Pro rychlý rozběh zvolte možnost (Rychlý rozběh).</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="651"/>
-        <source>Wing Type</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_general.cpp" line="654"/>
-        <source>1x Ail/1x Ele/1x Rud</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_general.cpp" line="655"/>
-        <source>2x Ail/1x Ele/1x Rud</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_general.cpp" line="656"/>
-        <source>Servo layout on the model</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_general.cpp" line="770"/>
-        <location filename="general.cpp" line="954"/>
+        <location filename="general.cpp" line="956"/>
         <source>Very slow</source>
         <translation>Velmi pomalý</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="771"/>
-        <location filename="general.cpp" line="955"/>
+        <location filename="general.cpp" line="957"/>
         <source>Slow</source>
         <translation>Pomalý</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="772"/>
-        <location filename="general.cpp" line="956"/>
+        <location filename="general.cpp" line="958"/>
         <source>Fast</source>
         <translation>Rychlý</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="773"/>
-        <location filename="general.cpp" line="957"/>
+        <location filename="general.cpp" line="959"/>
         <source>Very fast</source>
         <translation>Velmi rychlý</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="774"/>
-        <location filename="general.cpp" line="958"/>
+        <location filename="general.cpp" line="960"/>
         <source>Specifies Governor spoolup rate.</source>
         <translation>Udává rychlost rozběhu.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="777"/>
-        <location filename="general.cpp" line="961"/>
-        <source>60Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_general.cpp" line="778"/>
-        <location filename="general.cpp" line="962"/>
-        <source>120Hz</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_general.cpp" line="779"/>
         <location filename="general.cpp" line="963"/>
-        <source>200Hz</source>
-        <translation type="unfinished"></translation>
+        <source>60Hz</source>
+        <translation>60Hz</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="780"/>
         <location filename="general.cpp" line="964"/>
-        <source>333Hz</source>
-        <translation type="unfinished"></translation>
+        <source>120Hz</source>
+        <translation>120Hz</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="781"/>
         <location filename="general.cpp" line="965"/>
+        <source>200Hz</source>
+        <translation>200Hz</translation>
+    </message>
+    <message>
+        <location filename="general.cpp" line="966"/>
+        <source>333Hz</source>
+        <translation>333Hz</translation>
+    </message>
+    <message>
+        <location filename="general.cpp" line="967"/>
         <source>Specifies Throttle output frequency.</source>
         <translation>Udává frekvenci pro výstup plynu.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="786"/>
-        <location filename="general.cpp" line="970"/>
+        <location filename="general.cpp" line="972"/>
         <source>Specifies Governor Reponse.&lt;br&gt;&lt;br&gt;- Increase for faster governor response during fast load change.&lt;br&gt;- Decrease if RPM is jittering or tail wag is occuring.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 10&lt;/i&gt;</source>
         <oldsource>Specifies Governor Reponse.&lt;br&gt;&lt;br&gt;- Increase for faster governor response during fast load change.&lt;br&gt;- Decrease if RPM is jittering or tail wag is occuring.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -100 - +100%&lt;/i&gt;</oldsource>
         <translation>Udává odezvu governoru.&lt;br&gt;&lt;br&gt;- Přidejte pro rychlejší odezvu governoru během rychlé změny zátěže.&lt;br&gt;- Snižte pokud otáčky rychle kolísají nebo dochází k oscilaci vrtulky.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1 - 10&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="796"/>
-        <location filename="general.cpp" line="980"/>
+        <location filename="general.cpp" line="982"/>
         <source>Specifies Governor holding performance.&lt;br&gt;&lt;br&gt;- Increase for to better long-term RPM holding.&lt;br&gt;- Decrease if RPM is pulsating slowly during hovering.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 6&lt;/i&gt;</source>
         <oldsource>Specifies Governor holding performance.
 
@@ -1913,14 +1766,12 @@ PWM for classical receiver.</oldsource>
         <translation>Udává míru udržení otáček.&lt;br&gt;&lt;br&gt;- Přidejte pro lepší dlouhodobé držení otáček.&lt;br&gt;- Snižte pokud otáčky během visu pozvolna pulzují.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1 - 6&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="806"/>
-        <location filename="general.cpp" line="990"/>
+        <location filename="general.cpp" line="992"/>
         <source>RPM</source>
         <translation>RPM</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="807"/>
-        <location filename="general.cpp" line="991"/>
+        <location filename="general.cpp" line="993"/>
         <source>Specifies maximal rotor head speed.&lt;br&gt;&lt;br&gt;- Configure RPM that will be achieved with 100% throttle curve.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1500 - 4000&lt;/i&gt;</source>
         <oldsource>Specifies maximal rotor head speed.
 
@@ -1928,20 +1779,17 @@ PWM for classical receiver.</oldsource>
         <translation>Udává maximální otáčky hlavního rotoru.&lt;br&gt;&lt;br&gt;- Nastavte otáčky, které mají být dosaženy při 100% plynu.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1500 - 4000&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="809"/>
-        <location filename="general.cpp" line="993"/>
+        <location filename="general.cpp" line="995"/>
         <source>Throttle Reverse</source>
         <translation>Reverz plynu</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="810"/>
-        <location filename="general.cpp" line="994"/>
+        <location filename="general.cpp" line="996"/>
         <source>Specifies direction of the throttle.&lt;br&gt;&lt;br&gt;- Mostly used only for Nitro/Gasser helicopters.&lt;br&gt;- Reverse for the correct throttle servo movement.</source>
         <translation>Udává směr plynu.&lt;br&gt;&lt;br&gt;- Většinou se využívá pouze pro spalovací helikoptéry.&lt;br&gt;- Reverzujte pro správný směr pohybu serva plynu.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="815"/>
-        <location filename="general.cpp" line="999"/>
+        <location filename="general.cpp" line="1001"/>
         <source>Specifies Sensing Divider of the sensor.&lt;br&gt;&lt;br&gt;- For electric helicopters it is always Motor Poles / 2 (For a 10 pole motor configure value of 5).&lt;br&gt;- For nitro and gasser helicopters the value is magnet count.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 8&lt;/i&gt;</source>
         <oldsource>Specifies Sensing Divider of the sensor.
 
@@ -1950,8 +1798,7 @@ PWM for classical receiver.</oldsource>
         <translation>Udává velikost dělitele snímače otáček.&lt;br&gt;&lt;br&gt;- Pro helikoptéry s elektrickým pohonem je tato hodnota rovna počtu pólů motoru / 2 (Tzn. pro 10 pólový motor je hodnota 5).&lt;br&gt;- Pro spalovací helikoptéry je hodnota rovna počtu magnetů.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1 - 8&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="821"/>
-        <location filename="general.cpp" line="1005"/>
+        <location filename="general.cpp" line="1007"/>
         <source>Specifies helicopter Gear Ratio.&lt;br&gt;&lt;br&gt;- Main Gear teeth / Pinion teeth.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1.0 - 12.7&lt;/i&gt;</source>
         <oldsource>Specifies helicopter Gear Ratio.
 
@@ -1959,8 +1806,7 @@ PWM for classical receiver.</oldsource>
         <translation>Udává převodový poměr.&lt;br&gt;&lt;br&gt;- Počet zubů hlavního kola / počet zubů pastorku motoru.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1,0 - 12,7&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="826"/>
-        <location filename="general.cpp" line="1010"/>
+        <location filename="general.cpp" line="1012"/>
         <source>Specifies bottom limit of the throttle range.&lt;br&gt;&lt;br&gt;- Can be used to match preconfigured throttle range of the ESC.&lt;br&gt;- For nitro and gasser set the limit for the lowest position of the throttle servo horn.&lt;br&gt;- Behaves similarly as a subtrim function.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -150 - -50&lt;/i&gt;</source>
         <oldsource>Specifies bottom limit of the throttle range.
 
@@ -1970,8 +1816,7 @@ PWM for classical receiver.</oldsource>
         <translation>Udává spodní limit rozsahu plynu.&lt;br&gt;&lt;br&gt;- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.&lt;br&gt;- Pro spalovací helikoptéry nastavte limit na nejnižší možnou hodnotu serva plynu.&lt;br&gt;- Funguje jako subtrim ve vysílači.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -150 - -50&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="831"/>
-        <location filename="general.cpp" line="1015"/>
+        <location filename="general.cpp" line="1017"/>
         <source>Specifies upper limit of the throttle range.&lt;br&gt;&lt;br&gt;- Can be used to match preconfigured throttle range of the ESC.&lt;br&gt;- For nitro and gasser set the limit for the highest position of the throttle servo horn.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 50 - 150&lt;/i&gt;</source>
         <oldsource>Specifies upper limit of the throttle range.
 
@@ -2026,7 +1871,7 @@ PWM for classical receiver.</oldsource>
         <translation type="obsolete">Letadlo</translation>
     </message>
     <message>
-        <location filename="general.cpp" line="828"/>
+        <location filename="general.cpp" line="830"/>
         <source>Mix</source>
         <translation>Mixování</translation>
     </message>
@@ -2042,8 +1887,7 @@ In most cases it is CCPM 120.</oldsource>
 - Nejčastěji se jedná o CCPM 120.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="665"/>
-        <location filename="general.cpp" line="844"/>
+        <location filename="general.cpp" line="846"/>
         <source>Receiver</source>
         <translation>Přijímač</translation>
     </message>
@@ -2056,10 +1900,8 @@ In most cases it is CCPM 120.</oldsource>
         <translation type="obsolete">Bez reverzu</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="367"/>
-        <location filename="aero/aero_general.cpp" line="688"/>
         <location filename="general.cpp" line="539"/>
-        <location filename="general.cpp" line="867"/>
+        <location filename="general.cpp" line="869"/>
         <source>Flight style</source>
         <translation>Letový projev</translation>
     </message>
@@ -2079,104 +1921,87 @@ In most cases it is CCPM 120.</oldsource>
 <context>
     <name>GovernorDialog</name>
     <message>
-        <location filename="aero/aero_general.cpp" line="82"/>
         <source>Governor settings</source>
-        <translation>Nastavení governoru</translation>
+        <translation type="vanished">Nastavení governoru</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="96"/>
         <source>Governor mode</source>
-        <translation>Režim governoru</translation>
+        <translation type="vanished">Režim governoru</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="102"/>
         <location filename="general.cpp" line="106"/>
         <source>Throttle Range</source>
         <translation>Rozsah plynu</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="104"/>
         <location filename="general.cpp" line="108"/>
         <source>Min.: </source>
         <translation>Min.: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="105"/>
         <location filename="general.cpp" line="109"/>
         <source>Max.: </source>
         <translation>Max.: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="117"/>
         <location filename="general.cpp" line="121"/>
         <source>Throttle Frequency</source>
         <translation>Frekvence plynu</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="129"/>
         <location filename="general.cpp" line="133"/>
         <source>Max. Head Speed</source>
         <translation>Max. otáčky hl. rotoru</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="135"/>
         <location filename="general.cpp" line="139"/>
         <source>Gear Settings</source>
         <translation>Nastavení převodu</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="137"/>
         <location filename="general.cpp" line="141"/>
         <source>Sensing Divider: </source>
         <translation>Dělitel snímače: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="138"/>
         <location filename="general.cpp" line="142"/>
         <source>Gear Ratio: </source>
         <translation>Převodový poměr: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="147"/>
         <location filename="general.cpp" line="151"/>
         <source>Fine-Tuning</source>
         <translation>Ladění</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="149"/>
         <location filename="general.cpp" line="154"/>
         <source>Governor Response: </source>
         <translation>Odezva governoru: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="150"/>
         <location filename="general.cpp" line="155"/>
         <source>Holding Performance: </source>
         <translation>Míra držení otáček: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="157"/>
         <location filename="general.cpp" line="163"/>
         <source>RPM Meter</source>
         <oldsource>RPM Sensor</oldsource>
         <translation>Měřič otáček</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="159"/>
         <location filename="general.cpp" line="165"/>
         <source>Requested RPM: </source>
         <translation>Požadované otáčky: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="160"/>
         <location filename="general.cpp" line="166"/>
         <source>Current RPM: </source>
         <translation>Aktuální otáčky: </translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="167"/>
         <source>Function</source>
-        <translation>Funkce</translation>
+        <translation type="vanished">Funkce</translation>
     </message>
     <message>
         <source>Governor Gain</source>
@@ -2210,7 +2035,6 @@ In most cases it is CCPM 120.</oldsource>
 <context>
     <name>LimitsTab</name>
     <message>
-        <location filename="aero/aero_limits.cpp" line="22"/>
         <location filename="limits.cpp" line="22"/>
         <source>&lt;b&gt;Aileron / Elevator range&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Aileron / Elevator range
@@ -2218,7 +2042,6 @@ Value: </oldsource>
         <translation>&lt;b&gt;Rozsah Křidélka / Výškovka&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="36"/>
         <location filename="limits.cpp" line="36"/>
         <source>&lt;b&gt;Min/Max Collective pitch&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Min/Max Collective pitch
@@ -2226,48 +2049,51 @@ Value: </oldsource>
         <translation>&lt;b&gt;Rozsah náběhu kolektivu&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="50"/>
-        <location filename="limits.cpp" line="50"/>
+        <location filename="limits.cpp" line="53"/>
         <source>&lt;b&gt;Rudder servo - Minimum limit&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Rudder servo - Minimum limit
 Value: </oldsource>
         <translation>&lt;b&gt;Vrtulkové servo - Minimum&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="64"/>
-        <location filename="limits.cpp" line="64"/>
+        <location filename="limits.cpp" line="70"/>
         <source>&lt;b&gt;Rudder servo - Maximum limit&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Rudder servo - Maximum limit
 Value: </oldsource>
         <translation>&lt;b&gt;Vrtulkové servo - Maximum&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="77"/>
-        <location filename="limits.cpp" line="77"/>
+        <location filename="limits.cpp" line="83"/>
         <source>Cyclic Ring setup enabled</source>
         <translation>Nastavení Cyclic Ring zapnuto</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="80"/>
-        <location filename="limits.cpp" line="80"/>
+        <location filename="limits.cpp" line="86"/>
         <source>Cyclic Ring setup disabled</source>
         <translation>Nastavení Cyclic Ring vypnuto</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="97"/>
-        <location filename="limits.cpp" line="97"/>
+        <location filename="limits.cpp" line="98"/>
+        <source>Rudder Limits setup enabled</source>
+        <translation>Nastavení limitů vrtulky zapnuto</translation>
+    </message>
+    <message>
+        <location filename="limits.cpp" line="100"/>
+        <source>Rudder Limits setup disabled</source>
+        <translation>Nastavení limitů vrtulky vypnuto</translation>
+    </message>
+    <message>
+        <location filename="limits.cpp" line="117"/>
         <source>Cyclic Ring (tuning)</source>
         <translation>Cyclic Ring (ladění)</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="25"/>
         <location filename="limits.cpp" line="25"/>
         <source>Aileron / Elevator range</source>
         <translation>Rozsah Křidélka / Výškovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="108"/>
-        <location filename="limits.cpp" line="108"/>
+        <location filename="limits.cpp" line="128"/>
         <source>&lt;b&gt;Specifies range of the cyclic servo travel for aileron and elevator&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase this parameter as much as possible.&lt;br/&gt;- Carefully check for any binding!&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Specifies range of cyclic servo travel for aileron and elevator&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Increase this parameter as much as possible.&lt;br/&gt;- Carefully check for any binding!&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Udává rozsah dráhy serv cykliky - křidélka a výškovka&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Přidejte tento parametr, jak nejvíce je to možné.&lt;br/&gt;- Opatrně kontrolujte, zda nedochází k nárazu serv v žádné poloze!&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 32 - 255&lt;/i&gt;</translation>
@@ -2287,52 +2113,48 @@ Value: </oldsource>
 - Opatrně kontrolujte zda nedochází k nárazu serv v žádné poloze!</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="116"/>
-        <location filename="limits.cpp" line="116"/>
+        <location filename="limits.cpp" line="136"/>
         <source>Collective pitch</source>
         <translation>Kolektiv</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="39"/>
         <location filename="limits.cpp" line="39"/>
         <source>Pitch range</source>
         <translation>Rozsah náběhu</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="125"/>
-        <location filename="limits.cpp" line="125"/>
+        <location filename="limits.cpp" line="145"/>
         <source>Specifies range of the collective pitch for both positive and negative positions.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</source>
         <oldsource>Specifies range of collective pitch for both positive and negative.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</oldsource>
         <translation>Udává rozsah kolektivu pro kladný a záporný směr.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 32 - 255&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="133"/>
-        <location filename="limits.cpp" line="133"/>
         <source>Rudder end-points</source>
-        <translation>Limity směrovky</translation>
+        <translation type="vanished">Limity směrovky</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="53"/>
-        <location filename="limits.cpp" line="53"/>
+        <location filename="limits.cpp" line="56"/>
         <source>Minimum limit</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="67"/>
-        <location filename="limits.cpp" line="67"/>
+        <location filename="limits.cpp" line="73"/>
         <source>Maximum limit</source>
         <translation>Maximum</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="143"/>
-        <location filename="limits.cpp" line="143"/>
+        <location filename="limits.cpp" line="153"/>
+        <source>Rudder end-points (tuning)</source>
+        <translation>Limity vrtulky (ladění)</translation>
+    </message>
+    <message>
+        <location filename="limits.cpp" line="165"/>
         <source>Specifies minimum travel limit for the rudder servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</source>
         <oldsource>Specifies minimum travel limit for rudder servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</oldsource>
         <translation>Udává spodní limit dráhy vrtulkového serva.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 32 - 255&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_limits.cpp" line="150"/>
-        <location filename="limits.cpp" line="150"/>
+        <location filename="limits.cpp" line="172"/>
         <source>Specifies maximum travel limit for the rudder servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</source>
         <oldsource>Specifies maximum travel limit for rudder servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 32 - 255&lt;/i&gt;</oldsource>
         <translation>Udává horní limit dráhy vrtulkového serva.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 32 - 255&lt;/i&gt;</translation>
@@ -2341,67 +2163,56 @@ Value: </oldsource>
 <context>
     <name>MappingDialog</name>
     <message>
-        <location filename="aero/aero_general.cpp" line="209"/>
         <location filename="general.cpp" line="218"/>
         <source>Collision in &lt;b&gt;%1&lt;/b&gt; occured! Please select a different channel.</source>
         <translation>Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="238"/>
         <location filename="general.cpp" line="317"/>
         <source>Receiver channel mapping</source>
         <translation>Rozvržení kanálů přijímače</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="255"/>
         <location filename="general.cpp" line="334"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="257"/>
         <location filename="general.cpp" line="338"/>
         <source>Channel</source>
         <translation>Kanál</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="261"/>
         <location filename="general.cpp" line="342"/>
         <source>Aileron</source>
         <translation>Křidélka</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="262"/>
         <location filename="general.cpp" line="343"/>
         <source>Elevator</source>
         <translation>Výškovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="263"/>
         <location filename="general.cpp" line="344"/>
         <source>Pitch</source>
         <translation>Kolektiv</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="264"/>
         <location filename="general.cpp" line="345"/>
         <source>Rudder</source>
         <translation>Směrovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="265"/>
         <location filename="general.cpp" line="346"/>
         <source>Gyro Gain</source>
         <translation>Zisk gyra</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="260"/>
         <location filename="general.cpp" line="341"/>
         <source>Throttle</source>
         <translation>Plyn</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="209"/>
         <location filename="general.cpp" line="218"/>
         <source>Warning</source>
         <translation>Varování</translation>
@@ -2411,7 +2222,6 @@ Value: </oldsource>
         <translation type="obsolete">Nastala kolize &lt;b&gt;%1u&lt;/b&gt;! Zvolte prosím odlišný kanál.</translation>
     </message>
     <message>
-        <location filename="aero/aero_general.cpp" line="266"/>
         <location filename="general.cpp" line="347"/>
         <source>Bank</source>
         <translation>Banky</translation>
@@ -2441,13 +2251,11 @@ Value: </oldsource>
         <translation>Čekejte prosím - skenuji zařízení</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="280"/>
         <location filename="connection.cpp" line="281"/>
         <source>Connection</source>
         <translation>Spojení</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="282"/>
         <location filename="connection.cpp" line="283"/>
         <source>Your connection is unstable.
 Please double check if unit is connected correctly.</source>
@@ -2455,13 +2263,11 @@ Please double check if unit is connected correctly.</source>
 Zkontrolujte prosím, zda je připojena korektně.</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="286"/>
         <location filename="connection.cpp" line="287"/>
         <source>Reconnect</source>
         <translation>Znovu připojit</translation>
     </message>
     <message>
-        <location filename="aero/aero_connection.cpp" line="287"/>
         <location filename="connection.cpp" line="288"/>
         <source>Exit</source>
         <translation>Ukončit</translation>
@@ -2485,7 +2291,6 @@ Zkontrolujte prosím, zda je připojena korektně.</translation>
 <context>
     <name>SensorTab</name>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="105"/>
         <location filename="sensor.cpp" line="105"/>
         <source>Sensitivity</source>
         <translation>Citlivost</translation>
@@ -2499,19 +2304,16 @@ Zkontrolujte prosím, zda je připojena korektně.</translation>
         <translation type="obsolete">Z - Směrovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="169"/>
         <location filename="sensor.cpp" line="169"/>
         <source>X - Pitch</source>
         <translation>X - Výškovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="170"/>
         <location filename="sensor.cpp" line="170"/>
         <source>Y - Roll</source>
         <translation>Y - Křidélka</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="171"/>
         <location filename="sensor.cpp" line="171"/>
         <source>Z - Yaw</source>
         <translation>Z - Směrovka</translation>
@@ -2521,7 +2323,6 @@ Zkontrolujte prosím, zda je připojena korektně.</translation>
         <translation type="obsolete">Agilita</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="167"/>
         <location filename="sensor.cpp" line="167"/>
         <source>Reverse</source>
         <translation>Reverz</translation>
@@ -2532,24 +2333,16 @@ Zkontrolujte prosím, zda je připojena korektně.</translation>
         <translation>Zisk cykliky</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="39"/>
         <location filename="sensor.cpp" line="39"/>
         <source>In transmitter</source>
         <translation>Ve vysílači</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="107"/>
-        <source>Sensor Gain</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_sensor.cpp" line="108"/>
         <location filename="sensor.cpp" line="108"/>
         <source>Rudder Gain</source>
         <translation>Vrtulkový zisk</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="109"/>
         <location filename="sensor.cpp" line="109"/>
         <source>Rudder Common Gain</source>
         <translation>Vrtulkový zisk (znásobení)</translation>
@@ -2585,75 +2378,59 @@ Mostly 60 - 70% for the optimal results.</oldsource>
         <translation>&lt;b&gt;Udává zisk cykliky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nejčastěji 60 - 70% pro optimální funkci.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 20 - 100%&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="115"/>
-        <source>&lt;b&gt;Specifies Sensor Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly from 60 to 70% for optimal results.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 20 - 100%&lt;/i&gt;</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_sensor.cpp" line="120"/>
         <location filename="sensor.cpp" line="120"/>
         <source>&lt;b&gt;Specifies Gyro Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly from 60 to 70% for optimal results.&lt;br&gt;- Is inactive if Gyro Gain is configured in the transmitter.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -100 - +100%&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Specifies Gyro Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Mostly from 60 to 70% for optimal results.&lt;br&gt;- Is inactive if Gyro Gain is configured in the transmitter&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -100 - +100%&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Udává zisk gyra vrtulky&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Pro optimální chod je většinou v rozmezí 60 - 70%.&lt;br&gt;- Je neaktivní pokud je zisk gyra nastaven ve vysílači.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -100 - +100%&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="125"/>
         <location filename="sensor.cpp" line="125"/>
         <source>&lt;b&gt;Specifies multiplier of Gyro Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x for no multiplication.&lt;br/&gt;- 1.50x for 1.5x multiplication of TX gyro gain.&lt;br&gt;- For 500-size and smaller helicopter 1.0x is enough.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1.00 - 1.50&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Specifies multiplier of Gyro Gain&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x for no multiplication&lt;br/&gt;- 1.50x for 1.5x multiplication of TX gyro gain.&lt;br&gt;- For 500-size and smaller helicopter 1.0x is enough.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1.00 - 1.50&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Násobič zisku gyra z vysílače&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- 1x znamená bez násobení.&lt;br/&gt;- 1,50x znamená 1,5x násobení zisku gyra.&lt;br&gt;- Pro třídu 500 a menší postačuje znásobení 1,0x.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 1,00 - 1,50&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="172"/>
         <location filename="sensor.cpp" line="172"/>
         <source>Specifies direction of elevator gyro compensation.</source>
         <translation>Udává směr kompenzace gyra pro osu výškovky.</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="173"/>
         <location filename="sensor.cpp" line="173"/>
         <source>Specifies direction of aileron gyro compensation.</source>
         <translation>Udává směr kompenzace gyra pro osu křidélek.</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="174"/>
         <location filename="sensor.cpp" line="174"/>
         <source>Specifies direction of rudder gyro compensation.</source>
         <translation>Udává směr kompenzace gyra pro osu vrtulky.</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="184"/>
         <location filename="sensor.cpp" line="184"/>
         <source>&lt;b&gt;Pirouette optimization&lt;/b&gt;</source>
         <translation>&lt;b&gt;Optimalizace piruet&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="186"/>
         <location filename="sensor.cpp" line="186"/>
         <source>When you reverse Yaw it is necessary to reverse pirouette optimization too!
 </source>
         <translation>V případě reverzování Směrovky je nutné také změnit smysl optimalizace piruet!</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="191"/>
         <location filename="sensor.cpp" line="191"/>
         <source>Rotation speed</source>
         <translation>Rychlost rotace</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="193"/>
         <location filename="sensor.cpp" line="193"/>
         <source>Cyclic</source>
         <translation>Cyklika</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="194"/>
         <location filename="sensor.cpp" line="194"/>
         <source>Rudder</source>
         <translation>Vrtulka</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="199"/>
         <location filename="sensor.cpp" line="199"/>
         <source>Specifies how fast model can rotate&lt;br/&gt;with full aileron/elevator stick deflection.&lt;br/&gt;&lt;br/&gt;- Mostly in 8-12 range.&lt;br&gt;- Values 13 and more are not recommended.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 5 - 16&lt;/i&gt;</source>
         <translation>Udává nejvyšší rychlost rotace&lt;br/&gt;během plné výchylky páky křidélek/výškovky.&lt;br/&gt;&lt;br/&gt;- Nejčastěji v rozsahu 8-12.&lt;br/&gt;- Hodnota 13 a vyšší není doporučena.&lt;br/&gt;&lt;br/&gt;&lt;i&gt;Rozsah: 5 - 16&lt;/i&gt;</translation>
@@ -2666,7 +2443,6 @@ Mostly in 8-12 range.</oldsource>
         <translation type="vanished">Udává nejvyšší rychlost rotace&lt;br/&gt;během plné výchylky páky křidélek/výškovky.&lt;br/&gt;&lt;br/&gt;- Nejčastěji v rozsahu 8-12.&lt;br/&gt;&lt;br/&gt;&lt;i&gt;Rozsah: 5 - 16&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_sensor.cpp" line="204"/>
         <location filename="sensor.cpp" line="204"/>
         <source>Specifies pirouette speed&lt;br/&gt;with full rudder stick deflection.&lt;br/&gt;&lt;br/&gt;- Mostly in 8-11 range.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 5 - 20&lt;/i&gt;</source>
         <oldsource>Specifies pirouette speed
@@ -2682,7 +2458,6 @@ Mostly in 8-11 range.</oldsource>
 <context>
     <name>ServosTab</name>
     <message>
-        <location filename="aero/aero_servos.cpp" line="262"/>
         <location filename="servos.cpp" line="262"/>
         <source>&lt;b&gt;Channel 1 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 1 Servo
@@ -2710,7 +2485,6 @@ Value: </source>
 Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="277"/>
         <location filename="servos.cpp" line="277"/>
         <source>&lt;b&gt;Channel 2 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 2 Servo
@@ -2718,13 +2492,11 @@ Value: </oldsource>
         <translation>&lt;b&gt;Servo kanál 2&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="281"/>
         <location filename="servos.cpp" line="281"/>
         <source>Elevator (CH2) : </source>
         <translation>Výškovka (CH2) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="292"/>
         <location filename="servos.cpp" line="292"/>
         <source>&lt;b&gt;Channel 3 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>Channel 3 Servo
@@ -2732,72 +2504,47 @@ Value: </oldsource>
         <translation>&lt;b&gt;Servo kanál 3&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="296"/>
         <location filename="servos.cpp" line="296"/>
         <source>Pitch (CH3) : </source>
         <oldsource>Aileron (CH3) : </oldsource>
         <translation>Kolektiv (CH3) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="307"/>
         <location filename="servos.cpp" line="307"/>
         <source>&lt;b&gt;Channel 4 Servo&lt;/b&gt;&lt;br/&gt;Value: </source>
         <oldsource>&lt;b&gt;Rudder Servo&lt;/b&gt;&lt;br/&gt;Value: </oldsource>
         <translation>&lt;b&gt;Servo kanál 4&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="311"/>
         <location filename="servos.cpp" line="311"/>
         <source>Rudder (CH4) : </source>
         <translation>Vrtulka (CH4) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="321"/>
         <location filename="servos.cpp" line="321"/>
         <source>Subtrim setup enabled</source>
         <translation>Nastavení subtrimu zapnuto</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="324"/>
         <location filename="servos.cpp" line="324"/>
         <source>Subtrim setup disabled</source>
         <translation>Nastavení subtrimu vypnuto</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="348"/>
-        <source>Servo Parameters</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_servos.cpp" line="396"/>
-        <source>Servo Reverse</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_servos.cpp" line="403"/>
-        <source>Reverses servo travel for specified channel.
-CH3 - aileron / pitch servo
-CH2 - elevator servo</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <location filename="aero/aero_servos.cpp" line="424"/>
         <location filename="servos.cpp" line="427"/>
         <source>Aileron (CH1)</source>
         <oldsource>Aileron : CH1</oldsource>
         <translation>Křidélka (CH1)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="425"/>
         <location filename="servos.cpp" line="428"/>
         <source>Elevator (CH2)</source>
         <oldsource>Elevator : CH2</oldsource>
         <translation>Výškovka (CH2)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="426"/>
         <source>Aileron (CH3)</source>
-        <translation type="unfinished">Křidélka (CH1) {3)?}</translation>
+        <translation type="obsolete">Křidélka (CH1) {3)?}</translation>
     </message>
     <message>
         <location filename="servos.cpp" line="429"/>
@@ -2806,75 +2553,63 @@ CH2 - elevator servo</source>
         <translation>Kolektiv (CH3)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="427"/>
         <location filename="servos.cpp" line="430"/>
         <source>Rudder (CH4)</source>
         <oldsource>Rudder : CH4</oldsource>
         <translation>Vrtulka (CH4)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="434"/>
         <location filename="servos.cpp" line="437"/>
         <source>Specifies subtrim value of the CH1 servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -127 - 127&lt;/i&gt;</source>
         <translation>Udává hodnotu subtrimu pro servo CH1.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -127 - 127&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="441"/>
         <location filename="servos.cpp" line="444"/>
         <source>Specifies subtrim value of the CH2 servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -127 - 127&lt;/i&gt;</source>
         <translation>Udává hodnotu subtrimu pro servo CH2.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -127 - 127&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="448"/>
         <location filename="servos.cpp" line="451"/>
         <source>Specifies subtrim value of the CH3 servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -127 - 127&lt;/i&gt;</source>
         <translation>Udává hodnotu subtrimu pro servo CH3.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -127 - 127&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="455"/>
         <location filename="servos.cpp" line="458"/>
         <source>Specifies subtrim value of the CH4 servo.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -127 - 127&lt;/i&gt;</source>
         <translation>Udává hodnotu subtrimu pro servo CH4.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -127 - 127&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="482"/>
         <location filename="servos.cpp" line="485"/>
         <source>Specifies travel correction for the CH1 servo - minimum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -64 - 64&lt;/i&gt;</source>
         <oldsource>Specifies travel correction for the CH1 servo - minimum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -127 - 127&lt;/i&gt;</oldsource>
         <translation>Udává míru korekce dráhy serva CH1 - minimum.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -64 - 64&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="489"/>
         <location filename="servos.cpp" line="492"/>
         <source>Specifies travel correction for the CH2 servo - minimum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -64 - 64&lt;/i&gt;</source>
         <translation>Udává míru korekce dráhy serva CH2 - minimum.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -64 - 64&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="496"/>
         <location filename="servos.cpp" line="499"/>
         <source>Specifies travel correction for the CH3 servo - minimum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -64 - 64&lt;/i&gt;</source>
         <translation>Udává míru korekce dráhy serva CH3 - minimum.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -64 - 64&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="503"/>
         <location filename="servos.cpp" line="506"/>
         <source>Specifies travel correction for the CH1 servo - maximum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -64 - 64&lt;/i&gt;</source>
         <translation>Udává míru korekce dráhy serva CH1 - maximum.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -64 - 64&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="510"/>
         <location filename="servos.cpp" line="513"/>
         <source>Specifies travel correction for the CH2 servo - maximum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -64 - 64&lt;/i&gt;</source>
         <translation>Udává míru korekce dráhy serva CH2 - maximum.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -64 - 64&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="517"/>
         <location filename="servos.cpp" line="520"/>
         <source>Specifies travel correction for the CH3 servo - maximum position.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -64 - 64&lt;/i&gt;</source>
         <translation>Udává míru korekce dráhy serva CH3 - maximum.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -64 - 64&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="346"/>
         <location filename="servos.cpp" line="346"/>
         <source>Type</source>
         <translation>Typ</translation>
@@ -2903,14 +2638,11 @@ CH2 - výškovkové servo</translation>
         <translation>Nastavení</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="266"/>
         <location filename="servos.cpp" line="266"/>
         <source>Aileron (CH1) : </source>
         <translation>Křidélka (CH1) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="26"/>
-        <location filename="aero/aero_servos.cpp" line="62"/>
         <location filename="servos.cpp" line="26"/>
         <location filename="servos.cpp" line="62"/>
         <source>&lt;b&gt;Channel 1 Servo Travel&lt;/b&gt;&lt;br/&gt;Value: </source>
@@ -2919,8 +2651,6 @@ Value: </oldsource>
         <translation>&lt;b&gt;Dráha serva - kanál 1&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="38"/>
-        <location filename="aero/aero_servos.cpp" line="74"/>
         <location filename="servos.cpp" line="38"/>
         <location filename="servos.cpp" line="74"/>
         <source>&lt;b&gt;Channel 2 Servo Travel&lt;/b&gt;&lt;br/&gt;Value: </source>
@@ -2929,8 +2659,6 @@ Value: </oldsource>
         <translation>&lt;b&gt;Dráha serva - kanál 2&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="50"/>
-        <location filename="aero/aero_servos.cpp" line="86"/>
         <location filename="servos.cpp" line="50"/>
         <location filename="servos.cpp" line="86"/>
         <source>&lt;b&gt;Channel 3 Servo Travel&lt;/b&gt;&lt;br/&gt;Value: </source>
@@ -2949,16 +2677,12 @@ Value: </oldsource>
         <translation>Směrovka</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="351"/>
-        <location filename="aero/aero_servos.cpp" line="353"/>
         <location filename="servos.cpp" line="354"/>
         <location filename="servos.cpp" line="356"/>
         <source>pulse</source>
         <translation>střed</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="352"/>
-        <location filename="aero/aero_servos.cpp" line="354"/>
         <location filename="servos.cpp" line="355"/>
         <location filename="servos.cpp" line="357"/>
         <source>frequency</source>
@@ -2970,7 +2694,6 @@ Value: </oldsource>
         <translation>Reverz serv cykliky</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="399"/>
         <location filename="servos.cpp" line="402"/>
         <source>No reverse</source>
         <translation>Bez reverzu</translation>
@@ -3012,7 +2735,6 @@ Value: </oldsource>
         <translation type="obsolete">Min/Max</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="420"/>
         <location filename="servos.cpp" line="423"/>
         <source>Subtrim (tuning)</source>
         <translation>Subtrim (ladění)</translation>
@@ -3033,32 +2755,27 @@ Value: </oldsource>
 <context>
     <name>StabiTab</name>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="103"/>
         <location filename="stabi.cpp" line="103"/>
         <source>Function</source>
         <translation>Funkce</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="106"/>
         <location filename="stabi.cpp" line="106"/>
         <source>Disabled</source>
         <oldsource>Disable</oldsource>
         <translation>Vypnuto</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="107"/>
         <location filename="stabi.cpp" line="107"/>
         <source>Rescue (Normal)</source>
         <translation>Záchrana (Normál)</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="108"/>
         <location filename="stabi.cpp" line="108"/>
         <source>Rescue (Acro)</source>
         <translation>Záchrana (Akro)</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="109"/>
         <location filename="stabi.cpp" line="109"/>
         <source>Stabilisation (Normal)</source>
         <oldsource>Stabilisation</oldsource>
@@ -3069,12 +2786,10 @@ Value: </oldsource>
         <translation type="obsolete">Stabi zisk</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="76"/>
-        <location filename="aero/aero_stabi.cpp" line="149"/>
         <location filename="stabi.cpp" line="76"/>
         <location filename="stabi.cpp" line="149"/>
         <source>Rescue collective pitch</source>
-        <translation>Kolektiv u záchranného režimu</translation>
+        <translation>Kolektiv záchranného režimu</translation>
     </message>
     <message>
         <source>Amount of collective pitch during rescue activation
@@ -3087,7 +2802,6 @@ Value: </oldsource>
 - Je nezbytné zvolit správně kladný nebo záporný směr!</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="46"/>
         <location filename="stabi.cpp" line="46"/>
         <source>&lt;b&gt;Direction control rate&lt;/b&gt;&lt;br/&gt;Value: </source>
         <translation>&lt;b&gt;Míra změny směru&lt;/b&gt;&lt;br/&gt;Hodnota: </translation>
@@ -3102,34 +2816,28 @@ Stabilisation - stabilisation mode with HH gyro</oldsource>
         <translation type="vanished">&lt;b&gt;Funkce aktivována, pokud je zisk gyra záporný&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Vypnuto - Rate režim gyra&lt;br/&gt;Záchrana - záchranný režim a HH gyro&lt;br/&gt;Stabilizace - stabilizace a HH gyro</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="125"/>
         <location filename="stabi.cpp" line="125"/>
         <source>&lt;b&gt;Pirouette optimization&lt;/b&gt;</source>
         <translation>&lt;b&gt;Optimalizace piruet&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="127"/>
         <location filename="stabi.cpp" line="127"/>
         <source>Before you use the stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</source>
         <oldsource>Before you use stabilisation or rescue mode you have to be sure that pirouette optimization is configured correctly else these modes will not work properly!</oldsource>
         <translation>Před použitím režimu stabilizace či záchrany se ujistěte, že je optimalizace piruet nakonfigurována správně, jinak tyto režimy nebudou fungovat korektně!</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="49"/>
-        <location filename="aero/aero_stabi.cpp" line="132"/>
         <location filename="stabi.cpp" line="49"/>
         <location filename="stabi.cpp" line="132"/>
         <source>Direction control rate</source>
         <translation>Míra změny směru</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="65"/>
         <location filename="stabi.cpp" line="65"/>
         <source>&lt;b&gt;Warning&lt;/b&gt;&lt;br/&gt;Value between -30% to 30% may be too low!</source>
         <translation>&lt;b&gt;Pozor&lt;/b&gt;&lt;br/&gt;Hodnota mezi -30% až 30% může být příliš nízká!</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="110"/>
         <location filename="stabi.cpp" line="110"/>
         <source>Stabilisation (Acro)</source>
         <translation>Stabilizace (Akro)</translation>
@@ -3143,34 +2851,29 @@ Stabilisation - stabilisation mode with HH gyro</oldsource>
         <translation type="vanished">&lt;b&gt;Funkce aktivována, pokud je zisk gyra záporný&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Vypnuto - Rate režim gyra.&lt;br/&gt;Záchrana - záchranný režim a HH gyro.&lt;br/&gt;Stabilizace - stabilizace a HH gyro.&lt;br/&gt;Maketa - stabilizace pro maketové létání a HH gyro.</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="112"/>
         <location filename="stabi.cpp" line="112"/>
         <source>&lt;b&gt;Function activated when gyro gain is negative&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Disabled - Rate gyro mode.&lt;br/&gt;Rescue - rescue mode with HL gyro.&lt;br/&gt;Stabilisation - stabilisation mode with HL gyro.</source>
         <oldsource>&lt;b&gt;Function activated when gyro gain is negative&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Disabled - Rate gyro mode.&lt;br/&gt;Rescue - rescue mode with HH gyro.&lt;br/&gt;Stabilisation - stabilisation mode with HH gyro.</oldsource>
         <translation>&lt;b&gt;Funkce aktivována, pokud je zisk gyra záporný&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Vypnuto - Rate režim gyra.&lt;br/&gt;Záchrana - záchranný režim a HL gyro.&lt;br/&gt;Stabilizace - stabilizace a HL gyro.</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="139"/>
         <location filename="stabi.cpp" line="139"/>
         <source>&lt;b&gt;Specifies a rate of direction change for stabilization&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Low values are suitable for beginners to achieve coaxial-like behavior.&lt;br/&gt;- Higher values are suitable for scale flying.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 5&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Specifies a rate of direction change for stabilization&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Low values are suitable for beginners to achieve coaxial-like behavior.&lt;br/&gt;- Higher values are suitable for scale flying.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 1 - 5&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Udává míru ovlivnění směru pro stabilizaci&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.&lt;br/&gt;- Vyšší hodnoty jsou vhodné pro maketové létání.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 5&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="156"/>
         <location filename="stabi.cpp" line="156"/>
         <source>&lt;b&gt;Amount of collective pitch during rescue activation&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Activate the rescue mode and check collective direction.&lt;br/&gt;- Very important is to select positive or negative value correctly!&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -100 - +100%&lt;/i&gt;</source>
         <oldsource>&lt;b&gt;Amount of collective pitch during rescue activation&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Activate the rescue mode and check collective direction.&lt;br/&gt;- Very important is to select positive or negative value correctly!&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: -100% - +100%&lt;/i&gt;</oldsource>
         <translation>&lt;b&gt;Velikost kolektivu během aktivního záchranného režimu&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;- Aktivujte záchranný režim a zkontrolujte směr kolektivu.&lt;br/&gt;- Je nezbytné zvolit správně kladný nebo záporný směr!&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: -100 - +100%&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="169"/>
         <location filename="stabi.cpp" line="169"/>
         <source>Aileron torque compensation</source>
         <translation>Kompenzace momentu pro křidélka</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="174"/>
         <location filename="stabi.cpp" line="174"/>
         <source>Aileron precompensation needed to get helicopter to correct angle&lt;br/&gt;during stabilisation or while rescue mode is active.</source>
         <oldsource>Aileron precompensation needed to get helicopter to correct angle
@@ -3178,13 +2881,11 @@ during stabilisation or while rescue mode is active.</oldsource>
         <translation>Prekompenzace v ose křidélek potřebná pro dosažení správného úhlu&lt;br/&gt;během aktivního režimu stabilizace nebo záchrany.</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="181"/>
         <location filename="stabi.cpp" line="181"/>
         <source>Elevator torque compensation</source>
         <translation>Kompenzace momentu pro výškovku</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="186"/>
         <location filename="stabi.cpp" line="186"/>
         <source>Elevator precompensation needed to get helicopter to correct angle&lt;br/&gt;during stabilisation or while rescue mode is active.</source>
         <oldsource>Elevator precompensation needed to get helicopter to correct angle
@@ -3192,13 +2893,11 @@ during stabilisation or while rescue mode is active.</oldsource>
         <translation>Prekompenzace v ose výškovky potřebná pro dosažení správného úhlu&lt;br/&gt;během aktivního režimu stabilizace nebo záchrany.</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="193"/>
         <location filename="stabi.cpp" line="193"/>
         <source>Sticks priority</source>
         <translation>Priorita kniplů</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="198"/>
         <location filename="stabi.cpp" line="198"/>
         <source>Steering signal amount during stabilisation or rescue mode.&lt;br&gt;&lt;br&gt;&lt;i&gt;Range: 0 - 16&lt;/i&gt;</source>
         <translation>Míra řízení během aktivní stabilizace nebo záchranného režimu.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 16&lt;/i&gt;</translation>
@@ -3209,19 +2908,16 @@ during stabilisation or while rescue mode is active.</oldsource>
         <translation type="vanished">Míra řízení během aktivní stabilizace nebo záchranného režimu.&lt;br&gt;&lt;br&gt;&lt;i&gt;Rozsah: 0 - 10&lt;/i&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="207"/>
         <location filename="stabi.cpp" line="207"/>
         <source>Flybar mechanic</source>
         <translation>Pádlová mechanika</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="209"/>
         <location filename="stabi.cpp" line="209"/>
         <source>Enable</source>
         <translation>Povolit</translation>
     </message>
     <message>
-        <location filename="aero/aero_stabi.cpp" line="210"/>
         <location filename="stabi.cpp" line="210"/>
         <source>Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.&lt;br/&gt;&lt;br/&gt;- Always disabled for flybarless helicopters.&lt;br/&gt;- Enabled for flybar helicopters only!</source>
         <oldsource>Enables special mode for flybared helicopters to be able use the unit with stabilisation or rescue mode.&lt;br/&gt;&lt;br/&gt;- Always disabled for flybarless helicopters.&lt;br/&gt;- Enabled for flybar helicopters only!.</oldsource>
@@ -3231,7 +2927,6 @@ during stabilisation or while rescue mode is active.</oldsource>
 <context>
     <name>TabDialog</name>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="133"/>
         <location filename="tabdialog.cpp" line="133"/>
         <source>Banks</source>
         <translation>Banky</translation>
@@ -3253,122 +2948,96 @@ during stabilisation or while rescue mode is active.</oldsource>
         <translation type="obsolete">Nastavení</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="67"/>
         <location filename="tabdialog.cpp" line="67"/>
         <source>&lt;b&gt;Selects active bank&lt;/b&gt;</source>
         <translation>&lt;b&gt;Vybere aktivní banku&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="76"/>
         <location filename="tabdialog.cpp" line="76"/>
         <source>&lt;b&gt;Displays current settings state&lt;/b&gt;</source>
         <translation>&lt;b&gt;Zobrazuje současný stav konfigurace&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="94"/>
         <location filename="tabdialog.cpp" line="94"/>
         <source>Active bank:</source>
         <translation>Aktivní banka:</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="141"/>
         <location filename="tabdialog.cpp" line="141"/>
         <source>Profile</source>
         <translation>Profil</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="148"/>
         <location filename="tabdialog.cpp" line="148"/>
         <source>&lt;b&gt;Save profile settings to the unit&lt;/b&gt;</source>
         <translation>&lt;b&gt;Uložit nastavení profilu do jednotky&lt;/b&gt;</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="173"/>
-        <location filename="aero/aero_tabdialog.cpp" line="199"/>
         <location filename="tabdialog.cpp" line="173"/>
         <location filename="tabdialog.cpp" line="198"/>
         <source>Connection</source>
         <translation>Spojení</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="174"/>
-        <location filename="aero/aero_tabdialog.cpp" line="200"/>
         <location filename="tabdialog.cpp" line="174"/>
         <location filename="tabdialog.cpp" line="199"/>
         <source>General</source>
         <translation>Obecné</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="175"/>
-        <location filename="aero/aero_tabdialog.cpp" line="201"/>
         <location filename="tabdialog.cpp" line="175"/>
         <location filename="tabdialog.cpp" line="200"/>
         <source>Diagnostic</source>
         <translation>Diagnostika</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="176"/>
-        <location filename="aero/aero_tabdialog.cpp" line="202"/>
         <location filename="tabdialog.cpp" line="176"/>
         <location filename="tabdialog.cpp" line="201"/>
         <source>Servos</source>
         <translation>Serva</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="203"/>
         <location filename="tabdialog.cpp" line="177"/>
         <location filename="tabdialog.cpp" line="202"/>
         <source>Limits</source>
         <translation>Limity</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="179"/>
-        <location filename="aero/aero_tabdialog.cpp" line="204"/>
         <location filename="tabdialog.cpp" line="178"/>
         <location filename="tabdialog.cpp" line="203"/>
         <source>Sensor</source>
         <translation>Senzor</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="181"/>
-        <location filename="aero/aero_tabdialog.cpp" line="205"/>
         <location filename="tabdialog.cpp" line="179"/>
         <location filename="tabdialog.cpp" line="204"/>
         <source>Stabi</source>
         <translation>Stabi</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="182"/>
-        <location filename="aero/aero_tabdialog.cpp" line="206"/>
         <location filename="tabdialog.cpp" line="180"/>
         <location filename="tabdialog.cpp" line="205"/>
         <source>Advanced</source>
         <translation>Pokročilé</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="183"/>
-        <location filename="aero/aero_tabdialog.cpp" line="207"/>
         <location filename="tabdialog.cpp" line="181"/>
         <location filename="tabdialog.cpp" line="206"/>
         <source>Backup</source>
         <translation>Záloha</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="184"/>
-        <location filename="aero/aero_tabdialog.cpp" line="208"/>
         <location filename="tabdialog.cpp" line="182"/>
         <location filename="tabdialog.cpp" line="207"/>
         <source>Update</source>
         <translation>Aktualizace</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="292"/>
         <location filename="tabdialog.cpp" line="291"/>
         <source>Demo mode</source>
         <translation>Demo mód</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="295"/>
         <location filename="tabdialog.cpp" line="294"/>
         <source>Interface was not detected.
 Do you want to switch to demonstration mode?</source>
@@ -3376,7 +3045,6 @@ Do you want to switch to demonstration mode?</source>
 Přejete si vstoupit do demonstračního módu?</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="297"/>
         <location filename="tabdialog.cpp" line="296"/>
         <source>Unit was not detected.
 Do you want to switch to demonstration mode?</source>
@@ -3384,49 +3052,38 @@ Do you want to switch to demonstration mode?</source>
 Přejete si vstoupit do demonstračního módu?</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="301"/>
         <location filename="tabdialog.cpp" line="300"/>
         <source>Yes</source>
         <translation>Ano</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="302"/>
         <location filename="tabdialog.cpp" line="301"/>
         <source>No</source>
         <translation>Ne</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="369"/>
         <location filename="tabdialog.cpp" line="368"/>
         <source>Settings changed</source>
         <translation>Došlo ke změně nastavení</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="370"/>
         <location filename="tabdialog.cpp" line="369"/>
         <source>Do you want to save your new settings?</source>
         <translation>Přejete si uložit nové nastavení?</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="373"/>
-        <location filename="aero/aero_tabdialog.cpp" line="412"/>
         <location filename="tabdialog.cpp" line="372"/>
         <location filename="tabdialog.cpp" line="411"/>
         <source>Save</source>
         <translation>Uložit</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="374"/>
-        <location filename="aero/aero_tabdialog.cpp" line="413"/>
         <location filename="tabdialog.cpp" line="373"/>
         <location filename="tabdialog.cpp" line="412"/>
         <source>Discard</source>
         <translation>Zapomenout</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="378"/>
-        <location filename="aero/aero_tabdialog.cpp" line="417"/>
-        <location filename="aero/aero_tabdialog.cpp" line="588"/>
         <location filename="tabdialog.cpp" line="377"/>
         <location filename="tabdialog.cpp" line="416"/>
         <location filename="tabdialog.cpp" line="587"/>
@@ -3434,49 +3091,39 @@ Přejete si vstoupit do demonstračního módu?</translation>
         <translation>Uloženo</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="378"/>
-        <location filename="aero/aero_tabdialog.cpp" line="417"/>
         <location filename="tabdialog.cpp" line="377"/>
         <location filename="tabdialog.cpp" line="416"/>
         <source>Settings saved succesfully.</source>
         <translation>Nastavení bylo úspěšně uloženo.</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="380"/>
-        <location filename="aero/aero_tabdialog.cpp" line="419"/>
         <location filename="tabdialog.cpp" line="379"/>
         <location filename="tabdialog.cpp" line="418"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="380"/>
-        <location filename="aero/aero_tabdialog.cpp" line="419"/>
         <location filename="tabdialog.cpp" line="379"/>
         <location filename="tabdialog.cpp" line="418"/>
         <source>Error during saving. Check your interface connection.</source>
         <translation>Chyba běhěm ukládání. Zkontrolujte datový kabel.</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="408"/>
         <location filename="tabdialog.cpp" line="407"/>
         <source>Bank settings changed</source>
         <translation>Nastavení banky změněno</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="409"/>
         <location filename="tabdialog.cpp" line="408"/>
         <source>Do you want to save new bank settings?</source>
         <translation>Přejete si uložit nové nastavení banky?</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="588"/>
         <location filename="tabdialog.cpp" line="587"/>
         <source>Settings saved succesfully</source>
         <translation>Nastavení bylo úspěšně uloženo</translation>
     </message>
     <message>
-        <location filename="aero/aero_tabdialog.cpp" line="652"/>
         <location filename="tabdialog.cpp" line="651"/>
         <source>(Unsaved changes)</source>
         <translation>(Neuložené změny)</translation>
@@ -3541,26 +3188,22 @@ Value: </source>
 Hodnota: </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="136"/>
         <location filename="servos.cpp" line="136"/>
         <source>Aileron (CH1) : </source>
         <translation>Křidélka (CH1) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="137"/>
         <location filename="servos.cpp" line="137"/>
         <source>Elevator (CH2) : </source>
         <translation>Výškovka (CH2) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="138"/>
         <location filename="servos.cpp" line="138"/>
         <source>Pitch (CH3) : </source>
         <oldsource>Aileron (CH3) : </oldsource>
         <translation>Kolektiv (CH3) : </translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="156"/>
         <location filename="servos.cpp" line="156"/>
         <source>Servo Travel Correction</source>
         <translation>Korekce dráhy serv</translation>
@@ -3570,45 +3213,38 @@ Hodnota: </translation>
         <translation type="vanished">Kol.</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="158"/>
         <location filename="servos.cpp" line="158"/>
         <source>Pit.</source>
         <translation>Kol.</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="159"/>
         <location filename="servos.cpp" line="159"/>
         <source>Collective pitch channel position.</source>
         <oldsource>Current collective pitch value.</oldsource>
         <translation>Pozice kanálu kolektivu.</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="172"/>
         <location filename="servos.cpp" line="172"/>
         <source>Aileron (CH1)</source>
         <translation>Křidélka (CH1)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="173"/>
         <location filename="servos.cpp" line="173"/>
         <source>Elevator (CH2)</source>
         <translation>Výškovka (CH2)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="174"/>
         <location filename="servos.cpp" line="174"/>
         <source>Pitch (CH3)</source>
         <oldsource>Aileron (CH3)</oldsource>
         <translation>Kolektiv (CH3)</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="176"/>
         <location filename="servos.cpp" line="176"/>
         <source>Minimum</source>
         <translation>Minimum</translation>
     </message>
     <message>
-        <location filename="aero/aero_servos.cpp" line="185"/>
         <location filename="servos.cpp" line="185"/>
         <source>Maximum</source>
         <translation>Maximum</translation>
@@ -3617,47 +3253,38 @@ Hodnota: </translation>
 <context>
     <name>UpdateTab</name>
     <message>
-        <location filename="aero/aero_update.cpp" line="17"/>
         <location filename="update.cpp" line="17"/>
         <source>Select firmware</source>
         <translation>Výběr firmware</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="25"/>
         <location filename="update.cpp" line="25"/>
         <source>Failed to select file, please check if file &apos;%1&apos; exists or copy it to other directory</source>
         <translation>Nelze vybrat soubor, prosím zkontrolujte, zda &apos;%1&apos; existuje nebo jej překopírujte do jiného adresáře</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="25"/>
-        <location filename="aero/aero_update.cpp" line="75"/>
         <location filename="update.cpp" line="25"/>
         <location filename="update.cpp" line="75"/>
         <source>Error</source>
         <translation>Chyba</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="25"/>
-        <location filename="aero/aero_update.cpp" line="75"/>
         <location filename="update.cpp" line="25"/>
         <location filename="update.cpp" line="75"/>
         <source>Abort</source>
         <translation>Zrušit</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="45"/>
         <location filename="update.cpp" line="45"/>
         <source>Uploading..</source>
         <translation>Nahrávám</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="47"/>
         <location filename="update.cpp" line="47"/>
         <source>Recovery Mode..</source>
         <translation>Záložní režim..</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="101"/>
         <location filename="update.cpp" line="101"/>
         <source>Select firmware file you want flash into&lt;br&gt;the unit and press the Flash button.&lt;br&gt;&lt;br&gt;Flashing procedure may take up to 20 seconds.&lt;br&gt;&lt;b&gt;Do not interrupt the process in any way!&lt;/b&gt;</source>
         <oldsource>Select firmware file you want flash into&lt;br&gt;the unit and press the Flash button.&lt;br&gt;&lt;br&gt;This process may take up to 20 seconds.&lt;br&gt;&lt;b&gt;Do not interrupt the process in any way!&lt;/b&gt;</oldsource>
@@ -3672,14 +3299,11 @@ Hodnota: </translation>
         <translation type="vanished">Aktualizace selhala, prosím připojte baterii znovu a zkuste to ještě jednou!</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="79"/>
         <location filename="update.cpp" line="79"/>
         <source>Success</source>
         <translation>Úspěch</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="82"/>
-        <location filename="aero/aero_update.cpp" line="84"/>
         <location filename="update.cpp" line="82"/>
         <location filename="update.cpp" line="84"/>
         <source>Info</source>
@@ -3696,7 +3320,6 @@ Prosím, odpojte a poté připojte baterii.</translation>
         <translation type="vanished">Aktualizace firmware proběhla úspěšně.</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="75"/>
         <location filename="update.cpp" line="75"/>
         <source>Update failed, please restart the software and try to update the unit again!&lt;br/&gt;&lt;b&gt;Do not unplug the battery until the process finished successfully!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;If you are unable to perform the update, please contact our customer service.</source>
         <translation>Aktualizace selhala, prosím spusťte program znovu a zkuste to ještě jednou!&lt;br/&gt;&lt;b&gt;Neodpojujte v žádném případě baterii dokud není tento proces úspěšně dokončen!&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Pokud není možné provést aktualizaci, prosíme kontaktujte nás.</translation>
@@ -3714,7 +3337,6 @@ Restart the unit and software, please.</source>
 Nyní zapněte znovu jednotku a poté program.</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="82"/>
         <location filename="update.cpp" line="82"/>
         <source>Firmware upload is successfully finished.
 Restart the unit and then the software, please.</source>
@@ -3722,13 +3344,11 @@ Restart the unit and then the software, please.</source>
 Nyní zapněte znovu jednotku a poté program.</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="84"/>
         <location filename="update.cpp" line="84"/>
         <source>Firmware upload is successfully finished.</source>
         <translation>Aktualizace firmware proběhla úspěšně.</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="99"/>
         <location filename="update.cpp" line="99"/>
         <source>Firmware</source>
         <translation>Firmware</translation>
@@ -3742,31 +3362,26 @@ the unit and press flash button.</oldsource>
 do jednotky a stiskněte tlačítko Flash.</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="103"/>
         <location filename="update.cpp" line="103"/>
         <source>Status:</source>
         <translation>Stav:</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="104"/>
         <location filename="update.cpp" line="104"/>
         <source>N/A</source>
         <translation>Nedostupný</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="106"/>
         <location filename="update.cpp" line="106"/>
         <source>Select</source>
         <translation>Vybrat</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="107"/>
         <location filename="update.cpp" line="107"/>
         <source>Flash</source>
         <translation>Flash</translation>
     </message>
     <message>
-        <location filename="aero/aero_update.cpp" line="110"/>
         <location filename="update.cpp" line="110"/>
         <source>File not selected</source>
         <translation>Nebyl vybrán soubor</translation>

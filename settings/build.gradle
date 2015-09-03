@@ -58,16 +58,28 @@ android {
         args "-c", "php -f ./gradle-exec/buildhelpText.php"
     }
 
-    task createHelpPDFLinksDevel(type: Exec) {
+    task createHelpPDFLinksHeliDevel(type: Exec) {
         //update build info
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php devel"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinksHeli.php devel"
     }
 
-    task createHelpPDFLinksProduction(type: Exec) {
+    task createHelpPDFLinksAeroDevel(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinksAero.php devel"
+    }
+
+    task createHelpPDFLinksHeliProduction(type: Exec) {
         //update build info
         executable "sh"
         args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php release"
+    }
+
+    task createHelpPDFLinksAeroProduction(type: Exec) {
+        //update build info
+        executable "sh"
+        args "-c", "php -f ./gradle-exec/createHelpPDFAeroLinks.php release"
     }
 
     task buildInfoRelase(type: Exec) {
@@ -96,21 +108,23 @@ android {
 
 
 
-    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksProduction', 'info', 'assembleRelease'], type:Exec) {
+    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksHeliProduction', 'createHelpPDFLinksAeroProduction', 'info', 'assembleRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
     assembleRelease.mustRunAfter buildInfoRelase;
 
-    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksDevel', 'info', 'assembleRelease'], type:Exec) {
+    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksHeliDevel', 'createHelpPDFLinksAeroDevel', 'info', 'assembleRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
     assembleRelease.mustRunAfter buildInfoDevel;
 
     assembleRelease.mustRunAfter buildHelpText;
-    assembleRelease.mustRunAfter createHelpPDFLinksDevel;
-    assembleRelease.mustRunAfter createHelpPDFLinksProduction;
+    assembleRelease.mustRunAfter createHelpPDFLinksHeliDevel;
+    assembleRelease.mustRunAfter createHelpPDFLinksHeliProduction;
+    assembleRelease.mustRunAfter createHelpPDFLinksAeroDevel;
+    assembleRelease.mustRunAfter createHelpPDFLinksAeroProduction;
     info.mustRunAfter assembleRelease;
 }
 

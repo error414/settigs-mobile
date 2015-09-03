@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.aero.senzor;
+package com.spirit.heli.limit;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -27,25 +27,26 @@ import android.widget.TextView;
 import com.customWidget.picker.ProgresEx;
 import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class SenzorRotationSpeedActivity extends BaseActivity
+public class ServosRudderEndPointsActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "SenzorActivity";
+	final private String TAG = "ServosRudderEndPointsActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RATE_PITCH",};
+	private final String protocolCode[] = {"RUDDER_MIN", "RUDDER_MAX",};
 
-	private int formItems[] = {R.id.x_pitch_rates, };
+	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
 
-	private int formItemsTitle[] = {R.string.cyc_rate, };
+	private int formItemsTitle[] = {R.string.min_limit, R.string.max_limit,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -55,10 +56,10 @@ public class SenzorRotationSpeedActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.aero_senzor_rotation_speed);
+		initSlideMenu(R.layout.servos_rudder_end_points);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text), " \u2192 ", getString(R.string.rotation_speed)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limits), " \u2192 ", getString(R.string.rudder_end_points_no_break)));
 
 		initGui();
 		initConfiguration();
@@ -89,7 +90,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity
     }
 
 	/**
-	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
@@ -102,7 +103,25 @@ public class SenzorRotationSpeedActivity extends BaseActivity
 			finish();
 		}
 	}
-	
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		if (!getAppBasicMode()) {
+			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+		}
+	}
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void beforeChangeBank(int bankNumber)
+    {
+        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+    }
+
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -120,7 +139,8 @@ public class SenzorRotationSpeedActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
+			tempPicker.setRange(32, 255); // tohle rozmezi asi brat ze stabi profilu
+			tempPicker.setTitle(formItemsTitle[i]); // tohle rozmezi asi brat ze stabi profilu
 		}
 	}
 
@@ -145,6 +165,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
 
+
 	/**
 	 * naplneni formulare
 	 *
@@ -164,10 +185,10 @@ public class SenzorRotationSpeedActivity extends BaseActivity
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-
-			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-			tempPicker.setCurrentNoNotify(item.getValueInteger());
+			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setCurrentNoNotify(size);
 		}
 
 	}
@@ -192,11 +213,11 @@ public class SenzorRotationSpeedActivity extends BaseActivity
                     }
 				}
 			}
+
             initDefaultValue();
 		}
 
 	};
-
 
 	public boolean handleMessage(Message msg)
 	{
@@ -225,8 +246,7 @@ public class SenzorRotationSpeedActivity extends BaseActivity
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
     }

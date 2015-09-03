@@ -315,7 +315,13 @@ public class ConnectionActivity extends BaseActivity
     private void setSpiritConnectedProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.connected);
+
+        if(Globals.getInstance().getAppMode() == DstabiProfile.HELI) {
+            progressConnection.setBackgroundResource(R.drawable.connected);
+        }else{
+            progressConnection.setBackgroundResource(R.drawable.connected_aero);
+        }
+
     }
 
 	/**

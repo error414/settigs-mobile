@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.heli.servo;
+package com.spirit.heli.limit;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -33,19 +33,19 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class ServosRudderEndPointsActivity extends BaseActivity
+public class ServosCyclickLimitRangeActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "ServosRudderEndPointsActivity";
+	final private String TAG = "ServosCyclickRingRangeActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RUDDER_MIN", "RUDDER_MAX",};
+	private final String protocolCode[] = {"RANGE_PIT",};
 
-	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
+	private int formItems[] = {R.id.cyclic_ring_pitch,};
 
-	private int formItemsTitle[] = {R.string.min_limit, R.string.max_limit,};
+	private int formItemsTitle[] = {R.string.limit_pitch,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -55,10 +55,10 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.servos_rudder_end_points);
+		initSlideMenu(R.layout.cyclic_ring_range);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limits), " \u2192 ", getString(R.string.rudder_end_points_no_break)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limits), " \u2192 ",  getString(R.string.cyclic_ring_range_no_break)));
 
 		initGui();
 		initConfiguration();
@@ -116,12 +116,18 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		}
 	}
 
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+	}
+
 	private void initGui()
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			tempPicker.setRange(32, 255); // tohle rozmezi asi brat ze stabi profilu
-			tempPicker.setTitle(formItemsTitle[i]); // tohle rozmezi asi brat ze stabi profilu
+			tempPicker.setTitle(formItemsTitle[i]);
 		}
 	}
 
@@ -194,7 +200,6 @@ public class ServosRudderEndPointsActivity extends BaseActivity
                     }
 				}
 			}
-
             initDefaultValue();
 		}
 

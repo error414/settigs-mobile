@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.heli.servo;
+package com.spirit.heli.limit;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -42,11 +42,11 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RANGE_AIL", "RANGE_PIT",};
+	private final String protocolCode[] = {"RANGE_AIL",};
 
-	private int formItems[] = {R.id.cyclic_ring_ail_ele, R.id.cyclic_ring_pitch,};
+	private int formItems[] = {R.id.cyclic_ring_ail_ele,};
 
-	private int formItemsTitle[] = {R.string.ail_ele, R.string.limit_pitch,};
+	private int formItemsTitle[] = {R.string.ail_ele,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -124,10 +124,28 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 	public void onPause()
 	{
 		super.onPause();
-		if (!getAppBasicMode()) {
-			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani subtrimu
-		}
+        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
 	}
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void beforeChangeBank(int bankNumber)
+    {
+        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+    }
+
+    /**
+     *
+     * @param bankNumber
+     */
+    protected void afterChangeBank(int bankNumber)
+    {
+        if (!getAppBasicMode()) {
+            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu
+        }
+    }
 
 	private void initGui()
 	{
