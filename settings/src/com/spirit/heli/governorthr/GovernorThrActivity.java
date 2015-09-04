@@ -36,6 +36,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -107,7 +109,7 @@ public class GovernorThrActivity extends BaseActivity
             public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
             {
 
-                final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+                final SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
                 final SharedPreferences.Editor editor = prefs.edit();
 
                 new AlertDialog.Builder(GovernorThrActivity.this).setTitle(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove_from_favourites : R.string.add_to_favourites).setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle()).setPositiveButton(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove : R.string.add, new DialogInterface.OnClickListener()

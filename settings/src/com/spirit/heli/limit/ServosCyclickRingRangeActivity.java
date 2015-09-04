@@ -44,7 +44,7 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 
 	private final String protocolCode[] = {"RANGE_AIL",};
 
-	private int formItems[] = {R.id.cyclic_ring_ail_ele,};
+	private int formItems[] = {R.id.limit_range_ail_left,};
 
 	private int formItemsTitle[] = {R.string.ail_ele,};
 

@@ -15,53 +15,53 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.heli.senzor;
+package com.spirit.aero.limit;
 
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.Window;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-
-public class SenzorReverseActivity extends BaseActivity
+public class LimitRudRangeActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "SenzorReverseActivity";
+	final private String TAG = "LimitRudRangeActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SENSOR_REVX", "SENSOR_REVY", "SENSOR_REVZ",};
+	private final String protocolCode[] = {"LIMIT_RANGE_RUD_U","LIMIT_RANGE_RUD_D",};
 
-	private int formItems[] = {R.id.x_pitch_reverse, R.id.y_roll_reverse, R.id.z_yaw_reverse,};
+	private int formItems[] = {R.id.limit_range_rud_left, R.id.limit_range_rud_right,};
 
-	private int lock = 0;
+	private int formItemsTitle[] = {R.string.left, R.string.right,};
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity servo type
+	 * zavolani pri vytvoreni instance aktivity servos
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.senzor_reverse);
+		initSlideMenu(R.layout.limit_range_rud);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text), " \u2192 ", getString(R.string.reverse)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limits), " \u2192 ",  getString(R.string.limit_range_rud)));
 
+		initGui();
 		initConfiguration();
 		delegateListener();
 	}
@@ -86,29 +86,8 @@ public class SenzorReverseActivity extends BaseActivity
      *
      */
     protected int getDefaultValueType(){
-        return DEFAULT_VALUE_TYPE_CHECKBOX;
+        return DEFAULT_VALUE_TYPE_SEEK;
     }
-
-	/**
-	 * prvotni konfigurace view
-	 */
-	private void initConfiguration()
-	{
-		showDialogRead();
-		// ziskani konfigurace z jednotky
-		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
-	}
-
-	/**
-	 * prirazeni udalosti k prvkum
-	 */
-	private void delegateListener()
-	{
-		//nastaveni posluchacu pro formularove prvky
-		for (int i = 0; i < formItems.length; i++) {
-			((CheckBox) findViewById(formItems[i])).setOnCheckedChangeListener(checkboxListener);
-		}
-	}
 
 	/**
 	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
@@ -124,19 +103,66 @@ public class SenzorReverseActivity extends BaseActivity
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
 	protected void initBasicMode()
 	{
 		for (int i = 0; i < formItems.length; i++) {
-			CheckBox check = (CheckBox) findViewById(formItems[i]);
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			
-			check.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
 		}
 	}
+
+	@Override
+	public void onPause()
+	{
+		super.onPause();
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+	}
+
+	/**
+	 *
+	 * @param bankNumber
+	 */
+	protected void beforeChangeBank(int bankNumber)
+	{
+		stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
+	}
+
+	private void initGui()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			tempPicker.setRange(32, 255); // tohle rozmezi asi brat ze stabi profilu
+			tempPicker.setTitle(formItemsTitle[i]);
+		}
+	}
+
+	/**
+	 * prirazeni udalosti k prvkum
+	 */
+	private void delegateListener()
+	{
+		//nastaveni posluchacu pro formularove prvky
+		for (int i = 0; i < formItems.length; i++) {
+			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
+		}
+	}
+
+	/**
+	 * prvotni konfigurace view
+	 */
+	private void initConfiguration()
+	{
+		showDialogRead();
+		// ziskani konfigurace z jednotky
+		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
+	}
+
 
 	/**
 	 * naplneni formulare
@@ -156,42 +182,36 @@ public class SenzorReverseActivity extends BaseActivity
 		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
-			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
-
-			Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
-			if (tempCheckbox.isChecked() != checked) lock = lock + 1;
-			tempCheckbox.setChecked(checked);
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setCurrentNoNotify(size);
 		}
+
 	}
 
-
-	private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener()
+	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
 
+
 		@Override
-		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+		public void onChanged(ProgresEx parent, int newVal)
 		{
-
-			if (lock != 0) {
-				lock -= 1;
-				return;
-			}
-			lock = Math.max(lock - 1, 0);
-
 			// TODO Auto-generated method stub
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
-				if (buttonView.getId() == formItems[i]) {
-					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValueFromCheckBox(isChecked);
-					stabiProvider.sendDataNoWaitForResponce(item);
-
+				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
+					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
-
 		}
 
 	};
@@ -223,8 +243,7 @@ public class SenzorReverseActivity extends BaseActivity
     }
 
     @Override
-    public void onStop()
-    {
+    public void onStop() {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
     }

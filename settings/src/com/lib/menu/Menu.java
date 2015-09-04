@@ -5,6 +5,9 @@ import com.helpers.Globals;
 import com.spirit.ConnectionActivity;
 import com.spirit.FavouritesActivity;
 import com.spirit.R;
+import com.spirit.aero.limit.LimitAilRangeActivity;
+import com.spirit.aero.limit.LimitEleRangeActivity;
+import com.spirit.aero.limit.LimitRudRangeActivity;
 import com.spirit.heli.GeneralActivity;
 import com.spirit.heli.advanced.AdvancedActivity;
 import com.spirit.heli.advanced.CyclicFFActivity;
@@ -146,6 +149,10 @@ public class Menu {
     public static Integer MENU_GOV_GEAR_SETTINGS   = 47;
     public static Integer MENU_GOV_THR_REVERSE     = 48;
     public static Integer MENU_GOV_SPOOLUP         = 50;
+
+    public static Integer MENU_LIMIT_AIL           = 54;
+    public static Integer MENU_LIMIT_ELE           = 55;
+    public static Integer MENU_LIMIT_RUD           = 56;
 
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
@@ -426,6 +433,9 @@ public class Menu {
         //servo
         menuList.put(MENU_SERVO,        new MenuItem(R.drawable.i8,     R.string.servos_button_text, ServosActivity.class));
 
+        //servo
+        menuList.put(MENU_SERVOLIMIT,   new MenuItem(R.drawable.i11,     R.string.limits, ServosLimitActivity.class));
+
         //senzor
         menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
 
@@ -433,7 +443,7 @@ public class Menu {
         menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SENZOR, MENU_DIAGNOSTIC_LIST});
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_DIAGNOSTIC_LIST});
 
 
         //SERVO ACTIVITY
@@ -443,8 +453,25 @@ public class Menu {
         //subtrim
         menuList.put(MENU_SERVOSUBTRIM,   new MenuItem(R.drawable.i10,     R.string.subtrim,  ServosSubtrimActivity.class));
 
+        //reverz
+        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.na,     R.string.reverse, com.spirit.aero.servo.ServoReverseActivity.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_SERVOSUBTRIM, });
+        menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_SERVOSUBTRIM, MENU_REVERZ, });
+
+
+        //SERVO LIMIT ACTIVITY
+        //cyclic ring
+        menuList.put(MENU_LIMIT_AIL,   new MenuItem(R.drawable.na,     R.string.limit_range_ail, LimitAilRangeActivity.class));
+
+        //pitch range
+        menuList.put(MENU_LIMIT_ELE,   new MenuItem(R.drawable.na,     R.string.limit_range_ele, LimitEleRangeActivity.class));
+
+        //rudder endpoints
+        menuList.put(MENU_LIMIT_RUD,   new MenuItem(R.drawable.na,     R.string.limit_range_rud, LimitRudRangeActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_SERVOLIMIT, new Integer[]{MENU_LIMIT_AIL, MENU_LIMIT_ELE, MENU_LIMIT_RUD});
 
 
         //SENZOR ACTIVITY

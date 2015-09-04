@@ -15,7 +15,7 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.heli.senzor;
+package com.spirit.aero.servo;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -34,18 +34,17 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-
-public class SenzorReverseActivity extends BaseActivity
+public class ServoReverseActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "SenzorReverseActivity";
+	final private String TAG = "ServoReverseActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SENSOR_REVX", "SENSOR_REVY", "SENSOR_REVZ",};
+	private final String protocolCode[] = {"SERVO_REV_CH1", "SERVO_REV_CH2", "SERVO_REV_CH3", "SERVO_REV_CH4",};
 
-	private int formItems[] = {R.id.x_pitch_reverse, R.id.y_roll_reverse, R.id.z_yaw_reverse,};
+	private int formItems[] = {R.id.servo_rev_ch1, R.id.servo_rev_ch2, R.id.servo_rev_ch3, R.id.servo_rev_ch4,};
 
 	private int lock = 0;
 
@@ -57,10 +56,10 @@ public class SenzorReverseActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.senzor_reverse);
+		initSlideMenu(R.layout.aero_servo_reverse);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.senzor_button_text), " \u2192 ", getString(R.string.reverse)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.reverse)));
 
 		initConfiguration();
 		delegateListener();
@@ -119,12 +118,13 @@ public class SenzorReverseActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+
             initDefaultValue();
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -167,7 +167,6 @@ public class SenzorReverseActivity extends BaseActivity
 
 	private OnCheckedChangeListener checkboxListener = new OnCheckedChangeListener()
 	{
-
 		@Override
 		public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
 		{
@@ -213,6 +212,7 @@ public class SenzorReverseActivity extends BaseActivity
 			default:
 				super.handleMessage(msg);
 		}
+
 		return true;
 	}
 

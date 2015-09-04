@@ -97,9 +97,9 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=""
                 android:id="@+id/aero_position_select_id_default"
-                android:layout_below="@+id/position_select_id"
+                android:layout_below="@+id/aero_position_select_id"
 				android:textColor="@color/dashed_dark"
-				android:layout_alignLeft="@+id/position_select_id" />
+				android:layout_alignLeft="@+id/aero_position_select_id" />
 
             <TextView
                 android:layout_width="wrap_content"

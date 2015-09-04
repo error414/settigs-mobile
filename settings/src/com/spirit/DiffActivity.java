@@ -882,6 +882,114 @@ public class DiffActivity extends BaseActivity
         }
         // #############################################################################################
 
+        ////////////////////////////////////////////
+        ////////////// AERO ////////////////////////
+        ////////////////////////////////////////////
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("LIMIT_RANGE_AILE_U")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits),  textSeparator , getString(R.string.limit_range_ail), textSeparator, getResources().getString(R.string.left)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("LIMIT_RANGE_AILE_D")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits),  textSeparator , getString(R.string.limit_range_ail), textSeparator, getResources().getString(R.string.right)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("LIMIT_RANGE_ELE_U")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits),  textSeparator , getString(R.string.limit_range_ele), textSeparator, getResources().getString(R.string.left)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("LIMIT_RANGE_ELE_D")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits),  textSeparator , getString(R.string.limit_range_ele), textSeparator, getResources().getString(R.string.right)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("LIMIT_RANGE_RUD_U")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits),  textSeparator , getString(R.string.limit_range_rud), textSeparator, getResources().getString(R.string.left)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("LIMIT_RANGE_RUD_D")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits),  textSeparator , getString(R.string.limit_range_rud), textSeparator, getResources().getString(R.string.right)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SERVO_REV_CH1")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch1)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SERVO_REV_CH2")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch2)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SERVO_REV_CH3")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch3)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SERVO_REV_CH4")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch4)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AERO_POSITION")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.general_button_text),  textSeparator , getResources().getString(R.string.position_text)).toString());
+
+            String[] values = getResources().getStringArray(R.array.aero_position_values);
+
+            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+
+        ////////////////////////////////////////////
+        ////////////////////////////////////////////
+
         diffItem.setFrom(from);
 		diffItem.setTo(to);
 

@@ -312,7 +312,13 @@ public class DstabiProfile {
 		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "F", 	"R",	true));
 
-		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST",	true));
+		profileMap.put("LIMIT_RANGE_AILE_U",	new ProfileItem(11, 32, 255, "Sa",	true));
+		profileMap.put("LIMIT_RANGE_AILE_D",	new ProfileItem(7, 32, 255,  "Si",	true));
+		profileMap.put("LIMIT_RANGE_ELE_U"	,	new ProfileItem(13, 32, 255,  "Sp",	true));
+		profileMap.put("LIMIT_RANGE_ELE_D"	,	new ProfileItem(9, 32, 255,  "Sj",	true));
+		profileMap.put("LIMIT_RANGE_RUD_U"	,	new ProfileItem(14, 32, 255,  "Sm",	true));
+		profileMap.put("LIMIT_RANGE_RUD_D"	,	new ProfileItem(10, 32, 255,  "Sk",	true));
+
 		profileMap.put("CYCLIC_FREQ",	new ProfileItem(8, "A", "F", 	"SF",	true));
 
         profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 254, 	"Se",	true));
@@ -321,12 +327,14 @@ public class DstabiProfile {
 		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 254, 	"SP",	true));
 
 
-		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false)); 		// zisk cyklikt
-		profileMap.put("SENSOR_SENZ",	new ProfileItem(20, 0, 80, "z",	false)); 	// nasobic
+		profileMap.put("SENSOR_SENX",	new ProfileItem(19, 0, 80, "x",	false));
+		profileMap.put("SENSOR_SENZ",	new ProfileItem(20, 0, 80, "z",	false));
         profileMap.put("SENSOR_GYROGAIN",	new ProfileItem(21, 0, 80, "z",	false));
 
-
-		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a",	false));		// rychlost rotace cykliky
+        profileMap.put("SERVO_REV_CH1",	new ProfileItem(22, "0", "1", "X",	true));
+        profileMap.put("SERVO_REV_CH2",	new ProfileItem(23, "0", "1", "Y",	true));
+        profileMap.put("SERVO_REV_CH3",	new ProfileItem(24, "0", "1", "Z",	true));
+        profileMap.put("SERVO_REV_CH4",	new ProfileItem(32, "0", "1", "v",	true));
 
         profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
 

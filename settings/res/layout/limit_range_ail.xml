@@ -30,7 +30,7 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/cyclic_ring_range_no_break"
+	            android:text="@string/limit_range_ail"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
@@ -47,7 +47,7 @@
 	        </com.customWidget.picker.ProgresEx>
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/cyclic_ring_pitch"
+	            android:id="@+id/limit_range_ail_right"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"

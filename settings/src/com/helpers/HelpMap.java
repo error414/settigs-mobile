@@ -70,7 +70,7 @@ public class HelpMap {
         result.put(R.id.rudder_limit_min,                   R.string.st_e11bdb4cd957e81f87afdc4b2c3134fe);
         result.put(R.id.rudder_limit_max,                   R.string.st_08a5a1e5848935703bcc7d12cf34f318);
 
-        result.put(R.id.cyclic_ring_ail_ele,                R.string.st_b7528539f90bd0ef74ab982a09574de4);
+        result.put(R.id.limit_range_ail_left,                R.string.st_b7528539f90bd0ef74ab982a09574de4);
         result.put(R.id.cyclic_ring_pitch,                  R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
         result.put(R.id.governor_thr_min,                   R.string.st_65abb627338d2deeaeacca880ecac232);

@@ -159,7 +159,7 @@ public class StabiFbModeActivity extends BaseActivity
 			CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
 
 			Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
-			if (checked) lock = lock + 1;
+			if (tempCheckbox.isChecked() != checked) lock = lock + 1;
 			tempCheckbox.setChecked(checked);
 		}
 	}

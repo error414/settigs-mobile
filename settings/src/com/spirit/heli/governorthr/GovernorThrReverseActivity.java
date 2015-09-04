@@ -158,7 +158,7 @@ public class GovernorThrReverseActivity extends BaseActivity
             CheckBox tempCheckbox = (CheckBox) findViewById(formItems[i]);
 
             Boolean checked = profileCreator.getProfileItemByName(protocolCode[i]).getValueForCheckBox();
-            if (checked) lock = lock + 1;
+            if (tempCheckbox.isChecked() != checked) lock = lock + 1;
             tempCheckbox.setChecked(checked);
 
             if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)

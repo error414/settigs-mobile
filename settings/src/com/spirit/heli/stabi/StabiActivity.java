@@ -34,6 +34,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.menu.Menu;
@@ -91,7 +93,7 @@ public class StabiActivity extends BaseActivity
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
 			{
 
-				final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+				final SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
 				final SharedPreferences.Editor editor = prefs.edit();
 
 				new AlertDialog.Builder(StabiActivity.this).setTitle(R.string.add_to_favourites).setMessage(Menu.getInstance().getItem(menuListIndex[position]).getTitle()).setPositiveButton(prefs.getAll().containsKey(String.valueOf(menuListIndex[position])) ? R.string.remove : R.string.add, new DialogInterface.OnClickListener()

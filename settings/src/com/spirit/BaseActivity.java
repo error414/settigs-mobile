@@ -88,8 +88,9 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	private final String TAG = "BaseActivity";
 
 	// klice pro nastaveni
-	final protected String PREF_BT_ADRESS = "pref_bt_adress";
-	final protected String PREF_FAVOURITES = "pref_favourites";
+	final protected String PREF_BT_ADRESS       = "pref_bt_adress";
+	final protected String PREF_FAVOURITES      = "pref_favourites";
+    final protected String PREF_FAVOURITES_AERO = "pref_favourites_aero";
 
 	// Intent request codes
 	private static final int REQUEST_ENABLE_BT = 22;

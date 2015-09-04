@@ -495,6 +495,14 @@
             android:theme="@style/CustomTheme"
             />
 
+        <activity
+            android:name=".aero.servo.ServoReverseActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
 
         <activity
             android:name=".aero.senzor.SenzorSenzivityActivity"
@@ -522,6 +530,34 @@
             android:launchMode="singleTop"
             android:theme="@style/CustomTheme"
             />
+
+        <activity
+            android:name=".aero.limit.LimitAilRangeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".aero.limit.LimitEleRangeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".aero.limit.LimitRudRangeActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
     </application>
 
 </manifest>

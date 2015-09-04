@@ -36,6 +36,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -82,7 +84,7 @@ public class FavouritesActivity extends BaseActivity
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
 
 		//naplnime seznam polozek pro menu
-		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
 		Map<String, ?> keys = prefs.getAll();
 
 		menuListIndexSaved = new Integer[keys.size()];
@@ -118,7 +120,7 @@ public class FavouritesActivity extends BaseActivity
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
 			{
 
-				final SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+				final SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
 				final SharedPreferences.Editor editor = prefs.edit();
 
 				if (prefs.getAll().containsKey(String.valueOf(menuListIndexSaved[position]))) {
@@ -156,7 +158,7 @@ public class FavouritesActivity extends BaseActivity
 
 	private void updateListView()
 	{
-		SharedPreferences prefs = getSharedPreferences(PREF_FAVOURITES, Context.MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
 		Map<String, ?> keys = prefs.getAll();
 
 		menuListIndexSaved = new Integer[keys.size()];

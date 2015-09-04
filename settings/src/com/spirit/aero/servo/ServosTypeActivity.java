@@ -45,9 +45,9 @@ public class ServosTypeActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"CYCLIC_TYPE", "CYCLIC_FREQ"};
+	private final String protocolCode[] = {"CYCLIC_FREQ"};
 
-	private int formItems[] = {R.id.cyclic_pulse, R.id.cyclic_frequency};
+	private int formItems[] = {R.id.cyclic_frequency};
 
 	private int lock = formItems.length;
 
