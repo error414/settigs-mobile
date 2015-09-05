@@ -40,7 +40,7 @@ public class HelpMap {
         result.put(R.id.stabi_pitch,                        R.string.st_e26228953ce397eb25e87bcff3607d0e);
         result.put(R.id.stabi_ctrldir,                      R.string.st_1bb89987a641483fa0a25daa7e52d27c);
         result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
-        result.put(R.id.function_select_id,                 R.string.st_1a61908b99a26de75f1d1bf61ab8c3db);
+        result.put(R.id.aero_function_select_id,                 R.string.st_1a61908b99a26de75f1d1bf61ab8c3db);
         result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
         result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);

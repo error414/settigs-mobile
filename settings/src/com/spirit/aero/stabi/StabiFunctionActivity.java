@@ -15,75 +15,54 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.aero;
+package com.spirit.aero.stabi;
 
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.exception.IndexOutOfException;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.DstabiProvider;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-/**
- * aktivita na zobrazeni general moznosti nastaveni
- *
- * @author error414
- */
-public class GeneralActivity extends BaseActivity
+public class StabiFunctionActivity extends BaseActivity
 {
 
-	@SuppressWarnings("unused")
-	final private String TAG = "GeneralActivity";
+	final private String TAG = "StabiFunctionActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-    protected String protocolCode[] = {"AERO_POSITION", "RECEIVER"};
+	private final String protocolCode[] = {"AERO_ALT_FUNCTION",};
 
-	// gui prvky ktere sou v teto aktivite aktivni
-	protected int formItems[] = {R.id.aero_position_select_id, R.id.receiver_select_id};
+	private int formItems[] = {R.id.aero_function_select_id};
 
 	private int lock = formItems.length;
 
-    /**
-     * je mozne odesilat data do zarizeni
-     */
-    private Boolean isPosibleSendData = true;
-
-    /**
-     * je potreba prenacist kanaly
-     */
-    private Boolean needRestoreChannels = false;
-
-    /**
-	 * zavolani pri vytvoreni instance aktivity settings
+	/**
+	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
+	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		//setContentView(R.layout.general);
-        initSlideMenu(R.layout.aero_general);
+		initSlideMenu(R.layout.aero_stabi_function);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_function)));
+
+		initConfiguration();
 		delegateListener();
 	}
 
@@ -109,19 +88,6 @@ public class GeneralActivity extends BaseActivity
     protected int getDefaultValueType(){
         return DEFAULT_VALUE_TYPE_SPINNER;
     }
-	
-	/**
-	 * stiknuti tlacitka channels
-	 * 
-	 * @param v
-	 */
-	public void openChannelsActivity(View v)
-	{
-        if(!getAppBasicMode()) {
-            Intent i = new Intent(GeneralActivity.this, com.spirit.aero.general.ChannelsActivity.class);
-            startActivity(i);
-        }
-	}
 
 	/**
 	 * prvotni konfigurace view
@@ -132,16 +98,12 @@ public class GeneralActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
-			initConfiguration();
             initDefaultValue();
-
-            ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
-
 		} else {
 			finish();
 		}
 	}
-
+	
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -185,7 +147,6 @@ public class GeneralActivity extends BaseActivity
 	{
 		profileCreator = new DstabiProfile(profile);
 
-		
 		if (!profileCreator.isValid()) {
 			errorInActivity(R.string.damage_profile);
 			return;
@@ -193,91 +154,34 @@ public class GeneralActivity extends BaseActivity
 		
 		checkBankNumber(profileCreator);
 		initBasicMode();
-
+		
 		try {
 			for (int i = 0; i < formItems.length; i++) {
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
-				if (pos != tempSpinner.getSelectedItemPosition()){
-					lock = lock + 1;
-				}
 
+				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 			}
-
 		} catch (IndexOutOfException e) {
 			errorInActivity(R.string.damage_profile);
 			return;
 		}
 	}
 
-    protected void restoreChannels(int receiverPosition){
-        isPosibleSendData = true;
-        // musime byt pripojeni
-        if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-            Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        if(profileCreator == null){
-            return;
-        }
-
-        final String[] map = {"CHANNELS_THT", "CHANNELS_AIL", "CHANNELS_ELE", "CHANNELS_RUD", "CHANNELS_GAIN", "CHANNELS_PITH", "CHANNELS_BANK"};
-        switch (receiverPosition) {
-            case 2:
-                //spectrum
-                Log.d(TAG, "spectrum");
-                profileCreator.getProfileItemByName("CHANNELS_THT").setValue(0);
-                profileCreator.getProfileItemByName("CHANNELS_AIL").setValue(1);
-                profileCreator.getProfileItemByName("CHANNELS_ELE").setValue(2);
-                profileCreator.getProfileItemByName("CHANNELS_RUD").setValue(3);
-                profileCreator.getProfileItemByName("CHANNELS_GAIN").setValue(4);
-                profileCreator.getProfileItemByName("CHANNELS_PITH").setValue(5);
-                profileCreator.getProfileItemByName("CHANNELS_BANK").setValue(7);
-
-                break;
-            default:
-                //other receiver
-                Log.d(TAG, "other");
-                profileCreator.getProfileItemByName("CHANNELS_THT").setValue(7);
-                profileCreator.getProfileItemByName("CHANNELS_AIL").setValue(1);
-                profileCreator.getProfileItemByName("CHANNELS_ELE").setValue(2);
-                profileCreator.getProfileItemByName("CHANNELS_RUD").setValue(3);
-                profileCreator.getProfileItemByName("CHANNELS_GAIN").setValue(4);
-                profileCreator.getProfileItemByName("CHANNELS_PITH").setValue(5);
-                profileCreator.getProfileItemByName("CHANNELS_BANK").setValue(7);
-                break;
-        }
-
-        for(String item : map){
-            if (isPosibleSendData) {
-                showInfoBarWrite();
-                stabiProvider.sendDataNoWaitForResponce(profileCreator.getProfileItemByName(item));
-            }else if (!isPosibleSendData) {
-                isPosibleSendData = true;
-                break;
-            }else{
-                break;
-            }
-        }
-        checkChange(profileCreator);
-
-    }
-
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-			
+
+
 			if (lock != 0) {
 				lock -= 1;
 				return;
 			}
 			lock = Math.max(lock - 1, 0);
-
 
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
@@ -286,17 +190,14 @@ public class GeneralActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-                    Log.d(TAG, "odesilam spinner");
-					showInfoBarWrite();
 
-                    if(i == 2){
-                        needRestoreChannels = true;
+                    if(i == 0 && pos != 0){ // i == 0 je stabi function a pokud se vybere nejaka jina moznost nez vypnuto tak zobrazit upozorneni
+                        showConfirmDialog(R.string.stabi_piruete_warning);
                     }
 
+					showInfoBarWrite();
 				}
 			}
-
-            //governor jen pro NEpwm a musi byt prirazen kanal plynu
             initDefaultValue();
 		}
 
@@ -308,49 +209,22 @@ public class GeneralActivity extends BaseActivity
 		}
 	};
 
-	/**
-	 * obsluha callbacku
-	 *
-	 * @param msg
-	 * @return
-	 */
+
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
-                    initDefaultValue();
 					sendInSuccessDialog();
+                    initDefaultValue();
 				}
 				break;
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
-                ((Button)findViewById(R.id.channels)).setEnabled(!getAppBasicMode());
 				break;
-            case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-                isPosibleSendData = false;
-                stabiProvider.abortAll();
-                super.handleMessage(msg);
-                break;
-            case DstabiProvider.MESSAGE_SEND_COMPLETE:
-                Log.d(TAG, "response");
-                super.handleMessage(msg);
-                if(needRestoreChannels){
-                    needRestoreChannels = false;
-                    if(profileCreator != null){
-                        try {
-                            restoreChannels(profileCreator.getProfileItemByName("RECEIVER").getValueForSpinner(profileCreator.getProfileItemByName("RECEIVER").getMaximum()));
-                        } catch (IndexOutOfException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-
-                break;
-
-            default:
+			default:
 				super.handleMessage(msg);
 		}
 		return true;
@@ -368,3 +242,4 @@ public class GeneralActivity extends BaseActivity
         EasyTracker.getInstance(this).activityStop(this);
     }
 }
+

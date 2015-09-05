@@ -15,20 +15,17 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
 
-package com.spirit.heli.stabi;
+package com.spirit.aero.advanced;
 
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.view.View;
 import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.exception.IndexOutOfException;
+import com.customWidget.picker.ProgresEx;
+import com.customWidget.picker.ProgresEx.OnChangedListener;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
@@ -36,18 +33,19 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class StabiFunctionActivity extends BaseActivity
+public class FFActivity extends BaseActivity
 {
 
-	final private String TAG = "StabiFunctionActivity";
+	@SuppressWarnings("unused")
+	final private String TAG = "FFActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"ALT_FUNCTION",};
+	private final String protocolCode[] = {"FF",};
 
-	private int formItems[] = {R.id.aero_function_select_id};
+	private int formItems[] = {R.id.ff,};
 
-	private int lock = formItems.length;
+	private int formItemsTitle[] = {R.string.ff,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
@@ -57,11 +55,12 @@ public class StabiFunctionActivity extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.stabi_function);
+		initSlideMenu(R.layout.aero_advanced_ff);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.stabi_button_text), " \u2192 ", getString(R.string.stabi_function)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.advanced_button_text), " \u2192 ", getString(R.string.ff)));
 
+		initGui();
 		initConfiguration();
 		delegateListener();
 	}
@@ -86,11 +85,11 @@ public class StabiFunctionActivity extends BaseActivity
      *
      */
     protected int getDefaultValueType(){
-        return DEFAULT_VALUE_TYPE_SPINNER;
+        return DEFAULT_VALUE_TYPE_SEEK;
     }
 
 	/**
-	 * prvotni konfigurace view
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
@@ -110,10 +109,18 @@ public class StabiFunctionActivity extends BaseActivity
 	protected void initBasicMode()
 	{
 		for (int i = 0; i < formItems.length; i++) {
-			Spinner spinner = (Spinner) findViewById(formItems[i]);
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			
-			spinner.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+			tempPicker.setEnabled(!(getAppBasicMode() && item.isDeactiveInBasicMode()));
+		}
+	}
+
+	private void initGui()
+	{
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		}
 	}
 
@@ -124,12 +131,12 @@ public class StabiFunctionActivity extends BaseActivity
 	{
 		//nastaveni posluchacu pro formularove prvky
 		for (int i = 0; i < formItems.length; i++) {
-			((Spinner) findViewById(formItems[i])).setOnItemSelectedListener(spinnerListener);
+			((ProgresEx) findViewById(formItems[i])).setOnChangeListener(numberPicekrListener);
 		}
 	}
 
 	/**
-	 * ziskani profilu z jednotky
+	 * prvotni konfigurace view
 	 */
 	private void initConfiguration()
 	{
@@ -154,61 +161,41 @@ public class StabiFunctionActivity extends BaseActivity
 		
 		checkBankNumber(profileCreator);
 		initBasicMode();
-		
-		try {
-			for (int i = 0; i < formItems.length; i++) {
-				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
-				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
+		for (int i = 0; i < formItems.length; i++) {
+			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 
-				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
-				tempSpinner.setSelection(pos);
-			}
-		} catch (IndexOutOfException e) {
-			errorInActivity(R.string.damage_profile);
-			return;
+			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setCurrentNoNotify(item.getValueInteger());
 		}
+
 	}
 
-	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
+	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
+
+
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+		public void onChanged(ProgresEx parent, int newVal)
 		{
-
-
-			if (lock != 0) {
-				lock -= 1;
-				return;
-			}
-			lock = Math.max(lock - 1, 0);
-
+			// TODO Auto-generated method stub
 			// prohledani jestli udalost vyvolal znamy prvek
 			// pokud prvek najdeme vyhledame si k prvku jeho protkolovy kod a odesleme
 			for (int i = 0; i < formItems.length; i++) {
 				if (parent.getId() == formItems[i]) {
-					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-					item.setValueFromSpinner(pos);
-					stabiProvider.sendDataNoWaitForResponce(item);
-
-                    if(i == 0 && pos != 0){ // i == 0 je stabi function a pokud se vybere nejaka jina moznost nez vypnuto tak zobrazit upozorneni
-                        showConfirmDialog(R.string.stabi_piruete_warning);
-                    }
-
 					showInfoBarWrite();
+					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+                    if(item != null) {
+                        item.setValue(newVal);
+                        stabiProvider.sendDataNoWaitForResponce(item);
+                    }
 				}
 			}
             initDefaultValue();
 		}
 
-		@Override
-		public void onNothingSelected(AdapterView<?> arg0)
-		{
-			// TODO Auto-generated method stub
-
-		}
 	};
-
 
 	public boolean handleMessage(Message msg)
 	{
@@ -223,10 +210,12 @@ public class StabiFunctionActivity extends BaseActivity
 			case BANK_CHANGE_CALL_BACK_CODE:
 				initConfiguration();
 				super.handleMessage(msg);
-				break;
+				break;	
+				
 			default:
 				super.handleMessage(msg);
 		}
+
 		return true;
 	}
 
@@ -237,9 +226,9 @@ public class StabiFunctionActivity extends BaseActivity
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
     }
 }
-

@@ -54,7 +54,7 @@
 	            android:layout_height="wrap_content"
 	            android:layout_alignLeft="@+id/textView1"
 	            android:layout_below="@+id/textView1"
-	            android:entries="@array/function_values"
+	            android:entries="@array/aero_function_values"
 	            android:minWidth="230dp" />
 
             <TextView
@@ -62,7 +62,7 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=""
-                android:id="@+id/function_select_id_default"
+                android:id="@+id/aero_function_select_id_default"
                 android:layout_below="@+id/aero_function_select_id"
                 android:layout_alignLeft="@+id/aero_function_select_id" />
 

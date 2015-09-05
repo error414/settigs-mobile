@@ -439,7 +439,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("CYCLIC_FF")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.cyclic_ff),  textSeparator , getResources().getString(R.string.cyclic_ff)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.cyclic_ff)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -984,6 +984,35 @@ public class DiffActivity extends BaseActivity
 
             from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
             to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AERO_ALT_FUNCTION")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.stabi_button_text),  textSeparator , getResources().getString(R.string.stabi_function)).toString());
+
+            String[] values = getResources().getStringArray(R.array.aero_function_values);
+
+            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("FF")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.ff)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AERO_STICK_DB")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.stick_deadband)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
         }
         // #############################################################################################
 

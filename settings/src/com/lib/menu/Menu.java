@@ -5,6 +5,7 @@ import com.helpers.Globals;
 import com.spirit.ConnectionActivity;
 import com.spirit.FavouritesActivity;
 import com.spirit.R;
+import com.spirit.aero.advanced.FFActivity;
 import com.spirit.aero.limit.LimitAilRangeActivity;
 import com.spirit.aero.limit.LimitEleRangeActivity;
 import com.spirit.aero.limit.LimitRudRangeActivity;
@@ -149,6 +150,8 @@ public class Menu {
     public static Integer MENU_GOV_GEAR_SETTINGS   = 47;
     public static Integer MENU_GOV_THR_REVERSE     = 48;
     public static Integer MENU_GOV_SPOOLUP         = 50;
+
+    public static Integer MENU_FF                  = 57;
 
     public static Integer MENU_LIMIT_AIL           = 54;
     public static Integer MENU_LIMIT_ELE           = 55;
@@ -439,11 +442,17 @@ public class Menu {
         //senzor
         menuList.put(MENU_SENZOR,       new MenuItem(R.drawable.i15,     R.string.senzor_button_text, SenzorActivity.class));
 
+        //stabi
+        menuList.put(MENU_STABI,        new MenuItem(R.drawable.i50,     R.string.stabi_button_text, StabiActivity.class));
+
+        //advanced
+        menuList.put(MENU_ADVANCED,     new MenuItem(R.drawable.i20,     R.string.advanced_button_text, AdvancedActivity.class));
+
         //diagnostic
         menuList.put(MENU_DIAGNOSTIC_LIST,   new MenuItem(R.drawable.i37,     R.string.diagnostic_button_text, DiagnosticActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_DIAGNOSTIC_LIST});
+        menuGroups.put(MENU_INDEX_SETTINGS, new Integer[]{MENU_CONNECTION, MENU_FAVOURITES, MENU_GENERAL, MENU_SERVO, MENU_SERVOLIMIT, MENU_SENZOR, MENU_STABI, MENU_ADVANCED,  MENU_DIAGNOSTIC_LIST});
 
 
         //SERVO ACTIVITY
@@ -482,6 +491,25 @@ public class Menu {
         menuGroups.put(MENU_INDEX_SENZOR, new Integer[]{MENU_SENZIVITY,});
 
 
+        //STABI ACTIVITY
+        //function
+        menuList.put(MENU_STABIFUNCTION,   new MenuItem(R.drawable.i50,     R.string.stabi_function, com.spirit.aero.stabi.StabiFunctionActivity.class));
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION,});
+
+
+        //ADVANCED ACTIVITY
+
+        //cyclic ff
+        menuList.put(MENU_FF,   new MenuItem(R.drawable.na,     R.string.cyclic_ff, FFActivity.class));
+
+        //stick deadband
+        menuList.put(MENU_DEADBAND,   new MenuItem(R.drawable.i22,     R.string.stick_deadband, com.spirit.aero.advanced.StickDeadBandActivity.class));
+
+
+        //add to groups
+        menuGroups.put(MENU_INDEX_ADVANCED, new Integer[]{MENU_FF, MENU_DEADBAND, });
 
         //DIAGNOSTIC ACTIVITY
         //diagnostic

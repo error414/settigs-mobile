@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/background_color"
+    android:onClick="openChannlesActivity"
+    android:orientation="vertical" >
+
+	 <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/background_color">
+
+	    <RelativeLayout
+	        android:layout_width="fill_parent"
+	        android:layout_height="fill_parent"
+	        android:background="@color/background_color" >
+
+	        <TextView
+	            android:id="@+id/textView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="16dp"
+	            android:layout_marginTop="60dp"
+	            android:text="@string/throttle"
+	            android:textColor="@color/text_color" />
+
+	        <ImageView
+	            android:id="@+id/imageView1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_below="@+id/textView2"
+	            android:src="@drawable/black_line" />
+
+	        <TextView
+	            android:id="@+id/textView2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignParentLeft="true"
+	            android:layout_alignParentTop="true"
+	            android:layout_marginLeft="10dp"
+	            android:text="@string/channels"
+	            android:textAppearance="?android:attr/textAppearanceLarge"
+	            android:textColor="@color/text_color"
+	            android:textStyle="bold" />
+
+	        <Spinner
+	            android:id="@+id/tht_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView1"
+	            android:layout_below="@+id/textView1"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+
+	        <TextView
+	            android:id="@+id/textView6"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/tht_select_id"
+	            android:layout_below="@+id/tht_select_id"
+	            android:layout_marginTop="32dp"
+	            android:text="@string/diag_aileron"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/aile_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/textView6"
+	            android:layout_below="@+id/textView6"
+	            android:entries="@array/channels_restrict_values"
+	            android:minWidth="230dp" />
+
+	        <TextView
+	            android:id="@+id/TextView01"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/aile_select_id"
+	            android:layout_below="@+id/aile_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/diag_elevator"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/ele_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView01"
+	            android:layout_below="@+id/TextView01"
+	            android:entries="@array/channels_restrict_values"
+	            android:minWidth="230dp" />
+
+
+	         <TextView
+	            android:id="@+id/TextView02"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/ele_select_id"
+	            android:layout_below="@+id/ele_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/diag_rudder"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/run_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView02"
+	            android:layout_below="@+id/TextView02"
+	            android:entries="@array/channels_restrict_values"
+	            android:minWidth="230dp" />
+
+	        <TextView
+	            android:id="@+id/TextView03"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/run_select_id"
+	            android:layout_below="@+id/run_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/gyro_gain"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/gain_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView03"
+	            android:layout_below="@+id/TextView03"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+
+
+	        <TextView
+	            android:id="@+id/TextView04"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/gain_select_id"
+	            android:layout_below="@+id/gain_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/diag_special"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/pitch_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView04"
+	            android:layout_below="@+id/TextView04"
+	            android:entries="@array/channels_restrict_values"
+	            android:minWidth="230dp" />
+
+	         <TextView
+	            android:id="@+id/TextView05"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/pitch_select_id"
+	            android:layout_below="@+id/pitch_select_id"
+	            android:layout_marginTop="41dp"
+	            android:text="@string/banks"
+	            android:textColor="@color/text_color" />
+
+	        <Spinner
+	            android:id="@+id/bank_select_id"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_alignLeft="@+id/TextView05"
+	            android:layout_below="@+id/TextView05"
+	            android:entries="@array/channels_values"
+	            android:minWidth="230dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/tht_select_id_default"
+                android:layout_below="@+id/tht_select_id"
+                android:layout_alignLeft="@+id/tht_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/aile_select_id_default"
+                android:layout_below="@+id/aile_select_id"
+                android:layout_alignLeft="@+id/aile_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/ele_select_id_default"
+                android:layout_below="@+id/ele_select_id"
+                android:layout_alignLeft="@+id/ele_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/run_select_id_default"
+                android:layout_below="@+id/run_select_id"
+                android:layout_alignLeft="@+id/run_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/gain_select_id_default"
+                android:layout_below="@+id/gain_select_id"
+                android:layout_alignLeft="@+id/gain_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/pitch_select_id_default"
+                android:layout_below="@+id/pitch_select_id"
+                android:layout_alignLeft="@+id/pitch_select_id" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text=""
+                android:id="@+id/bank_select_id_default"
+                android:layout_below="@+id/bank_select_id"
+                android:layout_alignLeft="@+id/bank_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/throttle_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="100"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_alignTop="@+id/tht_select_id_default"
+				android:layout_alignLeft="@+id/textView6"
+				android:layout_alignStart="@+id/textView6"
+				android:layout_alignRight="@+id/tht_select_id"
+				android:layout_alignEnd="@+id/tht_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/aileron_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/aile_select_id"
+				android:layout_alignLeft="@+id/aile_select_id"
+				android:layout_alignStart="@+id/aile_select_id"
+				android:layout_alignRight="@+id/aile_select_id"
+				android:layout_alignEnd="@+id/aile_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/elevator_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/ele_select_id"
+				android:layout_alignLeft="@+id/ele_select_id"
+				android:layout_alignStart="@+id/ele_select_id"
+				android:layout_alignRight="@+id/ele_select_id"
+				android:layout_alignEnd="@+id/ele_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/rudder_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/run_select_id"
+				android:layout_alignLeft="@+id/run_select_id"
+				android:layout_alignStart="@+id/run_select_id"
+				android:layout_alignRight="@+id/run_select_id"
+				android:layout_alignEnd="@+id/run_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/gyro_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/gain_select_id"
+				android:layout_alignLeft="@+id/gain_select_id"
+				android:layout_alignStart="@+id/gain_select_id"
+				android:layout_alignRight="@+id/gain_select_id"
+				android:layout_alignEnd="@+id/gain_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/pitch_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/pitch_select_id"
+				android:layout_alignLeft="@+id/pitch_select_id"
+				android:layout_alignStart="@+id/pitch_select_id"
+				android:layout_alignRight="@+id/pitch_select_id"
+				android:layout_alignEnd="@+id/pitch_select_id" />
+
+			<ProgressBar
+				style="?android:attr/progressBarStyleHorizontal"
+				android:id="@+id/bank_progress_diagnostic"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:max="200"
+				android:progressDrawable="@drawable/my_custom_pb"
+				android:layout_below="@+id/bank_select_id"
+				android:layout_alignLeft="@+id/bank_select_id"
+				android:layout_alignStart="@+id/bank_select_id"
+				android:layout_alignRight="@+id/bank_select_id"
+				android:layout_alignEnd="@+id/bank_select_id"
+				android:paddingBottom="10dp" />
+
+
+		</RelativeLayout>
+
+	</ScrollView>
+</LinearLayout>

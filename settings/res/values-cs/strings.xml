@@ -168,6 +168,7 @@
     <string name="cyclic_phase">Virtuální pootočení cykliky</string>
     <string name="cyclic_phase_deg">Úhel rotace [°]</string>
     <string name="cyclic_ff">Počáteční reakce cykliky</string>
+    <string name="ff">Počáteční reakce</string>
     <string name="stabi_function">Funkce</string>
     <string name="stabi_col">Kolektiv</string>
     <string name="stabi_roll">Kompenzace momentu pro křidélka</string>
@@ -318,6 +319,12 @@
         <item>Vypnuto</item>
         <item>Záchrana (Normál)</item>
         <item>Záchrana (Akro)</item>
+        <item>Stabilizace (Normál)</item>
+        <item>Stabilizace (Akro)</item>
+    </string-array>
+
+    <string-array name="aero_function_values">
+        <item>Vypnuto</item>
         <item>Stabilizace (Normál)</item>
         <item>Stabilizace (Akro)</item>
     </string-array>

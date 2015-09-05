@@ -334,11 +334,14 @@ public class DstabiProfile {
         profileMap.put("SERVO_REV_CH1",	new ProfileItem(22, "0", "1", "X",	true));
         profileMap.put("SERVO_REV_CH2",	new ProfileItem(23, "0", "1", "Y",	true));
         profileMap.put("SERVO_REV_CH3",	new ProfileItem(24, "0", "1", "Z",	true));
+
+        profileMap.put("FF",		new ProfileItem(26, 1, 12, 	"b",	false));		// pocatecni reakce
+
+        profileMap.put("AERO_STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
+
         profileMap.put("SERVO_REV_CH4",	new ProfileItem(32, "0", "1", "v",	true));
 
-        profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
-
-        profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "E", "f",	false)); 	// stabi mode
+        profileMap.put("AERO_ALT_FUNCTION",	new ProfileItem(31, "A", "C", "f",	false)); 	// stabi mode
 
 		profileMap.put("CHECKSUM_LO",	new ProfileItem(36, 0, 255, null,	true)); 	// checksum pro kontrolu dat
 		profileMap.put("CHECKSUM_HI",	new ProfileItem(39, 0, 255, null,	true)); 	// checksum pro kontrolu dat

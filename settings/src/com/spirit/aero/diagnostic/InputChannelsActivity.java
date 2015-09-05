@@ -120,8 +120,8 @@ public class InputChannelsActivity extends BaseActivity
 			return;
 		}
 	    /* MTODO nazvy udelat v konstantach */
-		this.stickDB = profileCreator.getProfileItemByName("STICK_DB").getValueInteger();
-		this.stabiMode = profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger();
+		this.stickDB = profileCreator.getProfileItemByName("AERO_STICK_DB").getValueInteger();
+		this.stabiMode = profileCreator.getProfileItemByName("AERO_ALT_FUNCTION").getValueInteger();
 
 		//mame profil muzeme zazadat o data o pohybu kniplu
 		getPositionFromUnit();

@@ -121,6 +121,7 @@
     <string name="diag_aileron">Aileron</string>
     <string name="diag_elevator">Elevator</string>
     <string name="diag_pitch">Pitch</string>
+    <string name="diag_special" translatable="false">Special</string>
     <string name="governor_rpm_senzor">RPM senzor</string>
 
     <string name="cyclic_ring_range">Cyclic end-points</string>
@@ -156,6 +157,7 @@
     <string name="cyclic_phase">Cyclic phase</string>
     <string name="cyclic_phase_deg">Rotation angle [°]</string>
     <string name="cyclic_ff">Cyclic feed forward</string>
+    <string name="ff">Feed forward</string>
     <string name="stabi_function">Function</string>
     <string name="stabi_col">Rescue collective pitch</string>
     <string name="stabi_roll">Roll compensation</string>
@@ -299,6 +301,12 @@
         <item>Disabled</item>
         <item>Rescue (Normal)</item>
         <item>Rescue (Acro)</item>
+        <item>Stabilisation (Normal)</item>
+        <item>Stabilisation (Acro)</item>
+    </string-array>
+
+    <string-array name="aero_function_values">
+        <item>Disabled</item>
         <item>Stabilisation (Normal)</item>
         <item>Stabilisation (Acro)</item>
     </string-array>

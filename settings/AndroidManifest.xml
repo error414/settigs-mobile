@@ -558,6 +558,42 @@
             android:theme="@style/CustomTheme"
             />
 
+        <activity
+            android:name=".aero.stabi.StabiFunctionActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".aero.advanced.FFActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".aero.advanced.StickDeadBandActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".aero.general.ChannelsActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
     </application>
 
 </manifest>
