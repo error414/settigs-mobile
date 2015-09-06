@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_centerHorizontal="true"
-                android:ems="4"
+                android:ems="6"
                 android:inputType="numberDecimal"
                 android:layout_marginTop="10dp"
                 android:gravity="center"

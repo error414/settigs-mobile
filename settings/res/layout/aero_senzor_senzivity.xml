@@ -37,7 +37,7 @@
 				android:textStyle="bold" />
 
 			<com.customWidget.picker.ProgresEx
-				android:id="@+id/x_cyclic"
+				android:id="@+id/sen_x"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:layout_alignParentLeft="true"
@@ -48,20 +48,20 @@
 			</com.customWidget.picker.ProgresEx>
 
 			<com.customWidget.picker.ProgresEx
-				android:id="@+id/z_rudder"
+				android:id="@+id/sen_y"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_alignRight="@+id/x_cyclic"
-				android:layout_below="@+id/x_cyclic"
+				android:layout_alignRight="@+id/sen_x"
+				android:layout_below="@+id/sen_x"
 				android:layout_marginTop="32dp" >
 			</com.customWidget.picker.ProgresEx>
 
 			<com.customWidget.picker.ProgresEx
-				android:id="@+id/gyro_gain"
+				android:id="@+id/sen_z"
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
-				android:layout_alignRight="@+id/z_rudder"
-				android:layout_below="@+id/z_rudder"
+				android:layout_alignRight="@+id/sen_y"
+				android:layout_below="@+id/sen_y"
 				android:layout_marginTop="32dp" >
 			</com.customWidget.picker.ProgresEx>
 

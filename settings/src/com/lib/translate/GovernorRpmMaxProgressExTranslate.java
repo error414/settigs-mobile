@@ -9,7 +9,7 @@ public class GovernorRpmMaxProgressExTranslate implements ProgresExViewTranslate
     @Override
     public String translateCurrent(int current)
     {
-        return String.valueOf((current * 10) + 1500);
+        return String.valueOf((current * 10) + 1500) + " RPM";
     }
 
     @Override

@@ -44,7 +44,7 @@ public class HelpMap {
         result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
         result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);
-        result.put(R.id.z_rudder,                           R.string.st_466a542ef886802f5bbc2c23bc91fd06);
+        result.put(R.id.rudder_common_gain,                 R.string.st_466a542ef886802f5bbc2c23bc91fd06);
         result.put(R.id.gyro_gain,                          R.string.st_e1ef2f3a7b6fa63d68cb2b9b2e72a571);
 
         result.put(R.id.x_pitch_reverse,                    R.string.st_95e83a5f5c4f175cfefe9b06620fc385);

@@ -9,19 +9,19 @@ public class StabiSenzivityXProgressExTranslate implements ProgresExViewTranslat
     @Override
     public String translateCurrent(int current)
     {
-        return String.valueOf(current + 20);
+        return String.valueOf(current + 20) + "%";
     }
 
     @Override
     public String translateMin(int min)
     {
-        return String.valueOf(min + 20);
+        return String.valueOf(min + 20) + "%";
     }
 
     @Override
     public String translateMax(int max)
     {
-        return String.valueOf(max + 20);
+        return String.valueOf(max + 20) + "%";
     }
 
 }

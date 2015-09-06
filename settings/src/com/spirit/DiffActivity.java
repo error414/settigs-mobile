@@ -42,6 +42,8 @@ import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
+import com.lib.translate.StabiSenzivityXProgressExTranslate;
+import com.lib.translate.StabiSenzivityYProgressExTranslate;
 import com.lib.translate.StabiSenzivityZProgressExTranslate;
 
 import java.util.ArrayList;
@@ -357,8 +359,10 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SENSOR_SENX")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.x_cyclic)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() + 20);
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger() + 20);
+            StabiSenzivityXProgressExTranslate translate = new StabiSenzivityXProgressExTranslate();
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
@@ -372,14 +376,14 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("SENSOR_SENZ")){
+        if(diffItem.getLabel().equals("SENSOR_RUDDER_COMMON_GAIN")){
 
             StabiSenzivityZProgressExTranslate translate = new StabiSenzivityZProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.z_rudder)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.rudder_common_gain)).toString());
 
-            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger() + 50));
-            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger() + 50));
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
@@ -387,8 +391,10 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SENSOR_GYROGAIN")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.gyro_gain)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 100);
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger() - 100);
+            StabiSenzivityYProgressExTranslate translate = new StabiSenzivityYProgressExTranslate();
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
@@ -944,8 +950,8 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SERVO_REV_CH1")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch1)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -953,8 +959,8 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SERVO_REV_CH2")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch2)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -962,8 +968,8 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SERVO_REV_CH3")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch3)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -971,8 +977,8 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SERVO_REV_CH4")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch4)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -1013,6 +1019,50 @@ public class DiffActivity extends BaseActivity
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AERO_SENSOR_SENX")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.diag_aileron)).toString());
+
+            StabiSenzivityXProgressExTranslate translate = new StabiSenzivityXProgressExTranslate();
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AERO_SENSOR_SENY")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.diag_elevator)).toString());
+
+            StabiSenzivityXProgressExTranslate translate = new StabiSenzivityXProgressExTranslate();
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AERO_SENSOR_SENZ")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.diag_rudder)).toString());
+
+            StabiSenzivityXProgressExTranslate translate = new StabiSenzivityXProgressExTranslate();
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SERVO_FREQ")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text), textSeparator, getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.frequency)).toString());
+
+            String[] values = getResources().getStringArray(R.array.cyclic_frequency_value);
+
+            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
+            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
         }
         // #############################################################################################
 

@@ -15,19 +15,19 @@ public class StabiSenzivityZProgressExTranslate implements ProgresExViewTranslat
     @Override
     public String translateCurrent(int current)
     {
-        return String.valueOf(((float)(current + 50) / 100) ) + " X";
+        return String.valueOf(((float)(current + 50) / 100) ) + "x";
     }
 
     @Override
     public String translateMin(int min)
     {
-        return String.valueOf(((float)(min + 50) / 100)) + " X";
+        return String.valueOf(((float)(min + 50) / 100)) + "x";
     }
 
     @Override
     public String translateMax(int max)
     {
-        return String.valueOf(((float)(max + 50) / 100)) + " X";
+        return String.valueOf(((float)(max + 50) / 100)) + "x";
     }
 
 }

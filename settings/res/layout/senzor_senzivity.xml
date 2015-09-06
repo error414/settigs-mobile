@@ -47,23 +47,25 @@
 
 	        </com.customWidget.picker.ProgresEx>
 
+			<com.customWidget.picker.ProgresEx
+				android:id="@+id/gyro_gain"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignRight="@+id/x_cyclic"
+				android:layout_below="@+id/x_cyclic"
+				android:layout_marginTop="32dp" >
+			</com.customWidget.picker.ProgresEx>
+
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/z_rudder"
+	            android:id="@+id/rudder_common_gain"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/x_cyclic"
-	            android:layout_below="@+id/x_cyclic"
+	            android:layout_alignRight="@+id/gyro_gain"
+	            android:layout_below="@+id/gyro_gain"
 	            android:layout_marginTop="32dp" >
 	        </com.customWidget.picker.ProgresEx>
 	        
-	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/gyro_gain"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignRight="@+id/z_rudder"
-	            android:layout_below="@+id/z_rudder"
-	            android:layout_marginTop="32dp" >
-	        </com.customWidget.picker.ProgresEx>
+
 
 	    </RelativeLayout>
 

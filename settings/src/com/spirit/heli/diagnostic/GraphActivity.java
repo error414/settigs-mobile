@@ -224,13 +224,13 @@ public class GraphActivity extends BaseActivity
 		//aprLevelsPlot.disableAllMarkup();
 		aprLevelsPlot.setBorderStyle(Plot.BorderStyle.SQUARE, null, null);
 
-		aprLevelsPlot.setRangeBoundaries(0, 110, BoundaryMode.FIXED);
-		aprLevelsPlot.setRangeLabel(getString(R.string.amplitude));
-		aprLevelsPlot.setRangeStepValue(50);
+		aprLevelsPlot.setRangeBoundaries(0, 100, BoundaryMode.FIXED);
+		aprLevelsPlot.setRangeLabel(getString(R.string.magnitude));
+		aprLevelsPlot.setRangeStepValue(11);
 
 		aprLevelsPlot.setDomainBoundaries(0, 500, BoundaryMode.FIXED);
 		aprLevelsPlot.setDomainLabel(String.valueOf(TextUtils.concat(getString(R.string.frequency), " ", getString(R.string.hz), " / ", getString(R.string.axis_X))));
-		aprLevelsPlot.setRangeStepValue(10);
+		aprLevelsPlot.setDomainStepValue(11);
 		aprLevelsPlot.setOnClickListener(clickActionistener);
 		aprLevelsPlot.getLayoutManager().remove(aprLevelsPlot.getLegendWidget());
 	}
@@ -253,7 +253,20 @@ public class GraphActivity extends BaseActivity
             stateGraphFreezeSet = false;
         }
 
+        float max = 0;
+        for(Number series : seriesX){
+            if(max < series.floatValue()){
+                max = series.floatValue();
+            }
+        }
 
+        if(max > 100){
+            aprLevelsPlot.setRangeBoundaries(0, 200, BoundaryMode.FIXED);
+            aprLevelsPlot.setRangeStepValue(21);
+        }else if(max < 90){
+            aprLevelsPlot.setRangeBoundaries(0, 100, BoundaryMode.FIXED);
+            aprLevelsPlot.setRangeStepValue(11);
+        }
 
 		topThree = this.topThree(seriesX);
 		aprLevelsSeries.setModel(Arrays.asList(seriesX), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY);
@@ -387,7 +400,7 @@ public class GraphActivity extends BaseActivity
 							if ((int) dataBuffer[i] == -5) {    // nasli jsme magic byte	-5 & 0xFF = 251 = 0xFB
 								short val = (short) ((dataBuffer[i + 1] & 0xFF) | ((dataBuffer[i + 2] & 0xFF) << 8));
 
-								input_xr[i / 3] = val;
+								input_xr[i / 3] = val * 10;
 								input_xi[i / 3] = 0;
 
 								//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);

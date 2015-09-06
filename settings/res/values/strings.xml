@@ -3,7 +3,7 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 30.08.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 06.09.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -138,7 +138,7 @@
     <string name="x_cyclic">Cyclic gain</string>
     <string name="y_rool">Y-Roll</string>
     <string name="z_yaw">Z-Yaw</string>
-    <string name="z_rudder">Rudder Common Gain</string>
+    <string name="rudder_common_gain">Rudder Common Gain</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
     <string name="rotation_speed">Rotation speed</string>
@@ -169,6 +169,7 @@
     <string name="stabi_fbmode_en">Enable</string>
     <string name="stabi_ctrldir">Direction control rate</string>
     <string name="amplitude">Amplitude</string>
+    <string name="magnitude">Magnitude</string>
     <string name="hz">[Hz]</string>
     <string name="profile_diff">Profile diff</string>
     <string name="profile_bank_diff">Comparison</string>

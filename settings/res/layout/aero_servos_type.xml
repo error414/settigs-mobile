@@ -72,7 +72,7 @@
             android:textColor="@color/text_color" />
 
         <Spinner
-            android:id="@+id/cyclic_frequency"
+            android:id="@+id/servo_frequency"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignLeft="@+id/textView4"
@@ -95,10 +95,10 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:text=""
-            android:id="@+id/cyclic_frequency_default"
+            android:id="@+id/servo_frequency_default"
             android:textColor="@color/dashed_dark"
-            android:layout_below="@+id/cyclic_frequency"
-            android:layout_alignLeft="@+id/cyclic_frequency" />
+            android:layout_below="@+id/servo_frequency"
+            android:layout_alignLeft="@+id/servo_frequency" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -107,8 +107,8 @@
             android:text=""
             android:id="@+id/rudder_pulse_default"
             android:textColor="@color/dashed_dark"
-            android:layout_below="@+id/cyclic_frequency"
-            android:layout_alignLeft="@+id/cyclic_frequency" />
+            android:layout_below="@+id/servo_frequency"
+            android:layout_alignLeft="@+id/servo_frequency" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -117,8 +117,8 @@
             android:text=""
             android:id="@+id/rudder_frequency_default"
             android:textColor="@color/dashed_dark"
-            android:layout_below="@+id/cyclic_frequency"
-            android:layout_alignLeft="@+id/cyclic_frequency" />
+            android:layout_below="@+id/servo_frequency"
+            android:layout_alignLeft="@+id/servo_frequency" />
     </RelativeLayout>
 	</ScrollView>
 </LinearLayout>

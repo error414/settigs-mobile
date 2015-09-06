@@ -41,11 +41,11 @@ public class SenzorSenzivityActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SENSOR_SENX", "SENSOR_SENZ", "SENSOR_GYROGAIN"
-			//"SENSOR_SENZ",
+	private final String protocolCode[] = {"AERO_SENSOR_SENX", "AERO_SENSOR_SENY", "AERO_SENSOR_SENZ"
+			//"SENSOR_RUDDER_COMMON_GAIN",
 	};
 
-	private int formItems[] = {R.id.x_cyclic, R.id.z_rudder,  R.id.gyro_gain,
+	private int formItems[] = {R.id.sen_x, R.id.sen_y,  R.id.sen_z,
 			//R.id.z_yaw,
 	};
 

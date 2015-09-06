@@ -43,15 +43,15 @@ public class SenzorSenzivityActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SENSOR_SENX", "SENSOR_SENZ", "SENSOR_GYROGAIN"
-			//"SENSOR_SENZ",
+	private final String protocolCode[] = {"SENSOR_SENX", "SENSOR_RUDDER_COMMON_GAIN", "SENSOR_GYROGAIN"
+			//"SENSOR_RUDDER_COMMON_GAIN",
 	};
 
-	private int formItems[] = {R.id.x_cyclic, R.id.z_rudder,  R.id.gyro_gain,
+	private int formItems[] = {R.id.x_cyclic, R.id.rudder_common_gain, R.id.gyro_gain,
 			//R.id.z_yaw,
 	};
 
-	private int formItemsTitle[] = {R.string.x_cyclic, R.string.z_rudder,  R.string.gyro_gain,
+	private int formItemsTitle[] = {R.string.x_cyclic, R.string.rudder_common_gain, R.string.gyro_gain,
 			//R.string.z_yaw,
 	};
 
@@ -192,7 +192,7 @@ public class SenzorSenzivityActivity extends BaseActivity
 				ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 				ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 				
-				if(profileCreator.getProfileItemByName("CHANNELS_GAIN").getValueInteger() != 7 && i == 2){ // 7 = neprirazeno / i = 2 = SENSOR_GYROGAIN
+				if(profileCreator.getProfileItemByName("CHANNELS_GAIN").getValueInteger() != 7 && i == 2){ // 7 = neprirazeno / i = 1 = SENSOR_GYROGAIN
 					tempPicker.setEnabled(false);
                     tempPicker.setEnabledDefaultValue(false);
                     tempPicker.setCurrentNoNotify(getText(R.string.in_transmitter).toString());
