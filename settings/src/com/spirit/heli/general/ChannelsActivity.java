@@ -20,6 +20,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.SerialNumber;
 import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
@@ -30,7 +31,9 @@ public class ChannelsActivity extends BaseActivity{
 	
 	@SuppressWarnings("unused")
 	final private String TAG = "ChannelsActivity";
-	
+
+	final private int GET_SERIAL_NUMBER = 118;
+
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
 	
@@ -40,6 +43,8 @@ public class ChannelsActivity extends BaseActivity{
 	private int formItems[] = {R.id.tht_select_id, R.id.aile_select_id, R.id.ele_select_id, R.id.run_select_id, R.id.gain_select_id, R.id.pitch_select_id, R.id.bank_select_id};
 	
 	private int lock = formItems.length;
+
+    private SerialNumber serial;
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
@@ -52,8 +57,10 @@ public class ChannelsActivity extends BaseActivity{
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.general_button_text), " \u2192 ", getString(R.string.channels)));
 
-		initConfiguration();
-		delegateListener();
+        showDialogRead();
+        stabiProvider.getSerial(GET_SERIAL_NUMBER);
+
+        delegateListener();
 	}
 
 	/**
@@ -294,13 +301,22 @@ public class ChannelsActivity extends BaseActivity{
 	protected void getPositionFromUnit()
 	{
 		delayHandle.postDelayed(new Runnable() {
-			@Override
-			public void run() {
-				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
-			}
-		}, 50); // ms
+            @Override
+            public void run() {
+                stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+            }
+        }, 50); // ms
 
 	}
+
+    /**
+     *
+     * @param serialNumber
+     */
+    public void initSerialNumber(byte[] serialNumber){
+        serial = new SerialNumber(serialNumber);
+        initConfiguration();
+    }
 	
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
@@ -319,7 +335,7 @@ public class ChannelsActivity extends BaseActivity{
 				if (parent.getId() == formItems[i]) {
 
 					//pro PWM jsou povoleny jen kanaly 5 a 7
-					if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 && (pos != 4 && pos != 7)){ // 65 je A coz je PWM prijmac, hodnoty 4 = kanal 5, 7 = neprirazeno
+					if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 && (pos != 4 && pos != 7) && !serial.isProVersion()){ // 65 je A coz je PWM prijmac, hodnoty 4 = kanal 5, 7 = neprirazeno
 						Spinner sp =  (Spinner) findViewById(formItems[i]);
 						sp.setSelection(7); // neprirazeno
 						return;
@@ -407,6 +423,12 @@ public class ChannelsActivity extends BaseActivity{
 					getPositionFromUnit();
 				}
 				break;
+            case GET_SERIAL_NUMBER:
+                sendInSuccessDialog();
+                if (msg.getData().containsKey("data")) {
+                    initSerialNumber(msg.getData().getByteArray("data"));
+                }
+                break;
 			default:
 				super.handleMessage(msg);
 		}

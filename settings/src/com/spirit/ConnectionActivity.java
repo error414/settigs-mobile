@@ -53,6 +53,7 @@ import com.helpers.DialogHelper;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
+import com.helpers.SerialNumber;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
@@ -101,7 +102,7 @@ public class ConnectionActivity extends BaseActivity
 	private Spinner btDeviceSpinner;
 	private Button connectButton;
 	private TextView curentDeviceText;
-	private TextView serial;
+	private TextView serialView;
 	private TextView version;
 
 	final private int PROFILE_CALL_BACK_CODE = 116;
@@ -165,7 +166,7 @@ public class ConnectionActivity extends BaseActivity
 		btDeviceSpinner = (Spinner) findViewById(R.id.bt_device_spinner);
 		connectButton = (Button) findViewById(R.id.connection_button);
 		curentDeviceText = (TextView) findViewById(R.id.curent_device_text);
-		serial = (TextView) findViewById(R.id.serial_number);
+		serialView = (TextView) findViewById(R.id.serial_number);
 		version = (TextView) findViewById(R.id.version);
 
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
@@ -364,7 +365,7 @@ public class ConnectionActivity extends BaseActivity
             } else {
                 setBTConnectedProgress();
                 version.setText(R.string.unknow_version);
-                serial.setText(R.string.unknow_serial);
+                serialView.setText(R.string.unknow_serial);
                 //showConfirmDialog(R.string.spirit_not_found);
             }
         }
@@ -378,16 +379,17 @@ public class ConnectionActivity extends BaseActivity
 	 */
 	private void initGuiBySerialNumber(byte[] serialNumber)
 	{
-		if (serialNumber == null || serialNumber.length != 6) {
+        SerialNumber serial = new SerialNumber(serialNumber);
+		if (!serial.isValid()) {
 			return;
 		}
 
-		String serialFormat = "";
-		for (byte b : serialNumber) {
-			serialFormat = serialFormat + ByteOperation.byteToHexString(b) + " ";
-		}
+        String pro = "";
+        if(serial.isProVersion()){
+            pro = "PRO";
+        }
 
-		serial.setText(serialFormat);
+		serialView.setText(serial.getString() + " " + pro);
 	}
 
 	/**
@@ -446,7 +448,7 @@ public class ConnectionActivity extends BaseActivity
 				textStatusView.setText(R.string.connecting);
 				textStatusView.setTextColor(Color.MAGENTA);
 				curentDeviceText.setText(null);
-				serial.setText(null);
+				serialView.setText(null);
 				version.setText(null);
 				sendInSuccessDialog();
                 setBTConnectionProgress();
@@ -478,7 +480,7 @@ public class ConnectionActivity extends BaseActivity
 				connectButton.setText(R.string.connect);
 
 				curentDeviceText.setText(null);
-				serial.setText(null);
+				serialView.setText(null);
 				version.setText(null);
 				sendInSuccessDialog();
 				checkBankNumber(null);
