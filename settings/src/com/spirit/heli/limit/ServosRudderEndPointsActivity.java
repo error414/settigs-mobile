@@ -98,6 +98,11 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+
+            if (!getAppBasicMode()) {
+                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00));
+            }
+
             initDefaultValue();
 		} else {
 			finish();
@@ -121,6 +126,17 @@ public class ServosRudderEndPointsActivity extends BaseActivity
     {
         stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
     }
+
+	/**
+	 *
+	 * @param bankNumber
+	 */
+	protected void afterChangeBank(int bankNumber)
+	{
+		if (!getAppBasicMode()) {
+			stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x00));
+		}
+	}
 
 	/**
 	 * disablovani prvku v bezpecnem rezimu
