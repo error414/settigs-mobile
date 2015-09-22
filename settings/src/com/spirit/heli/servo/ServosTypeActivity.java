@@ -158,14 +158,10 @@ public class ServosTypeActivity extends BaseActivity
 			adapter = ArrayAdapter.createFromResource(this, R.array.rudder_frequency_value, android.R.layout.simple_spinner_item);
 		}
 
-		lock = lock + 1;
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		rudderFrequency.setAdapter(adapter);
-
-		if (Math.min(freqPos, adapter.getCount() - 1) != rudderFrequency.getSelectedItemPosition()) {
-			lock = lock + 1;
-		}
 		rudderFrequency.setSelection(Math.min(freqPos, adapter.getCount() - 1));
+
 	}
 
 	/**
@@ -212,8 +208,6 @@ public class ServosTypeActivity extends BaseActivity
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
-
-
 			if (lock != 0) {
 				lock -= 1;
 				return;

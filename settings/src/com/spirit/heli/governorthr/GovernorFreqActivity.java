@@ -164,7 +164,7 @@ public class GovernorFreqActivity extends BaseActivity
 				if (pos != tempSpinner.getSelectedItemPosition()) lock = lock + 1;
 				tempSpinner.setSelection(pos);
 
-				if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+				if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 66 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
 				{
 					tempSpinner.setEnabled(false);
 				}

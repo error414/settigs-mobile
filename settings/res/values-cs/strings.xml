@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 16.09.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 22.09.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -10,7 +10,7 @@
     <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
     <string name="short_title">Spirit</string>
-    <string name="full_app_name">Spirit settings</string>
+    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Nastavení</string>
     <string name="save_changes">Uložit nastavení do jednotky</string>
     <string name="save_to_unit_done">Uložení do jednotky v pořádku</string>
@@ -133,10 +133,11 @@
     <string name="diag_elevator">Výškovka</string>
     <string name="diag_pitch">Kolektiv</string>
 
-    <string name="cyclic_ring_range">Koncové body cykliky</string>
-    <string name="cyclic_ring_range_no_break">Koncové body cykliky</string>
-    <string name="ail_ele">Cyclic Ring \n(rozsah Křidélka / Výškovka)</string>
-    <string name="limit_pitch">Kolektiv (rozsah náběhu)</string>
+    <string name="cyclic_ring_range">Cyclic ring</string>
+    <string name="cyclic_ring_range_no_break">Cyclic ring</string>
+    <string name="ail_ele">Rozsah Křidélka / Výškovka</string>
+    <string name="limit_pitch">Kolektiv</string>
+    <string name="pitch_range">Rozsah náběhu</string>
 
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
     <string name="rudder_end_points_no_break">Limity směrovky</string>
@@ -193,7 +194,7 @@
 	<string name="bank_short_code">B</string>
 	<string name="channelColision">Nastala kolize <b>%1$s</b>. kanálu, zvolte prosím odlišný kanál.</string>
     <string name="signal_processing">Zpracování signálu</string>
-    <string name="advance">Rozšířené</string>
+    <string name="extended">Rozšířené</string>
 
 	<string-array name="bank_values">
         <item>Bank 0</item>
@@ -370,7 +371,7 @@
     <string name="help">Nápověda</string>
     <string name="no_help_text"></string>
     <string name="test">ěščřžýáíéú</string>
-    <string name="version_not_match">!!! Verze FW nesouhlasí s verzí mobilní aplikace \n\nFW verze: %1$s \nApp verze: %2$s</string>
+    <string name="version_not_match">Verze firmware jednotky nesouhlasí s verzí mobilní aplikace.\n\n Firmware: %1$s\n Software: %2$s</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
 
@@ -536,6 +537,8 @@
     <string name="st_6b9d810c0062eba5db4c223ae3d94fab">Udává hodnotu subtrimu pro servo CH2.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_92b0fe0b01b51063f423a7cc8b02cc1e">Udává hodnotu subtrimu pro servo CH3.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Udává hodnotu subtrimu pro servo CH4.\n\n<i>Rozsah: -127 - 127</i></string>
+    <string name="st_cc41c2874a69e4ae7c3f2385ec481160">Udává rychlost rozběhu.</string>
+    <string name="st_e6a7a3cb5827ad43acc85eac1898573a">Udává frekvenci pro výstup plynu.</string>
     <!--  END AUTO GENERATE STUB -->
 
 
@@ -570,4 +573,10 @@
     <string name="governor_on">Governor</string>
     <string name="governor_spoolup">Rozběh</string>
     <string name="thr_reverse_warning">Po stisku tlačítka OK bude výstup plynu reverzován. Může se roztočit motor!</string>
+    <string name="fw_type_not_match">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
+    <string name="governor_mode">Režim</string>
+    <string name="fw_mode_mistmatch_base_heli">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
+    <string name="factory_settings">Tovární nastavení</string>
+    <string name="factory_settings_confirm">Přejete si resetovat jednotku do továrního nastavení?</string>
+    <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
 </resources>

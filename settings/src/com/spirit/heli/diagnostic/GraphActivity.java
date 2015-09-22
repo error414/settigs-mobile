@@ -368,7 +368,7 @@ public class GraphActivity extends BaseActivity
 			vibDelay = 0;
 		}
 
-		((TextView) findViewById(R.id.vibrationLevel)).setText(String.valueOf(Math.round(vibDelay)) + "%");
+		((TextView) findViewById(R.id.vibrationLevel)).setText(String.valueOf(Math.min(999, Math.round(vibDelay))) + "%");
 
 	}
 

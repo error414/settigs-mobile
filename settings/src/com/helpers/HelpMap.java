@@ -40,7 +40,7 @@ public class HelpMap {
         result.put(R.id.stabi_pitch,                        R.string.st_e26228953ce397eb25e87bcff3607d0e);
         result.put(R.id.stabi_ctrldir,                      R.string.st_1bb89987a641483fa0a25daa7e52d27c);
         result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
-        result.put(R.id.aero_function_select_id,                 R.string.st_1a61908b99a26de75f1d1bf61ab8c3db);
+        result.put(R.id.function_select_id,                 R.string.st_1a61908b99a26de75f1d1bf61ab8c3db);
         result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
         result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);
@@ -70,8 +70,8 @@ public class HelpMap {
         result.put(R.id.rudder_limit_min,                   R.string.st_e11bdb4cd957e81f87afdc4b2c3134fe);
         result.put(R.id.rudder_limit_max,                   R.string.st_08a5a1e5848935703bcc7d12cf34f318);
 
-        result.put(R.id.limit_range_ail_left,                R.string.st_b7528539f90bd0ef74ab982a09574de4);
-        result.put(R.id.cyclic_ring_pitch,                  R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
+        result.put(R.id.limit_range_ail_left,               R.string.st_b7528539f90bd0ef74ab982a09574de4);
+        result.put(R.id.cyclic_pitch,                       R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
         result.put(R.id.governor_thr_min,                   R.string.st_65abb627338d2deeaeacca880ecac232);
         result.put(R.id.governor_thr_max,                   R.string.st_46c2d7f70c71e5957d323fe570e16dfd);
@@ -87,6 +87,9 @@ public class HelpMap {
         result.put(R.id.elevator_picker,                    R.string.st_6b9d810c0062eba5db4c223ae3d94fab);
         result.put(R.id.pitch_picker,                       R.string.st_92b0fe0b01b51063f423a7cc8b02cc1e);
         result.put(R.id.rudder_picker,                      R.string.st_54ceaabd2d8cca5320e800e9851b6ff3);
+
+        result.put(R.id.governor_spoolup_select_id,         R.string.st_cc41c2874a69e4ae7c3f2385ec481160);
+        result.put(R.id.governor_freq_select_id,            R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
 
 
         return Collections.unmodifiableMap(result);

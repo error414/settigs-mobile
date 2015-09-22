@@ -3,13 +3,13 @@
 
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 16.09.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 22.09.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
     <string name="short_title">Spirit</string>
-    <string name="full_app_name">Spirit settings</string>
+    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Settings</string>
     <string name="save_changes">Save changes to unit</string>
     <string name="save_to_unit_done">Save to unit Done</string>
@@ -110,7 +110,7 @@
     <string name="ch2" translatable="false">CH2</string>
     <string name="ch3" translatable="false">CH3</string>
     <string name="ch4" translatable="false">CH4</string>
-    <string name="servo_travel_correction">Servos travel correction</string>
+    <string name="servo_travel_correction">Servo travel correction</string>
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>
@@ -122,13 +122,13 @@
     <string name="diag_elevator">Elevator</string>
     <string name="diag_pitch">Pitch</string>
     <string name="diag_special" translatable="false">Special</string>
-    <string name="governor_rpm_senzor">RPM senzor</string>
+    <string name="governor_rpm_senzor">RPM Meter</string>
 
-    <string name="cyclic_ring_range">Cyclic end-points</string>
-    <string name="cyclic_ring_range_no_break">Cyclic end-points</string>
-    <string name="ail_ele">Cyclic Ring \n(Aileron / Elevator range)</string>
-    <string name="limit_pitch">Collective Pitch (Pitch range)</string>
-
+    <string name="cyclic_ring_range">Cyclic ring</string>
+    <string name="cyclic_ring_range_no_break">Cyclic ring</string>
+    <string name="ail_ele">Aileron / Elevator range</string>
+    <string name="limit_pitch">Collective Pitch</string>
+    <string name="pitch_range">Pitch range</string>
     <string name="rudder_end_points">Rudder \n end-points</string>
     <string name="rudder_end_points_no_break">Rudder end-points</string>
     <string name="blank"></string>
@@ -184,7 +184,7 @@
     <string name="choose_bank">Select bank</string>
     <string name="channelColision">Collision in <b>%1$s</b> occured! Please select a different channel.</string>
     <string name="signal_processing">Signal Processing</string>
-    <string name="advance">Advance</string>
+    <string name="extended">Extended</string>
 
     <string-array name="bank_values">
         <item>Bank 0</item>
@@ -376,16 +376,16 @@
 
 
     <string name="tap_to_action">Action</string>
-    <string name="tap_to_screenshot_on">Tap screenshot On</string>
-    <string name="tap_to_screenshot_off">Tap screenshot Off</string>
-    <string name="tap_to_screenshot_on_state">Tap screenshot is On</string>
-    <string name="tap_to_screenshot_off_state">Tap screenshot is Off</string>
+    <string name="tap_to_screenshot_on">Tap to take screenshot (On)</string>
+    <string name="tap_to_screenshot_off">Tap to take screenshot (Off)</string>
+    <string name="tap_to_screenshot_on_state">Tap to take screenshot (On)</string>
+    <string name="tap_to_screenshot_off_state">Tap to take screenshot (Off)</string>
     <string name="force_save_graph">Save graph</string>
 
-    <string name="tap_to_freeze_on">Tap freeze On</string>
-    <string name="tap_to_freeze_off">Tap freeze Off</string>
-    <string name="tap_to_freeze_on_state">Tap freeze is On</string>
-    <string name="tap_to_freeze_off_state">Tap freeze Off</string>
+    <string name="tap_to_freeze_on">Tap to freeze the plot (On)</string>
+    <string name="tap_to_freeze_off">Tap to freeze the plot (Off)</string>
+    <string name="tap_to_freeze_on_state">Tap to freeze the plot (On)</string>
+    <string name="tap_to_freeze_off_state">Tap to freeze the plot (On)</string>
 
     <string name="tap_to_freeze_is_on">Freeze On</string>
     <string name="tap_to_freeze_is_off">Freeze Off</string>
@@ -505,6 +505,8 @@
     <string name="st_6b9d810c0062eba5db4c223ae3d94fab">Specifies subtrim value of the CH2 servo.\n\n<i>Range: -127 - 127</i></string>
     <string name="st_92b0fe0b01b51063f423a7cc8b02cc1e">Specifies subtrim value of the CH3 servo.\n\n<i>Range: -127 - 127</i></string>
     <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Specifies subtrim value of the CH4 servo.\n\n<i>Range: -127 - 127</i></string>
+    <string name="st_cc41c2874a69e4ae7c3f2385ec481160">Specifies Governor spoolup rate.</string>
+    <string name="st_e6a7a3cb5827ad43acc85eac1898573a">Specifies Throttle output frequency.</string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>
@@ -544,5 +546,10 @@
     <string name="limit_range_ail" translatable="false">Aileron Range</string>
     <string name="limit_range_ele" translatable="false">Elevator Range</string>
     <string name="limit_range_rud" translatable="false">Rudder Range</string>
-
+    <string name="fw_type_not_match">Firmware in the unit is for airplane models. You have to flash Spirit firmware for helicopters.</string>
+    <string name="governor_mode">Mode</string>
+    <string name="fw_mode_mistmatch_base_heli">Firmware in the unit is for airplane models.You have to flash Spirit firmware for helicopters.</string>
+    <string name="factory_settings">Factory settings</string>
+    <string name="factory_settings_confirm">Do you want to reset the unit to factory settings?</string>
+    <string name="factory_settings_done">Resetting to factory settings succesfully finished.</string>
 </resources>

@@ -161,7 +161,7 @@ public class GovernorThrReverseActivity extends BaseActivity
             if (tempCheckbox.isChecked() != checked) lock = lock + 1;
             tempCheckbox.setChecked(checked);
 
-            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+            if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 66 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
             {
                 tempCheckbox.setEnabled(false);
             }

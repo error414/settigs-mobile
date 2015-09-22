@@ -59,7 +59,7 @@ public class GovernorOnActivity extends BaseActivity
 		initSlideMenu(R.layout.governor_on);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_on)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_mode)));
 
 		initConfiguration();
 		delegateListener();

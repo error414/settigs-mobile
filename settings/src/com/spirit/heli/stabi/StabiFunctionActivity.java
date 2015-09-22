@@ -45,7 +45,7 @@ public class StabiFunctionActivity extends BaseActivity
 
 	private final String protocolCode[] = {"ALT_FUNCTION",};
 
-	private int formItems[] = {R.id.aero_function_select_id};
+	private int formItems[] = {R.id.function_select_id};
 
 	private int lock = formItems.length;
 

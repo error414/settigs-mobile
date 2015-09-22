@@ -280,7 +280,8 @@
 	                 android:layout_alignParentLeft="true"
 	                 android:layout_alignParentTop="true"
 	                 android:text="50"
-	                 android:textSize="@dimen/largeText" />
+	                 android:textSize="@dimen/largeText"
+					 android:textColor="@color/text_color" />
 
 	         </RelativeLayout>
 
@@ -298,7 +299,8 @@
 	                 android:layout_alignParentLeft="true"
 	                 android:layout_alignParentTop="true"
 	                 android:text="50"
-	                 android:textSize="@dimen/largeText" />
+	                 android:textSize="@dimen/largeText"
+					 android:textColor="@color/text_color" />
 
 	         </RelativeLayout>
 
@@ -314,7 +316,8 @@
 	                 android:layout_width="wrap_content"
 	                 android:layout_height="wrap_content"
 	                 android:text="50"
-	                 android:textSize="@dimen/largeText" />
+	                 android:textSize="@dimen/largeText"
+					 android:textColor="@color/text_color" />
 
 	         </RelativeLayout>
 
@@ -326,7 +329,8 @@
 				 android:id="@+id/textView8"
 				 android:layout_above="@+id/relativeLayout2"
 				 android:layout_alignLeft="@+id/relativeLayout1"
-				 android:layout_alignStart="@+id/relativeLayout1" />
+				 android:layout_alignStart="@+id/relativeLayout1"
+				 android:textColor="@color/text_color" />
 
 		 </RelativeLayout>
 

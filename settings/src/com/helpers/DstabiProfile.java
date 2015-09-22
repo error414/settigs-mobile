@@ -440,7 +440,7 @@ public class DstabiProfile {
      */
     public String getFormatedVersion()
     {
-		String major = Globals.getInstance().getAppMode() == HELI ?  "Heli-" + getProfileItemByName("MAJOR").getValueString() : "Aero-" + String.valueOf(getProfileItemByName("MAJOR").getValueInteger() - 127);
+		String major = Globals.getInstance().getAppMode() == HELI ?  getProfileItemByName("MAJOR").getValueString() : String.valueOf(getProfileItemByName("MAJOR").getValueInteger() - 127);
         String buffer = major + "." + getProfileItemByName("MINOR1").getValueString();
 
         int minor2Int = getProfileItemByName("MINOR2").getValueInteger();
@@ -511,7 +511,7 @@ public class DstabiProfile {
 	public int getCheckSumFromKnowItem(){
 		if(mProfile != null){		
 			
-			int bytes = profileMap.size()-1;
+			int bytes = profileMap.size();
 
 			int sum1 = 0xff;
 			int sum2 = 0xff;    
@@ -527,6 +527,10 @@ public class DstabiProfile {
 			     	int d = 0;
 			     	
 			     	ProfileItem item = it.next();
+					if(item.getPosition() == 16)
+					{
+
+					}
 			       	if (item.getCommand() != null) {
 			       		d = item.getValueInteger() & 0xff;
 			       	}

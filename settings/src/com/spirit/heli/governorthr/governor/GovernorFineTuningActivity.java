@@ -1,5 +1,6 @@
 /*
 Copyright (C) Petr Cada and Tomas Jedrzejek
+Copyright (C) Petr Cada and Tomas Jedrzejek
 This program is free software; you can redistribute it and/or
 modify it under the terms of the GNU General Public License
 as published by the Free Software Foundation; either version 2
@@ -14,8 +15,7 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 */
-
-package com.spirit.heli.limit;
+package com.spirit.heli.governorthr.governor;
 
 import android.os.Bundle;
 import android.os.Message;
@@ -33,32 +33,32 @@ import com.lib.BluetoothCommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
-public class ServosCyclickLimitRangeActivity extends BaseActivity
+public class GovernorFineTuningActivity extends BaseActivity
 {
 
 	@SuppressWarnings("unused")
-	final private String TAG = "ServosCyclickRingRangeActivity";
+	final private String TAG = "GovernorGainActivity";
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RANGE_PIT",};
+	private final String protocolCode[] = {"GOVERNOR_PGAIN", "GOVERNOR_IGAIN"};
 
-	private int formItems[] = {R.id.cyclic_ring_pitch,};
+	private int formItems[] = {R.id.governor_pgain, R.id.governor_igain};
 
-	private int formItemsTitle[] = {R.string.limit_pitch,};
+	private int formItemsTitle[] = {R.string.governor_pgain, R.string.governor_igain};
 
 	/**
-	 * zavolani pri vytvoreni instance aktivity servos
+	 * zavolani pri vytvoreni instance aktivity stabi
 	 */
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.cyclic_ring_range);
+		initSlideMenu(R.layout.governor_gain);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.limits), " \u2192 ",  getString(R.string.cyclic_ring_range_no_break)));
+		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_gain)));
 
 		initGui();
 		initConfiguration();
@@ -89,20 +89,20 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
     }
 
 	/**
-	 * znovu nacteni aktovity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
+	 * znovu nacteni aktivity, priradime dstabi svuj handler a zkontrolujeme jestli sme pripojeni
 	 */
 	@Override
 	public void onResume()
 	{
 		super.onResume();
 		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
-			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
+            ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
             initDefaultValue();
-		} else {
-			finish();
-		}
+        }else{
+            finish();
+        }
 	}
-	
+
 	/**
 	 * disablovani prvku v bezpecnem rezimu
 	 */
@@ -116,18 +116,12 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
 		}
 	}
 
-	@Override
-	public void onPause()
-	{
-		super.onPause();
-	}
-
 	private void initGui()
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setRange(32, 255); // tohle rozmezi asi brat ze stabi profilu
-			tempPicker.setTitle(formItemsTitle[i]);
+			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
+            tempPicker.setRange(1, 10); // nastavuji rozmezi prvku z profilu
 		}
 	}
 
@@ -152,7 +146,6 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 	}
 
-
 	/**
 	 * naplneni formulare
 	 *
@@ -172,18 +165,24 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
-            ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
             tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
-			tempPicker.setCurrentNoNotify(size);
+			tempPicker.setCurrentNoNotify(item.getValueInteger());
+
+			if(profileCreator.getProfileItemByName("GOVERNOR_ON").getValueInteger() == 0){
+				tempPicker.setEnabled(false);
+			}
+
+			if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+			{
+				tempPicker.setEnabled(false);
+			}
 		}
 
 	}
 
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
-
-
 		@Override
 		public void onChanged(ProgresEx parent, int newVal)
 		{
@@ -194,6 +193,7 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
 				if (parent.getId() == formItems[i]) {
 					showInfoBarWrite();
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
+
                     if(item != null) {
                         item.setValue(newVal);
                         stabiProvider.sendDataNoWaitForResponce(item);
@@ -204,6 +204,7 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
 		}
 
 	};
+
 
 	public boolean handleMessage(Message msg)
 	{
@@ -232,8 +233,12 @@ public class ServosCyclickLimitRangeActivity extends BaseActivity
     }
 
     @Override
-    public void onStop() {
+    public void onStop()
+    {
         super.onStop();
         EasyTracker.getInstance(this).activityStop(this);
     }
 }
+
+
+

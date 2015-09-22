@@ -58,7 +58,7 @@
                 android:layout_below="@+id/imageView1"
                 android:layout_marginLeft="44dp"
                 android:layout_marginTop="53dp"
-                android:text="@string/advance"
+                android:text="@string/extended"
                 android:textColor="@color/text_color" />
             <TextView
                 android:layout_width="wrap_content"

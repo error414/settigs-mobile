@@ -176,7 +176,7 @@ public class GovernorThrRangeActivity extends BaseActivity
             tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
-			if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 67 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
+			if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 66 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
 			{
 				tempPicker.setEnabled(false);
 			}

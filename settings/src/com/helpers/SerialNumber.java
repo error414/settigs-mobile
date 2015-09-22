@@ -61,7 +61,7 @@ public class SerialNumber {
     {
         String serialFormat = "";
         for (byte b : serialNumber) {
-            serialFormat = serialFormat + ByteOperation.byteToHexString(b) + " ";
+            serialFormat = serialFormat + ByteOperation.byteToHexString(b) + "-";
         }
 
         return serialFormat;

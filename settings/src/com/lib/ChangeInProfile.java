@@ -69,6 +69,14 @@ public class ChangeInProfile
 		return getDiff(originalProfile, changedProfile, false);
 	}
 
+	/**
+	 *
+	 * @param originalProfile
+	 * @param changedProfile
+	 * @param compareOnlyBasicItems
+	 * @return
+	 * @throws ProfileNotValidException
+	 */
 	public static ArrayList<DiffItem> getDiff(DstabiProfile originalProfile, DstabiProfile changedProfile, boolean compareOnlyBasicItems) throws ProfileNotValidException
 	{
 		ArrayList<DiffItem> resultDiff = new ArrayList<DiffItem>();

@@ -34,13 +34,13 @@ import com.spirit.heli.governorthr.GovernorFreqActivity;
 import com.spirit.heli.governorthr.GovernorThrRangeActivity;
 import com.spirit.heli.governorthr.GovernorThrReverseActivity;
 import com.spirit.heli.governorthr.governor.GovernorActivity;
-import com.spirit.heli.governorthr.governor.GovernorGainActivity;
+import com.spirit.heli.governorthr.governor.GovernorFineTuningActivity;
 import com.spirit.heli.governorthr.governor.GovernorGearSettingsActivity;
 import com.spirit.heli.governorthr.governor.GovernorOnActivity;
 import com.spirit.heli.governorthr.governor.GovernorRpmMaxActivity;
 import com.spirit.heli.governorthr.governor.GovernorRpmSenzor;
 import com.spirit.heli.governorthr.governor.GovernorSpoolUpActivity;
-import com.spirit.heli.limit.ServosCyclickLimitRangeActivity;
+import com.spirit.heli.limit.CollectivePitchActivity;
 import com.spirit.heli.limit.ServosCyclickRingRangeActivity;
 import com.spirit.heli.limit.ServosLimitActivity;
 import com.spirit.heli.limit.ServosRudderEndPointsActivity;
@@ -143,7 +143,7 @@ public class Menu {
     public static Integer MENU_GOV_ON              = 52;
     public static Integer MENU_GOV_GOV             = 51;
     public static Integer MENU_GOV_FREQ            = 38;
-    public static Integer MENU_GOV_GAIN            = 39;
+    public static Integer MENU_GOV_FINE_TUNING = 39;
     public static Integer MENU_GOV_RPM_SENZOR      = 44;
     public static Integer MENU_GOV_THR_RANGE       = 45;
     public static Integer MENU_GOV_RPM_MAX         = 46;
@@ -289,9 +289,9 @@ public class Menu {
         menuGroups.put(
              MENU_INDEX_ADVANCED,
                  new Integer[]{
-                         MENU_6DEG, MENU_PIROOPT, MENU_RUDDERDELAY,
-                         MENU_PIROUETTECONSISTENCY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX, MENU_EFILTER,
-                         MENU_CYCLICFF, MENU_EXPERT
+                         MENU_PIROOPT, MENU_6DEG, MENU_EFILTER, MENU_CYCLICFF,
+                         MENU_RUDDERDELAY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX,
+                         MENU_EXPERT, MENU_PIROUETTECONSISTENCY,
                  }
         );
 
@@ -378,7 +378,7 @@ public class Menu {
         menuList.put(MENU_CYCLICRING,   new MenuItem(R.drawable.i12,     R.string.cyclic_ring_range_no_break, ServosCyclickRingRangeActivity.class));
 
         //pitch range
-        menuList.put(MENU_PITCHRANGE,   new MenuItem(R.drawable.na,     R.string.cyclic_ring_range_no_break, ServosCyclickLimitRangeActivity.class));
+        menuList.put(MENU_PITCHRANGE,   new MenuItem(R.drawable.na,     R.string.limit_pitch, CollectivePitchActivity.class));
 
         //rudder endpoints
         menuList.put(MENU_ENDPOINTS,   new MenuItem(R.drawable.i13,     R.string.rudder_end_points_no_break, ServosRudderEndPointsActivity.class));
@@ -400,9 +400,9 @@ public class Menu {
         menuGroups.put(MENU_INDEX_GOVERNOR_THR, new Integer[]{MENU_GOV_GOV, MENU_GOV_FREQ, MENU_GOV_THR_RANGE, MENU_GOV_THR_REVERSE});
 
         //GOVERNOR
-        menuList.put(MENU_GOV_ON,   new MenuItem(R.drawable.na,     R.string.governor_on, GovernorOnActivity.class));
+        menuList.put(MENU_GOV_ON,   new MenuItem(R.drawable.na,     R.string.governor_mode, GovernorOnActivity.class));
 
-        menuList.put(MENU_GOV_GAIN,   new MenuItem(R.drawable.i44,     R.string.governor_gain, GovernorGainActivity.class));
+        menuList.put(MENU_GOV_FINE_TUNING,   new MenuItem(R.drawable.i44,     R.string.governor_gain, GovernorFineTuningActivity.class));
 
         menuList.put(MENU_GOV_RPM_MAX,   new MenuItem(R.drawable.i55,     R.string.governor_rpm_max, GovernorRpmMaxActivity.class));
 
@@ -413,7 +413,7 @@ public class Menu {
         menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.i51,     R.string.governor_rpm_senzor, GovernorRpmSenzor.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GAIN, MENU_GOV_RPM_MAX, MENU_GOV_GEAR_SETTINGS, MENU_GOV_SPOOLUP, MENU_GOV_RPM_SENZOR});
+        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_SPOOLUP, MENU_GOV_FINE_TUNING, MENU_GOV_RPM_SENZOR});
     }
 
     /**

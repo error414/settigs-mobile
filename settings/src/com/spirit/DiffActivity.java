@@ -48,6 +48,8 @@ import com.lib.translate.StabiSenzivityZProgressExTranslate;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 /**
@@ -97,6 +99,7 @@ public class DiffActivity extends BaseActivity
 
 		////////////////////////////////////////////////////////////////////////
 		ListView diffList = (ListView) findViewById(R.id.listMenu);
+
 		adapter = new DiffListAdapter(this, new ArrayList<HashMap<Integer, String>>());
 		diffList.setAdapter(adapter);
 	}
@@ -137,6 +140,10 @@ public class DiffActivity extends BaseActivity
         changeBank(bankToCompare, BANK_TO_COMAPARE_CALL_BACK_CODE);
     }
 
+    /**
+     *
+     * @return
+     */
     private Integer getBankToCompare() {
         int bank = getIntent().getIntExtra(ARG_BANK, Globals.BANK_NULL);
         return bank == Globals.BANK_NULL ? null : bank;
@@ -163,6 +170,10 @@ public class DiffActivity extends BaseActivity
         }
     }
 
+    /**
+     *
+     * @param diffItems
+     */
     private void updateGui(Collection<ChangeInProfile.DiffItem> diffItems) {
         diffListData = new ArrayList<HashMap<Integer, String>>();
 
@@ -177,6 +188,13 @@ public class DiffActivity extends BaseActivity
                 row.put(DiffListAdapter.TO,   diffItem.getTo());
                 diffListData.add(row);
             }
+
+            Collections.sort(diffListData, new Comparator<HashMap<Integer, String>>() {
+                @Override
+                public int compare(HashMap<Integer, String> lhs, HashMap<Integer, String> rhs) {
+                    return lhs.get(DiffListAdapter.NAME).compareTo(rhs.get(DiffListAdapter.NAME));
+                }
+            });
 
             adapter.setData(diffListData);
             adapter.notifyDataSetChanged();

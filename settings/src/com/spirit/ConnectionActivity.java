@@ -87,6 +87,8 @@ public class ConnectionActivity extends BaseActivity
 	final protected int PROFILE_SAVE = 2;
     final protected int PROFILE_SAVE_ALL_BANK = 44;
 
+    final protected int FACTORY_RESET = 55;
+
 	final protected int APP_BASIC_MODE = 3;
 
 	final protected int GROUP_ERROR = 4;
@@ -125,6 +127,8 @@ public class ConnectionActivity extends BaseActivity
     final protected int GET_PROFILE_BANK_2_CALL_BACK_CODE = 128;
 
     final protected int CHANGE_BANK_SOURCE_CALL_BACK_CODE = 129;
+
+    final protected int FACTORY_RESET_CALL_BACK_CODE = 130;
 	/**
      * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
      */
@@ -333,14 +337,12 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-        if (profile != null && profileCreator.checkVersion()) {
+        if(profileCreator.getMode() == DstabiProfile.AERO) {
             stabiProvider.disconnect();
-            if(profileCreator.getMode() == DstabiProfile.HELI){
-                showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_HELI_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_HELI_MINOR1_VERSION) + ".X"));
-            }else{
-                showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_AERO_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_AERO_MINOR1_VERSION) + ".X" ));
-            }
-
+            showConfirmDialog(R.string.fw_type_not_match);
+        }else if (profile != null && profileCreator.checkVersion()) {
+            stabiProvider.disconnect();
+            showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_HELI_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_HELI_MINOR1_VERSION) + ".X"));
         }else {
             if (profileCreator.isValid()) {
 
@@ -548,6 +550,8 @@ public class ConnectionActivity extends BaseActivity
             profile.add(GROUP_PROFILE, PROFILE_SAVE, Menu.NONE, R.string.save_profile);
         }
 
+        menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
+        menu.add(GROUP_GENERAL, FACTORY_RESET, Menu.NONE, R.string.factory_settings);
 
 		return true;
 	}
@@ -647,6 +651,31 @@ public class ConnectionActivity extends BaseActivity
                 startActivityForResult(intent, REQUEST_SAVE_ALL_BANKS);
             }
 		}
+
+        //factory reset
+        if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == FACTORY_RESET) {
+
+            if (stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+                Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+                return false;
+            }
+
+            showConfirmDialogWithCancel(R.string.factory_settings_confirm,
+                    new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            showDialogWrite();
+                            stabiProvider.sendDataForResponce("F", FACTORY_RESET_CALL_BACK_CODE);
+                        }
+                    }
+                    , new DialogInterface.OnClickListener(){
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            //do nothing
+                        }
+                    });
+        }
+
 		return false;
 	}
 
@@ -805,6 +834,11 @@ public class ConnectionActivity extends BaseActivity
                     setBTConnectedProgress();
                 }
 				break;
+            case FACTORY_RESET_CALL_BACK_CODE:
+                sendInSuccessDialog();
+                showConfirmDialog(R.string.factory_settings_done);
+                reloadOriginalProfile();
+                break;
 			case PROFILE_CALL_BACK_CODE_FOR_SAVE:
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
@@ -940,7 +974,18 @@ public class ConnectionActivity extends BaseActivity
 	{
 		isPosibleSendData = true;
 
-		if (profile.isValid(DstabiProfile.DONT_CHECK_CHECKSUM)) {
+		if (!profile.isValid(DstabiProfile.DONT_CHECK_CHECKSUM)) {
+            Toast.makeText(getApplicationContext(), R.string.damage_profile, Toast.LENGTH_SHORT).show();
+
+        }else if(Globals.getInstance().getAppMode() != profile.getMode()){
+            //MTODO_AERO zmenit text hlasky
+            if(Globals.getInstance().getAppMode() == DstabiProfile.HELI){
+                Toast.makeText(getApplicationContext(), R.string.fw_mode_mistmatch_base_heli, Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(getApplicationContext(), R.string.fw_mode_mistmatch_base_heli, Toast.LENGTH_SHORT).show();
+            }
+
+        }else{
 			
 			HashMap<String, ProfileItem> items = profile.getProfileItems();
             readProfileFromFile = true;
@@ -961,8 +1006,6 @@ public class ConnectionActivity extends BaseActivity
 				}
 			}
 			checkChange(profile);
-		} else {
-			Toast.makeText(getApplicationContext(), R.string.damage_profile, Toast.LENGTH_SHORT).show();
 		}
 	}
 

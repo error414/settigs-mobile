@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.spirit"
-    android:versionCode="185"
+    android:versionCode="186"
 
-    android:versionName="1.3.7"
+    android:versionName="1.3.8"
 >
 
     <uses-sdk
@@ -342,7 +342,7 @@
             android:theme="@style/CustomTheme"
             />
         <activity
-            android:name=".heli.governorthr.governor.GovernorGainActivity"
+            android:name=".heli.governorthr.governor.GovernorFineTuningActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
@@ -514,7 +514,7 @@
             />
 
         <activity
-            android:name=".heli.limit.ServosCyclickLimitRangeActivity"
+            android:name=".heli.limit.CollectivePitchActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"
             android:screenOrientation="portrait"
