@@ -297,7 +297,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_AIL")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.aileron)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.aileron)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -308,7 +308,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_ELE")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.elevator)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.elevator)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -319,7 +319,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_PIT")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.pitch)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.pitch)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -330,7 +330,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_RUD")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.rudder)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.rudder)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -492,8 +492,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("CYCLIC_REVERSE")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.cyclic_servo_reverse_text)).toString());
-
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text), textSeparator, getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.cyclic_servo_reverse_text)).toString());
             String[] values = getResources().getStringArray(R.array.cyclic_servo_reverse_values);
 
             from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
