@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 22.09.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 24.09.2015-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -353,7 +352,7 @@
     <string name="help">Help</string>
     <string name="no_help_text"></string>
     <string name="test">ěščřžýáíéú</string>
-    <string name="version_not_match">Application version not match with FW version \n\nFW version: %1$s \nApp version: %2$s</string>
+    <string name="version_not_match">Firmware version does not match with the software version.\n\n Firmware: %1$s\n Software: %2$s</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="log_event_ok">Good Health Message</string>
@@ -376,11 +375,11 @@
 
 
     <string name="tap_to_action">Action</string>
-    <string name="tap_to_screenshot_on">Tap to take screenshot (On)</string>
-    <string name="tap_to_screenshot_off">Tap to take screenshot (Off)</string>
-    <string name="tap_to_screenshot_on_state">Tap to take screenshot (On)</string>
-    <string name="tap_to_screenshot_off_state">Tap to take screenshot (Off)</string>
-    <string name="force_save_graph">Save graph</string>
+    <string name="tap_to_screenshot_on">Tap to save the plot (On)</string>
+    <string name="tap_to_screenshot_off">Tap to save the plot (OFF)</string>
+    <string name="tap_to_screenshot_on_state">Tap to save the plot (On)</string>
+    <string name="tap_to_screenshot_off_state">ap to save the plot (OFF)</string>
+    <string name="force_save_graph">Save the plot</string>
 
     <string name="tap_to_freeze_on">Tap to freeze the plot (On)</string>
     <string name="tap_to_freeze_off">Tap to freeze the plot (Off)</string>
@@ -552,4 +551,6 @@
     <string name="factory_settings">Factory settings</string>
     <string name="factory_settings_confirm">Do you want to reset the unit to factory settings?</string>
     <string name="factory_settings_done">Resetting to factory settings succesfully finished.</string>
+    <string name="receiver_was_change">Receiver type was changed in the unit settings.\n\nIt\'s necessary to save it and then reconnect battery.</string>
+    <string name="profile_not_match">Selected profile was created with a different software version (%1$s)!  Double check all loaded values, please.</string>
 </resources>

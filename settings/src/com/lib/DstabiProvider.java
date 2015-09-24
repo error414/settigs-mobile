@@ -155,7 +155,17 @@ public class DstabiProvider {
 	 * @param device
 	 */
 	public synchronized void connect(BluetoothDevice device) {
-		BTservice.connect(device);
+
+        final BluetoothDevice deviceFinal = device;
+        final Handler handler = new Handler();
+        handler.post(new
+             Runnable() {
+                 @Override
+                 public void run() {
+                     BTservice.connect(deviceFinal);
+                 }
+             });
+
 	}
 	
 	/**
@@ -163,8 +173,15 @@ public class DstabiProvider {
 	 * 
 	 */
 	public synchronized void disconnect() {
-		BTservice.stop();
-        BTservice.cancel();
+		final Handler handler = new Handler();
+			handler.post(new
+                Runnable() {
+                    @Override
+                    public void run () {
+                        BTservice.stop();
+                }
+		});
+
 	}
 	
 	/**

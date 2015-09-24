@@ -550,7 +550,6 @@ public class ConnectionActivity extends BaseActivity
             profile.add(GROUP_PROFILE, PROFILE_SAVE, Menu.NONE, R.string.save_profile);
         }
 
-        menu.add(GROUP_GENERAL, APP_BASIC_MODE, Menu.NONE, R.string.basic_mode);
         menu.add(GROUP_GENERAL, FACTORY_RESET, Menu.NONE, R.string.factory_settings);
 
 		return true;
@@ -655,10 +654,7 @@ public class ConnectionActivity extends BaseActivity
         //factory reset
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == FACTORY_RESET) {
 
-            if (stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
-                Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
-                return false;
-            }
+
 
             showConfirmDialogWithCancel(R.string.factory_settings_confirm,
                     new DialogInterface.OnClickListener(){
@@ -954,6 +950,10 @@ public class ConnectionActivity extends BaseActivity
 		return true;
 	}
 
+    /**
+     *
+     * @param profile
+     */
     private void insertProfileToUnit(byte[] profile) {
 		// musime byt pripojeni
 		if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
@@ -986,28 +986,54 @@ public class ConnectionActivity extends BaseActivity
             }
 
         }else{
-			
-			HashMap<String, ProfileItem> items = profile.getProfileItems();
-            readProfileFromFile = true;
-			for (ProfileItem item : items.values()) {
-				if (item.getCommand() != null && isPosibleSendData && !item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
-					// pro banky 1 a 2 nahravame jen povolene hodnoty
-					if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 && !forceBasicModeCopy || !item.isDeactiveInBasicMode()){
-						showDialogRead();
-						stabiProvider.sendDataNoWaitForResponce(item);
-					}else{
-						continue;
-					}
-				} else if (!isPosibleSendData) {
-					isPosibleSendData = true;
-					break;
-				} else {
-					continue;
-				}
-			}
-			checkChange(profile);
+
+            final DstabiProfile profileFinal = profile;
+            final boolean forceBasicModeCopyFinal = forceBasicModeCopy;
+
+            if(!profileFinal.checkVersion()) {
+                showConfirmDialogWithCancel(getString(R.string.profile_not_match, profileFinal.getFormatedVersion()),
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+                                insertProfileToUnitProcess(profileFinal, forceBasicModeCopyFinal);
+                            }
+                        }
+                        , new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface arg0, int arg1) {
+
+                            }
+                        });
+            }else{
+                insertProfileToUnitProcess(profileFinal, forceBasicModeCopyFinal);
+            }
+
+
 		}
 	}
+
+    synchronized private void insertProfileToUnitProcess(DstabiProfile profile, boolean forceBasicModeCopy)
+    {
+        HashMap<String, ProfileItem> items = profile.getProfileItems();
+        readProfileFromFile = true;
+        for (ProfileItem item : items.values()) {
+            if (item.getCommand() != null && isPosibleSendData && !item.getCommand().equals("M")) { // nesmi se do spirita nahrat cislo banky
+                // pro banky 1 a 2 nahravame jen povolene hodnoty
+                if(profileCreator.getProfileItemByName("BANKS").getValueInteger() == 0 && !forceBasicModeCopy || !item.isDeactiveInBasicMode()){
+                    showDialogRead();
+                    stabiProvider.sendDataNoWaitForResponce(item);
+                }else{
+                    continue;
+                }
+            } else if (!isPosibleSendData) {
+                isPosibleSendData = true;
+                break;
+            } else {
+                continue;
+            }
+        }
+        checkChange(profile);
+    }
 
 	/**
 	 * ulozeni proiflu do souboru

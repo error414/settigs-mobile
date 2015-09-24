@@ -318,10 +318,10 @@ public class GeneralActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
-                    Log.d(TAG, "odesilam spinner");
 					showInfoBarWrite();
 
-                    if(i == 2){
+                    if(i == 2){ //receiver
+                        showConfirmDialog(R.string.receiver_was_change);
                         needRestoreChannels = true;
                     }
 

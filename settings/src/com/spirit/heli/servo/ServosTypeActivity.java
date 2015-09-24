@@ -20,7 +20,6 @@ package com.spirit.heli.servo;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -186,8 +185,12 @@ public class ServosTypeActivity extends BaseActivity
 				Spinner tempSpinner = (Spinner) findViewById(formItems[i]);
 
 				//TOHLE MUSIM VYRESIT LIP
-				if (tempSpinner.getId() == formItems[2]) {
-					updateItemRudderFrequency(profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()));
+				if (tempSpinner.getId() == formItems[2] && profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount()) == 2) {
+                    ArrayAdapter<?> adapter;
+                    Spinner rudderFrequency = (Spinner) findViewById(R.id.rudder_frequency);
+                    adapter = ArrayAdapter.createFromResource(this, R.array.rudder_frequency_value_extend, android.R.layout.simple_spinner_item);
+                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    rudderFrequency.setAdapter(adapter);
 				}
 
 				int pos = profileCreator.getProfileItemByName(protocolCode[i]).getValueForSpinner(tempSpinner.getCount());
@@ -206,7 +209,7 @@ public class ServosTypeActivity extends BaseActivity
 	protected OnItemSelectedListener spinnerListener = new OnItemSelectedListener()
 	{
 		@Override
-		public void onItemSelected(AdapterView<?> parent, View view, int pos, long id)
+		synchronized public void  onItemSelected(AdapterView<?> parent, View view, int pos, long id)
 		{
 			if (lock != 0) {
 				lock -= 1;
@@ -221,7 +224,6 @@ public class ServosTypeActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 					item.setValueFromSpinner(pos);
 
-					Log.d(TAG, "odesilam spinner");
 					stabiProvider.sendDataNoWaitForResponce(item);
 
 					showInfoBarWrite();

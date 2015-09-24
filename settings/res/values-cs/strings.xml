@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 22.09.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 24.09.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -140,7 +140,7 @@
     <string name="pitch_range">Rozsah náběhu</string>
 
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
-    <string name="rudder_end_points_no_break">Limity směrovky</string>
+    <string name="rudder_end_points_no_break">Limity vrtulky</string>
     <string name="blank"></string>
 
 	<string name="cyc_rate">Cyklika</string>
@@ -579,4 +579,6 @@
     <string name="factory_settings">Tovární nastavení</string>
     <string name="factory_settings_confirm">Přejete si resetovat jednotku do továrního nastavení?</string>
     <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
+    <string name="receiver_was_change">Typ přijímače byl změněn v nastavení jednotky.\n\nJe nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.</string>
+    <string name="profile_not_match">Zvolený profil byl vytvořen odlišnou verzí software (%1$s)! Prosím zkontrolujte hodnoty všech parametrů.</string>
 </resources>

@@ -592,6 +592,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         leftMenuOptionMenu.setAdapter(slideOptionMenuListAdapter);
     }
 
+    /**
+     *
+     * @param bankNumber
+     * @param callbackCode
+     */
     protected void changeBank(int bankNumber, int callbackCode){
         this.beforeChangeBank(bankNumber);
 
@@ -1110,15 +1115,23 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 */
 	protected void showConfirmDialogWithCancel(int graphWarn, OnClickListener handlerOk, OnClickListener handlerCancel)
 	{
-		AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
-		alert.setPositiveButton(R.string.ok, handlerOk);
-		alert.setNegativeButton(R.string.cancel, handlerCancel);
-		alert.setCancelable(false);
-
-		alert.setMessage(graphWarn);
-
-		alert.show();
+        showConfirmDialogWithCancel(getString(graphWarn), handlerOk, handlerCancel);
 	}
+
+    /**
+     * @param graphWarn
+     */
+    protected void showConfirmDialogWithCancel(String graphWarn, OnClickListener handlerOk, OnClickListener handlerCancel)
+    {
+        AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
+        alert.setPositiveButton(R.string.ok, handlerOk);
+        alert.setNegativeButton(R.string.cancel, handlerCancel);
+        alert.setCancelable(false);
+
+        alert.setMessage(graphWarn);
+
+        alert.show();
+    }
 
     /**
      * obsluha callbacku
@@ -1162,6 +1175,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
                 setOriginalProfileProfile(profile);
                 checkChange(profile);
+                checkBankNumber(profile);
                 initDefaultValue();
 
                 break;

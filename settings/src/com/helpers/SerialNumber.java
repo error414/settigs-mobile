@@ -41,7 +41,7 @@ public class SerialNumber {
             return false;
         }
 
-        return (((serialNumber[4] & 0xff) & 0x01) != 0);
+        return (serialNumber[5] == 0x10);
     }
 
     /**
@@ -60,8 +60,14 @@ public class SerialNumber {
     public String getString()
     {
         String serialFormat = "";
+        int  i = 0;
         for (byte b : serialNumber) {
-            serialFormat = serialFormat + ByteOperation.byteToHexString(b) + "-";
+            serialFormat = serialFormat + ByteOperation.byteToHexString(b);
+            if(i < serialNumber.length - 1)
+            {
+                serialFormat += "-";
+            }
+            i++;
         }
 
         return serialFormat;
