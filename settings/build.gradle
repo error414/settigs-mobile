@@ -134,7 +134,7 @@ android.signingConfigs.release.keyAlias props.keyAlias
 android.signingConfigs.release.keyPassword props.keyAliasPassword
 
 task wrapper(type: Wrapper) {
-   gradleVersion = '2.2.1'
+   gradleVersion = '2.7'
 }
 
 
