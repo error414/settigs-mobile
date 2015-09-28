@@ -92,6 +92,16 @@ public class HelpMap {
         result.put(R.id.governor_freq_select_id,            R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
 
 
+        result.put(R.id.servo_travel_ch1_max,            R.string.st_e21b7c7908ad7f4057fc65c8e55b184b);
+        result.put(R.id.servo_travel_ch2_max,            R.string.st_36336300263470149f9e2ee28a7621de);
+        result.put(R.id.servo_travel_ch3_max,            R.string.st_40a11b06d8a940ef721fa12dbe376de9);
+        result.put(R.id.servo_travel_ch1_min,            R.string.st_fb307e664b31575b9cf959529f4f0159);
+        result.put(R.id.servo_travel_ch2_min,            R.string.st_65d7a7bb821a6b7a7896e45dc671f4e6);
+        result.put(R.id.servo_travel_ch3_min,            R.string.st_3fd8f4fd6b1c3ac27c28ebd523ead1e4);
+
+
+
+
         return Collections.unmodifiableMap(result);
     }
 }

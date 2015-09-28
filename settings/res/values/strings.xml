@@ -376,9 +376,9 @@
 
     <string name="tap_to_action">Action</string>
     <string name="tap_to_screenshot_on">Tap to save the plot (On)</string>
-    <string name="tap_to_screenshot_off">Tap to save the plot (OFF)</string>
+    <string name="tap_to_screenshot_off">Tap to save the plot (Off)</string>
     <string name="tap_to_screenshot_on_state">Tap to save the plot (On)</string>
-    <string name="tap_to_screenshot_off_state">ap to save the plot (OFF)</string>
+    <string name="tap_to_screenshot_off_state">Tap to save the plot (Off)</string>
     <string name="force_save_graph">Save the plot</string>
 
     <string name="tap_to_freeze_on">Tap to freeze the plot (On)</string>
@@ -411,7 +411,7 @@
     <string name="no_error">No errors</string>
     <string name="basic_mode">Basic mode</string>
     <string name="app_basic_mode_on">Basic mode ON</string>
-    <string name="app_basic_mode_off">Basic mode OFF</string>
+    <string name="app_basic_mode_off">Basic mode Off</string>
     <string name="basic_mode_is_lock">Basic mode is LOCKED</string>
     <string name="refresh_log">Refresh</string>
     <string name="yes">Yes</string>
@@ -506,6 +506,12 @@
     <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Specifies subtrim value of the CH4 servo.\n\n<i>Range: -127 - 127</i></string>
     <string name="st_cc41c2874a69e4ae7c3f2385ec481160">Specifies Governor spoolup rate.</string>
     <string name="st_e6a7a3cb5827ad43acc85eac1898573a">Specifies Throttle output frequency.</string>
+    <string name="st_e21b7c7908ad7f4057fc65c8e55b184b">Specifies travel correction for the CH1 servo - maximum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_36336300263470149f9e2ee28a7621de">Specifies travel correction for the CH2 servo - maximum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_40a11b06d8a940ef721fa12dbe376de9">Specifies travel correction for the CH3 servo - maximum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_fb307e664b31575b9cf959529f4f0159">Specifies travel correction for the CH1 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_65d7a7bb821a6b7a7896e45dc671f4e6">Specifies travel correction for the CH2 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Specifies travel correction for the CH3 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>
