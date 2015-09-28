@@ -18,13 +18,9 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 package com.spirit;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Message;
-import android.preference.PreferenceManager;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -36,6 +32,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
 import com.lib.BluetoothCommandService;
 import com.lib.DstabiProvider;
@@ -55,7 +53,6 @@ public class SettingsActivity extends BaseActivity
 	@SuppressWarnings("unused")
 	final private String TAG = "SettingsActivity";
 
-    final protected int DONATE = 6;
     final protected int SETTINGS = 7;
     
 	/**
@@ -69,47 +66,21 @@ public class SettingsActivity extends BaseActivity
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
+        if(getApplicationContext().getPackageName().equals("com.spiritAero"))
+        {
+            Globals.getInstance().setAppMode(DstabiProfile.AERO);
+        }else{
+            Globals.getInstance().setAppMode(DstabiProfile.HELI);
+        }
+
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
+        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
 
 		//setContentView(R.layout.main);
         initSlideMenu(R.layout.main);
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
 		((TextView) findViewById(R.id.title)).setText(getText(R.string.full_app_name));
-
-		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-		boolean previouslyStarted = prefs.getBoolean("showSwipeHelp", false);
-
-		/*if(!previouslyStarted) {
-			SharedPreferences.Editor edit = prefs.edit();
-			edit.putBoolean("showSwipeHelp", Boolean.TRUE);
-			edit.commit();
-			onCoachMark();
-		}else {*/
-		/*}*/
-	}
-
-	/**
-	 *
-	 */
-	public void onCoachMark(){
-
-		final Dialog dialog = new Dialog(this);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-		dialog.setContentView(R.layout.help_swipe_to_left);
-		dialog.setCanceledOnTouchOutside(true);
-		//for dismissing anywhere you touch
-		View masterView = dialog.findViewById(R.id.help_swipe_to_left_image);
-		masterView.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				dialog.dismiss();
-
-			}
-		});
-		dialog.show();
 	}
 
 	public void onResume()

@@ -289,9 +289,10 @@ public class GeneralActivity extends BaseActivity
                     Log.d(TAG, "odesilam spinner");
 					showInfoBarWrite();
 
-                    if(i == 2){
-                        needRestoreChannels = true;
-                    }
+					if(i == 1){ //receiver
+						showConfirmDialog(R.string.receiver_was_change);
+						needRestoreChannels = true;
+					}
 
 				}
 			}

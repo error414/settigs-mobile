@@ -2,15 +2,13 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 24.09.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 28.09.2015-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
 
-    <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
     <string name="short_title">Spirit</string>
-    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Nastavení</string>
     <string name="save_changes">Uložit nastavení do jednotky</string>
     <string name="save_to_unit_done">Uložení do jednotky v pořádku</string>
@@ -560,7 +558,6 @@
     <string name="governor_thr_reverse">Reverz plynu</string>
 
     <string name="in_transmitter">﻿Ve vysílači</string>
-    <string name="ga_trackingId">UA-60203884-1</string>
     <string name="cant_send_data">Data nebyla odeslána</string>
 
     <string name="downloading">Stahuji</string>
@@ -579,9 +576,9 @@
     <string name="governor_on">Governor</string>
     <string name="governor_spoolup">Rozběh</string>
     <string name="thr_reverse_warning">Po stisku tlačítka OK bude výstup plynu reverzován. Může se roztočit motor!</string>
-    <string name="fw_type_not_match">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
+    <string name="fw_type_not_match_heli">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
+    <string name="fw_type_not_match_aero">Firmware ve vaši jednotce je určen pro modely helikoptér. Je nutné nahrát firmware určený pro letadla.</string>
     <string name="governor_mode">Režim</string>
-    <string name="fw_mode_mistmatch_base_heli">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
     <string name="factory_settings">Tovární nastavení</string>
     <string name="factory_settings_confirm">Přejete si resetovat jednotku do továrního nastavení?</string>
     <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
