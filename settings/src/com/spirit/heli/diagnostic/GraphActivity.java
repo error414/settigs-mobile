@@ -400,10 +400,10 @@ public class GraphActivity extends BaseActivity
 							if ((int) dataBuffer[i] == -5) {    // nasli jsme magic byte	-5 & 0xFF = 251 = 0xFB
 								short val = (short) ((dataBuffer[i + 1] & 0xFF) | ((dataBuffer[i + 2] & 0xFF) << 8));
 
-								input_xr[i / 3] = val * 10;
+								input_xr[i / 3] = val;
 								input_xi[i / 3] = 0;
 
-								//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);
+								//input_xr[i/3] = (Math.cos(i / 3 * 5)*35 + Math.cos(i / 3 * 4)*20);
 
 								i += 3;
 							} else {
