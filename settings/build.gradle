@@ -3,7 +3,7 @@ buildscript {
         maven   {url 'http://repo1.maven.org/maven2'}
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.2.0'
+        classpath 'com.android.tools.build:gradle:1.3.0'
     }
 }
 apply plugin: 'android'
@@ -73,13 +73,13 @@ android {
     task createHelpPDFLinksHeliProduction(type: Exec) {
         //update build info
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinks.php release"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinksHeli.php release"
     }
 
     task createHelpPDFLinksAeroProduction(type: Exec) {
         //update build info
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFAeroLinks.php release"
+        args "-c", "php -f ./gradle-exec/createHelpPDFLinksAero.php release"
     }
 
     task buildInfoRelase(type: Exec) {
