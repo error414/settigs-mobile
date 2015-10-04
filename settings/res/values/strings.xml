@@ -5,10 +5,7 @@
     <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 04.10.2015-release</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
-    <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
-    <string name="short_title">Spirit</string>
-    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Settings</string>
     <string name="save_changes">Save changes to unit</string>
     <string name="save_to_unit_done">Save to unit Done</string>
