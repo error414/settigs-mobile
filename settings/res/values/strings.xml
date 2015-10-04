@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 30.09.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 04.10.2015-release</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="app_name">Spirit Settings</string>
@@ -130,7 +130,7 @@
     <string name="pitch_range">Pitch range</string>
     <string name="rudder_end_points">Rudder \n end-points</string>
     <string name="rudder_end_points_no_break">Rudder end-points</string>
-    <string name="blank"></string>
+    <string name="blank" translatable="false"></string>
     <string name="cyc_rate">Cyclic</string>
     <string name="rud_rate">Rudder</string>
     <string name="x_picth">X-Pitch</string>
@@ -559,4 +559,5 @@
     <string name="factory_settings_done">Resetting to factory settings succesfully finished.</string>
     <string name="receiver_was_change">Receiver type was changed in the unit settings.\n\nIt\'s necessary to save it and then reconnect battery.</string>
     <string name="profile_not_match">Selected profile was created with a different software version (%1$s)!  Double check all loaded values, please.</string>
+    <string name="acro_delay">Acro Delay</string>
 </resources>

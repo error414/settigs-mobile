@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 30.09.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 04.10.2015-release</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -586,4 +586,5 @@
     <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
     <string name="receiver_was_change">Typ přijímače byl změněn v nastavení jednotky.\n\nJe nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.</string>
     <string name="profile_not_match">Zvolený profil byl vytvořen odlišnou verzí software (%1$s)! Prosím zkontrolujte hodnoty všech parametrů.</string>
+    <string name="acro_delay">Prodleva Akro</string>
 </resources>

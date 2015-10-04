@@ -523,6 +523,15 @@
             />
 
         <activity
+            android:name=".heli.stabi.StabiAcroDelayActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
             android:name=".aero.diagnostic.InputChannelsActivity"
             android:configChanges="orientation"
             android:label="@string/short_title"

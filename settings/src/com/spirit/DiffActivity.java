@@ -41,6 +41,7 @@ import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
 import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
+import com.lib.translate.StabiAcroDelayProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
 import com.lib.translate.StabiSenzivityXProgressExTranslate;
 import com.lib.translate.StabiSenzivityYProgressExTranslate;
@@ -537,6 +538,18 @@ public class DiffActivity extends BaseActivity
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // ###################################PITCH_PUMP##########################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("STABI_ACRO_DELAY")){
+
+            StabiAcroDelayProgressExTranslate translate = new StabiAcroDelayProgressExTranslate();
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.stabi_button_text), textSeparator , getResources().getString(R.string.acro_delay)).toString());
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // ###################################PITCH_PUMP##########################################################
 
