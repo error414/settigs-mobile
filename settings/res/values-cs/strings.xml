@@ -2,12 +2,15 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 28.09.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 04.10.2015-release</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
 
+    <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
+    <string name="short_title">Spirit</string>
+    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Nastavení</string>
     <string name="save_changes">Uložit nastavení do jednotky</string>
     <string name="save_to_unit_done">Uložení do jednotky v pořádku</string>
@@ -583,4 +586,5 @@
     <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
     <string name="receiver_was_change">Typ přijímače byl změněn v nastavení jednotky.\n\nJe nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.</string>
     <string name="profile_not_match">Zvolený profil byl vytvořen odlišnou verzí software (%1$s)! Prosím zkontrolujte hodnoty všech parametrů.</string>
+    <string name="acro_delay">Prodleva Akro</string>
 </resources>

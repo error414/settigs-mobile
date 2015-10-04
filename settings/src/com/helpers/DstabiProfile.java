@@ -261,6 +261,7 @@ public class DstabiProfile {
 
 		profileMap.put("GOVERNOR_FREQ",	        new ProfileItem(72, "A", "D", "I",	true));
 		profileMap.put("GOVERNOR_ON",	        new ProfileItem(73, 0, 1, "J",	false));
+		profileMap.put("STABI_ACRO_DELAY",	    new ProfileItem(74, 0, 30, "N",	false));
         ///////////////////////////////////////////////////////////////////
 
 	}

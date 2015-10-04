@@ -53,6 +53,7 @@ import com.spirit.heli.servo.ServosActivity;
 import com.spirit.heli.servo.ServosReverzActivity;
 import com.spirit.heli.servo.ServosSubtrimActivity;
 import com.spirit.heli.servo.ServosTypeActivity;
+import com.spirit.heli.stabi.StabiAcroDelayActivity;
 import com.spirit.heli.stabi.StabiActivity;
 import com.spirit.heli.stabi.StabiColActivity;
 import com.spirit.heli.stabi.StabiCtrlDirActivity;
@@ -134,6 +135,7 @@ public class Menu {
     public static Integer MENU_STABISTICK           = 31;
     public static Integer MENU_STABIFBMODE          = 32;
     public static Integer STABI_CTRLDIR             = 36;
+    public static Integer STABI_ACRO_DELAY          = 58;
 
     public static Integer MENU_CYCLICRING            = 33;
     public static Integer MENU_ENDPOINTS             = 34;
@@ -143,7 +145,7 @@ public class Menu {
     public static Integer MENU_GOV_ON              = 52;
     public static Integer MENU_GOV_GOV             = 51;
     public static Integer MENU_GOV_FREQ            = 38;
-    public static Integer MENU_GOV_FINE_TUNING = 39;
+    public static Integer MENU_GOV_FINE_TUNING     = 39;
     public static Integer MENU_GOV_RPM_SENZOR      = 44;
     public static Integer MENU_GOV_THR_RANGE       = 45;
     public static Integer MENU_GOV_RPM_MAX         = 46;
@@ -369,8 +371,11 @@ public class Menu {
 	    //STABI_CTRLDIR
 	    menuList.put(STABI_CTRLDIR,   new MenuItem(R.drawable.i45,     R.string.stabi_ctrldir, StabiCtrlDirActivity.class));
 
+        //STABI_ACRO_DELAY
+        menuList.put(STABI_ACRO_DELAY,   new MenuItem(R.drawable.na,     R.string.acro_delay, StabiAcroDelayActivity.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION, MENU_STABICOL, MENU_STABISTICK, MENU_STABIFBMODE, STABI_CTRLDIR});
+        menuGroups.put(MENU_INDEX_STABI, new Integer[]{MENU_STABIFUNCTION, MENU_STABICOL, MENU_STABISTICK, MENU_STABIFBMODE, STABI_CTRLDIR, STABI_ACRO_DELAY});
 
 
         //SERVO LIMIT ACTIVITY
