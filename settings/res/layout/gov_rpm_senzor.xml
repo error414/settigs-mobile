@@ -62,8 +62,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textView10"
                 android:layout_marginRight="10dp"
-                android:max="40000"
-                android:progressDrawable="@drawable/my_custom_pb" />
+                android:max="4000"
+                android:progressDrawable="@drawable/my_custom_pb"
+                android:indeterminate="false" />
 
             <TextView
                 android:id="@+id/governor_value_request_rpm"
@@ -94,8 +95,9 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/textView100"
                 android:layout_marginRight="10dp"
-                android:max="40000"
-                android:progressDrawable="@drawable/my_custom_pb" />
+                android:max="4000"
+                android:progressDrawable="@drawable/my_custom_pb"
+                android:indeterminate="false" />
 
             <TextView
                 android:id="@+id/governor_value_current_rpm"
