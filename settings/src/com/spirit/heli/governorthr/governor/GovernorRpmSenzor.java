@@ -23,7 +23,6 @@ import android.os.Message;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -56,7 +55,7 @@ public class GovernorRpmSenzor extends BaseActivity
 	{
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
-		initSlideMenu(R.layout.bec_rpm_senzor);
+		initSlideMenu(R.layout.gov_rpm_senzor);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
         ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("... \u2192 ", getString(R.string.governor_thr), " \u2192 ", getString(R.string.governor), " \u2192 ", getString(R.string.governor_rpm_senzor)));
@@ -65,12 +64,12 @@ public class GovernorRpmSenzor extends BaseActivity
 	}
 
     /**
-     * handle for change banks
      *
-     * @param v
+     * @return
      */
-    public void changeBankOpenDialog(View v){
-        //disabled change bank in this activity
+    public boolean isEnableChangeBank()
+    {
+        return false;
     }
 
     /**
@@ -111,7 +110,7 @@ public class GovernorRpmSenzor extends BaseActivity
      */
     protected void getRpmValue()
     {
-        if(profileCreator != null && profileCreator.isValid() && profileCreator.getProfileItemByName("GOVERNOR_FREQ").getValueInteger() > 0) {
+        if(profileCreator != null && profileCreator.isValid() && profileCreator.getProfileItemByName("GOVERNOR_ON"). getValueForCheckBox()) {
             delayHandle.postDelayed(new Runnable() {
                 @Override
                 public void run() {
@@ -135,9 +134,9 @@ public class GovernorRpmSenzor extends BaseActivity
             return;
         }
 
-        int govMode = profileCreator.getProfileItemByName("GOVERNOR_FREQ").getValueInteger();
+        boolean govMode = profileCreator.getProfileItemByName("GOVERNOR_ON").getValueForCheckBox();
 
-        if(govMode == 0){
+        if(!govMode){
             findViewById(R.id.governor_request_rpm).setEnabled(false);
             findViewById(R.id.governor_current_rpm).setEnabled(false);
         }else{
@@ -152,8 +151,8 @@ public class GovernorRpmSenzor extends BaseActivity
      */
     protected void updateGui(byte[] b)
     {
-        byte[] request = {b[0], b[1]};
-        byte[] current = {b[2], b[3]};
+        byte[] current = {b[0], b[1]};
+        byte[] request = {b[2], b[3]};
 
         ((ProgressBar)findViewById(R.id.governor_request_rpm)).setProgress(ByteOperation.byteArrayToShort(request));
         ((ProgressBar)findViewById(R.id.governor_current_rpm)).setProgress(ByteOperation.byteArrayToShort(current));
