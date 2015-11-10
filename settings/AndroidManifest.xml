@@ -601,6 +601,24 @@
             android:theme="@style/CustomTheme"
             />
 
+        <activity
+            android:name=".heli.advanced.expert.RpmSenzorFilterActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
+        <activity
+            android:name=".heli.advanced.expert.AutorotationBailOutActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme"
+            />
+
     </application>
 
 </manifest>

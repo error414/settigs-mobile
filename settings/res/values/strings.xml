@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 04.10.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 10.11.2015-release</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -509,6 +509,8 @@
     <string name="st_fb307e664b31575b9cf959529f4f0159">Specifies travel correction for the CH1 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_65d7a7bb821a6b7a7896e45dc671f4e6">Specifies travel correction for the CH2 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Specifies travel correction for the CH3 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>RPM Sensor Filter</b>\n\n- Reduces excess noise from RPM sensor.\n- In case of unstable RPM readout increase the value.\n- In case of delayed RPM response decrease the value.\n- Usually configured to 6.\n\n<i>Range: 1 - 8</i></string>
+    <string name="st_9749568bbe5e17778acb506749150c3b"><b>Autorotation Bailout</b>\n\n- Period in which autorotation bailout might be activated.\n- Usually configured to 5s.\n\n<i>Range: 1 - 60</i></string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>
@@ -557,4 +559,6 @@
     <string name="receiver_was_change">Receiver type was changed in the unit settings.\n\nIt\'s necessary to save it and then reconnect battery.</string>
     <string name="profile_not_match">Selected profile was created with a different software version (%1$s)!  Double check all loaded values, please.</string>
     <string name="acro_delay">Acro Delay</string>
+    <string name="rpm_senzor_filter">RPM Sensor Filter</string>
+    <string name="autorotation_bailout">Autorotation Bailout</string>
 </resources>

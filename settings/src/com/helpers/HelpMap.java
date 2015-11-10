@@ -99,6 +99,9 @@ public class HelpMap {
         result.put(R.id.servo_travel_ch2_min,            R.string.st_65d7a7bb821a6b7a7896e45dc671f4e6);
         result.put(R.id.servo_travel_ch3_min,            R.string.st_3fd8f4fd6b1c3ac27c28ebd523ead1e4);
 
+        result.put(R.id.rpm_senzor_filter,               R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
+        result.put(R.id.autorotation_bailout,            R.string.st_9749568bbe5e17778acb506749150c3b);
+
 
 
 
