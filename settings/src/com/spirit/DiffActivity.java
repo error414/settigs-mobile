@@ -1055,7 +1055,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RPM_SENZOR_FILTER")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.rpm_senzor_filter)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getString(R.string.advanced_expert), textSeparator , getResources().getString(R.string.rpm_senzor_filter)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -1064,7 +1064,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("AUTOROTATION_BAILOUT")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.autorotation_bailout)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getString(R.string.advanced_expert), textSeparator , getResources().getString(R.string.autorotation_bailout)).toString());
 
             AutorotationBailOutProgressExTranslate translate = new AutorotationBailOutProgressExTranslate();
 
