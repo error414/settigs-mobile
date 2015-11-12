@@ -161,6 +161,7 @@ public class AutorotationBailOutActivity extends BaseActivity
 		}
 		
 		checkBankNumber(profileCreator);
+		initBasicMode();
 
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
@@ -171,12 +172,10 @@ public class AutorotationBailOutActivity extends BaseActivity
 
 			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
 				tempPicker.setEnabled(false);
-			}else {
-				tempPicker.setEnabled(true);
 			}
 		}
 
-        initBasicMode();
+
 
 	}
 

@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 10.11.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 12.11.2015-release</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -544,6 +544,7 @@
     <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Udává míru korekce dráhy serva CH3 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
     <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>Filtr senzoru otáček</b>\n\n- Snižuje šum senzoru otáček na přijatelnou úroveň.\n- V případě nepřesného čtení otáček zvyšte hodnotu.\n- V případě, že je čtení otáček opožděné, snižte hodnotu.\n- Nejčastěji je 6.\n\n<i>Rozsah: 1 - 8</i></string>
     <string name="st_9749568bbe5e17778acb506749150c3b"><b>Autorotace - Bailout</b>\n\n- Doba, po kterou bude funkce rychlého rozběhu motoru aktivní.\n- Nejčastěji je 5s.\n\n<i>Rozsah: 1 - 60</i></string>
+    <string name="st_698dbfa44b9af463920bb489c14c81a2">Určuje, za jak dlouho se model začne otáčet z invertovaného letu.\n\n<i>Rozsah: 0 - 3,0 sekund</i></string>
     <!--  END AUTO GENERATE STUB -->
 
 

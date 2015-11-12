@@ -159,7 +159,7 @@ public class RpmSenzorFilterActivity extends BaseActivity
 		}
 		
 		checkBankNumber(profileCreator);
-
+		initBasicMode();
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
@@ -169,11 +169,9 @@ public class RpmSenzorFilterActivity extends BaseActivity
 
 			if(profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
 				tempPicker.setEnabled(false);
-			}else {
-				tempPicker.setEnabled(true);
 			}
 		}
-        initBasicMode();
+
 
 	}
 

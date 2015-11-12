@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 10.11.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 12.11.2015-release</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -511,6 +511,7 @@
     <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Specifies travel correction for the CH3 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>RPM Sensor Filter</b>\n\n- Reduces excess noise from RPM sensor.\n- In case of unstable RPM readout increase the value.\n- In case of delayed RPM response decrease the value.\n- Usually configured to 6.\n\n<i>Range: 1 - 8</i></string>
     <string name="st_9749568bbe5e17778acb506749150c3b"><b>Autorotation Bailout</b>\n\n- Period in which autorotation bailout might be activated.\n- Usually configured to 5s.\n\n<i>Range: 1 - 60</i></string>
+    <string name="st_698dbfa44b9af463920bb489c14c81a2">Determine when the helicopter will recover from the inverted flight.\n\n<i>Range: 0 - 3.0 seconds</i></string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>

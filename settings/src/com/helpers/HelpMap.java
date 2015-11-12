@@ -101,6 +101,7 @@ public class HelpMap {
 
         result.put(R.id.rpm_senzor_filter,               R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
         result.put(R.id.autorotation_bailout,            R.string.st_9749568bbe5e17778acb506749150c3b);
+        result.put(R.id.stabi_acro_delay,                R.string.st_698dbfa44b9af463920bb489c14c81a2);
 
 
 
