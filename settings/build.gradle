@@ -27,6 +27,31 @@ android {
         minSdkVersion 8
         targetSdkVersion 17
     }
+
+    productFlavors {
+        heli {
+            applicationId "com.spirit"
+            resValue "string", "app_name", "Spirit Settings"
+            resValue "string", "full_app_name", "Spirit Settings"
+            resValue "string", "short_title", "Spirit"
+            versionCode 197
+            versionName "1.3.19"
+        }
+
+        aero {
+            applicationId "com.spiritAero"
+            resValue "string", "app_name", "Spirit Settings Aero"
+            resValue "string", "full_app_name", "Spirit Settings Aero"
+            resValue "string", "short_title", "Spirit Aero"
+            versionCode 1
+            versionName "1.0.0"
+        }
+    }
+
+    lintOptions {
+        disable 'MissingTranslation'
+    }
+
     signingConfigs {
         release
     }
@@ -52,80 +77,55 @@ android {
     }
 
     // U T I L I T Y   T A S K S  =================================================================
-    task buildHelpText(type: Exec) {
-        //update build info
+    task preAssemblePRODUCTION_HELI(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/buildhelpText.php"
+        args "-c", "php -f ./gradle-exec/assembleHeli.php release"
     }
 
-    task createHelpPDFLinksHeliDevel(type: Exec) {
-        //update build info
+    task preAssembleDEVEL_HELI(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinksHeli.php devel"
+        args "-c", "php -f ./gradle-exec/assembleHeli.php devel"
     }
 
-    task createHelpPDFLinksAeroDevel(type: Exec) {
-        //update build info
+    task preAssemblePRODUCTION_AERO(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinksAero.php devel"
+        args "-c", "php -f ./gradle-exec/assembleAero.php release"
     }
 
-    task createHelpPDFLinksHeliProduction(type: Exec) {
-        //update build info
+    task preAssembleDEVEL_AERO(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinksHeli.php release"
-    }
-
-    task createHelpPDFLinksAeroProduction(type: Exec) {
-        //update build info
-        executable "sh"
-        args "-c", "php -f ./gradle-exec/createHelpPDFLinksAero.php release"
-    }
-
-    task buildInfoRelase(type: Exec) {
-        //update build info
-        executable "sh"
-        args "-c", "php -f ./gradle-exec/updateRevision.php release"
-    }
-
-    task buildInfoDevel(type: Exec) {
-        //update build info
-        executable "sh"
-        args "-c", "php -f ./gradle-exec/updateRevision.php devel"
-    }
-
-    task convertPngImage(type: Exec) {
-        //update build info
-        executable "sh"
-        args "-c", "./gradle-exec/convertImage.sh"
-    }
-
-    task info(type: Exec) {
-        //update build info
-        executable "sh"
-        args "-c", "php -f ./gradle-exec/info.php"
+        args "-c", "php -f ./gradle-exec/assembleAero.php devel"
     }
 
 
 
-    task assemblePRODUCTION(dependsOn: ['buildHelpText', 'buildInfoRelase', 'createHelpPDFLinksHeliProduction', 'createHelpPDFLinksAeroProduction', 'info', 'assembleRelease'], type:Exec) {
+
+    task assemblePRODUCTION_HELI(dependsOn: ['preAssemblePRODUCTION_HELI', 'assembleHeliRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
-    assembleRelease.mustRunAfter buildInfoRelase;
+    preBuild.mustRunAfter preAssemblePRODUCTION_HELI;
 
-    task assembleDEVEL(dependsOn: ['buildHelpText', 'buildInfoDevel', 'createHelpPDFLinksHeliDevel', 'createHelpPDFLinksAeroDevel', 'info', 'assembleRelease'], type:Exec) {
+    task assembleDEVEL_HELI(dependsOn: ['preAssembleDEVEL_HELI', 'assembleHeliRelease'], type:Exec) {
         executable "sh"
         args "-c", "echo 'DONE'"
     }
-    assembleRelease.mustRunAfter buildInfoDevel;
+    preBuild.mustRunAfter preAssembleDEVEL_HELI;
 
-    assembleRelease.mustRunAfter buildHelpText;
-    assembleRelease.mustRunAfter createHelpPDFLinksHeliDevel;
-    assembleRelease.mustRunAfter createHelpPDFLinksHeliProduction;
-    assembleRelease.mustRunAfter createHelpPDFLinksAeroDevel;
-    assembleRelease.mustRunAfter createHelpPDFLinksAeroProduction;
-    info.mustRunAfter assembleRelease;
+
+
+    task assemblePRODUCTION_AERO(dependsOn: ['preAssemblePRODUCTION_AERO', 'assembleAeroRelease'], type:Exec) {
+        executable "sh"
+        args "-c", "echo 'DONE'"
+    }
+    preBuild.mustRunAfter preAssemblePRODUCTION_AERO;
+
+    task assembleDEVEL_AERO(dependsOn: ['preAssembleDEVEL_AERO', 'assembleAeroRelease'], type:Exec) {
+        executable "sh"
+        args "-c", "echo 'DONE'"
+    }
+    preBuild.mustRunAfter preAssembleDEVEL_AERO;
+
 }
 
 def props = new Properties()
@@ -136,7 +136,7 @@ android.signingConfigs.release.keyAlias props.keyAlias
 android.signingConfigs.release.keyPassword props.keyAliasPassword
 
 task wrapper(type: Wrapper) {
-   gradleVersion = '2.2.1'
+   gradleVersion = '2.7'
 }
 
 

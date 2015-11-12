@@ -19,7 +19,6 @@ package com.spirit;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -84,7 +83,7 @@ public class FavouritesActivity extends BaseActivity
 		((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.favourites_button_text)));
 
 		//naplnime seznam polozek pro menu
-		SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, MODE_PRIVATE);
 		Map<String, ?> keys = prefs.getAll();
 
 		menuListIndexSaved = new Integer[keys.size()];
@@ -120,7 +119,7 @@ public class FavouritesActivity extends BaseActivity
 			public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int position, long id)
 			{
 
-				final SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
+				final SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, MODE_PRIVATE);
 				final SharedPreferences.Editor editor = prefs.edit();
 
 				if (prefs.getAll().containsKey(String.valueOf(menuListIndexSaved[position]))) {
@@ -158,7 +157,7 @@ public class FavouritesActivity extends BaseActivity
 
 	private void updateListView()
 	{
-		SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, Context.MODE_PRIVATE);
+		SharedPreferences prefs = getSharedPreferences(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? PREF_FAVOURITES : PREF_FAVOURITES_AERO, MODE_PRIVATE);
 		Map<String, ?> keys = prefs.getAll();
 
 		menuListIndexSaved = new Integer[keys.size()];

@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.helpers.DstabiProfile;
+import com.helpers.Globals;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -93,7 +94,7 @@ public class LogPdf {
         table.setWidthPercentage(100);
         // LOGO OBRAZEK ##################################################
         try {
-            Image image1 = Image.getInstance(getByteArrayFromImageResource("logo_mobile.png"));
+            Image image1 = Image.getInstance(getByteArrayFromImageResource(Globals.getInstance().getAppMode() == DstabiProfile.HELI ? "logo_mobile.png" : "logo_mobile_aero.png"));
             PdfPCell cell = new PdfPCell(image1);
             cell.setBorder(0);
             table.addCell(cell);

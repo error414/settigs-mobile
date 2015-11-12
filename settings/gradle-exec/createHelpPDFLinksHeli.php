@@ -1,6 +1,6 @@
 <?php
 
-$revision = isset($argv[1]) ? $argv[1] : '';
+$mode = isset($argv[1]) ? $argv[1] : '';
 
 echo "PDF LINK CLASS start \n";
 
@@ -26,7 +26,7 @@ foreach($links[0] as $res){
   preg_match('/\-([0-9]+)\.([0-9]+).*?([a-z]+)\.pdf/',$res ,$version);
 
   $majorWeb = $version[1];
-  if($revision == 'devel'){
+  if($mode == 'devel'){
     $minorWeb = $version[2] + 1;
   }else{
     $minorWeb = $version[2];

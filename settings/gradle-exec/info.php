@@ -32,8 +32,6 @@ if(strpos($build[0], 'release')){
 preg_match_all("/\_(.*?)\./", $helpinkFileContentHeli, $helpLinkHeli);
 preg_match_all("/\_(.*?)\./", $helpinkFileContentAero, $helpLinkAero);
 
-$manifest = file_get_contents('AndroidManifest.xml');
-
 $languages = "";
 
 if(isset($helpLinkHeli[1]) && count($helpLinkHeli[1]) > 0){
@@ -48,9 +46,6 @@ if(isset($helpLinkAero[1]) && count($helpLinkAero[1]) > 0){
     $languagesAero = "!!!!!!!";
 }
 
-preg_match("/android\:versionCode=\"([0-9]+)\"/", $manifest, $manifestVersion);
-preg_match("/android\:versionName=\"(.*)\"/", $manifest, $manifestVersionName);
-
 
 $settingsActivity = './src/com/spirit/SettingsActivity.java';
 $settingsActivityContent = file_get_contents($settingsActivity);
@@ -64,6 +59,4 @@ echo "VERSION AERO   : $majorAero[1].$minorAero[1]\n";
 echo "BUILD          : $build[0]\n";
 echo "HELP LINK HELI : [" . $languagesHeli . "]\n";
 echo "HELP LINK AERO : [" . $languagesAero . "]\n";
-echo "VER. CODE      : $manifestVersion[1]\n";
-echo "VER. NAME      : $manifestVersionName[1]\n";
 echo "----------------------------------------\n\n\n";

@@ -403,7 +403,7 @@ public class GraphActivity extends BaseActivity
 								input_xr[i / 3] = val;
 								input_xi[i / 3] = 0;
 
-								//input_xr[i/3] = (Math.cos (i/3*5)*50 + Math.cos (i/3*4)*30);
+								//input_xr[i/3] = (Math.cos(i / 3 * 5)*35 + Math.cos(i / 3 * 4)*20);
 
 								i += 3;
 							} else {

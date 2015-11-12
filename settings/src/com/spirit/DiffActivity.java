@@ -36,6 +36,7 @@ import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
+import com.lib.translate.AutorotationBailOutProgressExTranslate;
 import com.lib.translate.GovernorRpmMaxProgressExTranslate;
 import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
 import com.lib.translate.GovernorgearRatioProgressExTranslate;
@@ -1053,6 +1054,26 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
+        if(diffItem.getLabel().equals("RPM_SENZOR_FILTER")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getString(R.string.advanced_expert), textSeparator , getResources().getString(R.string.rpm_senzor_filter)).toString());
+
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
+            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("AUTOROTATION_BAILOUT")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getString(R.string.advanced_expert), textSeparator , getResources().getString(R.string.autorotation_bailout)).toString());
+
+            AutorotationBailOutProgressExTranslate translate = new AutorotationBailOutProgressExTranslate();
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
         if(diffItem.getLabel().equals("AERO_SENSOR_SENX")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.diag_aileron)).toString());
 
@@ -1095,6 +1116,7 @@ public class DiffActivity extends BaseActivity
             to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
         }
         // #############################################################################################
+
 
         ////////////////////////////////////////////
         ////////////////////////////////////////////

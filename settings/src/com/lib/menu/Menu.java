@@ -19,10 +19,12 @@ import com.spirit.heli.advanced.PirouetteConsistencyActivity;
 import com.spirit.heli.advanced.RudderDelayActivity;
 import com.spirit.heli.advanced.RudderDynamicActivity;
 import com.spirit.heli.advanced.RudderRevomixActivity;
+import com.spirit.heli.advanced.expert.AutorotationBailOutActivity;
 import com.spirit.heli.advanced.expert.CyclicPhaseActivity;
 import com.spirit.heli.advanced.expert.ExpertActivity;
 import com.spirit.heli.advanced.expert.PitchpumpActivity;
 import com.spirit.heli.advanced.expert.PitchupActivity;
+import com.spirit.heli.advanced.expert.RpmSenzorFilterActivity;
 import com.spirit.heli.advanced.expert.SignalProcessingActivity;
 import com.spirit.heli.advanced.expert.StickDeadBandActivity;
 import com.spirit.heli.diagnostic.BecTesterActivity;
@@ -158,6 +160,9 @@ public class Menu {
     public static Integer MENU_LIMIT_AIL           = 54;
     public static Integer MENU_LIMIT_ELE           = 55;
     public static Integer MENU_LIMIT_RUD           = 56;
+
+    public static Integer MENU_RPM_SENZOR_FILTER   = 60;
+    public static Integer MENU_AUTOROTATION_BAILOUT = 61;
 
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
@@ -315,11 +320,17 @@ public class Menu {
         menuList.put(MENU_DEADBAND,   new MenuItem(R.drawable.i22,     R.string.stick_deadband, StickDeadBandActivity.class));
 
 
+        //rpm senzor filetr
+        menuList.put(MENU_RPM_SENZOR_FILTER,   new MenuItem(R.drawable.na,     R.string.rpm_senzor_filter, RpmSenzorFilterActivity.class));
+
+        //autorotation bailout
+        menuList.put(MENU_AUTOROTATION_BAILOUT,   new MenuItem(R.drawable.na,     R.string.autorotation_bailout, AutorotationBailOutActivity.class));
+
         //add to groups
         menuGroups.put(
             MENU_INDEX_ADVANCED_EXPERT,
                 new Integer[]{
-                        MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING,
+                        MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING, MENU_RPM_SENZOR_FILTER, MENU_AUTOROTATION_BAILOUT,
                 }
         );
 

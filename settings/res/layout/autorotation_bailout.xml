@@ -30,20 +30,19 @@
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignParentTop="true"
 	            android:layout_marginLeft="10dp"
-	            android:text="@string/acro_delay"
+	            android:text="@string/autorotation_bailout"
 	            android:textAppearance="?android:attr/textAppearanceLarge"
 	            android:textColor="@color/text_color"
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/stabi_acro_delay"
+	            android:id="@+id/autorotation_bailout"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
 	            android:layout_alignRight="@+id/imageView1"
 	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="32dp"
-                android:focusable="false">
+	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
 

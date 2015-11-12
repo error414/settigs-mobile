@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.analytics.tracking.android.EasyTracker;
+import com.helpers.DstabiProfile;
 import com.helpers.Globals;
 import com.lib.FileDialog;
 import com.lib.SelectionMode;
@@ -41,7 +42,7 @@ public class PrefsActivity extends PreferenceActivity {
 	public final static int REQUEST_APP_DIR = 1;
 
 	public final static String PREF_APP_DIR = "main_dir";
-    public final static String PREF_APP_PREFIX = "/spirit/";
+    public final static String PREF_APP_PREFIX = Globals.getInstance().getAppMode() == DstabiProfile.HELI ? "/spirit/" : "/spiritAero/";
     public final static String PREF_APP_GRAPH_DIR = "graph/";
     public final static String PREF_APP_PROFILE_DIR = "profile/";
     public final static String PREF_APP_LOG_DIR = "log/";

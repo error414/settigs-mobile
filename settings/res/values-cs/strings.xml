@@ -2,15 +2,12 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg \n \n sestavení: 06.10.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 12.11.2015-release</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
 
-    <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
-    <string name="short_title">Spirit</string>
-    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Nastavení</string>
     <string name="save_changes">Uložit nastavení do jednotky</string>
     <string name="save_to_unit_done">Uložení do jednotky v pořádku</string>
@@ -532,7 +529,7 @@
     <string name="st_3f768495d1b414cb1277d3b1f3ae2691">Udává maximální otáčky hlavního rotoru.\n\n- Nastavte otáčky, které mají být dosaženy při 100% plynu.\n\n<i>Rozsah: 1500 - 4000</i></string>
     <string name="st_b1f1153100c33f0ce17c0264026d5bec">Udává odezvu governoru.\n\n- Přidejte pro rychlejší odezvu governoru během rychlé změny zátěže.\n- Snižte pokud otáčky rychle kolísají nebo dochází k oscilaci vrtulky.\n\n<i>Rozsah: 1 - 10</i></string>
     <string name="st_d12c351a24a5319dcbcbc77d25195675">Udává míru udržení otáček.\n\n- Přidejte pro lepší dlouhodobé držení otáček.\n- Snižte pokud otáčky během visu pozvolna pulzují.\n\n<i>Rozsah: 1 - 6</i></string>
-    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Zesiluje pohyby kolektivu</b>\n\n- Rychlý pohyb způsobí větší změnu.\n- Běžně je 0.\n\n<i>Rozsah: 0 - 4</i></string>
+    <string name="st_6bf8cb04f7fdb6f926ad978ad55e7980"><b>Zesiluje pohyby kolektivu</b>\n\n- Rychlý pohyb způsobí větší změnu.\n- Nejčastěji je 0.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_be5bf619800ccb76a8ac96ef6c5b70c2">Udává hodnotu subtrimu pro servo CH1.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_6b9d810c0062eba5db4c223ae3d94fab">Udává hodnotu subtrimu pro servo CH2.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_92b0fe0b01b51063f423a7cc8b02cc1e">Udává hodnotu subtrimu pro servo CH3.\n\n<i>Rozsah: -127 - 127</i></string>
@@ -545,6 +542,9 @@
     <string name="st_fb307e664b31575b9cf959529f4f0159">Udává míru korekce dráhy serva CH1 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
     <string name="st_65d7a7bb821a6b7a7896e45dc671f4e6">Udává míru korekce dráhy serva CH2 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
     <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Udává míru korekce dráhy serva CH3 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>Filtr senzoru otáček</b>\n\n- Snižuje šum senzoru otáček na přijatelnou úroveň.\n- V případě nepřesného čtení otáček zvyšte hodnotu.\n- V případě, že je čtení otáček opožděné, snižte hodnotu.\n- Nejčastěji je 6.\n\n<i>Rozsah: 1 - 8</i></string>
+    <string name="st_9749568bbe5e17778acb506749150c3b"><b>Autorotace - Bailout</b>\n\n- Doba, po kterou bude funkce rychlého rozběhu motoru aktivní.\n- Nejčastěji je 5s.\n\n<i>Rozsah: 1 - 60</i></string>
+    <string name="st_698dbfa44b9af463920bb489c14c81a2">Určuje, za jak dlouho se model začne otáčet z invertovaného letu.\n\n<i>Rozsah: 0 - 3,0 sekund</i></string>
     <!--  END AUTO GENERATE STUB -->
 
 
@@ -578,13 +578,15 @@
     <string name="governor_on">Governor</string>
     <string name="governor_spoolup">Rozběh</string>
     <string name="thr_reverse_warning">Po stisku tlačítka OK bude výstup plynu reverzován. Může se roztočit motor!</string>
-    <string name="fw_type_not_match">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
+    <string name="fw_type_not_match_heli">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
+    <string name="fw_type_not_match_aero">Firmware ve vaši jednotce je určen pro modely helikoptér. Je nutné nahrát firmware určený pro letadla.</string>
     <string name="governor_mode">Režim</string>
-    <string name="fw_mode_mistmatch_base_heli">Firmware ve vaši jednotce je určen pro modely letadel. Je nutné nahrát firmware určený pro helikoptéry.</string>
     <string name="factory_settings">Tovární nastavení</string>
     <string name="factory_settings_confirm">Přejete si resetovat jednotku do továrního nastavení?</string>
     <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
     <string name="receiver_was_change">Typ přijímače byl změněn v nastavení jednotky.\n\nJe nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.</string>
     <string name="profile_not_match">Zvolený profil byl vytvořen odlišnou verzí software (%1$s)! Prosím zkontrolujte hodnoty všech parametrů.</string>
     <string name="acro_delay">Prodleva Akro</string>
+    <string name="rpm_senzor_filter">Filtr senzoru otáček</string>
+    <string name="autorotation_bailout">Autorotace - Bailout</string>
 </resources>

@@ -19,10 +19,8 @@ package com.spirit;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothDevice;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -220,7 +218,7 @@ public class ConnectionActivity extends BaseActivity
 
         //pozice vybraneho selectu
         int position = 0;
-        SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
+        SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, MODE_PRIVATE);
         String prefs_adress = settings.getString(PREF_BT_ADRESS, "");
 
         // iterator
@@ -320,12 +318,7 @@ public class ConnectionActivity extends BaseActivity
     private void setSpiritConnectedProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-
-        if(Globals.getInstance().getAppMode() == DstabiProfile.HELI) {
-            progressConnection.setBackgroundResource(R.drawable.connected);
-        }else{
-            progressConnection.setBackgroundResource(R.drawable.connected_aero);
-        }
+        progressConnection.setBackgroundResource(R.drawable.connected);
 
     }
 
@@ -337,16 +330,30 @@ public class ConnectionActivity extends BaseActivity
 	private void initGuiByProfileString(byte[] profile)
 	{
 		profileCreator = new DstabiProfile(profile);
-        if(profileCreator.getMode() == DstabiProfile.AERO) {
+        if(profileCreator.getMode() != Globals.getInstance().getAppMode()) {
+            switch (profileCreator.getMode()){
+                case DstabiProfile.AERO:
+                    showConfirmDialog(R.string.fw_type_not_match_heli); break;
+                case DstabiProfile.HELI:
+                    showConfirmDialog(R.string.fw_type_not_match_aero); break;
+            }
             stabiProvider.disconnect();
-            showConfirmDialog(R.string.fw_type_not_match);
+
         }else if (profile != null && profileCreator.checkVersion()) {
             stabiProvider.disconnect();
-            showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_HELI_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_HELI_MINOR1_VERSION) + ".X"));
+
+            switch (profileCreator.getMode()){
+                case DstabiProfile.HELI:
+                    showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_HELI_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_HELI_MINOR1_VERSION) + ".X"));
+                    break;
+                case DstabiProfile.AERO:
+                    showConfirmDialog(getString(R.string.version_not_match, profileCreator.getFormatedVersion(), String.valueOf(DstabiProfile.APLICATION_AERO_MAJOR_VERSION) + '.' + String.valueOf(DstabiProfile.APLICATION_AERO_MINOR1_VERSION) + ".X"));
+                    break;
+            }
+
+
         }else {
             if (profileCreator.isValid()) {
-
-                Globals.getInstance().setAppMode(profileCreator.getMode());
 
                 version.setText(profileCreator.getFormatedVersion());
 
@@ -415,7 +422,7 @@ public class ConnectionActivity extends BaseActivity
 			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
 
 			//ulozeni vybraneho selectu / zarizeni
-			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, Context.MODE_PRIVATE);
+			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, MODE_PRIVATE);
 			SharedPreferences.Editor editor = settings.edit();
 			editor.putString(PREF_BT_ADRESS, deviceAdress);
 
@@ -476,8 +483,6 @@ public class ConnectionActivity extends BaseActivity
 			default:
 				textStatusView.setText(R.string.disconnected);
 				textStatusView.setTextColor(Color.RED);
-
-                Globals.getInstance().setAppMode(DstabiProfile.HELI);
 
 				connectButton.setText(R.string.connect);
 
@@ -585,7 +590,7 @@ public class ConnectionActivity extends BaseActivity
 
 		//change basic mode
 		if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == APP_BASIC_MODE) {
-            SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, Context.MODE_PRIVATE);
+            SharedPreferences settings = getSharedPreferences(PREF_BASIC_MODE, MODE_PRIVATE);
 			setAppBasicMode(!settings.getBoolean(PREF_BASIC_MODE, false));
 		}
 
@@ -684,7 +689,7 @@ public class ConnectionActivity extends BaseActivity
 			case REQUEST_SAVE:
 			case REQUEST_OPEN:
             case REQUEST_SAVE_ALL_BANKS:
-				if (resultCode == Activity.RESULT_OK) {
+				if (resultCode == RESULT_OK) {
 					final String filePath = data.getStringExtra(FileDialog.RESULT_PATH);
 
 					if (requestCode == REQUEST_SAVE) {
@@ -784,7 +789,7 @@ public class ConnectionActivity extends BaseActivity
 						}
 					}
 
-				} else if (resultCode == Activity.RESULT_CANCELED) {
+				} else if (resultCode == RESULT_CANCELED) {
 					// zruzeni vybirani souboru
 				}
 				break;
@@ -978,11 +983,10 @@ public class ConnectionActivity extends BaseActivity
             Toast.makeText(getApplicationContext(), R.string.damage_profile, Toast.LENGTH_SHORT).show();
 
         }else if(Globals.getInstance().getAppMode() != profile.getMode()){
-            //MTODO_AERO zmenit text hlasky
-            if(Globals.getInstance().getAppMode() == DstabiProfile.HELI){
-                Toast.makeText(getApplicationContext(), R.string.fw_mode_mistmatch_base_heli, Toast.LENGTH_SHORT).show();
+            if(Globals.getInstance().getAppMode() == DstabiProfile.AERO){
+                showConfirmDialog( R.string.fw_type_not_match_heli);
             }else{
-                Toast.makeText(getApplicationContext(), R.string.fw_mode_mistmatch_base_heli, Toast.LENGTH_SHORT).show();
+                showConfirmDialog( R.string.fw_type_not_match_aero);
             }
 
         }else{

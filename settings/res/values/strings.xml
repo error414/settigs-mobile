@@ -2,13 +2,10 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\n \n build: 06.10.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 12.11.2015-release</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
-    <string name="app_name">Spirit Settings</string>
     <string name="ok">Ok</string>
-    <string name="short_title">Spirit</string>
-    <string name="full_app_name">Spirit Settings</string>
     <string name="settings">Settings</string>
     <string name="save_changes">Save changes to unit</string>
     <string name="save_to_unit_done">Save to unit Done</string>
@@ -512,6 +509,9 @@
     <string name="st_fb307e664b31575b9cf959529f4f0159">Specifies travel correction for the CH1 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_65d7a7bb821a6b7a7896e45dc671f4e6">Specifies travel correction for the CH2 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Specifies travel correction for the CH3 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>RPM Sensor Filter</b>\n\n- Reduces excess noise from RPM sensor.\n- In case of unstable RPM readout increase the value.\n- In case of delayed RPM response decrease the value.\n- Usually configured to 6.\n\n<i>Range: 1 - 8</i></string>
+    <string name="st_9749568bbe5e17778acb506749150c3b"><b>Autorotation Bailout</b>\n\n- Period in which autorotation bailout might be activated.\n- Usually configured to 5s.\n\n<i>Range: 1 - 60</i></string>
+    <string name="st_698dbfa44b9af463920bb489c14c81a2">Determine when the helicopter will recover from the inverted flight.\n\n<i>Range: 0 - 3.0 seconds</i></string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>
@@ -551,13 +551,15 @@
     <string name="limit_range_ail" translatable="false">Aileron Range</string>
     <string name="limit_range_ele" translatable="false">Elevator Range</string>
     <string name="limit_range_rud" translatable="false">Rudder Range</string>
-    <string name="fw_type_not_match">Firmware in the unit is for airplane models. You have to flash Spirit firmware for helicopters.</string>
+    <string name="fw_type_not_match_heli">Firmware in the unit is for airplane models. You have to flash Spirit firmware for helicopters.</string>
+    <string name="fw_type_not_match_aero">Firmware in the unit is for helicopter models. You have to flash Spirit firmware for airplanes.</string>
     <string name="governor_mode">Mode</string>
-    <string name="fw_mode_mistmatch_base_heli">Firmware in the unit is for airplane models.You have to flash Spirit firmware for helicopters.</string>
     <string name="factory_settings">Factory settings</string>
     <string name="factory_settings_confirm">Do you want to reset the unit to factory settings?</string>
     <string name="factory_settings_done">Resetting to factory settings succesfully finished.</string>
     <string name="receiver_was_change">Receiver type was changed in the unit settings.\n\nIt\'s necessary to save it and then reconnect battery.</string>
     <string name="profile_not_match">Selected profile was created with a different software version (%1$s)!  Double check all loaded values, please.</string>
     <string name="acro_delay">Acro Delay</string>
+    <string name="rpm_senzor_filter">RPM Sensor Filter</string>
+    <string name="autorotation_bailout">Autorotation Bailout</string>
 </resources>
