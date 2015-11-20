@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -301,11 +302,11 @@ public class ChannelsActivity extends BaseActivity{
 	protected void getPositionFromUnit()
 	{
 		delayHandle.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
-            }
-        }, 50); // ms
+			@Override
+			public void run() {
+				stabiProvider.getDiagnostic(DIAGNOSTIC_CALL_BACK_CODE);
+			}
+		}, 50); // ms
 
 	}
 
@@ -433,6 +434,12 @@ public class ChannelsActivity extends BaseActivity{
 				super.handleMessage(msg);
 		}
 		return true;
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu (Menu menu) {
+		//super.onCreateOptionsMenu(menu);
+		return false;
 	}
 
     @Override

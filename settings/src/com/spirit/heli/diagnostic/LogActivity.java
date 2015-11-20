@@ -69,6 +69,7 @@ public class LogActivity extends BaseActivity
 	final static Integer LOG_EVENT_HANG = 0x10;
 	final static Integer LOG_EVENT_RXLOSS = 0x20;
 	final static Integer LOG_EVENT_LOWVOLT = 0x40;
+	final static Integer LOG_EVENT_GOVENGAGED = 0x80;
 	////////////////////////////////////////////////////
 
 	final protected int GROUP_LOG = 4;
@@ -251,6 +252,14 @@ public class LogActivity extends BaseActivity
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_lowvolt);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				row.put(POSITION, i);
+				logListData.add(row);
+			}
+
+			if (((log[i] & 0xff) & LOG_EVENT_GOVENGAGED) != 0) {
+				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
+				row.put(TITLE_FOR_LOG, R.string.log_event_govengaged);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
 				row.put(POSITION, i);
 				logListData.add(row);
 			}

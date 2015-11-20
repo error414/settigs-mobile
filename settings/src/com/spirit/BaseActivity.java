@@ -1015,6 +1015,12 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             Toast.makeText(this, R.string.no_active_bank, Toast.LENGTH_SHORT).show();
             return;
         }
+
+        if (!isEnableChangeBank()) {
+            Toast.makeText(this, R.string.no_compare_banks_on_this_screen, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         if (activeBank > Globals.BANK_2 || activeBank < Globals.BANK_0) {
             Log.w("BANK_DIFF", "unexpected active bank");
             return;

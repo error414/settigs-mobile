@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 12.11.2015-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 20.11.2015-release</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -562,4 +562,6 @@
     <string name="acro_delay">Acro Delay</string>
     <string name="rpm_senzor_filter">RPM Sensor Filter</string>
     <string name="autorotation_bailout">Autorotation Bailout</string>
+    <string name="log_event_govengaged">Governor was Engaged</string>
+    <string name="no_compare_banks_on_this_screen">Compare banks is not allowed on this screen</string>
 </resources>
