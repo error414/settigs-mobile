@@ -122,7 +122,7 @@ public class StabiCtrlDirActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 
-			tempPicker.setRange(1, 5);
+			tempPicker.setRange(0, 5);
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		}
 	}

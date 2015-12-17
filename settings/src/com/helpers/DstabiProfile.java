@@ -205,7 +205,7 @@ public class DstabiProfile {
         profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v",	true));
 		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m",	false)); //
 
-		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 1, 5, "0",	false));  // Mira zmeny smeru
+		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 0, 5, "0",	false));  // Mira zmeny smeru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1",	false)); 		// kolektiv zachranneho rezimu
 		//profileMap.put("STABI_ROLL",    new ProfileItem(36, 63, 191, "2")); // stabi, kompenzace pro kridelka
 		profileMap.put("STABI_STICK",   new ProfileItem(37, 0, 16, "3",	false)); // priorita knyplu
