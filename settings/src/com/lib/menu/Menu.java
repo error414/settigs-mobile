@@ -14,12 +14,11 @@ import com.spirit.heli.advanced.AdvancedActivity;
 import com.spirit.heli.advanced.CyclicFFActivity;
 import com.spirit.heli.advanced.EFilterActivity;
 import com.spirit.heli.advanced.GeometryAngleActivity;
-import com.spirit.heli.advanced.PiroOptimalizationActivity;
 import com.spirit.heli.advanced.PirouetteConsistencyActivity;
+import com.spirit.heli.advanced.RotorRotationActivity;
 import com.spirit.heli.advanced.RudderDelayActivity;
 import com.spirit.heli.advanced.RudderDynamicActivity;
 import com.spirit.heli.advanced.RudderRevomixActivity;
-import com.spirit.heli.advanced.expert.AutorotationBailOutActivity;
 import com.spirit.heli.advanced.expert.CyclicPhaseActivity;
 import com.spirit.heli.advanced.expert.ExpertActivity;
 import com.spirit.heli.advanced.expert.PitchpumpActivity;
@@ -47,12 +46,11 @@ import com.spirit.heli.limit.ServosCyclickRingRangeActivity;
 import com.spirit.heli.limit.ServosLimitActivity;
 import com.spirit.heli.limit.ServosRudderEndPointsActivity;
 import com.spirit.heli.senzor.SenzorActivity;
-import com.spirit.heli.senzor.SenzorReverseActivity;
 import com.spirit.heli.senzor.SenzorRotationSpeedActivity;
 import com.spirit.heli.senzor.SenzorSenzivityActivity;
+import com.spirit.heli.servo.ServoReverseActivity;
 import com.spirit.heli.servo.ServoTravelCorrectionActivity;
 import com.spirit.heli.servo.ServosActivity;
-import com.spirit.heli.servo.ServosReverzActivity;
 import com.spirit.heli.servo.ServosSubtrimActivity;
 import com.spirit.heli.servo.ServosTypeActivity;
 import com.spirit.heli.stabi.StabiAcroDelayActivity;
@@ -123,7 +121,7 @@ public class Menu {
     public static Integer MENU_PITCHPUMP            = 41;
 
     public static Integer MENU_SENZIVITY            = 22;
-    public static Integer MENU_REVERSE              = 23;
+    //public static Integer MENU_REVERSE              = 23;
     public static Integer MENU_ROTATIONSPEED        = 24;
 
     public static Integer MENU_SERVOTYPE                = 25;
@@ -162,7 +160,7 @@ public class Menu {
     public static Integer MENU_LIMIT_RUD           = 56;
 
     public static Integer MENU_RPM_SENZOR_FILTER   = 60;
-    public static Integer MENU_AUTOROTATION_BAILOUT = 61;
+    //public static Integer MENU_AUTOROTATION_BAILOUT = 61;
 
     public static Integer MENU_DIAGNOSTIC_LIST     = 42;
 
@@ -269,7 +267,7 @@ public class Menu {
         menuList.put(MENU_6DEG,   new MenuItem(R.drawable.i48,     R.string.geom_6deg, GeometryAngleActivity.class));
 
         //piruette opt
-        menuList.put(MENU_PIROOPT,   new MenuItem(R.drawable.i26,     R.string.piro_opt, PiroOptimalizationActivity.class));
+        menuList.put(MENU_PIROOPT, new MenuItem(R.drawable.i26, R.string.rotor_rotation, RotorRotationActivity.class));
 
         //rudder delay
         menuList.put(MENU_RUDDERDELAY,   new MenuItem(R.drawable.na,     R.string.rudder_delay, RudderDelayActivity.class));
@@ -323,14 +321,11 @@ public class Menu {
         //rpm senzor filetr
         menuList.put(MENU_RPM_SENZOR_FILTER,   new MenuItem(R.drawable.na,     R.string.rpm_senzor_filter, RpmSenzorFilterActivity.class));
 
-        //autorotation bailout
-        menuList.put(MENU_AUTOROTATION_BAILOUT,   new MenuItem(R.drawable.na,     R.string.autorotation_bailout, AutorotationBailOutActivity.class));
-
         //add to groups
         menuGroups.put(
             MENU_INDEX_ADVANCED_EXPERT,
                 new Integer[]{
-                        MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING, MENU_RPM_SENZOR_FILTER, MENU_AUTOROTATION_BAILOUT,
+                        MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING, MENU_RPM_SENZOR_FILTER,
                 }
         );
 
@@ -339,14 +334,11 @@ public class Menu {
         //senzivity
         menuList.put(MENU_SENZIVITY,   new MenuItem(R.drawable.i16,     R.string.senzivity, SenzorSenzivityActivity.class));
 
-        //reverse
-        menuList.put(MENU_REVERSE,   new MenuItem(R.drawable.i17,     R.string.reverse, SenzorReverseActivity.class));
-
         //rotation speed
         menuList.put(MENU_ROTATIONSPEED,   new MenuItem(R.drawable.i18,     R.string.rotation_speed, SenzorRotationSpeedActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_SENZOR, new Integer[]{MENU_SENZIVITY, MENU_REVERSE, MENU_ROTATIONSPEED});
+        menuGroups.put(MENU_INDEX_SENZOR, new Integer[]{MENU_SENZIVITY, MENU_ROTATIONSPEED});
 
 
         //SERVO ACTIVITY
@@ -360,7 +352,7 @@ public class Menu {
         menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.i41,     R.string.servo_travel_correction, ServoTravelCorrectionActivity.class));
 
         //reverz
-        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.i46,     R.string.cyclic_servo_reverse_text, ServosReverzActivity.class));
+        menuList.put(MENU_REVERZ, new MenuItem(R.drawable.i17, R.string.reverse, ServoReverseActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_REVERZ, MENU_SERVOSUBTRIM, MENU_SERVOTRAVELCORRECTION});

@@ -166,7 +166,7 @@ public class InputChannelsActivity extends BaseActivity
 
 		//AILERON
 		int aileron = ByteOperation.twoByteToSigInt(b[0], b[1]);
-		int aileronPercent = ((100 * aileron) / 340) * -1;
+		int aileronPercent = ((100 * aileron) / 340);
 		((ProgressBar) findViewById(R.id.aileron_progress_diagnostic)).setProgress(aileronPercent + 100);
 		((TextView) findViewById(R.id.aileron_value_diagnostic)).setText(String.valueOf(aileronPercent));
 
@@ -192,11 +192,10 @@ public class InputChannelsActivity extends BaseActivity
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//PITCH
-		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
+		int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]) * -1;
 		int pitchPercent = ((100 * pitch) / 340);
 		((ProgressBar) findViewById(R.id.pitch_progress_diagnostic)).setProgress(pitchPercent + 100);
 		((TextView) findViewById(R.id.pitch_value_diagnostic)).setText(String.valueOf(pitchPercent));
-
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 		
 		//RUDDER

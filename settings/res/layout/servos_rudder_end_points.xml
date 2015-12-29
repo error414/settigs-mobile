@@ -36,26 +36,46 @@
 	            android:textStyle="bold" />
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/rudder_limit_min"
+                android:id="@+id/rudder_limit_right"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/imageView1"
-	            android:layout_below="@+id/imageView1"
+                android:layout_alignRight="@+id/rudder_limit_left"
+                android:layout_below="@+id/rudder_limit_left"
 	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
 
 	        <com.customWidget.picker.ProgresEx
-	            android:id="@+id/rudder_limit_max"
+                android:id="@+id/rudder_limit_left"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
 	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/rudder_limit_min"
-	            android:layout_below="@+id/rudder_limit_min"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/imageView1"
 	            android:layout_marginTop="32dp" >
 
 	        </com.customWidget.picker.ProgresEx>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/warning_rud_left"
+                android:layout_below="@+id/rudder_limit_left"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"
+                android:textColor="@color/text_color" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:id="@+id/warning_rud_right"
+                android:layout_below="@+id/rudder_limit_right"
+                android:layout_alignLeft="@+id/textView2"
+                android:layout_alignStart="@+id/textView2"
+                android:textColor="@color/text_color" />
 
 	    </RelativeLayout>
 

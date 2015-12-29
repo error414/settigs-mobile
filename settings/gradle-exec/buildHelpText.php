@@ -45,6 +45,7 @@ $newTsXml = simplexml_load_file($tsFile);
 $oldTsXml = simplexml_load_file($tsOldFile);
 
 
+
 $stringEn = "<!-- HELP AUTO GENERATE STUB --> \n";
 $stringCs = "<!-- HELP AUTO GENERATE STUB --> \n";
 $needRewrite = "\n---------------------------------\n";

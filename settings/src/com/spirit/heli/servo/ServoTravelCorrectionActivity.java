@@ -35,6 +35,7 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
+import com.lib.translate.ServoCorrectionUpProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -51,9 +52,10 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 
 	private final String protocolCode[] = {"TRAVEL_UAIL", "TRAVEL_UELE", "TRAVEL_UPIT", "TRAVEL_DAIL", "TRAVEL_DELE", "TRAVEL_DPIT",};
 
-	private int formItems[] = {R.id.servo_travel_ch1_max, R.id.servo_travel_ch2_max, R.id.servo_travel_ch3_max, R.id.servo_travel_ch1_min, R.id.servo_travel_ch2_min, R.id.servo_travel_ch3_min,};
+    private int formItems[] = {R.id.servo_travel_ch1_positive, R.id.servo_travel_ch2_positive, R.id.servo_travel_ch3_positive,
+            R.id.servo_travel_ch1_negative, R.id.servo_travel_ch2_negative, R.id.servo_travel_ch3_negative,};
 
-	private int formItemsTitle[] = {R.string.max, R.string.max, R.string.max, R.string.min, R.string.min, R.string.min,};
+    private int formItemsTitle[] = {R.string.positive_pitch, R.string.positive_pitch, R.string.positive_pitch, R.string.negative_pitch, R.string.negative_pitch, R.string.negative_pitch,};
 
     /**
      *
@@ -71,7 +73,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
         initSlideMenu(R.layout.servos_travel_correction);
 
 		getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-		((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), getString(R.string.servo_travel_correction)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat("...", " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.servo_travel_correction)));
 
 		initGui();
 		initConfiguration();
@@ -163,9 +165,11 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setTranslate(new ServoCorrectionProgressExTranslate());
-			tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
+            tempPicker.setTranslate(i < 3 ? new ServoCorrectionUpProgressExTranslate() : new ServoCorrectionProgressExTranslate());
+            tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
             tempPicker.setEnabled(false);
+            tempPicker.setInverted(i < 3);
+
 		}
 	}
 
@@ -202,7 +206,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
     protected void updateControlItem(byte[] b)
     {
         //PITCH
-        int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]);
+        int pitch = ByteOperation.twoByteToSigInt(b[4], b[5]) * -1;
         int pitchPercent = ((100 * pitch) / 340);
         ((ProgressBar) findViewById(R.id.pitch_progress)).setProgress(pitchPercent + 100);
 

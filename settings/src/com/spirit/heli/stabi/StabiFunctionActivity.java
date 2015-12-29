@@ -191,9 +191,9 @@ public class StabiFunctionActivity extends BaseActivity
 					item.setValueFromSpinner(pos);
 					stabiProvider.sendDataNoWaitForResponce(item);
 
-                    if(i == 0 && pos != 0){ // i == 0 je stabi function a pokud se vybere nejaka jina moznost nez vypnuto tak zobrazit upozorneni
-                        showConfirmDialog(R.string.stabi_piruete_warning);
-                    }
+                    /*if(i == 0 && pos != 0){ // i == 0 je stabi function a pokud se vybere nejaka jina moznost nez vypnuto tak zobrazit upozorneni
+						showConfirmDialog(R.string.stabi_piruete_warning);
+                    }*/
 
 					showInfoBarWrite();
 				}

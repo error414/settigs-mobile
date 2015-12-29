@@ -30,7 +30,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
-import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
+import com.lib.translate.GovernorThrRangeProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -124,12 +124,13 @@ public class GovernorThrRangeActivity extends BaseActivity
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 
             if(protocolCode[i].equals("GOVERNOR_THR_MIN")){
-                tempPicker.setRange(-50, -150); // nastavuji rozmezi prvku z profilu
-                tempPicker.setTranslate(new GovernorThrRangeMinProgressExTranslate());
+                tempPicker.setRange(70, 130); // nastavuji rozmezi prvku z profilu
             }else {
-                tempPicker.setRange(50, 150); // nastavuji rozmezi prvku z profilu
+                tempPicker.setRange(170, 230); // nastavuji rozmezi prvku z profilu
             }
-		}
+
+            tempPicker.setTranslate(new GovernorThrRangeProgressExTranslate());
+        }
 	}
 
 	/**
@@ -175,7 +176,6 @@ public class GovernorThrRangeActivity extends BaseActivity
 			ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
             tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
-
 			if(profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 66 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7)
 			{
 				tempPicker.setEnabled(false);

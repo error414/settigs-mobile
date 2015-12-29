@@ -44,8 +44,8 @@ public class DstabiProfile {
 	/*#############################################*/
 	/* ZDE SE MUSI NASTAVIT VERZE APLIKACE          */
 	/*#############################################*/
-	final public static int APLICATION_HELI_MAJOR_VERSION = 1;
-	final public static int APLICATION_HELI_MINOR1_VERSION = 3;
+	final public static int APLICATION_HELI_MAJOR_VERSION = 2;
+	final public static int APLICATION_HELI_MINOR1_VERSION = 0;
 
 	final public static int APLICATION_AERO_MAJOR_VERSION = 1;
 	final public static int APLICATION_AERO_MINOR1_VERSION = 0;
@@ -163,22 +163,22 @@ public class DstabiProfile {
 		profileMap.put("MAJOR", 	new ProfileItem(1, 0, 255, 		null,	true)); // 'major', INT,
 		profileMap.put("MINOR2", 	new ProfileItem(2, 0, 255, 		null,	true)); // 'minor', INT
 
-		profileMap.put("POSITION", 	new ProfileItem(3, "A", "C", 	"P",	true)); // position_text, ENUM, position_values
+		profileMap.put("POSITION", new ProfileItem(3, "A", "H", "P", true)); // position_text, ENUM, position_values
 		profileMap.put("BANKS", 		new ProfileItem(4,  0, 	2, 		"M", 	true));
         //profileMap.put("SIGNAL_PROCESSING",	new ProfileItem(4, "0", "1", "7")); // rozsirene zpracovani signalu
 
 		profileMap.put("RECEIVER",	new ProfileItem(5, "A", "F", 	"R",	true));
-		profileMap.put("MIX",	 	new ProfileItem(6, "A", "D", 	"C",	true));
+		profileMap.put("MIX", new ProfileItem(6, "A", "H", "C", true));
 
 		profileMap.put("CYCLIC_TYPE",	new ProfileItem(7, "A", "A", 	"ST",	true));
 		profileMap.put("CYCLIC_FREQ",	new ProfileItem(8, "A", "F", 	"SF",	true));
 		profileMap.put("RUDDER_TYPE",	new ProfileItem(9, "A", "C", 	"St",	true));
 		profileMap.put("RUDDER_FREQ",	new ProfileItem(10, "A", "G", 	"Sf",	true));
 
-		profileMap.put("SUBTRIM_AIL",	new ProfileItem(16, 0, 254, 	"SA",	true));
-		profileMap.put("SUBTRIM_ELE",	new ProfileItem(17, 0, 254, 	"SE",	true));
-		profileMap.put("SUBTRIM_PIT",	new ProfileItem(18, 0, 254, 	"SP",	true));
-		profileMap.put("SUBTRIM_RUD",	new ProfileItem(12, 0, 254, 	"Se",	true));
+		profileMap.put("SUBTRIM_AIL", new ProfileItem(16, 1, 255, "SA", true));
+		profileMap.put("SUBTRIM_ELE", new ProfileItem(17, 1, 255, "SE", true));
+		profileMap.put("SUBTRIM_PIT", new ProfileItem(18, 1, 255, "SP", true));
+		profileMap.put("SUBTRIM_RUD", new ProfileItem(12, 1, 255, "Se", true));
 
 		profileMap.put("RANGE_AIL",		new ProfileItem(11, 32, 255, 	"Sa",	true));	// cyclic ring
 		profileMap.put("RANGE_PIT",		new ProfileItem(13, 32, 255, 	"Sp",	false));	// rozsah kolektivu
@@ -190,10 +190,10 @@ public class DstabiProfile {
 		profileMap.put("GEOMETRY",		new ProfileItem(20, 64, 250, "8",	true));		// geometrie hlavy - 6
 		profileMap.put("SENSOR_RUDDER_COMMON_GAIN",	new ProfileItem(21, 50, 100, "z",	false)); 	// nasobic
 
-		profileMap.put("SENSOR_REVX",	new ProfileItem(22, "0", "1", "X",	true));
-		profileMap.put("SENSOR_REVY",	new ProfileItem(23, "0", "1", "Y",	true));
-		profileMap.put("SENSOR_REVZ",	new ProfileItem(24, "0", "1", "Z",	true));
-        //
+		profileMap.put("SERVO_REV_CH1", new ProfileItem(22, "0", "1", "X", true));
+		profileMap.put("SERVO_REV_CH2", new ProfileItem(23, "0", "1", "Y", true));
+		profileMap.put("SERVO_REV_CH3", new ProfileItem(24, "0", "1", "Z", true));
+		//
 		profileMap.put("RATE_PITCH",	new ProfileItem(25, 5, 16, 	"a",	false));		// rychlost rotace cykliky
 		profileMap.put("CYCLIC_FF",		new ProfileItem(26, 1, 12, 	"b",	false));		// pocatecni reakce cykliky
 		profileMap.put("RATE_YAW",		new ProfileItem(27, 5, 20, 	"c",	false));		// rychlost rotace vrtulky
@@ -201,9 +201,11 @@ public class DstabiProfile {
 		profileMap.put("PITCHUP",	    new ProfileItem(28, 0, 4, "r",	false)); 	// kompenzace zpinani vyskovky
 		profileMap.put("STICK_DB",		new ProfileItem(29, 4, 30, "s",	false));  // mrtva zona knyplu
 		profileMap.put("RUDDER_STOP",	new ProfileItem(30, 3, 10, "p",	false)); 		// dynamika vrtulky
-		profileMap.put("ALT_FUNCTION",	new ProfileItem(31, "A", "E", "f",	false)); 	// stabi mode
-        profileMap.put("CYCLIC_REVERSE",	new ProfileItem(32, "A", "D", 	"v",	true));
-		profileMap.put("RUDDER_REVOMIX",new ProfileItem(33, 118, 138, "m",	false)); //
+		profileMap.put("ALT_FUNCTION", new ProfileItem(31, "A", "G", "f", false));    // stabi mode
+
+		profileMap.put("SERVO_REV_CH4", new ProfileItem(32, "0", "1", "v", true));
+
+		profileMap.put("RUDDER_REVOMIX", new ProfileItem(33, 128, 138, "m", false)); //
 
 		profileMap.put("STABI_CTRLDIR", new ProfileItem(34, 0, 5, "0",	false));  // Mira zmeny smeru
 		profileMap.put("STABI_COL",     new ProfileItem(35, 117, 137, "1",	false)); 		// kolektiv zachranneho rezimu
@@ -219,7 +221,7 @@ public class DstabiProfile {
 
         profileMap.put("SIGNAL_PROCESSING",		new ProfileItem(41, 0, 1, "6",	true)); // rozisrene zpracovani siganlu
 
-		profileMap.put("PIRO_OPT",		new ProfileItem(42, "0", "1", "o",	true));
+		profileMap.put("ROTOR_ROTATION", new ProfileItem(42, "0", "1", "o", true));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4",	false)); 		// kompenzace zpinani vyskovky
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9",	false)); // zpozdeni vrtulky
@@ -254,16 +256,15 @@ public class DstabiProfile {
         profileMap.put("GOVERNOR_DIVIDER",	    new ProfileItem(65, 1, 8, "u",	true));
         profileMap.put("GOVERNOR_RATIO",	    new ProfileItem(66, 20, 254, "t",	true));
         profileMap.put("GOVERNOR_THR_REVERSE",	new ProfileItem(67, "0", "1", "w",	true));
-        profileMap.put("GOVERNOR_THR_MIN",	    new ProfileItem(68, 50, 150, "k",	true));
-        profileMap.put("GOVERNOR_THR_MAX",	    new ProfileItem(69, 50, 150, "K",	true));
-        profileMap.put("GOVERNOR_RPM_MAX",	    new ProfileItem(70, 0, 250, "W",	true));
+		profileMap.put("GOVERNOR_THR_MIN", new ProfileItem(68, 70, 130, "k", true));
+		profileMap.put("GOVERNOR_THR_MAX", new ProfileItem(69, 170, 230, "K", true));
+		profileMap.put("GOVERNOR_RPM_MAX",	    new ProfileItem(70, 0, 250, "W",	true));
         profileMap.put("GOVERNOR_IGAIN",	    new ProfileItem(71, 1, 6, "y",	false)); // mira drzeni otacek
 
 		profileMap.put("GOVERNOR_FREQ",	        new ProfileItem(72, "A", "D", "I",	true));
 		profileMap.put("GOVERNOR_ON",	        new ProfileItem(73, 0, 1, "J",	false));
 		profileMap.put("STABI_ACRO_DELAY",	    new ProfileItem(74, 0, 30, "N",	false));
 		profileMap.put("RPM_SENZOR_FILTER",	    new ProfileItem(75, 1, 8, "V",	true));
-		profileMap.put("AUTOROTATION_BAILOUT",	new ProfileItem(76, 1, 60, "T",	false));
         ///////////////////////////////////////////////////////////////////
 
 	}

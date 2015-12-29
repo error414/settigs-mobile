@@ -54,30 +54,27 @@
                 android:textColor="@color/text_color"
                 android:layout_marginTop="32dp"
                 android:textStyle="bold"
-                android:layout_below="@+id/imageView1"
+                android:layout_below="@+id/textView2"
                 android:layout_alignLeft="@+id/textView2"/>
 
             <com.customWidget.picker.ProgresEx
-	            android:id="@+id/servo_travel_ch1_min"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_alignRight="@+id/imageView1"
-	            android:layout_below="@+id/imageView1"
-	            android:layout_marginTop="64dp" >
-            </com.customWidget.picker.ProgresEx>
-
-
-            <com.customWidget.picker.ProgresEx
-                android:id="@+id/servo_travel_ch1_max"
+                android:id="@+id/servo_travel_ch1_positive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/imageView1"
-                android:layout_below="@+id/servo_travel_ch1_min"
-                android:layout_marginTop="32dp" >
+                android:layout_below="@+id/nadpis1"
+                android:layout_marginTop="32dp" />
 
-	        </com.customWidget.picker.ProgresEx>
+
+            <com.customWidget.picker.ProgresEx
+                android:id="@+id/servo_travel_ch1_negative"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignRight="@+id/imageView1"
+                android:layout_below="@+id/servo_travel_ch1_positive"
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/nadpis2"
@@ -86,32 +83,28 @@
                 android:text="@string/servo_ch2"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text_color"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="32dp"
                 android:textStyle="bold"
-                android:layout_below="@+id/servo_travel_ch1_max"
+                android:layout_below="@+id/servo_travel_ch1_negative"
                 android:layout_alignLeft="@+id/nadpis1"/>
 
             <com.customWidget.picker.ProgresEx
-                android:id="@+id/servo_travel_ch2_min"
+                android:id="@+id/servo_travel_ch2_positive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/imageView1"
-                android:layout_below="@+id/servo_travel_ch1_max"
-                android:layout_marginTop="96dp" >
-            </com.customWidget.picker.ProgresEx>
-
+                android:layout_below="@+id/nadpis2"
+                android:layout_marginTop="16dp" />
 
             <com.customWidget.picker.ProgresEx
-                android:id="@+id/servo_travel_ch2_max"
+                android:id="@+id/servo_travel_ch2_negative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/imageView1"
-                android:layout_below="@+id/servo_travel_ch2_min"
-                android:layout_marginTop="32dp" >
-
-            </com.customWidget.picker.ProgresEx>
+                android:layout_below="@+id/servo_travel_ch2_positive"
+                android:layout_marginTop="16dp" />
 
             <TextView
                 android:id="@+id/nadpis3"
@@ -120,32 +113,31 @@
                 android:text="@string/servo_ch3"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textColor="@color/text_color"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="32dp"
                 android:textStyle="bold"
-                android:layout_below="@+id/servo_travel_ch2_max"
+                android:layout_below="@+id/servo_travel_ch2_negative"
                 android:layout_alignLeft="@+id/nadpis1"/>
 
             <com.customWidget.picker.ProgresEx
-                android:id="@+id/servo_travel_ch3_min"
+                android:id="@+id/servo_travel_ch3_positive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/imageView1"
-                android:layout_below="@+id/servo_travel_ch2_max"
-                android:layout_marginTop="96dp" >
-            </com.customWidget.picker.ProgresEx>
+                android:layout_below="@+id/nadpis3"
+                android:layout_marginTop="16dp"
+
+                />
 
 
             <com.customWidget.picker.ProgresEx
-                android:id="@+id/servo_travel_ch3_max"
+                android:id="@+id/servo_travel_ch3_negative"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignRight="@+id/imageView1"
-                android:layout_below="@+id/servo_travel_ch3_min"
-                android:layout_marginTop="32dp" >
-
-            </com.customWidget.picker.ProgresEx>
+                android:layout_below="@+id/servo_travel_ch3_positive"
+                android:layout_marginTop="16dp" />
 
 
         </RelativeLayout>

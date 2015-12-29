@@ -63,7 +63,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/stabi_col_warning"
+				android:text=""
                 android:id="@+id/warning"
                 android:layout_alignLeft="@+id/warning_header"
                 android:layout_below="@+id/warning_header"

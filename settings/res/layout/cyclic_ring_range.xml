@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    android:background="@color/background_color">
+    android:orientation="vertical"
+	android:background="@color/background_color"
+	android:weightSum="1">
 	 <ScrollView
             android:id="@+id/scrollView1"
             android:layout_width="fill_parent"
@@ -11,7 +12,7 @@
             android:background="@color/background_color">
 
 	    <RelativeLayout
-	        android:layout_width="fill_parent"
+			android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:background="@color/background_color" >
 
@@ -46,7 +47,17 @@
 
 	        </com.customWidget.picker.ProgresEx>
 
+			<TextView
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:id="@+id/warn_text"
+				android:layout_below="@+id/limit_range_ail_left"
+				android:layout_alignLeft="@+id/textView2"
+				android:layout_alignStart="@+id/textView2"
+				android:textColor="@color/text_color" />
+
 		</RelativeLayout>
 
 	</ScrollView>
+
 </LinearLayout>

@@ -24,8 +24,6 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.widget.Button;
 
-import com.spirit.R;
-
 
 public class ProgresExButton extends Button{
 	private ProgresEx mProgresEx;
@@ -75,10 +73,7 @@ public class ProgresExButton extends Button{
     }
 
     private void cancelLongpress() {
-        if (R.id.progres_plus == getId()) {
-        	mProgresEx.cancelIncrement();
-        } else if (R.id.progres_minus == getId()) {
-        	mProgresEx.cancelDecrement();
-        }
+        mProgresEx.cancelIncrement();
+        mProgresEx.cancelDecrement();
     }
 }

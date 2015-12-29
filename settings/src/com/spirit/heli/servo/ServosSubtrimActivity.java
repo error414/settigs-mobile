@@ -153,9 +153,8 @@ public class ServosSubtrimActivity extends BaseActivity
 	{
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-			tempPicker.setRange(0, 254); // tohle rozmezi asi brat ze stabi profilu
-            tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
-			tempPicker.setTitle(formItemsTitle[i]);
+            tempPicker.setRange(1, 255); // tohle rozmezi asi brat ze stabi profilu
+            tempPicker.setTitle(formItemsTitle[i]);
 		}
 	}
 
@@ -200,6 +199,25 @@ public class ServosSubtrimActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+
+            switch (i) {
+                case 0:
+                    tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
+                    tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH1").getValueForCheckBox());
+                    break;
+                case 1:
+                    tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
+                    tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH2").getValueForCheckBox());
+                    break;
+                case 2:
+                    tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
+                    tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH3").getValueForCheckBox());
+                    break;
+                default:
+                    tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
+                    tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH4").getValueForCheckBox());
+                    break;
+            }
 
 			tempPicker.setCurrentNoNotify(size);
 		}

@@ -34,22 +34,16 @@ public class HelpMap {
         result.put(R.id.position_select_id,                 R.string.st_26a7059fe05e155afb53ea22bc6a80d3);
         result.put(R.id.mix_select_id,                      R.string.st_a030379814acf4a9efd5735573f71718);
         result.put(R.id.receiver_select_id,                 R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
-        result.put(R.id.cyclic_servo_reverse_select_id,     R.string.st_916898ebed3d1dbcb55c93994fec7ee1);
         result.put(R.id.flight_style_select_id,             R.string.st_4e74822308285a5d25761bc2c9387dc2);
 
-        result.put(R.id.stabi_pitch,                        R.string.st_e26228953ce397eb25e87bcff3607d0e);
+        result.put(R.id.stabi_pitch, R.string.st_25e1dad714a36a48c70307e9e98c6839);
         result.put(R.id.stabi_ctrldir,                      R.string.st_1bb89987a641483fa0a25daa7e52d27c);
         result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
-        result.put(R.id.function_select_id,                 R.string.st_1a61908b99a26de75f1d1bf61ab8c3db);
         result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
         result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);
         result.put(R.id.rudder_common_gain,                 R.string.st_466a542ef886802f5bbc2c23bc91fd06);
         result.put(R.id.gyro_gain,                          R.string.st_e1ef2f3a7b6fa63d68cb2b9b2e72a571);
-
-        result.put(R.id.x_pitch_reverse,                    R.string.st_95e83a5f5c4f175cfefe9b06620fc385);
-        result.put(R.id.y_roll_reverse,                     R.string.st_972307e460ecd3df8303f72849faaf36);
-        result.put(R.id.z_yaw_reverse,                      R.string.st_6008eeff8fc4acff6e4ac6c6236c392e);
 
         result.put(R.id.x_pitch_rates,                      R.string.st_89aa34aff73db8d200536bf76779270b);
         result.put(R.id.z_yaw_rates,                        R.string.st_85767e852871648bc2db9dd4b052cf63);
@@ -57,24 +51,23 @@ public class HelpMap {
         result.put(R.id.cyclicff,                           R.string.st_6c27918077d556edb488f0516b5965b6);
         result.put(R.id.cyclic_phase,                       R.string.st_cdf89e8bd20739bdc69e8c3bd7e1ae17);
         result.put(R.id.e_filter,                           R.string.st_45b61e5018b2249985746acf8e3424b3);
-        result.put(R.id.geom_6deg,                          R.string.st_ce24a87287c6bcdc3c22b0432e7b7d87);
-        result.put(R.id.piro_opt,                           R.string.st_91bffbd63276730c22ff5dc509529fa7);
+        result.put(R.id.geom_6deg, R.string.st_6758e8b02736ba47f992c8a921bd6eae);
         result.put(R.id.pirouette_const,                    R.string.st_a09dcd0b0fd2a8ed24f9d8a81b66668f);
         result.put(R.id.pitchup,                            R.string.st_28953f535f7d4bbe0b04ab8ffcbf3fde);
         result.put(R.id.rudder_delay,                       R.string.st_88ffaae209a942ffdcbf08d25ada6106);
         result.put(R.id.rudder_stop,                        R.string.st_050eaf6851d88f98084291c19b591a0d);
-        result.put(R.id.rudder_revomix,                     R.string.st_f879dceafa5b8c110b5e108f25dd1b83);
+        result.put(R.id.rudder_revomix, R.string.st_82a4f9a9327c5f59011489b234060c05);
         result.put(R.id.signal_processing,                  R.string.st_9a77db935bc1b64ee6402e6c8d019d44);
         result.put(R.id.stick_db,                           R.string.st_02282a0a0af7a569d19732b906395ed5);
 
-        result.put(R.id.rudder_limit_min,                   R.string.st_e11bdb4cd957e81f87afdc4b2c3134fe);
-        result.put(R.id.rudder_limit_max,                   R.string.st_08a5a1e5848935703bcc7d12cf34f318);
+        result.put(R.id.rudder_limit_right, R.string.st_e11bdb4cd957e81f87afdc4b2c3134fe);
+        result.put(R.id.rudder_limit_left, R.string.st_08a5a1e5848935703bcc7d12cf34f318);
 
-        result.put(R.id.limit_range_ail_left,               R.string.st_b7528539f90bd0ef74ab982a09574de4);
+        result.put(R.id.limit_range_ail_left, R.string.st_cb447c2f52a1170da6ca24c5875ba250);
         result.put(R.id.cyclic_pitch,                       R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
-        result.put(R.id.governor_thr_min,                   R.string.st_65abb627338d2deeaeacca880ecac232);
-        result.put(R.id.governor_thr_max,                   R.string.st_46c2d7f70c71e5957d323fe570e16dfd);
+        result.put(R.id.governor_thr_min, R.string.st_3104a8b88d16fea1d7340e06f4f4628f);
+        result.put(R.id.governor_thr_max, R.string.st_e3f7aaeec7262407e622dfb1b79181ab);
         result.put(R.id.governor_divider,                   R.string.st_cffee8820dbdc898c99db0f0350440f4);
         result.put(R.id.thr_reverse,                        R.string.st_e4df1e47f3a179a3867c07d758619a1c);
         result.put(R.id.governor_ratio,                     R.string.st_794fca310ce523ae9cda3e4a0f9c5b1d);
@@ -92,17 +85,15 @@ public class HelpMap {
         result.put(R.id.governor_freq_select_id,            R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
 
 
-        result.put(R.id.servo_travel_ch1_max,            R.string.st_e21b7c7908ad7f4057fc65c8e55b184b);
-        result.put(R.id.servo_travel_ch2_max,            R.string.st_36336300263470149f9e2ee28a7621de);
-        result.put(R.id.servo_travel_ch3_max,            R.string.st_40a11b06d8a940ef721fa12dbe376de9);
-        result.put(R.id.servo_travel_ch1_min,            R.string.st_fb307e664b31575b9cf959529f4f0159);
-        result.put(R.id.servo_travel_ch2_min,            R.string.st_65d7a7bb821a6b7a7896e45dc671f4e6);
-        result.put(R.id.servo_travel_ch3_min,            R.string.st_3fd8f4fd6b1c3ac27c28ebd523ead1e4);
+        result.put(R.id.servo_travel_ch1_positive, R.string.st_e21b7c7908ad7f4057fc65c8e55b184b);
+        result.put(R.id.servo_travel_ch2_positive, R.string.st_36336300263470149f9e2ee28a7621de);
+        result.put(R.id.servo_travel_ch3_positive, R.string.st_40a11b06d8a940ef721fa12dbe376de9);
+        result.put(R.id.servo_travel_ch1_negative, R.string.st_fb307e664b31575b9cf959529f4f0159);
+        result.put(R.id.servo_travel_ch2_negative, R.string.st_65d7a7bb821a6b7a7896e45dc671f4e6);
+        result.put(R.id.servo_travel_ch3_negative, R.string.st_3fd8f4fd6b1c3ac27c28ebd523ead1e4);
 
         result.put(R.id.rpm_senzor_filter,               R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
-        result.put(R.id.autorotation_bailout,            R.string.st_9749568bbe5e17778acb506749150c3b);
         result.put(R.id.stabi_acro_delay,                R.string.st_698dbfa44b9af463920bb489c14c81a2);
-
 
 
 

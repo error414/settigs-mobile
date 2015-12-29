@@ -63,7 +63,8 @@
 	             android:layout_below="@+id/textView10"
 	             android:layout_marginRight="10dp"
 	             android:max="100"
-	             android:progressDrawable="@drawable/my_custom_pb" />
+				 android:progressDrawable="@drawable/my_custom_pb"
+				 android:indeterminate="false" />
 
 	         <TextView
 	             android:id="@+id/throttle_value_diagnostic"
@@ -160,7 +161,8 @@
 	             android:layout_alignRight="@+id/elevator_progress_diagnostic"
 	             android:layout_below="@+id/textView3"
 	             android:max="200"
-	             android:progressDrawable="@drawable/my_custom_pb" />
+				 android:progressDrawable="@drawable/my_custom_pb"
+				 android:indeterminate="false" />
 
 	         <TextView
 	             android:id="@+id/pitch_value_diagnostic"

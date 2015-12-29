@@ -38,9 +38,11 @@ import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.translate.AutorotationBailOutProgressExTranslate;
 import com.lib.translate.GovernorRpmMaxProgressExTranslate;
-import com.lib.translate.GovernorThrRangeMinProgressExTranslate;
+import com.lib.translate.GovernorThrRangeProgressExTranslate;
 import com.lib.translate.GovernorgearRatioProgressExTranslate;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
+import com.lib.translate.ServoCorrectionUpProgressExTranslate;
+import com.lib.translate.ServoCyclickRingProgressExTranslate;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.lib.translate.StabiAcroDelayProgressExTranslate;
 import com.lib.translate.StabiPichProgressExTranslate;
@@ -158,15 +160,15 @@ public class DiffActivity extends BaseActivity
 	protected void updateGui(byte[] profile){
 		DstabiProfile changedProfile = new DstabiProfile(profile);
 		try {
-            updateGui(ChangeInProfile.getInstance().getDiff(changedProfile));
-		} catch (ProfileNotValidException e) {
+            updateGui(ChangeInProfile.getInstance().getDiff(changedProfile), ChangeInProfile.getInstance().getOriginalProfile(), changedProfile);
+        } catch (ProfileNotValidException e) {
 			e.printStackTrace();
 		}
 	}
 
-    private void updateGui(DstabiProfile profileToCompare, DstabiProfile activeProfile, boolean compareOnlyBasicItems) {
+    private void updateGui(DstabiProfile originalProfile, DstabiProfile actualProfile, boolean compareOnlyBasicItems) {
         try {
-            updateGui(ChangeInProfile.getDiff(profileToCompare, activeProfile, compareOnlyBasicItems));
+            updateGui(ChangeInProfile.getDiff(originalProfile, actualProfile, compareOnlyBasicItems), originalProfile, actualProfile);
         } catch (ProfileNotValidException e) {
             e.printStackTrace();
         }
@@ -176,14 +178,14 @@ public class DiffActivity extends BaseActivity
      *
      * @param diffItems
      */
-    private void updateGui(Collection<ChangeInProfile.DiffItem> diffItems) {
+    private void updateGui(Collection<ChangeInProfile.DiffItem> diffItems, DstabiProfile originalProfile, DstabiProfile actualProfile) {
         diffListData = new ArrayList<HashMap<Integer, String>>();
 
         try {
             for(ChangeInProfile.DiffItem diffItem : diffItems) {
                 HashMap<Integer, String> row = new HashMap<Integer, String>();
 
-                diffItem = this.translateDiffItem(diffItem);
+                diffItem = this.translateDiffItem(diffItem, originalProfile, actualProfile);
 
                 row.put(DiffListAdapter.NAME, diffItem.getLabel());
                 row.put(DiffListAdapter.FROM, diffItem.getFrom());
@@ -213,8 +215,7 @@ public class DiffActivity extends BaseActivity
 	 * @return
 	 * @throws IndexOutOfException
 	 */
-	private ChangeInProfile.DiffItem translateDiffItem(ChangeInProfile.DiffItem diffItem) throws IndexOutOfException
-	{
+    private ChangeInProfile.DiffItem translateDiffItem(ChangeInProfile.DiffItem diffItem, DstabiProfile originalProfile, DstabiProfile actualProfile) throws IndexOutOfException {
 		String from = diffItem.getOriginalValue().getValueString();
 		String to   = diffItem.getChangedValue().getValueString();
 
@@ -341,10 +342,13 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RANGE_AIL")){
+            ServoCyclickRingProgressExTranslate translateFrom = new ServoCyclickRingProgressExTranslate(originalProfile.getProfileItemByName("GEOMETRY").getValueInteger());
+            ServoCyclickRingProgressExTranslate translateTo = new ServoCyclickRingProgressExTranslate(actualProfile.getProfileItemByName("GEOMETRY").getValueInteger());
+
             diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits), textSeparator,  getResources().getString(R.string.cyclic_ring_range),  textSeparator , getResources().getString(R.string.ail_ele)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = String.valueOf(translateFrom.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to = String.valueOf(translateTo.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 
@@ -359,7 +363,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MIN")){
-            diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits), textSeparator, getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.min_limit)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits), textSeparator, getResources().getString(R.string.rudder_end_points_no_break), textSeparator, getResources().getString(R.string.right_limit)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -368,7 +372,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_MAX")){
-            diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits), textSeparator, getResources().getString(R.string.rudder_end_points_no_break),  textSeparator , getResources().getString(R.string.max_limit)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.limits), textSeparator, getResources().getString(R.string.rudder_end_points_no_break), textSeparator, getResources().getString(R.string.left_limit)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -415,33 +419,6 @@ public class DiffActivity extends BaseActivity
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
-        }
-        // #############################################################################################
-
-        // #############################################################################################
-        if(diffItem.getLabel().equals("SENSOR_REVX")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.x_picth)).toString());
-
-            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
-            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
-        }
-        // #############################################################################################
-
-        // #############################################################################################
-        if(diffItem.getLabel().equals("SENSOR_REVY")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.y_rool)).toString());
-
-            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
-            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
-        }
-        // #############################################################################################
-
-        // #############################################################################################
-        if(diffItem.getLabel().equals("SENSOR_REVZ")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.reverse),  textSeparator , getResources().getString(R.string.z_yaw)).toString());
-
-            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
-            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
         }
         // #############################################################################################
 
@@ -493,21 +470,11 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("CYCLIC_REVERSE")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text), textSeparator, getResources().getString(R.string.type), textSeparator, getResources().getString(R.string.cyclic_servo_reverse_text)).toString());
-            String[] values = getResources().getStringArray(R.array.cyclic_servo_reverse_values);
-
-            from = values[diffItem.getOriginalValue().getValueForSpinner(values.length)];
-            to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
-        }
-        // #############################################################################################
-
-        // #############################################################################################
         if(diffItem.getLabel().equals("RUDDER_REVOMIX")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getResources().getString(R.string.rudder_revomix)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 128);
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger() - 128);
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 138);
+            to = String.valueOf(diffItem.getChangedValue().getValueInteger() - 138);
         }
         // #############################################################################################
 
@@ -564,8 +531,8 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if(diffItem.getLabel().equals("PIRO_OPT")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text),  textSeparator , getResources().getString(R.string.piro_opt),  textSeparator , getResources().getString(R.string.reverse)).toString());
+        if (diffItem.getLabel().equals("ROTOR_ROTATION")) {
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator, getResources().getString(R.string.rotor_rotation), textSeparator, getResources().getString(R.string.rotor_rotation_title)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -613,7 +580,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("TRAVEL_UAIL")){
 
-            ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
+            ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1), textSeparator, getResources().getString(R.string.max)).toString());
 
@@ -625,7 +592,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("TRAVEL_UELE")){
 
-            ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
+            ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1), textSeparator, getResources().getString(R.string.max)).toString());
 
@@ -637,7 +604,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("TRAVEL_UPIT")){
 
-            ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
+            ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.max)).toString());
 
@@ -812,7 +779,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_THR_MIN")){
-            GovernorThrRangeMinProgressExTranslate translate = new GovernorThrRangeMinProgressExTranslate();
+            GovernorThrRangeProgressExTranslate translate = new GovernorThrRangeProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator , getResources().getString(R.string.governor_thr_min)).toString());
 
@@ -823,11 +790,12 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("GOVERNOR_THR_MAX")){
+            GovernorThrRangeProgressExTranslate translate = new GovernorThrRangeProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator , getResources().getString(R.string.governor_thr_max)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
-            to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
         }
         // #############################################################################################
 

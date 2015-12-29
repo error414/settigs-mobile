@@ -31,6 +31,8 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.ChangeInProfile;
+import com.lib.translate.ServoCyclickRingProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -199,12 +201,35 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
             ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
-            tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
+			tempPicker.setTranslate(new ServoCyclickRingProgressExTranslate(profileCreator.getProfileItemByName("GEOMETRY").getValueInteger()));
+			tempPicker.setTranslateOriginalValue(new ServoCyclickRingProgressExTranslate(ChangeInProfile.getInstance().getOriginalProfile().getProfileItemByName("GEOMETRY").getValueInteger()));
+			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(size);
+
+			if (i == 0) {
+				initEagleWarning(profileCreator);
+			}
 		}
 
 	}
 
+	/**
+	 * @param profileCreator
+	 */
+	private void initEagleWarning(DstabiProfile profileCreator) {
+		float angle = (6 * profileCreator.getProfileItemByName("RANGE_AIL").getValueInteger() * 1.418439716f) / profileCreator.getProfileItemByName("GEOMETRY").getValueInteger();
+		if (angle < 8) {
+			((TextView) findViewById(R.id.warn_text)).setText(R.string.warning_low_eagle);
+		} else if (angle > 12) {
+			((TextView) findViewById(R.id.warn_text)).setText(R.string.warning_high_eagle);
+		} else {
+			((TextView) findViewById(R.id.warn_text)).setText("");
+		}
+	}
+
+	/**
+	 *
+	 */
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
 
@@ -221,7 +246,8 @@ public class ServosCyclickRingRangeActivity extends BaseActivity
 					ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
                     if(item != null) {
                         item.setValue(newVal);
-                        stabiProvider.sendDataNoWaitForResponce(item);
+						initEagleWarning(profileCreator);
+						stabiProvider.sendDataNoWaitForResponce(item);
                     }
 				}
 			}

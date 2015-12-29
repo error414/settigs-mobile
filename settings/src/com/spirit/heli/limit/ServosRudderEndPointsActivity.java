@@ -42,11 +42,11 @@ public class ServosRudderEndPointsActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"RUDDER_MIN", "RUDDER_MAX",};
+    private final String protocolCode[] = {"RUDDER_MAX", "RUDDER_MIN",};
 
-	private int formItems[] = {R.id.rudder_limit_min, R.id.rudder_limit_max,};
+    private int formItems[] = {R.id.rudder_limit_left, R.id.rudder_limit_right,};
 
-	private int formItemsTitle[] = {R.string.min_limit, R.string.max_limit,};
+    private int formItemsTitle[] = {R.string.left_limit, R.string.right_limit,};
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -205,9 +205,43 @@ public class ServosRudderEndPointsActivity extends BaseActivity
             ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
             tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(size);
-		}
 
-	}
+            switch (i) {
+                case 0:
+                    initLeftWarning(size);
+                    break;
+                case 1:
+                    initRightWarning(size);
+                    break;
+            }
+        }
+    }
+
+    /**
+     * @param size
+     */
+    private void initLeftWarning(int size) {
+        if (size < 70) {
+            ((TextView) findViewById(R.id.warning_rud_left)).setText(R.string.warning_low_value);
+        } else if (size > 170) {
+            ((TextView) findViewById(R.id.warning_rud_left)).setText(R.string.warning_high_value);
+        } else {
+            ((TextView) findViewById(R.id.warning_rud_left)).setText("");
+        }
+    }
+
+    /**
+     * @param size
+     */
+    private void initRightWarning(int size) {
+        if (size < 70) {
+            ((TextView) findViewById(R.id.warning_rud_right)).setText(R.string.warning_low_value);
+        } else if (size > 170) {
+            ((TextView) findViewById(R.id.warning_rud_right)).setText(R.string.warning_high_value);
+        } else {
+            ((TextView) findViewById(R.id.warning_rud_right)).setText("");
+        }
+    }
 
 	protected OnChangedListener numberPicekrListener = new OnChangedListener()
 	{
@@ -226,6 +260,15 @@ public class ServosRudderEndPointsActivity extends BaseActivity
                     if(item != null) {
                         item.setValue(newVal);
                         stabiProvider.sendDataNoWaitForResponce(item);
+
+                        switch (i) {
+                            case 0:
+                                initLeftWarning(newVal);
+                                break;
+                            case 1:
+                                initRightWarning(newVal);
+                                break;
+                        }
                     }
 				}
 			}

@@ -37,7 +37,7 @@
             android:indeterminate="false"/>
 
         <TextView
-            android:id="@+id/progres_min"
+            android:id="@+id/progres_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/progres_bar"
@@ -68,7 +68,7 @@
             android:layout_alignParentRight="true" />
 
         <TextView
-            android:id="@+id/progres_max"
+            android:id="@+id/progres_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/progres_bar"
@@ -86,7 +86,7 @@
             android:text="\?"
             android:id="@+id/helpText"
             android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/progres_max"
+            android:layout_alignRight="@+id/progres_right"
             android:visibility="invisible" />
 
 

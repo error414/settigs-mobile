@@ -42,9 +42,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	
 	//Prvky formulare
 	private final TextView  mObjTitle;
-	private final TextView  mObjMin;
-	private final TextView  mObjMax;
-	private final TextView  mObjCurrent;
+    private final TextView mObjLeft;
+    private final TextView mObjRight;
+    private final TextView  mObjCurrent;
     private final TextView  mObjOriginal;
 	private final EditText  mObjProgresValue;
 	private final RelativeLayout childLayout;
@@ -77,10 +77,12 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 
     private int stepLongPress = 1;
     private int stepPress = 1;
+    private boolean inverted = false;
 
     private boolean enabledDefaultValue = true;
 
     private ProgresExViewTranslateInterface translate;
+    private ProgresExViewTranslateInterface translateOriginalValue;
     
     private final Handler mHandler;
     private final Runnable mRunnable = new Runnable() {
@@ -121,11 +123,11 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
         mainLayout.setOnClickListener(this);
         mainLayout.setOnLongClickListener(this);
 
-	    mObjTitle 	= (TextView) findViewById(R.id.progres_title); 
-	    
-	    mObjMin 	= (TextView) findViewById(R.id.progres_min); 
-	    mObjMax 	= (TextView) findViewById(R.id.progres_max); 
-	    mObjCurrent = (TextView) findViewById(R.id.progres_current);
+	    mObjTitle 	= (TextView) findViewById(R.id.progres_title);
+
+        mObjLeft = (TextView) findViewById(R.id.progres_left);
+        mObjRight = (TextView) findViewById(R.id.progres_right);
+        mObjCurrent = (TextView) findViewById(R.id.progres_current);
         mObjOriginal = (TextView) findViewById(R.id.original_value);
 
         mObjProgres = (ProgressBar) findViewById(R.id.progres_bar);
@@ -311,21 +313,30 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 	 */
 	protected void updateView() {
 		mObjTitle.setText(mTitle);
-		mObjProgres.setProgress(mCurrent - mMin);
-		
-		if(this.translate == null){
-            mObjMin.setText(String.valueOf(mRangeMin));
-            mObjMax.setText(String.valueOf(mRangeMax));
+
+        if (isInverted()) {
+            mObjProgres.setProgress((mMax - mMin) - (mCurrent - mMin));
+        } else {
+            mObjProgres.setProgress(mCurrent - mMin);
+        }
+
+        int leftValue = isInverted() ? mRangeMax : mRangeMin;
+        int rightValue = isInverted() ? mRangeMin : mRangeMax;
+
+        if (getTranslate() == null) {
+            mObjLeft.setText(String.valueOf(leftValue));
+            mObjRight.setText(String.valueOf(rightValue));
             mObjProgresValue.setText(String.valueOf(mCurrent + mOffset));
             mObjCurrent.setText(String.valueOf(mCurrent + mOffset));
             mObjOriginal.setText(mCurrent != originalValue && enabledDefaultValue ? String.valueOf(originalValue + mOffset) : "");
 		}else{
-			mObjMin.setText(this.translate.translateMin(mRangeMin));
-			mObjMax.setText(this.translate.translateMax(mRangeMax));
-			mObjProgresValue.setText(this.translate.translateCurrent(mCurrent + mOffset));
-			mObjCurrent.setText(this.translate.translateCurrent(mCurrent + mOffset));
-            mObjOriginal.setText(mCurrent != originalValue && enabledDefaultValue ? this.translate.translateCurrent(originalValue + mOffset) : "");
-		}
+            mObjLeft.setText(getTranslate().translateMin(leftValue));
+            mObjRight.setText(getTranslate().translateMax(rightValue));
+            mObjProgresValue.setText(getTranslate().translateCurrent(mCurrent + mOffset));
+            mObjCurrent.setText(getTranslate().translateCurrent(mCurrent + mOffset));
+            mObjOriginal.setText(mCurrent != originalValue && enabledDefaultValue ? getTranslateOriginalValue().translateCurrent(originalValue + mOffset) : "");
+        }
+
 
         if(mCurrentString != null) {
             mObjCurrent.setText(mCurrentString);
@@ -358,9 +369,9 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
         //if (!mText.hasFocus()) mText.requestFocus();
 
         // now perform the increment/decrement
-        if (R.id.progres_minus == v.getId()) {
+        if ((R.id.progres_minus == v.getId() && !isInverted()) || (R.id.progres_plus == v.getId() && isInverted())) {
             changeCurrent(mCurrent-stepPress);
-        } else if (R.id.progres_plus == v.getId()) {
+        } else if ((R.id.progres_plus == v.getId() && !isInverted()) || (R.id.progres_minus == v.getId() && isInverted())) {
             changeCurrent(mCurrent+stepPress);
         }else if (R.id.progres_main == v.getId()) {
             toogleInput();
@@ -372,10 +383,10 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
      * to inform us when the long click has ended.
      */
     public boolean onLongClick(View v) {
-        if (R.id.progres_plus == v.getId()) {
+        if ((R.id.progres_plus == v.getId() && !isInverted()) || (R.id.progres_minus == v.getId() && isInverted())) {
             mIncrement = true;
             mHandler.post(mRunnable);
-        } else if (R.id.progres_minus == v.getId()) {
+        } else if ((R.id.progres_minus == v.getId() && !isInverted()) || (R.id.progres_plus == v.getId() && isInverted())) {
             mDecrement = true;
             mHandler.post(mRunnable);
         }else if(R.id.progres_main == v.getId()){
@@ -431,6 +442,14 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 		this.translate = translate;
 	}
 
+    public ProgresExViewTranslateInterface getTranslateOriginalValue() {
+        return (translateOriginalValue != null) ? translateOriginalValue : getTranslate();
+    }
+
+    public void setTranslateOriginalValue(ProgresExViewTranslateInterface translateOriginalValue) {
+        this.translateOriginalValue = translateOriginalValue;
+    }
+
     public int getOriginalValue() {
         return originalValue;
     }
@@ -446,5 +465,14 @@ public class ProgresEx extends LinearLayout implements OnClickListener,  OnLongC
 
     public void setEnabledDefaultValue(boolean enabledDefaultValue) {
         this.enabledDefaultValue = enabledDefaultValue;
+    }
+
+    public boolean isInverted() {
+        return inverted;
+    }
+
+    public void setInverted(boolean inverted) {
+        this.inverted = inverted;
+        updateView();
     }
 }

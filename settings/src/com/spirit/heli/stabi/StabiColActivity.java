@@ -183,6 +183,8 @@ public class StabiColActivity extends BaseActivity
 			if(profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65
                     || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68
                     || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 69
+                    || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 70
+                    || profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 71
             ){ // 65 is "A" in profile, 68 is D,  69 is E
 				tempPicker.setEnabled(false);
 			}
