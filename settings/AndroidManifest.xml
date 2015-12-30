@@ -610,6 +610,14 @@
             android:theme="@style/CustomTheme"
             />
 
+        <activity
+            android:name=".heli.governorthr.governor.GovernorRamPupActivity"
+            android:configChanges="orientation"
+            android:label="@string/short_title"
+            android:screenOrientation="portrait"
+            android:launchMode="singleTop"
+            android:theme="@style/CustomTheme" />
+
     </application>
 
 </manifest>

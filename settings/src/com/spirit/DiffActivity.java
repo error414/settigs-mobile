@@ -37,6 +37,7 @@ import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
 import com.lib.DstabiProvider;
 import com.lib.translate.AutorotationBailOutProgressExTranslate;
+import com.lib.translate.GovernorRamPupProgressExTranslate;
 import com.lib.translate.GovernorRpmMaxProgressExTranslate;
 import com.lib.translate.GovernorThrRangeProgressExTranslate;
 import com.lib.translate.GovernorgearRatioProgressExTranslate;
@@ -793,6 +794,17 @@ public class DiffActivity extends BaseActivity
             GovernorThrRangeProgressExTranslate translate = new GovernorThrRangeProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator , getResources().getString(R.string.governor_thr_max)).toString());
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if (diffItem.getLabel().equals("GOVERNOR_RAMPUP")) {
+            GovernorRamPupProgressExTranslate translate = new GovernorRamPupProgressExTranslate();
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor_rampup)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));

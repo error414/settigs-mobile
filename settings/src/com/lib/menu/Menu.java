@@ -38,6 +38,7 @@ import com.spirit.heli.governorthr.governor.GovernorActivity;
 import com.spirit.heli.governorthr.governor.GovernorFineTuningActivity;
 import com.spirit.heli.governorthr.governor.GovernorGearSettingsActivity;
 import com.spirit.heli.governorthr.governor.GovernorOnActivity;
+import com.spirit.heli.governorthr.governor.GovernorRamPupActivity;
 import com.spirit.heli.governorthr.governor.GovernorRpmMaxActivity;
 import com.spirit.heli.governorthr.governor.GovernorRpmSenzor;
 import com.spirit.heli.governorthr.governor.GovernorSpoolUpActivity;
@@ -152,6 +153,7 @@ public class Menu {
     public static Integer MENU_GOV_GEAR_SETTINGS   = 47;
     public static Integer MENU_GOV_THR_REVERSE     = 48;
     public static Integer MENU_GOV_SPOOLUP         = 50;
+    public static Integer MENU_GOV_RAMPUP = 62;
 
     public static Integer MENU_FF                  = 57;
 
@@ -420,8 +422,10 @@ public class Menu {
 
         menuList.put(MENU_GOV_RPM_SENZOR,   new MenuItem(R.drawable.i51,     R.string.governor_rpm_senzor, GovernorRpmSenzor.class));
 
+        menuList.put(MENU_GOV_RAMPUP, new MenuItem(R.drawable.na, R.string.governor_rampup, GovernorRamPupActivity.class));
+
         //add to groups
-        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_SPOOLUP, MENU_GOV_FINE_TUNING, MENU_GOV_RPM_SENZOR});
+        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_SPOOLUP, MENU_GOV_FINE_TUNING, MENU_GOV_RPM_SENZOR, MENU_GOV_RAMPUP,});
     }
 
     /**

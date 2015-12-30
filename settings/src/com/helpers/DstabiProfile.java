@@ -265,7 +265,8 @@ public class DstabiProfile {
 		profileMap.put("GOVERNOR_ON",	        new ProfileItem(73, 0, 1, "J",	false));
 		profileMap.put("STABI_ACRO_DELAY",	    new ProfileItem(74, 0, 30, "N",	false));
 		profileMap.put("RPM_SENZOR_FILTER",	    new ProfileItem(75, 1, 8, "V",	true));
-        ///////////////////////////////////////////////////////////////////
+		profileMap.put("GOVERNOR_RAMPUP", new ProfileItem(76, 10, 200, "T", true));
+		///////////////////////////////////////////////////////////////////
 
 	}
 	//BUILD_HELI_END
