@@ -281,30 +281,36 @@ public class BluetoothCommandService {
             mAdapter.cancelDiscovery();
 
             // Make a connection to the BluetoothSocket
-            try {
-                // This is a blocking call and will only return on a
-                // successful connection or an exception
-                mmSocket.connect();
-            } catch (IOException e) {
-                connectionFailed();
-                // Close the socket
+            // This is a blocking call and will only return on a
+            // successful connection or an exception
+
+            for (int i = 0; i < 3; i++) {
                 try {
-                    mmSocket.close();
-                } catch (IOException e2) {
-                    Log.e(TAG, "unable to close() socket during connection failure", e2);
+                    mmSocket.connect();
+                    Thread.sleep(500);
+                    // Reset the ConnectThread because we're done
+                    synchronized (BluetoothCommandService.this) {
+                        mConnectThread = null;
+                    }
+
+                    // Start the connected thread
+                    connected(mmSocket, mmDevice);
+                    return;
+                } catch (Exception e) {
+                    Log.e(TAG, "connect Exception number:" + String.valueOf(i), e);
                 }
-                // Start the service over to restart listening mode
-                //BluetoothCommandService.this.start();
-                return;
             }
 
-            // Reset the ConnectThread because we're done
-            synchronized (BluetoothCommandService.this) {
-                mConnectThread = null;
+            Log.e(TAG, "connection failed");
+            connectionFailed();
+            try {
+                mmSocket.close();
+            } catch (IOException e2) {
+                Log.e(TAG, "unable to close() socket during connection failure", e2);
             }
-
-            // Start the connected thread
-            connected(mmSocket, mmDevice);
+            // Start the service over to restart listening mode
+            //BluetoothCommandService.this.start();
+            return;
         }
 
         public void cancel() {
@@ -406,6 +412,9 @@ public class BluetoothCommandService {
 
         public void cancel() {
             try {
+                mmInStream.close();
+                mmOutStream.close();
+
                 mmSocket.close();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);

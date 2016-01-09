@@ -355,7 +355,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RANGE_PIT")){
-            diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits), textSeparator, getResources().getString(R.string.cyclic_ring_range),  textSeparator , getResources().getString(R.string.limit_pitch)).toString());
+            diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits),  textSeparator , getResources().getString(R.string.limit_pitch)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());
@@ -532,7 +532,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if (diffItem.getLabel().equals("ROTOR_ROTATION")) {
+        if (diffItem.getLabel().equals("ROTOR_ROTATION")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator, getResources().getString(R.string.rotor_rotation), textSeparator, getResources().getString(R.string.rotor_rotation_title)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -801,7 +801,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
 
         // #############################################################################################
-        if (diffItem.getLabel().equals("GOVERNOR_RAMPUP")) {
+        if (diffItem.getLabel().equals("GOVERNOR_RAMPUP")){
             GovernorRamPupProgressExTranslate translate = new GovernorRamPupProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.governor_thr), textSeparator, getResources().getString(R.string.governor_rampup)).toString());
