@@ -31,7 +31,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
-                android:text="@string/limit_range_rud"
+                android:text="@string/governor_rampup"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/text_color"
                 android:textStyle="bold" />

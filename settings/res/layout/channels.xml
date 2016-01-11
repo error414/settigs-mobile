@@ -326,7 +326,19 @@
 				android:layout_alignStart="@+id/bank_select_id"
 				android:layout_alignRight="@+id/bank_select_id"
 				android:layout_alignEnd="@+id/bank_select_id"
-				android:paddingBottom="10dp" />
+                android:paddingBottom="30dp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/set_failsafe"
+                android:id="@+id/failsafe"
+                android:layout_below="@+id/bank_progress_diagnostic"
+                android:layout_alignLeft="@+id/bank_progress_diagnostic"
+                android:layout_alignStart="@+id/bank_progress_diagnostic"
+                android:layout_alignRight="@+id/bank_progress_diagnostic"
+                android:layout_alignEnd="@+id/bank_progress_diagnostic"
+                android:onClick="setFailSafe" />
 
 
 		</RelativeLayout>

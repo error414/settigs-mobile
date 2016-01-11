@@ -127,7 +127,9 @@ public class ConnectionActivity extends BaseActivity
     final protected int CHANGE_BANK_SOURCE_CALL_BACK_CODE = 129;
 
     final protected int FACTORY_RESET_CALL_BACK_CODE = 130;
-	/**
+
+    final protected int CHECK_CONNECTION_CALL_BACK_CODE = 131;
+    /**
      * priznak jestli se nahrava proifil ze souboru, na tohle reaguje zobrazeni dialogu po uspesenm nahrati profilu ze souboru
      */
     private Boolean readProfileFromFile = false;
@@ -505,6 +507,12 @@ public class ConnectionActivity extends BaseActivity
 		}
 	}
 
+    private void checkConnection() {
+        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+            stabiProvider.getSerial(CHECK_CONNECTION_CALL_BACK_CODE);
+        }
+    }
+
     private void initAfterConnection(){
         //zkontrolujme jestli maji banky prirazen kanal, pokud ano zkontrolujeme jestli je banka 0
         if(profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() != 7 && profileCreator.getProfileItemByName("BANKS").getValueInteger() != 0){ // 7 = unbind bank, 0 = Bank 0
@@ -807,10 +815,35 @@ public class ConnectionActivity extends BaseActivity
                 Globals.getInstance().setCallInitAfterConnect(false);
                 super.handleMessage(msg);
                 break;
-			case DstabiProvider.MESSAGE_STATE_CHANGE:
-				updateState();
-				break;
+            case CHECK_CONNECTION_CALL_BACK_CODE:
+                sendInSuccessDialog();
+                updateState();
+                break;
+            case DstabiProvider.MESSAGE_STATE_CHANGE:
+                //jsme pripojeni overime spojeni
+                if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                    textStatusView.setText(R.string.connected);
+                    textStatusView.setTextColor(Color.parseColor("#0D850B"));
+                    setSpiritConnectionProgress();
+                    connectButton.setText(R.string.disconnect);
+
+                    BluetoothDevice device = stabiProvider.getBluetoothDevice();
+                    curentDeviceText.setText(device.getName() + " [" + device.getAddress() + "]");
+
+                    showDialogRead();
+
+                    checkConnection();
+                } else {
+                    updateState();
+                }
+                break;
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+                if (msg.getData().containsKey("callBack") && msg.getData().getInt("callBack") == CHECK_CONNECTION_CALL_BACK_CODE) {
+                    showConfirmDialog(R.string.spirit_not_found);
+                    stabiProvider.disconnect();
+                    return false;
+                }
+
 				isPosibleSendData = false;
                 if(stabiProvider != null) {
                     stabiProvider.abortAll();
