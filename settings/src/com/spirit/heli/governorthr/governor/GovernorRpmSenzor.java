@@ -110,6 +110,10 @@ public class GovernorRpmSenzor extends BaseActivity
      */
     protected void getRpmValue()
     {
+        if (profileCreator.getProfileItemByName("RECEIVER").getValueInteger() < 66 /*A 65 - B 66*/ || profileCreator.getProfileItemByName("CHANNELS_THT").getValueInteger() == 7) {
+            return;
+        }
+
         if(profileCreator != null && profileCreator.isValid() && profileCreator.getProfileItemByName("GOVERNOR_ON"). getValueForCheckBox()) {
             delayHandle.postDelayed(new Runnable() {
                 @Override

@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 30.12.2015-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 11.01.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -87,7 +87,7 @@
     <string name="serial">Sériové č.</string>
     <string name="unit">Jednotka</string>
     <string name="link">Spojení</string>
-    <string name="governor_rpm_senzor">RPM senzor</string>
+    <string name="governor_rpm_senzor">Měřič otáček</string>
 
     <string name="position_text">Pozice</string>
     <string name="model_text">Model</string>
@@ -185,7 +185,7 @@
 
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>
-	<string name="gyro_gain">Vrtulkový zisk</string>
+    <string name="gyro_gain">Zisk gyra</string>
 	<string name="banks">Banky</string>
     <string name="bank">Banka</string>
 	<string name="choose_bank">Vyberte banku</string>
@@ -226,14 +226,14 @@
     </string-array>
 
     <string-array name="position_values">
-        <item>Horizontal (0°)</item>
-        <item>Horizontal (180°)</item>
-        <item>Horizontal (0° + obráceně)</item>
-        <item>Horizontal (180° + obráceně)</item>
-        <item>Vertical (0° - levá strana)</item>
-        <item>Vertical (180° - levá strana)</item>
-        <item>Vertical (0° + pravá strana)</item>
-        <item>Vertical (180° + pravá strana)</item>
+        <item>Horizontální (0°)</item>
+        <item>Horizontální (180°)</item>
+        <item>Horizontální (0° + obráceně)</item>
+        <item>Horizontální (180° + obráceně)</item>
+        <item>Vertikální (0° - levá strana)</item>
+        <item>Vertikální (180° - levá strana)</item>
+        <item>Vertikální (0° + pravá strana)</item>
+        <item>Vertikální (180° + pravá strana)</item>
     </string-array>
 
     <string-array name="aero_position_values">
@@ -503,8 +503,8 @@
     <string name="st_a030379814acf4a9efd5735573f71718">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120°.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
     <string name="st_4e74822308285a5d25761bc2c9387dc2">Nastavuje chování modelu a jeho letové vlastnosti.\n\n- Uberte pro konstantnější a lineárnější řízení.\n- Přidejte pro dosažení chování pádlové mechaniky.\n\n<i>Rozsah: 1 - 8</i></string>
-    <string name="st_6c85d2c73a8b4e3bde0bf54c2335ed20"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n-\n            Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n\n<i>Rozsah:\n            0 - 100%</i></string>
-    <string name="st_09d45bb1303880122575711233ac4ac8"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n-\n            Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n-\n            Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 0 - 5</i></string>
+    <string name="st_25e1dad714a36a48c70307e9e98c6839"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n\n<i>Rozsah: 0 - 100%</i></string>
+    <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 0 - 5</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 16</i></string>
     <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Udává zisk cykliky</b>\n\n- Nejčastěji 60 - 70% pro optimální funkci.\n\n<i>Rozsah: 20 - 100%</i></string>
@@ -515,20 +515,21 @@
     <string name="st_6c27918077d556edb488f0516b5965b6"><b>Rychlost odezvy, resp. míra přímého propojení páček křidélek/výškovy</b>\n\n- Přidejte pro přímější pocit propojení.\n- Uberte pro plynulejší chování modelu.\n\n<i>Rozsah: 1 - 12</i></string>
     <string name="st_cdf89e8bd20739bdc69e8c3bd7e1ae17"><b>Udává počet stupňů pootočení cykliky</b>\n\n- Používá se u vícelistých rotorových hlav.\n- Nejčastěji nastaveno na 0.\n\n<i>Rozsah: -90 - +90</i></string>
     <string name="st_45b61e5018b2249985746acf8e3424b3"><b>Velikost kompenzace zhoupnutí výškovky</b>\n\n- Přidejte, pokud je během agresivního pohybu páčky výškovky viditelné zhoupnutí.\n- Nejčastěji hodnota 1.\n\n<i>Rozsah: 0 - 4</i></string>
-    <string name="st_8c476c8af5f748d8bd22e845c1ab5991"><b>Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů</b>\n\n-\n            Optimální je hodnota v rozsahu 90 - 150.\n- Nastavujte až po konfiguraci\n            Subtrimů serv.\n\n<i>Rozsah: 64 - 250</i></string>
+    <string name="st_6758e8b02736ba47f992c8a921bd6eae"><b>Přidejte/uberte hodnotu, dokud není náběh listů 6 stupňů</b>\n\n- Optimální je hodnota v rozsahu 90 - 150.\n- Nastavujte až po konfiguraci Subtrimů serv.\n\n<i>Rozsah: 64 - 250</i></string>
     <string name="st_a09dcd0b0fd2a8ed24f9d8a81b66668f"><b>Udává míru držení směru vrtulky</b>\n\n- Nejčastěji v rozsahu 155 - 180.\n\n<i>Rozsah: 130 - 250</i></string>
     <string name="st_28953f535f7d4bbe0b04ab8ffcbf3fde"><b>Eliminuje vzpínání modelu</b>\n\n- Nejčastěji nastaveno na 0.\n- Přidejte je-li viditelné vzpínání.\n\n<i>Rozsah: 0 - 4</i></string>
     <string name="st_88ffaae209a942ffdcbf08d25ada6106"><b>Udává rychlost odezvy vrtulky</b>\n\n- Velmi rychlé servo:	0 - 5\n- Rychlé servo:	5 - 15\n- Pomalé servo:	15 - 20\n- Analogové servo:	20 - 25\n\n<i>Rozsah: 0 - 30</i></string>
     <string name="st_050eaf6851d88f98084291c19b591a0d"><b>Agresivita odezvy vrtulky</b>\n\n- Přidejte pro tvrdší zastavení.\n- Uberte pokud vrtulka po zastavení překmitne.\n\n<i>Rozsah: 3 - 10</i></string>
-    <string name="st_fefe3127debbbf721ceaa73a38980935"><b>Prekompenzace pohybu kolektivu</b>\n\n-\n            Nejčastěji nulová hodnota, uprostřed.\n\n<i>Rozsah: 0 - 10</i></string>
+    <string name="st_0d024298132ffb58bce4dce98affdb86"><b>Prekompenzace pohybu kolektivu</b>\n\n- Nejčastěji nulová hodnota.\n\n<i>Rozsah: 0 - 10</i></string>
     <string name="st_9a77db935bc1b64ee6402e6c8d019d44">Zapne rozšířené zpracování signálu\n\n- Ve většině případech by mělo být vypnuté.\n- Pro chod v prostředí extrémních vibrací.</string>
     <string name="st_02282a0a0af7a569d19732b906395ed5">Rozsah polohy páček kolem středu, který je považován za nulový.\n\n<i>Rozsah: 4 - 30</i></string>
     <string name="st_e11bdb4cd957e81f87afdc4b2c3134fe">Udává spodní limit dráhy vrtulkového serva.\n\n<i>Rozsah: 32 - 255</i></string>
     <string name="st_08a5a1e5848935703bcc7d12cf34f318">Udává horní limit dráhy vrtulkového serva.\n\n<i>Rozsah: 32 - 255</i></string>
-    <string name="st_7cc4666bd794d5e30b2468fdc2531c27"><b>Udává rozsah dráhy serv cykliky - křidélka a výškovka</b>\n\n-\n            Přidejte tento parametr, jak nejvíce je to možné.\n- Opatrně kontrolujte, zda\n            nedochází k nárazu serv v žádné poloze!\n- Úhel nesmí být vyšší než dovoluje\n            výrobce modelu!\n\n<i>Rozsah: 32 - 255</i></string>
+    <string name="st_cb447c2f52a1170da6ca24c5875ba250"><b>Udává rozsah dráhy serv cykliky - křidélka a výškovka</b>\n\n- Přidejte tento parametr, jak nejvíce je to možné.\n- Opatrně kontrolujte, zda nedochází k nárazu serv v žádné poloze!\n- Úhel nesmí být vyšší než dovoluje výrobce modelu!\n\n<i>Rozsah: 32 - 255</i></string>
     <string name="st_b81fcebbff4a29a95ef70e6621eb8f71">Udává rozsah kolektivu pro kladný a záporný směr.\n\n<i>Rozsah: 32 - 255</i></string>
-    <string name="st_7c09329c71c61ae71968596a17d133ae">Udává spodní limit rozsahu plynu.\n\n- Lze použít pro srovnání\n            rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry\n            nastavte limit na nejnižší možnou hodnotu serva plynu.\n- Funguje jako subtrim\n            ve vysílači.\n\n<i>Rozsah: 700 - 1300</i></string>
-    <string name="st_e854e9f79a44f31d6ed382972c01d4f0">Udává horní limit rozsahu plynu.\n\n- Lze použít pro srovnání\n            rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry\n            nastavte limit na nejvyšší možnou hodnotu serva plynu.\n\n<i>Rozsah:\n            1700 - 2300</i></string>
+    <string name="st_3104a8b88d16fea1d7340e06f4f4628f">Udává spodní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejnižší možnou hodnotu serva plynu.\n- Funguje jako subtrim ve vysílači.\n\n<i>Rozsah: 700 - 1300</i></string>
+    <string name="st_e3f7aaeec7262407e622dfb1b79181ab">Udává horní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejvyšší možnou hodnotu serva plynu.\n\n<i>Rozsah: 1700 - 2300</i></string>
+    <string name="st_5f6a222244b449ed513ffe39b532715e">Udává hodnotu, která bude přidána pro okamžitý a zároveň plynulý rozběh motoru.\n\n- Pokud dojde k cuknutí motoru při rozběhu, snižte hodnotu.\n- Pokud je před roztočením patrné zpoždění, zvyšte hodnotu.\n- Výchozí hodnota 50 by měla fungovat ve většině případů správně.\n\n<i>Rozsah: 10 - 200</i></string>
     <string name="st_cffee8820dbdc898c99db0f0350440f4">Udává velikost dělitele snímače otáček.\n\n- Pro helikoptéry s elektrickým pohonem je tato hodnota rovna počtu pólů motoru / 2 (Tzn. pro 10 pólový motor je hodnota 5).\n- Pro spalovací helikoptéry je hodnota rovna počtu magnetů.\n\n<i>Rozsah: 1 - 8</i></string>
     <string name="st_e4df1e47f3a179a3867c07d758619a1c">Udává směr plynu.\n\n- Většinou se využívá pouze pro spalovací helikoptéry.\n- Reverzujte pro správný směr pohybu serva plynu.</string>
     <string name="st_794fca310ce523ae9cda3e4a0f9c5b1d">Udává převodový poměr.\n\n- Počet zubů hlavního kola / počet zubů pastorku motoru.\n\n<i>Rozsah: 1,0 - 12,7</i></string>
@@ -604,4 +605,8 @@
     <string name="positive_pitch">Kladný náběh</string>
     <string name="negative_pitch">Záporný náběh</string>
     <string name="governor_rampup">Práh rozběhu</string>
+
+    <string name="failsafe">Failsafe</string>
+    <string name="set_failsafe">Nastavit Failsafe</string>
+    <string name="failsafe_configured">Hodnoty pro režim Failsafe byly úspěšně uloženy.</string>
 </resources>

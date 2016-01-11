@@ -31,58 +31,59 @@ public class HelpMap {
     private static Map<Integer, Integer> createMap() {
         Map<Integer, Integer> result = new HashMap<Integer, Integer>();
 
-        result.put(R.id.position_select_id,                 R.string.st_26a7059fe05e155afb53ea22bc6a80d3);
-        result.put(R.id.mix_select_id,                      R.string.st_a030379814acf4a9efd5735573f71718);
-        result.put(R.id.receiver_select_id,                 R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
-        result.put(R.id.flight_style_select_id,             R.string.st_4e74822308285a5d25761bc2c9387dc2);
+        result.put(R.id.position_select_id, R.string.st_26a7059fe05e155afb53ea22bc6a80d3);
+        result.put(R.id.mix_select_id, R.string.st_a030379814acf4a9efd5735573f71718);
+        result.put(R.id.receiver_select_id, R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
+        result.put(R.id.flight_style_select_id, R.string.st_4e74822308285a5d25761bc2c9387dc2);
 
-        result.put(R.id.stabi_pitch, R.string.st_6c85d2c73a8b4e3bde0bf54c2335ed20);
-        result.put(R.id.stabi_ctrldir, R.string.st_09d45bb1303880122575711233ac4ac8);
-        result.put(R.id.stabi_fbmode,                       R.string.st_64d671d1921bac26046cf0d04da37ff1);
-        result.put(R.id.stabi_stick,                        R.string.st_bd22e71854e51838095b67f8c1d8441d);
+        result.put(R.id.stabi_pitch, R.string.st_25e1dad714a36a48c70307e9e98c6839);
+        result.put(R.id.stabi_ctrldir, R.string.st_1bb89987a641483fa0a25daa7e52d27c);
+        result.put(R.id.stabi_fbmode, R.string.st_64d671d1921bac26046cf0d04da37ff1);
+        result.put(R.id.stabi_stick, R.string.st_bd22e71854e51838095b67f8c1d8441d);
 
-        result.put(R.id.x_cyclic,                           R.string.st_40ac2993f4b9439ae49d61f0521b121d);
-        result.put(R.id.rudder_common_gain,                 R.string.st_466a542ef886802f5bbc2c23bc91fd06);
-        result.put(R.id.gyro_gain,                          R.string.st_e1ef2f3a7b6fa63d68cb2b9b2e72a571);
+        result.put(R.id.x_cyclic, R.string.st_40ac2993f4b9439ae49d61f0521b121d);
+        result.put(R.id.rudder_common_gain, R.string.st_466a542ef886802f5bbc2c23bc91fd06);
+        result.put(R.id.gyro_gain, R.string.st_e1ef2f3a7b6fa63d68cb2b9b2e72a571);
 
-        result.put(R.id.x_pitch_rates,                      R.string.st_89aa34aff73db8d200536bf76779270b);
-        result.put(R.id.z_yaw_rates,                        R.string.st_85767e852871648bc2db9dd4b052cf63);
+        result.put(R.id.x_pitch_rates, R.string.st_89aa34aff73db8d200536bf76779270b);
+        result.put(R.id.z_yaw_rates, R.string.st_85767e852871648bc2db9dd4b052cf63);
 
-        result.put(R.id.cyclicff,                           R.string.st_6c27918077d556edb488f0516b5965b6);
-        result.put(R.id.cyclic_phase,                       R.string.st_cdf89e8bd20739bdc69e8c3bd7e1ae17);
-        result.put(R.id.e_filter,                           R.string.st_45b61e5018b2249985746acf8e3424b3);
-        result.put(R.id.geom_6deg, R.string.st_8c476c8af5f748d8bd22e845c1ab5991);
-        result.put(R.id.pirouette_const,                    R.string.st_a09dcd0b0fd2a8ed24f9d8a81b66668f);
-        result.put(R.id.pitchup,                            R.string.st_28953f535f7d4bbe0b04ab8ffcbf3fde);
-        result.put(R.id.rudder_delay,                       R.string.st_88ffaae209a942ffdcbf08d25ada6106);
-        result.put(R.id.rudder_stop,                        R.string.st_050eaf6851d88f98084291c19b591a0d);
-        result.put(R.id.rudder_revomix, R.string.st_fefe3127debbbf721ceaa73a38980935);
-        result.put(R.id.signal_processing,                  R.string.st_9a77db935bc1b64ee6402e6c8d019d44);
-        result.put(R.id.stick_db,                           R.string.st_02282a0a0af7a569d19732b906395ed5);
+        result.put(R.id.cyclicff, R.string.st_6c27918077d556edb488f0516b5965b6);
+        result.put(R.id.cyclic_phase, R.string.st_cdf89e8bd20739bdc69e8c3bd7e1ae17);
+        result.put(R.id.e_filter, R.string.st_45b61e5018b2249985746acf8e3424b3);
+        result.put(R.id.geom_6deg, R.string.st_6758e8b02736ba47f992c8a921bd6eae);
+        result.put(R.id.pirouette_const, R.string.st_a09dcd0b0fd2a8ed24f9d8a81b66668f);
+        result.put(R.id.pitchup, R.string.st_28953f535f7d4bbe0b04ab8ffcbf3fde);
+        result.put(R.id.rudder_delay, R.string.st_88ffaae209a942ffdcbf08d25ada6106);
+        result.put(R.id.rudder_stop, R.string.st_050eaf6851d88f98084291c19b591a0d);
+        result.put(R.id.rudder_revomix, R.string.st_0d024298132ffb58bce4dce98affdb86);
+        result.put(R.id.signal_processing, R.string.st_9a77db935bc1b64ee6402e6c8d019d44);
+        result.put(R.id.stick_db, R.string.st_02282a0a0af7a569d19732b906395ed5);
 
         result.put(R.id.rudder_limit_right, R.string.st_e11bdb4cd957e81f87afdc4b2c3134fe);
         result.put(R.id.rudder_limit_left, R.string.st_08a5a1e5848935703bcc7d12cf34f318);
 
-        result.put(R.id.limit_range_ail_left, R.string.st_7cc4666bd794d5e30b2468fdc2531c27);
-        result.put(R.id.cyclic_pitch,                       R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
+        result.put(R.id.limit_range_ail_left, R.string.st_cb447c2f52a1170da6ca24c5875ba250);
+        result.put(R.id.cyclic_pitch, R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
-        result.put(R.id.governor_thr_min, R.string.st_7c09329c71c61ae71968596a17d133ae);
-        result.put(R.id.governor_thr_max, R.string.st_e854e9f79a44f31d6ed382972c01d4f0);
-        result.put(R.id.governor_divider,                   R.string.st_cffee8820dbdc898c99db0f0350440f4);
-        result.put(R.id.thr_reverse,                        R.string.st_e4df1e47f3a179a3867c07d758619a1c);
-        result.put(R.id.governor_ratio,                     R.string.st_794fca310ce523ae9cda3e4a0f9c5b1d);
-        result.put(R.id.governor_rpm_max,                   R.string.st_3f768495d1b414cb1277d3b1f3ae2691);
-        result.put(R.id.governor_pgain,                     R.string.st_b1f1153100c33f0ce17c0264026d5bec);
-        result.put(R.id.governor_igain,                     R.string.st_d12c351a24a5319dcbcbc77d25195675);
-        result.put(R.id.pitch_pump,                         R.string.st_6bf8cb04f7fdb6f926ad978ad55e7980);
+        result.put(R.id.governor_thr_min, R.string.st_3104a8b88d16fea1d7340e06f4f4628f);
+        result.put(R.id.governor_thr_max, R.string.st_e3f7aaeec7262407e622dfb1b79181ab);
+        result.put(R.id.governor_rampup, R.string.st_5f6a222244b449ed513ffe39b532715e);
+        result.put(R.id.governor_divider, R.string.st_cffee8820dbdc898c99db0f0350440f4);
+        result.put(R.id.thr_reverse, R.string.st_e4df1e47f3a179a3867c07d758619a1c);
+        result.put(R.id.governor_ratio, R.string.st_794fca310ce523ae9cda3e4a0f9c5b1d);
+        result.put(R.id.governor_rpm_max, R.string.st_3f768495d1b414cb1277d3b1f3ae2691);
+        result.put(R.id.governor_pgain, R.string.st_b1f1153100c33f0ce17c0264026d5bec);
+        result.put(R.id.governor_igain, R.string.st_d12c351a24a5319dcbcbc77d25195675);
+        result.put(R.id.pitch_pump, R.string.st_6bf8cb04f7fdb6f926ad978ad55e7980);
 
-        result.put(R.id.aileron_picker,                     R.string.st_be5bf619800ccb76a8ac96ef6c5b70c2);
-        result.put(R.id.elevator_picker,                    R.string.st_6b9d810c0062eba5db4c223ae3d94fab);
-        result.put(R.id.pitch_picker,                       R.string.st_92b0fe0b01b51063f423a7cc8b02cc1e);
-        result.put(R.id.rudder_picker,                      R.string.st_54ceaabd2d8cca5320e800e9851b6ff3);
+        result.put(R.id.aileron_picker, R.string.st_be5bf619800ccb76a8ac96ef6c5b70c2);
+        result.put(R.id.elevator_picker, R.string.st_6b9d810c0062eba5db4c223ae3d94fab);
+        result.put(R.id.pitch_picker, R.string.st_92b0fe0b01b51063f423a7cc8b02cc1e);
+        result.put(R.id.rudder_picker, R.string.st_54ceaabd2d8cca5320e800e9851b6ff3);
 
-        result.put(R.id.governor_spoolup_select_id,         R.string.st_cc41c2874a69e4ae7c3f2385ec481160);
-        result.put(R.id.governor_freq_select_id,            R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
+        result.put(R.id.governor_spoolup_select_id, R.string.st_cc41c2874a69e4ae7c3f2385ec481160);
+        result.put(R.id.governor_freq_select_id, R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
 
 
         result.put(R.id.servo_travel_ch1_positive, R.string.st_e21b7c7908ad7f4057fc65c8e55b184b);
@@ -92,9 +93,8 @@ public class HelpMap {
         result.put(R.id.servo_travel_ch2_negative, R.string.st_65d7a7bb821a6b7a7896e45dc671f4e6);
         result.put(R.id.servo_travel_ch3_negative, R.string.st_3fd8f4fd6b1c3ac27c28ebd523ead1e4);
 
-        result.put(R.id.rpm_senzor_filter,               R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
-        result.put(R.id.stabi_acro_delay,                R.string.st_698dbfa44b9af463920bb489c14c81a2);
-
+        result.put(R.id.rpm_senzor_filter, R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
+        result.put(R.id.stabi_acro_delay, R.string.st_698dbfa44b9af463920bb489c14c81a2);
 
 
         return Collections.unmodifiableMap(result);

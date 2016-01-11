@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
@@ -37,6 +38,7 @@ public class ChannelsActivity extends BaseActivity{
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
+	final private int FAILSAFE_CALL_BACK_CODE = 200;
 	
 	private final String protocolCode[] = {"CHANNELS_THT", "CHANNELS_AIL", "CHANNELS_ELE", "CHANNELS_RUD", "CHANNELS_GAIN", "CHANNELS_PITH", "CHANNELS_BANK"};
 
@@ -178,6 +180,12 @@ public class ChannelsActivity extends BaseActivity{
 				spinner.setEnabled(false);
 			}
 		}
+
+		if (profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 65 || profileCreator.getProfileItemByName("RECEIVER").getValueInteger() == 68) { // 65 je A coz je PWM prijmac / 68 futaba
+			Button failsafe = (Button) findViewById(R.id.failsafe);
+			failsafe.setEnabled(false);
+
+		}
 	}
 	
 	/**
@@ -199,6 +207,14 @@ public class ChannelsActivity extends BaseActivity{
 		showDialogRead();
 		// ziskani konfigurace z jednotky
 		stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
+	}
+
+	/**
+	 *
+	 * @param v
+	 */
+	public void setFailSafe(View v) {
+		stabiProvider.setFailSafe(FAILSAFE_CALL_BACK_CODE);
 	}
 
 	/**
@@ -423,6 +439,9 @@ public class ChannelsActivity extends BaseActivity{
 
 					getPositionFromUnit();
 				}
+				break;
+			case FAILSAFE_CALL_BACK_CODE:
+				showConfirmDialog(R.string.failsafe_configured);
 				break;
             case GET_SERIAL_NUMBER:
                 sendInSuccessDialog();

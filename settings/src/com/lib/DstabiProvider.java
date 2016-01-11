@@ -72,6 +72,7 @@ public class DstabiProvider {
 	final protected String GET_LOG = "L";
 	final protected String SERIAL_NUMBER = "h";
 	final protected String GET_GRAPH = "A\1";
+    final protected String SET_FAILSAFE = ".";
     final public int DIAGNOSTIC_PROFILE_LENGTH = 17;
 
     final public String REACTIVATION_BANK = "e";
@@ -121,8 +122,8 @@ public class DstabiProvider {
 	
 	private synchronized void TimerMethod()
 	{
-		connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-		clearState("TimerMethod");
+        this.sendError(callBackCode);
+        clearState("TimerMethod");
 	}
 	
 	/**
@@ -296,8 +297,19 @@ public class DstabiProvider {
 			queue.add(GET_GRAPH, null, GRAPH, callBack);
 		}
 	}
-	
-	/**
+
+    /**
+     * nastaveni failsafe
+     *
+     * @param callBack
+     */
+    public synchronized void setFailSafe(int callBack) {
+        Log.d(TAG, "ulozeni failsafe");
+
+        this.sendDataForResponce(SET_FAILSAFE, callBack);
+    }
+
+    /**
 	 * ziska informace pro graf z jednotky
 	 * 
 	 */
@@ -381,9 +393,9 @@ public class DstabiProvider {
 			}else{
 				queue.add(item.getCommand(), item.getValueBytesArray(), NORMAL, callBackCode);
 			}
-		}else{
-			connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-		}
+        } else {
+            this.sendError(callBackCode);
+        }
 	}
 	/////////////////////////////////////////////////
 	
@@ -407,9 +419,9 @@ public class DstabiProvider {
 	public synchronized void sendDataNoWaitForResponce(ProfileItem item){
 		if(item.isValid() && item.getCommand() != null){
 			sendDataNoWaitForResponce(item.getCommand(), item.getValueBytesArray());
-		}else{
-			connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
-		}
+        } else {
+            this.sendError(callBackCode);
+        }
 	}
 	/////////////////////////////////////////////////
 	
@@ -457,9 +469,9 @@ public class DstabiProvider {
      *
      * @param who
      */
-	private synchronized void clearState(String who){
-		
-		Log.d(TAG, "mazu stav:" + who);
+	private synchronized void clearState(String who) {
+        int callBackCodeBuff = callBackCode;
+        Log.d(TAG, "mazu stav:" + who);
         sendCode 		= null;
         sendValue 		= null;
         callBackCode	= 0;
@@ -481,7 +493,7 @@ public class DstabiProvider {
                     sendData(tempQueue.getCommand(), tempQueue.getData());
                 } else {
                     queue.clear();
-                    connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+                    this.sendError(callBackCodeBuff);
                 }
             }
         }
@@ -617,8 +629,8 @@ public class DstabiProvider {
                                         Log.w(TAG, "posilam pozadavek znovu");
                                         stopCecurityTimer();
                                         sendData(); // again send data
-                                    }else {
-                                        connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_SEND_COMAND_ERROR);
+                                    } else {
+                                        sendError(callBackCode);
                                         Log.w(TAG, "druhy pokus selhal");
                                         abortAll();
                                         clearState("handler 5");
@@ -675,6 +687,18 @@ public class DstabiProvider {
         m.setData(budleForMsg);
         connectionHandler.sendMessage(m);
         //Log.d(TAG, "zprava poslana not stop: " + callBackCode);
+    }
+
+    private synchronized void sendError(int callBackCode) {
+        Bundle budleForMsg = new Bundle();
+        budleForMsg.putInt("callBack", callBackCode);
+        Message m = connectionHandler.obtainMessage(MESSAGE_SEND_COMAND_ERROR);
+        m.setData(budleForMsg);
+        connectionHandler.sendMessage(m);
+    }
+
+    private synchronized void sendError() {
+        this.sendError(0);
     }
     
 	/**

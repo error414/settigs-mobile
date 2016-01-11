@@ -425,7 +425,7 @@ public class Menu {
         menuList.put(MENU_GOV_RAMPUP, new MenuItem(R.drawable.na, R.string.governor_rampup, GovernorRamPupActivity.class));
 
         //add to groups
-        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_SPOOLUP, MENU_GOV_FINE_TUNING, MENU_GOV_RPM_SENZOR, MENU_GOV_RAMPUP,});
+        menuGroups.put(MENU_INDEX_GOVERNOR, new Integer[]{MENU_GOV_ON, MENU_GOV_GEAR_SETTINGS, MENU_GOV_RPM_MAX, MENU_GOV_FINE_TUNING, MENU_GOV_SPOOLUP, MENU_GOV_RAMPUP, MENU_GOV_RPM_SENZOR,});
     }
 
     /**
