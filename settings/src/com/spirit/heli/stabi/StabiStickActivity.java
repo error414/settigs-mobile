@@ -171,9 +171,9 @@ public class StabiStickActivity extends BaseActivity
 			tempPicker.setCurrentNoNotify(item.getValueInteger());
 
 			if (profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 65
-					|| profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 67
 					|| profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 68
 					|| profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 69
+					|| profileCreator.getProfileItemByName("ALT_FUNCTION").getValueInteger() == 70
 					) { // 65 is "A" in profile
 				tempPicker.setEnabled(false);
 

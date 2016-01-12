@@ -56,6 +56,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * @author error414
@@ -513,7 +514,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("STABI_ACRO_DELAY")){
 
-            StabiAcroDelayProgressExTranslate translate = new StabiAcroDelayProgressExTranslate();
+            StabiAcroDelayProgressExTranslate translate = new StabiAcroDelayProgressExTranslate(Locale.getDefault());
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.stabi_button_text), textSeparator , getResources().getString(R.string.acro_delay)).toString());
 

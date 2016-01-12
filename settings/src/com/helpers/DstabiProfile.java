@@ -221,7 +221,7 @@ public class DstabiProfile {
 
         profileMap.put("SIGNAL_PROCESSING",		new ProfileItem(41, 0, 1, "6",	true)); // rozisrene zpracovani siganlu
 
-		profileMap.put("ROTOR_ROTATION", new ProfileItem(42, "0", "1", "o", true));
+		profileMap.put("ROTOR_ROTATION", new ProfileItem(42, 0, 1, "o", true));
 		profileMap.put("E_FILTER",		new ProfileItem(43, 0, 4, "4",	false)); 		// kompenzace zpinani vyskovky
 
 		profileMap.put("RUDDER_DELAY",	new ProfileItem(44, 0, 30, "9",	false)); // zpozdeni vrtulky

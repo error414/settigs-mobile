@@ -36,10 +36,18 @@ public class HelpMap {
         result.put(R.id.receiver_select_id, R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
         result.put(R.id.flight_style_select_id, R.string.st_4e74822308285a5d25761bc2c9387dc2);
 
+        result.put(R.id.ch1_reverse, R.string.st_23156aa787644331f6b928b0138a8b89);
+        result.put(R.id.ch2_reverse, R.string.st_be917f6b3fe715e4c62861f9729e1258);
+        result.put(R.id.ch3_reverse, R.string.st_e7a0ee9287ffcd5017f33971dfd7a04b);
+        result.put(R.id.ch4_reverse, R.string.st_a95ed2ec1c7f619a803847d6f867f5ab);
+
         result.put(R.id.stabi_pitch, R.string.st_25e1dad714a36a48c70307e9e98c6839);
         result.put(R.id.stabi_ctrldir, R.string.st_1bb89987a641483fa0a25daa7e52d27c);
         result.put(R.id.stabi_fbmode, R.string.st_64d671d1921bac26046cf0d04da37ff1);
         result.put(R.id.stabi_stick, R.string.st_bd22e71854e51838095b67f8c1d8441d);
+        result.put(R.id.function_select_id, R.string.st_10fb0c0b85ce9243f0580f63f5509dd9);
+
+        result.put(R.id.rotor_rotation, R.string.st_c6962067146e753eb26dae903a72e046);
 
         result.put(R.id.x_cyclic, R.string.st_40ac2993f4b9439ae49d61f0521b121d);
         result.put(R.id.rudder_common_gain, R.string.st_466a542ef886802f5bbc2c23bc91fd06);
@@ -86,12 +94,12 @@ public class HelpMap {
         result.put(R.id.governor_freq_select_id, R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
 
 
-        result.put(R.id.servo_travel_ch1_positive, R.string.st_e21b7c7908ad7f4057fc65c8e55b184b);
-        result.put(R.id.servo_travel_ch2_positive, R.string.st_36336300263470149f9e2ee28a7621de);
-        result.put(R.id.servo_travel_ch3_positive, R.string.st_40a11b06d8a940ef721fa12dbe376de9);
-        result.put(R.id.servo_travel_ch1_negative, R.string.st_fb307e664b31575b9cf959529f4f0159);
-        result.put(R.id.servo_travel_ch2_negative, R.string.st_65d7a7bb821a6b7a7896e45dc671f4e6);
-        result.put(R.id.servo_travel_ch3_negative, R.string.st_3fd8f4fd6b1c3ac27c28ebd523ead1e4);
+        result.put(R.id.servo_travel_ch1_positive, R.string.st_ed310c7971c2c68eb470582edc55e4bc);
+        result.put(R.id.servo_travel_ch2_positive, R.string.st_e65b23e5ee819925adc8528b057de732);
+        result.put(R.id.servo_travel_ch3_positive, R.string.st_e0190df24285d7fbcd471cdd56c434d6);
+        result.put(R.id.servo_travel_ch1_negative, R.string.st_394f59a5d0657b8bd984cf5c653ff47c);
+        result.put(R.id.servo_travel_ch2_negative, R.string.st_d2fc1adb2cb1077f97a2796f6f6468fd);
+        result.put(R.id.servo_travel_ch3_negative, R.string.st_65664b6c1cbace3d687615342a2374a1);
 
         result.put(R.id.rpm_senzor_filter, R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
         result.put(R.id.stabi_acro_delay, R.string.st_698dbfa44b9af463920bb489c14c81a2);

@@ -70,6 +70,7 @@ public class LogActivity extends BaseActivity
 	final static Integer LOG_EVENT_RXLOSS = 0x20;
 	final static Integer LOG_EVENT_LOWVOLT = 0x40;
 	final static Integer LOG_EVENT_GOVENGAGED = 0x80;
+	final static Integer LOG_EVENT_RXCORRUPT = 0x100;
 	////////////////////////////////////////////////////
 
 	final protected int GROUP_LOG = 4;
@@ -182,87 +183,105 @@ public class LogActivity extends BaseActivity
 
 		logListData = new ArrayList<HashMap<Integer, Integer>>();
 
-		for (int i = 2; i <= len + 1; i++) {
+		int position = 2;
+		for (int i = 2; i <= len + 1; i = i + 2) {
+
+			byte[] codeByte = new byte[2];
+			codeByte[0] = log[i];
+			codeByte[1] = log[i + 1];
+
+
+			int logCode = ByteOperation.byteArrayToShort(codeByte);
 
 			if (i == 2) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cal);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if ((log[i] & 0xff) == LOG_EVENT_OK) {
+			if (logCode == LOG_EVENT_OK) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_ok);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_ok);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_GOV_OUT_OF_RANGE) != 0) {
+			if ((logCode & LOG_EVENT_GOV_OUT_OF_RANGE) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_gov_out_of_range);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_CYCRING) != 0) {
+			if ((logCode & LOG_EVENT_CYCRING) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_cycring);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_RUDLIM) != 0) {
+			if ((logCode & LOG_EVENT_RUDLIM) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rudlim);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_VIBES) != 0) {
+			if ((logCode & LOG_EVENT_VIBES) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_vibes);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_HANG) != 0) {
+			if ((logCode & LOG_EVENT_HANG) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_hang);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_RXLOSS) != 0) {
+			if ((logCode & LOG_EVENT_RXLOSS) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_rxloss);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_LOWVOLT) != 0) {
+			if ((logCode & LOG_EVENT_LOWVOLT) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_lowvolt);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
 
-			if (((log[i] & 0xff) & LOG_EVENT_GOVENGAGED) != 0) {
+			if ((logCode & LOG_EVENT_GOVENGAGED) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_govengaged);
 				row.put(ICO_RESOURCE_LOG, R.drawable.ic_info);
-				row.put(POSITION, i);
+				row.put(POSITION, position);
 				logListData.add(row);
 			}
+
+			if ((logCode & LOG_EVENT_RXCORRUPT) != 0) {
+				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
+				row.put(TITLE_FOR_LOG, R.string.log_event_rxcorrupt);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				row.put(POSITION, position);
+				logListData.add(row);
+			}
+
+			position++;
 		}
 
 		LogListAdapter adapter = new LogListAdapter(this, logListData);

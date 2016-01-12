@@ -70,172 +70,191 @@
 	             android:id="@+id/throttle_value_diagnostic"
 	             android:layout_width="wrap_content"
 	             android:layout_height="wrap_content"
-	             android:layout_above="@+id/textView1"
-	             android:layout_below="@+id/textView10"
+				 android:layout_below="@+id/textView10"
 	             android:layout_centerHorizontal="true"
 	             android:layout_marginTop="2dp"
 	             android:text="50%"
-	             android:textColor="@color/text_color" />
-	         
-	         
-	         <TextView
-	             android:id="@+id/textView1"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/throttle_progress_diagnostic"
-	             android:layout_below="@+id/throttle_progress_diagnostic"
-	             android:layout_marginTop="20dp"
-	             android:text="@string/diag_aileron"
-	             android:textColor="@color/text_color" />
+	             android:textColor="@color/text_color"
+				 android:layout_above="@+id/textView4" />
 
-	         <ProgressBar
-	             android:id="@+id/aileron_progress_diagnostic"
-	             style="?android:attr/progressBarStyleHorizontal"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/textView1"
-	             android:layout_alignParentRight="true"
-	             android:layout_below="@+id/textView1"
-	             android:layout_marginRight="10dp"
-	             android:max="200"
-	             android:progressDrawable="@drawable/my_custom_pb" />
 
-	         <TextView
-	             android:id="@+id/aileron_value_diagnostic"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_above="@+id/TextView01"
-	             android:layout_below="@+id/textView1"
-	             android:layout_centerHorizontal="true"
-	             android:layout_marginTop="2dp"
-	             android:text="50%"
-	             android:textColor="@color/text_color" />
 
-	         <TextView
-	             android:id="@+id/TextView01"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/aileron_progress_diagnostic"
-	             android:layout_below="@+id/aileron_progress_diagnostic"
-	             android:layout_marginTop="20dp"
-	             android:text="@string/diag_elevator"
-	             android:textColor="@color/text_color" />
+			 <TextView
+				 android:id="@+id/textView4"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/throttle_progress_diagnostic"
+				 android:layout_below="@+id/throttle_progress_diagnostic"
+				 android:layout_marginTop="20dp"
+				 android:text="@string/diag_rudder"
+				 android:textColor="@color/text_color" />
 
-	         <ProgressBar
-	             android:id="@+id/elevator_progress_diagnostic"
-	             style="?android:attr/progressBarStyleHorizontal"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/TextView01"
-	             android:layout_alignRight="@+id/aileron_progress_diagnostic"
-	             android:layout_below="@+id/TextView01"
-	             android:max="200"
-	             android:progressDrawable="@drawable/my_custom_pb" />
+			 <ProgressBar
+				 android:id="@+id/rudder_progress_diagnostic"
+				 style="?android:attr/progressBarStyleHorizontal"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/textView4"
+				 android:layout_alignRight="@+id/throttle_progress_diagnostic"
+				 android:layout_below="@+id/textView4"
+				 android:max="200"
+				 android:progressDrawable="@drawable/my_custom_pb" />
 
-	         <TextView
-	             android:id="@+id/elevator_value_diagnostic"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignTop="@+id/elevator_progress_diagnostic"
-	             android:layout_centerHorizontal="true"
-	             android:layout_marginTop="2dp"
-	             android:text="50%"
-	             android:textColor="@color/text_color" />
+			 <TextView
+				 android:id="@+id/rudder_value_diagnostic"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignTop="@+id/rudder_progress_diagnostic"
+				 android:layout_centerHorizontal="true"
+				 android:layout_marginTop="2dp"
+				 android:text="50%"
+				 android:textColor="@color/text_color" />
 
-	         <TextView
-	             android:id="@+id/textView3"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/elevator_progress_diagnostic"
-	             android:layout_below="@+id/elevator_progress_diagnostic"
-	             android:layout_marginTop="20dp"
-	             android:text="@string/diag_pitch"
-	             android:textColor="@color/text_color" />
 
-	         <ProgressBar
-	             android:id="@+id/pitch_progress_diagnostic"
-	             style="?android:attr/progressBarStyleHorizontal"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/textView3"
-	             android:layout_alignRight="@+id/elevator_progress_diagnostic"
-	             android:layout_below="@+id/textView3"
-	             android:max="200"
+
+
+
+			 <TextView
+				 android:id="@+id/textView3"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/rudder_progress_diagnostic"
+				 android:layout_below="@+id/rudder_progress_diagnostic"
+				 android:layout_marginTop="20dp"
+				 android:text="@string/diag_pitch"
+				 android:textColor="@color/text_color" />
+
+			 <ProgressBar
+				 android:id="@+id/pitch_progress_diagnostic"
+				 style="?android:attr/progressBarStyleHorizontal"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/textView3"
+				 android:layout_alignRight="@+id/rudder_progress_diagnostic"
+				 android:layout_below="@+id/textView3"
+				 android:max="200"
 				 android:progressDrawable="@drawable/my_custom_pb"
 				 android:indeterminate="false" />
 
-	         <TextView
-	             android:id="@+id/pitch_value_diagnostic"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignTop="@+id/pitch_progress_diagnostic"
-	             android:layout_centerHorizontal="true"
-	             android:layout_marginTop="2dp"
-	             android:text="50%"
-	             android:textColor="@color/text_color" />
+			 <TextView
+				 android:id="@+id/pitch_value_diagnostic"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignTop="@+id/pitch_progress_diagnostic"
+				 android:layout_centerHorizontal="true"
+				 android:layout_marginTop="2dp"
+				 android:text="50%"
+				 android:textColor="@color/text_color" />
 
-	         <TextView
-	             android:id="@+id/textView4"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/pitch_progress_diagnostic"
-	             android:layout_below="@+id/pitch_progress_diagnostic"
-	             android:layout_marginTop="20dp"
-	             android:text="@string/diag_rudder"
-	             android:textColor="@color/text_color" />
 
-	         <ProgressBar
-	             android:id="@+id/rudder_progress_diagnostic"
-	             style="?android:attr/progressBarStyleHorizontal"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/textView4"
-	             android:layout_alignRight="@+id/pitch_progress_diagnostic"
-	             android:layout_below="@+id/textView4"
-	             android:max="200"
-	             android:progressDrawable="@drawable/my_custom_pb" />
 
-	         <TextView
-	             android:id="@+id/rudder_value_diagnostic"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignTop="@+id/rudder_progress_diagnostic"
-	             android:layout_centerHorizontal="true"
-	             android:layout_marginTop="2dp"
-	             android:text="50%"
-	             android:textColor="@color/text_color" />
 
-	         <TextView
-	             android:id="@+id/TextView02"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/rudder_progress_diagnostic"
-	             android:layout_below="@+id/rudder_progress_diagnostic"
-	             android:layout_marginTop="20dp"
-	             android:text="@string/gyro"
-	             android:textColor="@color/text_color" />
+			 <TextView
+				 android:id="@+id/TextView01"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/pitch_progress_diagnostic"
+				 android:layout_below="@+id/pitch_progress_diagnostic"
+				 android:layout_marginTop="20dp"
+				 android:text="@string/diag_elevator"
+				 android:textColor="@color/text_color" />
 
-	         <ProgressBar
-	             android:id="@+id/gyro_progress_diagnostic"
-	             style="?android:attr/progressBarStyleHorizontal"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignLeft="@+id/TextView02"
-	             android:layout_alignRight="@+id/pitch_progress_diagnostic"
-	             android:layout_below="@+id/TextView02"
-	             android:max="200"
-	             android:progressDrawable="@drawable/my_custom_pb" />
+			 <ProgressBar
+				 android:id="@+id/elevator_progress_diagnostic"
+				 style="?android:attr/progressBarStyleHorizontal"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/TextView01"
+				 android:layout_alignRight="@+id/pitch_progress_diagnostic"
+				 android:layout_below="@+id/TextView01"
+				 android:max="200"
+				 android:progressDrawable="@drawable/my_custom_pb" />
 
-	         <TextView
-	             android:id="@+id/gyro_value_diagnostic"
-	             android:layout_width="wrap_content"
-	             android:layout_height="wrap_content"
-	             android:layout_alignTop="@+id/gyro_progress_diagnostic"
-	             android:layout_centerHorizontal="true"
-	             android:layout_marginTop="2dp"
-	             android:text="50%"
-	             android:textColor="@color/text_color" />
-	         
+			 <TextView
+				 android:id="@+id/elevator_value_diagnostic"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignTop="@+id/elevator_progress_diagnostic"
+				 android:layout_centerHorizontal="true"
+				 android:layout_marginTop="2dp"
+				 android:text="50%"
+				 android:textColor="@color/text_color" />
+
+
+
+
+			 <TextView
+				 android:id="@+id/textView1"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/elevator_progress_diagnostic"
+				 android:layout_below="@+id/elevator_progress_diagnostic"
+				 android:layout_marginTop="20dp"
+				 android:text="@string/diag_aileron"
+				 android:textColor="@color/text_color" />
+
+			 <ProgressBar
+				 android:id="@+id/aileron_progress_diagnostic"
+				 style="?android:attr/progressBarStyleHorizontal"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:max="200"
+				 android:progressDrawable="@drawable/my_custom_pb"
+				 android:layout_below="@+id/textView1"
+				 android:layout_alignLeft="@+id/textView1"
+				 android:layout_alignStart="@+id/textView1"
+				 android:layout_alignRight="@+id/elevator_progress_diagnostic"
+				 android:layout_alignEnd="@+id/elevator_progress_diagnostic" />
+
+			 <TextView
+				 android:id="@+id/aileron_value_diagnostic"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignTop="@+id/aileron_progress_diagnostic"
+				 android:layout_centerHorizontal="true"
+				 android:layout_marginTop="2dp"
+				 android:text="50%"
+				 android:textColor="@color/text_color" />
+
+
+
+
+
+			 <TextView
+				 android:id="@+id/TextView02"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/aileron_progress_diagnostic"
+				 android:layout_below="@+id/aileron_progress_diagnostic"
+				 android:layout_marginTop="20dp"
+				 android:text="@string/gyro"
+				 android:textColor="@color/text_color" />
+
+			 <ProgressBar
+				 android:id="@+id/gyro_progress_diagnostic"
+				 style="?android:attr/progressBarStyleHorizontal"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignLeft="@+id/TextView02"
+				 android:layout_alignRight="@+id/aileron_progress_diagnostic"
+				 android:layout_below="@+id/TextView02"
+				 android:max="200"
+				 android:progressDrawable="@drawable/my_custom_pb" />
+
+			 <TextView
+				 android:id="@+id/gyro_value_diagnostic"
+				 android:layout_width="wrap_content"
+				 android:layout_height="wrap_content"
+				 android:layout_alignTop="@+id/gyro_progress_diagnostic"
+				 android:layout_centerHorizontal="true"
+				 android:layout_marginTop="2dp"
+				 android:text="50%"
+				 android:textColor="@color/text_color" />
+
+
+
+
+
 	         <TextView
 	             android:id="@+id/TextView20"
 	             android:layout_width="wrap_content"
@@ -266,6 +285,9 @@
 	             android:layout_marginTop="2dp"
 	             android:text="B 1"
 	             android:textColor="@color/text_color" />
+
+
+
 
 	         <RelativeLayout
 	             android:id="@+id/relativeLayout1"

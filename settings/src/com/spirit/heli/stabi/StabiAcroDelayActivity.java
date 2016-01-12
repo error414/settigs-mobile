@@ -32,9 +32,10 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
 import com.lib.translate.StabiAcroDelayProgressExTranslate;
-import com.lib.translate.StabiPichProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
+
+import java.util.Locale;
 
 public class StabiAcroDelayActivity extends BaseActivity
 {
@@ -124,7 +125,7 @@ public class StabiAcroDelayActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-			tempPicker.setTranslate(new StabiAcroDelayProgressExTranslate());
+			tempPicker.setTranslate(new StabiAcroDelayProgressExTranslate(Locale.getDefault()));
 		}
 	}
 

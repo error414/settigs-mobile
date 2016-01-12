@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 11.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 12.01.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -169,7 +169,7 @@
     <string name="cyclic_ff">Počáteční reakce cykliky</string>
     <string name="ff">Počáteční reakce</string>
     <string name="stabi_function">Funkce</string>
-    <string name="stabi_col">Kolektiv</string>
+    <string name="stabi_col">Kolektiv záchranného režimu</string>
     <string name="stabi_roll">Kompenzace momentu pro křidélka</string>
     <string name="stabi_roll_short">Kom.  křidélka</string>
     <string name="stabi_pitch">Kompenzace momentu pro výškovku</string>
@@ -393,6 +393,7 @@
     <string name="log_event_hang">Hlavní smyčka programu uvázla</string>
     <string name="log_event_rxloss">Ztracen signál přijímače</string>
     <string name="log_event_lowvolt">Napájecí napětí je příliš nizké</string>
+    <string name="log_event_rxcorrupt">Přijatý rámec dat byl poškozen</string>
     <string name="log_governor">Governor byl aktivován</string>
     <string name="not_log_for_save">Žádný záznam letu k uložení</string>
     <string name="save_log">Uložit záznam letu</string>
@@ -451,9 +452,9 @@
     <string name="no_error">Žádné chyby</string>
 
     <string name="basic_mode">Bezpečný režim</string>
-    <string name="app_basic_mode_on">Basic mode ZAPNUT</string>
-    <string name="app_basic_mode_off">Basic mode VYPNUT</string>
-    <string name="basic_mode_is_lock">Basic mode je ZAMČEN</string>
+    <string name="app_basic_mode_on">Bezpečný režim je aktivován</string>
+    <string name="app_basic_mode_off">Bezpečný režim je deaktivován</string>
+    <string name="basic_mode_is_lock">Bezpečný režim je zamčen</string>
 	<string name="refresh_log">Obnovit</string>
 
 
@@ -503,10 +504,16 @@
     <string name="st_a030379814acf4a9efd5735573f71718">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120°.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
     <string name="st_4e74822308285a5d25761bc2c9387dc2">Nastavuje chování modelu a jeho letové vlastnosti.\n\n- Uberte pro konstantnější a lineárnější řízení.\n- Přidejte pro dosažení chování pádlové mechaniky.\n\n<i>Rozsah: 1 - 8</i></string>
+    <string name="st_23156aa787644331f6b928b0138a8b89">Směr pohybu serva křidélek</string>
+    <string name="st_be917f6b3fe715e4c62861f9729e1258">Směr pohybu serva výškovky</string>
+    <string name="st_e7a0ee9287ffcd5017f33971dfd7a04b">Směr pohybu druhého serva křidélek</string>
+    <string name="st_a95ed2ec1c7f619a803847d6f867f5ab">Směr pohybu serva vrtulky</string>
     <string name="st_25e1dad714a36a48c70307e9e98c6839"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n\n<i>Rozsah: 0 - 100%</i></string>
     <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 0 - 5</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Míra řízení během aktivní stabilizace nebo záchranného režimu.\n\n<i>Rozsah: 0 - 16</i></string>
+    <string name="st_10fb0c0b85ce9243f0580f63f5509dd9"><b>Funkce aktivována, pokud je zisk gyra záporný</b>\n\nVypnuto - Rate režim gyra.\nZáchrana - záchranný režim a HL gyro.\nStabilizace - stabilizace (Normál/Akro - HL gyro, Maketa - Rate režim gyra).\nKoaxiál - režim, kdy se řízení podobá koaxiálnímu vrtulníku vč. HL gyra.</string>
+    <string name="st_c6962067146e753eb26dae903a72e046">Zaškrtněte, pokud se rotorová hlava otáčí proti směru hodin.\n\n- Ve většině případů se rotor otáčí po směru hodin (nezaškrtnuto).</string>
     <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Udává zisk cykliky</b>\n\n- Nejčastěji 60 - 70% pro optimální funkci.\n\n<i>Rozsah: 20 - 100%</i></string>
     <string name="st_466a542ef886802f5bbc2c23bc91fd06"><b>Násobič zisku gyra z vysílače</b>\n\n- 1x znamená bez násobení.\n- 1,50x znamená 1,5x násobení zisku gyra.\n- Pro třídu 500 a menší postačuje znásobení 1,0x.\n\n<i>Rozsah: 1,00 - 1,50</i></string>
     <string name="st_e1ef2f3a7b6fa63d68cb2b9b2e72a571"><b>Udává zisk gyra vrtulky</b>\n\n- Pro optimální chod je většinou v rozmezí 60 - 70%.\n- Je neaktivní pokud je zisk gyra nastaven ve vysílači.\n\n<i>Rozsah: -100 - +100%</i></string>
@@ -543,12 +550,12 @@
     <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Udává hodnotu subtrimu pro servo CH4.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_cc41c2874a69e4ae7c3f2385ec481160">Udává rychlost rozběhu.</string>
     <string name="st_e6a7a3cb5827ad43acc85eac1898573a">Udává frekvenci pro výstup plynu.</string>
-    <string name="st_e21b7c7908ad7f4057fc65c8e55b184b">Udává míru korekce dráhy serva CH1 - maximum.\n\n<i>Rozsah: -64 - 64</i></string>
-    <string name="st_36336300263470149f9e2ee28a7621de">Udává míru korekce dráhy serva CH2 - maximum.\n\n<i>Rozsah: -64 - 64</i></string>
-    <string name="st_40a11b06d8a940ef721fa12dbe376de9">Udává míru korekce dráhy serva CH3 - maximum.\n\n<i>Rozsah: -64 - 64</i></string>
-    <string name="st_fb307e664b31575b9cf959529f4f0159">Udává míru korekce dráhy serva CH1 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
-    <string name="st_65d7a7bb821a6b7a7896e45dc671f4e6">Udává míru korekce dráhy serva CH2 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
-    <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Udává míru korekce dráhy serva CH3 - minimum.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_ed310c7971c2c68eb470582edc55e4bc">Udává míru korekce dráhy serva CH1 - záporný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_e65b23e5ee819925adc8528b057de732">Udává míru korekce dráhy serva CH2 - záporný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_e0190df24285d7fbcd471cdd56c434d6">Udává míru korekce dráhy serva CH3 - záporný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_394f59a5d0657b8bd984cf5c653ff47c">Udává míru korekce dráhy serva CH1 - kladný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_d2fc1adb2cb1077f97a2796f6f6468fd">Udává míru korekce dráhy serva CH2 - kladný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
+    <string name="st_65664b6c1cbace3d687615342a2374a1">Udává míru korekce dráhy serva CH3 - kladný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
     <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>Filtr senzoru otáček</b>\n\n- Snižuje šum senzoru otáček na přijatelnou úroveň.\n- V případě nepřesného čtení otáček zvyšte hodnotu.\n- V případě, že je čtení otáček opožděné, snižte hodnotu.\n- Nejčastěji je 6.\n\n<i>Rozsah: 1 - 8</i></string>
     <string name="st_698dbfa44b9af463920bb489c14c81a2">Určuje, za jak dlouho se model začne otáčet z invertovaného letu.\n\n<i>Rozsah: 0 - 3,0 sekund</i></string>
     <!--  END AUTO GENERATE STUB -->

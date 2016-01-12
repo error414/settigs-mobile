@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 11.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 12.01.2016-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -372,6 +372,7 @@
     <string name="log_event_hang">Main Loop Hang Occurred</string>
     <string name="log_event_rxloss">Receiver Signal Lost</string>
     <string name="log_event_lowvolt">Power Voltage is low</string>
+    <string name="log_event_rxcorrupt">Received Frame was Corrupted</string>
     <string name="log_governor">Governor was Engaged</string>
     <string name="not_log_for_save">None log to save</string>
     <string name="save_log">Save log</string>
@@ -470,10 +471,16 @@
     <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120°.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_4e74822308285a5d25761bc2c9387dc2">Specifies flight characteristics and stick response behavior.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle-like steering.\n\n<i>Range: 1 - 8</i></string>
+    <string name="st_23156aa787644331f6b928b0138a8b89">Movement direction of the Aileron servo</string>
+    <string name="st_be917f6b3fe715e4c62861f9729e1258">Movement direction of the Elevator servo</string>
+    <string name="st_e7a0ee9287ffcd5017f33971dfd7a04b">Movement direction of the Aileron/Pitch servo</string>
+    <string name="st_a95ed2ec1c7f619a803847d6f867f5ab">Movement direction of the Rudder servo</string>
     <string name="st_25e1dad714a36a48c70307e9e98c6839"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n\n<i>Range: 0 - 100%</i></string>
     <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 0 - 5</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>
     <string name="st_bd22e71854e51838095b67f8c1d8441d">Steering signal amount during stabilisation or rescue mode.\n\n<i>Range: 0 - 16</i></string>
+    <string name="st_10fb0c0b85ce9243f0580f63f5509dd9"><b>Function activated when gyro gain is negative</b>\n\nDisabled - Rate gyro mode.\nRescue - rescue mode with HL gyro.\nStabilisation - stabilisation mode (Normal/Acro - HL gyro mode, Scale - Rate gyro mode).\nCoaxial - coaxial mode with HL gyro.</string>
+    <string name="st_c6962067146e753eb26dae903a72e046">Enable when turning direction of the rotor head is counterclockwise.\n\n- In the most cases direciton is Clockwise (unticked).</string>
     <string name="st_40ac2993f4b9439ae49d61f0521b121d"><b>Specifies Cyclic Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n\n<i>Range: 20 - 100%</i></string>
     <string name="st_466a542ef886802f5bbc2c23bc91fd06"><b>Specifies multiplier of Gyro Gain</b>\n\n- 1x for no multiplication.\n- 1.50x for 1.5x multiplication of TX gyro gain.\n- For 500-size and smaller helicopter 1.0x is enough.\n\n<i>Range: 1.00 - 1.50</i></string>
     <string name="st_e1ef2f3a7b6fa63d68cb2b9b2e72a571"><b>Specifies Gyro Gain</b>\n\n- Mostly from 60 to 70% for optimal results.\n- Is inactive if Gyro Gain is configured in the transmitter.\n\n<i>Range: -100 - +100%</i></string>
@@ -510,12 +517,12 @@
     <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Specifies subtrim value of the CH4 servo.\n\n<i>Range: -127 - 127</i></string>
     <string name="st_cc41c2874a69e4ae7c3f2385ec481160">Specifies Governor spoolup rate.</string>
     <string name="st_e6a7a3cb5827ad43acc85eac1898573a">Specifies Throttle output frequency.</string>
-    <string name="st_e21b7c7908ad7f4057fc65c8e55b184b">Specifies travel correction for the CH1 servo - maximum position.\n\n<i>Range: -64 - 64</i></string>
-    <string name="st_36336300263470149f9e2ee28a7621de">Specifies travel correction for the CH2 servo - maximum position.\n\n<i>Range: -64 - 64</i></string>
-    <string name="st_40a11b06d8a940ef721fa12dbe376de9">Specifies travel correction for the CH3 servo - maximum position.\n\n<i>Range: -64 - 64</i></string>
-    <string name="st_fb307e664b31575b9cf959529f4f0159">Specifies travel correction for the CH1 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
-    <string name="st_65d7a7bb821a6b7a7896e45dc671f4e6">Specifies travel correction for the CH2 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
-    <string name="st_3fd8f4fd6b1c3ac27c28ebd523ead1e4">Specifies travel correction for the CH3 servo - minimum position.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_ed310c7971c2c68eb470582edc55e4bc">Specifies travel correction for the CH1 servo - negative angle.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_e65b23e5ee819925adc8528b057de732">Specifies travel correction for the CH2 servo - negative angle.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_e0190df24285d7fbcd471cdd56c434d6">Specifies travel correction for the CH3 servo - negative angle.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_394f59a5d0657b8bd984cf5c653ff47c">Specifies travel correction for the CH1 servo - positive angle.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_d2fc1adb2cb1077f97a2796f6f6468fd">Specifies travel correction for the CH2 servo - positive angle.\n\n<i>Range: -64 - 64</i></string>
+    <string name="st_65664b6c1cbace3d687615342a2374a1">Specifies travel correction for the CH3 servo - positive angle.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>RPM Sensor Filter</b>\n\n- Reduces excess noise from RPM sensor.\n- In case of unstable RPM readout increase the value.\n- In case of delayed RPM response decrease the value.\n- Usually configured to 6.\n\n<i>Range: 1 - 8</i></string>
     <string name="st_698dbfa44b9af463920bb489c14c81a2">Determine when the helicopter will recover from the inverted flight.\n\n<i>Range: 0 - 3.0 seconds</i></string>
     <!--  END AUTO GENERATE STUB -->

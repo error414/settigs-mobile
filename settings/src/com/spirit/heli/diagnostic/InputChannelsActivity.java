@@ -258,6 +258,15 @@ public class InputChannelsActivity extends BaseActivity
 
 		//AUX1  / throttle
 		int throttle = ByteOperation.twoByteToSigInt(b[12], b[13]);
+		if(throttle > 400){
+			throttle = 400;
+		}
+
+		if(throttle < -500){
+			throttle = -500;
+		}
+
+
 		int throttlePercent = ((50 * throttle) / 340);
 		
 		// pokud neni throttle prirazen zadny kanal
@@ -274,7 +283,7 @@ public class InputChannelsActivity extends BaseActivity
 		}
 		
 		((ProgressBar) findViewById(R.id.throttle_progress_diagnostic)).setProgress((throttlePercent + 50));
-		throttleValueDiagnostic.setText(String.valueOf(Math.max(-1, throttlePercent + 50)));
+		throttleValueDiagnostic.setText(String.valueOf(throttlePercent + 50));
 		////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 		//SENZOR X Y Z

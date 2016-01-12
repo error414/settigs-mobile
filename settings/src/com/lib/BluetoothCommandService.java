@@ -256,8 +256,8 @@ public class BluetoothCommandService {
      * succeeds or fails.
      */
     private class ConnectThread extends Thread {
-        private final BluetoothSocket mmSocket;
-        private final BluetoothDevice mmDevice;
+        private  BluetoothSocket mmSocket;
+        private  BluetoothDevice mmDevice;
 
         public ConnectThread(BluetoothDevice device) {
             mmDevice = device;
@@ -284,10 +284,9 @@ public class BluetoothCommandService {
             // This is a blocking call and will only return on a
             // successful connection or an exception
 
-            for (int i = 0; i < 3; i++) {
+            for (int i = 0; i < 4; i++) {
                 try {
                     mmSocket.connect();
-                    Thread.sleep(500);
                     // Reset the ConnectThread because we're done
                     synchronized (BluetoothCommandService.this) {
                         mConnectThread = null;
@@ -297,6 +296,11 @@ public class BluetoothCommandService {
                     connected(mmSocket, mmDevice);
                     return;
                 } catch (Exception e) {
+                    try {
+                        Thread.sleep(500);
+                    } catch (InterruptedException e1) {
+                        e1.printStackTrace();
+                    }
                     Log.e(TAG, "connect Exception number:" + String.valueOf(i), e);
                 }
             }
@@ -327,9 +331,9 @@ public class BluetoothCommandService {
      * It handles all incoming and outgoing transmissions.
      */
     private class ConnectedThread extends Thread {
-        private final BluetoothSocket mmSocket;
-        private final InputStream mmInStream;
-        private final OutputStream mmOutStream;
+        private  BluetoothSocket mmSocket;
+        private  InputStream mmInStream;
+        private  OutputStream mmOutStream;
 
         public ConnectedThread(BluetoothSocket socket) {
             Log.d(TAG, "create ConnectedThread");
@@ -414,7 +418,6 @@ public class BluetoothCommandService {
             try {
                 mmInStream.close();
                 mmOutStream.close();
-
                 mmSocket.close();
             } catch (IOException e) {
                 Log.e(TAG, "close() of connect socket failed", e);
