@@ -94,12 +94,12 @@ public class HelpMap {
         result.put(R.id.governor_freq_select_id, R.string.st_e6a7a3cb5827ad43acc85eac1898573a);
 
 
-        result.put(R.id.servo_travel_ch1_positive, R.string.st_ed310c7971c2c68eb470582edc55e4bc);
-        result.put(R.id.servo_travel_ch2_positive, R.string.st_e65b23e5ee819925adc8528b057de732);
-        result.put(R.id.servo_travel_ch3_positive, R.string.st_e0190df24285d7fbcd471cdd56c434d6);
-        result.put(R.id.servo_travel_ch1_negative, R.string.st_394f59a5d0657b8bd984cf5c653ff47c);
-        result.put(R.id.servo_travel_ch2_negative, R.string.st_d2fc1adb2cb1077f97a2796f6f6468fd);
-        result.put(R.id.servo_travel_ch3_negative, R.string.st_65664b6c1cbace3d687615342a2374a1);
+        result.put(R.id.servo_travel_ch1_negative, R.string.st_ed310c7971c2c68eb470582edc55e4bc);
+        result.put(R.id.servo_travel_ch2_negative, R.string.st_e65b23e5ee819925adc8528b057de732);
+        result.put(R.id.servo_travel_ch3_negative, R.string.st_e0190df24285d7fbcd471cdd56c434d6);
+        result.put(R.id.servo_travel_ch1_positive, R.string.st_394f59a5d0657b8bd984cf5c653ff47c);
+        result.put(R.id.servo_travel_ch2_positive, R.string.st_d2fc1adb2cb1077f97a2796f6f6468fd);
+        result.put(R.id.servo_travel_ch3_positive, R.string.st_65664b6c1cbace3d687615342a2374a1);
 
         result.put(R.id.rpm_senzor_filter, R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
         result.put(R.id.stabi_acro_delay, R.string.st_698dbfa44b9af463920bb489c14c81a2);

@@ -109,7 +109,7 @@ public class DstabiProvider {
 				TimerMethod();
 			}
 
-		}, 7000, 7000);
+		}, 2000, 2000);
 	}
 	
 	private synchronized void stopCecurityTimer(){
@@ -563,6 +563,7 @@ public class DstabiProvider {
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA;
 	    								dataBuilder = new DataBuilder();
                                         dataBuilder.setLengthCorrection(mode == LOG ? 2 : 1);// log ma na zacatku delku a informaci jestli je zaznam z predchoziho letu, a profil ma na zacatku delku profilu
+										dataBuilder.setLengthMultiCorrection(mode == LOG ? 2 : 1);
 	    								dataBuilder.add(data);
 	    								
 	    								// profil je cely odesilame zpravu s profilem, pokud neni cely zachytava to
@@ -612,8 +613,9 @@ public class DstabiProvider {
                                         }
 
 	    							}else if(mode == GRAPH){
-	    								
-	    								stopCecurityTimer();
+
+										stopCecurityTimer();
+										startCecurityTimer();
 	    								//zmenime state protokokolu na pripadne cekani na konec profilu
 	    								protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GRAPH;
 	    								dataBuilder = new DataBuilder();
@@ -658,6 +660,9 @@ public class DstabiProvider {
         					
         						sendHandleNotStop(callBackCode, dataBuilder.getData());
         						dataBuilder.clear();
+
+								stopCecurityTimer();
+								startCecurityTimer();
         						
         						break;
         				}
@@ -735,6 +740,7 @@ public class DstabiProvider {
     	private byte[] profile = null;
     	private int length = 0;
         private int lengthCorrection = 0;
+		private int lengthMultiCorrection = 1;
     	
     	
 		public DataBuilder(int length)
@@ -756,7 +762,7 @@ public class DstabiProvider {
     		if(profile == null || profile.length == 0){ // prvni cast 
     			if(part != null && part.length != 0){
     				if(length == 0){
-    					length = ByteOperation.byteToUnsignedInt(part[0]) + lengthCorrection;
+    					length = (ByteOperation.byteToUnsignedInt(part[0]) * lengthMultiCorrection) + lengthCorrection;
     				}
     				profile = part;
     			}
@@ -806,7 +812,11 @@ public class DstabiProvider {
         public void setLengthCorrection(int lengthCorrection) {
             this.lengthCorrection = lengthCorrection;
         }
-    }
+
+		public void setLengthMultiCorrection(int lengthMultiCorrection) {
+			this.lengthMultiCorrection = lengthMultiCorrection;
+		}
+	}
     
     /**
      * 

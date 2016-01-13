@@ -41,7 +41,7 @@ public class StabiAcroDelayProgressExTranslate implements ProgresExViewTranslate
     {
         String ret = String.valueOf(((float)max / 10)) + " s";
 
-        if(currentLocale.getLanguage().equals("cs_CZ")){
+        if(currentLocale.getLanguage().equals("cs")){
             ret = ret.replace(".", ",");
         }
 

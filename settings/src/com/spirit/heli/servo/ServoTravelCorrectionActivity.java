@@ -34,6 +34,7 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.ServoCorrectionUpProgressExTranslate;
 import com.spirit.BaseActivity;
@@ -61,6 +62,8 @@ public class ServoTravelCorrectionActivity extends BaseActivity
      *
      */
     final private Handler delayHandle = new Handler();
+
+	private int counter = 0;
 
 	/**
 	 * zavolani pri vytvoreni instance aktivity servos
@@ -301,6 +304,24 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
+
+			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+
+				int callBackCode = msg.getData().containsKey("callBack") ? msg.getData().getInt("callBack") : 0;
+
+				if(profileCreator != null && profileCreator.isValid() && callBackCode == DIAGNOSTIC_CALL_BACK_CODE) {
+					if(counter < 1) {
+						getPositionFromUnit();
+						counter++;
+					}else{
+						super.handleMessage(msg);
+					}
+
+				}else{
+					super.handleMessage(msg);
+				}
+				break;
+
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));

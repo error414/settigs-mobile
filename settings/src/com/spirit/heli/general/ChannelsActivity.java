@@ -24,6 +24,7 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.SerialNumber;
 import com.lib.BluetoothCommandService;
+import com.lib.DstabiProvider;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -48,6 +49,8 @@ public class ChannelsActivity extends BaseActivity{
 	private int lock = formItems.length;
 
     private SerialNumber serial;
+
+	private int counter = 0;
 	
 	/**
 	 * zavolani pri vytvoreni instance aktivity settings
@@ -422,6 +425,23 @@ public class ChannelsActivity extends BaseActivity{
 	public boolean handleMessage(Message msg)
 	{
 		switch (msg.what) {
+			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
+
+				int callBackCode = msg.getData().containsKey("callBack") ? msg.getData().getInt("callBack") : 0;
+
+				if(profileCreator != null && profileCreator.isValid() && callBackCode == DIAGNOSTIC_CALL_BACK_CODE) {
+					if(counter < 1) {
+						getPositionFromUnit();
+						counter++;
+					}else{
+						super.handleMessage(msg);
+					}
+
+				}else{
+					super.handleMessage(msg);
+				}
+				break;
+
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
 					initGuiByProfileString(msg.getData().getByteArray("data"));
@@ -438,6 +458,7 @@ public class ChannelsActivity extends BaseActivity{
 					updateGui(msg.getData().getByteArray("data"));
 
 					getPositionFromUnit();
+					counter = 0;
 				}
 				break;
 			case FAILSAFE_CALL_BACK_CODE:

@@ -170,7 +170,7 @@ public class LogActivity extends BaseActivity
 	@SuppressLint("UseSparseArrays")
 	protected void updateGuiByLog(byte[] log)
 	{
-		int len = log[0] & 0xff;
+		int len = ByteOperation.byteToUnsignedInt(log[0]) * 2;
 
 		if(len > 1){
 			prewLog = ByteOperation.byteToUnsignedInt(log[1]) == 1;
@@ -236,7 +236,7 @@ public class LogActivity extends BaseActivity
 			if ((logCode & LOG_EVENT_VIBES) != 0) {
 				HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
 				row.put(TITLE_FOR_LOG, R.string.log_event_vibes);
-				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
+				row.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
 				row.put(POSITION, position);
 				logListData.add(row);
 			}

@@ -703,7 +703,8 @@ public class DstabiProfile {
 		 * @throws IndexOutOfException
 		 */
 		public Integer getValueForSpinner(int max) throws IndexOutOfException{
-			if(getValueInteger() - this.min > max - 1){
+			int hod = getValueInteger();
+			if(hod - this.min > max - 1){
 				throw new IndexOutOfException();
 			}
 			return getValueInteger() - this.min; // this.min = 65 je znak A od toho se odrazime

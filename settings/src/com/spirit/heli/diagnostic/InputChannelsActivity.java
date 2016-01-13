@@ -22,7 +22,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
@@ -46,6 +45,8 @@ public class InputChannelsActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 	final private int DIAGNOSTIC_CALL_BACK_CODE = 21;
+
+	private int counter = 0;
 
 	/**
 	 * mrtva zona kterou ziskame z profilu
@@ -243,7 +244,7 @@ public class InputChannelsActivity extends BaseActivity
 		TextView bankProgressDiagnostic = (TextView) findViewById(R.id.bank_value_diagnostic);
 		try {
 			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator != null && profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max - 1) == 7){ // 7  = unbind
+			if(profileCreator != null && profileCreator.getProfileItemByName("CHANNELS_BANK").getValueForSpinner(max) == 7){ // 7  = unbind
 				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.grey));
 			}else{
 				bankProgressDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
@@ -273,7 +274,7 @@ public class InputChannelsActivity extends BaseActivity
 		TextView throttleValueDiagnostic = (TextView) findViewById(R.id.throttle_value_diagnostic);
 		try {
 			int max = getResources().getStringArray(R.array.channels_values).length;
-			if(profileCreator != null && profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max - 1) == 7){ // 7 = unbind
+			if(profileCreator != null && profileCreator.getProfileItemByName("CHANNELS_THT").getValueForSpinner(max) == 7){ // 7 = unbind
 				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.grey));
 			}else{
 				throttleValueDiagnostic.setTextColor(getResources().getColor(R.color.text_color));
@@ -311,10 +312,20 @@ public class InputChannelsActivity extends BaseActivity
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
-				Log.d(TAG, "Prisla chyba");
-                if(profileCreator != null && profileCreator.isValid()) {
-                    getPositionFromUnit();
-                }
+
+				int callBackCode = msg.getData().containsKey("callBack") ? msg.getData().getInt("callBack") : 0;
+
+                if(profileCreator != null && profileCreator.isValid() && callBackCode == DIAGNOSTIC_CALL_BACK_CODE) {
+					if(counter < 1) {
+						getPositionFromUnit();
+						counter++;
+					}else{
+						super.handleMessage(msg);
+					}
+
+                }else{
+					super.handleMessage(msg);
+				}
 				break;
 			case PROFILE_CALL_BACK_CODE:
 				if (msg.getData().containsKey("data")) {
@@ -327,6 +338,7 @@ public class InputChannelsActivity extends BaseActivity
 					updateGui(msg.getData().getByteArray("data"));
 
 					getPositionFromUnit();
+					counter = 0;
 				}
 				break;
 			default:
