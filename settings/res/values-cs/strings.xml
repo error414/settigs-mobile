@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 13.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 16.01.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -149,6 +149,7 @@
     <string name="rudder_common_gain">﻿Vrtulkový zisk (znásobení)</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
+    <string name="ser_reverse">Reverz serv</string>
     <string name="rotation_speed">Rychlost rotace</string>
     <string name="rates">Rychlost</string>
 
@@ -597,7 +598,7 @@
     <string name="factory_settings">Tovární nastavení</string>
     <string name="factory_settings_confirm">Přejete si resetovat jednotku do továrního nastavení?</string>
     <string name="factory_settings_done">Resetování do továrního nastavení je hotovo.</string>
-    <string name="receiver_was_change">Typ přijímače byl změněn v nastavení jednotky.\n\nJe nezbytné toto nastavení uložit, poté odpojit a znovu připojit baterii.</string>
+    <string name="receiver_was_change">Typ přijímače byl změněn.\n\nPro uplatnění změny, uložte nastavení a zapněte jednotku znovu.</string>
     <string name="profile_not_match">Zvolený profil byl vytvořen odlišnou verzí software (%1$s)! Prosím zkontrolujte hodnoty všech parametrů.</string>
     <string name="acro_delay">Prodleva Akro</string>
     <string name="rpm_senzor_filter">Filtr senzoru otáček</string>
@@ -616,4 +617,5 @@
     <string name="failsafe">Failsafe</string>
     <string name="set_failsafe">Nastavit Failsafe</string>
     <string name="failsafe_configured">Hodnoty pro režim Failsafe byly úspěšně uloženy.</string>
+    <string name="tester_state">Stav testovaní</string>
 </resources>

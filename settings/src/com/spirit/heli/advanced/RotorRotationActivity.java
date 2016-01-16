@@ -28,7 +28,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.lib.BluetoothCommandService;
@@ -113,9 +112,7 @@ public class RotorRotationActivity extends BaseActivity {
         if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
             ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
-            if (!getAppBasicMode()) {
-                stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni nastaveni optimalizace
-            }
+
             initDefaultValue();
         } else {
             finish();
@@ -137,25 +134,7 @@ public class RotorRotationActivity extends BaseActivity {
     @Override
     public void onPause() {
         super.onPause();
-        if (!getAppBasicMode()) {
-            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff)); //zakazani nastaveni optimalizace
-        }
-    }
 
-    /**
-     * @param bankNumber
-     */
-    protected void beforeChangeBank(int bankNumber) {
-        stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0xff));
-    }
-
-    /**
-     * @param bankNumber
-     */
-    protected void afterChangeBank(int bankNumber) {
-        if (!getAppBasicMode()) {
-            stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x02)); //povoleni ladeni cyclic ringu
-        }
     }
 
     /**

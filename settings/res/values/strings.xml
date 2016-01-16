@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 13.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 16.01.2016-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -137,6 +137,7 @@
     <string name="rudder_common_gain">Rudder Common Gain</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
+    <string name="ser_reverse">Servo Reverse</string>
     <string name="rotation_speed">Rotation speed</string>
     <string name="rates">Rates</string>
     <string name="stick_deadband">Stick deadband</string>
@@ -145,7 +146,7 @@
     <string name="geom_corr">Geometry correction</string>
     <string name="geom_corr_auto">Automatic</string>
     <string name="rudder_dynamic">Rudder dynamic</string>
-    <string name="rudder_revomix">Rudder revomix</string>
+    <string name="rudder_revomix">Rudder - Revomix</string>
     <string name="rudder_delay">Rudder delay</string>
     <string name="rotor_rotation">Rotor Rotation Direction</string>
     <string name="rotor_rotation_title">Counter-Clockwise</string>
@@ -174,7 +175,7 @@
     <string name="log_button_text">Log Viewer</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
-    <string name="gyro_gain">Rudder Gain</string>
+    <string name="gyro_gain">Gyro gain</string>
     <string name="banks">Banks</string>
     <string name="bank">Bank</string>
     <string name="bank_short_code">B</string>
@@ -550,7 +551,7 @@
     <string name="pdf_reader_not_found">PDF Reader not found \nPlease install PDF reader \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>
     <string name="colective">Pit.</string>
     <string name="advanced_expert">Expert settings</string>
-    <string name="senzor">Senzor</string>
+    <string name="senzor">Sensor</string>
     <string name="cant_stop_activity_when_test_running">Before leaving please stop test</string>
     <string name="bec_test_stop">BEC test was finished! In case that the unit is still running and any unusual behavior does not happened then your power supply is suitable.</string>
     <string name="log_event_gov_out_of_range">Governor RPM out of range</string>
@@ -570,7 +571,7 @@
     <string name="factory_settings">Factory settings</string>
     <string name="factory_settings_confirm">Do you want to reset the unit to factory settings?</string>
     <string name="factory_settings_done">Resetting to factory settings succesfully finished.</string>
-    <string name="receiver_was_change">Receiver type was changed in the unit settings.\n\nIt\'s necessary to save it and then reconnect battery.</string>
+    <string name="receiver_was_change">Your receiver type was changed.\n\nPlease save the settings and restart your unit to apply new configuration.</string>
     <string name="profile_not_match">Selected profile was created with a different software version (%1$s)!  Double check all loaded values, please.</string>
     <string name="acro_delay">Acro Delay</string>
     <string name="rpm_senzor_filter">RPM Sensor Filter</string>
@@ -591,4 +592,5 @@
     <string name="failsafe">Failsafe</string>
     <string name="set_failsafe">Set Failsafe</string>
     <string name="failsafe_configured">Failsafe values were successfully configured.</string>
+    <string name="tester_state">Tester state</string>
 </resources>

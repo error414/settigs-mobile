@@ -667,7 +667,10 @@ public class ConnectionActivity extends BaseActivity
         //factory reset
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == FACTORY_RESET) {
 
-
+            if (stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+                Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
+                return false;
+            }
 
             showConfirmDialogWithCancel(R.string.factory_settings_confirm,
                     new DialogInterface.OnClickListener(){

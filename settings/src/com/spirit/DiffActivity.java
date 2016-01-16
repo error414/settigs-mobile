@@ -19,9 +19,11 @@ package com.spirit;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.Menu;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -56,7 +58,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Locale;
 
 /**
  * @author error414
@@ -218,7 +219,11 @@ public class DiffActivity extends BaseActivity
 	 * @throws IndexOutOfException
 	 */
     private ChangeInProfile.DiffItem translateDiffItem(ChangeInProfile.DiffItem diffItem, DstabiProfile originalProfile, DstabiProfile actualProfile) throws IndexOutOfException {
-		String from = diffItem.getOriginalValue().getValueString();
+        Resources res = getResources();
+        android.content.res.Configuration conf = res.getConfiguration();
+
+
+        String from = diffItem.getOriginalValue().getValueString();
 		String to   = diffItem.getChangedValue().getValueString();
 
 		// #############################################################################################
@@ -404,7 +409,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("SENSOR_RUDDER_COMMON_GAIN")){
 
-            StabiSenzivityZProgressExTranslate translate = new StabiSenzivityZProgressExTranslate();
+            StabiSenzivityZProgressExTranslate translate = new StabiSenzivityZProgressExTranslate(conf.locale);
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.senzor_button_text),  textSeparator , getResources().getString(R.string.senzivity),  textSeparator , getResources().getString(R.string.rudder_common_gain)).toString());
 
@@ -514,7 +519,7 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("STABI_ACRO_DELAY")){
 
-            StabiAcroDelayProgressExTranslate translate = new StabiAcroDelayProgressExTranslate(Locale.getDefault());
+            StabiAcroDelayProgressExTranslate translate = new StabiAcroDelayProgressExTranslate(conf.locale);
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.stabi_button_text), textSeparator , getResources().getString(R.string.acro_delay)).toString());
 
@@ -960,7 +965,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SERVO_REV_CH1")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch1)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.ser_reverse), textSeparator, getResources().getString(R.string.ch1)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -969,7 +974,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SERVO_REV_CH2")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch2)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.ser_reverse), textSeparator, getResources().getString(R.string.ch2)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -978,7 +983,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SERVO_REV_CH3")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch3)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.ser_reverse), textSeparator, getResources().getString(R.string.ch3)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -987,7 +992,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("SERVO_REV_CH4")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.reverse), textSeparator, getResources().getString(R.string.ch4)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator , getString(R.string.ser_reverse), textSeparator, getResources().getString(R.string.ch4)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -1163,6 +1168,9 @@ public class DiffActivity extends BaseActivity
 		}
 		return true;
 	}
+
+    protected void createBanksSubMenu(Menu menu) {
+    }
 
     public static Intent createBankCompareIntent(Context context, int bank) {
         Intent intent = new Intent(context, DiffActivity.class);

@@ -18,6 +18,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.heli.stabi;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -34,8 +35,6 @@ import com.lib.BluetoothCommandService;
 import com.lib.translate.StabiAcroDelayProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
-
-import java.util.Locale;
 
 public class StabiAcroDelayActivity extends BaseActivity
 {
@@ -122,10 +121,13 @@ public class StabiAcroDelayActivity extends BaseActivity
 
 	private void initGui()
 	{
+		Resources res = getResources();
+		android.content.res.Configuration conf = res.getConfiguration();
+
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
-			tempPicker.setTranslate(new StabiAcroDelayProgressExTranslate(Locale.getDefault()));
+			tempPicker.setTranslate(new StabiAcroDelayProgressExTranslate(conf.locale));
 		}
 	}
 

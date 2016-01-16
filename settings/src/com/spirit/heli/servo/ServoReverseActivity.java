@@ -58,7 +58,7 @@ public class ServoReverseActivity extends BaseActivity {
         initSlideMenu(R.layout.servo_reverse);
 
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.window_title);
-        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.reverse)));
+        ((TextView) findViewById(R.id.title)).setText(TextUtils.concat(getTitle(), " \u2192 ", getString(R.string.servos_button_text), " \u2192 ", getString(R.string.ser_reverse)));
 
         initConfiguration();
         delegateListener();

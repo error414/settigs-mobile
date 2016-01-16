@@ -17,6 +17,7 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301, USA.
 
 package com.spirit.heli.senzor;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
@@ -135,7 +136,10 @@ public class SenzorSenzivityActivity extends BaseActivity
 					tempPicker.setRange(0, 80); // nastavuji rozmezi prvku z profilu
 					break;
 				case 1:
-					tempPicker.setTranslate(new StabiSenzivityZProgressExTranslate());
+					Resources res = getResources();
+					android.content.res.Configuration conf = res.getConfiguration();
+
+					tempPicker.setTranslate(new StabiSenzivityZProgressExTranslate(conf.locale));
 					tempPicker.setRange(50, 100); // nastavuji rozmezi prvku z profilu
 					break;
 				case 2:

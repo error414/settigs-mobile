@@ -32,7 +32,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="10dp"
-                android:text="@string/reverse"
+                android:text="@string/ser_reverse"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@color/text_color"
                 android:textStyle="bold" />

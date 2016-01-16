@@ -354,7 +354,7 @@ public class Menu {
         menuList.put(MENU_SERVOTRAVELCORRECTION,   new MenuItem(R.drawable.i41,     R.string.servo_travel_correction, ServoTravelCorrectionActivity.class));
 
         //reverz
-        menuList.put(MENU_REVERZ, new MenuItem(R.drawable.i17, R.string.reverse, ServoReverseActivity.class));
+        menuList.put(MENU_REVERZ, new MenuItem(R.drawable.i17, R.string.ser_reverse, ServoReverseActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_REVERZ, MENU_SERVOSUBTRIM, MENU_SERVOTRAVELCORRECTION});
@@ -475,7 +475,7 @@ public class Menu {
         menuList.put(MENU_SERVOSUBTRIM,   new MenuItem(R.drawable.i10,     R.string.subtrim,  ServosSubtrimActivity.class));
 
         //reverz
-        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.na,     R.string.reverse, com.spirit.aero.servo.ServoReverseActivity.class));
+        menuList.put(MENU_REVERZ,   new MenuItem(R.drawable.na,     R.string.ser_reverse, com.spirit.aero.servo.ServoReverseActivity.class));
 
         //add to groups
         menuGroups.put(MENU_INDEX_SERVO, new Integer[]{MENU_SERVOTYPE, MENU_SERVOSUBTRIM, MENU_REVERZ, });
