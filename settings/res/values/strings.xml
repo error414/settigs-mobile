@@ -106,7 +106,7 @@
     <string name="ch2" translatable="false">CH2</string>
     <string name="ch3" translatable="false">CH3</string>
     <string name="ch4" translatable="false">CH4</string>
-    <string name="servo_travel_correction">Servo travel correction</string>
+    <string name="servo_travel_correction">Servo Travel Correction</string>
     <string name="reg_p">P</string>
     <string name="reg_i">I</string>
     <string name="reg_d">D</string>

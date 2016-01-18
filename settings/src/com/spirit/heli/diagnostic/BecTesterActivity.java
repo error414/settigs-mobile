@@ -86,6 +86,7 @@ public class BecTesterActivity extends BaseActivity
     public void onStop()
     {
         EasyTracker.getInstance(this).activityStop(this);
+        countDownTimer.cancel();
         super.onStop();
     }
 

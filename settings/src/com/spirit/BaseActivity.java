@@ -676,7 +676,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
 		if(profile.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7 || !isEnableChangeBank()){ // 7 = unbind bank
 			((TextView) findViewById(R.id.title_banks)).setText("");
-            Globals.getInstance().setActiveBank(Globals.BANK_NULL);
+
+            if(profile.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) {
+                Globals.getInstance().setActiveBank(Globals.BANK_NULL);
+            }
             if(slideMenuListAdapter != null){
                 slideMenuListAdapter.setActivePosition(-1);
                 slideMenuListAdapter.setDisabledAll(true);
