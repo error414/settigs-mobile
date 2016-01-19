@@ -19,13 +19,16 @@ package com.helpers;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.spirit.R;
-import com.spirit.heli.diagnostic.LogActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,37 +40,74 @@ import java.util.HashMap;
  *
  */
 @SuppressLint("UseSparseArrays")
-public class LogListAdapter extends BaseStandartListAdapter {
+public class LogListAdapter extends BaseAdapter {
 
-	
-	public LogListAdapter(Activity a, ArrayList<HashMap<Integer, Integer>> d) {
-		super(a, d);
-		// TODO Auto-generated constructor stub
+    /**
+     *
+     */
+    protected LayoutInflater inflater;
+
+    /**
+     * aktivata kde zobrazujeme listview
+     */
+    protected Activity activity;
+
+    /**
+     */
+    protected HashMap<Integer, ArrayList<HashMap<Integer, Integer>>> data;
+
+	public LogListAdapter(Activity a, HashMap<Integer, ArrayList<HashMap<Integer, Integer>>> d) {
+        activity = a;
+        data = d;
+        inflater = (LayoutInflater)activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
+
+    public void setData(HashMap<Integer, ArrayList<HashMap<Integer, Integer>>> data) {
+        this.data = data;
+    }
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
         View vi=convertView;
-        if(convertView==null)
+
+        ArrayList<HashMap<Integer, Integer>> row = data.get(position);
+        if(convertView==null) {
             vi = inflater.inflate(R.layout.log_list_item, null);
+        }
+
+        vi.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, (80 * row.size()) + 20));
  
+        ListView logList = (ListView)vi.findViewById(R.id.listSubRow);
+        LogListSubRowAdapter adapter = new LogListSubRowAdapter(activity, row);
+        logList.setAdapter(adapter);
+
         TextView time 		= (TextView)vi.findViewById(R.id.time); // time
-        TextView title 		= (TextView)vi.findViewById(R.id.title); // title
-        ImageView ico_image	= (ImageView)vi.findViewById(R.id.list_image); // thumb image
- 
-        HashMap<Integer, Integer> row = new HashMap<Integer, Integer>();
-        row = data.get(position);
- 
-        // Setting all values in listview
-        time.setText(getTimeByPosition(row.get(LogActivity.POSITION)));
-        title.setText(row.get(LogActivity.TITLE_FOR_LOG));
-        ico_image.setImageResource(row.get(LogActivity.ICO_RESOURCE_LOG));
+        time.setText(getTimeByPosition(position));
+
         return vi;
     }
+
+    @SuppressLint("DefaultLocale")
+    protected String getTimeByPosition(int pos) {
+        int sec = (pos) * 10;
+        return String.format("%02d:%02d", sec / 60, sec % 60);
+    }
 	
-	@SuppressLint("DefaultLocale")
-	protected String getTimeByPosition(int pos) {
-		int sec = (pos - 2) * 10;
-		return String.format("%02d:%02d", sec / 60, sec % 60);
-	}
+    @Override
+    public int getCount() {
+        // TODO Auto-generated method stub
+        return data.size();
+    }
+
+    @Override
+    public Object getItem(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        // TODO Auto-generated method stub
+        return position;
+    }
 }

@@ -12,7 +12,6 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -38,7 +37,7 @@ public class LogPdf {
 
     private BaseActivity activity;
 
-    private ArrayList<HashMap<Integer, Integer>> data;
+    private HashMap<Integer, ArrayList<HashMap<Integer, Integer>>> data;
 
     private boolean prewLog = false;
 
@@ -47,7 +46,7 @@ public class LogPdf {
     /**
      * konstruktor
      */
-    public LogPdf(BaseActivity activity, ArrayList<HashMap<Integer, Integer>> data, boolean prewLog, DstabiProfile profileCreator) {
+    public LogPdf(BaseActivity activity, HashMap<Integer, ArrayList<HashMap<Integer, Integer>>> data, boolean prewLog, DstabiProfile profileCreator) {
         this.activity = activity;
         this.data = data;
         this.prewLog = prewLog;
@@ -112,13 +111,13 @@ public class LogPdf {
         preface.add(new Paragraph(activity.getString(R.string.pdf_unit_version) + ": " + profileCreator.getFormatedVersion(), smallFont));
 
 
-        int lastIndex = data.size() > 0 ? data.get(data.size() - 1).get(LogActivity.POSITION) : 2;
+        int lastIndex = data.size();
         preface.add(new Paragraph("\n"));
         preface.add(new Paragraph(activity.getString(R.string.pdf_time_run) + ": " + getTimeByPosition(lastIndex), smallFont));
 
 
         Date currentTime = new Date();
-        SimpleDateFormat sdf = new SimpleDateFormat("MM.d.yyyy    HH:mm:ss", Locale.US);
+        SimpleDateFormat sdf = new SimpleDateFormat("MM.d.yyyy    HH:mm:ss", Locale.getDefault());
         preface.add(new Paragraph("\n"));
         preface.add(new Paragraph(activity.getString(R.string.pdf_time_create) + ": " + sdf.format(currentTime), smallFont));
 
@@ -142,47 +141,53 @@ public class LogPdf {
      */
     private void addLogPage(Document document) throws DocumentException {
 
-        PdfPTable table = new PdfPTable(3);
+        PdfPTable table = new PdfPTable(2);
         table.setWidthPercentage(100);
-        table.setWidths(new int[]{8, 8, 92});
+        table.setWidths(new int[]{8, 92});
+
+        HashMap<Integer, String> icoList = new HashMap<Integer, String>();
+        icoList.put(R.drawable.ic_ok, "ic_ok.png");
+        icoList.put(R.drawable.ic_info, "ic_info.png");
+        icoList.put(R.drawable.ic_warn, "ic_warn.png");
+        icoList.put(R.drawable.ic_warn2, "ic_warn2.png");
 
         for (int i = 0; i < data.size(); i++) {
             //cas
-            HashMap<Integer, Integer> dataRow = data.get(i);
-            PdfPCell time = new PdfPCell(new Paragraph(getTimeByPosition(dataRow.get(LogActivity.POSITION)), smallFont));
+            ArrayList<HashMap<Integer, Integer>> dataRow = data.get(i);
+            PdfPCell time = new PdfPCell(new Paragraph(getTimeByPosition(i), smallFont));
             time.setFixedHeight(20f);
             table.addCell(time);
 
-            //ikona
-            try {
+            PdfPTable tableSub = new PdfPTable(2);
+            tableSub.setWidthPercentage(100);
+            tableSub.setWidths(new int[]{8, 92});
+            for (int i2 = 0; i2 < dataRow.size(); i2++) {
+                HashMap<Integer, Integer> subRow = dataRow.get(i2);
 
-                HashMap<Integer, String> icoList = new HashMap<Integer, String>();
-                icoList.put(R.drawable.ic_ok, "ic_ok.png");
-                icoList.put(R.drawable.ic_info, "ic_info.png");
-                icoList.put(R.drawable.ic_warn, "ic_warn.png");
-                icoList.put(R.drawable.ic_warn2, "ic_warn2.png");
+                //ikona
+                try {
+                    Image imgIco = Image.getInstance(getByteArrayFromImageResource(icoList.get(subRow.get(LogActivity.ICO_RESOURCE_LOG))));
+                    imgIco.scaleToFit(12, 12);
+                    PdfPCell ico = new PdfPCell(imgIco);
+                    ico.setFixedHeight(20f);
+                    ico.setBorder(0);
+                    ico.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    ico.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    tableSub.addCell(ico);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-                Image imgIco = Image.getInstance(getByteArrayFromImageResource(icoList.get(dataRow.get(LogActivity.ICO_RESOURCE_LOG))));
-                imgIco.scaleToFit(12, 12);
-                PdfPCell ico = new PdfPCell(imgIco);
-                ico.setFixedHeight(20f);
-                ico.setBorder(0);
-                ico.setBorder(Rectangle.TOP | Rectangle.BOTTOM);
-                ico.setVerticalAlignment(Element.ALIGN_MIDDLE);
-                ico.setHorizontalAlignment(Element.ALIGN_CENTER);
-                table.addCell(ico);
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+                //text
+                PdfPCell text = new PdfPCell(new Paragraph(activity.getString(subRow.get(LogActivity.TITLE_FOR_LOG)), smallFont));
+                text.setBorder(0);
+                text.setFixedHeight(20f);
+                tableSub.addCell(text);
             }
 
-            //text
-            PdfPCell text = new PdfPCell(new Paragraph(activity.getString(dataRow.get(LogActivity.TITLE_FOR_LOG)), smallFont));
-            text.setBorder(0);
-            text.setBorder(Rectangle.TOP | Rectangle.BOTTOM | Rectangle.RIGHT);
-            text.setFixedHeight(20f);
-            table.addCell(text);
+            table.addCell(tableSub);
 
         }
 
@@ -211,7 +216,7 @@ public class LogPdf {
 
     @SuppressLint("DefaultLocale")
     protected String getTimeByPosition(int pos) {
-        int sec = (pos - 2) * 10;
+        int sec = (pos) * 10;
         return String.format("%02d:%02d", sec / 60, sec % 60);
     }
 }
