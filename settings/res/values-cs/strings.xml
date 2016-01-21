@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 18.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 21.01.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -107,10 +107,16 @@
     <string name="frequency">Frekvence</string>
     <string name="pulse">Střed</string>
     <string name="rudder_only">Směrovka</string>
+
     <string name="rudder">Vrtulka (CH4)</string>
     <string name="aileron">Křidélka (CH1)</string>
     <string name="elevator">Výškovka (CH2)</string>
     <string name="pitch">Kolektiv (CH3)</string>
+
+    <string name="rudder_2">Vrtulka (CH4)</string>
+    <string name="aileron_2">Kolektiv (CH1)</string>
+    <string name="elevator_2">Výškovka (CH2)</string>
+    <string name="pitch_2">Křidélka (CH3)</string>
 
     <string name="servo_ch1">Křidélka (CH1)</string>
     <string name="servo_ch2">Výškovka (CH2)</string>

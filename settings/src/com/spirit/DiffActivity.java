@@ -307,7 +307,9 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_AIL")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.aileron)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 0 ? R.string.aileron : R.string.aileron_2)).toString()
+
+            );
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -329,7 +331,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_PIT")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.pitch)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 0 ? R.string.pitch : R.string.pitch_2)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -361,7 +363,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("RANGE_PIT")){
-            diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits),  textSeparator , getResources().getString(R.string.limit_pitch)).toString());
+            diffItem.setLabel(TextUtils.concat( getResources().getString(R.string.limits),  textSeparator , getResources().getString(R.string.pitch_range)).toString());
 
             from = String.valueOf(diffItem.getOriginalValue().getValueInteger());
             to   = String.valueOf(diffItem.getChangedValue().getValueInteger());

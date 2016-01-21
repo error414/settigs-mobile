@@ -34,8 +34,8 @@ android {
             resValue "string", "app_name", "Spirit Settings"
             resValue "string", "full_app_name", "Spirit Settings"
             resValue "string", "short_title", "Spirit"
-            versionCode 208
-            versionName "2.0.5"
+            versionCode 210
+            versionName "2.0.7"
         }
 
         aero {
@@ -79,22 +79,22 @@ android {
     // U T I L I T Y   T A S K S  =================================================================
     task preAssemblePRODUCTION_HELI(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/assembleHeli.php release"
+        args "-c", "/Applications/MAMP/bin/php/php5.6.2/bin/php -f ./gradle-exec/assembleHeli.php release"
     }
 
     task preAssembleDEVEL_HELI(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/assembleHeli.php devel"
+        args "-c", "/Applications/MAMP/bin/php/php5.6.2/bin/php -f ./gradle-exec/assembleHeli.php devel"
     }
 
     task preAssemblePRODUCTION_AERO(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/assembleAero.php release"
+        args "-c", "/Applications/MAMP/bin/php/php5.6.2/bin/php -f ./gradle-exec/assembleAero.php release"
     }
 
     task preAssembleDEVEL_AERO(type: Exec) {
         executable "sh"
-        args "-c", "php -f ./gradle-exec/assembleAero.php devel"
+        args "-c", "/Applications/MAMP/bin/php/php5.6.2/bin/php -f ./gradle-exec/assembleAero.php devel"
     }
 
 

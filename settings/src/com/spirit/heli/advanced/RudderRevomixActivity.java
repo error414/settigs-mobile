@@ -120,7 +120,7 @@ public class RudderRevomixActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 
-			tempPicker.setOffset(-138);             // zobrazujeme od stredu, 128 => 0
+			tempPicker.setOffset(-128);             // zobrazujeme od stredu, 128 => 0
 			tempPicker.setRange(128, 138, 0, 10); // hack, ble
 			tempPicker.setTitle(formItemsTitle[i]); // nastavime titulek
 		}

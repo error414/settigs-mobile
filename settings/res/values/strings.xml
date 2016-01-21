@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 18.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 21.01.2016-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -95,10 +95,17 @@
     <string name="frequency">Frequency</string>
     <string name="pulse">Pulse</string>
     <string name="rudder_only">Rudder</string>
+
     <string name="rudder">Rudder (CH4)</string>
     <string name="aileron">Aileron (CH1)</string>
     <string name="elevator">Elevator (CH2)</string>
     <string name="pitch">Pitch (CH3)</string>
+
+    <string name="rudder_2">Rudder (CH4)</string>
+    <string name="aileron_2">Pitch (CH1)</string>
+    <string name="elevator_2">Elevator (CH2)</string>
+    <string name="pitch_2">Aileron (CH3)</string>
+
     <string name="servo_ch1">Aileron (CH1)</string>
     <string name="servo_ch2">Elevator (CH2)</string>
     <string name="servo_ch3">Pitch (CH3)</string>

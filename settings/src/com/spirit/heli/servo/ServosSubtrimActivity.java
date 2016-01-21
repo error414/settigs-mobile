@@ -47,8 +47,9 @@ public class ServosSubtrimActivity extends BaseActivity
 
 	private int formItems[] = {R.id.aileron_picker, R.id.elevator_picker, R.id.pitch_picker, R.id.rudder_picker,};
 
-	private int formItemsTitle[] = {R.string.aileron, R.string.elevator, R.string.pitch, R.string.rudder,};
+	private int formItemsTitle1[] = {R.string.aileron, R.string.elevator, R.string.pitch, R.string.rudder,};
 
+	private int formItemsTitle2[] = {R.string.aileron_2, R.string.elevator_2, R.string.pitch_2, R.string.rudder_2,};
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
@@ -154,7 +155,6 @@ public class ServosSubtrimActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
             tempPicker.setRange(1, 255); // tohle rozmezi asi brat ze stabi profilu
-            tempPicker.setTitle(formItemsTitle[i]);
 		}
 	}
 
@@ -218,6 +218,13 @@ public class ServosSubtrimActivity extends BaseActivity
                     tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH4").getValueForCheckBox());
                     break;
             }
+
+			int val = profileCreator.getProfileItemByName("MIX").getValueInteger();
+			if(val % 2 == 0){
+				tempPicker.setTitle(formItemsTitle1[i]);
+			}else{
+				tempPicker.setTitle(formItemsTitle2[i]);
+			}
 
 			tempPicker.setCurrentNoNotify(size);
 		}
