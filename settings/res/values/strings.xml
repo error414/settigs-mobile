@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 21.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 23.01.2016-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -94,21 +94,17 @@
     <string name="cyclic">Cyclic</string>
     <string name="frequency">Frequency</string>
     <string name="pulse">Pulse</string>
-    <string name="rudder_only">Rudder</string>
+    <string name="rudder">Rudder</string>
 
-    <string name="rudder">Rudder (CH4)</string>
-    <string name="aileron">Aileron (CH1)</string>
-    <string name="elevator">Elevator (CH2)</string>
-    <string name="pitch">Pitch (CH3)</string>
+    <string name="servo_rudder">Rudder (CH4)</string>
 
-    <string name="rudder_2">Rudder (CH4)</string>
-    <string name="aileron_2">Pitch (CH1)</string>
-    <string name="elevator_2">Elevator (CH2)</string>
-    <string name="pitch_2">Aileron (CH3)</string>
-
-    <string name="servo_ch1">Aileron (CH1)</string>
+    <string name="servo_ch1">Pitch (CH1)</string>
     <string name="servo_ch2">Elevator (CH2)</string>
-    <string name="servo_ch3">Pitch (CH3)</string>
+    <string name="servo_ch3">Aileron (CH3)</string>
+
+    <string name="servo_ch1_inverted">Aileron (CH1)</string>
+    <string name="servo_ch3_inverted">Pitch (CH3)</string>
+
     <string name="ch1" translatable="false">CH1</string>
     <string name="ch2" translatable="false">CH2</string>
     <string name="ch3" translatable="false">CH3</string>
@@ -138,7 +134,7 @@
     <string name="cyc_rate">Cyclic</string>
     <string name="rud_rate">Rudder</string>
     <string name="x_picth">X-Pitch</string>
-    <string name="x_cyclic">Cyclic gain</string>
+    <string name="x_cyclic">Cyclic Gain</string>
     <string name="y_rool">Y-Roll</string>
     <string name="z_yaw">Z-Yaw</string>
     <string name="rudder_common_gain">Rudder Common Gain</string>
@@ -182,7 +178,7 @@
     <string name="log_button_text">Log Viewer</string>
     <string name="channels">Channels</string>
     <string name="throttle">Throttle</string>
-    <string name="gyro_gain">Gyro gain</string>
+    <string name="gyro_gain">Rudder Gain</string>
     <string name="banks">Banks</string>
     <string name="bank">Bank</string>
     <string name="bank_short_code">B</string>
@@ -479,10 +475,10 @@
     <string name="st_a030379814acf4a9efd5735573f71718">Cyclic mixing function used on the model.\n\n- In the most cases it is CCPM 120°.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Receiver type equipped on the model.\n\n- PWM for classical receiver.</string>
     <string name="st_4e74822308285a5d25761bc2c9387dc2">Specifies flight characteristics and stick response behavior.\n\n- Decrease for more constant and linear behavior.\n- Increase for paddle-like steering.\n\n<i>Range: 1 - 8</i></string>
-    <string name="st_23156aa787644331f6b928b0138a8b89">Movement direction of the Aileron servo</string>
-    <string name="st_be917f6b3fe715e4c62861f9729e1258">Movement direction of the Elevator servo</string>
-    <string name="st_e7a0ee9287ffcd5017f33971dfd7a04b">Movement direction of the Aileron/Pitch servo</string>
-    <string name="st_a95ed2ec1c7f619a803847d6f867f5ab">Movement direction of the Rudder servo</string>
+    <string name="st_6e74cf3b84ed91aaf999ffeb64829110">Movement direction of the CH1 servo</string>
+    <string name="st_6852e0316d4638c69de832cec1b041e5">Movement direction of the CH2 servo</string>
+    <string name="st_61aac7234bc41e7cf51ed4132711b43d">Movement direction of the CH3 servo</string>
+    <string name="st_f3af9bb75ea9eeb06a07a45c4423aaa6">Movement direction of the CH4 servo</string>
     <string name="st_25e1dad714a36a48c70307e9e98c6839"><b>Amount of collective pitch during rescue activation</b>\n\n- Activate the rescue mode and check collective direction.\n\n<i>Range: 0 - 100%</i></string>
     <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Specifies a rate of direction change for stabilization</b>\n\n- Low values are suitable for beginners to achieve coaxial-like behavior.\n- Higher values are suitable for scale flying.\n\n<i>Range: 0 - 5</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Enables special mode for flybared helicopters to be able to use the unit with stabilisation or rescue mode.\n\n- Always disabled for flybarless helicopters.\n- Enabled for flybar helicopters only!</string>

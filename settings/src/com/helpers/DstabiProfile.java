@@ -285,7 +285,16 @@ public class DstabiProfile {
 	 */
 	public boolean checkVersion()
 	{
-		if(mProfile == null || !isValid()){
+		return checkVersion(CHECK_ALL);
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	public boolean checkVersion(int mode)
+	{
+		if(mProfile == null || !isValid(mode)){
 			return false;
 		}
 

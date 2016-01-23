@@ -1030,7 +1030,7 @@ public class ConnectionActivity extends BaseActivity
             final DstabiProfile profileFinal = profile;
             final boolean forceBasicModeCopyFinal = forceBasicModeCopy;
 
-            if(profileFinal.checkVersion()) {
+            if(profileFinal.checkVersion(DstabiProfile.DONT_CHECK_CHECKSUM)) {
                 showConfirmDialogWithCancel(getString(R.string.profile_not_match, profileFinal.getFormatedVersion()),
                         new DialogInterface.OnClickListener() {
                             @Override

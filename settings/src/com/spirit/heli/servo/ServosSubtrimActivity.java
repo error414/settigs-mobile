@@ -47,9 +47,9 @@ public class ServosSubtrimActivity extends BaseActivity
 
 	private int formItems[] = {R.id.aileron_picker, R.id.elevator_picker, R.id.pitch_picker, R.id.rudder_picker,};
 
-	private int formItemsTitle1[] = {R.string.aileron, R.string.elevator, R.string.pitch, R.string.rudder,};
+	private int formItemsTitle1[] = {R.string.servo_ch1, R.string.servo_ch2, R.string.servo_ch3, R.string.servo_rudder,};
 
-	private int formItemsTitle2[] = {R.string.aileron_2, R.string.elevator_2, R.string.pitch_2, R.string.rudder_2,};
+	private int formItemsTitle2[] = {R.string.servo_ch1_inverted, R.string.servo_ch2, R.string.servo_ch3_inverted, R.string.servo_rudder,};
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
@@ -220,7 +220,7 @@ public class ServosSubtrimActivity extends BaseActivity
             }
 
 			int val = profileCreator.getProfileItemByName("MIX").getValueInteger();
-			if(val % 2 == 0){
+			if(val % 2 == 1){
 				tempPicker.setTitle(formItemsTitle1[i]);
 			}else{
 				tempPicker.setTitle(formItemsTitle2[i]);

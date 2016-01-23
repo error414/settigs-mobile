@@ -36,10 +36,10 @@ public class HelpMap {
         result.put(R.id.receiver_select_id, R.string.st_06edb8aaa795fb406535ad1e42f7ddd9);
         result.put(R.id.flight_style_select_id, R.string.st_4e74822308285a5d25761bc2c9387dc2);
 
-        result.put(R.id.ch1_reverse, R.string.st_23156aa787644331f6b928b0138a8b89);
-        result.put(R.id.ch2_reverse, R.string.st_be917f6b3fe715e4c62861f9729e1258);
-        result.put(R.id.ch3_reverse, R.string.st_e7a0ee9287ffcd5017f33971dfd7a04b);
-        result.put(R.id.ch4_reverse, R.string.st_a95ed2ec1c7f619a803847d6f867f5ab);
+        result.put(R.id.ch1_reverse, R.string.st_6e74cf3b84ed91aaf999ffeb64829110);
+        result.put(R.id.ch2_reverse, R.string.st_6852e0316d4638c69de832cec1b041e5);
+        result.put(R.id.ch3_reverse, R.string.st_61aac7234bc41e7cf51ed4132711b43d);
+        result.put(R.id.ch4_reverse, R.string.st_f3af9bb75ea9eeb06a07a45c4423aaa6);
 
         result.put(R.id.stabi_pitch, R.string.st_25e1dad714a36a48c70307e9e98c6839);
         result.put(R.id.stabi_ctrldir, R.string.st_1bb89987a641483fa0a25daa7e52d27c);

@@ -307,9 +307,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_AIL")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 0 ? R.string.aileron : R.string.aileron_2)).toString()
-
-            );
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch1 : R.string.servo_ch1_inverted)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -320,7 +318,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_ELE")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.elevator)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.servo_ch2)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -331,7 +329,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_PIT")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 0 ? R.string.pitch : R.string.pitch_2)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch3 : R.string.servo_ch3_inverted)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -342,7 +340,7 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("SUBTRIM_RUD")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.rudder)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.servo_rudder)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -591,7 +589,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1), textSeparator, getResources().getString(R.string.max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch1 : R.string.servo_ch1_inverted), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -603,7 +601,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch1), textSeparator, getResources().getString(R.string.max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -615,7 +613,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch3 : R.string.servo_ch3_inverted), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -627,7 +625,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch1 : R.string.servo_ch1_inverted), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -639,7 +637,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch3), textSeparator, getResources().getString(R.string.min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch2), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -651,7 +649,7 @@ public class DiffActivity extends BaseActivity
 
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(R.string.servo_ch3), textSeparator, getResources().getString(R.string.min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch3 : R.string.servo_ch3_inverted), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));

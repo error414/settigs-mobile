@@ -2,10 +2,9 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 21.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 23.01.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
-
 
     <string name="ok">Ok</string>
     <string name="settings">Nastavení</string>
@@ -106,21 +105,17 @@
     <string name="cyclic">Cyklika</string>
     <string name="frequency">Frekvence</string>
     <string name="pulse">Střed</string>
-    <string name="rudder_only">Směrovka</string>
 
-    <string name="rudder">Vrtulka (CH4)</string>
-    <string name="aileron">Křidélka (CH1)</string>
-    <string name="elevator">Výškovka (CH2)</string>
-    <string name="pitch">Kolektiv (CH3)</string>
+    <string name="rudder">Směrovka</string>
 
-    <string name="rudder_2">Vrtulka (CH4)</string>
-    <string name="aileron_2">Kolektiv (CH1)</string>
-    <string name="elevator_2">Výškovka (CH2)</string>
-    <string name="pitch_2">Křidélka (CH3)</string>
+    <string name="servo_rudder">Směrovka (CH4)</string>
 
-    <string name="servo_ch1">Křidélka (CH1)</string>
+    <string name="servo_ch1">Kolektiv (CH1)</string>
     <string name="servo_ch2">Výškovka (CH2)</string>
-    <string name="servo_ch3">Kolektiv (CH3)</string>
+    <string name="servo_ch3">Křidélka (CH3)</string>
+
+    <string name="servo_ch1_inverted">Křidélka (CH1)</string>
+    <string name="servo_ch3_inverted">Kolektiv (CH3)</string>
 
     <string name="servo_travel_correction">Korekce dráhy serv</string>
 
@@ -144,7 +139,6 @@
 
     <string name="rudder_end_points">Vrtulka \n koncové body</string>
     <string name="rudder_end_points_no_break">Limity vrtulky</string>
-    <string name="blank"></string>
 
 	<string name="cyc_rate">Cyklika</string>
 	<string name="rud_rate">Vrtulka</string>
@@ -192,7 +186,7 @@
 
 	<string name="channels">Kanály</string>
 	<string name="throttle">Plyn</string>
-    <string name="gyro_gain">Zisk gyra</string>
+    <string name="gyro_gain">Vrtulkový zisk</string>
 	<string name="banks">Banky</string>
     <string name="bank">Banka</string>
 	<string name="choose_bank">Vyberte banku</string>
@@ -511,10 +505,10 @@
     <string name="st_a030379814acf4a9efd5735573f71718">Funkce mixování cykliky použitá na modelu.\n\n- Nejčastěji se jedná o CCPM 120°.</string>
     <string name="st_06edb8aaa795fb406535ad1e42f7ddd9">Typ přijímače na modelu.\n\n- PWM pro klasický typ přijímače.</string>
     <string name="st_4e74822308285a5d25761bc2c9387dc2">Nastavuje chování modelu a jeho letové vlastnosti.\n\n- Uberte pro konstantnější a lineárnější řízení.\n- Přidejte pro dosažení chování pádlové mechaniky.\n\n<i>Rozsah: 1 - 8</i></string>
-    <string name="st_23156aa787644331f6b928b0138a8b89">Směr pohybu serva křidélek</string>
-    <string name="st_be917f6b3fe715e4c62861f9729e1258">Směr pohybu serva výškovky</string>
-    <string name="st_e7a0ee9287ffcd5017f33971dfd7a04b">Směr pohybu druhého serva křidélek</string>
-    <string name="st_a95ed2ec1c7f619a803847d6f867f5ab">Směr pohybu serva vrtulky</string>
+    <string name="st_6e74cf3b84ed91aaf999ffeb64829110">Směr pohybu serva CH1</string>
+    <string name="st_6852e0316d4638c69de832cec1b041e5">Směr pohybu serva CH2</string>
+    <string name="st_61aac7234bc41e7cf51ed4132711b43d">Směr pohybu serva CH3</string>
+    <string name="st_f3af9bb75ea9eeb06a07a45c4423aaa6">Směr pohybu serva CH4</string>
     <string name="st_25e1dad714a36a48c70307e9e98c6839"><b>Velikost kolektivu během aktivního záchranného režimu</b>\n\n- Aktivujte záchranný režim a zkontrolujte směr kolektivu.\n\n<i>Rozsah: 0 - 100%</i></string>
     <string name="st_1bb89987a641483fa0a25daa7e52d27c"><b>Udává míru ovlivnění směru pro stabilizaci</b>\n\n- Nízké hodnoty jsou vhodné začátečníkům pro dosažení chování koaxiální helikoptéry.\n- Vyšší hodnoty jsou vhodné pro maketové létání.\n\n<i>Rozsah: 0 - 5</i></string>
     <string name="st_64d671d1921bac26046cf0d04da37ff1">Povolí speciální režim, kdy je možno využít jednotku pro pádlové vrtulníky včetně stabilizace a záchrany.\n\n- Vždy vypnuto pro bezpádlové vrtulníky.\n- Povolte pouze pro pádlové vrtulníky!</string>
