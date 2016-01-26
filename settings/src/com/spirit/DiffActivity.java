@@ -480,8 +480,8 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("RUDDER_REVOMIX")){
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator , getResources().getString(R.string.rudder_revomix)).toString());
 
-            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 138);
-            to = String.valueOf(diffItem.getChangedValue().getValueInteger() - 138);
+            from = String.valueOf(diffItem.getOriginalValue().getValueInteger() - 128);
+            to = String.valueOf(diffItem.getChangedValue().getValueInteger() - 128);
         }
         // #############################################################################################
 

@@ -170,7 +170,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
             tempPicker.setTranslate(i < 3 ? new ServoCorrectionUpProgressExTranslate() : new ServoCorrectionProgressExTranslate());
             tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
-           // tempPicker.setEnabled(false);
+            tempPicker.setEnabled(false);
             tempPicker.setInverted(i < 3);
 
 		}
@@ -216,17 +216,17 @@ public class ServoTravelCorrectionActivity extends BaseActivity
         if(pitchPercent > 20){
             for(int i = 0; i < formItems.length; i++){
                 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-                //tempPicker.setEnabled(i < 3);
+                tempPicker.setEnabled(i < 3);
             }
         }else if(pitchPercent < -20){
             for(int i = 0; i < formItems.length; i++){
                 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-                //tempPicker.setEnabled(i >= 3);
+                tempPicker.setEnabled(i >= 3);
             }
         }else{
             for(int i = 0; i < formItems.length; i++){
                 ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
-               // tempPicker.setEnabled(false);
+                tempPicker.setEnabled(false);
             }
         }
     }
@@ -255,7 +255,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 			DstabiProfile.ProfileItem item = profileCreator.getProfileItemByName(protocolCode[i]);
 			tempPicker.setRange(item.getMinimum(), item.getMaximum()); // nastavuji rozmezi prvku z profilu
 			tempPicker.setCurrentNoNotify(size);
-            //tempPicker.setEnabled(false);
+            tempPicker.setEnabled(false);
 		}
 
 		if(profileCreator.getProfileItemByName("MIX").getValueInteger()  % 2 == 0)
