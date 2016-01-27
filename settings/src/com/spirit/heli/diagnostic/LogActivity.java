@@ -70,6 +70,7 @@ public class LogActivity extends BaseActivity
 	final static Integer LOG_EVENT_LOWVOLT = 0x40;
 	final static Integer LOG_EVENT_GOVENGAGED = 0x80;
 	final static Integer LOG_EVENT_RXCORRUPT = 0x100;
+	final static Integer LOG_EVENT_FAILED = 0xffff;
 	////////////////////////////////////////////////////
 
 	final protected int GROUP_LOG = 4;
@@ -268,6 +269,19 @@ public class LogActivity extends BaseActivity
 				subRow.put(TITLE_FOR_LOG, R.string.log_event_ok);
 				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_ok);
 				row.add(subRow);
+			}
+
+			if (logCode == LOG_EVENT_FAILED && row.size() == 0) {
+				HashMap<Integer, Integer> subRow = new HashMap<Integer, Integer>();
+				subRow.put(TITLE_FOR_LOG, R.string.log_event_save_failed);
+				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+
+				row = new ArrayList<HashMap<Integer, Integer>>();
+				row.add(subRow);
+
+				logListData = new HashMap<Integer, ArrayList<HashMap<Integer, Integer>>>();
+				logListData.put(0, row);
+				break;
 			}
 
 			logListData.put(position, row);
