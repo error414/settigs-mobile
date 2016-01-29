@@ -70,6 +70,7 @@ public class LogActivity extends BaseActivity
 	final static Integer LOG_EVENT_LOWVOLT = 0x40;
 	final static Integer LOG_EVENT_GOVENGAGED = 0x80;
 	final static Integer LOG_EVENT_RXCORRUPT = 0x100;
+	final static Integer LOG_EVENT_GOVSIGNAL = 0x200;
 	final static Integer LOG_EVENT_FAILED = 0xffff;
 	////////////////////////////////////////////////////
 
@@ -260,7 +261,14 @@ public class LogActivity extends BaseActivity
 			if ((logCode & LOG_EVENT_RXCORRUPT) != 0) {
 				HashMap<Integer, Integer> subRow = new HashMap<Integer, Integer>();
 				subRow.put(TITLE_FOR_LOG, R.string.log_event_rxcorrupt);
-				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
+				row.add(subRow);
+			}
+
+			if ((logCode & LOG_EVENT_GOVSIGNAL) != 0) {
+				HashMap<Integer, Integer> subRow = new HashMap<Integer, Integer>();
+				subRow.put(TITLE_FOR_LOG, R.string.log_event_govsignal);
+				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 				row.add(subRow);
 			}
 
@@ -271,10 +279,10 @@ public class LogActivity extends BaseActivity
 				row.add(subRow);
 			}
 
-			if (logCode == LOG_EVENT_FAILED && row.size() == 0) {
+			if (logCode == LOG_EVENT_FAILED) {
 				HashMap<Integer, Integer> subRow = new HashMap<Integer, Integer>();
 				subRow.put(TITLE_FOR_LOG, R.string.log_event_save_failed);
-				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn2);
+				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 
 				row = new ArrayList<HashMap<Integer, Integer>>();
 				row.add(subRow);

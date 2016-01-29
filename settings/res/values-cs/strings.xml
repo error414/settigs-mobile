@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 27.01.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 29.01.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -618,5 +618,5 @@
     <string name="set_failsafe">Nastavit Failsafe</string>
     <string name="failsafe_configured">Hodnoty pro režim Failsafe byly úspěšně uloženy.</string>
     <string name="tester_state">Stav testovaní</string>
-    <string name="log_event_save_failed">Data nejsou k dispozici</string>
+    <string name="log_event_govsignal">Senzoru otáček vykazuje velký šum</string>
 </resources>
