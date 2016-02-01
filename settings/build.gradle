@@ -34,8 +34,8 @@ android {
             resValue "string", "app_name", "Spirit Settings"
             resValue "string", "full_app_name", "Spirit Settings"
             resValue "string", "short_title", "Spirit"
-            versionCode 214
-            versionName "2.0.11"
+            versionCode 215
+            versionName "2.0.12"
         }
 
         aero {

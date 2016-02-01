@@ -193,7 +193,7 @@ public class LogActivity extends BaseActivity
 
 			ArrayList<HashMap<Integer, Integer>> row = new ArrayList<HashMap<Integer, Integer>>();
 
-			int logCode = ByteOperation.byteArrayToShort(codeByte);
+			int logCode = ByteOperation.byte2ArrayToSigInt(codeByte);
 
 			if (i == 2) {
 				HashMap<Integer, Integer> subRow = new HashMap<Integer, Integer>();
