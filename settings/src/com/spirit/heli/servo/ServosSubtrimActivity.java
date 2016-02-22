@@ -20,6 +20,7 @@ package com.spirit.heli.servo;
 import android.os.Bundle;
 import android.os.Message;
 import android.text.TextUtils;
+import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
+import com.helpers.Globals;
 import com.lib.BluetoothCommandService;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.spirit.BaseActivity;
@@ -43,13 +45,13 @@ public class ServosSubtrimActivity extends BaseActivity
 
 	final private int PROFILE_CALL_BACK_CODE = 16;
 
-	private final String protocolCode[] = {"SUBTRIM_AIL", "SUBTRIM_ELE", "SUBTRIM_PIT", "SUBTRIM_RUD",};
+	private final String protocolCode[] = {"SUBTRIM_AIL", "SUBTRIM_ELE", "SUBTRIM_PIT", "SUBTRIM_RUD", "SUBTRIM_ELE_2"};
 
-	private int formItems[] = {R.id.aileron_picker, R.id.elevator_picker, R.id.pitch_picker, R.id.rudder_picker,};
+	private int formItems[] = {R.id.aileron_picker, R.id.elevator_picker, R.id.pitch_picker, R.id.rudder_picker, R.id.elevator_2_picker,};
 
-	private int formItemsTitle1[] = {R.string.servo_ch1, R.string.servo_ch2, R.string.servo_ch3, R.string.servo_rudder,};
+	private int formItemsTitle1[] = {R.string.servo_ch1, R.string.servo_ch2, R.string.servo_ch3, R.string.servo_rudder, R.string.servo_ch0,};
 
-	private int formItemsTitle2[] = {R.string.servo_ch1_inverted, R.string.servo_ch2, R.string.servo_ch3_inverted, R.string.servo_rudder,};
+	private int formItemsTitle2[] = {R.string.servo_ch1_inverted, R.string.servo_ch2, R.string.servo_ch3_inverted, R.string.servo_rudder, R.string.servo_ch0,};
 	/**
 	 * zavolani pri vytvoreni instance aktivity servo type
 	 */
@@ -199,6 +201,7 @@ public class ServosSubtrimActivity extends BaseActivity
 		for (int i = 0; i < formItems.length; i++) {
 			ProgresEx tempPicker = (ProgresEx) findViewById(formItems[i]);
 			int size = profileCreator.getProfileItemByName(protocolCode[i]).getValueInteger();
+			int mix = profileCreator.getProfileItemByName("MIX").getValueInteger();
 
             switch (i) {
                 case 0:
@@ -213,14 +216,25 @@ public class ServosSubtrimActivity extends BaseActivity
                     tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
                     tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH3").getValueForCheckBox());
                     break;
-                default:
+                case 3:
                     tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
                     tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH4").getValueForCheckBox());
                     break;
+				case 4:
+					tempPicker.setTranslate(new ServoSubtrimProgressExTranslate());
+					tempPicker.setInverted(profileCreator.getProfileItemByName("SERVO_REV_CH2").getValueForCheckBox());
+
+					if(!Globals.getInstance().getSerialNumber().isProVersion() || mix < 71) {
+						tempPicker.setVisibility(View.INVISIBLE);
+						if (helpLayount.containsKey(new Integer(tempPicker.getId()))) {
+							helpLayount.get(new Integer(tempPicker.getId())).setVisibility(View.INVISIBLE);
+
+						}
+					}
+					break;
             }
 
-			int val = profileCreator.getProfileItemByName("MIX").getValueInteger();
-			if(val % 2 == 1){
+			if(mix % 2 == 1 && mix < 71){
 				tempPicker.setTitle(formItemsTitle1[i]);
 			}else{
 				tempPicker.setTitle(formItemsTitle2[i]);

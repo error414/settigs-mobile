@@ -74,8 +74,8 @@ public class HelpMap {
         result.put(R.id.limit_range_ail_left, R.string.st_cb447c2f52a1170da6ca24c5875ba250);
         result.put(R.id.cyclic_pitch, R.string.st_b81fcebbff4a29a95ef70e6621eb8f71);
 
-        result.put(R.id.governor_thr_min, R.string.st_3104a8b88d16fea1d7340e06f4f4628f);
-        result.put(R.id.governor_thr_max, R.string.st_e3f7aaeec7262407e622dfb1b79181ab);
+        result.put(R.id.governor_thr_min, R.string.st_31a6a33c61f9155b9beddeff342b8379);
+        result.put(R.id.governor_thr_max, R.string.st_ef1b8acb1fca908ff8b1540c36e7464a);
         result.put(R.id.governor_rampup, R.string.st_5f6a222244b449ed513ffe39b532715e);
         result.put(R.id.governor_divider, R.string.st_cffee8820dbdc898c99db0f0350440f4);
         result.put(R.id.thr_reverse, R.string.st_e4df1e47f3a179a3867c07d758619a1c);
@@ -89,6 +89,7 @@ public class HelpMap {
         result.put(R.id.elevator_picker, R.string.st_6b9d810c0062eba5db4c223ae3d94fab);
         result.put(R.id.pitch_picker, R.string.st_92b0fe0b01b51063f423a7cc8b02cc1e);
         result.put(R.id.rudder_picker, R.string.st_54ceaabd2d8cca5320e800e9851b6ff3);
+        result.put(R.id.elevator_2_picker, R.string.st_d15400ad6325309e7e29e081fb2c6f1a);
 
         result.put(R.id.governor_spoolup_select_id, R.string.st_cc41c2874a69e4ae7c3f2385ec481160);
         result.put(R.id.governor_freq_select_id, R.string.st_e6a7a3cb5827ad43acc85eac1898573a);

@@ -400,6 +400,7 @@ public class ConnectionActivity extends BaseActivity
             pro = "PRO";
         }
 
+        Globals.getInstance().setSerialNumber(serial);
 		serialView.setText(serial.getString() + " " + pro);
 	}
 

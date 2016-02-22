@@ -35,6 +35,10 @@ public class Globals {
 	 */
 	private int appMode;
 
+	/**
+	 */
+	private SerialNumber serialNumber;
+
     /**
      * priznak jestli volat init ktery se ma volat jen po pripojeni
      */
@@ -129,5 +133,13 @@ public class Globals {
 
 	public void setAppMode(int appMode) {
 		this.appMode = appMode;
+	}
+
+	public SerialNumber getSerialNumber() {
+		return serialNumber;
+	}
+
+	public void setSerialNumber(SerialNumber serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 }

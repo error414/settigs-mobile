@@ -75,6 +75,7 @@ import com.lib.DstabiProvider;
 
 import net.simonvt.menudrawer.MenuDrawer;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Timer;
@@ -131,6 +132,11 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	 *
 	 */
 	protected DstabiProvider stabiProvider;
+
+    /**
+     *
+     */
+    protected HashMap<Integer, RelativeLayout> helpLayount = new HashMap<Integer, RelativeLayout>();
 
 	/**
 	 * pocitadlo otevreni dialog boxu
@@ -364,6 +370,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                         //////////////////////////////////
                         RelativeLayout root = (RelativeLayout)spinner.getParent();
                         RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        helpLayount.put(new Integer(spinner.getId()), child);
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);
                         params.addRule(RelativeLayout.ABOVE, getFormItems()[i]);
@@ -390,6 +397,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                         //////////////////////////////////
                         RelativeLayout root = (RelativeLayout)checkBox.getParent();
                         RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        helpLayount.put(new Integer(checkBox.getId()), child);
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);
                         params.addRule(RelativeLayout.ALIGN_TOP, getFormItems()[i]);
@@ -401,7 +409,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                 break;
 
             case DEFAULT_VALUE_TYPE_SEEK:
-
                 for (int i = 0; i < getFormItems().length; i++) {
 
                     ProgresEx seekBar = (ProgresEx) findViewById(getFormItems()[i]);
@@ -416,6 +423,8 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
                         //////////////////////////////////
                         RelativeLayout root = (RelativeLayout)seekBar.getParent();
                         RelativeLayout child = (RelativeLayout)getLayoutInflater().inflate(R.layout.help_image, null);
+                        helpLayount.put(new Integer(seekBar.getId()), child);
+
 
                         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                                 ViewGroup.LayoutParams.WRAP_CONTENT);

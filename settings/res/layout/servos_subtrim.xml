@@ -79,6 +79,17 @@
 
 	        </com.customWidget.picker.ProgresEx>
 
+			<com.customWidget.picker.ProgresEx
+				android:id="@+id/elevator_2_picker"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_alignParentLeft="true"
+				android:layout_alignRight="@+id/rudder_picker"
+				android:layout_below="@+id/rudder_picker"
+				android:layout_marginTop="32dp">
+
+			</com.customWidget.picker.ProgresEx>
+
 	    </RelativeLayout>
 
 	</ScrollView>

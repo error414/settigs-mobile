@@ -279,17 +279,14 @@ public class LogActivity extends BaseActivity
 				row.add(subRow);
 			}
 
-			if (logCode == LOG_EVENT_FAILED) {
+			//this must be last one
+			if ((logCode & LOG_EVENT_FAILED) == LOG_EVENT_FAILED) {
 				HashMap<Integer, Integer> subRow = new HashMap<Integer, Integer>();
 				subRow.put(TITLE_FOR_LOG, R.string.log_event_save_failed);
 				subRow.put(ICO_RESOURCE_LOG, R.drawable.ic_warn);
 
 				row = new ArrayList<HashMap<Integer, Integer>>();
 				row.add(subRow);
-
-				logListData = new HashMap<Integer, ArrayList<HashMap<Integer, Integer>>>();
-				logListData.put(0, row);
-				break;
 			}
 
 			logListData.put(position, row);

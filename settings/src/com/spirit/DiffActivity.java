@@ -306,8 +306,10 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("SUBTRIM_AIL")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch1 : R.string.servo_ch1_inverted)).toString());
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(mix % 2 == 1 && mix < 71 ? R.string.servo_ch1 : R.string.servo_ch1_inverted)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -328,8 +330,9 @@ public class DiffActivity extends BaseActivity
         // #############################################################################################
         if(diffItem.getLabel().equals("SUBTRIM_PIT")){
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch3 : R.string.servo_ch3_inverted)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(mix  % 2 == 1 && mix < 71 ? R.string.servo_ch3 : R.string.servo_ch3_inverted)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -341,6 +344,18 @@ public class DiffActivity extends BaseActivity
             ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
 
             diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.servo_rudder)).toString());
+
+            from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
+            to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
+        }
+        // #############################################################################################
+
+        // #############################################################################################
+        if(diffItem.getLabel().equals("SUBTRIM_ELE_2")){
+            ServoSubtrimProgressExTranslate translate = new ServoSubtrimProgressExTranslate();
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
+
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servos_button_text),  textSeparator ,getResources().getString(R.string.subtrim),  textSeparator , getResources().getString(R.string.servo_ch0)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));

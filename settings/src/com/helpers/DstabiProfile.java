@@ -266,6 +266,7 @@ public class DstabiProfile {
 		profileMap.put("STABI_ACRO_DELAY",	    new ProfileItem(74, 0, 30, "N",	false));
 		profileMap.put("RPM_SENZOR_FILTER",	    new ProfileItem(75, 1, 8, "V",	true));
 		profileMap.put("GOVERNOR_RAMPUP", new ProfileItem(76, 10, 200, "T", true));
+		profileMap.put("SUBTRIM_ELE_2", 	new ProfileItem(77, 1, 255, "SR", true));
 		///////////////////////////////////////////////////////////////////
 
 	}
@@ -307,7 +308,6 @@ public class DstabiProfile {
 			major = major - 127;
 			return major != APLICATION_AERO_MAJOR_VERSION || minor1 != APLICATION_AERO_MINOR1_VERSION;
 		}
-
 	}
 
 	//BUILD_AERO

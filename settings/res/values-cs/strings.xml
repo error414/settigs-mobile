@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 01.02.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 22.02.2016-release</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -108,10 +108,11 @@
 
     <string name="rudder">Směrovka</string>
 
-    <string name="servo_rudder">Směrovka (CH4)</string>
+    <string name="servo_rudder">Vrtulka (CH4)</string>
 
     <string name="servo_ch1">Kolektiv (CH1)</string>
     <string name="servo_ch2">Výškovka (CH2)</string>
+    <string name="servo_ch0">Výškovka 2 (CH0)</string>
     <string name="servo_ch3">Křidélka (CH3)</string>
 
     <string name="servo_ch1_inverted">Křidélka (CH1)</string>
@@ -256,7 +257,7 @@
         <item>CCPM 140°</item>
         <item>CCPM 140° (obráceně)</item>
         <item>CCPM 90°</item>
-        <item>CCPM 90° (obráceně)</item>
+        <item>CCPM 90° (Velos)</item>
     </string-array>
 
     <string-array name="flight_style_values">
@@ -535,8 +536,8 @@
     <string name="st_08a5a1e5848935703bcc7d12cf34f318">Udává horní limit dráhy vrtulkového serva.\n\n<i>Rozsah: 32 - 255</i></string>
     <string name="st_cb447c2f52a1170da6ca24c5875ba250"><b>Udává rozsah dráhy serv cykliky - křidélka a výškovka</b>\n\n- Přidejte tento parametr, jak nejvíce je to možné.\n- Opatrně kontrolujte, zda nedochází k nárazu serv v žádné poloze!\n- Úhel nesmí být vyšší než dovoluje výrobce modelu!\n\n<i>Rozsah: 32 - 255</i></string>
     <string name="st_b81fcebbff4a29a95ef70e6621eb8f71">Udává rozsah kolektivu pro kladný a záporný směr.\n\n<i>Rozsah: 32 - 255</i></string>
-    <string name="st_3104a8b88d16fea1d7340e06f4f4628f">Udává spodní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejnižší možnou hodnotu serva plynu.\n- Funguje jako subtrim ve vysílači.\n\n<i>Rozsah: 700 - 1300</i></string>
-    <string name="st_e3f7aaeec7262407e622dfb1b79181ab">Udává horní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejvyšší možnou hodnotu serva plynu.\n\n<i>Rozsah: 1700 - 2300</i></string>
+    <string name="st_31a6a33c61f9155b9beddeff342b8379">Udává spodní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejnižší možnou hodnotu serva plynu.\n- Funguje jako subtrim ve vysílači.\n- Hodnoty pro ESC v návodu výrobce.\n\n<i>Rozsah: 700 - 1300</i></string>
+    <string name="st_ef1b8acb1fca908ff8b1540c36e7464a">Udává horní limit rozsahu plynu.\n\n- Lze použít pro srovnání rozsahu s interním rozsahem regulátoru otáček.\n- Pro spalovací helikoptéry nastavte limit na nejvyšší možnou hodnotu serva plynu.\n- Hodnoty pro ESC v návodu výrobce.\n\n<i>Rozsah: 1700 - 2300</i></string>
     <string name="st_5f6a222244b449ed513ffe39b532715e">Udává hodnotu, která bude přidána pro okamžitý a zároveň plynulý rozběh motoru.\n\n- Pokud dojde k cuknutí motoru při rozběhu, snižte hodnotu.\n- Pokud je před roztočením patrné zpoždění, zvyšte hodnotu.\n- Výchozí hodnota 50 by měla fungovat ve většině případů správně.\n\n<i>Rozsah: 10 - 200</i></string>
     <string name="st_cffee8820dbdc898c99db0f0350440f4">Udává velikost dělitele snímače otáček.\n\n- Pro helikoptéry s elektrickým pohonem je tato hodnota rovna počtu pólů motoru / 2 (Tzn. pro 10 pólový motor je hodnota 5).\n- Pro spalovací helikoptéry je hodnota rovna počtu magnetů.\n\n<i>Rozsah: 1 - 8</i></string>
     <string name="st_e4df1e47f3a179a3867c07d758619a1c">Udává směr plynu.\n\n- Většinou se využívá pouze pro spalovací helikoptéry.\n- Reverzujte pro správný směr pohybu serva plynu.</string>
@@ -549,6 +550,7 @@
     <string name="st_6b9d810c0062eba5db4c223ae3d94fab">Udává hodnotu subtrimu pro servo CH2.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_92b0fe0b01b51063f423a7cc8b02cc1e">Udává hodnotu subtrimu pro servo CH3.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_54ceaabd2d8cca5320e800e9851b6ff3">Udává hodnotu subtrimu pro servo CH4.\n\n<i>Rozsah: -127 - 127</i></string>
+    <string name="st_d15400ad6325309e7e29e081fb2c6f1a">Udává hodnotu subtrimu pro servo CH0.\n\n<i>Rozsah: -127 - 127</i></string>
     <string name="st_cc41c2874a69e4ae7c3f2385ec481160">Udává rychlost rozběhu.</string>
     <string name="st_e6a7a3cb5827ad43acc85eac1898573a">Udává frekvenci pro výstup plynu.</string>
     <string name="st_ed310c7971c2c68eb470582edc55e4bc">Udává míru korekce dráhy serva CH1 - záporný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
@@ -618,5 +620,6 @@
     <string name="set_failsafe">Nastavit Failsafe</string>
     <string name="failsafe_configured">Hodnoty pro režim Failsafe byly úspěšně uloženy.</string>
     <string name="tester_state">Stav testovaní</string>
+    <string name="log_event_save_failed">Data nejsou k dispozici</string>
     <string name="log_event_govsignal">Senzoru otáček vykazuje velký šum</string>
 </resources>
