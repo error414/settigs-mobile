@@ -231,12 +231,12 @@ public class DstabiProfile {
 		//profileMap.put("STABI_PITCH",new ProfileItem(46, 63, 191, "q")); // stabi, kompenzace pro vyskovku
 		profileMap.put("FB_MODE",		new ProfileItem(46, "0", "1", "i",	true)); // flybar mechanic
 
-		profileMap.put("TRAVEL_UAIL",	new ProfileItem(47, 63, 191, "QA",	true));
-		profileMap.put("TRAVEL_UELE",	new ProfileItem(48, 63, 191, "QE",	true));
-		profileMap.put("TRAVEL_UPIT",	new ProfileItem(49, 63, 191, "QP",	true));
-		profileMap.put("TRAVEL_DAIL",	new ProfileItem(50, 63, 191, "Qa",	true));
-		profileMap.put("TRAVEL_DELE",	new ProfileItem(51, 63, 191, "Qe",	true));
-		profileMap.put("TRAVEL_DPIT",	new ProfileItem(52, 63, 191, "Qp",	true));
+		profileMap.put("TRAVEL_DAIL",	new ProfileItem(47, 63, 191, "QA",	true));
+		profileMap.put("TRAVEL_DELE",	new ProfileItem(48, 63, 191, "QE",	true));
+		profileMap.put("TRAVEL_DPIT",	new ProfileItem(49, 63, 191, "QP",	true));
+		profileMap.put("TRAVEL_UAIL",	new ProfileItem(50, 63, 191, "Qa",	true));
+		profileMap.put("TRAVEL_UELE",	new ProfileItem(51, 63, 191, "Qe",	true));
+		profileMap.put("TRAVEL_UPIT",	new ProfileItem(52, 63, 191, "Qp",	true));
 		
 		//prirazeni kanalu
 		profileMap.put("CHANNELS_THT",	new ProfileItem(53, 0, 7, "Et",	true));
