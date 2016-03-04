@@ -171,8 +171,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
             tempPicker.setTranslate(i < 3 ? new ServoCorrectionUpProgressExTranslate() : new ServoCorrectionProgressExTranslate());
             tempPicker.setTitle(formItemsTitle[i]); // nastavime popisek
             tempPicker.setEnabled(false);
-            tempPicker.setInverted(i < 3);
-
+            tempPicker.setInverted(!(i < 3));
 		}
 	}
 

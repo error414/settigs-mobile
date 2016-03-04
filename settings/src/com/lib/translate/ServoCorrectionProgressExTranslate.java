@@ -15,19 +15,19 @@ public class ServoCorrectionProgressExTranslate implements ProgresExViewTranslat
     @Override
     public String translateCurrent(int current)
     {
-        return String.valueOf(current - 127);
+        return String.valueOf((current - 127) * -1);
     }
 
     @Override
     public String translateMin(int min)
     {
-        return String.valueOf(min - 127);
+        return String.valueOf((min - 127) * -1);
     }
 
     @Override
     public String translateMax(int max)
     {
-        return String.valueOf(max - 127);
+        return String.valueOf((max - 127) * -1);
     }
 
 }
