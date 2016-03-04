@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 02.03.2016-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 04.03.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -150,6 +150,7 @@
     <string name="rudder_common_gain">﻿Vrtulkový zisk (znásobení)</string>
     <string name="senzivity">Citlivost</string>
     <string name="reverse">Reverz</string>
+    <string name="reversed">Obrácený</string>
     <string name="ser_reverse">Reverz serv</string>
     <string name="rotation_speed">Rychlost rotace</string>
     <string name="rates">Rychlost</string>
@@ -561,6 +562,7 @@
     <string name="st_65664b6c1cbace3d687615342a2374a1">Udává míru korekce dráhy serva CH3 - kladný náběh.\n\n<i>Rozsah: -64 - 64</i></string>
     <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>Filtr senzoru otáček</b>\n\n- Snižuje šum senzoru otáček na přijatelnou úroveň.\n- V případě nepřesného čtení otáček zvyšte hodnotu.\n- V případě, že je čtení otáček opožděné, snižte hodnotu.\n- Nejčastěji je 6.\n\n<i>Rozsah: 1 - 8</i></string>
     <string name="st_698dbfa44b9af463920bb489c14c81a2">Určuje, za jak dlouho se model začne otáčet z invertovaného letu.\n\n<i>Rozsah: 0 - 3,0 sekund</i></string>
+    <string name="st_4ca3fc2caab9088356224c1a4e82bc21">Zatrhněte, pokud je rotorová hlava řízena odtokovou hranou nebo obsahuje mixovací páky.\n\n- Ve většině případů je volba neaktivní (není zatrhnutá).</string>
     <!--  END AUTO GENERATE STUB -->
 
 
@@ -622,4 +624,5 @@
     <string name="tester_state">Stav testovaní</string>
     <string name="log_event_save_failed">Data nejsou k dispozici</string>
     <string name="log_event_govsignal">Senzoru otáček vykazuje velký šum</string>
+    <string name="col_direction">Směr kolektivu</string>
 </resources>

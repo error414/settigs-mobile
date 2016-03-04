@@ -554,7 +554,7 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if (diffItem.getLabel().equals("ROTOR_ROTATION")){
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator, getResources().getString(R.string.rotor_rotation), textSeparator, getResources().getString(R.string.rotor_rotation_title)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator ,  getString(R.string.advanced_expert), textSeparator, getResources().getString(R.string.rotor_rotation), textSeparator, getResources().getString(R.string.rotor_rotation_title)).toString());
 
             from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
             to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
@@ -920,6 +920,16 @@ public class DiffActivity extends BaseActivity
         }
         // #############################################################################################
 
+        // #############################################################################################
+        if (diffItem.getLabel().equals("COLPITCH_REV")){
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.advanced_button_text), textSeparator, getResources().getString(R.string.col_direction), textSeparator, getResources().getString(R.string.reversed)).toString());
+
+            from = diffItem.getOriginalValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+            to   = diffItem.getChangedValue().getValueForCheckBox() ? getResources().getString(R.string.yes) : getResources().getString(R.string.no);
+        }
+        // #############################################################################################
+
+
         ////////////////////////////////////////////
         ////////////// AERO ////////////////////////
         ////////////////////////////////////////////
@@ -1117,6 +1127,8 @@ public class DiffActivity extends BaseActivity
             to   = values[diffItem.getChangedValue().getValueForSpinner(values.length)];
         }
         // #############################################################################################
+
+
 
 
         ////////////////////////////////////////////

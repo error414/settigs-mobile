@@ -11,6 +11,7 @@ import com.spirit.aero.limit.LimitEleRangeActivity;
 import com.spirit.aero.limit.LimitRudRangeActivity;
 import com.spirit.heli.GeneralActivity;
 import com.spirit.heli.advanced.AdvancedActivity;
+import com.spirit.heli.advanced.ColDirectionActivity;
 import com.spirit.heli.advanced.CyclicFFActivity;
 import com.spirit.heli.advanced.EFilterActivity;
 import com.spirit.heli.advanced.GeometryAngleActivity;
@@ -120,6 +121,7 @@ public class Menu {
     public static Integer MENU_CYCLICFF             = 20;
     public static Integer MENU_SIGNALPROCESSING     = 21;
     public static Integer MENU_PITCHPUMP            = 41;
+    public static Integer MENU_COL_REV              = 63;
 
     public static Integer MENU_SENZIVITY            = 22;
     //public static Integer MENU_REVERSE              = 23;
@@ -265,11 +267,11 @@ public class Menu {
 
         //ADVANCED ACTIVITY
 
+        //cyclic ff
+        menuList.put(MENU_COL_REV,   new MenuItem(R.drawable.na,     R.string.col_direction, ColDirectionActivity.class));
+
         //geometry 6deg
         menuList.put(MENU_6DEG,   new MenuItem(R.drawable.i48,     R.string.geom_6deg, GeometryAngleActivity.class));
-
-        //piruette opt
-        menuList.put(MENU_PIROOPT, new MenuItem(R.drawable.i26, R.string.rotor_rotation, RotorRotationActivity.class));
 
         //rudder delay
         menuList.put(MENU_RUDDERDELAY,   new MenuItem(R.drawable.na,     R.string.rudder_delay, RudderDelayActivity.class));
@@ -289,20 +291,23 @@ public class Menu {
         //cyclic ff
         menuList.put(MENU_CYCLICFF,   new MenuItem(R.drawable.na,     R.string.cyclic_ff, CyclicFFActivity.class));
 
-        //cyclic ff
+        //expert
         menuList.put(MENU_EXPERT,   new MenuItem(R.drawable.na,     R.string.advanced_expert, ExpertActivity.class));
 
         //add to groups
         menuGroups.put(
              MENU_INDEX_ADVANCED,
                  new Integer[]{
-                         MENU_PIROOPT, MENU_6DEG, MENU_EFILTER, MENU_CYCLICFF,
+                         MENU_COL_REV,  MENU_6DEG, MENU_EFILTER, MENU_CYCLICFF,
                          MENU_RUDDERDELAY, MENU_RUDDERDYNAMIC, MENU_RUDDERREVOMIX,
                          MENU_EXPERT, MENU_PIROUETTECONSISTENCY,
                  }
         );
 
         //ADVANCED EXPERT ACTIVITY
+
+        //piruette opt
+        menuList.put(MENU_PIROOPT, new MenuItem(R.drawable.i26, R.string.rotor_rotation, RotorRotationActivity.class));
 
         //cyclic phase
         menuList.put(MENU_CYCLICPHASE,   new MenuItem(R.drawable.i56,     R.string.cyclic_phase, CyclicPhaseActivity.class));
@@ -320,6 +325,7 @@ public class Menu {
         menuList.put(MENU_DEADBAND,   new MenuItem(R.drawable.i22,     R.string.stick_deadband, StickDeadBandActivity.class));
 
 
+
         //rpm senzor filetr
         menuList.put(MENU_RPM_SENZOR_FILTER,   new MenuItem(R.drawable.na,     R.string.rpm_senzor_filter, RpmSenzorFilterActivity.class));
 
@@ -327,7 +333,7 @@ public class Menu {
         menuGroups.put(
             MENU_INDEX_ADVANCED_EXPERT,
                 new Integer[]{
-                        MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING, MENU_RPM_SENZOR_FILTER,
+                        MENU_PIROOPT, MENU_DEADBAND, MENU_PITCHUP, MENU_CYCLICPHASE, MENU_PITCHPUMP, MENU_SIGNALPROCESSING, MENU_RPM_SENZOR_FILTER,
                 }
         );
 

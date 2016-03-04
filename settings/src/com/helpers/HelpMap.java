@@ -105,6 +105,8 @@ public class HelpMap {
         result.put(R.id.rpm_senzor_filter, R.string.st_a257dd5c98c91e67d5c02cfc2f439202);
         result.put(R.id.stabi_acro_delay, R.string.st_698dbfa44b9af463920bb489c14c81a2);
 
+        result.put(R.id.col_direction, R.string.st_4ca3fc2caab9088356224c1a4e82bc21);
+
 
         return Collections.unmodifiableMap(result);
     }

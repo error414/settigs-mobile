@@ -267,6 +267,7 @@ public class DstabiProfile {
 		profileMap.put("RPM_SENZOR_FILTER",	    new ProfileItem(75, 1, 8, "V",	true));
 		profileMap.put("GOVERNOR_RAMPUP", new ProfileItem(76, 10, 200, "T", true));
 		profileMap.put("SUBTRIM_ELE_2", 	new ProfileItem(77, 1, 255, "SR", true));
+		profileMap.put("COLPITCH_REV", 	new ProfileItem(78, 0, 1, "U", true));
 		///////////////////////////////////////////////////////////////////
 
 	}

@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 02.03.2016-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 04.03.2016-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -141,6 +141,7 @@
     <string name="rudder_common_gain">Rudder Common Gain</string>
     <string name="senzivity">Sensitivity</string>
     <string name="reverse">Reverse</string>
+    <string name="reversed">Reversed</string>
     <string name="ser_reverse">Servo Reverse</string>
     <string name="rotation_speed">Rotation speed</string>
     <string name="rates">Rates</string>
@@ -531,6 +532,7 @@
     <string name="st_65664b6c1cbace3d687615342a2374a1">Specifies travel correction for the CH3 servo - positive angle.\n\n<i>Range: -64 - 64</i></string>
     <string name="st_a257dd5c98c91e67d5c02cfc2f439202"><b>RPM Sensor Filter</b>\n\n- Reduces excess noise from RPM sensor.\n- In case of unstable RPM readout increase the value.\n- In case of delayed RPM response decrease the value.\n- Usually configured to 6.\n\n<i>Range: 1 - 8</i></string>
     <string name="st_698dbfa44b9af463920bb489c14c81a2">Determine when the helicopter will recover from the inverted flight.\n\n<i>Range: 0 - 3.0 seconds</i></string>
+    <string name="st_4ca3fc2caab9088356224c1a4e82bc21">Tick the option in case of a Trailing Edge rotor heads or heads with a mixing arms.\n\n- In the most cases the option is unticked (not reversed).</string>
     <!--  END AUTO GENERATE STUB -->
 
     <string name="downloading">Downloading</string>
@@ -600,4 +602,5 @@
     <string name="tester_state">Tester state</string>
     <string name="log_event_save_failed">Data are not available</string>
     <string name="log_event_govsignal">RPM Sensor data are too noisy</string>
+    <string name="col_direction">Collective Direction</string>
 </resources>
