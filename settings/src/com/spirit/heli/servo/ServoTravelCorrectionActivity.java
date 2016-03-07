@@ -257,7 +257,8 @@ public class ServoTravelCorrectionActivity extends BaseActivity
             tempPicker.setEnabled(false);
 		}
 
-		if(profileCreator.getProfileItemByName("MIX").getValueInteger()  % 2 == 0)
+		int mix = profileCreator.getProfileItemByName("MIX").getValueInteger();
+		if(!(mix % 2 == 1 && mix < 71))
 		{
 			((TextView)findViewById(R.id.header1)).setText(R.string.servo_ch1_inverted);
 			((TextView)findViewById(R.id.header3)).setText(R.string.servo_ch3_inverted);

@@ -601,10 +601,10 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("TRAVEL_UAIL")){
-
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
             ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch1 : R.string.servo_ch1_inverted), textSeparator, getResources().getString(R.string.max)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 && mix < 71 ? R.string.servo_ch1 : R.string.servo_ch1_inverted), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -627,8 +627,8 @@ public class DiffActivity extends BaseActivity
         if(diffItem.getLabel().equals("TRAVEL_UPIT")){
 
             ServoCorrectionUpProgressExTranslate translate = new ServoCorrectionUpProgressExTranslate();
-
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch3 : R.string.servo_ch3_inverted), textSeparator, getResources().getString(R.string.max)).toString());
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(!(mix % 2 == 1 && mix < 71) ? R.string.servo_ch3 : R.string.servo_ch3_inverted), textSeparator, getResources().getString(R.string.max)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -637,10 +637,10 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("TRAVEL_DAIL")){
-
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch1 : R.string.servo_ch1_inverted), textSeparator, getResources().getString(R.string.min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(!(mix % 2 == 1 && mix < 71) ? R.string.servo_ch1 : R.string.servo_ch1_inverted), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
@@ -661,10 +661,10 @@ public class DiffActivity extends BaseActivity
 
         // #############################################################################################
         if(diffItem.getLabel().equals("TRAVEL_DPIT")){
-
+            int mix = actualProfile.getProfileItemByName("MIX").getValueInteger();
             ServoCorrectionProgressExTranslate translate = new ServoCorrectionProgressExTranslate();
 
-            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(actualProfile.getProfileItemByName("MIX").getValueInteger()  % 2 == 1 ? R.string.servo_ch3 : R.string.servo_ch3_inverted), textSeparator, getResources().getString(R.string.min)).toString());
+            diffItem.setLabel(TextUtils.concat(getResources().getString(R.string.servo_travel_correction), textSeparator , getResources().getString(!(mix % 2 == 1 && mix < 71) ? R.string.servo_ch3 : R.string.servo_ch3_inverted), textSeparator, getResources().getString(R.string.min)).toString());
 
             from = String.valueOf(translate.translateCurrent(diffItem.getOriginalValue().getValueInteger()));
             to   = String.valueOf(translate.translateCurrent(diffItem.getChangedValue().getValueInteger()));
