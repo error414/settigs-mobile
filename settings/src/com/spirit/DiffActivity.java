@@ -35,8 +35,8 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DiffListAdapter;
 import com.helpers.DstabiProfile;
 import com.helpers.Globals;
-import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 import com.lib.translate.AutorotationBailOutProgressExTranslate;
 import com.lib.translate.GovernorRamPupProgressExTranslate;
@@ -117,7 +117,7 @@ public class DiffActivity extends BaseActivity
     public void onResume()
     {
         super.onResume();
-        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+        if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
             ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
             //dame pozadavek na ziskani profilu z jednotky
             initConfiguration();
@@ -1150,7 +1150,7 @@ public class DiffActivity extends BaseActivity
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
-				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+				if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 					sendInError();
 					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 				} else {

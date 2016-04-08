@@ -35,8 +35,8 @@ import android.widget.Toast;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.helpers.LogListAdapter;
-import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
+import com.lib.CommandService;
 import com.lib.LogPdf;
 import com.spirit.BaseActivity;
 import com.spirit.PrefsActivity;
@@ -306,7 +306,7 @@ public class LogActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
 			finish();

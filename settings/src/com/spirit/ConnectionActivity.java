@@ -52,8 +52,8 @@ import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
 import com.helpers.SerialNumber;
-import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.FileNameCreator;
@@ -258,6 +258,8 @@ public class ConnectionActivity extends BaseActivity
             i++;
         }
 
+        BTListSpinnerAdapter.add("WIFI [192.168.4.1]");
+
         btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
         //ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
         btDeviceSpinner.setSelection(Math.min(btDeviceSpinner.getCount() - 1, position));
@@ -411,12 +413,18 @@ public class ConnectionActivity extends BaseActivity
 	 */
 	public void manageConnectionToBTDevice(View v)
 	{
+        if (mBluetoothAdapter == null) {
+			Toast.makeText(getApplicationContext(), R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
+			finish();
+			return;
+		}
+
         if(btDeviceSpinner.getCount() == 0){
             Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
             return;
         }
 
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_LISTEN || stabiProvider.getState() == BluetoothCommandService.STATE_NONE) {
+		if (stabiProvider.getState() == CommandService.STATE_LISTEN || stabiProvider.getState() == CommandService.STATE_NONE) {
 			disconect = false;
             //pripripojovani vymazeme profil pro diff
             ChangeInProfile.getInstance().setOriginalProfile(null);
@@ -432,12 +440,10 @@ public class ConnectionActivity extends BaseActivity
 			// Commit the edits!
 			editor.commit();
 
-
-			BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAdress);
-			stabiProvider.connect(device);
-		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTING) {
+			stabiProvider.connect(deviceAdress);
+		} else if (stabiProvider.getState() == CommandService.STATE_CONNECTING) {
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
-		} else if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		} else if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
             if(profileCreator.isValid() && profileCreator.getProfileItemByName("CHANNELS_BANK").getValueInteger() == 7) { // 7 = neprirazeno
                 if(Globals.getInstance().isChanged()) {
                     Toast.makeText(this, R.string.unsaved_changes_before_disconnect, Toast.LENGTH_LONG).show();
@@ -456,7 +462,7 @@ public class ConnectionActivity extends BaseActivity
 		initGuiByProfileString(null);
 
 		switch (stabiProvider.getState()) {
-			case BluetoothCommandService.STATE_CONNECTING:
+			case CommandService.STATE_CONNECTING:
 				textStatusView.setText(R.string.connecting);
 				textStatusView.setTextColor(Color.MAGENTA);
 				curentDeviceText.setText(null);
@@ -465,14 +471,13 @@ public class ConnectionActivity extends BaseActivity
 				sendInSuccessDialog();
                 setBTConnectionProgress();
 				break;
-			case BluetoothCommandService.STATE_CONNECTED:
+			case CommandService.STATE_CONNECTED:
 				textStatusView.setText(R.string.connected);
 				textStatusView.setTextColor(Color.parseColor("#0D850B"));
                 setSpiritConnectionProgress();
 				connectButton.setText(R.string.disconnect);
 
-				BluetoothDevice device = stabiProvider.getBluetoothDevice();
-				curentDeviceText.setText(device.getName() + " [" + device.getAddress() + "]");
+				curentDeviceText.setText(stabiProvider.getDeviceName() + " [" + stabiProvider.getDeviceAddress() + "]");
 
 				showDialogRead();
 				stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
@@ -509,7 +514,7 @@ public class ConnectionActivity extends BaseActivity
 	}
 
     private void checkConnection() {
-        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+        if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
             stabiProvider.getSerial(CHECK_CONNECTION_CALL_BACK_CODE);
         }
     }
@@ -605,7 +610,7 @@ public class ConnectionActivity extends BaseActivity
 
 		//kopirovani bank bank
 		if (item.getGroupId() == GROUP_BANKS && item.getItemId() == COPY_BANK) {
-			if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			if(stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 				copyBank();
 			}else{
 				Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
@@ -615,7 +620,7 @@ public class ConnectionActivity extends BaseActivity
 		//nahrani / ulozeni profilu
 		if (item.getGroupId() == GROUP_PROFILE) {
 			// musime byt pripojeni k zarizeni
-			if (stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+			if (stabiProvider == null || stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 				Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
 				return false;
 			}
@@ -668,7 +673,7 @@ public class ConnectionActivity extends BaseActivity
         //factory reset
         if (item.getGroupId() == GROUP_GENERAL && item.getItemId() == FACTORY_RESET) {
 
-            if (stabiProvider == null || stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+            if (stabiProvider == null || stabiProvider.getState() != CommandService.STATE_CONNECTED) {
                 Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
                 return false;
             }
@@ -710,7 +715,7 @@ public class ConnectionActivity extends BaseActivity
                             Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                        if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
                             File fTest = FileNameCreator.createFilePathNoBank(filePath);
                             if(fTest.exists()){
                                 new AlertDialog.Builder(this)
@@ -746,7 +751,7 @@ public class ConnectionActivity extends BaseActivity
                             Toast.makeText(getApplicationContext(), R.string.save_profile_changes, Toast.LENGTH_SHORT).show();
                             return;
                         }
-                        if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                        if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
                             File[] filesPath = FileNameCreator.createFilePathActiveBank(filePath);
 
                             String filesExistsS = "";
@@ -825,14 +830,13 @@ public class ConnectionActivity extends BaseActivity
                 break;
             case DstabiProvider.MESSAGE_STATE_CHANGE:
                 //jsme pripojeni overime spojeni
-                if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+                if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
                     textStatusView.setText(R.string.connected);
                     textStatusView.setTextColor(Color.parseColor("#0D850B"));
                     setSpiritConnectionProgress();
                     connectButton.setText(R.string.disconnect);
 
-                    BluetoothDevice device = stabiProvider.getBluetoothDevice();
-                    curentDeviceText.setText(device.getName() + " [" + device.getAddress() + "]");
+                    curentDeviceText.setText(stabiProvider.getDeviceName() + " [" + stabiProvider.getDeviceAddress() + "]");
 
                     showDialogRead();
 
@@ -998,7 +1002,7 @@ public class ConnectionActivity extends BaseActivity
      */
     private void insertProfileToUnit(byte[] profile) {
 		// musime byt pripojeni
-		if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 			Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
 			return;
 		}
@@ -1084,7 +1088,7 @@ public class ConnectionActivity extends BaseActivity
 	private boolean saveProfileTofile(byte[] profile, int bankNumber)
 	{
 		// musime byt pripojeni
-		if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 			Toast.makeText(getApplicationContext(), R.string.connection_error, Toast.LENGTH_SHORT).show();
 			return false;
 		}

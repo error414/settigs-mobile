@@ -49,7 +49,7 @@ import com.androidplot.xy.SimpleXYSeries;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
 import com.google.analytics.tracking.android.EasyTracker;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.lib.FFT;
 import com.lib.pngj.InsertChunk;
 import com.spirit.BaseActivity;
@@ -317,7 +317,7 @@ public class GraphActivity extends BaseActivity
         ((TextView) findViewById(R.id.title)).setText(baseTitle);
         ((TextView) findViewById(R.id.vibration_level_text)).setText(R.string.vibration_level);
 
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 			showConfirmDialogWithCancel(R.string.graph_warn,
 				new OnClickListener(){
 					@Override
@@ -379,6 +379,8 @@ public class GraphActivity extends BaseActivity
 				if (msg.getData().containsKey("data")) {
 					int len = msg.getData().getByteArray("data").length;
 					byte[] data = msg.getData().getByteArray("data");
+
+					Log.d(TAG, "INcomming data length: " + String.valueOf(data.length));
 
 					if (dataBuffer == null){
 						dataBuffer = new byte[DATABUFFER_SIZE + 72];    // 3byte*1024

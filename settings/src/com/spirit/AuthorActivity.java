@@ -26,7 +26,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.analytics.tracking.android.EasyTracker;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 
 public class AuthorActivity extends BaseActivity
@@ -52,7 +52,7 @@ public class AuthorActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
@@ -64,7 +64,7 @@ public class AuthorActivity extends BaseActivity
 	{
 		switch (msg.what) {
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
-				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+				if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 					sendInError(false);
 					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 				} else {

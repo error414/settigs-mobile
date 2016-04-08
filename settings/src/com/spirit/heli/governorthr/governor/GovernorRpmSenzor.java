@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 import com.spirit.BaseActivity;
 import com.spirit.R;
@@ -98,7 +98,7 @@ public class GovernorRpmSenzor extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
             ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
         }else{
             finish();

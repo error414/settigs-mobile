@@ -32,7 +32,7 @@ import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
 import com.helpers.Globals;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.lib.translate.ServoSubtrimProgressExTranslate;
 import com.spirit.BaseActivity;
 import com.spirit.R;
@@ -100,7 +100,7 @@ public class ServosSubtrimActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 
 			if (!getAppBasicMode()) {

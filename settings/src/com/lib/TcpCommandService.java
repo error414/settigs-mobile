@@ -20,7 +20,6 @@ package com.lib;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -29,67 +28,44 @@ import android.util.Log;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.UUID;
 
-public class BluetoothCommandService extends CommandService{
+public class TcpCommandService {
 	// Debugging
     private static final String TAG = "BluetoothCommandService";
     private static final boolean D = true;
 
     // Unique UUID for this application
     private static final UUID MY_UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
-    
+
     private BluetoothDevice mDevice;
-    
+
     // Member fields
     private final BluetoothAdapter mAdapter;
+    private final Handler mHandler;
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
-
+    private int mState;
 //    private BluetoothDevice mSavedDevice;
 //    private int mConnectionLostCount;
 
-    public String getName(){
-        String deviceName = mDevice.getName().toString();
-
-        //method getAliasName only for api 14 and more
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-            try {
-                Method method = null;
-                method = mDevice.getClass().getMethod("getAliasName");
-                if (method != null) {
-                    deviceName = (String) method.invoke(mDevice);
-                }
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-
-        }
-        return deviceName;
-    }
-
-    /**
-     *
-     */
-    public String getAddress(){
-        return mDevice.getAddress().toString();
-    }
+    // Constants that indicate the current connection state
+    public static final int STATE_NONE = 0;       // we're doing nothing
+    public static final int STATE_LISTEN = 1;     // now listening for incoming connections
+    public static final int STATE_CONNECTING = 2; // now initiating an outgoing connection
+    public static final int STATE_CONNECTED = 3;  // now connected to a remote device
 
     /**
      * Constructor. Prepares a new BluetoothChat session.
      * @param handler  A Handler to send messages back to the UI Activity
      */
-    public BluetoothCommandService(Handler handler) {
-        super(handler);
+    public TcpCommandService(Handler handler) {
     	mAdapter = BluetoothAdapter.getDefaultAdapter();
+    	mState = STATE_NONE;
+    	//mConnectionLostCount = 0;
+    	mHandler = handler;
     }
-
+    
     /**
      * Set the current state of the chat connection
      * @param state  An integer defining the current connection state
@@ -102,6 +78,12 @@ public class BluetoothCommandService extends CommandService{
         mHandler.obtainMessage(DstabiProvider.MESSAGE_STATE_CHANGE, state, -1).sendToTarget();
     }
 
+    /**
+     * Return the current connection state. */
+    public synchronized int getState() {
+        return mState;
+    }
+    
     /**
      * Start the chat service. Specifically start AcceptThread to begin a
      * session in listening (server) mode. Called by the Activity onResume() */
@@ -306,7 +288,7 @@ public class BluetoothCommandService extends CommandService{
                 try {
                     mmSocket.connect();
                     // Reset the ConnectThread because we're done
-                    synchronized (BluetoothCommandService.this) {
+                    synchronized (TcpCommandService.this) {
                         mConnectThread = null;
                     }
 

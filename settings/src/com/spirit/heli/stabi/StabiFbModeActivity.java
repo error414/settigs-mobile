@@ -31,7 +31,7 @@ import android.widget.TextView;
 import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.spirit.BaseActivity;
 import com.spirit.R;
 
@@ -96,7 +96,7 @@ public class StabiFbModeActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
             ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
             initDefaultValue();
         }else{

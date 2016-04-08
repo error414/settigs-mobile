@@ -35,7 +35,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.DstabiProfile;
 import com.helpers.Globals;
 import com.helpers.MenuListAdapter;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 import com.lib.menu.Menu;
 
@@ -86,7 +86,7 @@ public class SettingsActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 		} else {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
@@ -103,7 +103,7 @@ public class SettingsActivity extends BaseActivity
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				if (position != 0 && position != 1) { // jen u connection coz musi byt prvni nekontrolujeme jestli je zarizeni pripojene a u favourites
-					if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+					if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 						Toast.makeText(getApplicationContext(), R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
 						return;
 					}
@@ -154,7 +154,7 @@ public class SettingsActivity extends BaseActivity
 				sendInSuccessInfo();
 				break;
 			case DstabiProvider.MESSAGE_STATE_CHANGE:
-				if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+				if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
 					sendInError(false);
 					((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.red);
 				} else {

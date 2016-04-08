@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -69,8 +70,8 @@ import com.helpers.HelpMap;
 import com.helpers.SlideMenuListAdapter;
 import com.helpers.SlideOptionMenuListAdapter;
 import com.helpers.StatusNotificationBuilder;
-import com.lib.BluetoothCommandService;
 import com.lib.ChangeInProfile;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 
 import net.simonvt.menudrawer.MenuDrawer;
@@ -92,9 +93,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	final protected String PREF_BT_ADRESS       = "pref_bt_adress";
 	final protected String PREF_FAVOURITES      = "pref_favourites";
     final protected String PREF_FAVOURITES_AERO = "pref_favourites_aero";
-
-	// Intent request codes
-	private static final int REQUEST_ENABLE_BT = 22;
 
 	/**
 	 * ulozeni profilu do jednotky
@@ -211,17 +209,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 	protected void onStart()
 	{
 		super.onStart();
-
-		if (mBluetoothAdapter == null) {
-			Toast.makeText(getApplicationContext(), R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-			finish();
-			return;
-		}
-
-		if (!mBluetoothAdapter.isEnabled()) {
-			Intent enableIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
-			startActivityForResult(enableIntent, REQUEST_ENABLE_BT);
-		}
 	}
 
 	@Override
@@ -272,7 +259,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 		((ImageView) findViewById(R.id.image_title_saved)).setImageResource(Globals.getInstance().isChanged() ? R.drawable.not_equal : R.drawable.equals);
 
 		// check BANKS
-		if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL && isEnableChangeBank()){
+		if(stabiProvider.getState() == CommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL && isEnableChangeBank()){
 			((TextView) findViewById(R.id.title_banks)).setText(TextUtils.concat(getString(R.string.bank_short_code), String.valueOf(Globals.getInstance().getActiveBank())));
             if(slideMenuListAdapter != null){
                 slideMenuListAdapter.setActivePosition(Globals.getInstance().getActiveBank());
@@ -543,7 +530,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id)
             {
-                if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ) {
+                if(stabiProvider.getState() == CommandService.STATE_CONNECTED && Globals.getInstance().getActiveBank() != Globals.BANK_NULL ) {
                     if (Globals.getInstance().isChanged()) {
                         AlertDialog.Builder alert = new AlertDialog.Builder(BaseActivity.this);
 
@@ -599,6 +586,27 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
         });
 
         leftMenuOptionMenu.setAdapter(slideOptionMenuListAdapter);
+    }
+
+    /**
+     *
+     */
+    @Override
+    public void openOptionsMenu() {
+
+        Configuration config = getResources().getConfiguration();
+
+        if((config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK)
+                > Configuration.SCREENLAYOUT_SIZE_LARGE) {
+
+            int originalScreenLayout = config.screenLayout;
+            config.screenLayout = Configuration.SCREENLAYOUT_SIZE_LARGE;
+            super.openOptionsMenu();
+            config.screenLayout = originalScreenLayout;
+
+        } else {
+            super.openOptionsMenu();
+        }
     }
 
     /**
@@ -990,7 +998,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
         //otevreni diffu profilu
         if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_DIFF) {
-            if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+            if(stabiProvider.getState() == CommandService.STATE_CONNECTED) {
                 Intent i = new Intent(this, DiffActivity.class);
                 startActivity(i);
             }else{
@@ -1000,7 +1008,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
         //otevreni rozdilu bank
         if (item.getGroupId() == GROUP_BANKS && item.getItemId() == OPEN_BANK_DIFF) {
-            if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+            if(stabiProvider.getState() == CommandService.STATE_CONNECTED) {
                 showBankDiff();
             }else{
                 Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
@@ -1009,7 +1017,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
         //ulozit do jednotky
 		if (item.getGroupId() == GROUP_SAVE && item.getItemId() == SAVE_PROFILE_MENU) {
-			if(stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+			if(stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 				saveProfileToUnit(stabiProvider, PROFILE_SAVE_CALL_BACK_CODE);
 			}else{
 				Toast.makeText(this, R.string.must_first_connect_to_device, Toast.LENGTH_SHORT).show();
@@ -1060,26 +1068,6 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
             }
         });
     }
-
-    /**
-	 * zachytavani vysledku z aktivit
-	 */
-	public synchronized void onActivityResult(final int requestCode, int resultCode, final Intent data)
-	{
-		switch (requestCode) {
-			case REQUEST_ENABLE_BT:
-				// When the request to enable Bluetooth returns
-				if (resultCode == Activity.RESULT_OK) {
-					// Bluetooth is now enabled, so set up a chat session
-					// setupCommand();
-				} else {
-					// User did not enable Bluetooth or an error occured
-					Toast.makeText(this, R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-					finish();
-				}
-				break;
-		}
-	}
 
 	/**
 	 *
@@ -1170,7 +1158,7 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
 
                 break;
             case DstabiProvider.MESSAGE_STATE_CHANGE:
-                if (stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED) {
+                if (stabiProvider.getState() != CommandService.STATE_CONNECTED) {
                     sendInError();
                 } else {
                     ((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);

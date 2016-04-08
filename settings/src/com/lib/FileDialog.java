@@ -525,7 +525,7 @@ public class FileDialog extends ListActivity{
 	    public boolean handleMessage(Message msg) {
         	switch(msg.what){
     			case DstabiProvider.MESSAGE_STATE_CHANGE:
-    				if(stabiProvider.getState() != BluetoothCommandService.STATE_CONNECTED){
+    				if(stabiProvider.getState() != CommandService.STATE_CONNECTED){
 						finish();
 					}else{
 						((ImageView)findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);

@@ -33,7 +33,7 @@ import com.google.analytics.tracking.android.EasyTracker;
 import com.helpers.ByteOperation;
 import com.helpers.DstabiProfile;
 import com.helpers.DstabiProfile.ProfileItem;
-import com.lib.BluetoothCommandService;
+import com.lib.CommandService;
 import com.lib.DstabiProvider;
 import com.lib.translate.ServoCorrectionProgressExTranslate;
 import com.lib.translate.ServoCorrectionUpProgressExTranslate;
@@ -133,7 +133,7 @@ public class ServoTravelCorrectionActivity extends BaseActivity
 	public void onResume()
 	{
 		super.onResume();
-		if (stabiProvider.getState() == BluetoothCommandService.STATE_CONNECTED) {
+		if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
 			((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
 			if (!getAppBasicMode()) {
 				stabiProvider.sendDataNoWaitForResponce("O", ByteOperation.intToByteArray(0x04)); //povoleni ladeni cyclic ringu| tady je to protoze to pouziva cysclick rink jako ladeni
