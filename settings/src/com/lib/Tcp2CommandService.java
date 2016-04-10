@@ -36,8 +36,7 @@ public class Tcp2CommandService extends CommandService {
     private static final String TAG = "Tcp2CommandService";
     private static final boolean D = true;
 
-    public static final String SERVER_IP = "192.168.4.1"; //your computer IP address
-    public static final int SERVER_PORT = 23;
+    public static final String NAME = "WIFI";
 
     private ConnectThread mConnectThread;
     private ConnectedThread mConnectedThread;
@@ -45,15 +44,21 @@ public class Tcp2CommandService extends CommandService {
 //    private BluetoothDevice mSavedDevice;
 //    private int mConnectionLostCount;
 
+    private String _ip = "";
+    private String _port = "";
+
     public String getName() {
-        return "WIFI";
+        return NAME;
     }
 
     /**
      *
      */
     public String getAddress() {
-        return SERVER_IP;
+        if(_port.length() > 0){
+            return _ip + ":" + _port;
+        }
+        return "";
     }
 
     /**
@@ -103,7 +108,10 @@ public class Tcp2CommandService extends CommandService {
     /**
      * Start the ConnectThread to initiate a connection to a remote device.
      */
-    public synchronized void connect() {
+    public synchronized void connect(String ip, String port) {
+        _ip = ip;
+        _port = port;
+
         // Cancel any thread attempting to make a connection
         if (mState == STATE_CONNECTING) {
             if (mConnectThread != null) {
@@ -221,7 +229,7 @@ public class Tcp2CommandService extends CommandService {
      * Indicate that the connection attempt failed and notify the UI Activity.
      */
     private void connectionFailed() {
-        setState(STATE_LISTEN);
+        setState(STATE_NONE);
 
         // Send a failure message back to the Activity
         ////  Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_TOAST);
@@ -268,7 +276,7 @@ public class Tcp2CommandService extends CommandService {
 
         public ConnectThread() {
             try {
-                serverAddr = InetAddress.getByName(SERVER_IP);
+                serverAddr = InetAddress.getByName(_ip);
             } catch (IOException e) {
                 Log.e(TAG, "create() failed", e);
             }
@@ -279,7 +287,7 @@ public class Tcp2CommandService extends CommandService {
 
             try {
                 mmSocket = new Socket();
-                mmSocket.connect(new InetSocketAddress(serverAddr, SERVER_PORT), 1000);
+                mmSocket.connect(new InetSocketAddress(serverAddr, Integer.parseInt(_port)), 1000);
                 Log.i(TAG, "BEGIN mConnectThread2");
                 // Reset the ConnectThread because we're done
                 synchronized (Tcp2CommandService.this) {

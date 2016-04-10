@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 07.03.2016-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com\n \n build: 10.04.2016-devel</string>
     <string name="author">Author</string>
     <string name="credits">Credits</string>
     <string name="ok">Ok</string>
@@ -23,7 +23,6 @@
     <string name="profile_load">Settings have been loaded</string>
     <string name="file_manager">File manager</string>
     <string name="file_not_found">File not found</string>
-    <string name="bt_not_enabled_leaving">Bluetooth not enabled leaving</string>
     <string name="choose_device">Choose device</string>
     <string name="connect">Connect</string>
     <string name="disconnect">Disconnect</string>
@@ -38,7 +37,7 @@
     <string name="first_paired_device">Pair your BT device first, please</string>
     <string name="connection_error">Connection error</string>
     <string name="copy_bank_error">Bank copying failed</string>
-    <string name="BT_connection_progress">Bluetooth connection in progress</string>
+    <string name="BT_connection_progress">Connection in progress</string>
     <string name="axis_X">X - Elevator</string>
     <string name="axis_Y">Y - Aileron</string>
     <string name="axis_Z">Z - Yaw</string>
@@ -365,7 +364,7 @@
     <string name="err">Error</string>
     <string name="no_help">Unknown help</string>
     <string name="help">Help</string>
-    <string name="no_help_text"></string>
+    <string name="no_help_text" translatable="false"> </string>
     <string name="test">ěščřžýáíéú</string>
     <string name="version_not_match">Firmware version does not match with the software version.\n\n Firmware: %1$s\n Software: %2$s</string>
     <string name="action_settings">Settings</string>
@@ -553,7 +552,7 @@
 
     <string name="cant_send_data">Data was not sent</string>
     <string name="download_error">Download error</string>
-    <string name="sys_disconected">Check the connection of Bluetooth module, please.</string>
+    <string name="sys_disconected">Check the connection, please.</string>
     <string name="rewrite_file">The file/files already exists. Do you want to overwrite it?</string>
     <string name="pdf_reader_not_found">PDF Reader not found \nPlease install PDF reader \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>
     <string name="colective">Pit.</string>
@@ -566,8 +565,8 @@
     <string name="governor_spoolup">Spoolup Rate</string>
     <string name="thr_reverse_warning">After clicking OK button Throttle output signal will be reversed. This may cause unexpected motor spoolup!</string>
 
-    <string name="left" translatable="false">Left</string>
-    <string name="right" translatable="false">Right</string>
+    <string name="left" >Left</string>
+    <string name="right">Right</string>
 
     <string name="limit_range_ail" translatable="false">Aileron Range</string>
     <string name="limit_range_ele" translatable="false">Elevator Range</string>
@@ -603,4 +602,11 @@
     <string name="log_event_save_failed">Data are not available</string>
     <string name="log_event_govsignal">RPM Sensor data are too noisy</string>
     <string name="col_direction">Collective Direction</string>
+    <string name="wifi">Wifi</string>
+    <string name="wifi_ip">IP</string>
+    <string name="wifi_ip_summary" translatable="false"></string>
+    <string name="wifi_port">Port</string>
+    <string name="wifi_port_summary" translatable="false"></string>
+
+
 </resources>

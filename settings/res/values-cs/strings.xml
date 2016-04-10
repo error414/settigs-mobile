@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 07.03.2016-release</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 10.04.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -24,7 +24,6 @@
     <string name="profile_load">Nastavení bylo nahráno</string>
     <string name="file_manager">Správce souborů</string>
     <string name="file_not_found">Soubor nenalezen</string>
-    <string name="bt_not_enabled_leaving">Bluetooth není povolen, ukončuji..</string>
     <string name="choose_device">Vyberte zařízení</string>
     <string name="connect">Připojit</string>
     <string name="disconnect">Odpojit</string>
@@ -42,7 +41,7 @@
     <string name="copy_bank_error">Kopírovaní nastavení banky se nepovedlo</string>
 
 
-    <string name="BT_connection_progress">Probíhá připojování přes Bluetooth</string>
+    <string name="BT_connection_progress">Probíhá připojování</string>
 
     <string name="axis_X">X - Výškovka</string>
     <string name="axis_Y">Y - Křidélka</string>
@@ -381,7 +380,6 @@
 
     <string name="no_help">Bez nápovědy</string>
     <string name="help">Nápověda</string>
-    <string name="no_help_text"></string>
     <string name="test">ěščřžýáíéú</string>
     <string name="version_not_match">Verze firmware jednotky nesouhlasí s verzí mobilní aplikace.\n\n Firmware: %1$s\n Software: %2$s</string>
     <string name="action_settings">Settings</string>
@@ -584,7 +582,7 @@
     <string name="file_downloaded">Soubor byl stažen</string>
     <string name="no_internet_connection">Bez připojení k internetu</string>
     <string name="download_error">Chyba stahování</string>
-    <string name="sys_disconected">Zkontrolujte prosím připojení Bluetooth modulu.</string>
+    <string name="sys_disconected">Zkontrolujte prosím připojení.</string>
     <string name="rewrite_file">Soubor již existuje. Chcete jej přepsat?</string>
     <string name="pdf_reader_not_found">Nebyla nalezena čtečka PDF \nProsím nainstalujte čtečku PDF, například: \n\n* Adobe Reader \n* Foxit MobilePDF\n* MuPDF</string>
     <string name="colective">Kol.</string>
@@ -625,4 +623,12 @@
     <string name="log_event_save_failed">Data nejsou k dispozici</string>
     <string name="log_event_govsignal">Senzoru otáček vykazuje velký šum</string>
     <string name="col_direction">Směr kolektivu</string>
+    <string name="app_name">Spirit Settings</string>
+    <string name="wifi">Wifi</string>
+    <string name="wifi_ip">IP</string>
+    <string name="wifi_port">Port</string>
+    <string name="left">Levý</string>
+    <string name="right">Pravý</string>
+    <string name="short_title">Spirit</string>
+    <string name="full_app_name">Spirit Settings</string>
 </resources>

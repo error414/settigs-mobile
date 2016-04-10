@@ -37,6 +37,7 @@ import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -58,6 +59,7 @@ import com.lib.DstabiProvider;
 import com.lib.FileDialog;
 import com.lib.FileNameCreator;
 import com.lib.SelectionMode;
+import com.lib.Tcp2CommandService;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -173,8 +175,20 @@ public class ConnectionActivity extends BaseActivity
 		serialView = (TextView) findViewById(R.id.serial_number);
 		version = (TextView) findViewById(R.id.version);
 
-        LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.connection_bt_animation);
+        btDeviceSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+               if(stabiProvider.getState() == CommandService.STATE_NONE){
+                   setDisconectedProgress();
+               }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                // your code here
+            }
+
+        });
 	}
 
     /**
@@ -258,7 +272,11 @@ public class ConnectionActivity extends BaseActivity
             i++;
         }
 
-        BTListSpinnerAdapter.add("WIFI [192.168.4.1]");
+        if(prefs_adress.equals(Tcp2CommandService.NAME)){
+            position = pairedDevices.size() + 1;
+        }
+
+        BTListSpinnerAdapter.add("WIFI");
 
         btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
         //ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
@@ -267,8 +285,10 @@ public class ConnectionActivity extends BaseActivity
 
         setDisconectedProgress();
 
-		updateState();
+		updateState(stabiProvider.getState());
 	}
+
+
 
     /**
      *
@@ -276,7 +296,13 @@ public class ConnectionActivity extends BaseActivity
     private void setDisconectedProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.disconnected);
+
+        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+            progressConnection.setBackgroundResource(R.drawable.wifi_disconnected);
+        }else{
+            progressConnection.setBackgroundResource(R.drawable.bt_disconnected);
+        }
+
     }
 
     /**
@@ -285,7 +311,11 @@ public class ConnectionActivity extends BaseActivity
     private void setBTConnectionProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.connection_bt_animation);
+        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+            progressConnection.setBackgroundResource(R.drawable.wifi_connection_device_animation);
+        }else{
+            progressConnection.setBackgroundResource(R.drawable.bt_connection_device_animation);
+        }
 
         AnimationDrawable frameAnimation = (AnimationDrawable) progressConnection
                 .getBackground();
@@ -299,7 +329,12 @@ public class ConnectionActivity extends BaseActivity
     private void setBTConnectedProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.connected_bt);
+        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+            progressConnection.setBackgroundResource(R.drawable.wifi_connected_to_device);
+        }else{
+            progressConnection.setBackgroundResource(R.drawable.bt_connected_to_device);
+        }
+
     }
 
     /**
@@ -308,7 +343,12 @@ public class ConnectionActivity extends BaseActivity
     private void setSpiritConnectionProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.connection_spirit_animation);
+
+        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+            progressConnection.setBackgroundResource(R.drawable.wifi_connection_spirit_animation);
+        }else{
+            progressConnection.setBackgroundResource(R.drawable.bt_connection_spirit_animation);
+        }
 
         AnimationDrawable frameAnimation = (AnimationDrawable) progressConnection
                 .getBackground();
@@ -322,7 +362,13 @@ public class ConnectionActivity extends BaseActivity
     private void setSpiritConnectedProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        progressConnection.setBackgroundResource(R.drawable.connected);
+
+        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+            progressConnection.setBackgroundResource(R.drawable.wifi_connected);
+        }else{
+            progressConnection.setBackgroundResource(R.drawable.bt_connected);
+        }
+
 
     }
 
@@ -411,26 +457,20 @@ public class ConnectionActivity extends BaseActivity
 	 *
 	 * @param v
 	 */
-	public void manageConnectionToBTDevice(View v)
+	public synchronized void manageConnectionToBTDevice(View v)
 	{
-        if (mBluetoothAdapter == null) {
-			Toast.makeText(getApplicationContext(), R.string.bt_not_enabled_leaving, Toast.LENGTH_SHORT).show();
-			finish();
-			return;
-		}
-
-        if(btDeviceSpinner.getCount() == 0){
-            Toast.makeText(getApplicationContext(), R.string.first_paired_device, Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-		if (stabiProvider.getState() == CommandService.STATE_LISTEN || stabiProvider.getState() == CommandService.STATE_NONE) {
+		if (stabiProvider.getState() == CommandService.STATE_NONE) {
 			disconect = false;
             //pripripojovani vymazeme profil pro diff
             ChangeInProfile.getInstance().setOriginalProfile(null);
             checkChange(null);
 
-			String deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
+            String deviceAdress = "";
+            if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+                deviceAdress = Tcp2CommandService.NAME;
+            }else{
+                deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
+            }
 
 			//ulozeni vybraneho selectu / zarizeni
 			SharedPreferences settings = getSharedPreferences(PREF_BT_ADRESS, MODE_PRIVATE);
@@ -439,8 +479,12 @@ public class ConnectionActivity extends BaseActivity
 
 			// Commit the edits!
 			editor.commit();
-
-			stabiProvider.connect(deviceAdress);
+            if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)) {
+                SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+                stabiProvider.connect(sharedPrefs.getString(PREF_WIFI_IP, null), sharedPrefs.getString(PREF_WIFI_PORT, null));
+            }else{
+                stabiProvider.connect(deviceAdress);
+            }
 		} else if (stabiProvider.getState() == CommandService.STATE_CONNECTING) {
 			Toast.makeText(getApplicationContext(), R.string.BT_connection_progress, Toast.LENGTH_SHORT).show();
 		} else if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
@@ -457,32 +501,37 @@ public class ConnectionActivity extends BaseActivity
 		}
 	}
 
-	private void updateState()
+	private synchronized void updateState(Integer connectionStatus)
 	{
 		initGuiByProfileString(null);
 
-		switch (stabiProvider.getState()) {
+		switch (connectionStatus) {
 			case CommandService.STATE_CONNECTING:
 				textStatusView.setText(R.string.connecting);
 				textStatusView.setTextColor(Color.MAGENTA);
 				curentDeviceText.setText(null);
 				serialView.setText(null);
 				version.setText(null);
+                btDeviceSpinner.setEnabled(false);
 				sendInSuccessDialog();
                 setBTConnectionProgress();
 				break;
 			case CommandService.STATE_CONNECTED:
+                Log.d(TAG, "updateState run connected");
 				textStatusView.setText(R.string.connected);
 				textStatusView.setTextColor(Color.parseColor("#0D850B"));
                 setSpiritConnectionProgress();
 				connectButton.setText(R.string.disconnect);
+                btDeviceSpinner.setEnabled(false);
 
 				curentDeviceText.setText(stabiProvider.getDeviceName() + " [" + stabiProvider.getDeviceAddress() + "]");
 
 				showDialogRead();
+                Log.d(TAG, "send PROFILE_CALL_BACK_CODE");
 				stabiProvider.getProfile(PROFILE_CALL_BACK_CODE);
 
 				showDialogRead();
+                Log.d(TAG, "GET_SERIAL_NUMBER");
 				stabiProvider.getSerial(GET_SERIAL_NUMBER);
 
 				((ImageView) findViewById(R.id.image_title_status)).setImageResource(R.drawable.green);
@@ -491,6 +540,7 @@ public class ConnectionActivity extends BaseActivity
 			default:
 				textStatusView.setText(R.string.disconnected);
 				textStatusView.setTextColor(Color.RED);
+                btDeviceSpinner.setEnabled(true);
 
 				connectButton.setText(R.string.connect);
 
@@ -516,6 +566,7 @@ public class ConnectionActivity extends BaseActivity
     private void checkConnection() {
         if (stabiProvider.getState() == CommandService.STATE_CONNECTED) {
             stabiProvider.getSerial(CHECK_CONNECTION_CALL_BACK_CODE);
+            Log.d(TAG, "send serial");
         }
     }
 
@@ -814,8 +865,9 @@ public class ConnectionActivity extends BaseActivity
 	}
 
 
-	public boolean handleMessage(Message msg)
+	public synchronized boolean handleMessage(Message msg)
 	{
+        Log.d(TAG, "zprava " + String.valueOf(msg.what));
 		switch (msg.what) {
             case BANK_CHANGE_CALL_BACK_CODE:
                 if(Globals.getInstance().isCallInitAfterConnect()) {
@@ -826,7 +878,8 @@ public class ConnectionActivity extends BaseActivity
                 break;
             case CHECK_CONNECTION_CALL_BACK_CODE:
                 sendInSuccessDialog();
-                updateState();
+                Log.d(TAG, "checkConnection is back, go to -> updateState");
+                updateState(stabiProvider.getState());
                 break;
             case DstabiProvider.MESSAGE_STATE_CHANGE:
                 //jsme pripojeni overime spojeni
@@ -839,10 +892,10 @@ public class ConnectionActivity extends BaseActivity
                     curentDeviceText.setText(stabiProvider.getDeviceName() + " [" + stabiProvider.getDeviceAddress() + "]");
 
                     showDialogRead();
-
+                    Log.d(TAG, "checkConnection");
                     checkConnection();
                 } else {
-                    updateState();
+                    updateState(stabiProvider.getState());
                 }
                 break;
 			case DstabiProvider.MESSAGE_SEND_COMAND_ERROR:
@@ -894,12 +947,14 @@ public class ConnectionActivity extends BaseActivity
                 sendInSuccessInfo();
 				break;
 			case GET_SERIAL_NUMBER:
+                Log.d(TAG, "GET_SERIAL_NUMBER <-");
 				sendInSuccessDialog();
 				if (msg.getData().containsKey("data")) {
 					initGuiBySerialNumber(msg.getData().getByteArray("data"));
 				}
 				break;
 			case UNLOCKBANK_CALL_BACK_CODE:
+                Log.d(TAG, "UNLOCKBANK_CALL_BACK_CODE <-");
                 if(Globals.getInstance().isChanged()) {
                     Toast.makeText(this, R.string.unsaved_changes_before_disconnect, Toast.LENGTH_LONG).show();
                 }
@@ -926,7 +981,6 @@ public class ConnectionActivity extends BaseActivity
 				break;
 
 			case COPY_BANK_SWITCH_DESTINATION_BANK_CALL_BACK_CODE:
-				Log.d(TAG, "kopirovani banky - prepnuto na cilovou banku");
 				if (copyBankTask != null) {
 					DstabiProfile profile = new DstabiProfile(copyBankTask.getSourceProfile());
 					profile.getProfileItemByName("BANKS").setValueFromSpinner(copyBankTask.getDestinationBank());

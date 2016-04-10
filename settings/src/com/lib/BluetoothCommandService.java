@@ -114,7 +114,7 @@ public class BluetoothCommandService extends CommandService{
         // Cancel any thread currently running a connection
         if (mConnectedThread != null) {mConnectedThread.cancel(); mConnectedThread = null;}
 
-        setState(STATE_LISTEN);
+        setState(STATE_NONE);
     }
     
     /**
@@ -233,7 +233,7 @@ public class BluetoothCommandService extends CommandService{
      * Indicate that the connection attempt failed and notify the UI Activity.
      */
     private void connectionFailed() {
-        setState(STATE_LISTEN);
+        setState(STATE_NONE);
 
         // Send a failure message back to the Activity
    ////  Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_TOAST);
@@ -258,7 +258,7 @@ public class BluetoothCommandService extends CommandService{
 //	        
 //        	connect(mSavedDevice);   	
 //        } else {
-        	setState(STATE_LISTEN);
+        	setState(STATE_NONE);
 	        // Send a failure message back to the Activity
        ////  Message msg = mHandler.obtainMessage(RemoteBluetooth.MESSAGE_TOAST);
        ////      Bundle bundle = new Bundle();

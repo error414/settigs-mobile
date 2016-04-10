@@ -4,10 +4,10 @@
     android:oneshot="false" >
 
     <item
-        android:drawable="@drawable/connected_b1"
+        android:drawable="@drawable/wifi_connected_b1"
         android:duration="500"/>
     <item
-        android:drawable="@drawable/connected_b2"
+        android:drawable="@drawable/wifi_connected_b2"
         android:duration="500"/>
 
 </animation-list>

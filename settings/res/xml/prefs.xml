@@ -17,4 +17,22 @@
       android:summary="@string/main_direcotory_sumarry"
       android:key="main_dir"
     />
+
+    <PreferenceCategory android:title="@string/wifi">
+        <EditTextPreference
+            android:key="prefs_wifi_ip"
+            android:title="@string/wifi_ip"
+            android:summary="@string/wifi_ip_summary"
+            android:defaultValue="192.168.4.1"
+            />
+
+        <EditTextPreference
+            android:key="prefs_wifi_port"
+            android:title="@string/wifi_port"
+            android:summary="@string/wifi_port_summary"
+            android:defaultValue="23"
+            />
+
+    </PreferenceCategory>
+
 </PreferenceScreen>

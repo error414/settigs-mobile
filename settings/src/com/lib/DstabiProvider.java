@@ -157,34 +157,41 @@ public class DstabiProvider {
     public synchronized void connect(String deviceAddress) {
 
         synchronized (this) {
-            if (deviceAddress.equals("192.168.4.1")) {
-                service = new Tcp2CommandService(serviceBThandler);
-
-                final Handler handler = new Handler();
-                handler.post(new
-                     Runnable() {
-                         @Override
-                         public void run() {
-                             service.connect();
-                         }
-                     });
-
-            } else {
-                BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
-                this.service = new BluetoothCommandService(serviceBThandler);
+            BluetoothDevice device = mBluetoothAdapter.getRemoteDevice(deviceAddress);
+            this.service = new BluetoothCommandService(serviceBThandler);
 
 
-                final BluetoothDevice deviceFinal = device;
-                final Handler handler = new Handler();
-                handler.post(new
-                     Runnable() {
-                         @Override
-                         public void run() {
-                             service.connect(deviceFinal);
-                         }
-                     });
-            }
+            final BluetoothDevice deviceFinal = device;
+            final Handler handler = new Handler();
+            handler.post(new
+                                 Runnable() {
+                                     @Override
+                                     public void run() {
+                                         service.connect(deviceFinal);
+                                     }
+                                 });
+        }
+    }
 
+    /**
+     * zprava pro pripojeni device
+     */
+    public synchronized void connect(String ip, String port) {
+
+        synchronized (this) {
+            service = new Tcp2CommandService(serviceBThandler);
+
+            final String ip_f = ip;
+            final String port_f = port;
+
+            final Handler handler = new Handler();
+            handler.post(new
+                                 Runnable() {
+                                     @Override
+                                     public void run() {
+                                         service.connect(ip_f, port_f);
+                                     }
+                                 });
         }
     }
 
@@ -194,13 +201,16 @@ public class DstabiProvider {
     public synchronized void disconnect() {
         final Handler handler = new Handler();
         handler.post(new
-             Runnable() {
-                 @Override
-                 public void run() {
-                     service.stop();
-                     service = null;
-                 }
-             });
+                             Runnable() {
+                                 @Override
+                                 public void run() {
+                                     if (service != null) {
+                                         service.stop();
+                                     }
+
+                                     service = null;
+                                 }
+                             });
 
     }
 
@@ -210,7 +220,7 @@ public class DstabiProvider {
      * @return
      */
     public int getState() {
-        if(service != null) {
+        if (service != null) {
             return service.getState();
         }
         return CommandService.STATE_NONE;
@@ -418,7 +428,7 @@ public class DstabiProvider {
     /////////////////////////////////////////////////
 
     public synchronized String getDeviceName() {
-        if(service != null){
+        if (service != null) {
             return service.getName();
         }
 
@@ -427,7 +437,7 @@ public class DstabiProvider {
     }
 
     public synchronized String getDeviceAddress() {
-        if(service != null){
+        if (service != null) {
             return service.getAddress();
         }
 

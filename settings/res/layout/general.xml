@@ -181,16 +181,6 @@
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text=""
-                android:id="@+id/cyclic_servo_reverse_select_id_default"
-                android:textColor="@color/dashed_dark"
-                android:layout_below="@+id/cyclic_servo_reverse_select_id"
-                android:layout_alignLeft="@+id/cyclic_servo_reverse_select_id" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text=""
                 android:id="@+id/flight_style_select_id_default"
                 android:textColor="@color/dashed_dark"
                 android:layout_below="@+id/flight_style_select_id"
