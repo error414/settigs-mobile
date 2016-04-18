@@ -43,6 +43,7 @@ public class DstabiProvider {
     private final String TAG = "DstabiProvider";
 
     private Timer securityTimer;
+    private Timer keepAliveTimer;
 
     private static DstabiProvider instance;
 
@@ -102,7 +103,7 @@ public class DstabiProvider {
 
     private final Queue queue = new Queue();
 
-    private synchronized void startCecurityTimer() {
+    private synchronized void startSecurityTimer() {
         securityTimer = new Timer();
         securityTimer.schedule(new TimerTask() {
             @Override
@@ -113,11 +114,33 @@ public class DstabiProvider {
         }, 2000, 2000);
     }
 
-    private synchronized void stopCecurityTimer() {
+    private synchronized void stopSecurityTimer() {
         if (securityTimer != null) {
             securityTimer.cancel();
             securityTimer.purge();
             securityTimer = null;
+        }
+    }
+
+    private synchronized void startKeepAliveTimer(){
+        keepAliveTimer = new Timer();
+        keepAliveTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                if(mode != GRAPH) {
+                    sendDataNoWaitForResponce(SERIAL_NUMBER);
+                    Log.d(TAG, "keepAliveTimer");
+                }
+            }
+
+        }, 1000 * 10, 1000 * 10);
+    }
+
+    private synchronized void stopKeepAliveTimer() {
+        if (keepAliveTimer != null) {
+            keepAliveTimer.cancel();
+            keepAliveTimer.purge();
+            keepAliveTimer = null;
         }
     }
 
@@ -449,7 +472,7 @@ public class DstabiProvider {
         retrieveCode = "";
         dataBuilder = null;
 
-        startCecurityTimer(); // zapneme casovac
+        startSecurityTimer(); // zapneme casovac
         protocolState = DstabiProvider.PROTOCOL_STATE_SENDED_VALUES;
         service.write("4D".getBytes());
         if (sendCode != null) {
@@ -483,7 +506,7 @@ public class DstabiProvider {
         protocolState = DstabiProvider.PROTOCOL_STATE_NONE;
         mode = NORMAL;
         retrieveCode = "";
-        stopCecurityTimer(); // vypneme casovac
+        stopSecurityTimer(); // vypneme casovac
         dataBuilder = null;
         sendErrorCount = 0;
 
@@ -512,6 +535,20 @@ public class DstabiProvider {
             switch (msg.what) {
                 //zmena stavu BT modulu
                 case DstabiProvider.MESSAGE_STATE_CHANGE:
+                    if(service != null) {
+                        switch (service.getState()) {
+                            case CommandService.STATE_CONNECTED:
+                                startKeepAliveTimer();
+                                break;
+                            case CommandService.STATE_NONE:
+                                stopKeepAliveTimer();
+                                break;
+                        }
+                    }else {
+                        stopKeepAliveTimer();
+                    }
+
+
                     connectionHandler.sendEmptyMessage(DstabiProvider.MESSAGE_STATE_CHANGE);
                     clearState("handler 1");
                     //zmena stavu BT modulu
@@ -601,8 +638,8 @@ public class DstabiProvider {
 
                                     } else if (mode == GRAPH) {
 
-                                        stopCecurityTimer();
-                                        startCecurityTimer();
+                                        stopSecurityTimer();
+                                        startSecurityTimer();
                                         //zmenime state protokokolu na pripadne cekani na konec profilu
                                         protocolState = PROTOCOL_STATE_WAIT_FOR_ALL_DATA_GRAPH;
                                         dataBuilder = new DataBuilder();
@@ -616,7 +653,7 @@ public class DstabiProvider {
                                     if (sendErrorCount == 0) {
                                         sendErrorCount++;
                                         Log.w(TAG, "posilam pozadavek znovu");
-                                        stopCecurityTimer();
+                                        stopSecurityTimer();
                                         sendData(); // again send data
                                     } else {
                                         sendError(callBackCode);
@@ -648,8 +685,8 @@ public class DstabiProvider {
                                 sendHandleNotStop(callBackCode, dataBuilder.getData());
                                 dataBuilder.clear();
 
-                                stopCecurityTimer();
-                                startCecurityTimer();
+                                stopSecurityTimer();
+                                startSecurityTimer();
 
                                 break;
                         }

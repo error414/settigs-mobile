@@ -287,6 +287,7 @@ public class Tcp2CommandService extends CommandService {
 
             try {
                 mmSocket = new Socket();
+                mmSocket.setKeepAlive(true);
                 mmSocket.connect(new InetSocketAddress(serverAddr, Integer.parseInt(_port)), 1000);
                 Log.i(TAG, "BEGIN mConnectThread2");
                 // Reset the ConnectThread because we're done

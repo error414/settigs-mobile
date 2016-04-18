@@ -481,7 +481,7 @@ public class ConnectionActivity extends BaseActivity
 			editor.commit();
             if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)) {
                 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-                stabiProvider.connect(sharedPrefs.getString(PREF_WIFI_IP, null), sharedPrefs.getString(PREF_WIFI_PORT, null));
+                stabiProvider.connect(sharedPrefs.getString(PREF_WIFI_IP, "192.168.4.1"), sharedPrefs.getString(PREF_WIFI_PORT, "23"));
             }else{
                 stabiProvider.connect(deviceAdress);
             }
