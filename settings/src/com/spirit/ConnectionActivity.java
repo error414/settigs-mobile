@@ -271,12 +271,14 @@ public class ConnectionActivity extends BaseActivity
             }
             i++;
         }
+        Log.d(TAG, String.valueOf(position));
+        if(prefs_adress.substring(0, 3).equals(Tcp2CommandService.NAME)){
 
-        if(prefs_adress.equals(Tcp2CommandService.NAME)){
             position = pairedDevices.size() + 1;
         }
 
-        BTListSpinnerAdapter.add("WIFI");
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        BTListSpinnerAdapter.add("WIFI" + " [ " + sharedPrefs.getString(PREF_WIFI_IP, DEFAULT_WIFI_IP) + ":" + DEFAULT_WIFI_PORT + "]");
 
         btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
         //ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
@@ -297,7 +299,7 @@ public class ConnectionActivity extends BaseActivity
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
 
-        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+        if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
             progressConnection.setBackgroundResource(R.drawable.wifi_disconnected);
         }else{
             progressConnection.setBackgroundResource(R.drawable.bt_disconnected);
@@ -311,7 +313,7 @@ public class ConnectionActivity extends BaseActivity
     private void setBTConnectionProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+        if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
             progressConnection.setBackgroundResource(R.drawable.wifi_connection_device_animation);
         }else{
             progressConnection.setBackgroundResource(R.drawable.bt_connection_device_animation);
@@ -329,7 +331,7 @@ public class ConnectionActivity extends BaseActivity
     private void setBTConnectedProgress()
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
-        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+        if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
             progressConnection.setBackgroundResource(R.drawable.wifi_connected_to_device);
         }else{
             progressConnection.setBackgroundResource(R.drawable.bt_connected_to_device);
@@ -344,7 +346,7 @@ public class ConnectionActivity extends BaseActivity
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
 
-        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+        if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
             progressConnection.setBackgroundResource(R.drawable.wifi_connection_spirit_animation);
         }else{
             progressConnection.setBackgroundResource(R.drawable.bt_connection_spirit_animation);
@@ -363,7 +365,7 @@ public class ConnectionActivity extends BaseActivity
     {
         LinearLayout progressConnection = (LinearLayout) findViewById(R.id.connected);
 
-        if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+        if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
             progressConnection.setBackgroundResource(R.drawable.wifi_connected);
         }else{
             progressConnection.setBackgroundResource(R.drawable.bt_connected);
@@ -466,7 +468,7 @@ public class ConnectionActivity extends BaseActivity
             checkChange(null);
 
             String deviceAdress = "";
-            if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)){
+            if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
                 deviceAdress = Tcp2CommandService.NAME;
             }else{
                 deviceAdress = btDeviceSpinner.getSelectedItem().toString().substring(btDeviceSpinner.getSelectedItem().toString().indexOf("[") + 1, btDeviceSpinner.getSelectedItem().toString().indexOf("]"));
@@ -479,9 +481,9 @@ public class ConnectionActivity extends BaseActivity
 
 			// Commit the edits!
 			editor.commit();
-            if(btDeviceSpinner.getSelectedItem().toString().equals(Tcp2CommandService.NAME)) {
+            if(btDeviceSpinner.getSelectedItemPosition() == (btDeviceSpinner.getAdapter().getCount() - 1)){
                 SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-                stabiProvider.connect(sharedPrefs.getString(PREF_WIFI_IP, "192.168.4.1"), sharedPrefs.getString(PREF_WIFI_PORT, "23"));
+                stabiProvider.connect(sharedPrefs.getString(PREF_WIFI_IP, DEFAULT_WIFI_IP), DEFAULT_WIFI_PORT);
             }else{
                 stabiProvider.connect(deviceAdress);
             }

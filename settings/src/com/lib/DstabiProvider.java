@@ -129,11 +129,10 @@ public class DstabiProvider {
             public void run() {
                 if(mode != GRAPH) {
                     sendDataNoWaitForResponce(SERIAL_NUMBER);
-                    Log.d(TAG, "keepAliveTimer");
                 }
             }
 
-        }, 1000 * 10, 1000 * 10);
+        }, 1000 * 10 + 30, 1000 * 10 * 30); //every 30s
     }
 
     private synchronized void stopKeepAliveTimer() {

@@ -95,7 +95,10 @@ abstract public class BaseActivity extends Activity implements Handler.Callback
     final protected String PREF_FAVOURITES_AERO = "pref_favourites_aero";
     final protected String PREF_WIF             = "prefs_wifi";
     final protected String PREF_WIFI_IP         = "prefs_wifi_ip";
-    final protected String PREF_WIFI_PORT       = "prefs_wifi_port";
+    /*final protected String PREF_WIFI_PORT       = "prefs_wifi_port";*/
+
+    final protected String DEFAULT_WIFI_IP       = "198.168.4.1";
+    final protected String DEFAULT_WIFI_PORT       = "23";
 
 	/**
 	 * ulozeni profilu do jednotky

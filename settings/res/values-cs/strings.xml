@@ -2,7 +2,7 @@
 <resources>
     <string name="xxx">xxxx</string>
     <string name="settings_name_space">settings_name_space</string>
-    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 10.04.2016-devel</string>
+    <string name="author_name">Spirit System mobile settings\nPetr Čada - error414@error414.com\nTomáš Jędrzejek - tomasj@spirit-system.com\nTomáš Neuberg\nDaniel Matloch - danielm@spirit-system.com \n \n sestavení: 20.04.2016-devel</string>
     <string name="author">Autoři</string>
     <string name="credits">Zásluhy</string>
 
@@ -35,7 +35,6 @@
     <string name="damage_profile">Poškozený profil</string>
     <string name="unknow_version">Neznámá verze</string>
     <string name="unknow_serial">Neznámé s.n.</string>
-    <string name="first_paired_device">First paired devices</string>
     <string name="log_button_text">Prohlížeč letového záznamu</string>
     <string name="connection_error">Chyba spojení</string>
     <string name="copy_bank_error">Kopírovaní nastavení banky se nepovedlo</string>
@@ -94,7 +93,7 @@
     <string name="cyclic_servo_reverse_text">Reverz serv cykliky</string>
     <string name="flight_style_text">Letový projev</string>
 
-    <string name="must_first_connect_to_device">Nejdříve se připojte k BT modulu</string>
+    <string name="must_first_connect_to_device">Nejdříve se připojte k BT nebo WIFI modulu</string>
     <string name="connection_successfull">Spojení navázáno</string>
 
     <string name="type">Typ</string>

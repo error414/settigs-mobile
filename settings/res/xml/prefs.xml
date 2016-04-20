@@ -26,12 +26,12 @@
             android:defaultValue="192.168.4.1"
             />
 
-        <EditTextPreference
+        <!--<EditTextPreference
             android:key="prefs_wifi_port"
             android:title="@string/wifi_port"
             android:summary="@string/wifi_port_summary"
             android:defaultValue="23"
-            />
+            />-->
 
     </PreferenceCategory>
 
