@@ -263,7 +263,7 @@ public class ConnectionActivity extends BaseActivity
 
 
             // Add the name and address to an array adapter to show in a ListView
-            BTListSpinnerAdapter.add(deviceName + " [" + device.getAddress().toString() + "]");
+            BTListSpinnerAdapter.add(deviceName + " [" + device.getAddress().toString() + " ]");
 
             //hledani jestli se zarizeni v aktualni iteraci nerovna zarizeni ulozene v preference
             if (prefs_adress.equals(device.getAddress().toString())) {
@@ -271,14 +271,14 @@ public class ConnectionActivity extends BaseActivity
             }
             i++;
         }
-        Log.d(TAG, String.valueOf(position));
+
         if(prefs_adress.substring(0, 3).equals(Tcp2CommandService.NAME)){
 
             position = pairedDevices.size() + 1;
         }
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        BTListSpinnerAdapter.add("WIFI" + " [ " + sharedPrefs.getString(PREF_WIFI_IP, DEFAULT_WIFI_IP) + ":" + DEFAULT_WIFI_PORT + "]");
+        BTListSpinnerAdapter.add("WIFI" + " [ " + sharedPrefs.getString(PREF_WIFI_IP, DEFAULT_WIFI_IP) + "]");
 
         btDeviceSpinner.setAdapter(BTListSpinnerAdapter);
         //ulozime do selectu zarizeni hodnotu nalezeneho zarizeni, MAth.min je tam jen pro jistotu
