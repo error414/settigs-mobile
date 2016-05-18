@@ -56,7 +56,7 @@ public class Tcp2CommandService extends CommandService {
      */
     public String getAddress() {
         if(_port.length() > 0){
-            return _ip + ":" + _port;
+            return _ip;
         }
         return "";
     }
