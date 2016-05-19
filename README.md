@@ -1,10 +1,1 @@
-settigs-mobile
-==============
-
-Aplikace na nastavení FBL Spirit.
-
-TODO: 
-
-* tablet design
-
-
+Project is migrated on http://petr-cada.cz/repo/settigs-mobile
