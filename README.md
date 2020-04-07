@@ -1,1 +1,3 @@
 Project is migrated on http://petr-cada.cz/repo/settigs-mobile
+
+...
